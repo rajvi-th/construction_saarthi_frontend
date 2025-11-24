@@ -1,0 +1,89 @@
+{
+  "save": "محفوظ کریں",
+  "cancel": "منسوخ",
+  "delete": "حذف کریں",
+  "edit": "ترمیم",
+  "add": "شامل کریں",
+  "search": "تلاش",
+  "submit": "جمع کروائیں",
+  "back": "واپس",
+  "next": "اگلا",
+  "previous": "پچھلا",
+  "close": "بند کریں",
+  "confirm": "تصدیق کریں",
+  "yes": "ہاں",
+  "no": "نہیں",
+  "loading": "لوڈ ہو رہا ہے...",
+  "error": "خرابی",
+  "success": "کامیابی",
+  "required": "ضروری",
+  "secondary": "ثانوی",
+  "login": "لاگ ان",
+  "logout": "لاگ آؤٹ",
+  "signup": "سائن اپ",
+  "forgotPassword": "پاس ورڈ بھول گئے",
+  "resetPassword": "پاس ورڈ ری سیٹ کریں",
+  "password": "پاس ورڈ",
+  "confirmPassword": "پاس ورڈ کی تصدیق کریں",
+  "name": "نام",
+  "email": "ای میل",
+  "phone": "فون",
+  "date": "تاریخ",
+  "selectDate": "تاریخ منتخب کریں",
+  "selectOption": "ایک آپشن منتخب کریں",
+  "enterName": "نام درج کریں",
+  "enterEmail": "ای میل درج کریں",
+  "enterPhone": "فون نمبر درج کریں",
+  "thisFieldRequired": "یہ فیلڈ ضروری ہے",
+  "invalidEmail": "غلط ای میل پتہ",
+  "invalidPhone": "غلط فون نمبر",
+  "language": {
+    "title": "زبان",
+    "english": "انگریزی",
+    "hindi": "ہندی",
+    "gujarati": "گجراتی",
+    "bengali": "بنگالی"
+  },
+  "errors": {
+    "generic": "کچھ غلط ہوا",
+    "network": "نیٹ ورک خرابی۔ براہ کرم اپنا کنکشن چیک کریں۔",
+    "unauthorized": "آپ کو یہ کام کرنے کی اجازت نہیں ہے"
+  },
+  "successMessages": {
+    "saved": "کامیابی سے محفوظ ہو گیا",
+    "deleted": "کامیابی سے حذف ہو گیا",
+    "updated": "کامیابی سے اپ ڈیٹ ہو گیا",
+    "created": "کامیابی سے بنایا گیا"
+  },
+  "auth": {
+    "login": {
+      "title": "اپنے اکاؤنٹ میں لاگ ان کریں",
+      "subtitle": "اپنے اکاؤنٹ میں لاگ ان کرنے کے لیے اپنا موبائل نمبر درج کریں",
+      "sendOTP": "OTP بھیجیں",
+      "noAccount": "کیا آپ کے پاس اکاؤنٹ نہیں ہے؟",
+      "link": "لاگ ان"
+    },
+    "register": {
+      "title": "اپنا اکاؤنٹ بنائیں",
+      "subtitle": "شروع کرنے کے لیے سائن اپ کریں",
+      "button": "سائن اپ کریں",
+      "haveAccount": "پہلے سے اکاؤنٹ ہے؟",
+      "link": "اکاؤنٹ بنائیں",
+      "agreeToTerms": "میں راضی ہوں"
+    },
+    "verifyOTP": {
+      "title": "OTP تصدیق کریں",
+      "subtitle": "اپنے موبائل نمبر پر بھیجا گیا OTP درج کریں",
+      "enterOTP": "OTP درج کریں",
+      "resendOTP": "OTP دوبارہ بھیجیں",
+      "button": "تصدیق کریں",
+      "backToLogin": "لاگ ان پر واپس جائیں"
+    },
+    "forgotPassword": "پاس ورڈ بھول گئے؟",
+    "rememberMe": "مجھے یاد رکھیں",
+    "terms": "شرائط و ضوابط",
+    "privacyPolicy": "رازداری کی پالیسی",
+    "and": "اور"
+  }
+}
+

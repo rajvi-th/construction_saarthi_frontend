@@ -1,0 +1,89 @@
+{
+  "save": "સાચવો",
+  "cancel": "રદ કરો",
+  "delete": "કાઢી નાખો",
+  "edit": "સંપાદન કરો",
+  "add": "ઉમેરો",
+  "search": "શોધો",
+  "submit": "સબમિટ કરો",
+  "back": "પાછળ",
+  "next": "આગળ",
+  "previous": "પહેલાં",
+  "close": "બંધ કરો",
+  "confirm": "પુષ્ટિ કરો",
+  "yes": "હા",
+  "no": "ના",
+  "loading": "લોડ થઈ રહ્યું છે...",
+  "error": "ભૂલ",
+  "success": "સફળતા",
+  "required": "જરૂરી",
+  "secondary": "દ્વિતીય",
+  "login": "લૉગિન",
+  "logout": "લૉગઆઉટ",
+  "signup": "સાઇન અપ",
+  "forgotPassword": "પાસવર્ડ ભૂલી ગયા",
+  "resetPassword": "પાસવર્ડ રીસેટ કરો",
+  "password": "પાસવર્ડ",
+  "confirmPassword": "પાસવર્ડની પુષ્ટિ કરો",
+  "name": "નામ",
+  "email": "ઇમેઇલ",
+  "phone": "ફોન",
+  "date": "તારીખ",
+  "selectDate": "તારીખ પસંદ કરો",
+  "selectOption": "વિકલ્પ પસંદ કરો",
+  "enterName": "નામ દાખલ કરો",
+  "enterEmail": "ઇમેઇલ દાખલ કરો",
+  "enterPhone": "ફોન નંબર દાખલ કરો",
+  "thisFieldRequired": "આ ફીલ્ડ આવશ્યક છે",
+  "invalidEmail": "અમાન્ય ઇમેઇલ સરનામું",
+  "invalidPhone": "અમાન્ય ફોન નંબર",
+  "language": {
+    "title": "ભાષા",
+    "english": "અંગ્રેજી",
+    "hindi": "હિન્દી",
+    "gujarati": "ગુજરાતી",
+    "bengali": "બંગાળી"
+  },
+  "errors": {
+    "generic": "કંઈક ખોટું થયું",
+    "network": "નેટવર્ક ભૂલ. કૃપા કરીને તમારું કનેક્શન તપાસો.",
+    "unauthorized": "તમને આ ક્રિયા કરવાની પરવાનગી નથી"
+  },
+  "successMessages": {
+    "saved": "સફળતાપૂર્વક સાચવ્યું",
+    "deleted": "સફળતાપૂર્વક કાઢી નાખ્યું",
+    "updated": "સફળતાપૂર્વક અપડેટ કર્યું",
+    "created": "સફળતાપૂર્વક બનાવ્યું"
+  },
+  "auth": {
+    "login": {
+      "title": "તમારા એકાઉન્ટમાં લૉગિન કરો",
+      "subtitle": "તમારા એકાઉન્ટમાં લૉગિન કરવા માટે તમારો મોબાઇલ નંબર દાખલ કરો",
+      "sendOTP": "OTP મોકલો",
+      "noAccount": "શું તમારી પાસે એકાઉન્ટ નથી?",
+      "link": "લૉગિન"
+    },
+    "register": {
+      "title": "તમારું એકાઉન્ટ બનાવો",
+      "subtitle": "શરૂ કરવા માટે સાઇન અપ કરો",
+      "button": "સાઇન અપ કરો",
+      "haveAccount": "પહેલેથી જ એકાઉન્ટ છે?",
+      "link": "એકાઉન્ટ બનાવો",
+      "agreeToTerms": "હું સહમત છું"
+    },
+    "verifyOTP": {
+      "title": "OTP ચકાસો",
+      "subtitle": "તમારા મોબાઇલ નંબર પર મોકલેલ OTP દાખલ કરો",
+      "enterOTP": "OTP દાખલ કરો",
+      "resendOTP": "OTP ફરીથી મોકલો",
+      "button": "ચકાસો",
+      "backToLogin": "લૉગિન પર પાછા જાઓ"
+    },
+    "forgotPassword": "પાસવર્ડ ભૂલી ગયા?",
+    "rememberMe": "મને યાદ રાખો",
+    "terms": "નિયમો અને શરતો",
+    "privacyPolicy": "ગોપનીયતા નીતિ",
+    "and": "અને"
+  }
+}
+

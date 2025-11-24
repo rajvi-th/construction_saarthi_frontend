@@ -1,0 +1,8 @@
+@import "./theme.css";
+
+/* Apply Helvetica Neue as default font */
+body {
+  font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

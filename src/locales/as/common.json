@@ -1,0 +1,89 @@
+{
+  "save": "সংৰক্ষণ কৰক",
+  "cancel": "বাতিল কৰক",
+  "delete": "মচক",
+  "edit": "সম্পাদনা কৰক",
+  "add": "যোগ কৰক",
+  "search": "সন্ধান কৰক",
+  "submit": "দাখিল কৰক",
+  "back": "পিছলৈ",
+  "next": "পৰৱৰ্তী",
+  "previous": "আগৰ",
+  "close": "বন্ধ কৰক",
+  "confirm": "নিশ্চিত কৰক",
+  "yes": "হয়",
+  "no": "নহয়",
+  "loading": "ল'ড হৈ আছে...",
+  "error": "ত্ৰুটী",
+  "success": "সফল",
+  "required": "আৱশ্যক",
+  "secondary": "দ্বিতীয়",
+  "login": "লগ ইন",
+  "logout": "লগ আউট",
+  "signup": "ছাইন আপ",
+  "forgotPassword": "পাছৱৰ্ড পাহৰি গৈছে",
+  "resetPassword": "পাছৱৰ্ড ৰিচেট কৰক",
+  "password": "পাছৱৰ্ড",
+  "confirmPassword": "পাছৱৰ্ড নিশ্চিত কৰক",
+  "name": "নাম",
+  "email": "ইমেইল",
+  "phone": "ফোন",
+  "date": "তাৰিখ",
+  "selectDate": "তাৰিখ নিৰ্বাচন কৰক",
+  "selectOption": "এটা বিকল্প নিৰ্বাচন কৰক",
+  "enterName": "নাম লিখক",
+  "enterEmail": "ইমেইল লিখক",
+  "enterPhone": "ফোন নম্বৰ লিখক",
+  "thisFieldRequired": "এই ক্ষেত্ৰটো আবশ্যক",
+  "invalidEmail": "অবৈধ ইমেইল ঠিকনা",
+  "invalidPhone": "অবৈধ ফোন নম্বৰ",
+  "language": {
+    "title": "ভাষা",
+    "english": "ইংৰাজী",
+    "hindi": "হিন্দী",
+    "gujarati": "গুজৰাটী",
+    "bengali": "বঙালী"
+  },
+  "errors": {
+    "generic": "কিছু ত্ৰুটী হৈছে",
+    "network": "নেটৱাৰ্ক ত্ৰুটী। অনুগ্ৰহ কৰি আপোনাৰ সংযোগ পৰীক্ষা কৰক।",
+    "unauthorized": "আপোনাৰ এই কাৰ্য্য কৰিবলৈ অনুমতি নাই"
+  },
+  "successMessages": {
+    "saved": "সফলতাৰে সংৰক্ষণ কৰা হ'ল",
+    "deleted": "সফলতাৰে মচা হ'ল",
+    "updated": "সফলতাৰে আপডেট কৰা হ'ল",
+    "created": "সফলতাৰে সৃষ্টি কৰা হ'ল"
+  },
+  "auth": {
+    "login": {
+      "title": "আপোনাৰ একাউণ্টত লগইন কৰক",
+      "subtitle": "আপোনাৰ একাউণ্টত লগইন কৰিবলৈ আপোনাৰ মোবাইল নম্বৰ লিখক",
+      "sendOTP": "OTP পঠাওক",
+      "noAccount": "আপোনাৰ একাউণ্ট নাইনে?",
+      "link": "লগইন"
+    },
+    "register": {
+      "title": "আপোনাৰ একাউণ্ট সৃষ্টি কৰক",
+      "subtitle": "আৰম্ভ কৰিবলৈ ছাইন আপ কৰক",
+      "button": "ছাইন আপ কৰক",
+      "haveAccount": "ইতিমধ্যে একাউণ্ট আছে?",
+      "link": "একাউণ্ট সৃষ্টি কৰক",
+      "agreeToTerms": "মই সন্মত"
+    },
+    "verifyOTP": {
+      "title": "OTP যাচাই কৰক",
+      "subtitle": "আপোনাৰ মোবাইল নম্বৰলৈ পঠিওৱা OTP লিখক",
+      "enterOTP": "OTP লিখক",
+      "resendOTP": "OTP পুনৰ পঠাওক",
+      "button": "যাচাই কৰক",
+      "backToLogin": "লগইনলৈ উভতি যাওক"
+    },
+    "forgotPassword": "পাছৱৰ্ড পাহৰি গৈছে?",
+    "rememberMe": "মোক মনত ৰাখক",
+    "terms": "চৰ্তাৱলী",
+    "privacyPolicy": "গোপনীয়তা নীতি",
+    "and": "আৰু"
+  }
+}
+

@@ -1,0 +1,89 @@
+{
+  "save": "सेव करीं",
+  "cancel": "रद्द करीं",
+  "delete": "मिटा दीं",
+  "edit": "संपादन करीं",
+  "add": "जोड़ीं",
+  "search": "खोजीं",
+  "submit": "भेजीं",
+  "back": "पीछे",
+  "next": "अगिला",
+  "previous": "पहिला",
+  "close": "बंद करीं",
+  "confirm": "पुष्टि करीं",
+  "yes": "हां",
+  "no": "ना",
+  "loading": "लोड हो रहल बा...",
+  "error": "गलती",
+  "success": "सफल",
+  "required": "जरूरी",
+  "secondary": "दूसरा",
+  "login": "लॉगिन",
+  "logout": "लॉगआउट",
+  "signup": "साइन अप",
+  "forgotPassword": "पासवर्ड भूल गईनी",
+  "resetPassword": "पासवर्ड रीसेट करीं",
+  "password": "पासवर्ड",
+  "confirmPassword": "पासवर्ड पुष्टि करीं",
+  "name": "नाम",
+  "email": "ईमेल",
+  "phone": "फोन",
+  "date": "तारीख",
+  "selectDate": "तारीख चुनीं",
+  "selectOption": "एक विकल्प चुनीं",
+  "enterName": "नाम भरीं",
+  "enterEmail": "ईमेल भरीं",
+  "enterPhone": "फोन नंबर भरीं",
+  "thisFieldRequired": "ई फील्ड जरूरी बा",
+  "invalidEmail": "गलत ईमेल पता",
+  "invalidPhone": "गलत फोन नंबर",
+  "language": {
+    "title": "भाषा",
+    "english": "अंग्रेजी",
+    "hindi": "हिंदी",
+    "gujarati": "गुजराती",
+    "bengali": "बंगाली"
+  },
+  "errors": {
+    "generic": "कुछ गलत हो गईल",
+    "network": "नेटवर्क गलती। कृपया अपना कनेक्शन चेक करीं।",
+    "unauthorized": "रउरा के ई कार्य करे के अनुमति नइखे"
+  },
+  "successMessages": {
+    "saved": "सफलतापूर्वक सेव हो गईल",
+    "deleted": "सफलतापूर्वक मिट गईल",
+    "updated": "सफलतापूर्वक अपडेट हो गईल",
+    "created": "सफलतापूर्वक बन गईल"
+  },
+  "auth": {
+    "login": {
+      "title": "अपने खाता में लॉगिन करीं",
+      "subtitle": "अपने खाता में लॉगिन करे खातिर अपना मोबाइल नंबर भरीं",
+      "sendOTP": "OTP भेजीं",
+      "noAccount": "रउरा के पास खाता नइखे?",
+      "link": "लॉगिन"
+    },
+    "register": {
+      "title": "अपना खाता बनाईं",
+      "subtitle": "शुरू करे खातिर साइन अप करीं",
+      "button": "साइन अप करीं",
+      "haveAccount": "पहिले से खाता बा?",
+      "link": "खाता बनाईं",
+      "agreeToTerms": "हम सहमत बानी"
+    },
+    "verifyOTP": {
+      "title": "OTP सत्यापित करीं",
+      "subtitle": "अपना मोबाइल नंबर पर भेजल गईल OTP भरीं",
+      "enterOTP": "OTP भरीं",
+      "resendOTP": "OTP फिर से भेजीं",
+      "button": "सत्यापित करीं",
+      "backToLogin": "लॉगिन पर वापस जाईं"
+    },
+    "forgotPassword": "पासवर्ड भूल गईनी?",
+    "rememberMe": "हमरा याद रखीं",
+    "terms": "नियम आ शर्त",
+    "privacyPolicy": "गोपनीयता नीति",
+    "and": "आ"
+  }
+}
+

@@ -1,0 +1,89 @@
+{
+  "save": "साठवा",
+  "cancel": "रद्द करा",
+  "delete": "हटवा",
+  "edit": "संपादन करा",
+  "add": "जोडा",
+  "search": "शोधा",
+  "submit": "सबमिट करा",
+  "back": "मागे",
+  "next": "पुढे",
+  "previous": "मागील",
+  "close": "बंद करा",
+  "confirm": "पुष्टी करा",
+  "yes": "होय",
+  "no": "नाही",
+  "loading": "लोड होत आहे...",
+  "error": "त्रुटी",
+  "success": "यशस्वी",
+  "required": "आवश्यक",
+  "secondary": "दुय्यम",
+  "login": "लॉगिन",
+  "logout": "लॉगआउट",
+  "signup": "साइन अप",
+  "forgotPassword": "पासवर्ड विसरलात",
+  "resetPassword": "पासवर्ड रीसेट करा",
+  "password": "पासवर्ड",
+  "confirmPassword": "पासवर्डची पुष्टी करा",
+  "name": "नाव",
+  "email": "ईमेल",
+  "phone": "फोन",
+  "date": "तारीख",
+  "selectDate": "तारीख निवडा",
+  "selectOption": "पर्याय निवडा",
+  "enterName": "नाव प्रविष्ट करा",
+  "enterEmail": "ईमेल प्रविष्ट करा",
+  "enterPhone": "फोन नंबर प्रविष्ट करा",
+  "thisFieldRequired": "हे फील्ड आवश्यक आहे",
+  "invalidEmail": "अवैध ईमेल पत्ता",
+  "invalidPhone": "अवैध फोन नंबर",
+  "language": {
+    "title": "भाषा",
+    "english": "इंग्रजी",
+    "hindi": "हिंदी",
+    "gujarati": "गुजराती",
+    "bengali": "बंगाली"
+  },
+  "errors": {
+    "generic": "काहीतरी चुकीचे झाले",
+    "network": "नेटवर्क त्रुटी. कृपया आपले कनेक्शन तपासा.",
+    "unauthorized": "आपल्याला ही क्रिया करण्याची परवानगी नाही"
+  },
+  "successMessages": {
+    "saved": "यशस्वीरित्या साठवले",
+    "deleted": "यशस्वीरित्या हटवले",
+    "updated": "यशस्वीरित्या अद्यतनित केले",
+    "created": "यशस्वीरित्या तयार केले"
+  },
+  "auth": {
+    "login": {
+      "title": "तुमच्या खात्यात लॉगिन करा",
+      "subtitle": "तुमच्या खात्यात लॉगिन करण्यासाठी तुमचा मोबाइल नंबर प्रविष्ट करा",
+      "sendOTP": "OTP पाठवा",
+      "noAccount": "तुमच्याकडे खाते नाही?",
+      "link": "लॉगिन"
+    },
+    "register": {
+      "title": "तुमचे खाते तयार करा",
+      "subtitle": "सुरू करण्यासाठी साइन अप करा",
+      "button": "साइन अप करा",
+      "haveAccount": "आधीच खाते आहे?",
+      "link": "खाते तयार करा",
+      "agreeToTerms": "मी सहमत आहे"
+    },
+    "verifyOTP": {
+      "title": "OTP सत्यापित करा",
+      "subtitle": "तुमच्या मोबाइल नंबरवर पाठवलेला OTP प्रविष्ट करा",
+      "enterOTP": "OTP प्रविष्ट करा",
+      "resendOTP": "OTP पुन्हा पाठवा",
+      "button": "सत्यापित करा",
+      "backToLogin": "लॉगिनवर परत जा"
+    },
+    "forgotPassword": "पासवर्ड विसरलात?",
+    "rememberMe": "मला लक्षात ठेवा",
+    "terms": "अटी आणि नियम",
+    "privacyPolicy": "गोपनीयता धोरण",
+    "and": "आणि"
+  }
+}
+
