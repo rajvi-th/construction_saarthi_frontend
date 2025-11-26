@@ -8,6 +8,11 @@ import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate, Link } from 'react-router-dom';
 import Loader from '../components/ui/Loader';
 import { ROUTES } from '../constants/routes';
+import ProtectedRoute from '../routes/ProtectedRoute';
+import Dashboard from '../pages/Dashboard';
+import Layout from '../components/layout/Layout';
+import Projects from '../pages/Projects';
+import Settings from '../pages/Settings';
 
 // Lazy load components for better performance (important for 400+ screens)
 // Auth Routes
@@ -60,25 +65,20 @@ function AppRoutes() {
         <Route path={ROUTES.VERIFY_OTP} element={<VerifyOTP />} />
 
         {/* Protected Routes - Will be added as features are developed */}
-        {/* 
+
         <Route
-          path="/dashboard"
           element={
             <ProtectedRoute>
-              <Dashboard />
+              <Layout />
             </ProtectedRoute>
           }
-        />
-        
-        <Route
-          path="/projects"
-          element={
-            <ProtectedRoute>
-              <Projects />
-            </ProtectedRoute>
-          }
-        />
-        
+        >
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/settings" element={<Settings />} />
+        </Route>
+    
+           {/* 
         <Route
           path="/projects/:id"
           element={
@@ -154,7 +154,7 @@ function AppRoutes() {
 
         {/* Default redirect */}
         <Route path="/" element={<Navigate to={ROUTES.LOGIN} replace />} />
-        
+
         {/* 404 - Not Found */}
         <Route
           path="*"
