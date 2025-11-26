@@ -4,11 +4,15 @@
    * Uses lazy loading for better performance
    */
 
-  import { lazy, Suspense } from 'react';
-  import { Routes, Route, Navigate, Link } from 'react-router-dom';
-  import Loader from '../components/ui/Loader';
-  import { ROUTES, ROUTES_FLAT } from '../constants/routes';
-  import ProtectedRoute from './ProtectedRoute';
+import { lazy, Suspense } from 'react';
+import { Routes, Route, Navigate, Link } from 'react-router-dom';
+import Loader from '../components/ui/Loader';
+import { ROUTES_FLAT , ROUTES } from '../constants/routes';
+import ProtectedRoute from '../routes/ProtectedRoute';
+import Dashboard from '../pages/Dashboard';
+import Layout from '../components/layout/Layout';
+import Projects from '../pages/Projects';
+import Settings from '../pages/Settings';
 
   // Lazy load components for better performance (important for 400+ screens)
   // Auth Routes
@@ -70,120 +74,115 @@
           <Route path={ROUTES_FLAT.ADD_NEW_MEMBER} element={<AddNewMember />} />
           <Route path={ROUTES_FLAT.EDIT_MEMBER} element={<EditMember />} />
 
-          {/* Protected Routes - Will be added as features are developed */}
-          {/* 
-          <Route
-            path={ROUTES_FLAT.DASHBOARD}
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-          
-          <Route
-            path={ROUTES_FLAT.PROJECTS}
-            element={
-              <ProtectedRoute>
-                <Projects />
-              </ProtectedRoute>
-            }
-          />
-          
-          <Route
-            path={ROUTES.PROJECTS.DETAILS}
-            element={
-              <ProtectedRoute>
-                <ProjectDetails />
-              </ProtectedRoute>
-            }
-          />
-          
-          <Route
-            path={ROUTES.BOOKINGS.LIST}
-            element={
-              <ProtectedRoute>
-                <Bookings />
-              </ProtectedRoute>
-            }
-          />
-          
-          <Route
-            path={ROUTES.WORKERS.LIST}
-            element={
-              <ProtectedRoute>
-                <Workers />
-              </ProtectedRoute>
-            }
-          />
-          
-          <Route
-            path={ROUTES.VENDORS.LIST}
-            element={
-              <ProtectedRoute>
-                <Vendors />
-              </ProtectedRoute>
-            }
-          />
-          
-          <Route
-            path={ROUTES.MATERIALS.LIST}
-            element={
-              <ProtectedRoute>
-                <Materials />
-              </ProtectedRoute>
-            }
-          />
-          
-          <Route
-            path={ROUTES.PAYMENTS.LIST}
-            element={
-              <ProtectedRoute>
-                <Payments />
-              </ProtectedRoute>
-            }
-          />
-          
-          <Route
-            path={ROUTES.PROFILE.VIEW}
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
-          
-          <Route
-            path={ROUTES.CHAT.HOME}
-            element={
-              <ProtectedRoute>
-                <Chat />
-              </ProtectedRoute>
-            }
-          />
-          */}
+        {/* Protected Routes - Will be added as features are developed */}
 
-          {/* Default redirect */}
-          <Route path="/" element={<Navigate to={ROUTES_FLAT.LOGIN} replace />} />
-          
-          {/* 404 - Not Found */}
-          <Route
-            path="*"
-            element={
-              <div className="min-h-screen flex items-center justify-center">
-                <div className="text-center">
-                  <h1 className="text-4xl font-bold text-primary mb-4">404</h1>
-                  <p className="text-secondary mb-4">Page not found</p>
-                  <Link to={ROUTES_FLAT.LOGIN} className="text-accent">
-                    Go to Login
-                  </Link>
-                </div>
+        <Route
+          element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/settings" element={<Settings />} />
+        </Route>
+    
+           {/* 
+        <Route
+          path="/projects/:id"
+          element={
+            <ProtectedRoute>
+              <ProjectDetails />
+            </ProtectedRoute>
+          }
+        />
+        
+        <Route
+          path="/bookings"
+          element={
+            <ProtectedRoute>
+              <Bookings />
+            </ProtectedRoute>
+          }
+        />
+        
+        <Route
+          path="/workers"
+          element={
+            <ProtectedRoute>
+              <Workers />
+            </ProtectedRoute>
+          }
+        />
+        
+        <Route
+          path="/vendors"
+          element={
+            <ProtectedRoute>
+              <Vendors />
+            </ProtectedRoute>
+          }
+        />
+        
+        <Route
+          path="/materials"
+          element={
+            <ProtectedRoute>
+              <Materials />
+            </ProtectedRoute>
+          }
+        />
+        
+        <Route
+          path="/payments"
+          element={
+            <ProtectedRoute>
+              <Payments />
+            </ProtectedRoute>
+          }
+        />
+        
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        
+        <Route
+          path="/chat"
+          element={
+            <ProtectedRoute>
+              <Chat />
+            </ProtectedRoute>
+          }
+        />
+        */}
+
+        {/* Default redirect */}
+        <Route path="/" element={<Navigate to={ROUTES.LOGIN} replace />} />
+
+        {/* 404 - Not Found */}
+        <Route
+          path="*"
+          element={
+            <div className="min-h-screen flex items-center justify-center">
+              <div className="text-center">
+                <h1 className="text-4xl font-bold text-primary mb-4">404</h1>
+                <p className="text-secondary mb-4">Page not found</p>
+                <Link to={ROUTES.LOGIN} className="text-accent hover:underline">
+                  Go to Login
+                </Link>
               </div>
-            }
-          />
-        </Routes>
-      </Suspense>
-    );
-  }
+            </div>
+          }
+        />
+      </Routes>
+    </Suspense>
+  );
+}
 
   export default AppRoutes;
