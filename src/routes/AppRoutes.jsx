@@ -7,7 +7,7 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate, Link } from 'react-router-dom';
 import Loader from '../components/ui/Loader';
-import { ROUTES } from '../constants/routes';
+import { ROUTES_FLAT , ROUTES } from '../constants/routes';
 import ProtectedRoute from '../routes/ProtectedRoute';
 import Dashboard from '../pages/Dashboard';
 import Layout from '../components/layout/Layout';

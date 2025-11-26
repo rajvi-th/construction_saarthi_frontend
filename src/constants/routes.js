@@ -7,7 +7,7 @@
 export const ROUTES = {
   // Auth Routes
   AUTH: {
-    LOGIN: '/login',
+    LOGIN: '/',
     REGISTER: '/register',
     VERIFY_OTP: '/verify-otp',
     LANGUAGE_SELECTION: '/select-language',
