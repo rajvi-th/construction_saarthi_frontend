@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPortal } from "react-dom";
-import { ROUTES } from "../../constants/routes";
+import { ROUTES_FLAT } from "../../constants/routes";
 import StatusBadge from "../ui/StatusBadge";
 
 import expand from "../../assets/icons/expand.svg";
@@ -171,7 +171,7 @@ const SidebarHeader = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     localStorage.removeItem("currentWorkspaceId");
-    navigate(ROUTES.LOGIN);
+    navigate(ROUTES_FLAT.LOGIN);
   }, [navigate]);
 
   return (

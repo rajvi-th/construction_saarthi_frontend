@@ -9,7 +9,6 @@ import { Routes, Route, Navigate, Link } from 'react-router-dom';
 import Loader from '../components/ui/Loader';
 import { ROUTES_FLAT , ROUTES } from '../constants/routes';
 import ProtectedRoute from '../routes/ProtectedRoute';
-import Dashboard from '../pages/Dashboard';
 import Layout from '../components/layout/Layout';
 import Projects from '../pages/Projects';
 import Settings from '../pages/Settings';
@@ -25,8 +24,8 @@ import Settings from '../pages/Settings';
   const AddNewMember = lazy(() => import('../features/auth/pages/AddNewMember'));
   const EditMember = lazy(() => import('../features/auth/pages/EditMember'));
 
-  // Dashboard (will be created later)
-  // const Dashboard = lazy(() => import('../features/dashboard/pages/Dashboard'));
+  // Dashboard
+  const Dashboard = lazy(() => import('../features/dashboard/pages/Dashboard'));
 
   // Projects (will be created later)
   // const Projects = lazy(() => import('../features/projects/pages/Projects'));
@@ -74,19 +73,14 @@ import Settings from '../pages/Settings';
           <Route path={ROUTES_FLAT.ADD_NEW_MEMBER} element={<AddNewMember />} />
           <Route path={ROUTES_FLAT.EDIT_MEMBER} element={<EditMember />} />
 
-        {/* Protected Routes - Will be added as features are developed */}
-
-        <Route
-          element={
-            <ProtectedRoute>
-              <Layout />
-            </ProtectedRoute>
-          }
-        >
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/settings" element={<Settings />} />
-        </Route>
+          {/* Protected Routes - Sidebar and Navbar are globally available via Layout */}
+          <Route element={<ProtectedRoute />}>
+            <Route element={<Layout />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/settings" element={<Settings />} />
+            </Route>
+          </Route>
     
            {/* 
         <Route
@@ -163,7 +157,7 @@ import Settings from '../pages/Settings';
         */}
 
         {/* Default redirect */}
-        <Route path="/" element={<Navigate to={ROUTES.LOGIN} replace />} />
+        <Route path="/" element={<Navigate to={ROUTES_FLAT.LOGIN} replace />} />
 
         {/* 404 - Not Found */}
         <Route
@@ -173,7 +167,7 @@ import Settings from '../pages/Settings';
               <div className="text-center">
                 <h1 className="text-4xl font-bold text-primary mb-4">404</h1>
                 <p className="text-secondary mb-4">Page not found</p>
-                <Link to={ROUTES.LOGIN} className="text-accent hover:underline">
+                <Link to={ROUTES_FLAT.LOGIN} className="text-accent hover:underline">
                   Go to Login
                 </Link>
               </div>

@@ -4,7 +4,8 @@
  */
 
 import http from '../../../services/http';
-import { ENDPOINTS_FLAT } from '../../../constants/endpoints';
+// Use feature-specific constants (backward compatible with global endpoints.js)
+import { AUTH_ENDPOINTS_FLAT } from '../constants/authEndpoints';
 
 /**
  * Send OTP
@@ -33,7 +34,7 @@ export const sendOTP = async (data) => {
     requestBody.referral_code = data.referral_code.trim();
   }
 
-  const response = await http.post(ENDPOINTS_FLAT.SEND_OTP, requestBody);
+  const response = await http.post(AUTH_ENDPOINTS_FLAT.SEND_OTP, requestBody);
   
   // Log OTP to console if present in response
   if (response?.otp) {
@@ -74,7 +75,7 @@ export const verifyOTP = async (data) => {
     requestBody.referral_code = data.referral_code.trim();
   }
 
-  return http.post(ENDPOINTS_FLAT.VERIFY_OTP, requestBody);
+  return http.post(AUTH_ENDPOINTS_FLAT.VERIFY_OTP, requestBody);
 };
 
 /**
@@ -85,7 +86,7 @@ export const verifyOTP = async (data) => {
  * @returns {Promise<Object>} API response
  */
 export const login = async (data) => {
-  return http.post(ENDPOINTS_FLAT.LOGIN, data);
+  return http.post(AUTH_ENDPOINTS_FLAT.LOGIN, data);
 };
 
 /**
@@ -93,7 +94,7 @@ export const login = async (data) => {
  * @returns {Promise<Array>} List of workspaces
  */
 export const getWorkspaces = async () => {
-  return http.get(ENDPOINTS_FLAT.WORKSPACE_LIST);
+  return http.get(AUTH_ENDPOINTS_FLAT.WORKSPACE_LIST);
 };
 
 /**
@@ -109,7 +110,7 @@ export const createWorkspace = async (data) => {
     role: data.role || 'owner', // Default role is "owner"
   };
 
-  return http.post(ENDPOINTS_FLAT.WORKSPACE_CREATE, requestBody);
+  return http.post(AUTH_ENDPOINTS_FLAT.WORKSPACE_CREATE, requestBody);
 };
 
 /**
@@ -118,7 +119,7 @@ export const createWorkspace = async (data) => {
  * @returns {Promise<Array>} List of workspace members
  */
 export const getWorkspaceMembers = async (workspaceId) => {
-  return http.get(`${ENDPOINTS_FLAT.WORKSPACE_MEMBERS}/${workspaceId}`);
+  return http.get(`${AUTH_ENDPOINTS_FLAT.WORKSPACE_MEMBERS}/${workspaceId}`);
 };
 
 /**
@@ -127,7 +128,7 @@ export const getWorkspaceMembers = async (workspaceId) => {
  * @returns {Promise<Object>} API response
  */
 export const updateLanguage = async (language) => {
-  return http.put(ENDPOINTS_FLAT.LANGUAGE, { language });
+  return http.put(AUTH_ENDPOINTS_FLAT.LANGUAGE, { language });
 };
 
 /**
@@ -135,7 +136,7 @@ export const updateLanguage = async (language) => {
  * @returns {Promise<Object>} API response
  */
 export const logout = async () => {
-  return http.post(ENDPOINTS_FLAT.LOGOUT);
+  return http.post(AUTH_ENDPOINTS_FLAT.LOGOUT);
 };
 
 /**
@@ -143,7 +144,7 @@ export const logout = async () => {
  * @returns {Promise<Array>} List of roles
  */
 export const getAllRoles = async () => {
-  return http.get(ENDPOINTS_FLAT.ADMIN_GET_ALL_ROLE);
+  return http.get(AUTH_ENDPOINTS_FLAT.ADMIN_GET_ALL_ROLE);
 };
 
 /**
@@ -158,13 +159,35 @@ export const getAllRoles = async () => {
  * @returns {Promise<Object>} API response
  */
 export const addMember = async (data) => {
-  return http.post(ENDPOINTS_FLAT.MEMBER_ADD, {
+  return http.post(AUTH_ENDPOINTS_FLAT.MEMBER_ADD, {
     country_code: data.country_code,
     phone_number: data.phone_number,
     name: data.name,
     roleId: data.roleId,
     workspace_id: data.workspace_id,
     language: data.language,
+  });
+};
+
+/**
+ * Update member in workspace
+ * @param {Object} data - Member data
+ * @param {number} data.member_id - Member ID
+ * @param {number} data.workspace_id - Workspace ID
+ * @param {string} data.country_code - Country code (e.g., "+91")
+ * @param {string} data.phone_number - Phone number
+ * @param {string} data.name - Member name
+ * @param {number} data.roleId - Role ID
+ * @returns {Promise<Object>} API response
+ */
+export const updateMember = async (data) => {
+  return http.put(AUTH_ENDPOINTS_FLAT.WORKSPACE_UPDATE_MEMBER, {
+    member_id: data.member_id,
+    workspace_id: data.workspace_id,
+    country_code: data.country_code,
+    phone_number: data.phone_number,
+    name: data.name,
+    roleId: data.roleId,
   });
 };
 

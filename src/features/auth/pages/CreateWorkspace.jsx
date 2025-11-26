@@ -63,9 +63,14 @@ export default function CreateWorkspacePage() {
     };
 
     const handleEditMember = (memberId) => {
-        const member = members.find(m => m.id === memberId);
+        const member = members.find(m => (m.id === memberId || m.member_id === memberId));
         if (member) {
-            navigate(ROUTES_FLAT.EDIT_MEMBER, { state: { member } });
+            navigate(ROUTES_FLAT.EDIT_MEMBER, { 
+                state: { 
+                    member: member,
+                    workspaceId: workspaceId 
+                } 
+            });
         }
     };
 

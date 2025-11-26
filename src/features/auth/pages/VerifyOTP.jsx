@@ -116,10 +116,8 @@ export default function VerifyOTPPage() {
           // For register flow, navigate to language selection
           navigate(ROUTES_FLAT.LANGUAGE_SELECTION);
         } else {
-          // For login flow, check if user has workspaces
-          // If workspaces exist, go to workspace selection, else create workspace
-          // TODO: Check workspaces and navigate accordingly
-          navigate(ROUTES_FLAT.WORKSPACE_SELECTION);
+          // For login flow, navigate to dashboard
+          navigate('/dashboard');
         }
       } else {
         throw new Error('Invalid response from server');
