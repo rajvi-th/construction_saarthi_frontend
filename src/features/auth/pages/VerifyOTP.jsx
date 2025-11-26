@@ -1,21 +1,34 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import AuthLayout from '../layouts/AuthLayout';
 import Button from '../../../components/ui/Button';
-import { ROUTES } from '../../../constants/routes';
+import { ROUTES_FLAT } from '../../../constants/routes';
+import { verifyOTP, sendOTP } from '../api';
+import { useAuth } from '../store';
+import { showError, showSuccess } from '../../../utils/toast';
 import verifyOTPImage from '../../../assets/images/VerifyOTP.png';
+import verifyOTP2Image from '../../../assets/images/VerifyOTP2.png';
 
 export default function VerifyOTPPage() {
   const { t } = useTranslation();
   const location = useLocation();
+  const navigate = useNavigate();
+  const { login } = useAuth();
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [isLoading, setIsLoading] = useState(false);
+  const [isResending, setIsResending] = useState(false);
   const [resendTimer, setResendTimer] = useState(30);
   
-  // Get phone number from navigation state
+  // Get phone number and source from navigation state
   const phoneNumber = location.state?.phone || '';
   const countryCode = location.state?.countryCode || '+91';
+  const isFromRegister = location.state?.isFromRegister || false;
+  const fullName = location.state?.fullName || '';
+  const referralCode = location.state?.referralCode || '';
+  
+  // Use different image for register flow
+  const imageToUse = isFromRegister ? verifyOTP2Image : verifyOTPImage;
   
   // Mask phone number: show only last 2 digits
   const maskPhoneNumber = (phone) => {
@@ -38,7 +51,7 @@ export default function VerifyOTPPage() {
   }, [resendTimer]);
 
   const handleOtpChange = (index, value) => {
-    if (value.length > 1) return; // Only allow single digit
+    if (value.length > 1) return;
     
     const newOtp = [...otp];
     newOtp[index] = value;
@@ -67,16 +80,115 @@ export default function VerifyOTPPage() {
     }
 
     setIsLoading(true);
-    console.log('Verify OTP:', otpCode);
-    // Add OTP verification logic here
-    setTimeout(() => setIsLoading(false), 2000);
+    
+    try {
+      const requestData = {
+        country_code: countryCode,
+        phone_number: phoneNumber,
+        otp: otpCode,
+        type: isFromRegister ? 'register' : 'login',
+      };
+
+      // Add full_name only for register type
+      if (isFromRegister && fullName) {
+        requestData.full_name = fullName;
+      }
+
+      // Add referral_code if provided
+      if (referralCode && referralCode.trim()) {
+        requestData.referral_code = referralCode.trim();
+      }
+
+      const response = await verifyOTP(requestData);
+
+      // Save user data and token to auth store
+      if (response?.user && response?.token) {
+        login(response.user, response.token);
+        
+        // Show success message
+        showSuccess(
+          response?.message || 
+          t('verifyOTP.success', { ns: 'auth', defaultValue: 'OTP verified successfully!' })
+        );
+
+        // Navigate based on flow
+        if (isFromRegister) {
+          // For register flow, navigate to language selection
+          navigate(ROUTES_FLAT.LANGUAGE_SELECTION);
+        } else {
+          // For login flow, check if user has workspaces
+          // If workspaces exist, go to workspace selection, else create workspace
+          // TODO: Check workspaces and navigate accordingly
+          navigate(ROUTES_FLAT.WORKSPACE_SELECTION);
+        }
+      } else {
+        throw new Error('Invalid response from server');
+      }
+    } catch (error) {
+      // Error handling - show error message
+      const errorMessage = error?.response?.data?.message || 
+                          error?.message || 
+                          t('verifyOTP.error', { ns: 'auth', defaultValue: 'Failed to verify OTP. Please try again.' });
+      showError(errorMessage);
+      
+      // Clear OTP on error
+      setOtp(['', '', '', '', '', '']);
+      // Focus first OTP input
+      const firstInput = document.getElementById('otp-0');
+      firstInput?.focus();
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleResend = () => {
-    if (resendTimer > 0) return;
-    console.log('Resend OTP');
-    setResendTimer(30);
-    // Add resend OTP logic here
+  const handleResend = async () => {
+    if (resendTimer > 0 || isResending) return;
+    
+    setIsResending(true);
+    
+    try {
+      const requestData = {
+        country_code: countryCode,
+        phone_number: phoneNumber,
+        type: isFromRegister ? 'register' : 'login',
+      };
+
+      // Add full_name only for register type
+      if (isFromRegister && fullName) {
+        requestData.full_name = fullName;
+      }
+
+      // Add referral_code if provided
+      if (referralCode && referralCode.trim()) {
+        requestData.referral_code = referralCode.trim();
+      }
+
+      const response = await sendOTP(requestData);
+
+      // Show success message
+      showSuccess(
+        response?.message || 
+        t('verifyOTP.resendSuccess', { ns: 'auth', defaultValue: 'OTP resent successfully' })
+      );
+
+      // Reset timer
+      setResendTimer(30);
+      
+      // Clear OTP inputs
+      setOtp(['', '', '', '', '', '']);
+      
+      // Focus first OTP input
+      const firstInput = document.getElementById('otp-0');
+      firstInput?.focus();
+    } catch (error) {
+      // Error handling - show error message
+      const errorMessage = error?.response?.data?.message || 
+                          error?.message || 
+                          t('verifyOTP.resendError', { ns: 'auth', defaultValue: 'Failed to resend OTP. Please try again.' });
+      showError(errorMessage);
+    } finally {
+      setIsResending(false);
+    }
   };
 
   // Format timer as MM:SS
@@ -103,7 +215,7 @@ export default function VerifyOTPPage() {
 
   return (
     <AuthLayout
-      leftImage={verifyOTPImage}
+      leftImage={imageToUse}
       title={t('verifyOTP.title', { ns: 'auth' })}
       subtitle={t('verifyOTP.subtitleWithPhone', { phone: maskedPhone, ns: 'auth' })}
       leftContent={leftContent}
@@ -129,8 +241,25 @@ export default function VerifyOTPPage() {
           </div>
           {/* Resend Timer */}
           <div className="mt-4 sm:mt-6 text-center sm:text-right">
-            <div className="text-xs sm:text-sm text-secondary inline-flex items-center">
-             <span className="text-accent cursor-pointer" onClick={handleResend}>{t('verifyOTP.resendIn', { ns: 'auth' })}</span>{formatTimer(resendTimer)}
+            <div className="text-xs sm:text-sm text-secondary inline-flex items-center gap-1">
+              {resendTimer > 0 ? (
+                <>
+                  <span>{t('verifyOTP.resendIn', { ns: 'auth', defaultValue: 'Resend in:' })}</span>
+                  <span>{formatTimer(resendTimer)}</span>
+                </>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleResend}
+                  disabled={isResending}
+                  className="text-accent cursor-pointer hover:underline disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isResending 
+                    ? t('verifyOTP.resending', { ns: 'auth', defaultValue: 'Resending...' })
+                    : t('verifyOTP.resendOTP', { ns: 'auth', defaultValue: 'Resend OTP' })
+                  }
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -145,12 +274,23 @@ export default function VerifyOTPPage() {
           {isLoading ? t('loading') : t('verifyOTP.button', { ns: 'auth' })}
         </Button>
 
-        {/* Back to Login */}
+        {/* Back to Login/Register based on flow */}
         <div className="text-center text-xs sm:text-sm text-primary">
-          <span>{t('register.haveAccount', { ns: 'auth' })} </span>
-          <Link to={ROUTES.REGISTER} className="text-accent font-semibold">
-            {t('register.link', { ns: 'auth' })}
-          </Link>
+          {isFromRegister ? (
+            <>
+              <span>{t('register.haveAccount', { ns: 'auth' })} </span>
+              <Link to={ROUTES_FLAT.LOGIN} className="text-accent font-semibold">
+                {t('login.link', { ns: 'auth' })}
+              </Link>
+            </>
+          ) : (
+            <>
+              <span>{t('login.noAccount', { ns: 'auth' })} </span>
+              <Link to={ROUTES_FLAT.REGISTER} className="text-accent font-semibold">
+                {t('register.link', { ns: 'auth' })}
+              </Link>
+            </>
+          )}
         </div>
       </form>
     </AuthLayout>

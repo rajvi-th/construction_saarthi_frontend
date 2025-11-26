@@ -19,6 +19,8 @@ export default function Dropdown({
   showSeparator = false,
   addButtonLabel = 'Add New',
   onAddNew,
+  renderOption,
+  customButton,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,27 +52,31 @@ export default function Dropdown({
     <div className={`relative ${className}`} ref={dropdownRef}>
       {label && <label className="block text-sm font-medium mb-2">{label}</label>}
 
-      <button
-        type="button"
-        disabled={disabled}
-        onClick={() => !disabled && setIsOpen(!isOpen)}
-        className={`
-          w-full px-4 py-2.5 rounded-lg border bg-white text-left flex items-center justify-between
-          transition-colors focus:outline-none
-          ${error ? "border-red-500" : "border-gray-300 focus:border-black/30"}
-          ${disabled ? "opacity-50 cursor-not-allowed bg-gray-50" : "cursor-pointer hover:border-gray-400"}
-        `}
-      >
-        <span className={selectedOption ? "" : "text-gray-400"}>
-          {selectedOption ? selectedOption.label : placeholder}
-        </span>
+      {customButton ? (
+        customButton(isOpen, setIsOpen)
+      ) : (
+        <button
+          type="button"
+          disabled={disabled}
+          onClick={() => !disabled && setIsOpen(!isOpen)}
+          className={`
+            w-full px-4 py-2.5 rounded-lg border bg-white text-left flex items-center justify-between
+            transition-colors focus:outline-none
+            ${error ? "border-red-500" : "border-gray-300 focus:border-black/30"}
+            ${disabled ? "opacity-50 cursor-not-allowed bg-gray-50" : "cursor-pointer hover:border-gray-400"}
+          `}
+        >
+          <span className={selectedOption ? "" : "text-gray-400"}>
+            {selectedOption ? selectedOption.label : placeholder}
+          </span>
 
-        <ChevronDown
-          className={`w-5 h-5 text-gray-500 transition-transform ${
-            isOpen ? "rotate-180" : ""
-          }`}
-        />
-      </button>
+          <ChevronDown
+            className={`w-5 h-5 text-gray-500 transition-transform ${
+              isOpen ? "rotate-180" : ""
+            }`}
+          />
+        </button>
+      )}
 
       {isOpen && (
         <div className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-64 overflow-auto px-2 py-2">
@@ -88,7 +94,7 @@ export default function Dropdown({
               className="w-full px-4 py-2 rounded-xl text-left text-sm transition-colors 
                          hover:bg-gray-100 cursor-pointer"
             >
-              {option.label}
+              {renderOption ? renderOption(option, value === option.value) : option.label}
             </button>
           ))}
 

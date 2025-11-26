@@ -47,10 +47,8 @@ http.interceptors.response.use(
       
       switch (status) {
         case 401:
-          // Unauthorized - Clear token and redirect to login
           localStorage.removeItem('token');
-          // You can add redirect logic here if needed
-          // window.location.href = '/login';
+          localStorage.removeItem('user');
           break;
         case 403:
           // Forbidden

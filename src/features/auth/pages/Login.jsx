@@ -4,7 +4,9 @@ import { useTranslation } from 'react-i18next';
 import AuthLayout from '../layouts/AuthLayout';
 import Button from '../../../components/ui/Button';
 import PhoneInput from '../../../components/ui/PhoneInput';
-import { ROUTES } from '../../../constants/routes';
+import { ROUTES_FLAT } from '../../../constants/routes';
+import { sendOTP } from '../api';
+import { showError, showSuccess } from '../../../utils/toast';
 import loginImage from '../../../assets/images/login.png';
 
 export default function Login() {
@@ -16,17 +18,37 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!phone) return;
+    if (!phone.trim()) return;
     
     setIsLoading(true);
-    console.log('Send OTP:', { countryCode, phone });
-    // Add OTP sending logic here
-    setTimeout(() => {
-      setIsLoading(false);
-      navigate(ROUTES.VERIFY_OTP, { 
-        state: { phone: phone, countryCode: countryCode } 
+    
+    try {
+      const response = await sendOTP({
+        country_code: countryCode,
+        phone_number: phone.trim(),
+        type: 'login',
       });
-    }, 2000);
+
+      // Show success message
+      showSuccess(response?.message || t('login.otpSent', { ns: 'auth', defaultValue: 'OTP sent successfully' }));
+      
+      // Navigate to verify OTP page
+      navigate(ROUTES_FLAT.VERIFY_OTP, { 
+        state: { 
+          phone: phone.trim(), 
+          countryCode: countryCode, 
+          isFromRegister: false 
+        } 
+      });
+    } catch (error) {
+      // Error handling - show error message
+      const errorMessage = error?.response?.data?.message || 
+                          error?.message || 
+                          t('login.otpError', { ns: 'auth', defaultValue: 'Failed to send OTP. Please try again.' });
+      showError(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // Left side content with overlay text - Bottom positioned
@@ -75,8 +97,8 @@ export default function Login() {
         {/* Register Link */}
         <div className="text-center text-sm text-secondary">
           <span>{t('login.noAccount', { ns: 'auth' })} </span>
-          <Link to={ROUTES.REGISTER} className="text-accent font-semibold">
-            {t('register.link', { ns: 'auth' })}
+          <Link to={ROUTES_FLAT.REGISTER} className="text-accent font-semibold">
+            {t('register.createAccount', { ns: 'auth' })}
           </Link>
         </div>
       </form>

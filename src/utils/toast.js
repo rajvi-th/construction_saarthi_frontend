@@ -23,14 +23,15 @@ export const showSuccess = (message) => {
     duration: 3000,
     position: 'top-right',
     style: {
-      background: THEME_COLORS.primary,
-      color: '#fff',
+      background: 'rgba(52, 199, 89, 0.08)',
+      color: '#34C759',
+      border: '1px solid rgba(52, 199, 89, 0.4)',
       borderRadius: '8px',
       padding: '12px 16px',
     },
     iconTheme: {
-      primary: '#fff',
-      secondary: THEME_COLORS.primary,
+      primary: '#34C759',
+      secondary: 'rgba(52, 199, 89, 0.08)',
     },
   });
 };
