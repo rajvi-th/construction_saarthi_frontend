@@ -1,6 +1,5 @@
 /**
  * Routes Configuration
- * Organized by feature modules for scalability (400+ pages)
  * Always use ROUTES constants instead of hardcoded paths
  */
 
