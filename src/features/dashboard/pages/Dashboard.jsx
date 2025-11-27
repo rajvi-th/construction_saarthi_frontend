@@ -1,9 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-/**
- * Dashboard Page
- * Main dashboard page for authenticated users
- */
+
 const Dashboard = () => {
   const { t } = useTranslation();
 
