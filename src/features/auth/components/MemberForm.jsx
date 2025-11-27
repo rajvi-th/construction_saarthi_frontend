@@ -16,39 +16,48 @@ export default function MemberForm({
     
     // Parse phone number and country code from initial data
     const parsePhoneData = () => {
-        if (!initialData?.phone) return { phone: '', countryCode: '+91' };
-        const parts = initialData.phone.split(' ');
+        const phoneValue = initialData?.phone || initialData?.phone_number || '';
+        if (!phoneValue) return { phone: '', countryCode: '+91' };
+        
+        // Handle phone number with country code (e.g., "+91 666654321")
+        const parts = phoneValue.toString().split(' ');
         if (parts.length > 1) {
             return {
-                phone: parts.slice(1).join(' '),
+                phone: parts.slice(1).join(' ').replace(/\s/g, ''),
                 countryCode: parts[0]
             };
         }
-        return { phone: initialData.phone, countryCode: '+91' };
+        // Handle phone number without country code
+        return { phone: phoneValue.toString().replace(/\s/g, ''), countryCode: initialData?.country_code || '+91' };
     };
 
     const { phone: initialPhone, countryCode: initialCountryCode } = parsePhoneData();
     
-    const [name, setName] = useState(initialData?.name || '');
+    const [name, setName] = useState(initialData?.name || initialData?.full_name || '');
     const [phone, setPhone] = useState(initialPhone);
     const [countryCode, setCountryCode] = useState(initialCountryCode);
-    const [selectedRole, setSelectedRole] = useState(initialData?.role || null);
+    const [selectedRole, setSelectedRole] = useState(initialData?.roleId || initialData?.role || null);
 
-    // Role options
+    // Role options - hardcoded with specific IDs
     const roleOptions = [
-        { value: 'contractorPartner', label: t('createWorkspace.addNewMember.roles.contractorPartner', { ns: 'auth', defaultValue: 'Contractor Partner' }) },
-        { value: 'supervisorEngineer', label: t('createWorkspace.addNewMember.roles.supervisorEngineer', { ns: 'auth', defaultValue: 'Supervisor/Engineer' }) },
-        { value: 'builder', label: t('createWorkspace.addNewMember.roles.builder', { ns: 'auth', defaultValue: 'Builder' }) },
+        { value: 8, label: t('createWorkspace.addNewMember.roles.contractorPartner', { ns: 'auth', defaultValue: 'Contractor Partner' }) },
+        { value: 6, label: t('createWorkspace.addNewMember.roles.supervisorEngineer', { ns: 'auth', defaultValue: 'Supervisor/Engineer' }) },
+        { value: 5, label: t('createWorkspace.addNewMember.roles.builder', { ns: 'auth', defaultValue: 'Builder' }) },
     ];
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!name.trim() || !phone.trim() || !selectedRole) return;
 
+        // Remove spaces from phone number
+        const phoneNumber = phone.trim().replace(/\s/g, '');
+
         const memberData = {
             name: name.trim(),
-            phone: `${countryCode} ${phone.trim()}`,
-            role: selectedRole,
+            phone: `${countryCode} ${phoneNumber}`,
+            phone_number: phoneNumber,
+            country_code: countryCode,
+            roleId: selectedRole,
         };
 
         onSubmit?.(memberData);

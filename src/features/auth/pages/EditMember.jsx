@@ -4,13 +4,20 @@ import { useTranslation } from 'react-i18next';
 import { ArrowLeft } from 'lucide-react';
 import MemberForm from '../components/MemberForm';
 import { ROUTES_FLAT } from '../../../constants/routes';
+import { updateMember } from '../api';
+import { useAuth } from '../store';
+import { showSuccess, showError } from '../../../utils/toast';
 
 export default function EditMemberPage() {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
+    const { selectedWorkspace } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
     const [memberData, setMemberData] = useState(null);
+
+    // Get workspace_id from location state or selected workspace
+    const workspaceId = location.state?.workspaceId || selectedWorkspace;
 
     // Get member data from location state or from URL params
     useEffect(() => {
@@ -23,16 +30,60 @@ export default function EditMemberPage() {
     }, [location.state, navigate]);
 
     const handleSubmit = async (updatedData) => {
+        // Validate workspace_id is required
+        if (!workspaceId) {
+            showError('Workspace ID is required. Please select a workspace.');
+            return;
+        }
+
+        // Validate member_id is required
+        if (!memberData?.id && !memberData?.member_id) {
+            showError('Member ID is required.');
+            return;
+        }
+
         setIsLoading(true);
 
-        // API call to update member
-        // await updateMember(memberData.id, updatedData);
+        try {
+            // Prepare API request body
+            const requestData = {
+                member_id: Number(memberData.id || memberData.member_id),
+                workspace_id: Number(workspaceId),
+                country_code: updatedData.country_code || '+91',
+                phone_number: updatedData.phone_number,
+                name: updatedData.name,
+                roleId: Number(updatedData.roleId),
+            };
 
-        setTimeout(() => {
+            console.log('Updating member with data:', requestData);
+
+            // API call to update member
+            await updateMember(requestData);
+
+            // Show success message
+            showSuccess(
+                t('createWorkspace.addNewMember.updateSuccess', { 
+                    ns: 'auth', 
+                    defaultValue: 'Member updated successfully!' 
+                })
+            );
+
+            // Navigate back to CreateWorkspace page with workspace_id
+            navigate(ROUTES_FLAT.CREATE_WORKSPACE, {
+                state: { workspaceId: workspaceId }
+            });
+        } catch (error) {
+            console.error('Error updating member:', error);
+            const errorMessage = error?.response?.data?.message || 
+                                error?.message || 
+                                t('createWorkspace.addNewMember.updateError', { 
+                                    ns: 'auth', 
+                                    defaultValue: 'Failed to update member. Please try again.' 
+                                });
+            showError(errorMessage);
+        } finally {
             setIsLoading(false);
-            // Navigate back or show success message
-            navigate(-1);
-        }, 1000);
+        }
     };
 
     const handleCancel = () => {

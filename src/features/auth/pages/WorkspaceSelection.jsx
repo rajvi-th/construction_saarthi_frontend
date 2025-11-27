@@ -6,6 +6,7 @@ import { ROUTES_FLAT } from '../../../constants/routes';
 import { useAuth } from '../store';
 import { getWorkspaces } from '../api';
 import { showError } from '../../../utils/toast';
+import { getWorkspaceColor } from "../../../utils/getWorkspaceColor";
 
 export default function WorkspaceSelectionPage() {
     const { t } = useTranslation();
@@ -22,18 +23,18 @@ export default function WorkspaceSelectionPage() {
             try {
                 setIsFetching(true);
                 const response = await getWorkspaces();
-                
+
                 // Handle different response structures
                 const workspacesData = response?.data || response?.workspaces || response || [];
                 setWorkspaces(Array.isArray(workspacesData) ? workspacesData : []);
             } catch (error) {
                 console.error('Error fetching workspaces:', error);
-                const errorMessage = error?.response?.data?.message || 
-                                   error?.message || 
-                                   t('workspaceSelection.fetchError', { 
-                                     ns: 'auth', 
-                                     defaultValue: 'Failed to load workspaces' 
-                                   });
+                const errorMessage = error?.response?.data?.message ||
+                    error?.message ||
+                    t('workspaceSelection.fetchError', {
+                        ns: 'auth',
+                        defaultValue: 'Failed to load workspaces'
+                    });
                 showError(errorMessage);
                 setWorkspaces([]);
             } finally {
@@ -85,6 +86,8 @@ export default function WorkspaceSelectionPage() {
                         {/* Existing Workspaces */}
                         {workspaces.map((workspace) => {
                             const isSelected = selectedWorkspace === workspace.id;
+                            const colors = getWorkspaceColor(workspace.color);
+
                             return (
                                 <button
                                     key={workspace.id}
@@ -105,14 +108,22 @@ export default function WorkspaceSelectionPage() {
                                 >
                                     {/* Workspace Icon */}
                                     <div
-                                        className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center font-bold text-white text-base sm:text-lg lg:text-xl flex-shrink-0"
+                                        className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center font-bold text-base sm:text-lg lg:text-xl flex-shrink-0"
                                         style={{
-                                            backgroundColor: workspace.color === 'red'
-                                                ? 'rgba(255, 59, 48, 0.4)'
-                                                : 'rgba(255, 149, 0, 0.4)'
+                                            backgroundColor: colors.bg,
+                                            border: `2px solid ${colors.border}`,
+                                            color: colors.text,
                                         }}
                                     >
-                                        {workspace.initials}
+                                        {(() => {
+                                            const name = workspace.name || '';
+                                            const words = name.trim().split(/\s+/);
+                                            if (words.length >= 2) {
+                                                return (words[0].charAt(0) + words[1].charAt(0)).toUpperCase();
+                                            } else {
+                                                return name.charAt(0).toUpperCase();
+                                            }
+                                        })()}
                                     </div>
 
                                     {/* Workspace Info */}
@@ -121,7 +132,7 @@ export default function WorkspaceSelectionPage() {
                                             {workspace.name}
                                         </h3>
                                         <p className="text-sm sm:text-base text-secondary">
-                                            {workspace.members} {t('workspaceSelection.members', { ns: 'auth', defaultValue: 'Members' })}
+                                            {Array.isArray(workspace.members) ? workspace.members.length : (workspace.members || 0)} {t('workspaceSelection.members', { ns: 'auth', defaultValue: 'Members' })}
                                         </p>
                                     </div>
                                 </button>

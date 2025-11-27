@@ -32,11 +32,16 @@ export const validationSchemas = {
       .oneOf([yup.ref(passwordField), null], 'Passwords must match')
       .required('Please confirm your password'),
 
-  // Phone number validation (Indian format)
+  // Phone number validation (Indian format - exactly 10 digits)
   phone: yup
     .string()
-    .matches(/^[6-9]\d{9}$/, 'Invalid phone number')
-    .required('Phone number is required'),
+    .required('Phone number is required')
+    .transform((value) => {
+      // Remove spaces and other non-digit characters for validation
+      return value ? value.replace(/\s/g, '') : value;
+    })
+    .matches(/^[6-9]\d{9}$/, 'Phone number must be exactly 10 digits and start with 6, 7, 8, or 9')
+    .length(10, 'Phone number must be exactly 10 digits'),
 
   // Required string
   requiredString: (fieldName = 'This field') =>

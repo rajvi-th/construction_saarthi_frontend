@@ -50,4 +50,3 @@ export const getRoute = (route, params = {}) => {
 
 // Export both structured and flat routes
 export default ROUTES_FLAT;
-

@@ -2,9 +2,8 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPortal } from "react-dom";
-import { useTranslation } from "react-i18next";
 import { ROUTES } from "../../constants/routes";
-import { StatusAvatar } from "../ui/StatusBadge";
+import StatusBadge from "../ui/StatusBadge";
 
 import expand from "../../assets/icons/expand.svg";
 import { Users, Check, CirclePlus, LogOut } from "lucide-react";
@@ -139,7 +138,7 @@ const SidebarHeader = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     localStorage.removeItem("currentWorkspaceId");
-    navigate(ROUTES.LOGIN);
+    navigate(ROUTES_FLAT.LOGIN);
   }, [navigate]);
 
   return (
