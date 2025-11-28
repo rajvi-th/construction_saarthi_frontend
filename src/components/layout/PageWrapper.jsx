@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 
 const PageWrapper = () => {
   return (
-    <div className="p-6 bg-gray-50">
+    <div className="p-6 bg-[#F9FAFB]">
       <Outlet />
     </div>
   );

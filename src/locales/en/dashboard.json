@@ -1,0 +1,35 @@
+{
+  "banner": {
+    "title": "Estimate Materials in Minutes",
+    "description": "Accurate material & cost calculator for cement, bricks, steel & more",
+    "tryItNow": "Try It Now"
+  },
+  "stats": {
+    "totalProjects": "Total Projects",
+    "runningProjects": "Running Projects",
+    "activeSubscriptions": "Active Subscriptions",
+    "totalRevenue": "Total Revenue",
+    "totalExpenses": "Total Expenses To Pay"
+  },
+  "actions": {
+    "aiPowered": "AI Powered",
+    "constructionCalculator": "Construction Calculator",
+    "calculatorDescription": "Get accurate material & cost estimates",
+    "addUsage": "Add Usage",
+    "addUsageDescription": "Add daily material usage logs"
+  },
+  "projects": {
+    "title": "My Projects (Sites)",
+    "viewAll": "View All Projects"
+  },
+  "quickActions": {
+    "title": "Quick Actions",
+    "myProjects": "My Projects",
+    "finance": "Finance",
+    "siteInventory": "Site Inventory",
+    "documents": "Documents",
+    "labourSheet": "Labour Sheet",
+    "notes": "Notes"
+  }
+}
+

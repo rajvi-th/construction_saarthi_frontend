@@ -1,0 +1,35 @@
+{
+  "banner": {
+    "title": "मिनिटांमध्ये सामग्रीचा अंदाज लावा",
+    "description": "सिमेंट, विटा, स्टील आणि अधिक साठी अचूक सामग्री आणि खर्च कॅल्क्युलेटर",
+    "tryItNow": "आत्ताच वापरून पहा"
+  },
+  "stats": {
+    "totalProjects": "एकूण प्रकल्प",
+    "runningProjects": "चालू प्रकल्प",
+    "activeSubscriptions": "सक्रिय सदस्यता",
+    "totalRevenue": "एकूण उत्पन्न",
+    "totalExpenses": "देय एकूण खर्च"
+  },
+  "actions": {
+    "aiPowered": "AI चालित",
+    "constructionCalculator": "बांधकाम कॅल्क्युलेटर",
+    "calculatorDescription": "अचूक सामग्री आणि खर्च अंदाज मिळवा",
+    "addUsage": "वापर जोडा",
+    "addUsageDescription": "दैनंदिन सामग्री वापर लॉग जोडा"
+  },
+  "projects": {
+    "title": "माझे प्रकल्प (साइट्स)",
+    "viewAll": "सर्व प्रकल्प पहा"
+  },
+  "quickActions": {
+    "title": "द्रुत क्रिया",
+    "myProjects": "माझे प्रकल्प",
+    "finance": "अर्थसंकल्प",
+    "siteInventory": "साइट इन्व्हेंटरी",
+    "documents": "दस्तऐवज",
+    "labourSheet": "कामगार पत्रक",
+    "notes": "नोट्स"
+  }
+}
+

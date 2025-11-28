@@ -27,9 +27,7 @@ export const AuthProvider = ({ children }) => {
     return localStorage.getItem('token') || null;
   });
 
-  const [selectedWorkspace, setSelectedWorkspace] = useState(() => {
-    return localStorage.getItem('selectedWorkspace') || null;
-  });
+  const [selectedWorkspace, setSelectedWorkspace] = useState(null);
 
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     const storedToken = localStorage.getItem('token');
@@ -55,14 +53,6 @@ export const AuthProvider = ({ children }) => {
     }
   }, [user]);
 
-  // Sync workspace to localStorage
-  useEffect(() => {
-    if (selectedWorkspace) {
-      localStorage.setItem('selectedWorkspace', selectedWorkspace.toString());
-    } else {
-      localStorage.removeItem('selectedWorkspace');
-    }
-  }, [selectedWorkspace]);
 
   // Update isAuthenticated when user or token changes
   useEffect(() => {
@@ -80,11 +70,10 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     setToken(null);
-    setSelectedWorkspace(null);
     setIsAuthenticated(false);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    localStorage.removeItem('selectedWorkspace');
+    localStorage.removeItem('lang');
   };
 
   // Update user function

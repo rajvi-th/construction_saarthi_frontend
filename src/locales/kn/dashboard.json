@@ -1,0 +1,35 @@
+{
+  "banner": {
+    "title": "ನಿಮಿಷಗಳಲ್ಲಿ ಸಾಮಗ್ರಿಗಳನ್ನು ಅಂದಾಜು ಮಾಡಿ",
+    "description": "ಸಿಮೆಂಟ್, ಇಟ್ಟಿಗೆಗಳು, ಉಕ್ಕು ಮತ್ತು ಹೆಚ್ಚಿನವುಗಳಿಗೆ ನಿಖರವಾದ ಸಾಮಗ್ರಿ ಮತ್ತು ವೆಚ್ಚ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+    "tryItNow": "ಈಗಲೇ ಪ್ರಯತ್ನಿಸಿ"
+  },
+  "stats": {
+    "totalProjects": "ಒಟ್ಟು ಯೋಜನೆಗಳು",
+    "runningProjects": "ಚಾಲನೆಯಲ್ಲಿರುವ ಯೋಜನೆಗಳು",
+    "activeSubscriptions": "ಸಕ್ರಿಯ ಚಂದಾದಾರಿಕೆಗಳು",
+    "totalRevenue": "ಒಟ್ಟು ಆದಾಯ",
+    "totalExpenses": "ಪಾವತಿಸಬೇಕಾದ ಒಟ್ಟು ವೆಚ್ಚಗಳು"
+  },
+  "actions": {
+    "aiPowered": "AI ಚಾಲಿತ",
+    "constructionCalculator": "ನಿರ್ಮಾಣ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+    "calculatorDescription": "ನಿಖರವಾದ ಸಾಮಗ್ರಿ ಮತ್ತು ವೆಚ್ಚ ಅಂದಾಜುಗಳನ್ನು ಪಡೆಯಿರಿ",
+    "addUsage": "ಬಳಕೆ ಸೇರಿಸಿ",
+    "addUsageDescription": "ದೈನಂದಿನ ಸಾಮಗ್ರಿ ಬಳಕೆ ಲಾಗ್‌ಗಳನ್ನು ಸೇರಿಸಿ"
+  },
+  "projects": {
+    "title": "ನನ್ನ ಯೋಜನೆಗಳು (ಸೈಟ್‌ಗಳು)",
+    "viewAll": "ಎಲ್ಲಾ ಯೋಜನೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ"
+  },
+  "quickActions": {
+    "title": "ತ್ವರಿತ ಕ್ರಿಯೆಗಳು",
+    "myProjects": "ನನ್ನ ಯೋಜನೆಗಳು",
+    "finance": "ಹಣಕಾಸು",
+    "siteInventory": "ಸೈಟ್ ಇನ್ವೆಂಟರಿ",
+    "documents": "ದಾಖಲೆಗಳು",
+    "labourSheet": "ಕಾರ್ಮಿಕ ಶೀಟ್",
+    "notes": "ನೋಟ್ಗಳು"
+  }
+}
+

@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "../../features/auth/store";
 
 import Breadcrumbs from "../../assets/icons/breadcrumbs.svg";
 import LanguageSwitcher from "../ui/LanguageSwitcher";
@@ -26,35 +27,45 @@ const BREADCRUMB_TRANSLATION_KEYS = {
 const Navbar = () => {
   const { t } = useTranslation("common");
   const location = useLocation();
-  const [user, setUser] = useState({
-    name: "Admin's Workspace",
-    email: "admin@example.com",
-    initials: "AD",
-    avatar: "",
-  });
+  const { user: authUser } = useAuth();
 
-  useEffect(() => {
-    try {
-      const storedUser = localStorage.getItem("user");
-      if (storedUser) {
-        const parsed = JSON.parse(storedUser);
-        const name = `${parsed?.firstName || ""} ${parsed?.lastName || ""}`.trim() ||
-          "Admin's Workspace";
-        const email = parsed?.email || "admin@example.com";
-        const initials =
-          `${(parsed?.firstName || "A").charAt(0)}${(parsed?.lastName || "D").charAt(0)}`.toUpperCase();
-        const avatar =
-          parsed?.avatar ||
-          parsed?.profilePicture ||
-          parsed?.profile_image ||
-          parsed?.photoUrl ||
-          "";
-        setUser({ name, email, initials, avatar });
-      }
-    } catch (error) {
-      console.error("Unable to parse user data", error);
+
+  // Compute user display data dynamically from AuthContext
+  const user = useMemo(() => {
+    if (!authUser) {
+      return {
+        name: "",
+        initials: "",
+        avatar: "",
+      };
     }
-  }, []);
+    // Extract name from backend or token
+    const name =
+      authUser?.full_name ||
+      authUser?.name ||
+      authUser?.fullName ||
+      "";
+
+    // Generate initials
+    let initials = "";
+    if (name) {
+      const parts = name.trim().split(" ");
+      if (parts.length >= 2) {
+        initials = `${parts[0][0]}${parts[1][0]}`.toUpperCase();
+      } else {
+        initials = name.substring(0, 2).toUpperCase();
+      }
+    }
+
+
+    const avatar =
+      authUser?.avatar ||
+      authUser?.profilePicture ||
+      authUser?.profile_image ||
+      "";
+
+    return { name, initials, avatar };
+  }, [authUser]);
 
   const breadcrumbs = useMemo(() => {
     const segments = location.pathname.split("/").filter(Boolean);
@@ -70,16 +81,7 @@ const Navbar = () => {
   }, [breadcrumbs, t]);
 
   return (
-    <header className="
-      fixed top-0 left-0 right-0 
-      md:left-[260px] lg:left-[300px]
-      py-3
-      px-4 md:px-8 
-      bg-white 
-      border-b border-gray-100 
-      z-40 
-      flex items-center justify-between
-    ">
+    <header className="fixed top-0 left-0 right-0 lg:left-[300px] py-3 px-4 md:px-8 bg-white border-b border-black-soft z-40 flex items-center justify-between ">
       {/* LEFT – BREADCRUMBS */}
       <div className="flex items-center gap-2 min-w-0 flex-1 ml-10 md:ml-7 lg:ml-0 ">
         {/* Icon only on tablet & desktop (>= 768px) */}
@@ -142,15 +144,14 @@ const Navbar = () => {
             </div>
           )}
 
-          {/* USER NAME + EMAIL (hidden on mobile) */}
-          <div className="hidden sm:flex flex-col text-left">
-            <span className="text-sm font-medium text-gray-900 truncate max-w-[140px]">
-              {user.name}
-            </span>
-            <span className="text-xs text-gray-500 truncate max-w-[140px]">
-              {user.email}
-            </span>
-          </div>
+          {/* USER NAME (hidden on mobile) */}
+          {user.name && (
+            <div className="hidden sm:flex flex-col text-left">
+              <span className="text-sm font-medium text-gray-900 truncate max-w-[140px]">
+                {user.name}
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </header>

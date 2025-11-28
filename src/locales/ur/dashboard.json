@@ -1,0 +1,35 @@
+{
+  "banner": {
+    "title": "منٹوں میں مواد کا تخمینہ لگائیں",
+    "description": "سیمنٹ، اینٹیں، سٹیل اور مزید کے لیے درست مواد اور لاگت کیلکولیٹر",
+    "tryItNow": "ابھی آزمائیں"
+  },
+  "stats": {
+    "totalProjects": "کل منصوبے",
+    "runningProjects": "چلنے والے منصوبے",
+    "activeSubscriptions": "فعال سبسکرپشن",
+    "totalRevenue": "کل آمدنی",
+    "totalExpenses": "ادا کرنے کے لیے کل اخراجات"
+  },
+  "actions": {
+    "aiPowered": "AI چلایا گیا",
+    "constructionCalculator": "تعمیر کیلکولیٹر",
+    "calculatorDescription": "درست مواد اور لاگت کا تخمینہ حاصل کریں",
+    "addUsage": "استعمال شامل کریں",
+    "addUsageDescription": "روزانہ مواد استعمال لاگ شامل کریں"
+  },
+  "projects": {
+    "title": "میرے منصوبے (سائٹس)",
+    "viewAll": "تمام منصوبے دیکھیں"
+  },
+  "quickActions": {
+    "title": "فوری اعمال",
+    "myProjects": "میرے منصوبے",
+    "finance": "مالیات",
+    "siteInventory": "سائٹ انوینٹری",
+    "documents": "دستاویزات",
+    "labourSheet": "مزدور شیٹ",
+    "notes": "نوٹس"
+  }
+}
+

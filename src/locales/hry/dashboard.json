@@ -1,0 +1,35 @@
+{
+  "banner": {
+    "title": "मिनटों में सामग्री का अनुमान लगाएं",
+    "description": "सीमेंट, ईंट, स्टील और अधिक के लिए सटीक सामग्री और लागत कैलकुलेटर",
+    "tryItNow": "अभी आज़माएं"
+  },
+  "stats": {
+    "totalProjects": "कुल प्रोजेक्ट",
+    "runningProjects": "चल रहे प्रोजेक्ट",
+    "activeSubscriptions": "सक्रिय सदस्यता",
+    "totalRevenue": "कुल राजस्व",
+    "totalExpenses": "भुगतान करने के लिए कुल खर्च"
+  },
+  "actions": {
+    "aiPowered": "AI संचालित",
+    "constructionCalculator": "निर्माण कैलकुलेटर",
+    "calculatorDescription": "सटीक सामग्री और लागत अनुमान प्राप्त करें",
+    "addUsage": "उपयोग जोड़ें",
+    "addUsageDescription": "दैनिक सामग्री उपयोग लॉग जोड़ें"
+  },
+  "projects": {
+    "title": "मेरे प्रोजेक्ट (साइट्स)",
+    "viewAll": "सभी प्रोजेक्ट देखें"
+  },
+  "quickActions": {
+    "title": "त्वरित कार्य",
+    "myProjects": "मेरे प्रोजेक्ट",
+    "finance": "वित्त",
+    "siteInventory": "साइट इन्वेंटरी",
+    "documents": "दस्तावेज़",
+    "labourSheet": "श्रम पत्रक",
+    "notes": "नोट्स"
+  }
+}
+

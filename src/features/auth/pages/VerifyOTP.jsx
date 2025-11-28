@@ -117,7 +117,7 @@ export default function VerifyOTPPage() {
           navigate(ROUTES_FLAT.LANGUAGE_SELECTION);
         } else {
           // For login flow, navigate to dashboard
-          navigate('/dashboard');
+          navigate(ROUTES_FLAT.DASHBOARD);
         }
       } else {
         throw new Error('Invalid response from server');

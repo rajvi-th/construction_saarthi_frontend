@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import SidebarHeader from "./SidebarHeader";
 import { Menu, X, Settings, HelpCircle, Phone } from "lucide-react";
+import { ROUTES_FLAT } from "../../constants/routes";
 
 // ICONS (Default + Active versions)
 import home from "../../assets/icons/home.svg";
@@ -54,23 +55,22 @@ const Sidebar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // -------------------------
+
   // MENU DATA (INSIDE FILE)
-  // -------------------------
   const mainMenu = [
     {
       label: "Dashboard",
       labelKey: "sidebar.mainMenu.dashboard",
       icon: home,
       activeIcon: homeLight,
-      path: "/dashboard",
+      path: ROUTES_FLAT.DASHBOARD,
     },
     {
       label: "Projects",
       labelKey: "sidebar.mainMenu.projects",
       icon: project,
       activeIcon: projectLight,
-      path: "/projects",
+      path: ROUTES_FLAT.PROJECTS,
     },
     {
       label: "Daily Progress Report (DPR)",
@@ -143,7 +143,7 @@ const Sidebar = () => {
       labelKey: "sidebar.settings.settings",
       icon: Settings,
       activeIcon: Settings,
-      path: "/settings",
+      path: ROUTES_FLAT.SETTINGS,
     },
     {
       label: "Help",
@@ -181,12 +181,12 @@ const Sidebar = () => {
 
       {/* SIDEBAR */}
       <aside
-        className={`fixed top-0 left-0 h-screen w-[260px] lg:w-[300px] bg-white border-r border-gray-100 px-4 py-6.5 z-50 flex flex-col overflow-y-auto transition-transform duration-300
+        className={`fixed top-0 left-0 h-screen w-[260px] lg:w-[300px] bg-white border-r border-black-soft px-4 py-6.5 z-50 flex flex-col overflow-y-auto transition-transform duration-300
         ${open ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
       >
         {/* MOBILE CLOSE BUTTON (inside sidebar, top-right) */}
         <button
-          className="lg:hidden absolute top-1.5 right-4 p-2 rounded-full bg-white shadow-sm border border-gray-200"
+          className="lg:hidden absolute top-1.5 right-4 p-2 rounded-full bg-white shadow-sm border border-black-soft"
           onClick={() => setOpen(false)}
           aria-label="Close sidebar"
         >
@@ -197,7 +197,7 @@ const Sidebar = () => {
         <SidebarHeader />
 
         {/* MAIN MENU */}
-         <p className="text-xs font-medium text-[#8B8B8B] mb-2">
+         <p className="text-xs font-medium text-secondary mb-2">
            {t("sidebar.mainMenu.title", {
              ns: "common",
              defaultValue: "MAIN MENU",
@@ -211,7 +211,7 @@ const Sidebar = () => {
               onClick={handleClose}
               className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-2 rounded-[100px] transition-all duration-200
-                ${isActive ? "bg-[#121212] text-white" : "text-gray-700 hover:bg-gray-100"}`
+                ${isActive ? "bg-[#121212] text-white" : "text-primary hover:bg-gray-100"}`
               }
             >
               {({ isActive }) => (
@@ -236,7 +236,7 @@ const Sidebar = () => {
         </div>
 
         {/* SETTINGS MENU */}
-         <p className="text-xs font-semibold text-gray-400 mb-2">
+         <p className="text-xs font-semibold text-secondary mb-2">
            {t("sidebar.settings.title", {
              ns: "common",
              defaultValue: "SETTINGS",
@@ -250,7 +250,7 @@ const Sidebar = () => {
               onClick={handleClose}
               className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-2 rounded-full transition-all duration-200
-                ${isActive ? "bg-black text-white" : "text-gray-700 hover:bg-gray-100"}`
+                ${isActive ? "bg-black text-white" : "text-primary hover:bg-gray-100"}`
               }
             >
               {({ isActive }) => {

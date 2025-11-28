@@ -117,7 +117,19 @@
     "title": "Workspaces",
     "inviteMembers": "Invite & View Members",
     "createWorkspace": "Create Workspace",
-    "logout": "Log out"
+    "logout": "Log out",
+    "logoutConfirm": {
+      "title": "Log Out",
+      "message": "Are you sure you want to log out?"
+    }
+  },
+  "errorBoundary": {
+    "title": "Something went wrong",
+    "message": "We're sorry, but something unexpected happened. Please try again or contact support if the problem persists.",
+    "tryAgain": "Try Again",
+    "goHome": "Go Home",
+    "stackTrace": "Stack Trace",
+    "developmentMode": "Error details are shown above (development mode)"
   }
 }
 

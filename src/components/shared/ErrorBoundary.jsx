@@ -6,8 +6,11 @@
  */
 
 import { Component } from 'react';
+import { withTranslation } from 'react-i18next';
+import { Navigate } from 'react-router-dom';
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
 import Button from '../ui/Button';
+import { ROUTES_FLAT } from '../../constants/routes';
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -16,6 +19,7 @@ class ErrorBoundary extends Component {
       hasError: false,
       error: null,
       errorInfo: null,
+      shouldNavigate: false,
     };
   }
 
@@ -35,9 +39,6 @@ class ErrorBoundary extends Component {
       error,
       errorInfo,
     });
-
-    // Here you can also log the error to an error reporting service
-    // Example: logErrorToService(error, errorInfo);
   }
 
   handleReset = () => {
@@ -49,12 +50,17 @@ class ErrorBoundary extends Component {
   };
 
   handleGoHome = () => {
-    window.location.href = '/';
+    this.setState({ shouldNavigate: true });
   };
 
   render() {
+    // Navigate to login if shouldNavigate is true
+    if (this.state.shouldNavigate) {
+      return <Navigate to={ROUTES_FLAT.LOGIN} replace />;
+    }
+
     if (this.state.hasError) {
-      const { fallback, showDetails = false } = this.props;
+      const { fallback, showDetails = false, t } = this.props;
 
       // Custom fallback UI
       if (fallback) {
@@ -63,7 +69,7 @@ class ErrorBoundary extends Component {
 
       // Default error UI
       return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+        <div className="min-h-screen flex items-center justify-center">
           <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8 text-center">
             {/* Error Icon */}
             <div className="mb-6 flex justify-center">
@@ -74,12 +80,14 @@ class ErrorBoundary extends Component {
 
             {/* Error Title */}
             <h2 className="text-2xl font-bold text-primary mb-2">
-              Something went wrong
+              {t('errorBoundary.title', { defaultValue: 'Something went wrong' })}
             </h2>
 
             {/* Error Message */}
             <p className="text-secondary mb-6">
-              We're sorry, but something unexpected happened. Please try again or contact support if the problem persists.
+              {t('errorBoundary.message', { 
+                defaultValue: "We're sorry, but something unexpected happened. Please try again or contact support if the problem persists." 
+              })}
             </p>
 
             {/* Error Details (Development only) */}
@@ -91,7 +99,7 @@ class ErrorBoundary extends Component {
                 {this.state.errorInfo && (
                   <details className="mt-2">
                     <summary className="text-xs text-secondary cursor-pointer">
-                      Stack Trace
+                      {t('errorBoundary.stackTrace', { defaultValue: 'Stack Trace' })}
                     </summary>
                     <pre className="text-xs text-gray-600 mt-2 overflow-auto max-h-40">
                       {this.state.errorInfo.componentStack}
@@ -107,24 +115,26 @@ class ErrorBoundary extends Component {
                 variant="primary"
                 size="md"
                 onClick={this.handleReset}
-                leftIconName="RefreshCw"
+                leftIcon={<RefreshCw className="w-4 h-4 text-accent" strokeWidth={3} />}
               >
-                Try Again
+                {t('errorBoundary.tryAgain', { defaultValue: 'Try Again' })}
               </Button>
               <Button
                 variant="secondary"
                 size="md"
                 onClick={this.handleGoHome}
-                leftIconName="Home"
+                leftIcon={<Home className="w-5 h-5 text-accent" strokeWidth={3} />}
               >
-                Go Home
+                {t('errorBoundary.goHome', { defaultValue: 'Go Home' })}
               </Button>
             </div>
 
             {/* Development Mode Indicator */}
             {process.env.NODE_ENV === 'development' && (
               <p className="mt-4 text-xs text-gray-400">
-                Error details are shown above (development mode)
+                {t('errorBoundary.developmentMode', { 
+                  defaultValue: 'Error details are shown above (development mode)' 
+                })}
               </p>
             )}
           </div>
@@ -137,4 +147,4 @@ class ErrorBoundary extends Component {
   }
 }
 
-export default ErrorBoundary;
+export default withTranslation('common')(ErrorBoundary);

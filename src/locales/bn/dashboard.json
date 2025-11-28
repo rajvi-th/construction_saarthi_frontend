@@ -1,0 +1,35 @@
+{
+  "banner": {
+    "title": "মিনিটে উপকরণ অনুমান করুন",
+    "description": "সিমেন্ট, ইট, ইস্পাত এবং আরও অনেক কিছুর জন্য সঠিক উপকরণ এবং খরচ ক্যালকুলেটর",
+    "tryItNow": "এখনই চেষ্টা করুন"
+  },
+  "stats": {
+    "totalProjects": "মোট প্রকল্প",
+    "runningProjects": "চলমান প্রকল্প",
+    "activeSubscriptions": "সক্রিয় সাবস্ক্রিপশন",
+    "totalRevenue": "মোট আয়",
+    "totalExpenses": "পরিশোধ করতে মোট ব্যয়"
+  },
+  "actions": {
+    "aiPowered": "AI চালিত",
+    "constructionCalculator": "নির্মাণ ক্যালকুলেটর",
+    "calculatorDescription": "সঠিক উপকরণ এবং খরচ অনুমান পান",
+    "addUsage": "ব্যবহার যোগ করুন",
+    "addUsageDescription": "দৈনিক উপকরণ ব্যবহার লগ যোগ করুন"
+  },
+  "projects": {
+    "title": "আমার প্রকল্প (সাইট)",
+    "viewAll": "সমস্ত প্রকল্প দেখুন"
+  },
+  "quickActions": {
+    "title": "দ্রুত কাজ",
+    "myProjects": "আমার প্রকল্প",
+    "finance": "অর্থ",
+    "siteInventory": "সাইট ইনভেন্টরি",
+    "documents": "নথি",
+    "labourSheet": "শ্রম শীট",
+    "notes": "নোট"
+  }
+}
+

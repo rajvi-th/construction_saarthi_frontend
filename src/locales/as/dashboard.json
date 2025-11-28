@@ -1,0 +1,35 @@
+{
+  "banner": {
+    "title": "মিনিটতেই সামগ্ৰীৰ অনুমান কৰক",
+    "description": "চিমেণ্ট, ইটা, ষ্টীল আৰু অধিকৰ বাবে সঠিক সামগ্ৰী আৰু খৰচ কেলকুলেটৰ",
+    "tryItNow": "এতিয়াই চেষ্টা কৰক"
+  },
+  "stats": {
+    "totalProjects": "মুঠ প্ৰকল্প",
+    "runningProjects": "চলি থকা প্ৰকল্প",
+    "activeSubscriptions": "সক্ৰিয় সদস্যতা",
+    "totalRevenue": "মুঠ আয়",
+    "totalExpenses": "পৰিশোধ কৰিবলৈ মুঠ খৰচ"
+  },
+  "actions": {
+    "aiPowered": "AI চালিত",
+    "constructionCalculator": "নিৰ্মাণ কেলকুলেটৰ",
+    "calculatorDescription": "সঠিক সামগ্ৰী আৰু খৰচৰ অনুমান পাব",
+    "addUsage": "ব্যৱহাৰ যোগ কৰক",
+    "addUsageDescription": "দৈনিক সামগ্ৰী ব্যৱহাৰ লগ যোগ কৰক"
+  },
+  "projects": {
+    "title": "মোৰ প্ৰকল্পসমূহ (ছাইটসমূহ)",
+    "viewAll": "সকলো প্ৰকল্প চাওক"
+  },
+  "quickActions": {
+    "title": "দ্রুত কাৰ্য্য",
+    "myProjects": "মোৰ প্ৰকল্পসমূহ",
+    "finance": "অৰ্থ",
+    "siteInventory": "ছাইট ইনভেন্টৰী",
+    "documents": "কাগজ-পত্ৰ",
+    "labourSheet": "শ্ৰমিক শ্বীট",
+    "notes": "নোট"
+  }
+} 
+

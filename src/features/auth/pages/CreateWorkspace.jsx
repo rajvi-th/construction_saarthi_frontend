@@ -168,8 +168,7 @@ export default function CreateWorkspacePage() {
     };
 
     const handleGoToWorkspace = () => {
-        // Navigate to workspace selection or dashboard
-        navigate(ROUTES_FLAT.WORKSPACE_SELECTION);
+        navigate(ROUTES_FLAT.DASHBOARD);
     };
 
     return (
@@ -213,7 +212,7 @@ export default function CreateWorkspacePage() {
                         {/* Invite Members Section */}
                         {isWorkspaceCreated && (
                             <div className="space-y-4">
-                                <div className="bg-[#FBFBFB] shadow-md border border-[rgba(176,46,12,0.04)] rounded-xl p-4">
+                                <div className="bg-[#FBFBFB] shadow-md border border-[rgba(176,46,12,0.04)] rounded-xl p-4 ">
                                     <h2 className="text-lg sm:text-xl font-medium text-primary mb-2">
                                         {t('createWorkspace.inviteMembers', { ns: 'auth', defaultValue: 'Invite Members (Optional)' })}
                                     </h2>

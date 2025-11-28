@@ -1,0 +1,35 @@
+{
+  "banner": {
+    "title": "મિનિટોમાં સામગ્રીનો અંદાજ કાઢો",
+    "description": "સિમેન્ટ, ઈંટો, સ્ટીલ અને વધુ માટે સચોટ સામગ્રી અને ખર્ચ કેલ્ક્યુલેટર",
+    "tryItNow": "હવે અજમાવો"
+  },
+  "stats": {
+    "totalProjects": "કુલ પ્રોજેક્ટ્સ",
+    "runningProjects": "ચાલુ પ્રોજેક્ટ્સ",
+    "activeSubscriptions": "સક્રિય સબ્સ્ક્રિપ્શન",
+    "totalRevenue": "કુલ આવક",
+    "totalExpenses": "ચૂકવવા માટે કુલ ખર્ચ"
+  },
+  "actions": {
+    "aiPowered": "AI ચાલિત",
+    "constructionCalculator": "કન્સ્ટ્રક્શન કેલ્ક્યુલેટર",
+    "calculatorDescription": "ચોક્કસ સામગ્રી અને ખર્ચ અંદાજ મેળવો",
+    "addUsage": "ઉપયોગ ઉમેરો",
+    "addUsageDescription": "દૈનિક સામગ્રી ઉપયોગ લોગ ઉમેરો"
+  },
+  "projects": {
+    "title": "મારા પ્રોજેક્ટ્સ (સાઇટ્સ)",
+    "viewAll": "બધા પ્રોજેક્ટ્સ જુઓ"
+  },
+  "quickActions": {
+    "title": "ઝડપી ક્રિયાઓ",
+    "myProjects": "મારા પ્રોજેક્ટ્સ",
+    "finance": "ફાઇનાન્સ",
+    "siteInventory": "સાઇટ ઇન્વેન્ટરી",
+    "documents": "દસ્તાવેજો",
+    "labourSheet": "મજૂર શીટ",
+    "notes": "નોંધો"
+  }
+}
+

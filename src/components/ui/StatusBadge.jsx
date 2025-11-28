@@ -84,39 +84,6 @@ export const statusBadgeAvatarColors = {
   darkblue: statusBadgeColors.darkblue.border,
 };
 
-/**
- * StatusAvatar
- * Reusable avatar used for workspaces / language badges etc.
- * Uses the same color system as StatusBadge.
- */
-export function StatusAvatar({
-  label,
-  color = "red",
-  variant = "square", // 'square' | 'circle'
-  size = "md", // 'sm' | 'md'
-  className = "",
-}) {
-  const bgClass = statusBadgeBgColors[color] || statusBadgeBgColors.red;
-  const borderColor = statusBadgeBorderColors[color] || statusBadgeBorderColors.red;
-  const textColor = statusBadgeColorHex[color] || statusBadgeColorHex.red;
-
-  const sizeClasses =
-    size === "sm"
-      ? "w-8 h-8 text-xs"
-      : "w-10 h-10 text-sm";
-
-  const radiusClass =
-    variant === "circle" ? "rounded-full" : "rounded-[8px]";
-
-  return (
-    <div
-      className={`border flex items-center justify-center font-bold flex-shrink-0 ${sizeClasses} ${radiusClass} ${bgClass} ${className}`}
-      style={{ color: textColor, borderColor }}
-    >
-      {label}
-    </div>
-  );
-}
 
 export default function StatusBadge({ text, color = "red", className = "" }) {
   const colors = {

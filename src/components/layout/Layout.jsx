@@ -4,7 +4,7 @@ import PageWrapper from "./PageWrapper";
 
 const Layout = () => {
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen">
       <Sidebar />
 
       <div className="flex-1 w-full lg:ml-[300px]">

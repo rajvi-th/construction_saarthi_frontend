@@ -1,0 +1,35 @@
+{
+  "banner": {
+    "title": "నిమిషాల్లో పదార్థాలను అంచనా వేయండి",
+    "description": "సిమెంట్, ఇటుకలు, ఉక్కు మరియు మరిన్నింటికి ఖచ్చితమైన పదార్థం మరియు ఖర్చు కాలిక్యులేటర్",
+    "tryItNow": "ఇప్పుడే ప్రయత్నించండి"
+  },
+  "stats": {
+    "totalProjects": "మొత్తం ప్రాజెక్టులు",
+    "runningProjects": "నడుస్తున్న ప్రాజెక్టులు",
+    "activeSubscriptions": "సక్రియ సభ్యత్వాలు",
+    "totalRevenue": "మొత్తం ఆదాయం",
+    "totalExpenses": "చెల్లించాల్సిన మొత్తం ఖర్చులు"
+  },
+  "actions": {
+    "aiPowered": "AI నడిచే",
+    "constructionCalculator": "నిర్మాణ కాలిక్యులేటర్",
+    "calculatorDescription": "ఖచ్చితమైన పదార్థం మరియు ఖర్చు అంచనాలు పొందండి",
+    "addUsage": "వినియోగం జోడించండి",
+    "addUsageDescription": "రోజువారీ పదార్థం వినియోగం లాగ్‌లను జోడించండి"
+  },
+  "projects": {
+    "title": "నా ప్రాజెక్టులు (సైట్‌లు)",
+    "viewAll": "అన్ని ప్రాజెక్టులు చూడండి"
+  },
+  "quickActions": {
+    "title": "త్వరిత చర్యలు",
+    "myProjects": "నా ప్రాజెక్టులు",
+    "finance": "ఫైనాన్స్",
+    "siteInventory": "సైట్ ఇన్వెంటరీ",
+    "documents": "పత్రాలు",
+    "labourSheet": "శ్రమ షీట్",
+    "notes": "నోట్స్"
+  }
+}
+
