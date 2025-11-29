@@ -17,10 +17,8 @@ export default function AddBusinessCard() {
   const handleSubmit = async (formData) => {
     try {
       await createCard(formData);
-      // Navigate back to business card list after successful creation
       navigate(ROUTES_FLAT.BUSINESS_CARD);
     } catch (error) {
-      // Error is already handled in the hook
     }
   };
 
