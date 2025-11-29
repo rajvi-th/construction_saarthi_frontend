@@ -1,0 +1,48 @@
+{
+  "title": "My Account",
+  "changePhoto": "Change photo",
+  "settings": {
+    "title": "Settings",
+    "myProfile": "My Profile",
+    "manageNotifications": "Manage Notifications",
+    "changeLanguage": "Change Language",
+    "mySubscription": "My Subscription"
+  },
+  "security": {
+    "title": "Security",
+    "termsAndConditions": "Terms and Conditions",
+    "privacyPolicy": "Privacy Policy",
+    "deleteAccount": "Delete Account",
+    "deleteAccountConfirm": "Are you sure you want to delete your account? This action cannot be undone."
+  },
+  "profile": {
+    "title": "My Profile",
+    "personalInformation": "Personal Information",
+    "firstName": "First Name",
+    "enterFirstName": "Enter first name",
+    "lastName": "Last Name",
+    "enterLastName": "Enter last name",
+    "contactNumber": "Contact Number",
+    "emailAddress": "Email Address",
+    "enterEmail": "Enter email address",
+    "address": "Address",
+    "enterAddress": "Enter address",
+    "companyDetails": "Company Details",
+    "companyName": "Company Name",
+    "enterCompanyName": "Enter company name",
+    "companyLogo": "Company Logo",
+    "uploadImages": "Upload Images",
+    "companyTagline": "Company Tagline",
+    "enterTextHere": "Enter text here",
+    "otherInformation": "Other Information",
+    "gstin": "GSTIN",
+    "enterNumber": "Enter number",
+    "panCard": "PAN Card"
+  },
+  "changeLanguage": {
+    "title": "Languages",
+    "setLanguage": "Set Language",
+    "error": "Failed to save language preference. Please try again."
+  }
+}
+

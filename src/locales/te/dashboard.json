@@ -30,6 +30,11 @@
     "documents": "పత్రాలు",
     "labourSheet": "శ్రమ షీట్",
     "notes": "నోట్స్"
+  },
+  "members": {
+    "title": "సభ్యులు",
+    "deleteConfirmTitle": "సభ్యుని తొలగించు",
+    "deleteConfirmMessage": "మీరు ఖచ్చితంగా తొలగించాలనుకుంటున్నారా"
   }
 }
 

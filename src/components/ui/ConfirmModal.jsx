@@ -4,20 +4,27 @@
  */
 
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Button from './Button';
 
 export default function ConfirmModal({
   isOpen,
   onClose,
   onConfirm,
-  title = 'Delete Project',
+  title,
   message,
-  confirmText = 'Yes, Delete',
-  cancelText = 'Cancel',
+  confirmText,
+  cancelText,
   confirmVariant = 'primary',
   isLoading = false,
   maxWidthClass = 'max-w-md',
 }) {
+  const { t } = useTranslation('common');
+  
+  // Use translations if not provided, otherwise use provided values
+  const finalTitle = title || t('delete', { defaultValue: 'Delete' });
+  const finalConfirmText = confirmText || t('confirm', { defaultValue: 'Confirm' });
+  const finalCancelText = cancelText || t('cancel', { defaultValue: 'Cancel' });
   useEffect(() => {
     if (isOpen) {
       // Prevent body scroll when modal is open
@@ -64,7 +71,7 @@ export default function ConfirmModal({
       <div className={`bg-white rounded-3xl shadow-xl w-full ${maxWidthClass} my-auto`}>
         {/* Header */}
         <div className="px-6 py-4">
-          <h3 className="text-2xl font-semibold text-primary">{title}</h3>
+          <h3 className="text-2xl font-semibold text-primary">{finalTitle}</h3>
         </div>
 
         {/* Body */}
@@ -81,14 +88,14 @@ export default function ConfirmModal({
             onClick={onClose}
             disabled={isLoading}
           >
-            {cancelText}
+            {finalCancelText}
           </Button>
           <Button 
             variant={confirmVariant} 
             onClick={handleConfirm}
             disabled={isLoading}
           >
-            {isLoading ? 'Deleting...' : confirmText}
+            {isLoading ? t('loading', { defaultValue: 'Loading...' }) : finalConfirmText}
           </Button>
         </div>
       </div>

@@ -55,6 +55,38 @@ import bhoDashboard from '../locales/bho/dashboard.json';
 import asDashboard from '../locales/as/dashboard.json';
 import hryDashboard from '../locales/hry/dashboard.json';
 
+// Import account translations for all languages
+import enAccount from '../locales/en/account.json';
+import hiAccount from '../locales/hi/account.json';
+import guAccount from '../locales/gu/account.json';
+import bnAccount from '../locales/bn/account.json';
+import taAccount from '../locales/ta/account.json';
+import mrAccount from '../locales/mr/account.json';
+import teAccount from '../locales/te/account.json';
+import knAccount from '../locales/kn/account.json';
+import mlAccount from '../locales/ml/account.json';
+import urAccount from '../locales/ur/account.json';
+import rajAccount from '../locales/raj/account.json';
+import bhoAccount from '../locales/bho/account.json';
+import asAccount from '../locales/as/account.json';
+import hryAccount from '../locales/hry/account.json';
+
+// Import businessCard translations for all languages
+import enBusinessCard from '../locales/en/businessCard.json';
+import hiBusinessCard from '../locales/hi/businessCard.json';
+import guBusinessCard from '../locales/gu/businessCard.json';
+import bnBusinessCard from '../locales/bn/businessCard.json';
+import taBusinessCard from '../locales/ta/businessCard.json';
+import mrBusinessCard from '../locales/mr/businessCard.json';
+import teBusinessCard from '../locales/te/businessCard.json';
+import knBusinessCard from '../locales/kn/businessCard.json';
+import mlBusinessCard from '../locales/ml/businessCard.json';
+import urBusinessCard from '../locales/ur/businessCard.json';
+import rajBusinessCard from '../locales/raj/businessCard.json';
+import bhoBusinessCard from '../locales/bho/businessCard.json';
+import asBusinessCard from '../locales/as/businessCard.json';
+import hryBusinessCard from '../locales/hry/businessCard.json';
+
 // Get saved language from localStorage or default to 'en'
 const savedLang = localStorage.getItem('lang') || 'en';
 
@@ -63,71 +95,99 @@ const resources = {
     common: enCommon,
     auth: enAuth,
     dashboard: enDashboard,
+    account: enAccount,
+    businessCard: enBusinessCard,
   },
   hi: {
     common: hiCommon,
     auth: hiAuth,
     dashboard: hiDashboard,
+    account: hiAccount,
+    businessCard: hiBusinessCard,
   },
   gu: {
     common: guCommon,
     auth: guAuth,
     dashboard: guDashboard,
+    account: guAccount,
+    businessCard: guBusinessCard,
   },
   bn: {
     common: bnCommon,
     auth: bnAuth,
     dashboard: bnDashboard,
+    account: bnAccount,
+    businessCard: bnBusinessCard,
   },
   ta: {
     common: taCommon,
     auth: taAuth,
     dashboard: taDashboard,
+    account: taAccount,
+    businessCard: taBusinessCard,
   },
   mr: {
     common: mrCommon,
     auth: mrAuth,
     dashboard: mrDashboard,
+    account: mrAccount,
+    businessCard: mrBusinessCard,
   },
   te: {
     common: teCommon,
     auth: teAuth,
     dashboard: teDashboard,
+    account: teAccount,
+    businessCard: teBusinessCard,
   },
   kn: {
     common: knCommon,
     auth: knAuth,
     dashboard: knDashboard,
+    account: knAccount,
+    businessCard: knBusinessCard,
   },
   ml: {
     common: mlCommon,
     auth: mlAuth,
     dashboard: mlDashboard,
+    account: mlAccount,
+    businessCard: mlBusinessCard,
   },
   ur: {
     common: urCommon,
     auth: urAuth,
     dashboard: urDashboard,
+    account: urAccount,
+    businessCard: urBusinessCard,
   },
   raj: {
     common: rajCommon,
     auth: rajAuth,
     dashboard: rajDashboard,
+    account: rajAccount,
+    businessCard: rajBusinessCard,
   },
   bho: {
     common: bhoCommon,
     auth: bhoAuth,
     dashboard: bhoDashboard,
+    account: bhoAccount,
+    businessCard: bhoBusinessCard,
   },
   as: {
     common: asCommon,
     auth: asAuth,
     dashboard: asDashboard,
+    account: asAccount,
+    businessCard: asBusinessCard,
   },
   hry: {
     common: hryCommon,
     auth: hryAuth,
     dashboard: hryDashboard,
+    account: hryAccount,
+    businessCard: hryBusinessCard,
   },
 };
 
@@ -142,7 +202,7 @@ i18n
       escapeValue: false, // React already escapes values
     },
     defaultNS: 'common',
-    ns: ['common', 'auth', 'dashboard'],
+    ns: ['common', 'auth', 'dashboard', 'account', 'businessCard'],
   });
 
 export default i18n;

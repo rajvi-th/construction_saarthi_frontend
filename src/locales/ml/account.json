@@ -1,0 +1,48 @@
+{
+  "title": "എന്റെ അക്കൗണ്ട്",
+  "changePhoto": "ഫോട്ടോ മാറ്റുക",
+  "settings": {
+    "title": "ക്രമീകരണങ്ങൾ",
+    "myProfile": "എന്റെ പ്രൊഫൈൽ",
+    "manageNotifications": "അറിയിപ്പുകൾ നിയന്ത്രിക്കുക",
+    "changeLanguage": "ഭാഷ മാറ്റുക",
+    "mySubscription": "എന്റെ സബ്സ്ക്രിപ്ഷൻ"
+  },
+  "security": {
+    "title": "സുരക്ഷ",
+    "termsAndConditions": "നിബന്ധനകളും വ്യവസ്ഥകളും",
+    "privacyPolicy": "സ്വകാര്യതാ നയം",
+    "deleteAccount": "അക്കൗണ്ട് ഇല്ലാതാക്കുക",
+    "deleteAccountConfirm": "നിങ്ങൾ ഉറപ്പാണോ നിങ്ങളുടെ അക്കൗണ്ട് ഇല്ലാതാക്കണമെന്ന്? ഈ പ്രവർത്തനം പുനഃസ്ഥാപിക്കാൻ കഴിയില്ല."
+  },
+  "profile": {
+    "title": "എന്റെ പ്രൊഫൈൽ",
+    "personalInformation": "വ്യക്തിഗത വിവരങ്ങൾ",
+    "firstName": "ആദ്യ പേര്",
+    "enterFirstName": "ആദ്യ പേര് നൽകുക",
+    "lastName": "അവസാന പേര്",
+    "enterLastName": "അവസാന പേര് നൽകുക",
+    "contactNumber": "ബന്ധപ്പെടൽ നമ്പർ",
+    "emailAddress": "ഇമെയിൽ വിലാസം",
+    "enterEmail": "ഇമെയിൽ വിലാസം നൽകുക",
+    "address": "വിലാസം",
+    "enterAddress": "വിലാസം നൽകുക",
+    "companyDetails": "കമ്പനി വിവരങ്ങൾ",
+    "companyName": "കമ്പനിയുടെ പേര്",
+    "enterCompanyName": "കമ്പനിയുടെ പേര് നൽകുക",
+    "companyLogo": "കമ്പനി ലോഗോ",
+    "uploadImages": "ചിത്രങ്ങൾ അപ്‌ലോഡ് ചെയ്യുക",
+    "companyTagline": "കമ്പനി ടാഗ്‌ലൈൻ",
+    "enterTextHere": "ഇവിടെ ടെക്സ്റ്റ് നൽകുക",
+    "otherInformation": "മറ്റ് വിവരങ്ങൾ",
+    "gstin": "GSTIN",
+    "enterNumber": "നമ്പർ നൽകുക",
+    "panCard": "PAN കാർഡ്"
+  },
+  "changeLanguage": {
+    "title": "ഭാഷകൾ",
+    "setLanguage": "ഭാഷ സജ്ജമാക്കുക",
+    "error": "ഭാഷാ മുൻഗണന സേവ് ചെയ്യാനായില്ല. ദയവായി വീണ്ടും ശ്രമിക്കുക."
+  }
+}
+

@@ -9,7 +9,7 @@ const QuickActions = ({ quickActions }) => {
       <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold text-primary mb-4 sm:mb-6">
         {t('quickActions.title')}
       </h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 sm:gap-6">
         {quickActions.map((action, index) => {
           const IconComponent = action.icon;
           return (

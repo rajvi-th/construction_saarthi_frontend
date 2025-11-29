@@ -1,0 +1,48 @@
+{
+  "title": "मेरा खाता",
+  "changePhoto": "फोटो बदलो",
+  "settings": {
+    "title": "सेटिंग्स",
+    "myProfile": "मेरी प्रोफ़ाइल",
+    "manageNotifications": "सूचनाएं प्रबंधित करो",
+    "changeLanguage": "भाषा बदलो",
+    "mySubscription": "मेरी सदस्यता"
+  },
+  "security": {
+    "title": "सुरक्षा",
+    "termsAndConditions": "नियम और शर्तें",
+    "privacyPolicy": "गोपनीयता नीति",
+    "deleteAccount": "खाता हटाओ",
+    "deleteAccountConfirm": "का तूं वास्तव में अपना खाता हटाना चाहता है? यह कार्रवाई वापस नहीं हो सकेगी।"
+  },
+  "profile": {
+    "title": "मेरी प्रोफ़ाइल",
+    "personalInformation": "व्यक्तिगत जानकारी",
+    "firstName": "पहला नाम",
+    "enterFirstName": "पहला नाम दर्ज करो",
+    "lastName": "अंतिम नाम",
+    "enterLastName": "अंतिम नाम दर्ज करो",
+    "contactNumber": "संपर्क नंबर",
+    "emailAddress": "ईमेल पता",
+    "enterEmail": "ईमेल पता दर्ज करो",
+    "address": "पता",
+    "enterAddress": "पता दर्ज करो",
+    "companyDetails": "कंपनी विवरण",
+    "companyName": "कंपनी का नाम",
+    "enterCompanyName": "कंपनी का नाम दर्ज करो",
+    "companyLogo": "कंपनी लोगो",
+    "uploadImages": "छवियां अपलोड करो",
+    "companyTagline": "कंपनी टैगलाइन",
+    "enterTextHere": "यहां पाठ दर्ज करो",
+    "otherInformation": "अन्य जानकारी",
+    "gstin": "GSTIN",
+    "enterNumber": "नंबर दर्ज करो",
+    "panCard": "PAN कार्ड"
+  },
+  "changeLanguage": {
+    "title": "भाषाएं",
+    "setLanguage": "भाषा सेट करो",
+    "error": "भाषा पसंद सहेजने में विफल। कृपया फिर से कोशिश करो।"
+  }
+}
+

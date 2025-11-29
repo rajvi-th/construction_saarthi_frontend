@@ -1,0 +1,34 @@
+{
+  "title": "Business Card",
+  "emptyState": {
+    "title": "No Card Added",
+    "message": "Create your business card for share your work and contacts",
+    "createButton": "Create Business Card"
+  },
+  "add": {
+    "title": "Add Business Card",
+    "saveCard": "Save Card"
+  },
+  "edit": {
+    "title": "Edit Business Card"
+  },
+  "frontView": "Front View",
+  "backView": "Back View",
+  "flipToBack": "Flip to Backside",
+  "flipToFront": "Flip to Front",
+  "shareCard": "Share Card",
+  "downloadCard": "Download Card",
+  "shareSuccess": "Business card shared successfully!",
+  "shareCopied": "Business card details copied to clipboard!",
+  "shareError": "Failed to share business card.",
+  "downloadSuccess": "Business card download started!",
+  "downloadError": "Failed to download business card.",
+  "deleteConfirmation": {
+    "title": "Delete Business Card",
+    "message": "Are you sure you want to delete this business card? This action cannot be undone."
+  },
+  "errors": {
+    "fetchFailed": "Failed to load business cards. Please try again."
+  }
+}
+

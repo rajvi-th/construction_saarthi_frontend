@@ -30,6 +30,11 @@
     "documents": "कागजात",
     "labourSheet": "मजदूर शीट",
     "notes": "नोट्स"
+  },
+  "members": {
+    "title": "सदस्य",
+    "deleteConfirmTitle": "सदस्य मिटा दीं",
+    "deleteConfirmMessage": "तूं सच्चै मिटावण चाहतो है"
   }
 }
 

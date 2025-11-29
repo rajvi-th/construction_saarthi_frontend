@@ -1,0 +1,48 @@
+{
+  "title": "میرا اکاؤنٹ",
+  "changePhoto": "فوٹو تبدیل کریں",
+  "settings": {
+    "title": "ترتیبات",
+    "myProfile": "میری پروفائل",
+    "manageNotifications": "اطلاعات کا انتظام کریں",
+    "changeLanguage": "زبان تبدیل کریں",
+    "mySubscription": "میری سبسکرپشن"
+  },
+  "security": {
+    "title": "سیکیورٹی",
+    "termsAndConditions": "شرائط و ضوابط",
+    "privacyPolicy": "رازداری کی پالیسی",
+    "deleteAccount": "اکاؤنٹ حذف کریں",
+    "deleteAccountConfirm": "کیا آپ واقعی اپنا اکاؤنٹ حذف کرنا چاہتے ہیں؟ یہ کارروائی واپس نہیں کی جا سکتی۔"
+  },
+  "profile": {
+    "title": "میری پروفائل",
+    "personalInformation": "ذاتی معلومات",
+    "firstName": "پہلا نام",
+    "enterFirstName": "پہلا نام درج کریں",
+    "lastName": "آخری نام",
+    "enterLastName": "آخری نام درج کریں",
+    "contactNumber": "رابطہ نمبر",
+    "emailAddress": "ای میل پتہ",
+    "enterEmail": "ای میل پتہ درج کریں",
+    "address": "پتہ",
+    "enterAddress": "پتہ درج کریں",
+    "companyDetails": "کمپنی کی تفصیلات",
+    "companyName": "کمپنی کا نام",
+    "enterCompanyName": "کمپنی کا نام درج کریں",
+    "companyLogo": "کمپنی لوگو",
+    "uploadImages": "تصاویر اپ لوڈ کریں",
+    "companyTagline": "کمپنی ٹیگ لائن",
+    "enterTextHere": "یہاں متن درج کریں",
+    "otherInformation": "دیگر معلومات",
+    "gstin": "GSTIN",
+    "enterNumber": "نمبر درج کریں",
+    "panCard": "PAN کارڈ"
+  },
+  "changeLanguage": {
+    "title": "زبانیں",
+    "setLanguage": "زبان مقرر کریں",
+    "error": "زبان کی ترجیح محفوظ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
+  }
+}
+

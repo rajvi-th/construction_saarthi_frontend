@@ -191,3 +191,19 @@ export const updateMember = async (data) => {
   });
 };
 
+/**
+ * Delete member from workspace
+ * @param {Object} data - Member deletion data
+ * @param {number} data.workspace_id - Workspace ID
+ * @param {number} data.member_id - Member ID
+ * @returns {Promise<Object>} API response
+ */
+export const deleteMember = async (data) => {
+  return http.delete(AUTH_ENDPOINTS_FLAT.WORKSPACE_DELETE_MEMBER, {
+    data: {
+      workspace_id: data.workspace_id,
+      member_id: data.member_id,
+    },
+  });
+};
+

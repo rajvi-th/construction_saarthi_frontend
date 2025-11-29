@@ -1,0 +1,48 @@
+{
+  "title": "મારું એકાઉન્ટ",
+  "changePhoto": "ફોટો બદલો",
+  "settings": {
+    "title": "સેટિંગ્સ",
+    "myProfile": "મારી પ્રોફાઇલ",
+    "manageNotifications": "સૂચનાઓ સંચાલન કરો",
+    "changeLanguage": "ભાષા બદલો",
+    "mySubscription": "મારી સબ્સ્ક્રિપ્શન"
+  },
+  "security": {
+    "title": "સુરક્ષા",
+    "termsAndConditions": "નિયમો અને શરતો",
+    "privacyPolicy": "ગોપનીયતા નીતિ",
+    "deleteAccount": "એકાઉન્ટ કાઢી નાખો",
+    "deleteAccountConfirm": "શું તમે ખરેખર તમારું એકાઉન્ટ કાઢી નાખવા માંગો છો? આ ક્રિયા પૂર્વવત્ કરી શકાશે નહીં."
+  },
+  "profile": {
+    "title": "મારી પ્રોફાઇલ",
+    "personalInformation": "વ્યક્તિગત માહિતી",
+    "firstName": "પ્રથમ નામ",
+    "enterFirstName": "પ્રથમ નામ દાખલ કરો",
+    "lastName": "અંતિમ નામ",
+    "enterLastName": "અંતિમ નામ દાખલ કરો",
+    "contactNumber": "સંપર્ક નંબર",
+    "emailAddress": "ઇમેઇલ સરનામું",
+    "enterEmail": "ઇમેઇલ સરનામું દાખલ કરો",
+    "address": "સરનામું",
+    "enterAddress": "સરનામું દાખલ કરો",
+    "companyDetails": "કંપની વિગતો",
+    "companyName": "કંપનીનું નામ",
+    "enterCompanyName": "કંપનીનું નામ દાખલ કરો",
+    "companyLogo": "કંપની લોગો",
+    "uploadImages": "છબીઓ અપલોડ કરો",
+    "companyTagline": "કંપની ટેગલાઇન",
+    "enterTextHere": "અહીં ટેક્સ્ટ દાખલ કરો",
+    "otherInformation": "અન્ય માહિતી",
+    "gstin": "GSTIN",
+    "enterNumber": "નંબર દાખલ કરો",
+    "panCard": "PAN કાર્ડ"
+  },
+  "changeLanguage": {
+    "title": "ભાષાઓ",
+    "setLanguage": "ભાષા સેટ કરો",
+    "error": "ભાષા પસંદગી સાચવવામાં નિષ્ફળ. કૃપા કરીને ફરીથી પ્રયાસ કરો."
+  }
+}
+

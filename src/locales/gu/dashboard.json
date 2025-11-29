@@ -30,6 +30,11 @@
     "documents": "દસ્તાવેજો",
     "labourSheet": "મજૂર શીટ",
     "notes": "નોંધો"
+  },
+  "members": {
+    "title": "સભ્યો",
+    "deleteConfirmTitle": "સભ્ય કાઢી નાખો",
+    "deleteConfirmMessage": "શું તમે ખરેખર કાઢી નાખવા માંગો છો"
   }
 }
 

@@ -94,12 +94,14 @@ export default function FileUpload({
         </p>
 
         {/* Upload Button */}
-        <Button
-          variant="primary"
-          onClick={handleButtonClick}
-        >
-          Upload
-        </Button>
+        <div className="flex justify-center">
+          <Button
+            variant="primary"
+            onClick={handleButtonClick}
+          >
+            Upload
+          </Button>
+        </div>
 
         {/* Hidden File Input */}
         <input

@@ -25,6 +25,17 @@ import Settings from '../pages/Settings';
 
   // Dashboard
   const Dashboard = lazy(() => import('../features/dashboard/pages/Dashboard'));
+  const Members = lazy(() => import('../features/dashboard/pages/Members'));
+
+  // Account
+  const MyAccount = lazy(() => import('../features/account/pages/MyAccount'));
+  const MyProfile = lazy(() => import('../features/account/pages/MyProfile'));
+  const ChangeLanguage = lazy(() => import('../features/account/pages/ChangeLanguage'));
+
+  // Business Card
+  const BusinessCard = lazy(() => import('../features/businessCard/pages/BusinessCard'));
+  const AddBusinessCard = lazy(() => import('../features/businessCard/pages/AddBusinessCard'));
+  const EditBusinessCard = lazy(() => import('../features/businessCard/pages/EditBusinessCard'));
 
   // Projects
   const Projects = lazy(() => import('../features/projects/pages/Projects'));
@@ -79,6 +90,13 @@ import Settings from '../pages/Settings';
             <Route path={ROUTES_FLAT.DASHBOARD} element={<Dashboard />} />
             <Route path={ROUTES_FLAT.PROJECTS} element={<Projects />} />
             <Route path={ROUTES_FLAT.SETTINGS} element={<Settings />} />
+            <Route path={ROUTES_FLAT.MEMBERS} element={<Members />} />
+            <Route path={ROUTES_FLAT.MY_ACCOUNT} element={<MyAccount />} />
+            <Route path={ROUTES_FLAT.MY_PROFILE} element={<MyProfile />} />
+            <Route path={ROUTES_FLAT.CHANGE_LANGUAGE} element={<ChangeLanguage />} />
+            <Route path={ROUTES_FLAT.BUSINESS_CARD} element={<BusinessCard />} />
+            <Route path={ROUTES_FLAT.ADD_BUSINESS_CARD} element={<AddBusinessCard />} />
+            <Route path={ROUTES_FLAT.EDIT_BUSINESS_CARD} element={<EditBusinessCard />} />
           </Route>
         </Route>
     

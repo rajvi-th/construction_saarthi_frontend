@@ -36,7 +36,28 @@ export default function MemberForm({
     const [name, setName] = useState(initialData?.name || initialData?.full_name || '');
     const [phone, setPhone] = useState(initialPhone);
     const [countryCode, setCountryCode] = useState(initialCountryCode);
-    const [selectedRole, setSelectedRole] = useState(initialData?.roleId || initialData?.role || null);
+
+    // ROLE MAPPING FOR EDIT MODE
+    const roleMapByName = {
+        contractorPartner: 8,
+        contractor_partner: 8,
+        "Contractor Partner": 8,
+
+        supervisorEngineer: 6,
+        supervisor_engineer: 6,
+        "Supervisor/Engineer": 6,
+
+        builder: 5,
+        Builder: 5,
+        "builder": 5,
+    };
+
+    const resolvedInitialRole =
+        initialData?.roleId ||
+        roleMapByName[initialData?.role] ||
+        null;
+
+    const [selectedRole, setSelectedRole] = useState(resolvedInitialRole);
 
     // Role options - hardcoded with specific IDs
     const roleOptions = [

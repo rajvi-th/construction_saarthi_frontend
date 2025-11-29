@@ -1,0 +1,48 @@
+{
+  "title": "हमार एकाउंट",
+  "changePhoto": "फोटो बदलीं",
+  "settings": {
+    "title": "सेटिंग्स",
+    "myProfile": "हमार प्रोफाइल",
+    "manageNotifications": "सूचना प्रबंधन करीं",
+    "changeLanguage": "भाषा बदलीं",
+    "mySubscription": "हमार सब्स्क्रिप्शन"
+  },
+  "security": {
+    "title": "सुरक्षा",
+    "termsAndConditions": "नियम आ शर्त",
+    "privacyPolicy": "गोपनीयता नीति",
+    "deleteAccount": "एकाउंट मिटावीं",
+    "deleteAccountConfirm": "का रउआ सच्चे अपना एकाउंट मिटावे के चाहत बानी? एह काम वापस ना हो सकेला।"
+  },
+  "profile": {
+    "title": "हमार प्रोफाइल",
+    "personalInformation": "व्यक्तिगत जानकारी",
+    "firstName": "पहिला नाम",
+    "enterFirstName": "पहिला नाम भरीं",
+    "lastName": "अंतिम नाम",
+    "enterLastName": "अंतिम नाम भरीं",
+    "contactNumber": "संपर्क नंबर",
+    "emailAddress": "ईमेल पता",
+    "enterEmail": "ईमेल पता भरीं",
+    "address": "पता",
+    "enterAddress": "पता भरीं",
+    "companyDetails": "कंपनी विवरण",
+    "companyName": "कंपनी के नाम",
+    "enterCompanyName": "कंपनी के नाम भरीं",
+    "companyLogo": "कंपनी लोगो",
+    "uploadImages": "छवि अपलोड करीं",
+    "companyTagline": "कंपनी टैगलाइन",
+    "enterTextHere": "यहां टेक्स्ट भरीं",
+    "otherInformation": "अन्य जानकारी",
+    "gstin": "GSTIN",
+    "enterNumber": "नंबर भरीं",
+    "panCard": "PAN कार्ड"
+  },
+  "changeLanguage": {
+    "title": "भाषाएं",
+    "setLanguage": "भाषा सेट करीं",
+    "error": "भाषा पसंद सेव ना हो सकल। फिर से कोसिस करीं।"
+  }
+}
+

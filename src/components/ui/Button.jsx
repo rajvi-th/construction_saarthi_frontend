@@ -24,6 +24,7 @@ export default function Button({
   const variants = {
     primary: 'bg-accent text-white hover:bg-[#9F290A] focus:ring-accent disabled:opacity-50 disabled:cursor-not-allowed',
     secondary: 'bg-[#FBFBFB] text-secondary border border-gray-200 hover:bg-gray-50 focus:ring-gray-300 disabled:opacity-50 disabled:cursor-not-allowed',
+    danger: 'bg-accent text-white hover:bg-[#9F290A] focus:ring-accent disabled:opacity-50 disabled:cursor-not-allowed',
   };
 
   const sizes = {
@@ -56,15 +57,18 @@ export default function Button({
 
   const leftIconElement = renderLeftIcon();
 
+  // Get variant classes with fallback to primary
+  const variantClasses = variants[variant] || variants.primary;
+
   return (
     <button
       type={type}
       disabled={disabled}
-      className={`${baseClasses} ${variants[variant]} ${sizes[size]} ${className}`}
+      className={`${baseClasses} ${variantClasses} ${sizes[size]} ${className}`}
       {...props}
     >
       {leftIconElement && (
-        <span className={`flex items-center justify-center bg-white rounded-full p-1 ${iconClassName || ''}`}>
+        <span className={`flex items-center justify-center bg-white rounded-full p-1 text-accent ${iconClassName || ''}`}>
           {leftIconElement}
         </span>
       )}
