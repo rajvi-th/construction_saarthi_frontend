@@ -8,6 +8,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(customParseFormat);
 
 // Custom theme to override MUI's default blue colors
 const datePickerTheme = createTheme({
@@ -93,17 +96,24 @@ export default function DatePicker({
   error,
   disabled = false,
   className = '',
-  placeholder = 'Select date',
+  placeholder = 'dd/mm/yyyy',
   minDate,
   maxDate,
   ...props
 }) {
   return (
     <div className={`w-full ${className}`}>
+      {/* Label above input */}
+      {label && (
+        <label className="block text-sm font-medium text-primary mb-2">
+          {label}
+          {required && <span className="text-accent ml-1">*</span>}
+        </label>
+      )}
+      
       <ThemeProvider theme={datePickerTheme}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <MuiDatePicker
-          label={label}
           value={value ? dayjs(value) : null}
           onChange={(newValue) => {
             if (onChange) {
@@ -113,10 +123,10 @@ export default function DatePicker({
           disabled={disabled}
           minDate={minDate ? dayjs(minDate) : undefined}
           maxDate={maxDate ? dayjs(maxDate) : undefined}
+          format="DD/MM/YYYY"
           slotProps={{
             textField: {
               placeholder: placeholder,
-              required: required,
               error: !!error,
               helperText: error,
               fullWidth: true,
@@ -127,15 +137,16 @@ export default function DatePicker({
                   fontFamily: 'inherit',
                   backgroundColor: disabled ? '#F9FAFB' : '#FFFFFF',
                   '&:hover .MuiOutlinedInput-notchedOutline': {
-                    borderColor: error ? '#B02E0C' : 'rgba(6, 12, 18, 0.3)',
+                    borderColor: error ? '#EF4444' : '#9CA3AF !important',
+                    borderWidth: '1px !important',
                   },
                   '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                    borderColor: error ? '#B02E0C' : 'rgba(6, 12, 18, 0.3)',
-                    borderWidth: '1px',
+                    borderColor: error ? '#EF4444 !important' : 'rgba(0, 0, 0, 0.3) !important',
+                    borderWidth: '1px !important',
                   },
                   '&.Mui-error .MuiOutlinedInput-notchedOutline': {
-                    borderColor: '#B02E0C',
-                    borderWidth: '1px',
+                    borderColor: '#EF4444 !important',
+                    borderWidth: '1px !important',
                   },
                   '&.Mui-disabled': {
                     opacity: 0.5,
@@ -143,25 +154,17 @@ export default function DatePicker({
                     backgroundColor: '#F9FAFB',
                   },
                   '& fieldset': {
-                    borderColor: error ? '#B02E0C' : '#E5E5E5',
+                    borderColor: error ? '#EF4444' : '#D1D5DB',
                     borderWidth: '1px',
+                    transition: 'border-color 0.2s ease',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: error ? '#EF4444 !important' : 'rgba(0, 0, 0, 0.3) !important',
+                    borderWidth: '1px !important',
                   },
                 },
                 '& .MuiInputLabel-root': {
-                  fontFamily: 'inherit',
-                  fontSize: '0.875rem',
-                  fontWeight: 500,
-                  color: '#060C12',
-                  '&.Mui-focused': {
-                    color: error ? '#B02E0C' : '#060C12',
-                  },
-                  '&.Mui-error': {
-                    color: '#B02E0C',
-                  },
-                  '&.Mui-disabled': {
-                    color: '#060C12',
-                    opacity: 0.5,
-                  },
+                  display: 'none',
                 },
                 '& .MuiInputBase-input': {
                   fontFamily: 'inherit',
@@ -170,7 +173,7 @@ export default function DatePicker({
                   color: '#060C12',
                   cursor: disabled ? 'not-allowed' : 'text',
                   '&::placeholder': {
-                    color: '#6B6B6B',
+                    color: '#060C1280',
                     opacity: 1,
                   },
                   '&:focus': {
@@ -182,7 +185,7 @@ export default function DatePicker({
                   fontSize: '0.875rem',
                   marginTop: '4px',
                   marginLeft: '0px',
-                  color: '#B02E0C',
+                  color: '#EF4444',
                 },
                 '& .MuiIconButton-root': {
                   color: '#6B6B6B',

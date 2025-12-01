@@ -10,24 +10,24 @@ import { ROUTES_FLAT } from "../../constants/routes";
 import home from "../../assets/icons/home.svg";
 
 import project from "../../assets/icons/project.svg";
-import progressReport from "../../assets/icons/progress-report.svg";
+import progressReport from "../../assets/icons/progressReport.svg";
 import gallery from "../../assets/icons/gallery.svg";
-import builderClient from "../../assets/icons/builder-client.svg";
+import builderClient from "../../assets/icons/builderClient.svg";
 import vendorsIcon from "../../assets/icons/vendors.svg";
-import pastWork from "../../assets/icons/past-work.svg";
-import businessCard from "../../assets/icons/business-card.svg";
+import pastWork from "../../assets/icons/pastWork.svg";
+import businessCard from "../../assets/icons/businessCard.svg";
 import referEarn from "../../assets/icons/dollar.svg";
 import subscription from "../../assets/icons/Subscription.svg";
-import homeLight from "../../assets/icons/home-light.svg";
-import projectLight from "../../assets/icons/project-light.svg";
-import progressReportLight from "../../assets/icons/progress-report-light.svg";
-import galleryLight from "../../assets/icons/gallery-light.svg";
-import builderLight from "../../assets/icons/builder-light.svg";
-import vendorsLight from "../../assets/icons/vendors-light.svg";
-import businessCardLight from "../../assets/icons/business-light.svg";
-import referEarnLight from "../../assets/icons/refere-light.svg";
-import subscriptionLight from "../../assets/icons/subscription-light.svg";
-import userLight from "../../assets/icons/user-light.svg";
+import homeLight from "../../assets/icons/homeLight.svg";
+import projectLight from "../../assets/icons/projectLight.svg";
+import progressReportLight from "../../assets/icons/progressReportLight.svg";
+import galleryLight from "../../assets/icons/GalleryLight.svg";
+import builderLight from "../../assets/icons/builderLight.svg";
+import vendorsLight from "../../assets/icons/vendorsLight.svg";
+import businessCardLight from "../../assets/icons/businessLight.svg";
+import referEarnLight from "../../assets/icons/refereLight.svg";
+import subscriptionLight from "../../assets/icons/subscriptionLight.svg";
+import userLight from "../../assets/icons/userLight.svg";
 
 
 const Sidebar = () => {
@@ -68,7 +68,7 @@ const Sidebar = () => {
     {
       label: "Projects",
       labelKey: "sidebar.mainMenu.projects",
-      icon: project,
+      icon: pastWork,
       activeIcon: projectLight,
       path: ROUTES_FLAT.PROJECTS,
     },
@@ -249,7 +249,7 @@ const Sidebar = () => {
               to={item.path}
               onClick={handleClose}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-2 rounded-full transition-all duration-200
+                `flex items-center gap-3 text-sm px-4 py-2 rounded-full transition-all duration-200
                 ${isActive ? "bg-black text-white" : "text-primary hover:bg-gray-100"}`
               }
             >

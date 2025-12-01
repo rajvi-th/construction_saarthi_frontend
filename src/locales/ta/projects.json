@@ -1,0 +1,97 @@
+{
+  "header": {
+    "title": "திட்டங்கள்"
+  },
+  "search": {
+    "placeholder": "திட்டங்களைத் தேடு"
+  },
+  "status": {
+    "label": "நிலை",
+    "all": "அனைத்தும்",
+    "completed": "முடிந்தது",
+    "inProgress": "முன்னேற்றத்தில்"
+  },
+  "actions": {
+    "addNewProject": "புதிய திட்டம் சேர்",
+    "editProject": "திட்டத்தைத் திருத்து",
+    "deleteProject": "திட்டத்தை நீக்கு"
+  },
+  "emptyState": {
+    "noProjects": "திட்டங்கள் எதுவும் கிடைக்கவில்லை",
+    "adjustSearch": "உங்கள் தேடல் அல்லது வடிகட்டியை சரிசெய்ய முயற்சிக்கவும்",
+    "getStarted": "உங்கள் முதல் திட்டத்தைச் சேர்ப்பதன் மூலம் தொடங்கவும்"
+  },
+  "deleteModal": {
+    "title": "திட்டத்தை நீக்கு",
+    "message": "நீங்கள் நிச்சயமாக நீக்க விரும்புகிறீர்களா",
+    "messageSuffix": "இந்த பணியிடத்திலிருந்து திட்டம்? இந்த செயல் மீளமுடியாதது, மேலும் உங்கள் தரவை மீட்டெடுக்க முடியாது.",
+    "confirm": "ஆம், நீக்கு"
+  },
+  "addNewProject": {
+    "title": "புதிய திட்டம் சேர்",
+    "steps": {
+      "siteOverview": "தளம் கண்ணோட்டம்",
+      "projectSpecifications": "திட்ட விவரக்குறிப்புகள்",
+      "uploadDocuments": "தொடர்புடைய படங்கள்/ஆவணங்களைப் பதிவேற்றவும் (விருப்பமானது)"
+    },
+    "form": {
+      "uploadPhoto": "திட்ட சுயவிவர புகைப்படத்தைப் பதிவேற்றவும்",
+      "supportedFormat": "ஆதரிக்கப்படும் வடிவம்: JPG, PNG (ஒவ்வொன்றும் 10MB)",
+      "siteName": "தளத்தின் பெயர்",
+      "address": "முகவரி",
+      "builderName": "கட்டடக் கலைஞரின் பெயர்",
+      "estStartDate": "மதிப்பிடப்பட்ட தொடக்க தேதி",
+      "estCompletionDate": "மதிப்பிடப்பட்ட முடிவு தேதி",
+      "projectStatus": "திட்ட நிலை",
+      "selectBuilder": "கட்டடக் கலைஞரைத் தேர்ந்தெடு",
+      "addNewBuilder": "புதிய கட்டடக் கலைஞரைச் சேர்",
+      "upcoming": "வரவிருக்கும்",
+      "inProgress": "முன்னேற்றத்தில்",
+      "uploadRelevantDocuments": "தொடர்புடைய ஆவணங்களைப் பதிவேற்றவும்",
+      "projectSpecificationsPlaceholder": "திட்ட விவரக்குறிப்பு படிவம் இங்கே சேர்க்கப்படும்",
+      "saving": "சேமிக்கப்படுகிறது...",
+      "saveAndContinue": "சேமித்து தொடரவும்"
+    },
+    "validation": {
+      "siteNameRequired": "தளத்தின் பெயர் தேவையானது",
+      "addressRequired": "முகவரி தேவையானது",
+      "selectBuilder": "தயவுசெய்து ஒரு கட்டடக் கலைஞரைத் தேர்ந்தெடுக்கவும்",
+      "selectStartDate": "தயவுசெய்து ஒரு மதிப்பிடப்பட்ட தொடக்க தேதியைத் தேர்ந்தெடுக்கவும்"
+    }
+  },
+  "projectDetails": {
+    "editProject": "திட்டத்தைத் திருத்து",
+    "deleteProject": "திட்டத்தை நீக்கு",
+    "backToProjects": "திட்டங்களுக்குத் திரும்பு",
+    "loading": "திட்ட விவரங்கள் ஏற்றப்படுகின்றன...",
+    "notFound": "திட்டம் கிடைக்கவில்லை",
+    "siteManagementTools": "தள மேலாண்மை கருவிகள்",
+    "tools": {
+      "manageFinance": "நிதி மேலாண்மை",
+      "constructionCalculator": "கட்டுமான கால்குலேட்டர்",
+      "siteInventory": "தள சரக்கு",
+      "generateDocuments": "ஆவணங்களை உருவாக்கு",
+      "labourSheet": "தொழிலாளர் தாள்",
+      "gallery": "கேலரி",
+      "dailyProgressReport": "தினசரி முன்னேற்ற அறிக்கை (DPR)",
+      "addNotes": "குறிப்புகளைச் சேர்"
+    },
+    "builderClientInfo": "கட்டடக் கலைஞர் / வாடிக்கையாளர் தகவல்",
+    "noBuilderInfo": "கட்டடக் கலைஞர்/வாடிக்கையாளர் தகவல் எதுவும் கிடைக்கவில்லை",
+    "projectInformation": "திட்ட தகவல்",
+    "projectDescription": "திட்ட விளக்கம்",
+    "projectDuration": "திட்ட காலம்:",
+    "size": "அளவு:",
+    "noOfFloors": "மாடிகளின் எண்ணிக்கை:",
+    "constructionType": "கட்டுமான வகை:",
+    "contractType": "ஒப்பந்த வகை:",
+    "estBudget": "மதிப்பிடப்பட்ட பட்ஜெட்:",
+    "readMore": "மேலும் படிக்க",
+    "readLess": "குறைவாக படிக்க"
+  },
+  "projectCard": {
+    "editProject": "திட்டத்தைத் திருத்து",
+    "deleteProject": "திட்டத்தை நீக்கு"
+  }
+}
+

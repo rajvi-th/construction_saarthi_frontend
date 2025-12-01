@@ -1,0 +1,97 @@
+{
+  "header": {
+    "title": "प्रोजेक्ट्स"
+  },
+  "search": {
+    "placeholder": "प्रोजेक्ट्स खोजें"
+  },
+  "status": {
+    "label": "स्थिति",
+    "all": "सभी",
+    "completed": "पूर्ण",
+    "inProgress": "प्रगति में"
+  },
+  "actions": {
+    "addNewProject": "नया प्रोजेक्ट जोड़ें",
+    "editProject": "प्रोजेक्ट संपादित करें",
+    "deleteProject": "प्रोजेक्ट हटाएं"
+  },
+  "emptyState": {
+    "noProjects": "कोई प्रोजेक्ट नहीं मिला",
+    "adjustSearch": "अपनी खोज या फ़िल्टर को समायोजित करने का प्रयास करें",
+    "getStarted": "अपना पहला प्रोजेक्ट जोड़कर शुरुआत करें"
+  },
+  "deleteModal": {
+    "title": "प्रोजेक्ट हटाएं",
+    "message": "क्या आप वाकई हटाना चाहते हैं",
+    "messageSuffix": "इस वर्कस्पेस से प्रोजेक्ट? यह क्रिया अपरिवर्तनीय है, और आपका डेटा पुनर्प्राप्त नहीं किया जा सकता है।",
+    "confirm": "हाँ, हटाएं"
+  },
+  "addNewProject": {
+    "title": "नया प्रोजेक्ट जोड़ें",
+    "steps": {
+      "siteOverview": "साइट अवलोकन",
+      "projectSpecifications": "प्रोजेक्ट विनिर्देश",
+      "uploadDocuments": "प्रासंगिक छवियां / दस्तावेज़ अपलोड करें (वैकल्पिक)"
+    },
+    "form": {
+      "uploadPhoto": "प्रोजेक्ट प्रोफ़ाइल फोटो अपलोड करें",
+      "supportedFormat": "समर्थित प्रारूप: JPG, PNG (प्रत्येक 10MB)",
+      "siteName": "साइट का नाम",
+      "address": "पता",
+      "builderName": "बिल्डर का नाम",
+      "estStartDate": "अनुमानित प्रारंभ तिथि",
+      "estCompletionDate": "अनुमानित समापन तिथि",
+      "projectStatus": "प्रोजेक्ट स्थिति",
+      "selectBuilder": "बिल्डर चुनें",
+      "addNewBuilder": "नया बिल्डर जोड़ें",
+      "upcoming": "आगामी",
+      "inProgress": "प्रगति में",
+      "uploadRelevantDocuments": "प्रासंगिक दस्तावेज़ अपलोड करें",
+      "projectSpecificationsPlaceholder": "प्रोजेक्ट विनिर्देश फॉर्म यहाँ जोड़ा जाएगा",
+      "saving": "सहेजा जा रहा है...",
+      "saveAndContinue": "सहेजें और जारी रखें"
+    },
+    "validation": {
+      "siteNameRequired": "साइट का नाम आवश्यक है",
+      "addressRequired": "पता आवश्यक है",
+      "selectBuilder": "कृपया एक बिल्डर चुनें",
+      "selectStartDate": "कृपया एक अनुमानित प्रारंभ तिथि चुनें"
+    }
+  },
+  "projectDetails": {
+    "editProject": "प्रोजेक्ट संपादित करें",
+    "deleteProject": "प्रोजेक्ट हटाएं",
+    "backToProjects": "प्रोजेक्ट्स पर वापस जाएं",
+    "loading": "प्रोजेक्ट विवरण लोड हो रहा है...",
+    "notFound": "प्रोजेक्ट नहीं मिला",
+    "siteManagementTools": "साइट प्रबंधन उपकरण",
+    "tools": {
+      "manageFinance": "वित्त प्रबंधन",
+      "constructionCalculator": "निर्माण कैलकुलेटर",
+      "siteInventory": "साइट इन्वेंटरी",
+      "generateDocuments": "दस्तावेज़ जेनरेट करें",
+      "labourSheet": "श्रम पत्रक",
+      "gallery": "गैलरी",
+      "dailyProgressReport": "दैनिक प्रगति रिपोर्ट (DPR)",
+      "addNotes": "नोट्स जोड़ें"
+    },
+    "builderClientInfo": "बिल्डर / क्लाइंट जानकारी",
+    "noBuilderInfo": "कोई बिल्डर/क्लाइंट जानकारी उपलब्ध नहीं है",
+    "projectInformation": "प्रोजेक्ट जानकारी",
+    "projectDescription": "प्रोजेक्ट विवरण",
+    "projectDuration": "प्रोजेक्ट अवधि:",
+    "size": "आकार:",
+    "noOfFloors": "मंजिलों की संख्या:",
+    "constructionType": "निर्माण प्रकार:",
+    "contractType": "अनुबंध प्रकार:",
+    "estBudget": "अनुमानित बजट:",
+    "readMore": "और पढ़ें",
+    "readLess": "कम पढ़ें"
+  },
+  "projectCard": {
+    "editProject": "प्रोजेक्ट संपादित करें",
+    "deleteProject": "प्रोजेक्ट हटाएं"
+  }
+}
+

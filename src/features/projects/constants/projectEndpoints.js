@@ -7,7 +7,7 @@ export const PROJECT_ENDPOINTS = {
   // Project Endpoints
   PROJECT: {
     LIST: '/project',
-    CREATE: '/project',
+    CREATE: '/project/create',
     UPDATE: '/project/update',
     DELETE: '/project/delete',
     DETAILS: '/project/details',
@@ -17,7 +17,29 @@ export const PROJECT_ENDPOINTS = {
   // Builder Endpoints (for dropdown)
   BUILDER: {
     LIST: '/builder',
-    CREATE: '/builder',
+    CREATE: '/builder/create',
+  },
+  
+  // Project Start (for media upload)
+  PROJECT_START: {
+    START: '/project/start',
+  },
+  
+  // Project Upload Media
+  PROJECT_UPLOAD: {
+    UPLOAD: '/project/upload',
+  },
+  
+  // Construction Type Endpoints
+  CONSTRUCTION: {
+    LIST: '/construction',
+    CREATE: '/construction',
+  },
+  
+  // Contract Type Endpoints
+  CONTRACT_TYPE: {
+    LIST: '/contract-type',
+    CREATE: '/contract-type',
   },
 };
 
@@ -34,6 +56,20 @@ export const PROJECT_ENDPOINTS_FLAT = {
   // Builder
   BUILDER_LIST: PROJECT_ENDPOINTS.BUILDER.LIST,
   BUILDER_CREATE: PROJECT_ENDPOINTS.BUILDER.CREATE,
+  
+  // Project Start
+  PROJECT_START: PROJECT_ENDPOINTS.PROJECT_START.START,
+  
+  // Project Upload
+  PROJECT_UPLOAD: PROJECT_ENDPOINTS.PROJECT_UPLOAD.UPLOAD,
+  
+  // Construction Type
+  CONSTRUCTION_LIST: PROJECT_ENDPOINTS.CONSTRUCTION.LIST,
+  CONSTRUCTION_CREATE: PROJECT_ENDPOINTS.CONSTRUCTION.CREATE,
+  
+  // Contract Type
+  CONTRACT_TYPE_LIST: PROJECT_ENDPOINTS.CONTRACT_TYPE.LIST,
+  CONTRACT_TYPE_CREATE: PROJECT_ENDPOINTS.CONTRACT_TYPE.CREATE,
 };
 
 export default PROJECT_ENDPOINTS_FLAT;

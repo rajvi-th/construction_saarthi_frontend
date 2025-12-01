@@ -1,0 +1,97 @@
+{
+  "header": {
+    "title": "منصوبے"
+  },
+  "search": {
+    "placeholder": "منصوبے تلاش کریں"
+  },
+  "status": {
+    "label": "حالت",
+    "all": "سب",
+    "completed": "مکمل",
+    "inProgress": "جاری"
+  },
+  "actions": {
+    "addNewProject": "نیا منصوبہ شامل کریں",
+    "editProject": "منصوبہ میں ترمیم کریں",
+    "deleteProject": "منصوبہ حذف کریں"
+  },
+  "emptyState": {
+    "noProjects": "کوئی منصوبہ نہیں ملا",
+    "adjustSearch": "اپنی تلاش یا فلٹر کو ایڈجسٹ کرنے کی کوشش کریں",
+    "getStarted": "اپنا پہلا منصوبہ شامل کرکے شروع کریں"
+  },
+  "deleteModal": {
+    "title": "منصوبہ حذف کریں",
+    "message": "کیا آپ واقعی حذف کرنا چاہتے ہیں",
+    "messageSuffix": "اس ورک اسپیس سے منصوبہ؟ یہ عمل ناقابل واپسی ہے، اور آپ کا ڈیٹا بازیافت نہیں کیا جا سکتا۔",
+    "confirm": "ہاں، حذف کریں"
+  },
+  "addNewProject": {
+    "title": "نیا منصوبہ شامل کریں",
+    "steps": {
+      "siteOverview": "سائٹ کا جائزہ",
+      "projectSpecifications": "منصوبے کی تفصیلات",
+      "uploadDocuments": "متعلقہ تصاویر/دستاویزات اپ لوڈ کریں (اختیاری)"
+    },
+    "form": {
+      "uploadPhoto": "منصوبے کی پروفائل تصویر اپ لوڈ کریں",
+      "supportedFormat": "معاون فارمیٹ: JPG, PNG (ہر ایک 10MB)",
+      "siteName": "سائٹ کا نام",
+      "address": "پتہ",
+      "builderName": "بلڈر کا نام",
+      "estStartDate": "تخمینی آغاز کی تاریخ",
+      "estCompletionDate": "تخمینی تکمیل کی تاریخ",
+      "projectStatus": "منصوبے کی حالت",
+      "selectBuilder": "بلڈر منتخب کریں",
+      "addNewBuilder": "نیا بلڈر شامل کریں",
+      "upcoming": "آنے والا",
+      "inProgress": "جاری",
+      "uploadRelevantDocuments": "متعلقہ دستاویزات اپ لوڈ کریں",
+      "projectSpecificationsPlaceholder": "منصوبے کی تفصیلات کا فارم یہاں شامل کیا جائے گا",
+      "saving": "محفوظ ہو رہا ہے...",
+      "saveAndContinue": "محفوظ کریں اور جاری رکھیں"
+    },
+    "validation": {
+      "siteNameRequired": "سائٹ کا نام ضروری ہے",
+      "addressRequired": "پتہ ضروری ہے",
+      "selectBuilder": "براہ کرم ایک بلڈر منتخب کریں",
+      "selectStartDate": "براہ کرم ایک تخمینی آغاز کی تاریخ منتخب کریں"
+    }
+  },
+  "projectDetails": {
+    "editProject": "منصوبہ میں ترمیم کریں",
+    "deleteProject": "منصوبہ حذف کریں",
+    "backToProjects": "منصوبوں میں واپس جائیں",
+    "loading": "منصوبے کی تفصیلات لوڈ ہو رہی ہیں...",
+    "notFound": "منصوبہ نہیں ملا",
+    "siteManagementTools": "سائٹ مینجمنٹ ٹولز",
+    "tools": {
+      "manageFinance": "مالیات کا انتظام کریں",
+      "constructionCalculator": "تعمیر کیلکولیٹر",
+      "siteInventory": "سائٹ انوینٹری",
+      "generateDocuments": "دستاویزات تیار کریں",
+      "labourSheet": "مزدور شیٹ",
+      "gallery": "گیلری",
+      "dailyProgressReport": "روزانہ پیش رفت کی رپورٹ (DPR)",
+      "addNotes": "نوٹس شامل کریں"
+    },
+    "builderClientInfo": "بلڈر / کلائنٹ کی معلومات",
+    "noBuilderInfo": "بلڈر/کلائنٹ کی معلومات دستیاب نہیں",
+    "projectInformation": "منصوبے کی معلومات",
+    "projectDescription": "منصوبے کی تفصیل",
+    "projectDuration": "منصوبے کی مدت:",
+    "size": "سائز:",
+    "noOfFloors": "منزلوں کی تعداد:",
+    "constructionType": "تعمیر کی قسم:",
+    "contractType": "معاہدے کی قسم:",
+    "estBudget": "تخمینی بجٹ:",
+    "readMore": "مزید پڑھیں",
+    "readLess": "کم پڑھیں"
+  },
+  "projectCard": {
+    "editProject": "منصوبہ میں ترمیم کریں",
+    "deleteProject": "منصوبہ حذف کریں"
+  }
+}
+

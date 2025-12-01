@@ -70,8 +70,20 @@ const Navbar = () => {
   const breadcrumbs = useMemo(() => {
     const segments = location.pathname.split("/").filter(Boolean);
     if (segments.length === 0) return ["dashboard"];
+
+    // If we're on a project details page and have projectName in route state,
+    // replace the numeric ID segment with the human-readable project name.
+    if (
+      segments[0] === "projects" &&
+      segments.length > 1 &&
+      typeof location.state?.projectName === "string" &&
+      location.state.projectName.trim()
+    ) {
+      return [segments[0], location.state.projectName.trim()];
+    }
+
     return segments;
-  }, [location.pathname]);
+  }, [location.pathname, location.state]);
 
   const currentBreadcrumb = useMemo(() => {
     const last = breadcrumbs[breadcrumbs.length - 1] || "dashboard";

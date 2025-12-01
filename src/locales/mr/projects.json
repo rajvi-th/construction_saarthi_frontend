@@ -1,0 +1,97 @@
+{
+  "header": {
+    "title": "प्रकल्प"
+  },
+  "search": {
+    "placeholder": "प्रकल्प शोधा"
+  },
+  "status": {
+    "label": "स्थिती",
+    "all": "सर्व",
+    "completed": "पूर्ण",
+    "inProgress": "प्रगतीत"
+  },
+  "actions": {
+    "addNewProject": "नवीन प्रकल्प जोडा",
+    "editProject": "प्रकल्प संपादन करा",
+    "deleteProject": "प्रकल्प हटवा"
+  },
+  "emptyState": {
+    "noProjects": "प्रकल्प सापडले नाहीत",
+    "adjustSearch": "आपली शोध किंवा फिल्टर समायोजित करण्याचा प्रयत्न करा",
+    "getStarted": "आपला पहिला प्रकल्प जोडून प्रारंभ करा"
+  },
+  "deleteModal": {
+    "title": "प्रकल्प हटवा",
+    "message": "आपण खरोखर हटवू इच्छिता",
+    "messageSuffix": "या वर्कस्पेसमधून प्रकल्प? ही क्रिया अपरिवर्तनीय आहे, आणि आपला डेटा पुनर्प्राप्त करता येणार नाही.",
+    "confirm": "होय, हटवा"
+  },
+  "addNewProject": {
+    "title": "नवीन प्रकल्प जोडा",
+    "steps": {
+      "siteOverview": "साइट अवलोकन",
+      "projectSpecifications": "प्रकल्प विनिर्देश",
+      "uploadDocuments": "संबंधित छायाचित्रे/दस्तऐवज अपलोड करा (पर्यायी)"
+    },
+    "form": {
+      "uploadPhoto": "प्रकल्प प्रोफाइल फोटो अपलोड करा",
+      "supportedFormat": "समर्थित स्वरूप: JPG, PNG (प्रत्येकी 10MB)",
+      "siteName": "साइटचे नाव",
+      "address": "पत्ता",
+      "builderName": "बिल्डरचे नाव",
+      "estStartDate": "अंदाजे प्रारंभ तारीख",
+      "estCompletionDate": "अंदाजे पूर्णता तारीख",
+      "projectStatus": "प्रकल्प स्थिती",
+      "selectBuilder": "बिल्डर निवडा",
+      "addNewBuilder": "नवीन बिल्डर जोडा",
+      "upcoming": "आगामी",
+      "inProgress": "प्रगतीत",
+      "uploadRelevantDocuments": "संबंधित दस्तऐवज अपलोड करा",
+      "projectSpecificationsPlaceholder": "प्रकल्प विनिर्देश फॉर्म येथे जोडले जाईल",
+      "saving": "साठवत आहे...",
+      "saveAndContinue": "साठवा आणि सुरू ठेवा"
+    },
+    "validation": {
+      "siteNameRequired": "साइटचे नाव आवश्यक आहे",
+      "addressRequired": "पत्ता आवश्यक आहे",
+      "selectBuilder": "कृपया एक बिल्डर निवडा",
+      "selectStartDate": "कृपया एक अंदाजे प्रारंभ तारीख निवडा"
+    }
+  },
+  "projectDetails": {
+    "editProject": "प्रकल्प संपादन करा",
+    "deleteProject": "प्रकल्प हटवा",
+    "backToProjects": "प्रकल्पांकडे परत जा",
+    "loading": "प्रकल्प तपशील लोड होत आहे...",
+    "notFound": "प्रकल्प सापडला नाही",
+    "siteManagementTools": "साइट व्यवस्थापन साधने",
+    "tools": {
+      "manageFinance": "वित्त व्यवस्थापन",
+      "constructionCalculator": "बांधकाम कॅल्क्युलेटर",
+      "siteInventory": "साइट इन्व्हेंटरी",
+      "generateDocuments": "दस्तऐवज निर्माण करा",
+      "labourSheet": "कामगार पत्रक",
+      "gallery": "गॅलरी",
+      "dailyProgressReport": "दैनंदिन प्रगती अहवाल (DPR)",
+      "addNotes": "नोट्स जोडा"
+    },
+    "builderClientInfo": "बिल्डर / क्लायंट माहिती",
+    "noBuilderInfo": "बिल्डर/क्लायंट माहिती उपलब्ध नाही",
+    "projectInformation": "प्रकल्प माहिती",
+    "projectDescription": "प्रकल्प वर्णन",
+    "projectDuration": "प्रकल्प कालावधी:",
+    "size": "आकार:",
+    "noOfFloors": "मजल्यांची संख्या:",
+    "constructionType": "बांधकाम प्रकार:",
+    "contractType": "करार प्रकार:",
+    "estBudget": "अंदाजे अंदाज:",
+    "readMore": "अधिक वाचा",
+    "readLess": "कमी वाचा"
+  },
+  "projectCard": {
+    "editProject": "प्रकल्प संपादन करा",
+    "deleteProject": "प्रकल्प हटवा"
+  }
+}
+

@@ -1,130 +1,390 @@
 /**
  * Projects API
- * API calls for projects
+ * API calls for projects feature
  */
 
 import http from '../../../services/http';
+import axios from 'axios';
+import config from '../../../config';
 import { PROJECT_ENDPOINTS_FLAT } from '../constants/projectEndpoints';
 
 /**
- * Get Projects List
- * @param {Object} [params] - Query parameters
- * @param {string} [params.search] - Search query
- * @param {string} [params.status] - Filter by status
- * @returns {Promise<Object>} API response
+ * Get all projects for a workspace
+ * @param {string|number} workspaceId - Workspace ID
+ * @returns {Promise<Array>} List of projects
  */
-export const getProjects = async (params = {}) => {
-  const response = await http.get(PROJECT_ENDPOINTS_FLAT.PROJECT_LIST, { params });
-  return response;
-};
-
-/**
- * Get Project Details
- * @param {string|number} projectId - Project ID
- * @returns {Promise<Object>} API response
- */
-export const getProjectDetails = async (projectId) => {
-  const response = await http.get(`${PROJECT_ENDPOINTS_FLAT.PROJECT_DETAILS}/${projectId}`);
-  return response;
-};
-
-/**
- * Create Project
- * @param {Object} data - Project data
- * @returns {Promise<Object>} API response
- */
-export const createProject = async (data) => {
-  const formData = new FormData();
+export const getAllProjects = async (workspaceId) => {
+  if (!workspaceId) {
+    throw new Error('Workspace ID is required');
+  }
   
-  // Append all fields to FormData
-  Object.keys(data).forEach((key) => {
-    if (data[key] !== null && data[key] !== undefined) {
-      if (key === 'profile_photo' && data[key] instanceof File) {
-        formData.append(key, data[key]);
-      } else if (Array.isArray(data[key])) {
-        data[key].forEach((item, index) => {
-          if (item instanceof File) {
-            formData.append(`${key}[${index}]`, item);
-          } else {
-            formData.append(`${key}[${index}]`, item);
-          }
-        });
-      } else {
-        formData.append(key, data[key]);
+  const response = await http.get(`${PROJECT_ENDPOINTS_FLAT.PROJECT_LIST}/${workspaceId}`);
+  
+  // Handle response structure - projects can be in different formats
+  let projectsData = response?.projects || response?.data?.projects || response?.data || response || {};
+  
+  // If projects is an object (key-value pairs), convert to array and preserve IDs
+  if (projectsData && typeof projectsData === 'object' && !Array.isArray(projectsData)) {
+    projectsData = Object.entries(projectsData).map(([key, value]) => {
+      // Extract ID from key if it's in format "project:id"
+      const extractedId = key.startsWith('project:') 
+        ? key.replace('project:', '') 
+        : key;
+      
+      // Merge the extracted ID with the project data
+      return {
+        ...value,
+        id: value.id || extractedId,
+        project_id: value.project_id || extractedId,
+        _key: key, // Preserve original key for reference
+      };
+    });
+  }
+  
+  // Ensure it's an array
+  return Array.isArray(projectsData) ? projectsData : [];
+};
+
+/**
+ * Get project details by project ID
+ * @param {string|number} projectId - Project ID
+ * @param {string|number} workspaceId - Workspace ID (optional, for filtering)
+ * @returns {Promise<Object>} Project details
+ */
+export const getProjectDetails = async (projectId, workspaceId = null) => {
+  if (!projectId) {
+    throw new Error('Project ID is required');
+  }
+
+  try {
+    // Try to fetch from details endpoint first
+    const response = await http.get(`${PROJECT_ENDPOINTS_FLAT.PROJECT_DETAILS}/${projectId}`);
+    
+    // Handle response structure
+    const projectData = response?.data || response?.project || response || null;
+    
+    if (projectData) {
+      return projectData;
+    }
+    
+    // If details endpoint doesn't return data, fetch all projects and filter
+    if (workspaceId) {
+      const allProjects = await getAllProjects(workspaceId);
+      const project = allProjects.find(p => 
+        p.id?.toString() === projectId.toString() || 
+        p.project_id?.toString() === projectId.toString()
+      );
+      
+      if (project) {
+        return project;
       }
     }
-  });
-
-  const response = await http.post(PROJECT_ENDPOINTS_FLAT.PROJECT_CREATE, formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
-  return response;
-};
-
-/**
- * Update Project
- * @param {string|number} projectId - Project ID
- * @param {Object} data - Project data
- * @returns {Promise<Object>} API response
- */
-export const updateProject = async (projectId, data) => {
-  const formData = new FormData();
-  
-  // Append all fields to FormData
-  Object.keys(data).forEach((key) => {
-    if (data[key] !== null && data[key] !== undefined) {
-      if (key === 'profile_photo' && data[key] instanceof File) {
-        formData.append(key, data[key]);
-      } else if (Array.isArray(data[key])) {
-        data[key].forEach((item, index) => {
-          if (item instanceof File) {
-            formData.append(`${key}[${index}]`, item);
-          } else {
-            formData.append(`${key}[${index}]`, item);
-          }
-        });
-      } else {
-        formData.append(key, data[key]);
+    
+    throw new Error('Project not found');
+  } catch (error) {
+    // If details endpoint fails and workspaceId is provided, try fetching all and filtering
+    if (workspaceId && error?.response?.status === 404) {
+      const allProjects = await getAllProjects(workspaceId);
+      const project = allProjects.find(p => 
+        p.id?.toString() === projectId.toString() || 
+        p.project_id?.toString() === projectId.toString()
+      );
+      
+      if (project) {
+        return project;
       }
     }
-  });
-
-  const response = await http.put(`${PROJECT_ENDPOINTS_FLAT.PROJECT_UPDATE}/${projectId}`, formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
-  return response;
+    
+    throw error;
+  }
 };
 
 /**
- * Delete Project
- * @param {string|number} projectId - Project ID
- * @returns {Promise<Object>} API response
+ * Get all builders for a workspace
+ * @param {string|number} workspaceId - Workspace ID
+ * @returns {Promise<Array>} List of builders
  */
-export const deleteProject = async (projectId) => {
-  const response = await http.delete(`${PROJECT_ENDPOINTS_FLAT.PROJECT_DELETE}/${projectId}`);
-  return response;
+export const getAllBuilders = async (workspaceId) => {
+  if (!workspaceId) {
+    throw new Error('Workspace ID is required');
+  }
+  
+  const response = await http.get(`${PROJECT_ENDPOINTS_FLAT.BUILDER_LIST}?workspace_id=${workspaceId}`);
+  
+  // Handle response structure - API returns { builders: [...] }
+  const buildersData = response?.builders || response?.data?.builders || response?.data || response || [];
+  
+  // Ensure it's an array
+  return Array.isArray(buildersData) ? buildersData : [];
 };
 
 /**
- * Get Builders List
- * @returns {Promise<Object>} API response
- */
-export const getBuilders = async () => {
-  const response = await http.get(PROJECT_ENDPOINTS_FLAT.BUILDER_LIST);
-  return response;
-};
-
-/**
- * Create Builder
+ * Create a new builder
  * @param {Object} data - Builder data
- * @returns {Promise<Object>} API response
+ * @param {string} data.full_name - Builder full name
+ * @param {string} data.country_code - Country code (e.g., "+91")
+ * @param {string} data.phone_number - Phone number
+ * @param {string} data.language - Language code (e.g., "en")
+ * @param {string} [data.company_Name] - Company name (optional)
+ * @param {string} [data.address] - Address (optional)
+ * @param {string} data.role - Role (default: "builder")
+ * @param {string|number} data.workspace_id - Workspace ID
+ * @returns {Promise<Object>} Created builder
  */
 export const createBuilder = async (data) => {
-  const response = await http.post(PROJECT_ENDPOINTS_FLAT.BUILDER_CREATE, data);
-  return response;
+  if (!data.full_name || !data.full_name.trim()) {
+    throw new Error('Builder full name is required');
+  }
+  
+  if (!data.workspace_id) {
+    throw new Error('Workspace ID is required');
+  }
+  
+  const requestBody = {
+    full_name: data.full_name.trim(),
+    country_code: data.country_code || '+91',
+    phone_number: data.phone_number || '',
+    language: data.language || 'en',
+    company_Name: data.company_Name || '',
+    address: data.address || '',
+    role: data.role || 'builder',
+    workspace_id: data.workspace_id,
+  };
+  
+  const response = await http.post(PROJECT_ENDPOINTS_FLAT.BUILDER_CREATE, requestBody);
+  
+  return response?.data || response || {};
 };
 
+/**
+ * Start a project to get projectKey for media upload
+ * @param {string|number} workspaceId - Workspace ID
+ * @returns {Promise<Object>} Response with projectKey
+ */
+export const startProject = async (workspaceId) => {
+  if (!workspaceId) {
+    throw new Error('Workspace ID is required');
+  }
+  
+  const response = await http.post(`${PROJECT_ENDPOINTS_FLAT.PROJECT_START}/${workspaceId}`);
+  
+  return response?.data || response || {};
+};
+
+/**
+ * Upload media files using projectKey
+ * @param {string} projectKey - Project key from startProject
+ * @param {Object} files - Object with keys as media types and values as file arrays
+ * @param {Array} [files.profilePhoto] - Profile photo files
+ * @param {Array} [files.video] - Video files
+ * @param {Array} [files.media] - Media/document files
+ * @returns {Promise<Object>} Upload response
+ */
+export const uploadMedia = async (projectKey, files) => {
+  if (!projectKey) {
+    throw new Error('Project key is required');
+  }
+  
+  const formData = new FormData();
+  
+  // Add projectKey to formData
+  formData.append('projectKey', projectKey);
+  
+  // Debug: Log files structure
+  console.log('Uploading media files:', { projectKey, files });
+  
+  // Add files by key (media type)
+  Object.entries(files).forEach(([key, fileArray]) => {
+    // Skip if empty
+    if (!fileArray || (Array.isArray(fileArray) && fileArray.length === 0)) {
+      return;
+    }
+    
+    if (Array.isArray(fileArray) && fileArray.length > 0) {
+      fileArray.forEach((file, index) => {
+        // If file is a File object, append it
+        if (file instanceof File) {
+          formData.append(key, file);
+          console.log(`Appended ${key}[${index}]:`, file.name, file.type);
+        } else if (file && file.file && file.file instanceof File) {
+          // If file is wrapped in an object with .file property
+          formData.append(key, file.file);
+          console.log(`Appended ${key}[${index}]:`, file.file.name, file.file.type);
+        } else {
+          console.warn(`Skipping invalid file in ${key}[${index}]:`, file);
+        }
+      });
+    } else if (fileArray instanceof File) {
+      // Single file
+      formData.append(key, fileArray);
+      console.log(`Appended ${key}:`, fileArray.name, fileArray.type);
+    } else if (fileArray && fileArray.file && fileArray.file instanceof File) {
+      // Single file wrapped in object
+      formData.append(key, fileArray.file);
+      console.log(`Appended ${key}:`, fileArray.file.name, fileArray.file.type);
+    } else {
+      console.warn(`Skipping invalid file for ${key}:`, fileArray);
+    }
+  });
+  
+  // Debug: Log FormData contents
+  console.log('FormData entries:');
+  for (const [key, value] of formData.entries()) {
+    if (value instanceof File) {
+      console.log(`${key}:`, value.name, `(${value.size} bytes, ${value.type})`);
+    } else {
+      console.log(`${key}:`, value);
+    }
+  }
+  
+  // Use axios directly with FormData (bypass http service to set Content-Type correctly)
+  const token = localStorage.getItem('token');
+  
+  try {
+    const response = await axios.post(
+      `${config.API_BASE_URL}${PROJECT_ENDPOINTS_FLAT.PROJECT_UPLOAD}`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          ...(token && { Authorization: `Bearer ${token}` }),
+        },
+      }
+    );
+    
+    console.log('Upload response:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Upload error:', error);
+    console.error('Error response:', error?.response?.data);
+    throw error;
+  }
+};
+
+/**
+ * Create a new project
+ * @param {Object} data - Project data
+ * @param {string|number} data.workspaceId - Workspace ID (will be used in URL path)
+ * @param {string} data.name - Project name
+ * @param {string} data.status - Project status
+ * @param {Object} data.details - Project details
+ * @returns {Promise<Object>} Created project
+ */
+export const createProject = async (data) => {
+  if (!data.workspaceId) {
+    throw new Error('Workspace ID is required');
+  }
+  
+  if (!data.name || !data.name.trim()) {
+    throw new Error('Project name is required');
+  }
+  
+  const requestBody = {
+    name: data.name.trim(),
+    status: data.status || 'pending',
+    details: data.details || {},
+  };
+  
+  // Include workspaceId in the URL path: /project/create/{workspaceId}
+  const response = await http.post(
+    `${PROJECT_ENDPOINTS_FLAT.PROJECT_CREATE}/${data.workspaceId}`,
+    requestBody
+  );
+  
+  return response?.data || response || {};
+};
+
+/**
+ * Get all construction types for a workspace
+ * @param {string|number} workspaceId - Workspace ID
+ * @returns {Promise<Array>} List of construction types
+ */
+export const getAllConstructionTypes = async (workspaceId) => {
+  if (!workspaceId) {
+    throw new Error('Workspace ID is required');
+  }
+  
+  const response = await http.get(`${PROJECT_ENDPOINTS_FLAT.CONSTRUCTION_LIST}/${workspaceId}`);
+  
+  // Handle response structure - API returns { constructions: [...] }
+  // http service already returns response.data, so response is the data object
+  const constructionTypesData = 
+    response?.constructions || 
+    response?.data?.constructions || 
+    response?.constructionTypes || 
+    response?.construction || 
+    (Array.isArray(response) ? response : response?.data) || 
+    [];
+  
+  // Ensure it's an array
+  return Array.isArray(constructionTypesData) ? constructionTypesData : [];
+};
+
+/**
+ * Create a new construction type
+ * @param {Object} data - Construction type data
+ * @param {string} data.name - Construction type name
+ * @param {boolean} [data.requiresFloors] - Whether this type requires floors
+ * @returns {Promise<Object>} Created construction type
+ */
+export const createConstructionType = async (data) => {
+  if (!data.name || !data.name.trim()) {
+    throw new Error('Construction type name is required');
+  }
+  
+  const requestBody = {
+    name: data.name.trim(),
+    requiresFloors: data.requiresFloors !== undefined ? data.requiresFloors : true,
+  };
+  
+  const response = await http.post(PROJECT_ENDPOINTS_FLAT.CONSTRUCTION_CREATE, requestBody);
+  
+  return response?.data || response || {};
+};
+
+/**
+ * Get all contract types for a workspace
+ * @param {string|number} workspaceId - Workspace ID
+ * @returns {Promise<Array>} List of contract types
+ */
+export const getAllContractTypes = async (workspaceId) => {
+  if (!workspaceId) {
+    throw new Error('Workspace ID is required');
+  }
+  
+  const response = await http.get(`${PROJECT_ENDPOINTS_FLAT.CONTRACT_TYPE_LIST}/${workspaceId}`);
+  
+  // Handle response structure - API might return { contractTypes: [...] } or { contract_types: [...] }
+  // http service already returns response.data, so response is the data object
+  const contractTypesData = 
+    response?.contractTypes || 
+    response?.contract_types ||
+    response?.data?.contractTypes || 
+    response?.data?.contract_types ||
+    response?.contract_type || 
+    (Array.isArray(response) ? response : response?.data) || 
+    [];
+  
+  // Ensure it's an array
+  return Array.isArray(contractTypesData) ? contractTypesData : [];
+};
+
+/**
+ * Create a new contract type
+ * @param {Object} data - Contract type data
+ * @param {string} data.name - Contract type name
+ * @returns {Promise<Object>} Created contract type
+ */
+export const createContractType = async (data) => {
+  if (!data.name || !data.name.trim()) {
+    throw new Error('Contract type name is required');
+  }
+  
+  const requestBody = {
+    name: data.name.trim(),
+  };
+  
+  const response = await http.post(PROJECT_ENDPOINTS_FLAT.CONTRACT_TYPE_CREATE, requestBody);
+  
+  return response?.data || response || {};
+};

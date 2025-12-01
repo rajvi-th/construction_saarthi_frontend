@@ -75,9 +75,9 @@ export default function FileUpload({
         {/* Upload Icon */}
         <div className="flex justify-center mb-3 sm:mb-4">
           <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-[rgba(176,46,12,0.04)] flex items-center justify-center">
-            <img 
-              src={UploadIcon} 
-              alt="Upload" 
+            <img
+              src={UploadIcon}
+              alt="Upload"
               className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8"
             />
           </div>
@@ -94,12 +94,15 @@ export default function FileUpload({
         </p>
 
         {/* Upload Button */}
-        <Button
-          variant="primary"
-          onClick={handleButtonClick}
-        >
-          Upload
-        </Button>
+        <div className='flex items-center justify-center'>
+          <Button
+            variant="primary"
+            onClick={handleButtonClick}
+
+          >
+            Upload
+          </Button>
+        </div>
 
         {/* Hidden File Input */}
         <input

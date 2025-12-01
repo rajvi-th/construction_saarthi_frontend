@@ -1,0 +1,97 @@
+{
+  "header": {
+    "title": "ప్రాజెక్టులు"
+  },
+  "search": {
+    "placeholder": "ప్రాజెక్టులను శోధించండి"
+  },
+  "status": {
+    "label": "స్థితి",
+    "all": "అన్నీ",
+    "completed": "పూర్తయింది",
+    "inProgress": "పురోగతిలో"
+  },
+  "actions": {
+    "addNewProject": "కొత్త ప్రాజెక్ట్ జోడించండి",
+    "editProject": "ప్రాజెక్ట్ సవరించండి",
+    "deleteProject": "ప్రాజెక్ట్ తొలగించండి"
+  },
+  "emptyState": {
+    "noProjects": "ప్రాజెక్టులు కనుగొనబడలేదు",
+    "adjustSearch": "మీ శోధన లేదా ఫిల్టర్‌ను సర్దుబాటు చేయడానికి ప్రయత్నించండి",
+    "getStarted": "మీ మొదటి ప్రాజెక్ట్‌ను జోడించడం ద్వారా ప్రారంభించండి"
+  },
+  "deleteModal": {
+    "title": "ప్రాజెక్ట్ తొలగించండి",
+    "message": "మీరు నిజంగా తొలగించాలనుకుంటున్నారా",
+    "messageSuffix": "ఈ వర్క్‌స్పేస్‌నుండి ప్రాజెక్ట్? ఈ చర్య తిరిగి పొందలేనిది, మరియు మీ డేటాను పునరుద్ధరించలేము.",
+    "confirm": "అవును, తొలగించండి"
+  },
+  "addNewProject": {
+    "title": "కొత్త ప్రాజెక్ట్ జోడించండి",
+    "steps": {
+      "siteOverview": "సైట్ అవలోకనం",
+      "projectSpecifications": "ప్రాజెక్ట్ వివరణలు",
+      "uploadDocuments": "సంబంధిత చిత్రాలు/పత్రాలను అప్‌లోడ్ చేయండి (ఐచ్ఛికం)"
+    },
+    "form": {
+      "uploadPhoto": "ప్రాజెక్ట్ ప్రొఫైల్ ఫోటోను అప్‌లోడ్ చేయండి",
+      "supportedFormat": "సమర్థించబడిన ఫార్మాట్: JPG, PNG (ప్రతి 10MB)",
+      "siteName": "సైట్ పేరు",
+      "address": "చిరునామా",
+      "builderName": "బిల్డర్ పేరు",
+      "estStartDate": "అంచనా ప్రారంభ తేదీ",
+      "estCompletionDate": "అంచనా పూర్తి తేదీ",
+      "projectStatus": "ప్రాజెక్ట్ స్థితి",
+      "selectBuilder": "బిల్డర్‌ను ఎంచుకోండి",
+      "addNewBuilder": "కొత్త బిల్డర్ జోడించండి",
+      "upcoming": "రాబోయే",
+      "inProgress": "పురోగతిలో",
+      "uploadRelevantDocuments": "సంబంధిత పత్రాలను అప్‌లోడ్ చేయండి",
+      "projectSpecificationsPlaceholder": "ప్రాజెక్ట్ వివరణల ఫారమ్ ఇక్కడ జోడించబడుతుంది",
+      "saving": "సేవ్ చేస్తున్నారు...",
+      "saveAndContinue": "సేవ్ చేసి కొనసాగించండి"
+    },
+    "validation": {
+      "siteNameRequired": "సైట్ పేరు అవసరం",
+      "addressRequired": "చిరునామా అవసరం",
+      "selectBuilder": "దయచేసి బిల్డర్‌ను ఎంచుకోండి",
+      "selectStartDate": "దయచేసి అంచనా ప్రారంభ తేదీని ఎంచుకోండి"
+    }
+  },
+  "projectDetails": {
+    "editProject": "ప్రాజెక్ట్ సవరించండి",
+    "deleteProject": "ప్రాజెక్ట్ తొలగించండి",
+    "backToProjects": "ప్రాజెక్టులకు తిరిగి వెళ్లండి",
+    "loading": "ప్రాజెక్ట్ వివరాలు లోడ్ అవుతున్నాయి...",
+    "notFound": "ప్రాజెక్ట్ కనుగొనబడలేదు",
+    "siteManagementTools": "సైట్ నిర్వహణ సాధనాలు",
+    "tools": {
+      "manageFinance": "ఫైనాన్స్ నిర్వహించండి",
+      "constructionCalculator": "నిర్మాణ కాలిక్యులేటర్",
+      "siteInventory": "సైట్ ఇన్వెంటరీ",
+      "generateDocuments": "పత్రాలను రూపొందించండి",
+      "labourSheet": "శ్రమ షీట్",
+      "gallery": "గ్యాలరీ",
+      "dailyProgressReport": "రోజువారీ పురోగతి నివేదిక (DPR)",
+      "addNotes": "నోట్లు జోడించండి"
+    },
+    "builderClientInfo": "బిల్డర్ / క్లయింట్ సమాచారం",
+    "noBuilderInfo": "బిల్డర్/క్లయింట్ సమాచారం అందుబాటులో లేదు",
+    "projectInformation": "ప్రాజెక్ట్ సమాచారం",
+    "projectDescription": "ప్రాజెక్ట్ వివరణ",
+    "projectDuration": "ప్రాజెక్ట్ వ్యవధి:",
+    "size": "పరిమాణం:",
+    "noOfFloors": "అంతస్తుల సంఖ్య:",
+    "constructionType": "నిర్మాణ రకం:",
+    "contractType": "కాంట్రాక్ట్ రకం:",
+    "estBudget": "అంచనా బడ్జెట్:",
+    "readMore": "మరింత చదవండి",
+    "readLess": "తక్కువ చదవండి"
+  },
+  "projectCard": {
+    "editProject": "ప్రాజెక్ట్ సవరించండి",
+    "deleteProject": "ప్రాజెక్ట్ తొలగించండి"
+  }
+}
+

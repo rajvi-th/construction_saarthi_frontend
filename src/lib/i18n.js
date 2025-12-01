@@ -55,6 +55,22 @@ import bhoDashboard from '../locales/bho/dashboard.json';
 import asDashboard from '../locales/as/dashboard.json';
 import hryDashboard from '../locales/hry/dashboard.json';
 
+// Import projects translations for all languages
+import enProjects from '../locales/en/projects.json';
+import hiProjects from '../locales/hi/projects.json';
+import guProjects from '../locales/gu/projects.json';
+import bnProjects from '../locales/bn/projects.json';
+import taProjects from '../locales/ta/projects.json';
+import mrProjects from '../locales/mr/projects.json';
+import teProjects from '../locales/te/projects.json';
+import knProjects from '../locales/kn/projects.json';
+import mlProjects from '../locales/ml/projects.json';
+import urProjects from '../locales/ur/projects.json';
+import rajProjects from '../locales/raj/projects.json';
+import bhoProjects from '../locales/bho/projects.json';
+import asProjects from '../locales/as/projects.json';
+import hryProjects from '../locales/hry/projects.json';
+
 // Get saved language from localStorage or default to 'en'
 const savedLang = localStorage.getItem('lang') || 'en';
 
@@ -63,71 +79,85 @@ const resources = {
     common: enCommon,
     auth: enAuth,
     dashboard: enDashboard,
+    projects: enProjects,
   },
   hi: {
     common: hiCommon,
     auth: hiAuth,
     dashboard: hiDashboard,
+    projects: hiProjects,
   },
   gu: {
     common: guCommon,
     auth: guAuth,
     dashboard: guDashboard,
+    projects: guProjects,
   },
   bn: {
     common: bnCommon,
     auth: bnAuth,
     dashboard: bnDashboard,
+    projects: bnProjects,
   },
   ta: {
     common: taCommon,
     auth: taAuth,
     dashboard: taDashboard,
+    projects: taProjects,
   },
   mr: {
     common: mrCommon,
     auth: mrAuth,
     dashboard: mrDashboard,
+    projects: mrProjects,
   },
   te: {
     common: teCommon,
     auth: teAuth,
     dashboard: teDashboard,
+    projects: teProjects,
   },
   kn: {
     common: knCommon,
     auth: knAuth,
     dashboard: knDashboard,
+    projects: knProjects,
   },
   ml: {
     common: mlCommon,
     auth: mlAuth,
     dashboard: mlDashboard,
+    projects: mlProjects,
   },
   ur: {
     common: urCommon,
     auth: urAuth,
     dashboard: urDashboard,
+    projects: urProjects,
   },
   raj: {
     common: rajCommon,
     auth: rajAuth,
     dashboard: rajDashboard,
+    projects: rajProjects,
   },
   bho: {
     common: bhoCommon,
     auth: bhoAuth,
     dashboard: bhoDashboard,
+    projects: bhoProjects,
   },
   as: {
     common: asCommon,
     auth: asAuth,
     dashboard: asDashboard,
+    projects: asProjects,
   },
   hry: {
     common: hryCommon,
     auth: hryAuth,
     dashboard: hryDashboard,
+    projects: hryProjects,
   },
 };
 
@@ -142,7 +172,7 @@ i18n
       escapeValue: false, // React already escapes values
     },
     defaultNS: 'common',
-    ns: ['common', 'auth', 'dashboard'],
+    ns: ['common', 'auth', 'dashboard', 'projects'],
   });
 
 export default i18n;

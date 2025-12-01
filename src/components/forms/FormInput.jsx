@@ -7,19 +7,25 @@ function FormInput({
   label,
   name,
   register,
+  validationRules,
   errors,
   type = 'text',
   placeholder = '',
   required = false,
   className = '',
+  labelClassName = '',
   ...props
 }) {
   const errorMessage = errors[name]?.message;
+  const registration = register ? register(name, validationRules) : {};
 
   return (
     <div className={`mb-4 ${className}`}>
       {label && (
-        <label htmlFor={name} className="block text-sm font-medium text-primary mb-2">
+        <label
+          htmlFor={name}
+          className={`block text-sm font-medium text-primary mb-2 ${labelClassName}`}
+        >
           {label}
           {required && <span className="text-accent ml-1">*</span>}
         </label>
@@ -28,12 +34,13 @@ function FormInput({
         id={name}
         type={type}
         placeholder={placeholder}
-        {...register(name)}
+        {...registration}
         className={`
-          w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 transition-colors
+          w-full px-4 py-2 border rounded-lg focus:outline-none transition-colors
+          placeholder:text-primary-light
           ${errorMessage 
-            ? 'border-accent focus:ring-accent' 
-            : 'border-gray-300 focus:ring-primary focus:border-primary'
+            ? 'border-red-500 focus:border-red-500' 
+            : 'border-gray-300 focus:border-black/30 hover:border-gray-400'
           }
         `}
         {...props}

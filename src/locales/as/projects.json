@@ -1,0 +1,97 @@
+{
+  "header": {
+    "title": "প্ৰকল্পসমূহ"
+  },
+  "search": {
+    "placeholder": "প্ৰকল্পসমূহ বিচাৰক"
+  },
+  "status": {
+    "label": "অবস্থা",
+    "all": "সকলো",
+    "completed": "সম্পূৰ্ণ",
+    "inProgress": "অগ্ৰগতি হৈ আছে"
+  },
+  "actions": {
+    "addNewProject": "নতুন প্ৰকল্প যোগ কৰক",
+    "editProject": "প্ৰকল্প সম্পাদনা কৰক",
+    "deleteProject": "প্ৰকল্প মচক"
+  },
+  "emptyState": {
+    "noProjects": "কোনো প্ৰকল্প পোৱা নগ'ল",
+    "adjustSearch": "আপোনাৰ সন্ধান বা ফিল্টাৰ সমন্বয় কৰাৰ চেষ্টা কৰক",
+    "getStarted": "আপোনাৰ প্ৰথম প্ৰকল্প যোগ কৰি আৰম্ভ কৰক"
+  },
+  "deleteModal": {
+    "title": "প্ৰকল্প মচক",
+    "message": "আপুনি নিশ্চিতভাৱে মচিব বিচাৰে",
+    "messageSuffix": "এই কাৰ্যক্ষেত্ৰৰ পৰা প্ৰকল্প? এই কাৰ্য্যটো অপরিবর্তনীয়, আৰু আপোনাৰ ডাটা পুনৰুদ্ধাৰ কৰিব নোৱাৰি।",
+    "confirm": "হয়, মচক"
+  },
+  "addNewProject": {
+    "title": "নতুন প্ৰকল্প যোগ কৰক",
+    "steps": {
+      "siteOverview": "ছাইট ওভাৰভিউ",
+      "projectSpecifications": "প্ৰকল্পৰ বিৱৰণ",
+      "uploadDocuments": "সম্পৰ্কিত ছবি/নথি আপলোড কৰক (ঐচ্ছিক)"
+    },
+    "form": {
+      "uploadPhoto": "প্ৰকল্প প্ৰ'ফাইল ছবি আপলোড কৰক",
+      "supportedFormat": "সমৰ্থিত ফৰমেট: JPG, PNG (প্ৰতিটো 10MB)",
+      "siteName": "ছাইটৰ নাম",
+      "address": "ঠিকনা",
+      "builderName": "বিল্ডাৰৰ নাম",
+      "estStartDate": "আনুমানিক আৰম্ভণিৰ তাৰিখ",
+      "estCompletionDate": "আনুমানিক সমাপ্তিৰ তাৰিখ",
+      "projectStatus": "প্ৰকল্পৰ অৱস্থা",
+      "selectBuilder": "বিল্ডাৰ নিৰ্বাচন কৰক",
+      "addNewBuilder": "নতুন বিল্ডাৰ যোগ কৰক",
+      "upcoming": "আগন্তুক",
+      "inProgress": "অগ্ৰগতি হৈ আছে",
+      "uploadRelevantDocuments": "সম্পৰ্কিত নথি আপলোড কৰক",
+      "projectSpecificationsPlaceholder": "প্ৰকল্পৰ বিৱৰণ ফৰ্ম ইয়াত যোগ কৰা হ'ব",
+      "saving": "সংৰক্ষণ কৰা হৈছে...",
+      "saveAndContinue": "সংৰক্ষণ কৰক আৰু আগবাঢ়ক"
+    },
+    "validation": {
+      "siteNameRequired": "ছাইটৰ নাম প্ৰয়োজন",
+      "addressRequired": "ঠিকনা প্ৰয়োজন",
+      "selectBuilder": "অনুগ্ৰহ কৰি এটা বিল্ডাৰ নিৰ্বাচন কৰক",
+      "selectStartDate": "অনুগ্ৰহ কৰি এটা আনুমানিক আৰম্ভণিৰ তাৰিখ নিৰ্বাচন কৰক"
+    }
+  },
+  "projectDetails": {
+    "editProject": "প্ৰকল্প সম্পাদনা কৰক",
+    "deleteProject": "প্ৰকল্প মচক",
+    "backToProjects": "প্ৰকল্পসমূহলৈ ঘূৰি যাওক",
+    "loading": "প্ৰকল্পৰ বিৱৰণ ল'ড হৈ আছে...",
+    "notFound": "প্ৰকল্প পোৱা নগ'ল",
+    "siteManagementTools": "ছাইট ব্যৱস্থাপনা সা-সৰঞ্জাম",
+    "tools": {
+      "manageFinance": "অৰ্থ ব্যৱস্থাপনা",
+      "constructionCalculator": "নিৰ্মাণ কেলকুলেটৰ",
+      "siteInventory": "ছাইট ইনভেন্টৰী",
+      "generateDocuments": "নথি সৃষ্টি কৰক",
+      "labourSheet": "শ্ৰম শীট",
+      "gallery": "গেলেৰী",
+      "dailyProgressReport": "দৈনিক অগ্ৰগতি ৰিপোৰ্ট (DPR)",
+      "addNotes": "নোট যোগ কৰক"
+    },
+    "builderClientInfo": "বিল্ডাৰ / ক্লায়েণ্ট তথ্য",
+    "noBuilderInfo": "কোনো বিল্ডাৰ/ক্লায়েণ্ট তথ্য উপলব্ধ নাই",
+    "projectInformation": "প্ৰকল্প তথ্য",
+    "projectDescription": "প্ৰকল্পৰ বিৱৰণ",
+    "projectDuration": "প্ৰকল্পৰ সময়কাল:",
+    "size": "আকাৰ:",
+    "noOfFloors": "মজলাৰ সংখ্যা:",
+    "constructionType": "নিৰ্মাণৰ ধৰণ:",
+    "contractType": "চুক্তিৰ ধৰণ:",
+    "estBudget": "আনুমানিক বাজেট:",
+    "readMore": "আৰু পঢ়ক",
+    "readLess": "কম পঢ়ক"
+  },
+  "projectCard": {
+    "editProject": "প্ৰকল্প সম্পাদনা কৰক",
+    "deleteProject": "প্ৰকল্প মচক"
+  }
+}
+

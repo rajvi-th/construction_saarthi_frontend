@@ -1,0 +1,97 @@
+{
+  "header": {
+    "title": "প্রকল্প"
+  },
+  "search": {
+    "placeholder": "প্রকল্প খুঁজুন"
+  },
+  "status": {
+    "label": "অবস্থা",
+    "all": "সব",
+    "completed": "সম্পন্ন",
+    "inProgress": "চলমান"
+  },
+  "actions": {
+    "addNewProject": "নতুন প্রকল্প যোগ করুন",
+    "editProject": "প্রকল্প সম্পাদনা করুন",
+    "deleteProject": "প্রকল্প মুছে ফেলুন"
+  },
+  "emptyState": {
+    "noProjects": "কোন প্রকল্প পাওয়া যায়নি",
+    "adjustSearch": "আপনার অনুসন্ধান বা ফিল্টার সামঞ্জস্য করার চেষ্টা করুন",
+    "getStarted": "আপনার প্রথম প্রকল্প যোগ করে শুরু করুন"
+  },
+  "deleteModal": {
+    "title": "প্রকল্প মুছে ফেলুন",
+    "message": "আপনি কি নিশ্চিত যে আপনি মুছে ফেলতে চান",
+    "messageSuffix": "এই ওয়ার্কস্পেস থেকে প্রকল্প? এই কাজটি অপরিবর্তনীয়, এবং আপনার ডেটা পুনরুদ্ধার করা যাবে না।",
+    "confirm": "হ্যাঁ, মুছে ফেলুন"
+  },
+  "addNewProject": {
+    "title": "নতুন প্রকল্প যোগ করুন",
+    "steps": {
+      "siteOverview": "সাইট ওভারভিউ",
+      "projectSpecifications": "প্রকল্পের বিবরণ",
+      "uploadDocuments": "প্রাসঙ্গিক ছবি/নথি আপলোড করুন (ঐচ্ছিক)"
+    },
+    "form": {
+      "uploadPhoto": "প্রকল্প প্রোফাইল ছবি আপলোড করুন",
+      "supportedFormat": "সমর্থিত ফরম্যাট: JPG, PNG (প্রতিটি 10MB)",
+      "siteName": "সাইটের নাম",
+      "address": "ঠিকানা",
+      "builderName": "বিল্ডারের নাম",
+      "estStartDate": "আনুমানিক শুরুর তারিখ",
+      "estCompletionDate": "আনুমানিক সমাপ্তির তারিখ",
+      "projectStatus": "প্রকল্পের অবস্থা",
+      "selectBuilder": "বিল্ডার নির্বাচন করুন",
+      "addNewBuilder": "নতুন বিল্ডার যোগ করুন",
+      "upcoming": "আসন্ন",
+      "inProgress": "চলমান",
+      "uploadRelevantDocuments": "প্রাসঙ্গিক নথি আপলোড করুন",
+      "projectSpecificationsPlaceholder": "প্রকল্পের বিবরণ ফর্ম এখানে যোগ করা হবে",
+      "saving": "সংরক্ষণ করা হচ্ছে...",
+      "saveAndContinue": "সংরক্ষণ করুন এবং চালিয়ে যান"
+    },
+    "validation": {
+      "siteNameRequired": "সাইটের নাম প্রয়োজন",
+      "addressRequired": "ঠিকানা প্রয়োজন",
+      "selectBuilder": "অনুগ্রহ করে একটি বিল্ডার নির্বাচন করুন",
+      "selectStartDate": "অনুগ্রহ করে একটি আনুমানিক শুরুর তারিখ নির্বাচন করুন"
+    }
+  },
+  "projectDetails": {
+    "editProject": "প্রকল্প সম্পাদনা করুন",
+    "deleteProject": "প্রকল্প মুছে ফেলুন",
+    "backToProjects": "প্রকল্পে ফিরে যান",
+    "loading": "প্রকল্পের বিবরণ লোড হচ্ছে...",
+    "notFound": "প্রকল্প পাওয়া যায়নি",
+    "siteManagementTools": "সাইট ব্যবস্থাপনা সরঞ্জাম",
+    "tools": {
+      "manageFinance": "অর্থ ব্যবস্থাপনা",
+      "constructionCalculator": "নির্মাণ ক্যালকুলেটর",
+      "siteInventory": "সাইট ইনভেন্টরি",
+      "generateDocuments": "নথি তৈরি করুন",
+      "labourSheet": "শ্রম শীট",
+      "gallery": "গ্যালারি",
+      "dailyProgressReport": "দৈনিক অগ্রগতি রিপোর্ট (DPR)",
+      "addNotes": "নোট যোগ করুন"
+    },
+    "builderClientInfo": "বিল্ডার / ক্লায়েন্ট তথ্য",
+    "noBuilderInfo": "কোন বিল্ডার/ক্লায়েন্ট তথ্য উপলব্ধ নেই",
+    "projectInformation": "প্রকল্প তথ্য",
+    "projectDescription": "প্রকল্পের বিবরণ",
+    "projectDuration": "প্রকল্পের সময়কাল:",
+    "size": "আকার:",
+    "noOfFloors": "তলার সংখ্যা:",
+    "constructionType": "নির্মাণের ধরন:",
+    "contractType": "চুক্তির ধরন:",
+    "estBudget": "আনুমানিক বাজেট:",
+    "readMore": "আরও পড়ুন",
+    "readLess": "কম পড়ুন"
+  },
+  "projectCard": {
+    "editProject": "প্রকল্প সম্পাদনা করুন",
+    "deleteProject": "প্রকল্প মুছে ফেলুন"
+  }
+}
+

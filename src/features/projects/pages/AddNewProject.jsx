@@ -1,460 +1,535 @@
 /**
  * Add New Project Page
- * Multi-step form for creating a new project
+ * Multi-step style layout for creating a project (UI only for now)
+ * Uses shared UI + form components and translations from `projects` namespace.
  */
 
-import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Camera } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
+
+import {
+  AddProjectSteps,
+  SiteOverviewFormSection,
+  ProjectSpecificationsFormSection,
+  UploadDocumentsSection,
+} from '../components';
 import Button from '../../../components/ui/Button';
-import FormInput from '../../../components/forms/FormInput';
-import FormSelect from '../../../components/forms/FormSelect';
-import Dropdown from '../../../components/ui/Dropdown';
-import DatePicker from '../../../components/ui/DatePicker';
-import Radio from '../../../components/ui/Radio';
-import FileUpload from '../../../components/ui/FileUpload';
-import { createProject, getBuilders, createBuilder } from '../api';
-import { PROJECT_ROUTES } from '../constants';
+import { 
+  getAllBuilders, 
+  createBuilder, 
+  startProject, 
+  uploadMedia, 
+  createProject,
+  getAllConstructionTypes,
+  createConstructionType,
+  getAllContractTypes,
+  createContractType,
+} from '../api';
 import { showError, showSuccess } from '../../../utils/toast';
+import { useAuth } from '../../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+import { PROJECT_ROUTES } from '../constants';
 
-const STEPS = [
-  { id: 1, label: 'Site Overview' },
-  { id: 2, label: 'Project Specifications' },
-  { id: 3, label: 'Upload Relevant Images /Documents (Optional)' },
-];
-
-export default function AddNewProject() {
+function AddNewProject() {
+  const { t } = useTranslation('projects');
+  const location = useLocation();
   const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [builders, setBuilders] = useState([]);
-  const [profilePhoto, setProfilePhoto] = useState(null);
-  const [profilePhotoPreview, setProfilePhotoPreview] = useState(null);
-  const fileInputRef = useRef(null);
+  const { selectedWorkspace } = useAuth();
+  
+  // Check if we're in edit mode by checking if the pathname includes '/edit'
+  const isEditMode = location.pathname.includes('/edit');
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
     setValue,
     watch,
-    trigger,
-    setError,
-    clearErrors,
+    formState: { errors },
   } = useForm({
     defaultValues: {
-      site_name: '',
+      siteName: '',
       address: '',
-      builder_name: '',
-      est_start_date: null,
-      est_completion_date: null,
-      project_status: 'in_progress',
+      builderName: '',
+      projectStatus: 'upcoming',
+      totalArea: '',
+      perSqFtRate: '',
+      noOfFloors: '',
+      constructionType: '',
+      contractType: '',
+      estimatedBudget: '',
+      projectDescription: '',
     },
   });
 
-  const projectStatus = watch('project_status');
+  const [currentStep] = useState(1); // For future step navigation if needed
+  const [startDate, setStartDate] = useState(null);
+  const [completionDate, setCompletionDate] = useState(null);
+  const [areaUnit, setAreaUnit] = useState('sqft'); // 'sqft' | 'meter'
+  const [builders, setBuilders] = useState([]);
+  const [isLoadingBuilders, setIsLoadingBuilders] = useState(false);
+  const [constructionTypes, setConstructionTypes] = useState([]);
+  const [isLoadingConstructionTypes, setIsLoadingConstructionTypes] = useState(false);
+  const [contractTypes, setContractTypes] = useState([]);
+  const [isLoadingContractTypes, setIsLoadingContractTypes] = useState(false);
+  const [profilePhoto, setProfilePhoto] = useState(null);
+  const [uploadedFiles, setUploadedFiles] = useState({
+    photos: [],
+    videos: [],
+    documents: [],
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const projectStatus = watch('projectStatus', 'upcoming');
+  const builderName = watch('builderName', '');
+  const constructionType = watch('constructionType', '');
+  const contractType = watch('contractType', '');
+
+  // Fetch builders on component mount
   useEffect(() => {
+    const fetchBuilders = async () => {
+      if (!selectedWorkspace) {
+        return;
+      }
+      
+      try {
+        setIsLoadingBuilders(true);
+        const buildersData = await getAllBuilders(selectedWorkspace);
+        
+        // Transform builders to dropdown options format
+        // API returns { builders: [{ id, full_name }] }
+        const builderOptions = buildersData.map((builder) => ({
+          value: builder.id?.toString() || builder.builderId?.toString() || builder._id?.toString(),
+          label: builder.full_name || builder.name || builder.builderName || '',
+        })).filter(builder => builder.label); // Filter out empty names
+        
+        setBuilders(builderOptions);
+      } catch (error) {
+        console.error('Error fetching builders:', error);
+        const errorMessage = 
+          error?.response?.data?.message ||
+          error?.message ||
+          'Failed to load builders';
+        showError(errorMessage);
+      } finally {
+        setIsLoadingBuilders(false);
+      }
+    };
+
     fetchBuilders();
-  }, []);
+  }, [selectedWorkspace]);
 
-  const fetchBuilders = async () => {
-    try {
-      const response = await getBuilders();
-      const buildersList = response?.data || response || [];
-      setBuilders(
-        buildersList.map((builder) => ({
-          value: builder.id?.toString() || builder.name,
-          label: builder.name || builder.builder_name,
-        }))
-      );
-    } catch (error) {
-      console.error('Error fetching builders:', error);
-    }
-  };
-
-  const handleProfilePhotoChange = (e) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      // Validate file size (10MB)
-      if (file.size > 10 * 1024 * 1024) {
-        showError('File size should be less than 10MB');
-        return;
-      }
-      // Validate file type
-      if (!['image/jpeg', 'image/jpg', 'image/png'].includes(file.type)) {
-        showError('Only JPG and PNG files are allowed');
-        return;
-      }
-      setProfilePhoto(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfilePhotoPreview(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleBuilderAdd = async (newBuilder) => {
-    try {
-      const response = await createBuilder({ name: newBuilder.label });
-      const newBuilderOption = {
-        value: response?.data?.id?.toString() || newBuilder.value,
-        label: newBuilder.label,
-      };
-      setBuilders((prev) => [...prev, newBuilderOption]);
-      setValue('builder_name', newBuilderOption.value);
-      return newBuilderOption;
-    } catch (error) {
-      console.error('Error creating builder:', error);
-      showError('Failed to add builder. Please try again.');
-      throw error;
-    }
-  };
-
-  const handleNext = async () => {
-    let isValid = false;
-
-    if (currentStep === 1) {
-      // Validate step 1 fields
-      const siteNameValid = await trigger('site_name');
-      const addressValid = await trigger('address');
-      const builderValid = watch('builder_name');
-      const startDateValid = watch('est_start_date');
-      const statusValid = watch('project_status');
-      
-      if (!builderValid) {
-        setError('builder_name', { type: 'manual', message: 'Please select a builder' });
-        showError('Please select a builder');
-        return;
-      }
-      if (!startDateValid) {
-        setError('est_start_date', { type: 'manual', message: 'Please select an estimated start date' });
-        showError('Please select an estimated start date');
+  // Fetch construction types on component mount
+  useEffect(() => {
+    const fetchConstructionTypes = async () => {
+      if (!selectedWorkspace) {
         return;
       }
       
-      isValid = siteNameValid && addressValid && builderValid && startDateValid && statusValid;
-    } else if (currentStep === 2) {
-      // Validate step 2 fields (will be added later)
-      isValid = true; // For now, allow proceeding
-    } else {
-      isValid = true; // Step 3 is optional
-    }
-
-    if (isValid) {
-      if (currentStep < STEPS.length) {
-        setCurrentStep(currentStep + 1);
-      } else {
-        await handleSubmit(onSubmit)();
+      try {
+        setIsLoadingConstructionTypes(true);
+        const constructionTypesData = await getAllConstructionTypes(selectedWorkspace);
+        
+        console.log('Construction types data:', constructionTypesData);
+        
+        // Transform to dropdown options format
+        const constructionTypeOptions = constructionTypesData.map((type) => ({
+          value: type.id?.toString() || type.constructionTypeId?.toString() || type._id?.toString(),
+          label: type.name || type.constructionTypeName || '',
+        })).filter(type => type.label); // Filter out empty names
+        
+        console.log('Construction type options:', constructionTypeOptions);
+        
+        setConstructionTypes(constructionTypeOptions);
+      } catch (error) {
+        console.error('Error fetching construction types:', error);
+        const errorMessage = 
+          error?.response?.data?.message ||
+          error?.message ||
+          'Failed to load construction types';
+        showError(errorMessage);
+      } finally {
+        setIsLoadingConstructionTypes(false);
       }
-    }
-  };
+    };
 
-  const handleBack = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    } else {
-      navigate(PROJECT_ROUTES.PROJECTS);
-    }
-  };
+    fetchConstructionTypes();
+  }, [selectedWorkspace]);
+
+  // Fetch contract types on component mount
+  useEffect(() => {
+    const fetchContractTypes = async () => {
+      if (!selectedWorkspace) {
+        return;
+      }
+      
+      try {
+        setIsLoadingContractTypes(true);
+        const contractTypesData = await getAllContractTypes(selectedWorkspace);
+        
+        // Transform to dropdown options format
+        const contractTypeOptions = contractTypesData.map((type) => ({
+          value: type.id?.toString() || type.contractTypeId?.toString() || type._id?.toString(),
+          label: type.name || type.contractTypeName || '',
+        })).filter(type => type.label); // Filter out empty names
+        
+        setContractTypes(contractTypeOptions);
+      } catch (error) {
+        console.error('Error fetching contract types:', error);
+        const errorMessage = 
+          error?.response?.data?.message ||
+          error?.message ||
+          'Failed to load contract types';
+        showError(errorMessage);
+      } finally {
+        setIsLoadingContractTypes(false);
+      }
+    };
+
+    fetchContractTypes();
+  }, [selectedWorkspace]);
+
+  const steps = [
+    {
+      id: 1,
+      title: t('addNewProject.steps.siteOverview'),
+    },
+    {
+      id: 2,
+      title: t('addNewProject.steps.projectSpecifications'),
+    },
+    {
+      id: 3,
+      title: t('addNewProject.steps.uploadDocuments'),
+    },
+  ];
 
   const onSubmit = async (data) => {
-    try {
-      setIsLoading(true);
+    if (!selectedWorkspace) {
+      showError('Workspace not selected');
+      return;
+    }
 
-      const formData = {
-        ...data,
-        profile_photo: profilePhoto,
-        builder_name: data.builder_name,
-        est_start_date: data.est_start_date ? new Date(data.est_start_date).toISOString() : null,
-        est_completion_date: data.est_completion_date ? new Date(data.est_completion_date).toISOString() : null,
+    try {
+      setIsSubmitting(true);
+
+      // Step 1: Start project to get projectKey
+      const startResponse = await startProject(selectedWorkspace);
+      const projectKey = startResponse?.projectKey;
+      
+      if (!projectKey) {
+        throw new Error('Failed to get project key');
+      }
+
+      // Step 2: Upload media files if any
+      const mediaFiles = {};
+      // Add profile photo if selected
+      if (profilePhoto) {
+        mediaFiles.profilePhoto = [profilePhoto];
+      }
+      // Add other photos if any
+      if (uploadedFiles.photos.length > 0) {
+        mediaFiles.media = uploadedFiles.photos.map(f => f.file);
+      }
+      if (uploadedFiles.videos.length > 0) {
+        mediaFiles.video = uploadedFiles.videos.map(f => f.file);
+      }
+      if (uploadedFiles.documents.length > 0) {
+        // If media already exists, merge documents
+        if (mediaFiles.media) {
+          mediaFiles.media = [...mediaFiles.media, ...uploadedFiles.documents.map(f => f.file)];
+        } else {
+          mediaFiles.media = uploadedFiles.documents.map(f => f.file);
+        }
+      }
+
+      if (Object.keys(mediaFiles).length > 0) {
+        await uploadMedia(projectKey, mediaFiles);
+      }
+
+      // Step 3: Create project with all details
+      const projectDetails = {
+        address: data.address || '',
+        builderId: data.builderName || null,
+        startDate: startDate ? new Date(startDate).toISOString().split('T')[0] : null,
+        endDate: completionDate ? new Date(completionDate).toISOString().split('T')[0] : null,
+        totalArea: data.totalArea || null,
+        gaugeTypeId: areaUnit === 'meter' ? '2' : '1', // Assuming 1 = sqft, 2 = meter
+        perUnitRate: data.perSqFtRate ? parseFloat(data.perSqFtRate) : null,
+        numberOfFloors: data.noOfFloors ? parseInt(data.noOfFloors) : null,
+        constructionTypeId: data.constructionType || null,
+        contractTypeId: data.contractType || null,
+        estimatedBudget: data.estimatedBudget ? parseFloat(data.estimatedBudget) : null,
+        description: data.projectDescription || '',
       };
 
-      await createProject(formData);
-      showSuccess('Project created successfully!');
+      const projectData = {
+        workspaceId: selectedWorkspace,
+        name: data.siteName,
+        status: data.projectStatus || 'pending',
+        details: projectDetails,
+      };
+
+      await createProject(projectData);
+
+      showSuccess('Project created successfully');
+      
+      // Navigate to projects list
       navigate(PROJECT_ROUTES.PROJECTS);
     } catch (error) {
       console.error('Error creating project:', error);
-      const errorMessage = error?.response?.data?.message || error?.message || 'Failed to create project. Please try again.';
+      const errorMessage = 
+        error?.response?.data?.message ||
+        error?.message ||
+        'Failed to create project';
       showError(errorMessage);
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleStatusChange = (value) => {
+    setValue('projectStatus', value, { shouldValidate: true });
+  };
+
+  const handleBuilderNameChange = (value) => {
+    setValue('builderName', value, { shouldValidate: true });
+  };
+
+  const handleAddNewBuilder = async (newOption, builderData) => {
+    if (!selectedWorkspace) {
+      showError('Workspace not selected');
+      return;
+    }
+    
+    try {
+      // Create builder via API with form data
+      const response = await createBuilder({
+        full_name: builderData.full_name || newOption.label,
+        country_code: builderData.country_code || '+91',
+        phone_number: builderData.phone_number || '',
+        language: builderData.language || 'en',
+        company_Name: builderData.company_Name || '',
+        address: builderData.address || '',
+        role: 'builder',
+        workspace_id: builderData.workspace_id || selectedWorkspace,
+      });
+      
+      // Get the new builder ID from response
+      const newBuilderId = response?.id?.toString() || 
+                          response?.data?.id?.toString() || 
+                          response?.builderId?.toString() ||
+                          newOption.value;
+      
+      // Add to builders list
+      const newBuilder = {
+        value: newBuilderId,
+        label: builderData.full_name || newOption.label,
+      };
+      
+      setBuilders((prev) => [...prev, newBuilder]);
+      
+      // Select the newly created builder
+      handleBuilderNameChange(newBuilderId);
+      
+      showSuccess('Builder added successfully');
+    } catch (error) {
+      console.error('Error creating builder:', error);
+      const errorMessage = 
+        error?.response?.data?.message ||
+        error?.message ||
+        'Failed to create builder';
+      showError(errorMessage);
+    }
+  };
+
+  const handleConstructionTypeChange = (value) => {
+    setValue('constructionType', value, { shouldValidate: true });
+  };
+
+  const handleContractTypeChange = (value) => {
+    setValue('contractType', value, { shouldValidate: true });
+  };
+
+  const handleAddNewConstructionType = async (data) => {
+    // data comes from ConstructionTypeModal with { label, value, requiresFloors }
+    try {
+      // Create construction type via API
+      const response = await createConstructionType({
+        name: data.label,
+        requiresFloors: data.requiresFloors !== undefined ? data.requiresFloors : true,
+      });
+      
+      // Get the new construction type ID from response
+      const newConstructionTypeId = response?.id?.toString() || 
+                                   response?.data?.id?.toString() || 
+                                   response?.constructionTypeId?.toString() ||
+                                   data.value;
+      
+      // Add to construction types list
+      const newConstructionType = {
+        value: newConstructionTypeId,
+        label: data.label,
+        requiresFloors: data.requiresFloors,
+      };
+      
+      setConstructionTypes((prev) => {
+        // Check if it already exists
+        const exists = prev.some((type) => type.label.toLowerCase() === data.label.toLowerCase());
+        if (exists) {
+          return prev;
+        }
+        return [...prev, newConstructionType];
+      });
+      
+      // Select the newly added option
+      handleConstructionTypeChange(newConstructionTypeId);
+      
+      showSuccess('Construction type added successfully');
+    } catch (error) {
+      console.error('Error creating construction type:', error);
+      const errorMessage = 
+        error?.response?.data?.message ||
+        error?.message ||
+        'Failed to create construction type';
+      showError(errorMessage);
+    }
+  };
+
+  const handleAddNewContractType = async (data) => {
+    // data comes from ContractTypeModal with { label, value }
+    try {
+      // Create contract type via API
+      const response = await createContractType({
+        name: data.label,
+      });
+      
+      // Get the new contract type ID from response
+      const newContractTypeId = response?.id?.toString() || 
+                               response?.data?.id?.toString() || 
+                               response?.contractTypeId?.toString() ||
+                               data.value;
+      
+      // Add to contract types list
+      const newContractType = {
+        value: newContractTypeId,
+        label: data.label,
+      };
+      
+      setContractTypes((prev) => {
+        // Check if it already exists
+        const exists = prev.some((type) => type.label.toLowerCase() === data.label.toLowerCase());
+        if (exists) {
+          return prev;
+        }
+        return [...prev, newContractType];
+      });
+      
+      // Select the newly added option
+      handleContractTypeChange(newContractTypeId);
+      
+      showSuccess('Contract type added successfully');
+    } catch (error) {
+      console.error('Error creating contract type:', error);
+      const errorMessage = 
+        error?.response?.data?.message ||
+        error?.message ||
+        'Failed to create contract type';
+      showError(errorMessage);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="flex">
-        {/* Left Sidebar - Progress Indicator */}
-        <div className="w-80 bg-white border-r border-gray-200 p-6 hidden lg:block">
-          <button
-            onClick={handleBack}
-            className="flex items-center gap-2 text-primary mb-8 hover:text-accent transition-colors cursor-pointer"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span className="font-medium">Add New Project</span>
-          </button>
-
-          <div className="space-y-6">
-            {STEPS.map((step, index) => {
-              const isActive = currentStep === step.id;
-              const isCompleted = currentStep > step.id;
-
-              return (
-                <div key={step.id} className="flex items-start gap-4">
-                  <div
-                    className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-semibold text-sm transition-colors ${
-                      isActive
-                        ? 'bg-accent text-white'
-                        : isCompleted
-                        ? 'bg-green-500 text-white'
-                        : 'bg-gray-200 text-secondary'
-                    }`}
-                  >
-                    {isCompleted ? '✓' : step.id}
-                  </div>
-                  <div className="flex-1 pt-2">
-                    <p
-                      className={`text-sm font-medium ${
-                        isActive ? 'text-primary' : 'text-secondary'
-                      }`}
-                    >
-                      {step.label}
-                    </p>
-                    {isActive && (
-                      <p className="text-xs text-secondary mt-1">
-                        {step.id} of {STEPS.length}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+    <div className="min-h-screen">
+      <div className="max-w-7xl mx-auto">
+        {/* Page Header */}
+        <div className="flex items-center gap-3 py-4 mb-2">
+          <h1 className="text-lg sm:text-[22px] font-semibold text-primary">
+            {isEditMode ? t('actions.editProject') : t('addNewProject.title')}
+          </h1>
         </div>
 
-        {/* Main Content */}
-        <div className="flex-1 p-6 lg:p-8">
-          {/* Mobile Header */}
-          <div className="lg:hidden mb-6">
-            <button
-              onClick={handleBack}
-              className="flex items-center gap-2 text-primary mb-4 hover:text-accent transition-colors cursor-pointer"
-            >
-              <ArrowLeft className="w-5 h-5" />
-              <span className="font-medium">Add New Project</span>
-            </button>
-            <div className="flex items-center gap-2 mb-4">
-              {STEPS.map((step, index) => (
-                <div
-                  key={step.id}
-                  className={`flex-1 h-2 rounded-full ${
-                    currentStep >= step.id ? 'bg-accent' : 'bg-gray-200'
-                  }`}
-                />
-              ))}
-            </div>
-            <p className="text-sm text-secondary">
-              Step {currentStep} of {STEPS.length}: {STEPS[currentStep - 1].label}
-            </p>
-          </div>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col lg:flex-row gap-6"
+        >
+          {/* Left: Steps Sidebar */}
+          <AddProjectSteps steps={steps} currentStep={currentStep} />
 
-          {/* Form Content */}
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-white rounded-2xl shadow-sm p-6 sm:p-8">
-              <h2 className="text-2xl font-semibold text-primary mb-6">
-                {STEPS[currentStep - 1].label}
-              </h2>
+          {/* Right: Form Content */}
+          <section className="flex-1 space-y-5">
+            <SiteOverviewFormSection
+              t={t}
+              register={register}
+              errors={errors}
+              startDate={startDate}
+              setStartDate={setStartDate}
+              completionDate={completionDate}
+              setCompletionDate={setCompletionDate}
+              projectStatus={projectStatus}
+              onStatusChange={handleStatusChange}
+              builderName={builderName}
+              onBuilderNameChange={handleBuilderNameChange}
+              builderOptions={builders}
+              isLoadingBuilders={isLoadingBuilders}
+              onAddNewBuilder={handleAddNewBuilder}
+              workspaceId={selectedWorkspace}
+              onProfilePhotoChange={setProfilePhoto}
+            />
 
-              {/* Step 1: Site Overview */}
-              {currentStep === 1 && (
-                <form className="space-y-6">
-                  {/* Upload Project Profile Photo */}
-                  <div>
-                    <label className="block text-sm font-medium text-primary mb-2">
-                      Upload Project Profile Photo
-                    </label>
-                    <div className="flex items-center gap-6">
-                      <div
-                        onClick={() => fileInputRef.current?.click()}
-                        className="w-32 h-32 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer hover:border-accent transition-colors bg-gray-50"
-                      >
-                        {profilePhotoPreview ? (
-                          <img
-                            src={profilePhotoPreview}
-                            alt="Profile preview"
-                            className="w-full h-full rounded-full object-cover"
-                          />
-                        ) : (
-                          <Camera className="w-8 h-8 text-secondary" />
-                        )}
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-xs text-secondary mb-2">
-                          Supported Format: JPG, PNG (10MB EACH)
-                        </p>
-                        <input
-                          ref={fileInputRef}
-                          type="file"
-                          accept="image/jpeg,image/jpg,image/png"
-                          onChange={handleProfilePhotoChange}
-                          className="hidden"
-                        />
-                      </div>
-                    </div>
-                  </div>
+            <ProjectSpecificationsFormSection
+              t={t}
+              register={register}
+              errors={errors}
+              areaUnit={areaUnit}
+              setAreaUnit={setAreaUnit}
+              constructionType={constructionType}
+              onConstructionTypeChange={handleConstructionTypeChange}
+              constructionTypeOptions={constructionTypes}
+              isLoadingConstructionTypes={isLoadingConstructionTypes}
+              onAddNewConstructionType={handleAddNewConstructionType}
+              contractType={contractType}
+              onContractTypeChange={handleContractTypeChange}
+              contractTypeOptions={contractTypes}
+              isLoadingContractTypes={isLoadingContractTypes}
+              onAddNewContractType={handleAddNewContractType}
+            />
 
-                  {/* Site Name */}
-                  <FormInput
-                    label="Site Name"
-                    name="site_name"
-                    register={register('site_name', {
-                      required: 'Site name is required',
-                    })}
-                    errors={errors}
-                    placeholder="Enter site name"
-                    required
-                  />
+            <UploadDocumentsSection 
+              t={t} 
+              onFilesChange={setUploadedFiles}
+            />
+          </section>
+        </form>
 
-                  {/* Address */}
-                  <FormInput
-                    label="Address"
-                    name="address"
-                    register={register('address', {
-                      required: 'Address is required',
-                    })}
-                    errors={errors}
-                    placeholder="Enter address"
-                    required
-                  />
-
-                  {/* Builder Name */}
-                  <div>
-                    <label className="block text-sm font-medium text-primary mb-2">
-                      Builder Name <span className="text-accent">*</span>
-                    </label>
-                    <Dropdown
-                      options={builders}
-                      value={watch('builder_name')}
-                      onChange={(value) => {
-                        setValue('builder_name', value);
-                        clearErrors('builder_name');
-                      }}
-                      placeholder="Select builder"
-                      showSeparator
-                      addButtonLabel="Add New Builder"
-                      onAddNew={handleBuilderAdd}
-                      error={errors.builder_name?.message}
-                    />
-                    {errors.builder_name && (
-                      <p className="mt-1 text-sm text-accent">{errors.builder_name.message}</p>
-                    )}
-                  </div>
-
-                  {/* Est. Start Date */}
-                  <div>
-                    <DatePicker
-                      label="Est. Start Date"
-                      value={watch('est_start_date')}
-                      onChange={(date) => {
-                        setValue('est_start_date', date);
-                        clearErrors('est_start_date');
-                      }}
-                      required
-                      placeholder="dd/mm/yyyy"
-                      error={errors.est_start_date?.message}
-                    />
-                    {errors.est_start_date && (
-                      <p className="mt-1 text-sm text-accent">{errors.est_start_date.message}</p>
-                    )}
-                  </div>
-
-                  {/* Est. Completion Date */}
-                  <div>
-                    <DatePicker
-                      label="Est. Completion Date"
-                      value={watch('est_completion_date')}
-                      onChange={(date) => setValue('est_completion_date', date)}
-                      placeholder="dd/mm/yyyy"
-                      minDate={watch('est_start_date')}
-                    />
-                  </div>
-
-                  {/* Project Status */}
-                  <div>
-                    <label className="block text-sm font-medium text-primary mb-3">
-                      Project status <span className="text-accent">*</span>
-                    </label>
-                    <div className="flex gap-6">
-                      <Radio
-                        label="Upcoming"
-                        name="project_status"
-                        value="upcoming"
-                        checked={projectStatus === 'upcoming'}
-                        onChange={() => setValue('project_status', 'upcoming')}
-                      />
-                      <Radio
-                        label="In Progress"
-                        name="project_status"
-                        value="in_progress"
-                        checked={projectStatus === 'in_progress'}
-                        onChange={() => setValue('project_status', 'in_progress')}
-                      />
-                    </div>
-                    {errors.project_status && (
-                      <p className="mt-1 text-sm text-accent">{errors.project_status.message}</p>
-                    )}
-                  </div>
-                </form>
-              )}
-
-              {/* Step 2: Project Specifications */}
-              {currentStep === 2 && (
-                <div className="text-center py-12">
-                  <p className="text-secondary">Project Specifications form will be added here</p>
-                </div>
-              )}
-
-              {/* Step 3: Upload Documents */}
-              {currentStep === 3 && (
-                <div>
-                  <FileUpload
-                    title="Upload Relevant Documents"
-                    supportedFormats="PDF, JPG, PNG"
-                    maxSize={10}
-                    maxSizeUnit="MB"
-                    onFileSelect={(files) => {
-                      console.log('Files selected:', files);
-                      // Handle file uploads
-                    }}
-                  />
-                </div>
-              )}
-
-              {/* Action Buttons */}
-              <div className="flex justify-end gap-4 mt-8 pt-6 border-t border-gray-200">
-                <Button variant="secondary" onClick={handleBack} disabled={isLoading}>
-                  {currentStep === 1 ? 'Cancel' : 'Back'}
-                </Button>
-                <Button
-                  variant="primary"
-                  onClick={handleNext}
-                  disabled={isLoading}
-                >
-                  {isLoading
-                    ? 'Saving...'
-                    : currentStep === STEPS.length
-                    ? 'Save & Continue'
-                    : 'Save & Continue'}
-                </Button>
-              </div>
-            </div>
-          </div>
+        {/* Actions */}
+        <div className="mt-6 flex justify-end gap-3">
+          <Button
+            type="button"
+            variant="secondary"
+            size="sm"
+            className="px-6"
+            onClick={() => {
+              // TODO: Handle cancel - navigate back or reset form
+            }}
+          >
+            {t('cancel', { ns: 'common' })}
+          </Button>
+          <Button
+            type="button"
+            variant="primary"
+            size="sm"
+            className="px-6"
+            onClick={handleSubmit(onSubmit)}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? t('addNewProject.form.creating') || 'Creating...' : t('addNewProject.form.createProject')}
+          </Button>
         </div>
       </div>
     </div>
   );
 }
 
+export default AddNewProject;

@@ -1,0 +1,97 @@
+{
+  "header": {
+    "title": "ಯೋಜನೆಗಳು"
+  },
+  "search": {
+    "placeholder": "ಯೋಜನೆಗಳನ್ನು ಹುಡುಕಿ"
+  },
+  "status": {
+    "label": "ಸ್ಥಿತಿ",
+    "all": "ಎಲ್ಲಾ",
+    "completed": "ಪೂರ್ಣಗೊಂಡಿದೆ",
+    "inProgress": "ಪ್ರಗತಿಯಲ್ಲಿದೆ"
+  },
+  "actions": {
+    "addNewProject": "ಹೊಸ ಯೋಜನೆ ಸೇರಿಸಿ",
+    "editProject": "ಯೋಜನೆಯನ್ನು ಸಂಪಾದಿಸಿ",
+    "deleteProject": "ಯೋಜನೆಯನ್ನು ಅಳಿಸಿ"
+  },
+  "emptyState": {
+    "noProjects": "ಯೋಜನೆಗಳು ಕಂಡುಬಂದಿಲ್ಲ",
+    "adjustSearch": "ನಿಮ್ಮ ಹುಡುಕಾಟ ಅಥವಾ ಫಿಲ್ಟರ್ ಅನ್ನು ಸರಿಹೊಂದಿಸಲು ಪ್ರಯತ್ನಿಸಿ",
+    "getStarted": "ನಿಮ್ಮ ಮೊದಲ ಯೋಜನೆಯನ್ನು ಸೇರಿಸುವ ಮೂಲಕ ಪ್ರಾರಂಭಿಸಿ"
+  },
+  "deleteModal": {
+    "title": "ಯೋಜನೆಯನ್ನು ಅಳಿಸಿ",
+    "message": "ನೀವು ನಿಜವಾಗಿಯೂ ಅಳಿಸಲು ಬಯಸುತ್ತೀರಾ",
+    "messageSuffix": "ಈ ಕಾರ್ಯಕ್ಷೇತ್ರದಿಂದ ಯೋಜನೆ? ಈ ಕ್ರಿಯೆಯು ಹಿಮ್ಮೆಟ್ಟಿಸಲಾಗದು, ಮತ್ತು ನಿಮ್ಮ ಡೇಟಾವನ್ನು ಮರುಪಡೆಯಲು ಸಾಧ್ಯವಿಲ್ಲ.",
+    "confirm": "ಹೌದು, ಅಳಿಸಿ"
+  },
+  "addNewProject": {
+    "title": "ಹೊಸ ಯೋಜನೆ ಸೇರಿಸಿ",
+    "steps": {
+      "siteOverview": "ಸೈಟ್ ಅವಲೋಕನ",
+      "projectSpecifications": "ಯೋಜನೆ ವಿವರಣೆಗಳು",
+      "uploadDocuments": "ಸಂಬಂಧಿತ ಚಿತ್ರಗಳು/ದಾಖಲೆಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ (ಐಚ್ಛಿಕ)"
+    },
+    "form": {
+      "uploadPhoto": "ಯೋಜನೆ ಪ್ರೊಫೈಲ್ ಫೋಟೋವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ",
+      "supportedFormat": "ಬೆಂಬಲಿತ ಸ್ವರೂಪ: JPG, PNG (ಪ್ರತಿ 10MB)",
+      "siteName": "ಸೈಟ್ ಹೆಸರು",
+      "address": "ವಿಳಾಸ",
+      "builderName": "ಬಿಲ್ಡರ್ ಹೆಸರು",
+      "estStartDate": "ಅಂದಾಜು ಪ್ರಾರಂಭ ದಿನಾಂಕ",
+      "estCompletionDate": "ಅಂದಾಜು ಪೂರ್ಣಗೊಳ್ಳುವ ದಿನಾಂಕ",
+      "projectStatus": "ಯೋಜನೆ ಸ್ಥಿತಿ",
+      "selectBuilder": "ಬಿಲ್ಡರ್ ಆಯ್ಕೆಮಾಡಿ",
+      "addNewBuilder": "ಹೊಸ ಬಿಲ್ಡರ್ ಸೇರಿಸಿ",
+      "upcoming": "ಮುಂಬರುವ",
+      "inProgress": "ಪ್ರಗತಿಯಲ್ಲಿದೆ",
+      "uploadRelevantDocuments": "ಸಂಬಂಧಿತ ದಾಖಲೆಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ",
+      "projectSpecificationsPlaceholder": "ಯೋಜನೆ ವಿವರಣೆಗಳ ಫಾರ್ಮ್ ಇಲ್ಲಿ ಸೇರಿಸಲಾಗುವುದು",
+      "saving": "ಉಳಿಸಲಾಗುತ್ತಿದೆ...",
+      "saveAndContinue": "ಉಳಿಸಿ ಮತ್ತು ಮುಂದುವರಿಸಿ"
+    },
+    "validation": {
+      "siteNameRequired": "ಸೈಟ್ ಹೆಸರು ಅಗತ್ಯವಿದೆ",
+      "addressRequired": "ವಿಳಾಸ ಅಗತ್ಯವಿದೆ",
+      "selectBuilder": "ದಯವಿಟ್ಟು ಬಿಲ್ಡರ್ ಆಯ್ಕೆಮಾಡಿ",
+      "selectStartDate": "ದಯವಿಟ್ಟು ಅಂದಾಜು ಪ್ರಾರಂಭ ದಿನಾಂಕವನ್ನು ಆಯ್ಕೆಮಾಡಿ"
+    }
+  },
+  "projectDetails": {
+    "editProject": "ಯೋಜನೆಯನ್ನು ಸಂಪಾದಿಸಿ",
+    "deleteProject": "ಯೋಜನೆಯನ್ನು ಅಳಿಸಿ",
+    "backToProjects": "ಯೋಜನೆಗಳಿಗೆ ಹಿಂತಿರುಗಿ",
+    "loading": "ಯೋಜನೆ ವಿವರಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ...",
+    "notFound": "ಯೋಜನೆ ಕಂಡುಬಂದಿಲ್ಲ",
+    "siteManagementTools": "ಸೈಟ್ ನಿರ್ವಹಣೆ ಉಪಕರಣಗಳು",
+    "tools": {
+      "manageFinance": "ಹಣಕಾಸು ನಿರ್ವಹಿಸಿ",
+      "constructionCalculator": "ನಿರ್ಮಾಣ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+      "siteInventory": "ಸೈಟ್ ಸ್ಟಾಕ್",
+      "generateDocuments": "ದಾಖಲೆಗಳನ್ನು ರಚಿಸಿ",
+      "labourSheet": "ಕಾರ್ಮಿಕ ಹಾಳೆ",
+      "gallery": "ಗ್ಯಾಲರಿ",
+      "dailyProgressReport": "ದೈನಂದಿನ ಪ್ರಗತಿ ವರದಿ (DPR)",
+      "addNotes": "ಟಿಪ್ಪಣಿಗಳನ್ನು ಸೇರಿಸಿ"
+    },
+    "builderClientInfo": "ಬಿಲ್ಡರ್ / ಕ್ಲೈಂಟ್ ಮಾಹಿತಿ",
+    "noBuilderInfo": "ಬಿಲ್ಡರ್/ಕ್ಲೈಂಟ್ ಮಾಹಿತಿ ಲಭ್ಯವಿಲ್ಲ",
+    "projectInformation": "ಯೋಜನೆ ಮಾಹಿತಿ",
+    "projectDescription": "ಯೋಜನೆ ವಿವರಣೆ",
+    "projectDuration": "ಯೋಜನೆ ಅವಧಿ:",
+    "size": "ಗಾತ್ರ:",
+    "noOfFloors": "ಅಂತಸ್ತುಗಳ ಸಂಖ್ಯೆ:",
+    "constructionType": "ನಿರ್ಮಾಣ ಪ್ರಕಾರ:",
+    "contractType": "ಒಪ್ಪಂದದ ಪ್ರಕಾರ:",
+    "estBudget": "ಅಂದಾಜು ಬಜೆಟ್:",
+    "readMore": "ಹೆಚ್ಚು ಓದಿ",
+    "readLess": "ಕಡಿಮೆ ಓದಿ"
+  },
+  "projectCard": {
+    "editProject": "ಯೋಜನೆಯನ್ನು ಸಂಪಾದಿಸಿ",
+    "deleteProject": "ಯೋಜನೆಯನ್ನು ಅಳಿಸಿ"
+  }
+}
+

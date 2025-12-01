@@ -78,6 +78,10 @@ import Settings from '../pages/Settings';
           <Route element={<Layout />}>
             <Route path={ROUTES_FLAT.DASHBOARD} element={<Dashboard />} />
             <Route path={ROUTES_FLAT.PROJECTS} element={<Projects />} />
+            <Route path={ROUTES_FLAT.PROJECT_DETAILS} element={<ProjectDetails />} />
+            <Route path={ROUTES_FLAT.ADD_NEW_PROJECT} element={<AddNewProject />} />
+            {/* Reuse AddNewProject page for editing an existing project */}
+            <Route path={ROUTES_FLAT.EDIT_PROJECT} element={<AddNewProject />} />
             <Route path={ROUTES_FLAT.SETTINGS} element={<Settings />} />
           </Route>
         </Route>

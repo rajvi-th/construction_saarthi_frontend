@@ -1,0 +1,125 @@
+{
+  "header": {
+    "title": "Projects"
+  },
+  "search": {
+    "placeholder": "Search Projects"
+  },
+  "status": {
+    "label": "Status",
+    "all": "All",
+    "completed": "Completed",
+    "inProgress": "In Progress",
+    "pending": "Pending"
+  },
+  "actions": {
+    "addNewProject": "Add New Project",
+    "editProject": "Edit Project",
+    "deleteProject": "Delete Project"
+  },
+  "emptyState": {
+    "noProjects": "No projects found",
+    "adjustSearch": "Try adjusting your search or filter",
+    "getStarted": "Get started by adding your first project"
+  },
+  "deleteModal": {
+    "title": "Delete Project",
+    "message": "Are you sure you want to delete",
+    "messageSuffix": "project from this workspace? This action is irreversible, and your data cannot be recovered.",
+    "confirm": "Yes, Delete"
+  },
+  "addNewProject": {
+    "title": "Add New Project",
+    "steps": {
+      "siteOverview": "Site Overview",
+      "projectSpecifications": "Project Specifications",
+      "uploadDocuments": "Upload Relevant Images /Documents (Optional)"
+    },
+    "form": {
+      "uploadPhoto": "Upload Project Profile Photo",
+      "supportedFormat": "Supported Format: JPG, PNG (10MB EACH)",
+      "siteName": "Site Name",
+      "siteNamePlaceholder": "Enter site name",
+      "address": "Address",
+      "addressPlaceholder": "Enter address",
+      "builderName": "Builder Name",
+      "estStartDate": "Est. Start Date",
+      "estCompletionDate": "Est. Completion Date",
+      "projectStatus": "Project status",
+      "selectBuilder": "Select builder",
+      "addNewBuilder": "Add New Builder",
+      "upcoming": "Upcoming",
+      "inProgress": "In Progress",
+      "uploadRelevantDocuments": "Upload Relevant Documents",
+      "projectSpecificationsPlaceholder": "Project Specifications form will be added here",
+      "saving": "Saving...",
+      "saveAndContinue": "Save & Continue",
+      "createProject": "Create Project",
+      "tabs": {
+        "photos": "Photos",
+        "videos": "Videos",
+        "documents": "Documents"
+      },
+      "noFilesUploaded": "No files uploaded yet",
+      "validation": {
+        "invalidFileType": "Please upload only {{tab}} files. {{count}} file(s) skipped.",
+        "fileTooLarge": "File size exceeds {{maxSize}} limit. {{count}} file(s) skipped."
+      },
+      "totalArea": "Total Area",
+      "enterValue": "Enter value",
+      "perSqFtRate": "Per Sq. Ft Rate",
+      "currencyPlaceholder": "₹ 0.0",
+      "constructionType": "Type of construction",
+      "selectType": "Select type",
+      "numberOfFloors": "Number of Floors",
+      "contractType": "Contract Type",
+      "estimatedBudget": "Est. Budget",
+      "projectDescription": "Project Description",
+      "writeDescription": "Write description"
+    },
+    "validation": {
+      "siteNameRequired": "Site name is required",
+      "addressRequired": "Address is required",
+      "selectBuilder": "Please select a builder",
+      "selectStartDate": "Please select an estimated start date"
+    }
+  },
+  "projectDetails": {
+    "editProject": "Edit Project",
+    "deleteProject": "Delete Project",
+    "backToProjects": "Back to Projects",
+    "loading": "Loading project details...",
+    "notFound": "Project not found",
+    "siteManagementTools": "Site Management Tools",
+    "tools": {
+      "manageFinance": "Manage Finance",
+      "constructionCalculator": "Construction Calculator",
+      "siteInventory": "Site Inventory",
+      "generateDocuments": "Generate Documents",
+      "labourSheet": "Labour Sheet",
+      "gallery": "Gallery",
+      "dailyProgressReport": "Daily Progress Report (DPR)",
+      "addNotes": "Add Notes"
+    },
+    "builderClientInfo": "Builder / Client Information",
+    "noBuilderInfo": "No builder/client information available",
+    "projectInformation": "Project Information",
+    "projectDescription": "Project Description",
+    "projectDuration": "Project Duration:",
+    "size": "Size:",
+    "noOfFloors": "No. of Floors:",
+    "constructionType": "Construction Type:",
+    "contractType": "Contract Type:",
+    "estBudget": "Est. Budget:",
+    "readMore": "read more",
+    "readLess": "read less"
+  },
+  "projectCard": {
+    "editProject": "Edit Project",
+    "deleteProject": "Delete Project"
+  },
+  "errors": {
+    "fetchFailed": "Failed to load projects"
+  }
+}
+

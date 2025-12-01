@@ -6,6 +6,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { ChevronDown, Plus } from 'lucide-react';
 import AddItemModal from './AddItemModal';
+import BuilderFormModal from './BuilderFormModal';
 
 export default function Dropdown({
   options: externalOptions = [],
@@ -21,6 +22,9 @@ export default function Dropdown({
   onAddNew,
   renderOption,
   customButton,
+  useBuilderModal = false,
+  workspaceId = null,
+  customModal: CustomModal = null,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,7 +54,11 @@ export default function Dropdown({
 
   return (
     <div className={`relative ${className}`} ref={dropdownRef}>
-      {label && <label className="block text-sm font-medium mb-2">{label}</label>}
+      {label && (
+        <label className="block text-sm font-medium text-primary font-normal mb-2">
+          {label}
+        </label>
+      )}
 
       {customButton ? (
         customButton(isOpen, setIsOpen)
@@ -86,17 +94,20 @@ export default function Dropdown({
             </div>
           )}
 
-          {options.map((option) => (
-            <button
-              key={option.value}
-              type="button"
-              onClick={() => handleSelect(option)}
-              className="w-full px-4 py-2 rounded-xl text-left text-sm transition-colors 
-                         hover:bg-gray-100 cursor-pointer"
-            >
-              {renderOption ? renderOption(option, value === option.value) : option.label}
-            </button>
-          ))}
+          {options.map((option) => {
+            const isSelected = value === option.value;
+            return (
+              <button
+                key={option.value}
+                type="button"
+                onClick={() => handleSelect(option)}
+                className={`w-full px-4 py-2 rounded-xl text-left text-sm transition-colors cursor-pointer
+                         ${isSelected ? 'bg-gray-100' : 'hover:bg-gray-50'}`}
+              >
+                {renderOption ? renderOption(option, isSelected) : option.label}
+              </button>
+            );
+          })}
 
           {showSeparator && (
             <>
@@ -125,8 +136,32 @@ export default function Dropdown({
 
       {error && <p className="text-sm text-red-500 mt-1">{error}</p>}
 
-      {/* Add Item Modal */}
-      {onAddNew && (
+      {/* Custom Modal, Builder Form Modal, or Add Item Modal */}
+      {onAddNew && CustomModal ? (
+        <CustomModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSave={async (data) => {
+            // Custom modal handles its own data structure
+            await onAddNew(data);
+          }}
+        />
+      ) : onAddNew && useBuilderModal ? (
+        <BuilderFormModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          workspaceId={workspaceId}
+          onSave={async (builderData) => {
+            const tempOption = {
+              value: `temp-${Date.now()}`,
+              label: builderData.full_name || builderData.name,
+            };
+            
+            // Parent will create builder and return the actual builder with ID
+            await onAddNew(tempOption, builderData);
+          }}
+        />
+      ) : onAddNew ? (
         <AddItemModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
@@ -161,7 +196,7 @@ export default function Dropdown({
           placeholder={`Enter ${addButtonLabel.replace('Add ', '').toLowerCase()} name`}
           label="Name"
         />
-      )}
+      ) : null}
     </div>
   );
 }

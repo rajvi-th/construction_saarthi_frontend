@@ -16,6 +16,7 @@ export default function Button({
   leftIcon,
   leftIconName,
   iconClassName = '',
+  leftIconWrapperClassName = '',
   iconSize,
   ...props
 }) {
@@ -64,7 +65,9 @@ export default function Button({
       {...props}
     >
       {leftIconElement && (
-        <span className={`flex items-center justify-center bg-white rounded-full p-1 ${iconClassName || ''}`}>
+        <span
+          className={`flex items-center justify-center bg-white rounded-full p-1 ${leftIconWrapperClassName} ${iconClassName}`}
+        >
           {leftIconElement}
         </span>
       )}

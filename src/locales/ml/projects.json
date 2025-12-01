@@ -1,0 +1,97 @@
+{
+  "header": {
+    "title": "പ്രോജക്റ്റുകൾ"
+  },
+  "search": {
+    "placeholder": "പ്രോജക്റ്റുകൾ തിരയുക"
+  },
+  "status": {
+    "label": "സ്ഥിതി",
+    "all": "എല്ലാം",
+    "completed": "പൂർത്തിയായി",
+    "inProgress": "പുരോഗതിയിൽ"
+  },
+  "actions": {
+    "addNewProject": "പുതിയ പ്രോജക്റ്റ് ചേർക്കുക",
+    "editProject": "പ്രോജക്റ്റ് എഡിറ്റ് ചെയ്യുക",
+    "deleteProject": "പ്രോജക്റ്റ് ഇല്ലാതാക്കുക"
+  },
+  "emptyState": {
+    "noProjects": "പ്രോജക്റ്റുകൾ കണ്ടെത്തിയില്ല",
+    "adjustSearch": "നിങ്ങളുടെ തിരയൽ അല്ലെങ്കിൽ ഫിൽട്ടർ ക്രമീകരിക്കാൻ ശ്രമിക്കുക",
+    "getStarted": "നിങ്ങളുടെ ആദ്യ പ്രോജക്റ്റ് ചേർത്ത് ആരംഭിക്കുക"
+  },
+  "deleteModal": {
+    "title": "പ്രോജക്റ്റ് ഇല്ലാതാക്കുക",
+    "message": "നിങ്ങൾക്ക് ശരിക്കും ഇല്ലാതാക്കണോ",
+    "messageSuffix": "ഈ വർക്ക്സ്പേസിൽ നിന്ന് പ്രോജക്റ്റ്? ഈ പ്രവർത്തനം പുനർനിർമ്മിക്കാനാവില്ല, നിങ്ങളുടെ ഡാറ്റ വീണ്ടെടുക്കാൻ കഴിയില്ല.",
+    "confirm": "അതെ, ഇല്ലാതാക്കുക"
+  },
+  "addNewProject": {
+    "title": "പുതിയ പ്രോജക്റ്റ് ചേർക്കുക",
+    "steps": {
+      "siteOverview": "സൈറ്റ് അവലോകനം",
+      "projectSpecifications": "പ്രോജക്റ്റ് സവിശേഷതകൾ",
+      "uploadDocuments": "ബന്ധപ്പെട്ട ചിത്രങ്ങൾ/പ്രമാണങ്ങൾ അപ്‌ലോഡ് ചെയ്യുക (ഓപ്‌ഷണൽ)"
+    },
+    "form": {
+      "uploadPhoto": "പ്രോജക്റ്റ് പ്രൊഫൈൽ ഫോട്ടോ അപ്‌ലോഡ് ചെയ്യുക",
+      "supportedFormat": "പിന്തുണയ്ക്കുന്ന ഫോർമാറ്റ്: JPG, PNG (ഓരോന്നും 10MB)",
+      "siteName": "സൈറ്റ് പേര്",
+      "address": "വിലാസം",
+      "builderName": "ബിൽഡർ പേര്",
+      "estStartDate": "കണക്കാക്കിയ ആരംഭ തീയതി",
+      "estCompletionDate": "കണക്കാക്കിയ പൂർത്തിയാകുന്ന തീയതി",
+      "projectStatus": "പ്രോജക്റ്റ് സ്ഥിതി",
+      "selectBuilder": "ബിൽഡർ തിരഞ്ഞെടുക്കുക",
+      "addNewBuilder": "പുതിയ ബിൽഡർ ചേർക്കുക",
+      "upcoming": "വരാനിരിക്കുന്ന",
+      "inProgress": "പുരോഗതിയിൽ",
+      "uploadRelevantDocuments": "ബന്ധപ്പെട്ട പ്രമാണങ്ങൾ അപ്‌ലോഡ് ചെയ്യുക",
+      "projectSpecificationsPlaceholder": "പ്രോജക്റ്റ് സവിശേഷതകളുടെ ഫോം ഇവിടെ ചേർക്കും",
+      "saving": "സേവ് ചെയ്യുന്നു...",
+      "saveAndContinue": "സേവ് ചെയ്ത് തുടരുക"
+    },
+    "validation": {
+      "siteNameRequired": "സൈറ്റ് പേര് ആവശ്യമാണ്",
+      "addressRequired": "വിലാസം ആവശ്യമാണ്",
+      "selectBuilder": "ദയവായി ഒരു ബിൽഡർ തിരഞ്ഞെടുക്കുക",
+      "selectStartDate": "ദയവായി കണക്കാക്കിയ ആരംഭ തീയതി തിരഞ്ഞെടുക്കുക"
+    }
+  },
+  "projectDetails": {
+    "editProject": "പ്രോജക്റ്റ് എഡിറ്റ് ചെയ്യുക",
+    "deleteProject": "പ്രോജക്റ്റ് ഇല്ലാതാക്കുക",
+    "backToProjects": "പ്രോജക്റ്റുകളിലേക്ക് മടങ്ങുക",
+    "loading": "പ്രോജക്റ്റ് വിശദാംശങ്ങൾ ലോഡ് ചെയ്യുന്നു...",
+    "notFound": "പ്രോജക്റ്റ് കണ്ടെത്തിയില്ല",
+    "siteManagementTools": "സൈറ്റ് മാനേജ്മെന്റ് ടൂളുകൾ",
+    "tools": {
+      "manageFinance": "ഫിനാൻസ് മാനേജ് ചെയ്യുക",
+      "constructionCalculator": "കൺസ്ട്രക്ഷൻ കാൽക്കുലേറ്റർ",
+      "siteInventory": "സൈറ്റ് ഇൻവെന്ററി",
+      "generateDocuments": "പ്രമാണങ്ങൾ സൃഷ്ടിക്കുക",
+      "labourSheet": "ജോലിക്കാരൻ ഷീറ്റ്",
+      "gallery": "ഗാലറി",
+      "dailyProgressReport": "ദൈനംദിന പുരോഗതി റിപ്പോർട്ട് (DPR)",
+      "addNotes": "കുറിപ്പുകൾ ചേർക്കുക"
+    },
+    "builderClientInfo": "ബിൽഡർ / ക്ലയന്റ് വിവരങ്ങൾ",
+    "noBuilderInfo": "ബിൽഡർ/ക്ലയന്റ് വിവരങ്ങൾ ലഭ്യമല്ല",
+    "projectInformation": "പ്രോജക്റ്റ് വിവരങ്ങൾ",
+    "projectDescription": "പ്രോജക്റ്റ് വിവരണം",
+    "projectDuration": "പ്രോജക്റ്റ് കാലാവധി:",
+    "size": "വലുപ്പം:",
+    "noOfFloors": "നിലകളുടെ എണ്ണം:",
+    "constructionType": "കൺസ്ട്രക്ഷൻ തരം:",
+    "contractType": "കരാർ തരം:",
+    "estBudget": "കണക്കാക്കിയ ബജറ്റ്:",
+    "readMore": "കൂടുതൽ വായിക്കുക",
+    "readLess": "കുറച്ച് വായിക്കുക"
+  },
+  "projectCard": {
+    "editProject": "പ്രോജക്റ്റ് എഡിറ്റ് ചെയ്യുക",
+    "deleteProject": "പ്രോജക്റ്റ് ഇല്ലാതാക്കുക"
+  }
+}
+
