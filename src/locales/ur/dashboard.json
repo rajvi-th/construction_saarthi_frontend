@@ -30,6 +30,11 @@
     "documents": "دستاویزات",
     "labourSheet": "مزدور شیٹ",
     "notes": "نوٹس"
+  },
+  "members": {
+    "title": "اراکین",
+    "deleteConfirmTitle": "رکن حذف کریں",
+    "deleteConfirmMessage": "کیا آپ واقعی حذف کرنا چاہتے ہیں"
   }
 }
 

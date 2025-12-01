@@ -94,11 +94,10 @@ export default function FileUpload({
         </p>
 
         {/* Upload Button */}
-        <div className='flex items-center justify-center'>
+        <div className="flex justify-center">
           <Button
             variant="primary"
             onClick={handleButtonClick}
-
           >
             Upload
           </Button>

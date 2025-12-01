@@ -30,6 +30,11 @@
     "documents": "কাগজ-পত্ৰ",
     "labourSheet": "শ্ৰমিক শ্বীট",
     "notes": "নোট"
+  },
+  "members": {
+    "title": "সদস্য",
+    "deleteConfirmTitle": "সদস্য আঁতৰাওক",
+    "deleteConfirmMessage": "আপুনি নিশ্চিতনে আঁতৰাব বিচাৰে"
   }
 } 
 

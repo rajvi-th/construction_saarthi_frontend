@@ -30,6 +30,11 @@
     "documents": "दस्तावेज़",
     "labourSheet": "श्रम पत्रक",
     "notes": "नोट्स"
+  },
+  "members": {
+    "title": "सदस्य",
+    "deleteConfirmTitle": "सदस्य मिटावो",
+    "deleteConfirmMessage": "तूं सच्चै मिटावण चाहतो है"
   }
 }
 

@@ -1,0 +1,48 @@
+{
+  "title": "ನನ್ನ ಖಾತೆ",
+  "changePhoto": "ಫೋಟೋ ಬದಲಾಯಿಸಿ",
+  "settings": {
+    "title": "ಸೆಟ್ಟಿಂಗ್ಗಳು",
+    "myProfile": "ನನ್ನ ಪ್ರೊಫೈಲ್",
+    "manageNotifications": "ಅಧಿಸೂಚನೆಗಳನ್ನು ನಿರ್ವಹಿಸಿ",
+    "changeLanguage": "ಭಾಷೆ ಬದಲಾಯಿಸಿ",
+    "mySubscription": "ನನ್ನ ಚಂದಾದಾರಿಕೆ"
+  },
+  "security": {
+    "title": "ಭದ್ರತೆ",
+    "termsAndConditions": "ನಿಯಮಗಳು ಮತ್ತು ಷರತ್ತುಗಳು",
+    "privacyPolicy": "ಗೌಪ್ಯತೆ ನೀತಿ",
+    "deleteAccount": "ಖಾತೆಯನ್ನು ಅಳಿಸಿ",
+    "deleteAccountConfirm": "ನೀವು ನಿಜವಾಗಿಯೂ ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಅಳಿಸಲು ಬಯಸುವಿರಾ? ಈ ಕ್ರಿಯೆಯನ್ನು ರದ್ದುಗೊಳಿಸಲಾಗುವುದಿಲ್ಲ."
+  },
+  "profile": {
+    "title": "ನನ್ನ ಪ್ರೊಫೈಲ್",
+    "personalInformation": "ವೈಯಕ್ತಿಕ ಮಾಹಿತಿ",
+    "firstName": "ಮೊದಲ ಹೆಸರು",
+    "enterFirstName": "ಮೊದಲ ಹೆಸರನ್ನು ನಮೂದಿಸಿ",
+    "lastName": "ಕೊನೆಯ ಹೆಸರು",
+    "enterLastName": "ಕೊನೆಯ ಹೆಸರನ್ನು ನಮೂದಿಸಿ",
+    "contactNumber": "ಸಂಪರ್ಕ ಸಂಖ್ಯೆ",
+    "emailAddress": "ಇಮೇಲ್ ವಿಳಾಸ",
+    "enterEmail": "ಇಮೇಲ್ ವಿಳಾಸವನ್ನು ನಮೂದಿಸಿ",
+    "address": "ವಿಳಾಸ",
+    "enterAddress": "ವಿಳಾಸವನ್ನು ನಮೂದಿಸಿ",
+    "companyDetails": "ಕಂಪನಿ ವಿವರಗಳು",
+    "companyName": "ಕಂಪನಿಯ ಹೆಸರು",
+    "enterCompanyName": "ಕಂಪನಿಯ ಹೆಸರನ್ನು ನಮೂದಿಸಿ",
+    "companyLogo": "ಕಂಪನಿ ಲೋಗೋ",
+    "uploadImages": "ಚಿತ್ರಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ",
+    "companyTagline": "ಕಂಪನಿ ಟ್ಯಾಗ್‌ಲೈನ್",
+    "enterTextHere": "ಇಲ್ಲಿ ಪಠ್ಯವನ್ನು ನಮೂದಿಸಿ",
+    "otherInformation": "ಇತರ ಮಾಹಿತಿ",
+    "gstin": "GSTIN",
+    "enterNumber": "ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ",
+    "panCard": "PAN ಕಾರ್ಡ್"
+  },
+  "changeLanguage": {
+    "title": "ಭಾಷೆಗಳು",
+    "setLanguage": "ಭಾಷೆಯನ್ನು ಹೊಂದಿಸಿ",
+    "error": "ಭಾಷೆಯ ಆದ್ಯತೆಯನ್ನು ಉಳಿಸಲು ವಿಫಲವಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
+  }
+}
+

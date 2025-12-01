@@ -30,6 +30,11 @@
     "documents": "പ്രമാണങ്ങൾ",
     "labourSheet": "ജീവനക്കാരൻ ഷീറ്റ്",
     "notes": "കുറിപ്പുകൾ"
+  },
+  "members": {
+    "title": "അംഗങ്ങൾ",
+    "deleteConfirmTitle": "അംഗം ഇല്ലാതാക്കുക",
+    "deleteConfirmMessage": "നിങ്ങൾക്ക് ഉറപ്പായും ഇല്ലാതാക്കണോ"
   }
 }
 

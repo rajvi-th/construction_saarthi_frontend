@@ -30,6 +30,11 @@
     "documents": "ஆவணங்கள்",
     "labourSheet": "தொழிலாளர் தாள்",
     "notes": "குறிப்புகள்"
+  },
+  "members": {
+    "title": "உறுப்பினர்கள்",
+    "deleteConfirmTitle": "உறுப்பினரை நீக்க",
+    "deleteConfirmMessage": "நீங்கள் உறுதியாக நீக்க விரும்புகிறீர்களா"
   }
 }
 

@@ -1,0 +1,48 @@
+{
+  "title": "মোৰ একাউণ্ট",
+  "changePhoto": "ছবি সলনি কৰক",
+  "settings": {
+    "title": "ছেটিংছ",
+    "myProfile": "মোৰ প্ৰ'ফাইল",
+    "manageNotifications": "বিজ্ঞপ্তি পৰিচালনা কৰক",
+    "changeLanguage": "ভাষা সলনি কৰক",
+    "mySubscription": "মোৰ ছাবস্ক্ৰিপচন"
+  },
+  "security": {
+    "title": "নিরাপত্তা",
+    "termsAndConditions": "চুক্তি আৰু শর্তসমূহ",
+    "privacyPolicy": "গোপনীয়তা নীতি",
+    "deleteAccount": "একাউণ্ট মচক",
+    "deleteAccountConfirm": "আপুনি নিশ্চিত নেকি যে আপোনাৰ একাউণ্ট মচিব বিচাৰিছে? এই কাৰ্য্য পূৰ্ববত কৰিব নোৱাৰি।"
+  },
+  "profile": {
+    "title": "মোৰ প্ৰ'ফাইল",
+    "personalInformation": "ব্যক্তিগত তথ্য",
+    "firstName": "প্ৰথম নাম",
+    "enterFirstName": "প্ৰথম নাম লিখক",
+    "lastName": "শেষৰ নাম",
+    "enterLastName": "শেষৰ নাম লিখক",
+    "contactNumber": "যোগাযোগ নম্বৰ",
+    "emailAddress": "ইমেইল ঠিকনা",
+    "enterEmail": "ইমেইল ঠিকনা লিখক",
+    "address": "ঠিকনা",
+    "enterAddress": "ঠিকনা লিখক",
+    "companyDetails": "কোম্পানীৰ বিৱৰণ",
+    "companyName": "কোম্পানীৰ নাম",
+    "enterCompanyName": "কোম্পানীৰ নাম লিখক",
+    "companyLogo": "কোম্পানী লোগো",
+    "uploadImages": "ছবি আপলোড কৰক",
+    "companyTagline": "কোম্পানী টেগলাইন",
+    "enterTextHere": "ইয়াত পাঠ লিখক",
+    "otherInformation": "অন্যান্য তথ্য",
+    "gstin": "GSTIN",
+    "enterNumber": "নম্বৰ লিখক",
+    "panCard": "PAN কাৰ্ড"
+  },
+  "changeLanguage": {
+    "title": "ভাষা",
+    "setLanguage": "ভাষা নিৰ্ধাৰণ কৰক",
+    "error": "ভাষা পছন্দ সংৰক্ষণ কৰিবলৈ ব্যৰ্থ। অনুগ্ৰহ কৰি আকৌ চেষ্টা কৰক।"
+  }
+}
+

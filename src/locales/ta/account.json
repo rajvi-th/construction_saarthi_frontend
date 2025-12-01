@@ -1,0 +1,48 @@
+{
+  "title": "எனது கணக்கு",
+  "changePhoto": "புகைப்படத்தை மாற்றவும்",
+  "settings": {
+    "title": "அமைப்புகள்",
+    "myProfile": "எனது சுயவிவரம்",
+    "manageNotifications": "அறிவிப்புகளை நிர்வகிக்கவும்",
+    "changeLanguage": "மொழியை மாற்றவும்",
+    "mySubscription": "எனது சந்தா"
+  },
+  "security": {
+    "title": "பாதுகாப்பு",
+    "termsAndConditions": "விதிமுறைகள் மற்றும் நிபந்தனைகள்",
+    "privacyPolicy": "தனியுரிமை கொள்கை",
+    "deleteAccount": "கணக்கை நீக்கவும்",
+    "deleteAccountConfirm": "நீங்கள் உறுதியாக உங்கள் கணக்கை நீக்க விரும்புகிறீர்களா? இந்த செயலை மீளமைக்க முடியாது."
+  },
+  "profile": {
+    "title": "எனது சுயவிவரம்",
+    "personalInformation": "தனிப்பட்ட தகவல்",
+    "firstName": "முதல் பெயர்",
+    "enterFirstName": "முதல் பெயரை உள்ளிடவும்",
+    "lastName": "கடைசி பெயர்",
+    "enterLastName": "கடைசி பெயரை உள்ளிடவும்",
+    "contactNumber": "தொடர்பு எண்",
+    "emailAddress": "மின்னஞ்சல் முகவரி",
+    "enterEmail": "மின்னஞ்சல் முகவரியை உள்ளிடவும்",
+    "address": "முகவரி",
+    "enterAddress": "முகவரியை உள்ளிடவும்",
+    "companyDetails": "நிறுவன விவரங்கள்",
+    "companyName": "நிறுவனத்தின் பெயர்",
+    "enterCompanyName": "நிறுவனத்தின் பெயரை உள்ளிடவும்",
+    "companyLogo": "நிறுவன லோகோ",
+    "uploadImages": "படங்கள் பதிவேற்றவும்",
+    "companyTagline": "நிறுவன டேக்லைன்",
+    "enterTextHere": "இங்கே உரை உள்ளிடவும்",
+    "otherInformation": "மற்ற தகவல்கள்",
+    "gstin": "GSTIN",
+    "enterNumber": "எண்ணை உள்ளிடவும்",
+    "panCard": "PAN அட்டை"
+  },
+  "changeLanguage": {
+    "title": "மொழிகள்",
+    "setLanguage": "மொழியை அமைக்க",
+    "error": "மொழி விருப்பத்தை சேமிக்க முடியவில்லை. தயவுசெய்து மீண்டும் முயற்சிக்கவும்."
+  }
+}
+

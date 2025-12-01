@@ -13,7 +13,7 @@ const PageWrapper = () => {
   }, [location.pathname]);
 
   return (
-    <div className="p-6 bg-[#F9FAFB]">
+    <div className="px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 bg-[#F9FAFB] min-h-screen">
       <Outlet />
     </div>
   );

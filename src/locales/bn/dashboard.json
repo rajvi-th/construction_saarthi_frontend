@@ -30,6 +30,11 @@
     "documents": "নথি",
     "labourSheet": "শ্রম শীট",
     "notes": "নোট"
+  },
+  "members": {
+    "title": "সদস্য",
+    "deleteConfirmTitle": "সদস্য মুছুন",
+    "deleteConfirmMessage": "আপনি কি নিশ্চিতভাবে মুছতে চান"
   }
 }
 

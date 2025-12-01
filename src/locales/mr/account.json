@@ -1,0 +1,48 @@
+{
+  "title": "माझे खाते",
+  "changePhoto": "फोटो बदला",
+  "settings": {
+    "title": "सेटिंग्ज",
+    "myProfile": "माझी प्रोफाइल",
+    "manageNotifications": "अधिसूचना व्यवस्थापित करा",
+    "changeLanguage": "भाषा बदला",
+    "mySubscription": "माझी सदस्यता"
+  },
+  "security": {
+    "title": "सुरक्षा",
+    "termsAndConditions": "अटी आणि नियम",
+    "privacyPolicy": "गोपनीयता धोरण",
+    "deleteAccount": "खाते हटवा",
+    "deleteAccountConfirm": "तुम्हाला खरोखर तुमचे खाते हटवायचे आहे का? ही क्रिया पूर्ववत करता येणार नाही."
+  },
+  "profile": {
+    "title": "माझी प्रोफाइल",
+    "personalInformation": "वैयक्तिक माहिती",
+    "firstName": "पहिले नाव",
+    "enterFirstName": "पहिले नाव प्रविष्ट करा",
+    "lastName": "आडनाव",
+    "enterLastName": "आडनाव प्रविष्ट करा",
+    "contactNumber": "संपर्क क्रमांक",
+    "emailAddress": "ईमेल पत्ता",
+    "enterEmail": "ईमेल पत्ता प्रविष्ट करा",
+    "address": "पत्ता",
+    "enterAddress": "पत्ता प्रविष्ट करा",
+    "companyDetails": "कंपनीची माहिती",
+    "companyName": "कंपनीचे नाव",
+    "enterCompanyName": "कंपनीचे नाव प्रविष्ट करा",
+    "companyLogo": "कंपनी लोगो",
+    "uploadImages": "प्रतिमा अपलोड करा",
+    "companyTagline": "कंपनी टॅगलाइन",
+    "enterTextHere": "येथे मजकूर प्रविष्ट करा",
+    "otherInformation": "इतर माहिती",
+    "gstin": "GSTIN",
+    "enterNumber": "क्रमांक प्रविष्ट करा",
+    "panCard": "PAN कार्ड"
+  },
+  "changeLanguage": {
+    "title": "भाषा",
+    "setLanguage": "भाषा सेट करा",
+    "error": "भाषा प्राधान्य जतन करण्यात अयशस्वी. कृपया पुन्हा प्रयत्न करा."
+  }
+}
+

@@ -30,6 +30,11 @@
     "documents": "ದಾಖಲೆಗಳು",
     "labourSheet": "ಕಾರ್ಮಿಕ ಶೀಟ್",
     "notes": "ನೋಟ್ಗಳು"
+  },
+  "members": {
+    "title": "ಸದಸ್ಯರು",
+    "deleteConfirmTitle": "ಸದಸ್ಯರನ್ನು ಅಳಿಸಿ",
+    "deleteConfirmMessage": "ನೀವು ಖಚಿತವಾಗಿ ಅಳಿಸಲು ಬಯಸುವಿರಾ"
   }
 }
 

@@ -1,0 +1,48 @@
+{
+  "title": "আমার অ্যাকাউন্ট",
+  "changePhoto": "ছবি পরিবর্তন করুন",
+  "settings": {
+    "title": "সেটিংস",
+    "myProfile": "আমার প্রোফাইল",
+    "manageNotifications": "বিজ্ঞপ্তি পরিচালনা করুন",
+    "changeLanguage": "ভাষা পরিবর্তন করুন",
+    "mySubscription": "আমার সাবস্ক্রিপশন"
+  },
+  "security": {
+    "title": "নিরাপত্তা",
+    "termsAndConditions": "শর্তাবলী",
+    "privacyPolicy": "গোপনীয়তা নীতি",
+    "deleteAccount": "অ্যাকাউন্ট মুছুন",
+    "deleteAccountConfirm": "আপনি কি নিশ্চিত যে আপনি আপনার অ্যাকাউন্ট মুছতে চান? এই ক্রিয়াটি পূর্বাবস্থায় ফেরানো যাবে না।"
+  },
+  "profile": {
+    "title": "আমার প্রোফাইল",
+    "personalInformation": "ব্যক্তিগত তথ্য",
+    "firstName": "নামের প্রথম অংশ",
+    "enterFirstName": "নামের প্রথম অংশ লিখুন",
+    "lastName": "নামের শেষ অংশ",
+    "enterLastName": "নামের শেষ অংশ লিখুন",
+    "contactNumber": "যোগাযোগ নম্বর",
+    "emailAddress": "ইমেইল ঠিকানা",
+    "enterEmail": "ইমেইল ঠিকানা লিখুন",
+    "address": "ঠিকানা",
+    "enterAddress": "ঠিকানা লিখুন",
+    "companyDetails": "কোম্পানির বিবরণ",
+    "companyName": "কোম্পানির নাম",
+    "enterCompanyName": "কোম্পানির নাম লিখুন",
+    "companyLogo": "কোম্পানি লোগো",
+    "uploadImages": "ছবি আপলোড করুন",
+    "companyTagline": "কোম্পানি ট্যাগলাইন",
+    "enterTextHere": "এখানে টেক্সট লিখুন",
+    "otherInformation": "অন্যান্য তথ্য",
+    "gstin": "GSTIN",
+    "enterNumber": "নম্বর লিখুন",
+    "panCard": "PAN কার্ড"
+  },
+  "changeLanguage": {
+    "title": "ভাষা",
+    "setLanguage": "ভাষা নির্ধারণ করুন",
+    "error": "ভাষা পছন্দ সংরক্ষণ করতে ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন।"
+  }
+}
+

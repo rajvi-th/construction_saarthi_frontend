@@ -30,6 +30,11 @@
     "documents": "Documents",
     "labourSheet": "Labour Sheet",
     "notes": "Notes"
+  },
+  "members": {
+    "title": "Members",
+    "deleteConfirmTitle": "Delete Member",
+    "deleteConfirmMessage": "Are you sure you want to delete"
   }
 }
 

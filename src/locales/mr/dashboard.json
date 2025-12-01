@@ -30,6 +30,11 @@
     "documents": "दस्तऐवज",
     "labourSheet": "कामगार पत्रक",
     "notes": "नोट्स"
+  },
+  "members": {
+    "title": "सदस्य",
+    "deleteConfirmTitle": "सदस्य हटवा",
+    "deleteConfirmMessage": "आपण खरोखर हटवू इच्छिता"
   }
 }
 

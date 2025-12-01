@@ -28,6 +28,19 @@ export const ROUTES = {
     HOME: '/dashboard',
     PROJECTS: '/projects',
     SETTINGS: '/settings',
+    MEMBERS: '/members',
+  },
+  // Account Routes
+  ACCOUNT: {
+    MY_ACCOUNT: '/account',
+    MY_PROFILE: '/account/profile',
+    CHANGE_LANGUAGE: '/account/change-language',
+  },
+  // Business Card Routes
+  BUSINESS_CARD: {
+    LIST: '/business-card',
+    ADD: '/business-card/add',
+    EDIT: '/business-card/:id/edit',
   },
 };
 
@@ -53,6 +66,17 @@ export const ROUTES_FLAT = {
   DASHBOARD: ROUTES.DASHBOARD.HOME,
   PROJECTS: ROUTES.DASHBOARD.PROJECTS,
   SETTINGS: ROUTES.DASHBOARD.SETTINGS,
+  MEMBERS: ROUTES.DASHBOARD.MEMBERS,
+  
+  // Account
+  MY_ACCOUNT: ROUTES.ACCOUNT.MY_ACCOUNT,
+  MY_PROFILE: ROUTES.ACCOUNT.MY_PROFILE,
+  CHANGE_LANGUAGE: ROUTES.ACCOUNT.CHANGE_LANGUAGE,
+  
+  // Business Card
+  BUSINESS_CARD: ROUTES.BUSINESS_CARD.LIST,
+  ADD_BUSINESS_CARD: ROUTES.BUSINESS_CARD.ADD,
+  EDIT_BUSINESS_CARD: ROUTES.BUSINESS_CARD.EDIT,
 };
 
 /**

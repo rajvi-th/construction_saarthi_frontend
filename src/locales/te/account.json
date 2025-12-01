@@ -1,0 +1,48 @@
+{
+  "title": "నా ఖాతా",
+  "changePhoto": "ఫోటో మార్చండి",
+  "settings": {
+    "title": "సెట్టింగ్స్",
+    "myProfile": "నా ప్రొఫైల్",
+    "manageNotifications": "నోటిఫికేషన్లను నిర్వహించండి",
+    "changeLanguage": "భాష మార్చండి",
+    "mySubscription": "నా సభ్యత్వం"
+  },
+  "security": {
+    "title": "భద్రత",
+    "termsAndConditions": "నిబంధనలు మరియు షరతులు",
+    "privacyPolicy": "గోప్యతా విధానం",
+    "deleteAccount": "ఖాతాను తొలగించండి",
+    "deleteAccountConfirm": "మీరు నిజంగా మీ ఖాతాను తొలగించాలని అనుకుంటున్నారా? ఈ చర్యను రద్దు చేయలేము."
+  },
+  "profile": {
+    "title": "నా ప్రొఫైల్",
+    "personalInformation": "వ్యక్తిగత సమాచారం",
+    "firstName": "మొదటి పేరు",
+    "enterFirstName": "మొదటి పేరు నమోదు చేయండి",
+    "lastName": "చివరి పేరు",
+    "enterLastName": "చివరి పేరు నమోదు చేయండి",
+    "contactNumber": "సంప్రదింపు సంఖ్య",
+    "emailAddress": "ఇమెయిల్ చిరునామా",
+    "enterEmail": "ఇమెయిల్ చిరునామా నమోదు చేయండి",
+    "address": "చిరునామా",
+    "enterAddress": "చిరునామా నమోదు చేయండి",
+    "companyDetails": "కంపెనీ వివరాలు",
+    "companyName": "కంపెనీ పేరు",
+    "enterCompanyName": "కంపెనీ పేరు నమోదు చేయండి",
+    "companyLogo": "కంపెనీ లోగో",
+    "uploadImages": "చిత్రాలను అప్‌లోడ్ చేయండి",
+    "companyTagline": "కంపెనీ ట్యాగ్‌లైన్",
+    "enterTextHere": "ఇక్కడ టెక్స్ట్ నమోదు చేయండి",
+    "otherInformation": "ఇతర సమాచారం",
+    "gstin": "GSTIN",
+    "enterNumber": "సంఖ్య నమోదు చేయండి",
+    "panCard": "PAN కార్డ్"
+  },
+  "changeLanguage": {
+    "title": "భాషలు",
+    "setLanguage": "భాషను సెట్ చేయండి",
+    "error": "భాష ప్రాధాన్యతను సేవ్ చేయడంలో విఫలమైంది. దయచేసి మళ్లీ ప్రయత్నించండి."
+  }
+}
+

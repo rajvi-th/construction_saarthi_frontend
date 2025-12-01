@@ -174,7 +174,7 @@ const SidebarHeader = () => {
 
   /* Logout */
   const handleLogoutClick = useCallback(() => {
-    setShowDropdown(false); // Close workspace dropdown when logout modal opens
+    setShowDropdown(false); 
     setShowLogoutConfirm(true);
   }, []);
 
@@ -264,7 +264,20 @@ const SidebarHeader = () => {
                         </div>
                       </div>
 
-                    <button className="w-full bg-[#FBFBFB] border border-gray-200 rounded-[10px] py-2 px-3 flex items-center justify-center gap-2 cursor-pointer">
+                    <button 
+                      onClick={() => {
+                        const workspaceId = currentWorkspace?.id || storeSelectedWorkspace;
+                        if (workspaceId) {
+                          if (workspaceId !== storeSelectedWorkspace) {
+                            selectWorkspace(workspaceId);
+                          }
+                          navigate(ROUTES_FLAT.MEMBERS);
+                        } else {
+                          showError('Please select a workspace first');
+                        }
+                      }}
+                      className="w-full bg-[#FBFBFB] border border-gray-200 rounded-[10px] py-2 px-3 flex items-center justify-center gap-2 cursor-pointer hover:bg-gray-50 transition-colors"
+                    >
                       <Users className="w-5 h-5" /> 
                       <span className="text-sm text-secondary ">
                         Invite & View Members
