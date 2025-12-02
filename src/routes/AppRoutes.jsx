@@ -50,15 +50,9 @@ const Coupon = lazy(() => import('../features/subscription/pages/Coupon'));
 const SiteInventory = lazy(() => import('../features/siteInventory/pages/SiteInventory'));
 const AddSiteInventory = lazy(() => import('../features/siteInventory/pages/AddSiteInventory'));
 const EditSiteInventory = lazy(() => import('../features/siteInventory/pages/EditSiteInventory'));
-// Refer & Earn
-const ReferEarn = lazy(() => import('../features/refer_earn/pages/ReferEarn'));
-const Wallet = lazy(() => import('../features/refer_earn/pages/Wallet'));
-// Site Inventory
-const SiteInventory = lazy(() => import('../features/siteInventory/pages/SiteInventory'));
-const AddSiteInventory = lazy(() => import('../features/siteInventory/pages/AddSiteInventory'));
-const EditSiteInventory = lazy(() => import('../features/siteInventory/pages/EditSiteInventory'));
 const AddNewAsk = lazy(() => import('../features/siteInventory/pages/AddNewAsk'));
 const AddStock = lazy(() => import('../features/siteInventory/pages/AddStock'));
+
 
 // Projects
 const Projects = lazy(() => import('../features/projects/pages/Projects'));
