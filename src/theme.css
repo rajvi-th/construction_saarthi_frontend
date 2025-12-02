@@ -40,6 +40,8 @@
   --color-soft: #F9FAFB;
   --color-black-soft: rgba(18, 18, 18, 0.06);
   --color-primary-light: #060C1280;
+  --color-secondary-light:  #F6F6F6CC;
+  --color-lightGray: #060C120F;
   
   /* Font Family */
   --font-family-sans: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;

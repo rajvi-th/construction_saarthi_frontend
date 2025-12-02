@@ -44,7 +44,7 @@ export default function PageHeader({
         </div>
         {/* Actions Section */}
         {children && (
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 w-full sm:w-auto">
             {children}
           </div>
         )}

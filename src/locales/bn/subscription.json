@@ -1,0 +1,101 @@
+{
+  "header": {
+    "title": "আমার সাবস্ক্রিপশন",
+    "viewWallet": "আমার ওয়ালেট দেখুন",
+    "addedMembers": "যোগ করা সদস্য",
+    "coupon": "কুপন প্রয়োগ করুন"
+  },
+  "currentPlan": {
+    "title": "আপনার বর্তমান পরিকল্পনা",
+    "daysLeft": "ফ্রি ট্রায়ালে {{days}} দিন বাকি"
+  },
+  "availablePlans": {
+    "title": "উপলব্ধ পরিকল্পনা",
+    "saveAmount": "₹{{amount}} সাশ্রয় করুন",
+    "bestValue": "সেরা মূল্য",
+    "benefits": {
+      "unlimitedAccess": "সব বর্তমান + ভবিষ্যত মডিউলে সীমাহীন অ্যাক্সেস",
+      "exportDownload": "রপ্তানি/ডাউনলোড ক্ষমতা আনলক",
+      "freeUsers": "3টি বিনামূল্যে অতিরিক্ত ব্যবহারকারী (সুপারভাইজার/ইঞ্জিনিয়ার/ক্লায়েন্ট)",
+      "calculations": "প্রতি সাবস্ক্রিপশনে 50টি নির্মাণ গণনা (আরো ক্রয়যোগ্য)"
+    },
+    "plans": {
+      "monthly": "মাসিক",
+      "3month": "3 মাসের পরিকল্পনা",
+      "6month": "6 মাসের পরিকল্পনা",
+      "12month": "12 মাসের পরিকল্পনা",
+      "description": "ঠিকাদার + 3টি বিনামূল্যে ব্যবহারকারী",
+      "periodMonth": "মাস",
+      "periodMonths": "মাস"
+    }
+  },
+  "addOns": {
+    "title": "অ্যাড-অন",
+    "addMoreMembers": "আরো সদস্য যোগ করুন",
+    "membersUsed": "আপনি {{total}} অন্তর্ভুক্ত ব্যবহারকারীর মধ্যে {{used}} ব্যবহার করেছেন",
+    "memberPricePerMonth": "/ব্যবহারকারী/মাস",
+    "addMember": "সদস্য যোগ করুন",
+    "viewAddedMembers": "যোগ করা সদস্য তালিকা দেখুন",
+    "viewMembersMobile": "সদস্য দেখুন",
+    "buyMoreCalculations": "আরো গণনা কিনুন",
+    "calculationsUsed": "আপনি এই চক্রে {{total}} উপলব্ধ গণনার মধ্যে {{used}} ব্যবহার করেছেন।",
+    "packsAvailable": "উপলব্ধ প্যাক",
+    "calculations": "গণনা"
+  },
+  "offersRewards": {
+    "title": "অফার ও পুরস্কার",
+    "applyCoupon": "কুপন প্রয়োগ করুন",
+    "changeCoupon": "পরিবর্তন করুন"
+  },
+  "bottomBar": {
+    "cancel": "বাতিল",
+    "continue": "চালিয়ে যান"
+  },
+  "addedMembers": {
+    "searchPlaceholder": "সদস্য খুঁজুন",
+    "addNewMember": "নতুন সদস্য যোগ করুন",
+    "menu": {
+      "remove": "সদস্য সরান"
+    }
+  },
+  "coupon": {
+    "searchPlaceholder": "কুপন কোড লিখুন",
+    "applyButton": "প্রয়োগ করুন",
+    "availableCoupons": "উপলব্ধ কুপন",
+    "couponCodeLabel": "কুপন কোড",
+    "couponCodeLabelUppercase": "কুপন কোড",
+    "validityLabel": "মেয়াদ:"
+  },
+  "addMemberModal": {
+    "title": "সদস্য যোগ করুন",
+    "memberInformation": "সদস্য তথ্য",
+    "memberInformationDescription": "অনুগ্রহ করে সদস্যের বিবরণ লিখুন তাদের আপনার সাবস্ক্রিপশন পরিকল্পনায় যোগ করার জন্য।",
+    "fullNamePlaceholder": "পূর্ণ নাম",
+    "assignRole": "ভূমিকা নির্ধারণ করুন",
+    "roleSupervisorEngineer": "সুপারভাইজার/ইঞ্জিনিয়ার",
+    "roleBuilderClient": "বিল্ডার/ক্লায়েন্ট",
+    "membersAdded": "{{count}} সদস্য ইতিমধ্যে যোগ করা হয়েছে",
+    "addingMoreCosts": "আরো সদস্য যোগ করার খরচ ",
+    "perUserMonth": "/ব্যবহারকারী/মাস",
+    "cancel": "বাতিল",
+    "addMember": "সদস্য যোগ করুন",
+    "errors": {
+      "fullNameRequired": "পূর্ণ নাম প্রয়োজন",
+      "phoneRequired": "ফোন নম্বর প্রয়োজন",
+      "phoneInvalid": "অনুগ্রহ করে একটি বৈধ ফোন নম্বর লিখুন"
+    }
+  },
+  "removeMemberModal": {
+    "title": "{{name}} সরান",
+    "titleDefault": "সদস্য সরান",
+    "description": "আপনি কি নিশ্চিত যে আপনি {{name}} সরাতে চান? এই কাজটি অপরিবর্তনীয় এবং আপনার ডেটা পুনরুদ্ধার করা যাবে না।",
+    "descriptionDefault": "আপনি কি নিশ্চিত যে আপনি এই সদস্য সরাতে চান? এই কাজটি অপরিবর্তনীয় এবং আপনার ডেটা পুনরুদ্ধার করা যাবে না।",
+    "cancel": "বাতিল",
+    "confirm": "হ্যাঁ, সরান"
+  },
+  "emptyState": {
+    "noMembers": "এখনো কোনো সদস্য যোগ করা হয়নি।",
+    "noCoupons": "কোনো কুপন উপলব্ধ নেই।"
+  }
+}
+

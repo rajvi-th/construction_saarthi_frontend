@@ -1,0 +1,101 @@
+{
+  "header": {
+    "title": "నా సభ్యత్వం",
+    "viewWallet": "నా వాలెట్ చూడండి",
+    "addedMembers": "చేర్చిన సభ్యులు",
+    "coupon": "కూపన్ వర్తింపజేయండి"
+  },
+  "currentPlan": {
+    "title": "మీ ప్రస్తుత ప్లాన్",
+    "daysLeft": "ఉచిత ట్రయల్‌లో {{days}} రోజులు మిగిలివున్నాయి"
+  },
+  "availablePlans": {
+    "title": "అందుబాటులో ఉన్న ప్లాన్‌లు",
+    "saveAmount": "₹{{amount}} ఆదా చేయండి",
+    "bestValue": "అత్యుత్తమ విలువ",
+    "benefits": {
+      "unlimitedAccess": "అన్ని ప్రస్తుత + భవిష్యత్ మాడ్యూల్‌లకు అపరిమిత యాక్సెస్",
+      "exportDownload": "ఎగుమతి/డౌన్‌లోడ్ సామర్థ్యాలు అన్‌లాక్ చేయబడ్డాయి",
+      "freeUsers": "3 ఉచిత అదనపు వినియోగదారులు (సూపర్‌వైజర్/ఇంజనీర్/క్లయింట్)",
+      "calculations": "ప్రతి సభ్యత్వానికి 50 నిర్మాణ గణనలు (మరిన్ని కొనుగోలు చేయదగినవి)"
+    },
+    "plans": {
+      "monthly": "నెలవారీ",
+      "3month": "3 నెలల ప్లాన్",
+      "6month": "6 నెలల ప్లాన్",
+      "12month": "12 నెలల ప్లాన్",
+      "description": "కంట్రాక్టర్ + 3 ఉచిత వినియోగదారులు",
+      "periodMonth": "నెల",
+      "periodMonths": "నెలలు"
+    }
+  },
+  "addOns": {
+    "title": "అడ్-ఆన్‌లు",
+    "addMoreMembers": "మరిన్ని సభ్యులను జోడించండి",
+    "membersUsed": "మీరు {{total}} చేర్చిన వినియోగదారులలో {{used}} ఉపయోగించారు",
+    "memberPricePerMonth": "/వినియోగదారు/నెల",
+    "addMember": "సభ్యుడిని జోడించండి",
+    "viewAddedMembers": "చేర్చిన సభ్య జాబితాను చూడండి",
+    "viewMembersMobile": "సభ్యులను చూడండి",
+    "buyMoreCalculations": "మరిన్ని గణనలను కొనండి",
+    "calculationsUsed": "మీరు ఈ చక్రంలో {{total}} అందుబాటులో ఉన్న గణనలలో {{used}} ఉపయోగించారు.",
+    "packsAvailable": "అందుబాటులో ఉన్న ప్యాక్‌లు",
+    "calculations": "గణనలు"
+  },
+  "offersRewards": {
+    "title": "ఆఫర్‌లు మరియు రివార్డ్‌లు",
+    "applyCoupon": "కూపన్ వర్తింపజేయండి",
+    "changeCoupon": "మార్చండి"
+  },
+  "bottomBar": {
+    "cancel": "రద్దు చేయండి",
+    "continue": "కొనసాగించండి"
+  },
+  "addedMembers": {
+    "searchPlaceholder": "సభ్యుడిని శోధించండి",
+    "addNewMember": "కొత్త సభ్యుడిని జోడించండి",
+    "menu": {
+      "remove": "సభ్యుడిని తీసివేయండి"
+    }
+  },
+  "coupon": {
+    "searchPlaceholder": "కూపన్ కోడ్ నమోదు చేయండి",
+    "applyButton": "వర్తింపజేయండి",
+    "availableCoupons": "అందుబాటులో ఉన్న కూపన్‌లు",
+    "couponCodeLabel": "కూపన్ కోడ్",
+    "couponCodeLabelUppercase": "కూపన్ కోడ్",
+    "validityLabel": "చెల్లుబాటు:"
+  },
+  "addMemberModal": {
+    "title": "సభ్యుడిని జోడించండి",
+    "memberInformation": "సభ్య సమాచారం",
+    "memberInformationDescription": "దయచేసి వారిని మీ సభ్యత్వ ప్లాన్‌లో జోడించడానికి సభ్య వివరాలను నమోదు చేయండి.",
+    "fullNamePlaceholder": "పూర్తి పేరు",
+    "assignRole": "పాత్రను కేటాయించండి",
+    "roleSupervisorEngineer": "సూపర్‌వైజర్/ఇంజనీర్",
+    "roleBuilderClient": "బిల్డర్/క్లయింట్",
+    "membersAdded": "{{count}} సభ్యుడు ఇప్పటికే జోడించబడ్డాడు",
+    "addingMoreCosts": "మరిన్ని సభ్యులను జోడించడానికి ఖర్చు ",
+    "perUserMonth": "/వినియోగదారు/నెల",
+    "cancel": "రద్దు చేయండి",
+    "addMember": "సభ్యుడిని జోడించండి",
+    "errors": {
+      "fullNameRequired": "పూర్తి పేరు అవసరం",
+      "phoneRequired": "ఫోన్ నంబర్ అవసరం",
+      "phoneInvalid": "దయచేసి సరైన ఫోన్ నంబర్ నమోదు చేయండి"
+    }
+  },
+  "removeMemberModal": {
+    "title": "{{name}} తీసివేయండి",
+    "titleDefault": "సభ్యుడిని తీసివేయండి",
+    "description": "మీరు {{name}} ను తీసివేయాలని ఖచ్చితంగా నిర్ణయించుకున్నారా? ఈ చర్య రద్దు చేయలేనిది మరియు మీ డేటాను పునరుద్ధరించలేము.",
+    "descriptionDefault": "మీరు ఈ సభ్యుడిని తీసివేయాలని ఖచ్చితంగా నిర్ణయించుకున్నారా? ఈ చర్య రద్దు చేయలేనిది మరియు మీ డేటాను పునరుద్ధరించలేము.",
+    "cancel": "రద్దు చేయండి",
+    "confirm": "అవును, తీసివేయండి"
+  },
+  "emptyState": {
+    "noMembers": "ఇంకా సభ్యులు జోడించబడలేదు.",
+    "noCoupons": "కూపన్‌లు అందుబాటులో లేవు."
+  }
+}
+

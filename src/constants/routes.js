@@ -47,6 +47,12 @@ export const ROUTES = {
     HOME: '/refer-earn',
     WALLET: '/refer-earn/wallet',
   },
+  // Subscription Routes
+  SUBSCRIPTION: {
+    HOME: '/subscription',
+    ADDED_MEMBERS: '/subscription/added-members',
+    COUPON: '/subscription/coupon',
+  },
   // Site Inventory Routes
   SITE_INVENTORY: {
     LIST: '/site-inventory',
@@ -92,6 +98,11 @@ export const ROUTES_FLAT = {
   // Refer & Earn
   REFER_EARN: ROUTES.REFER_EARN.HOME,
   REFER_EARN_WALLET: ROUTES.REFER_EARN.WALLET,
+  
+  // Subscription
+  SUBSCRIPTION: ROUTES.SUBSCRIPTION.HOME,
+  SUBSCRIPTION_ADDED_MEMBERS: ROUTES.SUBSCRIPTION.ADDED_MEMBERS,
+  SUBSCRIPTION_COUPON: ROUTES.SUBSCRIPTION.COUPON,
   
   // Site Inventory
   SITE_INVENTORY: ROUTES.SITE_INVENTORY.LIST,

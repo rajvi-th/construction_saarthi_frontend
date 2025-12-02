@@ -40,6 +40,12 @@ import Settings from '../pages/Settings';
   // Refer & Earn
   const ReferEarn = lazy(() => import('../features/refer_earn/pages/ReferEarn'));
   const Wallet = lazy(() => import('../features/refer_earn/pages/Wallet'));
+
+  // Subscription
+  const Subscription = lazy(() => import('../features/subscription/pages/Subscription'));
+  const AddedMembers = lazy(() => import('../features/subscription/pages/AddedMembers'));
+  const Coupon = lazy(() => import('../features/subscription/pages/Coupon'));
+
   // Site Inventory
   const SiteInventory = lazy(() => import('../features/siteInventory/pages/SiteInventory'));
   const AddSiteInventory = lazy(() => import('../features/siteInventory/pages/AddSiteInventory'));
@@ -111,6 +117,9 @@ import Settings from '../pages/Settings';
             <Route path={ROUTES_FLAT.EDIT_BUSINESS_CARD} element={<EditBusinessCard />} />
             <Route path={ROUTES_FLAT.REFER_EARN} element={<ReferEarn />} />
             <Route path={ROUTES_FLAT.REFER_EARN_WALLET} element={<Wallet />} />
+            <Route path={ROUTES_FLAT.SUBSCRIPTION} element={<Subscription />} />
+            <Route path={ROUTES_FLAT.SUBSCRIPTION_ADDED_MEMBERS} element={<AddedMembers />} />
+            <Route path={ROUTES_FLAT.SUBSCRIPTION_COUPON} element={<Coupon />} />
             <Route path={ROUTES_FLAT.SITE_INVENTORY} element={<SiteInventory />} />
             <Route path={ROUTES_FLAT.ADD_SITE_INVENTORY} element={<AddSiteInventory />} />
             <Route path={ROUTES_FLAT.EDIT_SITE_INVENTORY} element={<EditSiteInventory />} />

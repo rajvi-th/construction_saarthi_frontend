@@ -1,0 +1,101 @@
+{
+  "header": {
+    "title": "My Subscription",
+    "viewWallet": "View My Wallet",
+    "addedMembers": "Added Members",
+    "coupon": "Apply Coupon"
+  },
+  "currentPlan": {
+    "title": "Your Current Plan",
+    "daysLeft": "{{days}} Days left in Free Trial"
+  },
+  "availablePlans": {
+    "title": "Available Plans",
+    "saveAmount": "Save ₹{{amount}}",
+    "bestValue": "Best Value",
+    "benefits": {
+      "unlimitedAccess": "Unlimited access to all current + future modules",
+      "exportDownload": "Export/Download capabilities unlocked",
+      "freeUsers": "3 Free Additional Users (supervisor/engineer/client)",
+      "calculations": "50 Construction Calculations per subscription (more purchasable)"
+    },
+    "plans": {
+      "monthly": "Monthly",
+      "3month": "3 Month Plan",
+      "6month": "6 Month Plan",
+      "12month": "12 Month Plan",
+      "description": "Contractor + 3 Free Users",
+      "periodMonth": "Month",
+      "periodMonths": "Months"
+    }
+  },
+  "addOns": {
+    "title": "Add-ons",
+    "addMoreMembers": "Add More Members",
+    "membersUsed": "You've used {{used}} of {{total}} included users",
+    "memberPricePerMonth": "/user/month",
+    "addMember": "Add Member",
+    "viewAddedMembers": "View Added Member List",
+    "viewMembersMobile": "View members",
+    "buyMoreCalculations": "Buy More Calculations",
+    "calculationsUsed": "You've used {{used}} of {{total}} available calculations this cycle.",
+    "packsAvailable": "Packs Available",
+    "calculations": "Calculations"
+  },
+  "offersRewards": {
+    "title": "Offers & Rewards",
+    "applyCoupon": "Apply Coupon",
+    "changeCoupon": "Change"
+  },
+  "bottomBar": {
+    "cancel": "Cancel",
+    "continue": "Continue"
+  },
+  "addedMembers": {
+    "searchPlaceholder": "Search member",
+    "addNewMember": "Add New Member",
+    "menu": {
+      "remove": "Remove Member"
+    }
+  },
+  "coupon": {
+    "searchPlaceholder": "Enter Coupon Code",
+    "applyButton": "Apply",
+    "availableCoupons": "Available Coupons",
+    "couponCodeLabel": "Coupon Code",
+    "couponCodeLabelUppercase": "COUPON CODE",
+    "validityLabel": "Validity:"
+  },
+  "addMemberModal": {
+    "title": "Add Member",
+    "memberInformation": "Member Information",
+    "memberInformationDescription": "Please enter the member details to add them to your subscription plan.",
+    "fullNamePlaceholder": "Full name",
+    "assignRole": "Assign Role",
+    "roleSupervisorEngineer": "Supervisor/Engineer",
+    "roleBuilderClient": "Builder/Client",
+    "membersAdded": "{{count}} Member already added",
+    "addingMoreCosts": "Adding more member costs ",
+    "perUserMonth": "/user/month",
+    "cancel": "Cancel",
+    "addMember": "Add Member",
+    "errors": {
+      "fullNameRequired": "Full name is required",
+      "phoneRequired": "Phone number is required",
+      "phoneInvalid": "Please enter a valid phone number"
+    }
+  },
+  "removeMemberModal": {
+    "title": "Remove {{name}}",
+    "titleDefault": "Remove Member",
+    "description": "Are you sure you want to remove {{name}}? This action is irreversible, and your data cannot be recovered.",
+    "descriptionDefault": "Are you sure you want to remove this member? This action is irreversible, and your data cannot be recovered.",
+    "cancel": "Cancel",
+    "confirm": "Yes, Remove"
+  },
+  "emptyState": {
+    "noMembers": "No members added yet.",
+    "noCoupons": "No coupons available."
+  }
+}
+

@@ -1,0 +1,101 @@
+{
+  "header": {
+    "title": "म्हारी सदस्यता",
+    "viewWallet": "म्हारो वॉलेट देखो",
+    "addedMembers": "जोड़िया गया सदस्य",
+    "coupon": "कूपन लागू करो"
+  },
+  "currentPlan": {
+    "title": "तमारी वर्तमान योजना",
+    "daysLeft": "मुफ्त ट्रायल में {{days}} दिन बच्या"
+  },
+  "availablePlans": {
+    "title": "उपलब्ध योजना",
+    "saveAmount": "₹{{amount}} बचाओ",
+    "bestValue": "सबसे बढ़िया कीमत",
+    "benefits": {
+      "unlimitedAccess": "सगळा मौजूदा + भविष्य के मॉड्यूल में असीमित पहुंच",
+      "exportDownload": "निर्यात/डाउनलोड क्षमता खुली गई",
+      "freeUsers": "3 मुफ्त अतिरिक्त यूजर (सुपरवाइजर/इंजीनियर/क्लाइंट)",
+      "calculations": "हर सदस्यता में 50 निर्माण गणना (और खरीदी जा सके)"
+    },
+    "plans": {
+      "monthly": "मासिक",
+      "3month": "3 महीना योजना",
+      "6month": "6 महीना योजना",
+      "12month": "12 महीना योजना",
+      "description": "ठेकेदार + 3 मुफ्त यूजर",
+      "periodMonth": "महीना",
+      "periodMonths": "महीना"
+    }
+  },
+  "addOns": {
+    "title": "एड-ऑन",
+    "addMoreMembers": "और सदस्य जोड़ो",
+    "membersUsed": "तमने {{total}} शामिल यूजर में {{used}} उपयोग किया",
+    "memberPricePerMonth": "/यूजर/महीना",
+    "addMember": "सदस्य जोड़ो",
+    "viewAddedMembers": "जोड़िया सदस्य सूची देखो",
+    "viewMembersMobile": "सदस्य देखो",
+    "buyMoreCalculations": "और गणना खरीदो",
+    "calculationsUsed": "तमने इ चक्र में {{total}} उपलब्ध गणना में {{used}} उपयोग किया।",
+    "packsAvailable": "उपलब्ध पैक",
+    "calculations": "गणना"
+  },
+  "offersRewards": {
+    "title": "ऑफर आ रिवॉर्ड",
+    "applyCoupon": "कूपन लागू करो",
+    "changeCoupon": "बदलो"
+  },
+  "bottomBar": {
+    "cancel": "रद्द करो",
+    "continue": "जारी रखो"
+  },
+  "addedMembers": {
+    "searchPlaceholder": "सदस्य खोजो",
+    "addNewMember": "नया सदस्य जोड़ो",
+    "menu": {
+      "remove": "सदस्य हटाओ"
+    }
+  },
+  "coupon": {
+    "searchPlaceholder": "कूपन कोड डालो",
+    "applyButton": "लागू करो",
+    "availableCoupons": "उपलब्ध कूपन",
+    "couponCodeLabel": "कूपन कोड",
+    "couponCodeLabelUppercase": "कूपन कोड",
+    "validityLabel": "मान्यता:"
+  },
+  "addMemberModal": {
+    "title": "सदस्य जोड़ो",
+    "memberInformation": "सदस्य जानकारी",
+    "memberInformationDescription": "कृपया उनके सदस्यता योजना में जोड़े खातिर सदस्य विवरण डालो।",
+    "fullNamePlaceholder": "पूरा नाम",
+    "assignRole": "भूमिका निर्धारित करो",
+    "roleSupervisorEngineer": "सुपरवाइजर/इंजीनियर",
+    "roleBuilderClient": "बिल्डर/क्लाइंट",
+    "membersAdded": "{{count}} सदस्य पहिले से जोड़िया",
+    "addingMoreCosts": "और सदस्य जोड़े का खर्च ",
+    "perUserMonth": "/यूजर/महीना",
+    "cancel": "रद्द करो",
+    "addMember": "सदस्य जोड़ो",
+    "errors": {
+      "fullNameRequired": "पूरा नाम जरूरी",
+      "phoneRequired": "फोन नंबर जरूरी",
+      "phoneInvalid": "कृपया वैध फोन नंबर डालो"
+    }
+  },
+  "removeMemberModal": {
+    "title": "{{name}} हटाओ",
+    "titleDefault": "सदस्य हटाओ",
+    "description": "क्या तम {{name}} के हटावे चाहत हो? इ काम वापस ना हो सके आ तमारो डेटा वापस ना मिल सके।",
+    "descriptionDefault": "क्या तम इ सदस्य के हटावे चाहत हो? इ काम वापस ना हो सके आ तमारो डेटा वापस ना मिल सके।",
+    "cancel": "रद्द करो",
+    "confirm": "हां, हटाओ"
+  },
+  "emptyState": {
+    "noMembers": "अब तक कोई सदस्य ना जोड़िया।",
+    "noCoupons": "कोई कूपन उपलब्ध ना।"
+  }
+}
+

@@ -1,0 +1,101 @@
+{
+  "header": {
+    "title": "મારી સબ્સ્ક્રિપ્શન",
+    "viewWallet": "મારું વૉલેટ જુઓ",
+    "addedMembers": "ઉમેરેલા સભ્યો",
+    "coupon": "કૂપન લાગુ કરો"
+  },
+  "currentPlan": {
+    "title": "તમારી વર્તમાન યોજના",
+    "daysLeft": "મફત ટ્રાયલમાં {{days}} દિવસ બાકી"
+  },
+  "availablePlans": {
+    "title": "ઉપલબ્ધ યોજનાઓ",
+    "saveAmount": "₹{{amount}} બચાવો",
+    "bestValue": "શ્રેષ્ઠ મૂલ્ય",
+    "benefits": {
+      "unlimitedAccess": "બધા વર્તમાન + ભવિષ્યના મોડ્યુલોની અમર્યાદિત પ્રવેશ",
+      "exportDownload": "નિકાસ/ડાઉનલોડ ક્ષમતાઓ અનલૉક",
+      "freeUsers": "3 મફત વધારાના વપરાશકર્તાઓ (સુપરવાઇઝર/ઇંજિનિયર/ક્લાયન્ટ)",
+      "calculations": "પ્રતિ સબ્સ્ક્રિપ્શન 50 બાંધકામ ગણનાઓ (વધુ ખરીદી યોગ્ય)"
+    },
+    "plans": {
+      "monthly": "માસિક",
+      "3month": "3 મહિનાની યોજના",
+      "6month": "6 મહિનાની યોજના",
+      "12month": "12 મહિનાની યોજના",
+      "description": "કોન્ટ્રેક્ટર + 3 મફત વપરાશકર્તાઓ",
+      "periodMonth": "મહિનો",
+      "periodMonths": "મહિના"
+    }
+  },
+  "addOns": {
+    "title": "એડ-ઓન્સ",
+    "addMoreMembers": "વધુ સભ્યો ઉમેરો",
+    "membersUsed": "તમે {{total}} સમાવિષ્ટ વપરાશકર્તાઓમાંથી {{used}} નો ઉપયોગ કર્યો છે",
+    "memberPricePerMonth": "/વપરાશકર્તા/મહિનો",
+    "addMember": "સભ્ય ઉમેરો",
+    "viewAddedMembers": "ઉમેરેલા સભ્ય સૂચિ જુઓ",
+    "viewMembersMobile": "સભ્યો જુઓ",
+    "buyMoreCalculations": "વધુ ગણનાઓ ખરીદો",
+    "calculationsUsed": "તમે આ ચક્રમાં {{total}} ઉપલબ્ધ ગણનાઓમાંથી {{used}} નો ઉપયોગ કર્યો છે.",
+    "packsAvailable": "ઉપલબ્ધ પેક",
+    "calculations": "ગણનાઓ"
+  },
+  "offersRewards": {
+    "title": "ઓફર્સ અને પુરસ્કારો",
+    "applyCoupon": "કૂપન લાગુ કરો",
+    "changeCoupon": "બદલો"
+  },
+  "bottomBar": {
+    "cancel": "રદ કરો",
+    "continue": "ચાલુ રાખો"
+  },
+  "addedMembers": {
+    "searchPlaceholder": "સભ્ય શોધો",
+    "addNewMember": "નવું સભ્ય ઉમેરો",
+    "menu": {
+      "remove": "સભ્ય દૂર કરો"
+    }
+  },
+  "coupon": {
+    "searchPlaceholder": "કૂપન કોડ દાખલ કરો",
+    "applyButton": "લાગુ કરો",
+    "availableCoupons": "ઉપલબ્ધ કૂપન",
+    "couponCodeLabel": "કૂપન કોડ",
+    "couponCodeLabelUppercase": "કૂપન કોડ",
+    "validityLabel": "માન્યતા:"
+  },
+  "addMemberModal": {
+    "title": "સભ્ય ઉમેરો",
+    "memberInformation": "સભ્ય માહિતી",
+    "memberInformationDescription": "કૃપા કરીને તેમને તમારી સબ્સ્ક્રિપ્શન યોજનામાં ઉમેરવા માટે સભ્ય વિગતો દાખલ કરો.",
+    "fullNamePlaceholder": "પૂરું નામ",
+    "assignRole": "ભૂમિકા સોંપો",
+    "roleSupervisorEngineer": "સુપરવાઇઝર/ઇંજિનિયર",
+    "roleBuilderClient": "બિલ્ડર/ક્લાયન્ટ",
+    "membersAdded": "{{count}} સભ્ય પહેલેથી ઉમેર્યો છે",
+    "addingMoreCosts": "વધુ સભ્ય ઉમેરવાની કિંમત ",
+    "perUserMonth": "/વપરાશકર્તા/મહિનો",
+    "cancel": "રદ કરો",
+    "addMember": "સભ્ય ઉમેરો",
+    "errors": {
+      "fullNameRequired": "પૂરું નામ જરૂરી છે",
+      "phoneRequired": "ફોન નંબર જરૂરી છે",
+      "phoneInvalid": "કૃપા કરીને માન્ય ફોન નંબર દાખલ કરો"
+    }
+  },
+  "removeMemberModal": {
+    "title": "{{name}} દૂર કરો",
+    "titleDefault": "સભ્ય દૂર કરો",
+    "description": "શું તમે ખરેખર {{name}} ને દૂર કરવા માંગો છો? આ ક્રિયા ફેરફારી નથી, અને તમારો ડેટા પુનઃપ્રાપ્ત કરી શકાતો નથી.",
+    "descriptionDefault": "શું તમે ખરેખર આ સભ્યને દૂર કરવા માંગો છો? આ ક્રિયા ફેરફારી નથી, અને તમારો ડેટા પુનઃપ્રાપ્ત કરી શકાતો નથી.",
+    "cancel": "રદ કરો",
+    "confirm": "હા, દૂર કરો"
+  },
+  "emptyState": {
+    "noMembers": "હજુ સુધી કોઈ સભ્ય ઉમેર્યો નથી.",
+    "noCoupons": "કોઈ કૂપન ઉપલબ્ધ નથી."
+  }
+}
+

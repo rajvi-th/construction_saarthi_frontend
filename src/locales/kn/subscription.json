@@ -1,0 +1,101 @@
+{
+  "header": {
+    "title": "ನನ್ನ ಚಂದಾದಾರಿಕೆ",
+    "viewWallet": "ನನ್ನ ವಾಲೆಟ್ ನೋಡಿ",
+    "addedMembers": "ಸೇರಿಸಿದ ಸದಸ್ಯರು",
+    "coupon": "ಕೂಪನ್ ಅನ್ವಯಿಸಿ"
+  },
+  "currentPlan": {
+    "title": "ನಿಮ್ಮ ಪ್ರಸ್ತುತ ಯೋಜನೆ",
+    "daysLeft": "ಉಚಿತ ಪ್ರಯೋಗದಲ್ಲಿ {{days}} ದಿನಗಳು ಉಳಿದಿವೆ"
+  },
+  "availablePlans": {
+    "title": "ಲಭ್ಯವಿರುವ ಯೋಜನೆಗಳು",
+    "saveAmount": "₹{{amount}} ಉಳಿಸಿ",
+    "bestValue": "ಅತ್ಯುತ್ತಮ ಮೌಲ್ಯ",
+    "benefits": {
+      "unlimitedAccess": "ಎಲ್ಲಾ ಪ್ರಸ್ತುತ + ಭವಿಷ್ಯದ ಮಾಡ್ಯೂಲ್‌ಗಳಿಗೆ ಅನಿಯಮಿತ ಪ್ರವೇಶ",
+      "exportDownload": "ರಫ್ತು/ಡೌನ್‌ಲೋಡ್ ಸಾಮರ್ಥ್ಯಗಳನ್ನು ಅನ್‌ಲಾಕ್ ಮಾಡಲಾಗಿದೆ",
+      "freeUsers": "3 ಉಚಿತ ಹೆಚ್ಚುವರಿ ಬಳಕೆದಾರರು (ಮೇಲ್ವಿಚಾರಕ/ಎಂಜಿನಿಯರ್/ಕ್ಲೈಂಟ್)",
+      "calculations": "ಪ್ರತಿ ಚಂದಾದಾರಿಕೆಗೆ 50 ನಿರ್ಮಾಣ ಲೆಕ್ಕಾಚಾರಗಳು (ಹೆಚ್ಚು ಖರೀದಿಸಬಹುದಾದವು)"
+    },
+    "plans": {
+      "monthly": "ಮಾಸಿಕ",
+      "3month": "3 ತಿಂಗಳು ಯೋಜನೆ",
+      "6month": "6 ತಿಂಗಳು ಯೋಜನೆ",
+      "12month": "12 ತಿಂಗಳು ಯೋಜನೆ",
+      "description": "ಕೌಂಟ್ರಾಕ್ಟರ್ + 3 ಉಚಿತ ಬಳಕೆದಾರರು",
+      "periodMonth": "ತಿಂಗಳು",
+      "periodMonths": "ತಿಂಗಳುಗಳು"
+    }
+  },
+  "addOns": {
+    "title": "ಸೇರ್ಪಡೆಗಳು",
+    "addMoreMembers": "ಹೆಚ್ಚು ಸದಸ್ಯರನ್ನು ಸೇರಿಸಿ",
+    "membersUsed": "ನೀವು {{total}} ಸೇರಿಸಿದ ಬಳಕೆದಾರರಲ್ಲಿ {{used}} ಬಳಸಿದ್ದೀರಿ",
+    "memberPricePerMonth": "/ಬಳಕೆದಾರ/ತಿಂಗಳು",
+    "addMember": "ಸದಸ್ಯರನ್ನು ಸೇರಿಸಿ",
+    "viewAddedMembers": "ಸೇರಿಸಿದ ಸದಸ್ಯ ಪಟ್ಟಿಯನ್ನು ನೋಡಿ",
+    "viewMembersMobile": "ಸದಸ್ಯರನ್ನು ನೋಡಿ",
+    "buyMoreCalculations": "ಹೆಚ್ಚು ಲೆಕ್ಕಾಚಾರಗಳನ್ನು ಖರೀದಿಸಿ",
+    "calculationsUsed": "ನೀವು ಈ ಚಕ್ರದಲ್ಲಿ {{total}} ಲಭ್ಯವಿರುವ ಲೆಕ್ಕಾಚಾರಗಳಲ್ಲಿ {{used}} ಬಳಸಿದ್ದೀರಿ.",
+    "packsAvailable": "ಲಭ್ಯವಿರುವ ಪ್ಯಾಕ್‌ಗಳು",
+    "calculations": "ಲೆಕ್ಕಾಚಾರಗಳು"
+  },
+  "offersRewards": {
+    "title": "ಆಫರ್‌ಗಳು ಮತ್ತು ಬಹುಮಾನಗಳು",
+    "applyCoupon": "ಕೂಪನ್ ಅನ್ವಯಿಸಿ",
+    "changeCoupon": "ಬದಲಾಯಿಸಿ"
+  },
+  "bottomBar": {
+    "cancel": "ರದ್ದುಮಾಡಿ",
+    "continue": "ಮುಂದುವರಿಸಿ"
+  },
+  "addedMembers": {
+    "searchPlaceholder": "ಸದಸ್ಯರನ್ನು ಹುಡುಕಿ",
+    "addNewMember": "ಹೊಸ ಸದಸ್ಯರನ್ನು ಸೇರಿಸಿ",
+    "menu": {
+      "remove": "ಸದಸ್ಯರನ್ನು ತೆಗೆದುಹಾಕಿ"
+    }
+  },
+  "coupon": {
+    "searchPlaceholder": "ಕೂಪನ್ ಕೋಡ್ ನಮೂದಿಸಿ",
+    "applyButton": "ಅನ್ವಯಿಸಿ",
+    "availableCoupons": "ಲಭ್ಯವಿರುವ ಕೂಪನ್‌ಗಳು",
+    "couponCodeLabel": "ಕೂಪನ್ ಕೋಡ್",
+    "couponCodeLabelUppercase": "ಕೂಪನ್ ಕೋಡ್",
+    "validityLabel": "ವಿಧಿವತ್ತಾಗಿ:"
+  },
+  "addMemberModal": {
+    "title": "ಸದಸ್ಯರನ್ನು ಸೇರಿಸಿ",
+    "memberInformation": "ಸದಸ್ಯ ಮಾಹಿತಿ",
+    "memberInformationDescription": "ದಯವಿಟ್ಟು ಅವರನ್ನು ನಿಮ್ಮ ಚಂದಾದಾರಿಕೆ ಯೋಜನೆಗೆ ಸೇರಿಸಲು ಸದಸ್ಯ ವಿವರಗಳನ್ನು ನಮೂದಿಸಿ.",
+    "fullNamePlaceholder": "ಪೂರ್ಣ ಹೆಸರು",
+    "assignRole": "ಪಾತ್ರವನ್ನು ನಿಯೋಜಿಸಿ",
+    "roleSupervisorEngineer": "ಮೇಲ್ವಿಚಾರಕ/ಎಂಜಿನಿಯರ್",
+    "roleBuilderClient": "ಬಿಲ್ಡರ್/ಕ್ಲೈಂಟ್",
+    "membersAdded": "{{count}} ಸದಸ್ಯ ಈಗಾಗಲೇ ಸೇರಿಸಲಾಗಿದೆ",
+    "addingMoreCosts": "ಹೆಚ್ಚು ಸದಸ್ಯರನ್ನು ಸೇರಿಸುವ ವೆಚ್ಚ ",
+    "perUserMonth": "/ಬಳಕೆದಾರ/ತಿಂಗಳು",
+    "cancel": "ರದ್ದುಮಾಡಿ",
+    "addMember": "ಸದಸ್ಯರನ್ನು ಸೇರಿಸಿ",
+    "errors": {
+      "fullNameRequired": "ಪೂರ್ಣ ಹೆಸರು ಅಗತ್ಯವಿದೆ",
+      "phoneRequired": "ಫೋನ್ ಸಂಖ್ಯೆ ಅಗತ್ಯವಿದೆ",
+      "phoneInvalid": "ದಯವಿಟ್ಟು ಮಾನ್ಯ ಫೋನ್ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ"
+    }
+  },
+  "removeMemberModal": {
+    "title": "{{name}} ತೆಗೆದುಹಾಕಿ",
+    "titleDefault": "ಸದಸ್ಯರನ್ನು ತೆಗೆದುಹಾಕಿ",
+    "description": "ನೀವು {{name}} ಅನ್ನು ತೆಗೆದುಹಾಕಲು ಖಚಿತವಾಗಿ ನಿರ್ಧರಿಸಿದ್ದೀರಾ? ಈ ಕ್ರಿಯೆಯನ್ನು ಹಿಮ್ಮೆಟ್ಟಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ ಮತ್ತು ನಿಮ್ಮ ಡೇಟಾವನ್ನು ಮರುಸ್ಥಾಪಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.",
+    "descriptionDefault": "ನೀವು ಈ ಸದಸ್ಯರನ್ನು ತೆಗೆದುಹಾಕಲು ಖಚಿತವಾಗಿ ನಿರ್ಧರಿಸಿದ್ದೀರಾ? ಈ ಕ್ರಿಯೆಯನ್ನು ಹಿಮ್ಮೆಟ್ಟಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ ಮತ್ತು ನಿಮ್ಮ ಡೇಟಾವನ್ನು ಮರುಸ್ಥಾಪಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.",
+    "cancel": "ರದ್ದುಮಾಡಿ",
+    "confirm": "ಹೌದು, ತೆಗೆದುಹಾಕಿ"
+  },
+  "emptyState": {
+    "noMembers": "ಇನ್ನೂ ಸದಸ್ಯರು ಸೇರಿಸಲಾಗಿಲ್ಲ.",
+    "noCoupons": "ಕೂಪನ್‌ಗಳು ಲಭ್ಯವಿಲ್ಲ."
+  }
+}
+

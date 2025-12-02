@@ -1,0 +1,101 @@
+{
+  "header": {
+    "title": "মোৰ সদস্যতা",
+    "viewWallet": "মোৰ ৱালেট চাওক",
+    "addedMembers": "যোগ কৰা সদস্য",
+    "coupon": "কুপন প্ৰয়োগ কৰক"
+  },
+  "currentPlan": {
+    "title": "আপোনাৰ বৰ্তমান পৰিকল্পনা",
+    "daysLeft": "মুক্ত পৰীক্ষণত {{days}} দিন বাকী আছে"
+  },
+  "availablePlans": {
+    "title": "উপলব্ধ পৰিকল্পনা",
+    "saveAmount": "₹{{amount}} সাঁচি থওক",
+    "bestValue": "শ্ৰেষ্ঠ মূল্য",
+    "benefits": {
+      "unlimitedAccess": "সকলো বৰ্তমান + ভৱিষ্যতৰ মডিউললৈ সীমাহীন প্ৰৱেশ",
+      "exportDownload": "ৰপ্তানি/ডাউনল'ড কৰিব পৰা ক্ষমতা খোলা হৈছে",
+      "freeUsers": "৩টা মুক্ত অতিৰিক্ত ব্যৱহাৰকাৰী (পৰ্যবেক্ষক/ইঞ্জিনিয়াৰ/ক্লাইণ্ট)",
+      "calculations": "প্ৰতি সদস্যতাত ৫০টা নিৰ্মাণ গণনা (বেছি কিনিব পৰা)"
+    },
+    "plans": {
+      "monthly": "মাহেকীয়া",
+      "3month": "৩ মাহৰ পৰিকল্পনা",
+      "6month": "৬ মাহৰ পৰিকল্পনা",
+      "12month": "১২ মাহৰ পৰিকল্পনা",
+      "description": "ঠিকাদাৰ + ৩টা মুক্ত ব্যৱহাৰকাৰী",
+      "periodMonth": "মাহ",
+      "periodMonths": "মাহ"
+    }
+  },
+  "addOns": {
+    "title": "এড-অন",
+    "addMoreMembers": "অধিক সদস্য যোগ কৰক",
+    "membersUsed": "আপুনি {{total}} অন্তৰ্ভুক্ত ব্যৱহাৰকাৰীৰ ভিতৰত {{used}} ব্যৱহাৰ কৰিছে",
+    "memberPricePerMonth": "/ব্যৱহাৰকাৰী/মাহ",
+    "addMember": "সদস্য যোগ কৰক",
+    "viewAddedMembers": "যোগ কৰা সদস্য তালিকা চাওক",
+    "viewMembersMobile": "সদস্য চাওক",
+    "buyMoreCalculations": "অধিক গণনা কিনক",
+    "calculationsUsed": "আপুনি এই চক্ৰত {{total}} উপলব্ধ গণনাৰ ভিতৰত {{used}} ব্যৱহাৰ কৰিছে।",
+    "packsAvailable": "উপলব্ধ পেক",
+    "calculations": "গণনা"
+  },
+  "offersRewards": {
+    "title": "অফাৰ আৰু পুৰস্কাৰ",
+    "applyCoupon": "কুপন প্ৰয়োগ কৰক",
+    "changeCoupon": "সলনি কৰক"
+  },
+  "bottomBar": {
+    "cancel": "বাতিল কৰক",
+    "continue": "অব্যাহত ৰাখক"
+  },
+  "addedMembers": {
+    "searchPlaceholder": "সদস্য বিচাৰক",
+    "addNewMember": "নতুন সদস্য যোগ কৰক",
+    "menu": {
+      "remove": "সদস্য আঁতৰাওক"
+    }
+  },
+  "coupon": {
+    "searchPlaceholder": "কুপন ক'ড লিখক",
+    "applyButton": "প্ৰয়োগ কৰক",
+    "availableCoupons": "উপলব্ধ কুপন",
+    "couponCodeLabel": "কুপন ক'ড",
+    "couponCodeLabelUppercase": "কুপন ক'ড",
+    "validityLabel": "বৈধতা:"
+  },
+  "addMemberModal": {
+    "title": "সদস্য যোগ কৰক",
+    "memberInformation": "সদস্য তথ্য",
+    "memberInformationDescription": "অনুগ্ৰহ কৰি সদস্যৰ বিশদবোৰ লিখি তেওঁলোকক আপোনাৰ সদস্যতা পৰিকল্পনাত যোগ কৰক।",
+    "fullNamePlaceholder": "সম্পূৰ্ণ নাম",
+    "assignRole": "ভূমিকা নিয়োগ কৰক",
+    "roleSupervisorEngineer": "পৰ্যবেক্ষক/ইঞ্জিনিয়াৰ",
+    "roleBuilderClient": "বিল্ডাৰ/ক্লাইণ্ট",
+    "membersAdded": "{{count}} সদস্য ইতিমধ্যে যোগ কৰা হৈছে",
+    "addingMoreCosts": "অধিক সদস্য যোগ কৰাৰ খৰচ ",
+    "perUserMonth": "/ব্যৱহাৰকাৰী/মাহ",
+    "cancel": "বাতিল কৰক",
+    "addMember": "সদস্য যোগ কৰক",
+    "errors": {
+      "fullNameRequired": "সম্পূৰ্ণ নামৰ প্ৰয়োজন",
+      "phoneRequired": "ফোন নম্বৰৰ প্ৰয়োজন",
+      "phoneInvalid": "অনুগ্ৰহ কৰি বৈধ ফোন নম্বৰ লিখক"
+    }
+  },
+  "removeMemberModal": {
+    "title": "{{name}} আঁতৰাওক",
+    "titleDefault": "সদস্য আঁতৰাওক",
+    "description": "আপুনি {{name}} আঁতৰাবলৈ নিশ্চিতনে? এই কাৰ্য্য উল্টাব নোৱাৰি আৰু আপোনাৰ তথ্য পুনৰুদ্ধাৰ কৰিব নোৱাৰি।",
+    "descriptionDefault": "আপুনি এই সদস্যটো আঁতৰাবলৈ নিশ্চিতনে? এই কাৰ্য্য উল্টাব নোৱাৰি আৰু আপোনাৰ তথ্য পুনৰুদ্ধাৰ কৰিব নোৱাৰি।",
+    "cancel": "বাতিল কৰক",
+    "confirm": "হয়, আঁতৰাওক"
+  },
+  "emptyState": {
+    "noMembers": "এতিয়াও কোনো সদস্য যোগ কৰা হোৱা নাই।",
+    "noCoupons": "কুপন উপলব্ধ নাই।"
+  }
+}
+

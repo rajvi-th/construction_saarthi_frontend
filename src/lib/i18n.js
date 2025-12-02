@@ -133,6 +133,22 @@ import bhoSiteInventory from '../locales/bho/siteInventory.json';
 import asSiteInventory from '../locales/as/siteInventory.json';
 import hrySiteInventory from '../locales/hry/siteInventory.json';
 
+// Import subscription translations for all languages
+import enSubscription from '../locales/en/subscription.json';
+import hiSubscription from '../locales/hi/subscription.json';
+import guSubscription from '../locales/gu/subscription.json';
+import bnSubscription from '../locales/bn/subscription.json';
+import taSubscription from '../locales/ta/subscription.json';
+import mrSubscription from '../locales/mr/subscription.json';
+import teSubscription from '../locales/te/subscription.json';
+import knSubscription from '../locales/kn/subscription.json';
+import mlSubscription from '../locales/ml/subscription.json';
+import urSubscription from '../locales/ur/subscription.json';
+import rajSubscription from '../locales/raj/subscription.json';
+import bhoSubscription from '../locales/bho/subscription.json';
+import asSubscription from '../locales/as/subscription.json';
+import hrySubscription from '../locales/hry/subscription.json';
+
 // Get saved language from localStorage or default to 'en'
 const savedLang = localStorage.getItem('lang') || 'en';
 
@@ -146,6 +162,7 @@ const resources = {
     businessCard: enBusinessCard,
     referEarn: enReferEarn,
     siteInventory: enSiteInventory,
+    subscription: enSubscription,
   },
   hi: {
     common: hiCommon,
@@ -156,6 +173,7 @@ const resources = {
     businessCard: hiBusinessCard,
     referEarn: hiReferEarn,
     siteInventory: hiSiteInventory,
+    subscription: hiSubscription,
   },
   gu: {
     common: guCommon,
@@ -166,6 +184,7 @@ const resources = {
     businessCard: guBusinessCard,
     referEarn: guReferEarn,
     siteInventory: guSiteInventory,
+    subscription: guSubscription,
   },
   bn: {
     common: bnCommon,
@@ -176,6 +195,7 @@ const resources = {
     businessCard: bnBusinessCard,
     referEarn: bnReferEarn,
     siteInventory: bnSiteInventory,
+    subscription: bnSubscription,
   },
   ta: {
     common: taCommon,
@@ -186,6 +206,7 @@ const resources = {
     businessCard: taBusinessCard,
     referEarn: taReferEarn,
     siteInventory: taSiteInventory,
+    subscription: taSubscription,
   },
   mr: {
     common: mrCommon,
@@ -196,6 +217,7 @@ const resources = {
     businessCard: mrBusinessCard,
     referEarn: mrReferEarn,
     siteInventory: mrSiteInventory,
+    subscription: mrSubscription,
   },
   te: {
     common: teCommon,
@@ -206,6 +228,7 @@ const resources = {
     businessCard: teBusinessCard,
     referEarn: teReferEarn,
     siteInventory: teSiteInventory,
+    subscription: teSubscription,
   },
   kn: {
     common: knCommon,
@@ -216,6 +239,7 @@ const resources = {
     businessCard: knBusinessCard,
     referEarn: knReferEarn,
     siteInventory: knSiteInventory,
+    subscription: knSubscription,
   },
   ml: {
     common: mlCommon,
@@ -226,6 +250,7 @@ const resources = {
     businessCard: mlBusinessCard,
     referEarn: mlReferEarn,
     siteInventory: mlSiteInventory,
+    subscription: mlSubscription,
   },
   ur: {
     common: urCommon,
@@ -236,6 +261,7 @@ const resources = {
     businessCard: urBusinessCard,
     referEarn: urReferEarn,
     siteInventory: urSiteInventory,
+    subscription: urSubscription,
   },
   raj: {
     common: rajCommon,
@@ -246,6 +272,7 @@ const resources = {
     businessCard: rajBusinessCard,
     referEarn: rajReferEarn,
     siteInventory: rajSiteInventory,
+    subscription: rajSubscription,
   },
   bho: {
     common: bhoCommon,
@@ -256,6 +283,7 @@ const resources = {
     businessCard: bhoBusinessCard,
     referEarn: bhoReferEarn,
     siteInventory: bhoSiteInventory,
+    subscription: bhoSubscription,
   },
   as: {
     common: asCommon,
@@ -266,6 +294,7 @@ const resources = {
     businessCard: asBusinessCard,
     referEarn: asReferEarn,
     siteInventory: asSiteInventory,
+    subscription: asSubscription,
   },
   hry: {
     common: hryCommon,
@@ -276,6 +305,7 @@ const resources = {
     businessCard: hryBusinessCard,
     referEarn: hryReferEarn,
     siteInventory: hrySiteInventory,
+    subscription: hrySubscription,
   },
 };
 
@@ -290,7 +320,7 @@ i18n
       escapeValue: false, // React already escapes values
     },
     defaultNS: 'common',
-    ns: ['common', 'auth', 'dashboard', 'account', 'businessCard', 'siteInventory', 'referEarn'],
+    ns: ['common', 'auth', 'dashboard', 'account', 'businessCard', 'siteInventory', 'referEarn', 'subscription'],
   });
 
 export default i18n;

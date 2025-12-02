@@ -1,0 +1,101 @@
+{
+  "header": {
+    "title": "میری سبسکرپشن",
+    "viewWallet": "میرا والیٹ دیکھیں",
+    "addedMembers": "شامل کیے گئے ممبران",
+    "coupon": "کوپن لاگو کریں"
+  },
+  "currentPlan": {
+    "title": "آپ کا موجودہ منصوبہ",
+    "daysLeft": "مفت ٹرائل میں {{days}} دن باقی ہیں"
+  },
+  "availablePlans": {
+    "title": "دستیاب منصوبے",
+    "saveAmount": "₹{{amount}} بچائیں",
+    "bestValue": "بہترین قیمت",
+    "benefits": {
+      "unlimitedAccess": "تمام موجودہ + مستقبل کے ماڈیولز تک لامحدود رسائی",
+      "exportDownload": "برآمد/ڈاؤن لوڈ کی صلاحیتیں کھول دی گئیں",
+      "freeUsers": "3 مفت اضافی صارفین (نگران/انجینئر/کلائنٹ)",
+      "calculations": "فی سبسکرپشن 50 تعمیراتی حسابات (مزید خریدنے کے قابل)"
+    },
+    "plans": {
+      "monthly": "ماہانہ",
+      "3month": "3 ماہ کا منصوبہ",
+      "6month": "6 ماہ کا منصوبہ",
+      "12month": "12 ماہ کا منصوبہ",
+      "description": "ٹھیکیدار + 3 مفت صارفین",
+      "periodMonth": "مہینہ",
+      "periodMonths": "مہینے"
+    }
+  },
+  "addOns": {
+    "title": "ایڈ-آنز",
+    "addMoreMembers": "مزید ممبران شامل کریں",
+    "membersUsed": "آپ نے {{total}} شامل کردہ صارفین میں سے {{used}} استعمال کیے ہیں",
+    "memberPricePerMonth": "/صارف/مہینہ",
+    "addMember": "ممبر شامل کریں",
+    "viewAddedMembers": "شامل کردہ ممبران کی فہرست دیکھیں",
+    "viewMembersMobile": "ممبران دیکھیں",
+    "buyMoreCalculations": "مزید حسابات خریدیں",
+    "calculationsUsed": "آپ نے اس سائیکل میں {{total}} دستیاب حسابات میں سے {{used}} استعمال کیے ہیں۔",
+    "packsAvailable": "دستیاب پیک",
+    "calculations": "حسابات"
+  },
+  "offersRewards": {
+    "title": "پیشکشیں اور انعامات",
+    "applyCoupon": "کوپن لاگو کریں",
+    "changeCoupon": "تبدیل کریں"
+  },
+  "bottomBar": {
+    "cancel": "منسوخ کریں",
+    "continue": "جاری رکھیں"
+  },
+  "addedMembers": {
+    "searchPlaceholder": "ممبر تلاش کریں",
+    "addNewMember": "نیا ممبر شامل کریں",
+    "menu": {
+      "remove": "ممبر ہٹائیں"
+    }
+  },
+  "coupon": {
+    "searchPlaceholder": "کوپن کوڈ درج کریں",
+    "applyButton": "لاگو کریں",
+    "availableCoupons": "دستیاب کوپن",
+    "couponCodeLabel": "کوپن کوڈ",
+    "couponCodeLabelUppercase": "کوپن کوڈ",
+    "validityLabel": "قانونیت:"
+  },
+  "addMemberModal": {
+    "title": "ممبر شامل کریں",
+    "memberInformation": "ممبر کی معلومات",
+    "memberInformationDescription": "براہ کرم انھیں اپنی سبسکرپشن پلان میں شامل کرنے کے لیے ممبر کی تفصیلات درج کریں۔",
+    "fullNamePlaceholder": "پورا نام",
+    "assignRole": "کردار تفویض کریں",
+    "roleSupervisorEngineer": "نگران/انجینئر",
+    "roleBuilderClient": "بلڈر/کلائنٹ",
+    "membersAdded": "{{count}} ممبر پہلے سے شامل ہے",
+    "addingMoreCosts": "مزید ممبران شامل کرنے کی لاگت ",
+    "perUserMonth": "/صارف/مہینہ",
+    "cancel": "منسوخ کریں",
+    "addMember": "ممبر شامل کریں",
+    "errors": {
+      "fullNameRequired": "پورا نام درکار ہے",
+      "phoneRequired": "فون نمبر درکار ہے",
+      "phoneInvalid": "براہ کرم درست فون نمبر درج کریں"
+    }
+  },
+  "removeMemberModal": {
+    "title": "{{name}} ہٹائیں",
+    "titleDefault": "ممبر ہٹائیں",
+    "description": "کیا آپ واقعی {{name}} کو ہٹانا چاہتے ہیں؟ یہ عمل ناقابل واپسی ہے اور آپ کا ڈیٹا دوبارہ حاصل نہیں کیا جا سکتا۔",
+    "descriptionDefault": "کیا آپ واقعی اس ممبر کو ہٹانا چاہتے ہیں؟ یہ عمل ناقابل واپسی ہے اور آپ کا ڈیٹا دوبارہ حاصل نہیں کیا جا سکتا۔",
+    "cancel": "منسوخ کریں",
+    "confirm": "ہاں، ہٹائیں"
+  },
+  "emptyState": {
+    "noMembers": "ابھی تک کوئی ممبر شامل نہیں کیا گیا۔",
+    "noCoupons": "کوپن دستیاب نہیں ہیں۔"
+  }
+}
+

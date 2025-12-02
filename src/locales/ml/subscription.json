@@ -1,0 +1,101 @@
+{
+  "header": {
+    "title": "എന്റെ സബ്‌സ്‌ക്രിപ്‌ഷൻ",
+    "viewWallet": "എന്റെ വാലറ്റ് കാണുക",
+    "addedMembers": "ചേർത്ത അംഗങ്ങൾ",
+    "coupon": "കൂപ്പൺ പ്രയോഗിക്കുക"
+  },
+  "currentPlan": {
+    "title": "നിങ്ങളുടെ നിലവിലെ പ്ലാൻ",
+    "daysLeft": "സൗജന്യ ട്രയലിൽ {{days}} ദിവസങ്ങൾ ശേഷിക്കുന്നു"
+  },
+  "availablePlans": {
+    "title": "ലഭ്യമായ പ്ലാനുകൾ",
+    "saveAmount": "₹{{amount}} സംരക്ഷിക്കുക",
+    "bestValue": "മികച്ച മൂല്യം",
+    "benefits": {
+      "unlimitedAccess": "എല്ലാ നിലവിലെ + ഭാവി മൊഡ്യൂളുകളിലേക്കുള്ള പരിധിയില്ലാത്ത പ്രവേശനം",
+      "exportDownload": "എക്സ്‌പോർട്ട്/ഡൗൺലോഡ് കഴിവുകൾ അൺലോക്ക് ചെയ്തു",
+      "freeUsers": "3 സൗജന്യ അധിക ഉപയോക്താക്കൾ (സൂപ്പർവൈസർ/എഞ്ചിനീയർ/ക്ലയന്റ്)",
+      "calculations": "ഓരോ സബ്‌സ്‌ക്രിപ്‌ഷനിലും 50 നിർമ്മാണ കണക്കുകൂട്ടലുകൾ (കൂടുതൽ വാങ്ങാവുന്നത്)"
+    },
+    "plans": {
+      "monthly": "മാസിക",
+      "3month": "3 മാസ പ്ലാൻ",
+      "6month": "6 മാസ പ്ലാൻ",
+      "12month": "12 മാസ പ്ലാൻ",
+      "description": "കോൺട്രാക്ടർ + 3 സൗജന്യ ഉപയോക്താക്കൾ",
+      "periodMonth": "മാസം",
+      "periodMonths": "മാസങ്ങൾ"
+    }
+  },
+  "addOns": {
+    "title": "ആഡ്-ഓണുകൾ",
+    "addMoreMembers": "കൂടുതൽ അംഗങ്ങളെ ചേർക്കുക",
+    "membersUsed": "നിങ്ങൾ {{total}} ഉൾപ്പെടുത്തിയ ഉപയോക്താക്കളിൽ {{used}} ഉപയോഗിച്ചു",
+    "memberPricePerMonth": "/ഉപയോക്താവ്/മാസം",
+    "addMember": "അംഗത്തെ ചേർക്കുക",
+    "viewAddedMembers": "ചേർത്ത അംഗ ലിസ്റ്റ് കാണുക",
+    "viewMembersMobile": "അംഗങ്ങളെ കാണുക",
+    "buyMoreCalculations": "കൂടുതൽ കണക്കുകൂട്ടലുകൾ വാങ്ങുക",
+    "calculationsUsed": "നിങ്ങൾ ഈ സൈക്കിളിൽ {{total}} ലഭ്യമായ കണക്കുകൂട്ടലുകളിൽ {{used}} ഉപയോഗിച്ചു.",
+    "packsAvailable": "ലഭ്യമായ പാക്കുകൾ",
+    "calculations": "കണക്കുകൂട്ടലുകൾ"
+  },
+  "offersRewards": {
+    "title": "ഓഫറുകളും പ്രതിഫലങ്ങളും",
+    "applyCoupon": "കൂപ്പൺ പ്രയോഗിക്കുക",
+    "changeCoupon": "മാറ്റുക"
+  },
+  "bottomBar": {
+    "cancel": "റദ്ദാക്കുക",
+    "continue": "തുടരുക"
+  },
+  "addedMembers": {
+    "searchPlaceholder": "അംഗത്തെ തിരയുക",
+    "addNewMember": "പുതിയ അംഗത്തെ ചേർക്കുക",
+    "menu": {
+      "remove": "അംഗത്തെ നീക്കംചെയ്യുക"
+    }
+  },
+  "coupon": {
+    "searchPlaceholder": "കൂപ്പൺ കോഡ് നൽകുക",
+    "applyButton": "പ്രയോഗിക്കുക",
+    "availableCoupons": "ലഭ്യമായ കൂപ്പണുകൾ",
+    "couponCodeLabel": "കൂപ്പൺ കോഡ്",
+    "couponCodeLabelUppercase": "കൂപ്പൺ കോഡ്",
+    "validityLabel": "സാധുത:"
+  },
+  "addMemberModal": {
+    "title": "അംഗത്തെ ചേർക്കുക",
+    "memberInformation": "അംഗ വിവരങ്ങൾ",
+    "memberInformationDescription": "ദയവായി അവരെ നിങ്ങളുടെ സബ്‌സ്‌ക്രിപ്‌ഷൻ പ്ലാനിൽ ചേർക്കാൻ അംഗ വിവരങ്ങൾ നൽകുക.",
+    "fullNamePlaceholder": "പൂർണ്ണ നാമം",
+    "assignRole": "റോൾ നിയോഗിക്കുക",
+    "roleSupervisorEngineer": "സൂപ്പർവൈസർ/എഞ്ചിനീയർ",
+    "roleBuilderClient": "ബിൽഡർ/ക്ലയന്റ്",
+    "membersAdded": "{{count}} അംഗം ഇതിനകം ചേർത്തിരിക്കുന്നു",
+    "addingMoreCosts": "കൂടുതൽ അംഗങ്ങളെ ചേർക്കുന്നതിനുള്ള ചെലവ് ",
+    "perUserMonth": "/ഉപയോക്താവ്/മാസം",
+    "cancel": "റദ്ദാക്കുക",
+    "addMember": "അംഗത്തെ ചേർക്കുക",
+    "errors": {
+      "fullNameRequired": "പൂർണ്ണ നാമം ആവശ്യമാണ്",
+      "phoneRequired": "ഫോൺ നമ്പർ ആവശ്യമാണ്",
+      "phoneInvalid": "ദയവായി സാധുവായ ഫോൺ നമ്പർ നൽകുക"
+    }
+  },
+  "removeMemberModal": {
+    "title": "{{name}} നീക്കംചെയ്യുക",
+    "titleDefault": "അംഗത്തെ നീക്കംചെയ്യുക",
+    "description": "നിങ്ങൾ {{name}} നീക്കംചെയ്യാൻ ഉറപ്പാണോ? ഈ പ്രവർത്തനം പൂർവ്വസ്ഥിതിയിലാക്കാനാവില്ല, നിങ്ങളുടെ ഡാറ്റ വീണ്ടെടുക്കാൻ കഴിയില്ല.",
+    "descriptionDefault": "നിങ്ങൾ ഈ അംഗത്തെ നീക്കംചെയ്യാൻ ഉറപ്പാണോ? ഈ പ്രവർത്തനം പൂർവ്വസ്ഥിതിയിലാക്കാനാവില്ല, നിങ്ങളുടെ ഡാറ്റ വീണ്ടെടുക്കാൻ കഴിയില്ല.",
+    "cancel": "റദ്ദാക്കുക",
+    "confirm": "അതെ, നീക്കംചെയ്യുക"
+  },
+  "emptyState": {
+    "noMembers": "ഇതുവരെ അംഗങ്ങളെ ചേർത്തിട്ടില്ല.",
+    "noCoupons": "കൂപ്പണുകൾ ലഭ്യമല്ല."
+  }
+}
+
