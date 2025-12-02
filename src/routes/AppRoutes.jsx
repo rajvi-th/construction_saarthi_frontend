@@ -37,6 +37,10 @@ import Settings from '../pages/Settings';
   const AddBusinessCard = lazy(() => import('../features/businessCard/pages/AddBusinessCard'));
   const EditBusinessCard = lazy(() => import('../features/businessCard/pages/EditBusinessCard'));
 
+  // Refer & Earn
+  const ReferEarn = lazy(() => import('../features/refer_earn/pages/ReferEarn'));
+  const Wallet = lazy(() => import('../features/refer_earn/pages/Wallet'));
+
   // Projects
   const Projects = lazy(() => import('../features/projects/pages/Projects'));
   const ProjectDetails = lazy(() => import('../features/projects/pages/ProjectDetails'));
@@ -101,6 +105,8 @@ import Settings from '../pages/Settings';
             <Route path={ROUTES_FLAT.BUSINESS_CARD} element={<BusinessCard />} />
             <Route path={ROUTES_FLAT.ADD_BUSINESS_CARD} element={<AddBusinessCard />} />
             <Route path={ROUTES_FLAT.EDIT_BUSINESS_CARD} element={<EditBusinessCard />} />
+            <Route path={ROUTES_FLAT.REFER_EARN} element={<ReferEarn />} />
+            <Route path={ROUTES_FLAT.REFER_EARN_WALLET} element={<Wallet />} />
           </Route>
         </Route>
     

@@ -15,6 +15,8 @@ export default function FileUpload({
   onFileSelect,
   className = '',
   accept = '.pdf,.jpg,.jpeg,.png',
+  uploadButtonText = 'Upload',
+  supportedFormatLabel = 'Supported Format:',
 }) {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
@@ -90,7 +92,7 @@ export default function FileUpload({
 
         {/* Supported Formats */}
         <p className="text-xs sm:text-sm text-secondary mb-4 sm:mb-6">
-          Supported Format: {supportedFormats} ({maxSize}{maxSizeUnit} EACH)
+          {supportedFormatLabel} {supportedFormats} ({maxSize}{maxSizeUnit} EACH)
         </p>
 
         {/* Upload Button */}
@@ -99,7 +101,7 @@ export default function FileUpload({
             variant="primary"
             onClick={handleButtonClick}
           >
-            Upload
+            {uploadButtonText}
           </Button>
         </div>
 

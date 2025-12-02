@@ -26,7 +26,7 @@ export default function PageHeader({
 
   return (
     <div className={`mb-4 sm:mb-5 md:mb-6 ${className}`}>
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 sm:gap-4">
+      <div className="flex items-center justify-between gap-3 sm:gap-4 flex-wrap">
         {/* Title Section */}
         <div className="flex items-center gap-2 sm:gap-3">
           {showBackButton && (
@@ -38,13 +38,13 @@ export default function PageHeader({
               <ArrowLeft className="w-5 h-5 md:w-6 md:h-6 text-primary" />
             </button>
           )}
-          <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-primary">
+          <h1 className="text-lg sm:text-xl md:text-2xl lg:text-[22px] font-semibold text-primary">
             {title}
           </h1>
         </div>
         {/* Actions Section */}
         {children && (
-          <div className="w-full lg:w-auto">
+          <div className="flex-shrink-0">
             {children}
           </div>
         )}
@@ -52,4 +52,3 @@ export default function PageHeader({
     </div>
   );
 }
-

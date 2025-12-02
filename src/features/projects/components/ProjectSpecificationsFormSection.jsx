@@ -45,7 +45,7 @@ function ProjectSpecificationsFormSection({
               <Radio
                 name="areaUnit"
                 value="sqft"
-                label="Sq. Ft"
+                label={t('addNewProject.form.areaUnitSqft')}
                 checked={areaUnit === 'sqft'}
                 onChange={() => setAreaUnit('sqft')}
                 className="text-xs"
@@ -53,7 +53,7 @@ function ProjectSpecificationsFormSection({
               <Radio
                 name="areaUnit"
                 value="meter"
-                label="Meter"
+                label={t('addNewProject.form.areaUnitMeter')}
                 checked={areaUnit === 'meter'}
                 onChange={() => setAreaUnit('meter')}
                 className="text-xs"
@@ -90,13 +90,13 @@ function ProjectSpecificationsFormSection({
             label={t('addNewProject.form.constructionType')}
             value={constructionType}
             onChange={onConstructionTypeChange}
-            placeholder={isLoadingConstructionTypes ? 'Loading...' : t('addNewProject.form.selectType')}
+            placeholder={isLoadingConstructionTypes ? t('addNewProject.form.loading') : t('addNewProject.form.selectType')}
             options={constructionTypeOptions}
             error={errors.constructionType?.message}
             disabled={isLoadingConstructionTypes}
             showSeparator={true}
             onAddNew={onAddNewConstructionType}
-            addButtonLabel="Add New"
+            addButtonLabel={t('addNewProject.form.addNew')}
             customModal={ConstructionTypeModal}
           />
         </div>
@@ -106,7 +106,7 @@ function ProjectSpecificationsFormSection({
           label={t('addNewProject.form.numberOfFloors')}
           name="noOfFloors"
           type="number"
-          placeholder="1"
+          placeholder={t('addNewProject.form.numberOfFloorsPlaceholder')}
           register={register}
           errors={errors}
           labelClassName="text-primary font-normal"
@@ -118,13 +118,13 @@ function ProjectSpecificationsFormSection({
             label={t('addNewProject.form.contractType')}
             value={contractType}
             onChange={onContractTypeChange}
-            placeholder={isLoadingContractTypes ? 'Loading...' : t('addNewProject.form.selectType')}
+            placeholder={isLoadingContractTypes ? t('addNewProject.form.loading') : t('addNewProject.form.selectType')}
             options={contractTypeOptions}
             error={errors.contractType?.message}
             disabled={isLoadingContractTypes}
             showSeparator={true}
             onAddNew={onAddNewContractType}
-            addButtonLabel="Add New"
+            addButtonLabel={t('addNewProject.form.addNew')}
             customModal={ContractTypeModal}
           />
         </div>

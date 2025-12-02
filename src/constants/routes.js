@@ -42,6 +42,11 @@ export const ROUTES = {
     ADD: '/business-card/add',
     EDIT: '/business-card/:id/edit',
   },
+  // Refer & Earn Routes
+  REFER_EARN: {
+    HOME: '/refer-earn',
+    WALLET: '/refer-earn/wallet',
+  },
 };
 
 // Flattened routes for easier access
@@ -77,6 +82,10 @@ export const ROUTES_FLAT = {
   BUSINESS_CARD: ROUTES.BUSINESS_CARD.LIST,
   ADD_BUSINESS_CARD: ROUTES.BUSINESS_CARD.ADD,
   EDIT_BUSINESS_CARD: ROUTES.BUSINESS_CARD.EDIT,
+
+  // Refer & Earn
+  REFER_EARN: ROUTES.REFER_EARN.HOME,
+  REFER_EARN_WALLET: ROUTES.REFER_EARN.WALLET,
 };
 
 /**

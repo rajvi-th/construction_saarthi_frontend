@@ -236,5 +236,3 @@ function SiteOverviewFormSection({
 }
 
 export default SiteOverviewFormSection;
-
-

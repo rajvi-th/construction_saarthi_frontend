@@ -188,9 +188,9 @@ function UploadDocumentsSection({ t, onFilesChange }) {
   };
 
   const tabs = [
-    { id: 'photos', label: 'Photos' },
-    { id: 'videos', label: 'Videos' },
-    { id: 'documents', label: 'Documents' },
+    { id: 'photos', label: t('addNewProject.form.tabs.photos') },
+    { id: 'videos', label: t('addNewProject.form.tabs.videos') },
+    { id: 'documents', label: t('addNewProject.form.tabs.documents') },
   ];
 
   const currentFiles = uploadedFiles[activeTab];
@@ -222,11 +222,13 @@ function UploadDocumentsSection({ t, onFilesChange }) {
           title={t('addNewProject.form.uploadRelevantDocuments')}
           supportedFormats={
             activeTab === 'photos' 
-              ? 'JPG, PNG' 
+              ? t('addNewProject.form.supportedFormats.photos')
               : activeTab === 'videos' 
-              ? 'MP4, MOV, AVI' 
-              : 'PDF'
+              ? t('addNewProject.form.supportedFormats.videos')
+              : t('addNewProject.form.supportedFormats.documents')
           }
+          uploadButtonText={t('addNewProject.form.upload')}
+          supportedFormatLabel={t('addNewProject.form.supportedFormatLabel')}
           onFileSelect={handleFileSelect}
           accept={
             activeTab === 'photos' 

@@ -1,87 +1,86 @@
 /**
  * Site Management Tools Component
- * Reusable component for displaying site management tool cards
+ * Only icons replaced with lucide-react (no layout or size changed)
  */
 
 import { useTranslation } from 'react-i18next';
+import PropTypes from 'prop-types';
 
+// lucide-react icons (matching your original features)
+import {
+  Wallet,           // finance
+  Calculator,       // construction calculator
+  Boxes,            // site inventory
+  FileText,         // generate documents
+  Users,            // labour sheet
+  Image,            // gallery
+  ClipboardList,    // dpr
+  Mic               // notes (audio)
+} from "lucide-react";
 
+// Badge icon
 import aiBadgeIcon from '../../../assets/icons/AI.svg';
-import walletIcon from '../../../assets/icons/Wallet.svg';
-import calculatorIcon from '../../../assets/icons/Calculator.svg';
-import siteInventory from '../../../assets/icons/siteInventory.svg';
-import document from '../../../assets/icons/document.svg';
-import usersIcon from '../../../assets/icons/userRed.svg';
-import galleryIcon from '../../../assets/icons/galleryRed.svg';
-import dprIcon from '../../../assets/icons/dprRed.svg';
-import audioIcon from '../../../assets/icons/audioRed.svg';
 
 export default function SiteManagementTools({ tools, onToolClick }) {
   const { t } = useTranslation('projects');
 
+  // Replace ONLY icon property with lucide-react components
   const defaultTools = [
     {
       id: 'finance',
       label: t('projectDetails.tools.manageFinance'),
-      icon: walletIcon,
+      icon: Wallet,
     },
     {
       id: 'calculator',
       label: t('projectDetails.tools.constructionCalculator'),
-      icon: calculatorIcon,
+      icon: Calculator,
       hasAlert: true,
       alertIcon: aiBadgeIcon,
     },
     {
       id: 'inventory',
       label: t('projectDetails.tools.siteInventory'),
-      icon: siteInventory,
+      icon: Boxes,
     },
     {
       id: 'documents',
       label: t('projectDetails.tools.generateDocuments'),
-      icon: document,
+      icon: FileText,
       hasAlert: true,
       alertIcon: aiBadgeIcon,
     },
     {
       id: 'labour',
       label: t('projectDetails.tools.labourSheet'),
-      icon: usersIcon,
+      icon: Users,
     },
     {
       id: 'gallery',
       label: t('projectDetails.tools.gallery'),
-      icon: galleryIcon,
+      icon: Image,
     },
     {
       id: 'dpr',
       label: t('projectDetails.tools.dailyProgressReport'),
-      icon: dprIcon,
+      icon: ClipboardList,
     },
     {
       id: 'notes',
       label: t('projectDetails.tools.addNotes'),
-      icon: audioIcon,
+      icon: Mic,
     },
   ];
 
   const toolsToDisplay = tools || defaultTools;
 
-  const renderIcon = (icon) => {
-    if (!icon) return null;
-    if (typeof icon === 'string') {
-      // If icon is a string (e.g. imported SVG path), render it as an image
-      return (
-        <img
-          src={icon}
-          alt=""
-          className="w-7 h-7 object-contain"
-        />
-      );
-    }
-    const IconComponent = icon;
-    return <IconComponent className="w-6 h-6 text-accent" strokeWidth={2.4} />;
+  const renderIcon = (IconComponent) => {
+    return (
+      <IconComponent
+        className="w-7 h-7 text-accent"
+        strokeWidth={2.4}
+      />
+    );
   };
 
   const renderAlertBadge = (tool) => {
@@ -107,6 +106,7 @@ export default function SiteManagementTools({ tools, onToolClick }) {
       <h3 className="text-[18px] sm:text-[20px] font-semibold text-primary mb-4 sm:mb-6">
         {t('projectDetails.siteManagementTools')}
       </h3>
+
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
         {toolsToDisplay.map((tool) => (
           <button
@@ -119,7 +119,9 @@ export default function SiteManagementTools({ tools, onToolClick }) {
                 {renderIcon(tool.icon)}
               </div>
             </div>
+
             {renderAlertBadge(tool)}
+
             <span className="text-[11px] xs:text-xs sm:text-sm md:text-base font-medium text-primary leading-snug line-clamp-2">
               {tool.label}
             </span>
@@ -130,3 +132,7 @@ export default function SiteManagementTools({ tools, onToolClick }) {
   );
 }
 
+SiteManagementTools.propTypes = {
+  tools: PropTypes.array,
+  onToolClick: PropTypes.func,
+};

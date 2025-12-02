@@ -31,15 +31,17 @@ function AddProjectSteps({ steps, currentStep }) {
 
     return (
       <div className="relative">
-        <CircularProgress
-          percentage={percentage}
-          size={56}
-          strokeWidth={4}
-          showPercentage={false}
-          // color={isActive ? '#B02E0C' : undefined}
-          backgroundColor={isActive ? '#E7D7C1' : '#E7D7C1'}
-          className={isActive ? '' : 'opacity-80' }
-        />
+        <div className='flex'>
+          <CircularProgress
+            percentage={percentage}
+            size={56}
+            strokeWidth={4}
+            showPercentage={false}
+            // color={isActive ? '#B02E0C' : undefined}
+            backgroundColor={isActive ? '#E7D7C1' : '#E7D7C1'}
+            className={`${isActive ? '' : 'opacity-80'} flex items-center justify-center`}
+          />
+        </div>
         <div className="absolute inset-0 flex items-center justify-center">
           <span className="text-[10px] font-medium text-primary">
             {stepIndex + 1} of {totalSteps}
@@ -58,11 +60,10 @@ function AddProjectSteps({ steps, currentStep }) {
           return (
             <div
               key={step.id}
-              className={`flex items-center gap-3 rounded-2xl px-3 py-3 transition-colors ${
-                isActive
+              className={`flex items-center gap-3 rounded-2xl px-3 py-3 transition-colors ${isActive
                   ? 'bg-soft'
                   : 'bg-white'
-              }`}
+                }`}
             >
               {renderStepCircle(index)}
 

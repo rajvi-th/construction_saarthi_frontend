@@ -55,10 +55,18 @@
       "saving": "Saving...",
       "saveAndContinue": "Save & Continue",
       "createProject": "Create Project",
+      "creating": "Creating...",
       "tabs": {
         "photos": "Photos",
         "videos": "Videos",
         "documents": "Documents"
+      },
+      "upload": "Upload",
+      "supportedFormatLabel": "Supported Format:",
+      "supportedFormats": {
+        "photos": "JPG, PNG",
+        "videos": "MP4, MOV, AVI",
+        "documents": "PDF"
       },
       "noFilesUploaded": "No files uploaded yet",
       "validation": {
@@ -72,10 +80,15 @@
       "constructionType": "Type of construction",
       "selectType": "Select type",
       "numberOfFloors": "Number of Floors",
+      "numberOfFloorsPlaceholder": "1",
       "contractType": "Contract Type",
       "estimatedBudget": "Est. Budget",
       "projectDescription": "Project Description",
-      "writeDescription": "Write description"
+      "writeDescription": "Write description",
+      "areaUnitSqft": "Sq. Ft",
+      "areaUnitMeter": "Meter",
+      "loading": "Loading...",
+      "addNew": "Add New"
     },
     "validation": {
       "siteNameRequired": "Site name is required",

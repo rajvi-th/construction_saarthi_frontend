@@ -1,0 +1,45 @@
+{
+  "header": {
+    "title": "Refer & Earn",
+    "viewWallet": "View My Wallet"
+  },
+  "bonus": {
+    "title": "Invite & Earn ₹200 per referral!",
+    "description": "Refer friends & earn ₹200 when they join and add their first project!"
+  },
+  "summary": {
+    "creditsEarned": "Credits Earned",
+    "yourReferralCode": "Your Referral Code",
+    "copyCode": "Copy referral code",
+    "shareCode": "Share referral code"
+  },
+  "invites": {
+    "title": "Your Invites & Rewards",
+    "inviteStatus": "Invite Status",
+    "rewardStatus": "Reward Status",
+    "codeUsed": "Code Used",
+    "joinedVia": "Joined via",
+    "expandDetails": "Expand invite details",
+    "collapseDetails": "Collapse invite details"
+  },
+  "wallet": {
+    "title": "My Wallet",
+    "currentBalance": "Current Balance",
+    "balanceDescription": "Use your wallet credits for app subscriptions and services",
+    "walletActivity": "Wallet Activity",
+    "useWallet": "Use Wallet",
+    "upgradeToPro": "Upgrade to Pro",
+    "upgradeDescription": "Access premium features at the most affordable prices.",
+    "referralReward": "Referral Reward",
+    "subscription": "Subscription",
+    "calculatorUpgrade": "Calculator Upgrade"
+  },
+  "share": {
+    "shareSuccess": "Referral code shared successfully!",
+    "shareCopied": "Referral details copied to clipboard!",
+    "shareNotSupported": "Sharing is not supported on this device.",
+    "shareError": "Failed to share referral code.",
+    "shareTitle": "Construction Saarthi Referral"
+  }
+}
+

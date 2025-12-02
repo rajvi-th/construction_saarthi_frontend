@@ -102,6 +102,22 @@ import bhoBusinessCard from '../locales/bho/businessCard.json';
 import asBusinessCard from '../locales/as/businessCard.json';
 import hryBusinessCard from '../locales/hry/businessCard.json';
 
+// Import referEarn translations for all languages
+import enReferEarn from '../locales/en/referEarn.json';
+import hiReferEarn from '../locales/hi/referEarn.json';
+import guReferEarn from '../locales/gu/referEarn.json';
+import bnReferEarn from '../locales/bn/referEarn.json';
+import taReferEarn from '../locales/ta/referEarn.json';
+import mrReferEarn from '../locales/mr/referEarn.json';
+import teReferEarn from '../locales/te/referEarn.json';
+import knReferEarn from '../locales/kn/referEarn.json';
+import mlReferEarn from '../locales/ml/referEarn.json';
+import urReferEarn from '../locales/ur/referEarn.json';
+import rajReferEarn from '../locales/raj/referEarn.json';
+import bhoReferEarn from '../locales/bho/referEarn.json';
+import asReferEarn from '../locales/as/referEarn.json';
+import hryReferEarn from '../locales/hry/referEarn.json';
+
 // Get saved language from localStorage or default to 'en'
 const savedLang = localStorage.getItem('lang') || 'en';
 
@@ -113,6 +129,7 @@ const resources = {
     projects: enProjects,
     account: enAccount,
     businessCard: enBusinessCard,
+    referEarn: enReferEarn,
   },
   hi: {
     common: hiCommon,
@@ -121,6 +138,7 @@ const resources = {
     projects: hiProjects,
     account: hiAccount,
     businessCard: hiBusinessCard,
+    referEarn: hiReferEarn,
   },
   gu: {
     common: guCommon,
@@ -129,6 +147,7 @@ const resources = {
     projects: guProjects,
     account: guAccount,
     businessCard: guBusinessCard,
+    referEarn: guReferEarn,
   },
   bn: {
     common: bnCommon,
@@ -137,6 +156,7 @@ const resources = {
     projects: bnProjects,
     account: bnAccount,
     businessCard: bnBusinessCard,
+    referEarn: bnReferEarn,
   },
   ta: {
     common: taCommon,
@@ -145,6 +165,7 @@ const resources = {
     projects: taProjects,
     account: taAccount,
     businessCard: taBusinessCard,
+    referEarn: taReferEarn,
   },
   mr: {
     common: mrCommon,
@@ -153,6 +174,7 @@ const resources = {
     projects: mrProjects,
     account: mrAccount,
     businessCard: mrBusinessCard,
+    referEarn: mrReferEarn,
   },
   te: {
     common: teCommon,
@@ -161,6 +183,7 @@ const resources = {
     projects: teProjects,
     account: teAccount,
     businessCard: teBusinessCard,
+    referEarn: teReferEarn,
   },
   kn: {
     common: knCommon,
@@ -169,6 +192,7 @@ const resources = {
     projects: knProjects,
     account: knAccount,
     businessCard: knBusinessCard,
+    referEarn: knReferEarn,
   },
   ml: {
     common: mlCommon,
@@ -177,6 +201,7 @@ const resources = {
     projects: mlProjects,
     account: mlAccount,
     businessCard: mlBusinessCard,
+    referEarn: mlReferEarn,
   },
   ur: {
     common: urCommon,
@@ -185,6 +210,7 @@ const resources = {
     projects: urProjects,
     account: urAccount,
     businessCard: urBusinessCard,
+    referEarn: urReferEarn,
   },
   raj: {
     common: rajCommon,
@@ -193,6 +219,7 @@ const resources = {
     projects: rajProjects,
     account: rajAccount,
     businessCard: rajBusinessCard,
+    referEarn: rajReferEarn,
   },
   bho: {
     common: bhoCommon,
@@ -201,6 +228,7 @@ const resources = {
     projects: bhoProjects,
     account: bhoAccount,
     businessCard: bhoBusinessCard,
+    referEarn: bhoReferEarn,
   },
   as: {
     common: asCommon,
@@ -209,6 +237,7 @@ const resources = {
     projects: asProjects,
     account: asAccount,
     businessCard: asBusinessCard,
+    referEarn: asReferEarn,
   },
   hry: {
     common: hryCommon,
@@ -217,6 +246,7 @@ const resources = {
     projects: hryProjects,
     account: hryAccount,
     businessCard: hryBusinessCard,
+    referEarn: hryReferEarn,
   },
 };
 
@@ -231,7 +261,7 @@ i18n
       escapeValue: false, // React already escapes values
     },
     defaultNS: 'common',
-    ns: ['common', 'auth', 'dashboard', 'account', 'businessCard'],
+    ns: ['common', 'auth', 'dashboard', 'account', 'businessCard', 'referEarn'],
   });
 
 export default i18n;

@@ -1,0 +1,45 @@
+{
+  "header": {
+    "title": "रेफर करो आ कमाओ",
+    "viewWallet": "मेरा वॉलेट देखो"
+  },
+  "bonus": {
+    "title": "आमंत्रण करो आ हर रेफरल पर ₹200 कमाओ!",
+    "description": "दोस्तां को रेफर करो आ ₹200 कमाओ जब वो जुड़े आ अपना पहिला प्रोजेक्ट जोड़े!"
+  },
+  "summary": {
+    "creditsEarned": "कमाया क्रेडिट",
+    "yourReferralCode": "तेरा रेफरल कोड",
+    "copyCode": "रेफरल कोड कॉपी करो",
+    "shareCode": "रेफरल कोड शेयर करो"
+  },
+  "invites": {
+    "title": "तेरे आमंत्रण आ रिवार्ड",
+    "inviteStatus": "आमंत्रण स्थिति",
+    "rewardStatus": "रिवार्ड स्थिति",
+    "codeUsed": "इस्तेमाल किया कोड",
+    "joinedVia": "के जरिए जुड़े",
+    "expandDetails": "आमंत्रण विवरण बढ़ाओ",
+    "collapseDetails": "आमंत्रण विवरण छोट करो"
+  },
+  "wallet": {
+    "title": "मेरा वॉलेट",
+    "currentBalance": "अबकी बैलेंस",
+    "balanceDescription": "ऐप सब्सक्रिप्शन आ सर्विस खातिर अपना वॉलेट क्रेडिट इस्तेमाल करो",
+    "walletActivity": "वॉलेट एक्टिविटी",
+    "useWallet": "वॉलेट इस्तेमाल करो",
+    "upgradeToPro": "प्रो में अपग्रेड करो",
+    "upgradeDescription": "सबसे सस्ता दाम पर प्रीमियम फीचर का एक्सेस पाओ।",
+    "referralReward": "रेफरल रिवार्ड",
+    "subscription": "सब्सक्रिप्शन",
+    "calculatorUpgrade": "कैलकुलेटर अपग्रेड"
+  },
+  "share": {
+    "shareSuccess": "रेफरल कोड सफलता से शेयर किया!",
+    "shareCopied": "रेफरल विवरण क्लिपबोर्ड पर कॉपी किया!",
+    "shareNotSupported": "इस डिवाइस पर शेयरिंग सपोर्ट नहीं है।",
+    "shareError": "रेफरल कोड शेयर करे में नाकाम।",
+    "shareTitle": "कंस्ट्रक्शन सारथी रेफरल"
+  }
+}
+

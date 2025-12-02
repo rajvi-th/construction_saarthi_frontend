@@ -8,9 +8,9 @@ export const PROJECT_ENDPOINTS = {
   PROJECT: {
     LIST: '/project',
     CREATE: '/project/create',
-    UPDATE: '/project/update',
+    UPDATE: '/project/edit',
     DELETE: '/project/delete',
-    DETAILS: '/project/details',
+    DETAILS: '/project/getProjectID',
     SEARCH: '/project/search',
   },
 

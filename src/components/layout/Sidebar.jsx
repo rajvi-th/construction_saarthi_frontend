@@ -119,7 +119,7 @@ const Sidebar = () => {
       labelKey: "sidebar.mainMenu.referEarn",
       icon: referEarn,
       activeIcon: referEarnLight,
-      path: "/refer",
+      path: ROUTES_FLAT.REFER_EARN,
     },
     {
       label: "My Subscription",
