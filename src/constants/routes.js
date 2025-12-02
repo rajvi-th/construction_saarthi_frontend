@@ -46,6 +46,11 @@ export const ROUTES = {
   REFER_EARN: {
     HOME: '/refer-earn',
     WALLET: '/refer-earn/wallet',
+  // Site Inventory Routes
+  SITE_INVENTORY: {
+    LIST: '/site-inventory',
+    ADD: '/site-inventory/add',
+    EDIT: '/site-inventory/:id/edit',
   },
 };
 
@@ -86,6 +91,11 @@ export const ROUTES_FLAT = {
   // Refer & Earn
   REFER_EARN: ROUTES.REFER_EARN.HOME,
   REFER_EARN_WALLET: ROUTES.REFER_EARN.WALLET,
+  
+  // Site Inventory
+  SITE_INVENTORY: ROUTES.SITE_INVENTORY.LIST,
+  ADD_SITE_INVENTORY: ROUTES.SITE_INVENTORY.ADD,
+  EDIT_SITE_INVENTORY: ROUTES.SITE_INVENTORY.EDIT,
 };
 
 /**

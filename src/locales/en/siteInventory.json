@@ -1,0 +1,72 @@
+{
+  "title": "Site Inventory",
+  "searchPlaceholder": "Search materials",
+  "addButton": "Add New Inventory",
+  "tabs": {
+    "inventory": "Inventory Materials",
+    "transfer": "Transfer Requests",
+    "ask": "Ask for Materials",
+    "restock": "Restock Requests",
+    "destroy": "Destroy Materials"
+  },
+  "materialType": {
+    "reusable": "Reusable",
+    "consumable": "Consumable"
+  },
+  "quantity": "Quantity",
+  "costPerUnit": "Cost Per Unit",
+  "totalPrice": "Total Price",
+  "purchased": "Purchased",
+  "currentStock": "Current Stock",
+  "purchasedPrice": "Purchased Price",
+  "transfer": "Transfer",
+  "actions": {
+    "restock": "Restock Material",
+    "destroy": "Destroy Material",
+    "addLogUsage": "Add Log Usage",
+    "downloadPDF": "Download as PDF",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteItem": "Delete {{itemName}}"
+  },
+  "emptyState": {
+    "title": "No Items Added",
+    "message": "Add items to track your site inventory",
+    "createButton": "Add Site Inventory"
+  },
+  "add": {
+    "title": "Add Site Inventory"
+  },
+  "edit": {
+    "title": "Edit Site Inventory"
+  },
+  "deleteConfirm": "Yes, Delete",
+  "cancel": "Cancel",
+  "deleteModal": {
+    "title": "Delete {{itemName}}",
+    "message": "Are you sure you want to delete {{itemName}} from inventory? This action is irreversible, and your data cannot be recovered."
+  },
+  "tabComingSoon": "This feature is coming soon...",
+  "transferRequests": {
+    "beingSent": "are being sent from your project",
+    "to": "to",
+    "status": {
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "pending": "Pending"
+    },
+    "approve": "Approve",
+    "reject": "Reject",
+    "rejectionReason": "Your reason for rejection",
+    "emptyState": {
+      "title": "No Transfer Requests",
+      "message": "No transfer requests found"
+    }
+  },
+  "errors": {
+    "createFailed": "Failed to create site inventory item. Please try again.",
+    "updateFailed": "Failed to update site inventory item. Please try again.",
+    "fetchFailed": "Failed to load site inventory items. Please try again."
+  }
+}
+

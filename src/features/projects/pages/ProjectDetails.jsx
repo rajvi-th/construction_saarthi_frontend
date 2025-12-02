@@ -1,10 +1,5 @@
-/**
- * Project Details Page
- * Displays detailed information about a specific project
- */
-
-import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Trash } from 'lucide-react';
 import Button from '../../../components/ui/Button';
@@ -12,7 +7,7 @@ import DropdownMenu from '../../../components/ui/DropdownMenu';
 import Loader from '../../../components/ui/Loader';
 import { PROJECT_ROUTES } from '../constants';
 import { useAuth } from '../../../hooks/useAuth';
-import { useProjectDetails } from '../hooks';
+import { ROUTES_FLAT } from '../../../constants/routes';
 import {
   ProjectBanner,
   SiteManagementTools,
@@ -44,8 +39,48 @@ export default function ProjectDetails() {
   };
 
   const handleToolClick = (toolId) => {
-    // TODO: Navigate to specific tool pages
-    console.log('Tool clicked:', toolId);
+    // Navigate to specific tool pages based on toolId
+    switch (toolId) {
+      case 'inventory':
+        // Navigate to site inventory with project context
+        navigate(ROUTES_FLAT.SITE_INVENTORY, {
+          state: {
+            projectId: project?.id,
+            projectName: project?.site_name || project?.name,
+          },
+        });
+        break;
+      case 'finance':
+        // TODO: Navigate to finance page
+        console.log('Finance tool clicked');
+        break;
+      case 'calculator':
+        // TODO: Navigate to calculator page
+        console.log('Calculator tool clicked');
+        break;
+      case 'documents':
+        // TODO: Navigate to documents page
+        console.log('Documents tool clicked');
+        break;
+      case 'labour':
+        // TODO: Navigate to labour sheet page
+        console.log('Labour sheet tool clicked');
+        break;
+      case 'gallery':
+        // TODO: Navigate to gallery page
+        console.log('Gallery tool clicked');
+        break;
+      case 'dpr':
+        // TODO: Navigate to daily progress report page
+        console.log('DPR tool clicked');
+        break;
+      case 'notes':
+        // TODO: Navigate to notes page
+        console.log('Notes tool clicked');
+        break;
+      default:
+        console.log('Tool clicked:', toolId);
+    }
   };
 
   if (isLoading) {

@@ -24,6 +24,15 @@ export default function BusinessCard() {
     }
   }, [user]);
 
+  // Auto-select first card when cards are loaded
+  useEffect(() => {
+    if (businessCards.length > 0 && !selectedCard) {
+      setSelectedCard(businessCards[0]);
+    } else if (businessCards.length === 0) {
+      setSelectedCard(null);
+    }
+  }, [businessCards, selectedCard]);
+
   const loadBusinessCards = async () => {
     try {
       const cardsArray = await getCards();
@@ -78,13 +87,6 @@ export default function BusinessCard() {
       });
       
       setBusinessCards(filteredCards);
-      
-      // If there's at least one card, show the first one
-      if (filteredCards.length > 0 && !selectedCard) {
-        setSelectedCard(filteredCards[0]);
-      } else if (filteredCards.length === 0) {
-        setSelectedCard(null);
-      }
     } catch (error) {
       // Error is already handled in the hook
       setBusinessCards([]);
@@ -126,7 +128,7 @@ export default function BusinessCard() {
   }
 
   // If no cards, show empty state
-  if (businessCards.length === 0) {
+  if (businessCards.length === 0 && !isLoading) {
     return (
       <div className="max-w-7xl mx-auto">
         <PageHeader
@@ -144,18 +146,46 @@ export default function BusinessCard() {
     );
   }
 
-  // If cards exist but none selected, select first one
-  if (!selectedCard && businessCards.length > 0) {
-    setSelectedCard(businessCards[0]);
-    return null;
+  // If cards exist but none selected yet, show loader (waiting for auto-selection)
+  if (businessCards.length > 0 && !selectedCard) {
+    return (
+      <div className="max-w-7xl mx-auto">
+        <PageHeader
+          title={t('title', { defaultValue: 'Business Card' })}
+          showBackButton={false}
+        />
+        <div className="flex items-center justify-center min-h-[400px]">
+          <Loader size="lg" />
+        </div>
+      </div>
+    );
   }
 
   // Show selected card detail
+  if (selectedCard) {
+    return (
+      <BusinessCardDetail
+        businessCard={selectedCard}
+        onDelete={handleDelete}
+      />
+    );
+  }
+
+  // Fallback: show empty state if no cards and not loading
   return (
-    <BusinessCardDetail
-      businessCard={selectedCard}
-      onDelete={handleDelete}
-    />
+    <div className="max-w-7xl mx-auto">
+      <PageHeader
+        title={t('title', { defaultValue: 'Business Card' })}
+        showBackButton={false}
+      />
+      <EmptyState
+        image={EmptyStateSvg}
+        title={t('emptyState.title', { defaultValue: 'No Card Added' })}
+        message={t('emptyState.message', { defaultValue: 'Create your business card for share your work and contacts' })}
+        actionLabel={t('emptyState.createButton', { defaultValue: 'Create Business Card' })}
+        onAction={handleCreateBusinessCard}
+      />
+    </div>
   );
 }
 
