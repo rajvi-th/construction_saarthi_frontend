@@ -46,6 +46,7 @@ export const ROUTES = {
   REFER_EARN: {
     HOME: '/refer-earn',
     WALLET: '/refer-earn/wallet',
+  },
   // Site Inventory Routes
   SITE_INVENTORY: {
     LIST: '/site-inventory',

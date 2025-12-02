@@ -16,6 +16,7 @@ import {
 } from '../components';
 import pencilIcon from '../../../assets/icons/pencil.svg';
 import PageHeader from '../../../components/layout/PageHeader';
+import { useProjectDetails } from '../hooks';
 
 export default function ProjectDetails() {
   const { t } = useTranslation('projects');
