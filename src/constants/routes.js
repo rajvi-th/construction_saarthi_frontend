@@ -61,6 +61,18 @@ export const ROUTES = {
     ADD_NEW_ASK: '/site-inventory/add-new-ask',
     ADD_STOCK: '/site-inventory/restock/add-stock',
   },
+  // Builder Client Routes
+  BUILDER_CLIENT: {
+    BUILDERS: '/builders',
+    ADD: '/builders/add',
+    EDIT: '/builders/:id/edit',
+  },
+  // Vendors Routes
+  VENDORS: {
+    LIST: '/vendors',
+    ADD: '/vendors/add',
+    EDIT: '/vendors/:id/edit',
+  },
 };
 
 // Flattened routes for easier access
@@ -112,6 +124,16 @@ export const ROUTES_FLAT = {
   EDIT_SITE_INVENTORY: ROUTES.SITE_INVENTORY.EDIT,
   ADD_NEW_ASK: ROUTES.SITE_INVENTORY.ADD_NEW_ASK,
   ADD_STOCK: ROUTES.SITE_INVENTORY.ADD_STOCK,
+  
+  // Builder Client
+  BUILDERS: ROUTES.BUILDER_CLIENT.BUILDERS,
+  ADD_BUILDER: ROUTES.BUILDER_CLIENT.ADD,
+  EDIT_BUILDER: ROUTES.BUILDER_CLIENT.EDIT,
+  
+  // Vendors
+  VENDORS: ROUTES.VENDORS.LIST,
+  ADD_VENDOR: ROUTES.VENDORS.ADD,
+  EDIT_VENDOR: ROUTES.VENDORS.EDIT,
 };
 
 /**

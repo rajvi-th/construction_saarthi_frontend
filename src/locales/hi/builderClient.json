@@ -1,0 +1,64 @@
+{
+  "pages": {
+    "builders": {
+      "title": "बिल्डर और क्लाइंट्स",
+      "noBuilders": "कोई बिल्डर या क्लाइंट नहीं मिला"
+    },
+    "vendors": {
+      "title": "वेंडर प्रबंधन"
+    }
+  },
+  "searchPlaceholder": "बिल्डर खोजें",
+  "searchVendorsPlaceholder": "वेंडर खोजें",
+  "addBuilder": "बिल्डर जोड़ें",
+  "deleteConfirm": "क्या आप वाकई {{name}} को हटाना चाहते हैं?",
+  "noDetails": "कोई अतिरिक्त विवरण उपलब्ध नहीं",
+  "expand": "विस्तार करें",
+  "collapse": "संकुचित करें",
+  "menu": {
+    "edit": "संपादित करें",
+    "delete": "हटाएं"
+  },
+  "emptyState": {
+    "noResults": "कोई परिणाम नहीं मिला",
+    "noBuildersClients": "कोई बिल्डर या क्लाइंट नहीं",
+    "noVendors": "कोई वेंडर नहीं",
+    "noResultsMessage": "आपकी खोज से मेल खाने वाला कोई बिल्डर या क्लाइंट नहीं मिला। कृपया अपने खोज शब्दों को समायोजित करें।",
+    "noBuildersClientsMessage": "आपने अभी तक कोई बिल्डर या क्लाइंट नहीं जोड़ा है। शुरू करने के लिए अपना पहला बिल्डर या क्लाइंट जोड़ें।",
+    "noVendorsMessage": "आपने अभी तक कोई वेंडर नहीं जोड़ा है। शुरू करने के लिए अपना पहला वेंडर जोड़ें।",
+    "addBuilder": "बिल्डर जोड़ें"
+  },
+  "form": {
+    "addBuilder": "बिल्डर जोड़ें",
+    "editBuilder": "बिल्डर संपादित करें",
+    "updateBuilder": "बिल्डर अपडेट करें",
+    "addVendor": "वेंडर जोड़ें",
+    "editVendor": "वेंडर संपादित करें",
+    "updateVendor": "वेंडर अपडेट करें",
+    "cancel": "रद्द करें",
+    "builderName": "बिल्डर का नाम",
+    "vendorName": "वेंडर का नाम",
+    "contactNumber": "संपर्क नंबर",
+    "companyName": "कंपनी का नाम",
+    "address": "पता",
+    "changePhoto": "फोटो बदलें",
+    "placeholders": {
+      "enterName": "नाम दर्ज करें",
+      "phoneNumber": "000 000 0000",
+      "enterCompanyName": "कंपनी का नाम दर्ज करें",
+      "enterAddress": "पता दर्ज करें"
+    },
+    "errors": {
+      "nameRequired": "बिल्डर का नाम आवश्यक है",
+      "phoneRequired": "संपर्क नंबर आवश्यक है",
+      "invalidPhone": "कृपया एक वैध फोन नंबर दर्ज करें",
+      "invalidImage": "कृपया एक छवि फ़ाइल चुनें",
+      "imageSize": "छवि का आकार 5MB से कम होना चाहिए",
+      "workspaceRequired": "वर्कस्पेस आवश्यक है",
+      "createFailed": "बिल्डर बनाने में विफल। कृपया पुनः प्रयास करें।",
+      "updateFailed": "बिल्डर अपडेट करने में विफल। कृपया पुनः प्रयास करें।",
+      "fetchFailed": "बिल्डर डेटा लोड करने में विफल। कृपया पुनः प्रयास करें।"
+    }
+  }
+}
+

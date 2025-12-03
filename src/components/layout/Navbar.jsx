@@ -12,8 +12,11 @@ const BREADCRUMB_TRANSLATION_KEYS = {
   projects: "sidebar.mainMenu.projects",
   dpr: "sidebar.mainMenu.dpr",
   gallery: "sidebar.mainMenu.gallery",
+  builders: "sidebar.mainMenu.buildersClients",
   clients: "sidebar.mainMenu.buildersClients",
   vendors: "sidebar.mainMenu.vendors",
+  addVendor: "builderClient.form.addVendor", 
+  editVendor: "builderClient.form.editVendor", 
   "past-work": "sidebar.mainMenu.pastWork",
   "business-card": "sidebar.mainMenu.businessCard",
   "site-inventory": "sidebar.mainMenu.siteInventory",
@@ -27,6 +30,7 @@ const BREADCRUMB_TRANSLATION_KEYS = {
 
 const Navbar = () => {
   const { t } = useTranslation("common");
+  const { t: tBuilderClient } = useTranslation("builderClient");
   const location = useLocation();
   const { user: authUser } = useAuth();
 
@@ -93,15 +97,35 @@ const Navbar = () => {
       return ["projects", location.state.projectName.trim(), segments[0]];
     }
 
+    // Handle vendors routes: replace "add" with "addVendor" and "edit" with "editVendor" for breadcrumb translation
+    if (segments[0] === "vendors" && segments.length > 1) {
+      const processedSegments = [...segments];
+      if (segments[1] === "add") {
+        processedSegments[1] = "addVendor";
+      } else if (segments[1] === "edit") {
+        processedSegments[1] = "editVendor";
+      }
+      return processedSegments;
+    }
+
     return segments;
   }, [location.pathname, location.state]);
 
   const currentBreadcrumb = useMemo(() => {
     const last = breadcrumbs[breadcrumbs.length - 1] || "dashboard";
-    return t(BREADCRUMB_TRANSLATION_KEYS[last.toLowerCase()] || "", {
+    const translationKey = BREADCRUMB_TRANSLATION_KEYS[last.toLowerCase()] || "";
+    
+    // Use builderClient namespace for vendor-specific translations
+    if (translationKey.startsWith("builderClient.")) {
+      return tBuilderClient(translationKey.replace("builderClient.", ""), {
+        defaultValue: last.replace(/-/g, " "),
+      });
+    }
+    
+    return t(translationKey, {
       defaultValue: last.replace(/-/g, " "),
     });
-  }, [breadcrumbs, t]);
+  }, [breadcrumbs, t, tBuilderClient]);
 
   return (
     <header className="fixed top-0 left-0 right-0 lg:left-[300px] py-3 px-4 md:px-8 bg-white border-b border-black-soft z-40 flex items-center justify-between ">
@@ -129,9 +153,18 @@ const Navbar = () => {
                     : "text-gray-400 truncate"
                 }
               >
-                {t(BREADCRUMB_TRANSLATION_KEYS[crumb.toLowerCase()] || "", {
-                  defaultValue: crumb.replace(/-/g, " "),
-                })}
+                {(() => {
+                  const translationKey = BREADCRUMB_TRANSLATION_KEYS[crumb.toLowerCase()] || "";
+                  // Use builderClient namespace for vendor-specific translations
+                  if (translationKey.startsWith("builderClient.")) {
+                    return tBuilderClient(translationKey.replace("builderClient.", ""), {
+                      defaultValue: crumb.replace(/-/g, " "),
+                    });
+                  }
+                  return t(translationKey, {
+                    defaultValue: crumb.replace(/-/g, " "),
+                  });
+                })()}
               </span>
             </span>
           ))}

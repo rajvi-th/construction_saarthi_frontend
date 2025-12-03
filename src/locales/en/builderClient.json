@@ -1,0 +1,64 @@
+{
+  "pages": {
+    "builders": {
+      "title": "Builders & Clients",
+      "noBuilders": "No builders or clients found"
+    },
+    "vendors": {
+      "title": "Manage Vendors"
+    }
+  },
+  "searchPlaceholder": "Search builders",
+  "searchVendorsPlaceholder": "Search vendors",
+  "addBuilder": "Add Builder",
+  "deleteConfirm": "Are you sure you want to delete {{name}}?",
+  "noDetails": "No additional details available",
+  "expand": "Expand",
+  "collapse": "Collapse",
+  "menu": {
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "emptyState": {
+    "noResults": "No Results Found",
+    "noBuildersClients": "No Builders or Clients",
+    "noVendors": "No Vendors",
+    "noResultsMessage": "No builders or clients found matching your search. Try adjusting your search terms.",
+    "noBuildersClientsMessage": "You haven't added any builders or clients yet. Add your first builder or client to get started.",
+    "noVendorsMessage": "You haven't added any vendors yet. Add your first vendor to get started.",
+    "addBuilder": "Add Builder"
+  },
+  "form": {
+    "addBuilder": "Add Builder",
+    "editBuilder": "Edit Builder",
+    "updateBuilder": "Update Builder",
+    "addVendor": "Add Vendor",
+    "editVendor": "Edit Vendor",
+    "updateVendor": "Update Vendor",
+    "cancel": "Cancel",
+    "builderName": "Builder Name",
+    "vendorName": "Vendor Name",
+    "contactNumber": "Contact Number",
+    "companyName": "Company Name",
+    "address": "Address",
+    "changePhoto": "Change photo",
+    "placeholders": {
+      "enterName": "Enter name",
+      "phoneNumber": "000 000 0000",
+      "enterCompanyName": "Enter company name",
+      "enterAddress": "Enter address"
+    },
+    "errors": {
+      "nameRequired": "Builder name is required",
+      "phoneRequired": "Contact number is required",
+      "invalidPhone": "Please enter a valid phone number",
+      "invalidImage": "Please select an image file",
+      "imageSize": "Image size should be less than 5MB",
+      "workspaceRequired": "Workspace is required",
+      "createFailed": "Failed to create builder. Please try again.",
+      "updateFailed": "Failed to update builder. Please try again.",
+      "fetchFailed": "Failed to load builder data. Please try again."
+    }
+  }
+}
+

@@ -53,6 +53,15 @@ const EditSiteInventory = lazy(() => import('../features/siteInventory/pages/Edi
 const AddNewAsk = lazy(() => import('../features/siteInventory/pages/AddNewAsk'));
 const AddStock = lazy(() => import('../features/siteInventory/pages/AddStock'));
 
+// Builder Client
+const Builders = lazy(() => import('../features/builderClient/pages/Builders'));
+const AddBuilder = lazy(() => import('../features/builderClient/pages/AddBuilder'));
+const EditBuilder = lazy(() => import('../features/builderClient/pages/EditBuilder'));
+
+// Vendors
+const Vendors = lazy(() => import('../features/vendors/pages/Vendors'));
+const AddVendor = lazy(() => import('../features/vendors/pages/AddVendor'));
+const EditVendor = lazy(() => import('../features/vendors/pages/EditVendor'));
 
 // Projects
 const Projects = lazy(() => import('../features/projects/pages/Projects'));
@@ -65,8 +74,6 @@ const AddNewProject = lazy(() => import('../features/projects/pages/AddNewProjec
 // Workers (will be created later)
 // const Workers = lazy(() => import('../features/workers/pages/Workers'));
 
-// Vendors (will be created later)
-// const Vendors = lazy(() => import('../features/vendors/pages/Vendors'));
 
 // Materials (will be created later)
 // const Materials = lazy(() => import('../features/materials/pages/Materials'));
@@ -128,6 +135,12 @@ function AppRoutes() {
             <Route path={ROUTES_FLAT.EDIT_SITE_INVENTORY} element={<EditSiteInventory />} />
             <Route path={ROUTES_FLAT.ADD_NEW_ASK} element={<AddNewAsk />} />
             <Route path={ROUTES_FLAT.ADD_STOCK} element={<AddStock />} />
+            <Route path={ROUTES_FLAT.BUILDERS} element={<Builders />} />
+            <Route path={ROUTES_FLAT.ADD_BUILDER} element={<AddBuilder />} />
+            <Route path={ROUTES_FLAT.EDIT_BUILDER} element={<EditBuilder />} />
+            <Route path={ROUTES_FLAT.VENDORS} element={<Vendors />} />
+            <Route path={ROUTES_FLAT.ADD_VENDOR} element={<AddVendor />} />
+            <Route path={ROUTES_FLAT.EDIT_VENDOR} element={<EditVendor />} />
           </Route>
         </Route>
 

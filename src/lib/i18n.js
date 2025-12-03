@@ -149,6 +149,22 @@ import bhoSubscription from '../locales/bho/subscription.json';
 import asSubscription from '../locales/as/subscription.json';
 import hrySubscription from '../locales/hry/subscription.json';
 
+// Import builderClient translations for all languages
+import enBuilderClient from '../locales/en/builderClient.json';
+import hiBuilderClient from '../locales/hi/builderClient.json';
+import guBuilderClient from '../locales/gu/builderClient.json';
+import bnBuilderClient from '../locales/bn/builderClient.json';
+import taBuilderClient from '../locales/ta/builderClient.json';
+import mrBuilderClient from '../locales/mr/builderClient.json';
+import teBuilderClient from '../locales/te/builderClient.json';
+import knBuilderClient from '../locales/kn/builderClient.json';
+import mlBuilderClient from '../locales/ml/builderClient.json';
+import urBuilderClient from '../locales/ur/builderClient.json';
+import rajBuilderClient from '../locales/raj/builderClient.json';
+import bhoBuilderClient from '../locales/bho/builderClient.json';
+import asBuilderClient from '../locales/as/builderClient.json';
+import hryBuilderClient from '../locales/hry/builderClient.json';
+
 // Get saved language from localStorage or default to 'en'
 const savedLang = localStorage.getItem('lang') || 'en';
 
@@ -163,6 +179,7 @@ const resources = {
     referEarn: enReferEarn,
     siteInventory: enSiteInventory,
     subscription: enSubscription,
+    builderClient: enBuilderClient,
   },
   hi: {
     common: hiCommon,
@@ -174,6 +191,7 @@ const resources = {
     referEarn: hiReferEarn,
     siteInventory: hiSiteInventory,
     subscription: hiSubscription,
+    builderClient: hiBuilderClient,
   },
   gu: {
     common: guCommon,
@@ -185,6 +203,7 @@ const resources = {
     referEarn: guReferEarn,
     siteInventory: guSiteInventory,
     subscription: guSubscription,
+    builderClient: guBuilderClient,
   },
   bn: {
     common: bnCommon,
@@ -196,6 +215,7 @@ const resources = {
     referEarn: bnReferEarn,
     siteInventory: bnSiteInventory,
     subscription: bnSubscription,
+    builderClient: bnBuilderClient,
   },
   ta: {
     common: taCommon,
@@ -207,6 +227,7 @@ const resources = {
     referEarn: taReferEarn,
     siteInventory: taSiteInventory,
     subscription: taSubscription,
+    builderClient: taBuilderClient,
   },
   mr: {
     common: mrCommon,
@@ -218,6 +239,7 @@ const resources = {
     referEarn: mrReferEarn,
     siteInventory: mrSiteInventory,
     subscription: mrSubscription,
+    builderClient: mrBuilderClient,
   },
   te: {
     common: teCommon,
@@ -229,6 +251,7 @@ const resources = {
     referEarn: teReferEarn,
     siteInventory: teSiteInventory,
     subscription: teSubscription,
+    builderClient: teBuilderClient,
   },
   kn: {
     common: knCommon,
@@ -240,6 +263,7 @@ const resources = {
     referEarn: knReferEarn,
     siteInventory: knSiteInventory,
     subscription: knSubscription,
+    builderClient: knBuilderClient,
   },
   ml: {
     common: mlCommon,
@@ -251,6 +275,7 @@ const resources = {
     referEarn: mlReferEarn,
     siteInventory: mlSiteInventory,
     subscription: mlSubscription,
+    builderClient: mlBuilderClient,
   },
   ur: {
     common: urCommon,
@@ -262,6 +287,7 @@ const resources = {
     referEarn: urReferEarn,
     siteInventory: urSiteInventory,
     subscription: urSubscription,
+    builderClient: urBuilderClient,
   },
   raj: {
     common: rajCommon,
@@ -273,6 +299,7 @@ const resources = {
     referEarn: rajReferEarn,
     siteInventory: rajSiteInventory,
     subscription: rajSubscription,
+    builderClient: rajBuilderClient,
   },
   bho: {
     common: bhoCommon,
@@ -284,6 +311,7 @@ const resources = {
     referEarn: bhoReferEarn,
     siteInventory: bhoSiteInventory,
     subscription: bhoSubscription,
+    builderClient: bhoBuilderClient,
   },
   as: {
     common: asCommon,
@@ -295,6 +323,7 @@ const resources = {
     referEarn: asReferEarn,
     siteInventory: asSiteInventory,
     subscription: asSubscription,
+    builderClient: asBuilderClient,
   },
   hry: {
     common: hryCommon,
@@ -306,6 +335,7 @@ const resources = {
     referEarn: hryReferEarn,
     siteInventory: hrySiteInventory,
     subscription: hrySubscription,
+    builderClient: hryBuilderClient,
   },
 };
 
@@ -320,7 +350,7 @@ i18n
       escapeValue: false, // React already escapes values
     },
     defaultNS: 'common',
-    ns: ['common', 'auth', 'dashboard', 'account', 'businessCard', 'siteInventory', 'referEarn', 'subscription'],
+    ns: ['common', 'auth', 'dashboard', 'account', 'businessCard', 'siteInventory', 'referEarn', 'subscription', 'builderClient'],
   });
 
 export default i18n;
