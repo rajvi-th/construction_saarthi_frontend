@@ -15,13 +15,15 @@ import FileUpload from '../../../components/ui/FileUpload';
 import RichTextEditor from '../../../components/ui/RichTextEditor';
 import Button from '../../../components/ui/Button';
 import { ROUTES_FLAT } from '../../../constants/routes';
-import { getVendorsList, createSiteInventory, createVendor } from '../api/siteInventoryApi';
+import { createSiteInventory } from '../api/siteInventoryApi';
 import { getAllProjects } from '../../projects/api/projectApi';
 import { showSuccess, showError } from '../../../utils/toast';
 import { useAuth } from '../../../hooks/useAuth';
-import { useMaterials } from '../hooks';
+import { useMaterials, useUnits } from '../hooks';
+import { useVendors } from '../../vendors/hooks';
 import AddMaterialModal from '../components/AddMaterialModal';
 import AddVendorModal from '../components/AddVendorModal';
+import { X } from 'lucide-react';
 
 export default function AddSiteInventory() {
   const { t } = useTranslation('siteInventory');
@@ -41,16 +43,22 @@ export default function AddSiteInventory() {
   const [conditionDescription, setConditionDescription] = useState('');
   const [selectedProjects, setSelectedProjects] = useState([]);
   
-  const { materialOptions, isLoadingMaterials, createNewMaterial, refetch: refetchMaterials } = useMaterials();
+  const { materials, materialOptions, isLoadingMaterials, createNewMaterial, refetch: refetchMaterials } = useMaterials();
+  const { unitOptions } = useUnits(selectedWorkspace);
+  const { getVendors, createVendor, isLoading: isLoadingVendors } = useVendors();
   const [vendorOptions, setVendorOptions] = useState([]);
   const [projectOptions, setProjectOptions] = useState([]);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isLoadingVendors, setIsLoadingVendors] = useState(false);
   const [isLoadingProjects, setIsLoadingProjects] = useState(false);
 
-  // Get unit based on inventory type
-  const unit = inventoryType === 'reusable' ? 'sq.ft' : 'piece';
+  // Get unit name from selected material, fallback to inventory type based unit
+  const selectedMaterialData = materials.find((m) => (m.id || m._id || m.materialId) === selectedMaterial);
+  // Find unit name from unitOptions using unitId
+  const materialUnitId = selectedMaterialData?.unitId;
+  const unitOption = unitOptions.find((u) => u.value === materialUnitId);
+  // Show unit name (label), not unit ID
+  const unit = unitOption?.label || selectedMaterialData?.unitName || (inventoryType === 'reusable' ? 'sq.ft' : 'piece');
 
   // Calculate total price when quantity or cost per unit changes
   useEffect(() => {
@@ -75,8 +83,9 @@ export default function AddSiteInventory() {
 
   // Fetch vendors
   useEffect(() => {
+    if (!selectedWorkspace) return;
     loadVendors();
-  }, []);
+  }, [selectedWorkspace, getVendors]);
 
   // Fetch projects
   useEffect(() => {
@@ -87,31 +96,21 @@ export default function AddSiteInventory() {
 
   const loadVendors = async () => {
     try {
-      setIsLoadingVendors(true);
-      const response = await getVendorsList();
+      const vendorsArray = await getVendors(selectedWorkspace);
       
-      let vendorsArray = [];
-      if (Array.isArray(response?.data)) {
-        vendorsArray = response.data;
-      } else if (Array.isArray(response?.data?.data)) {
-        vendorsArray = response.data.data;
-      } else if (Array.isArray(response)) {
-        vendorsArray = response;
-      } else if (response?.data && typeof response.data === 'object') {
-        vendorsArray = response.data.data || Object.values(response.data).filter(Array.isArray)[0] || [];
-      }
-      
-      const options = vendorsArray.map((vendor) => ({
-        value: vendor.id || vendor._id || vendor.vendorId,
-        label: vendor.name || vendor.vendorName || vendor.label || vendor,
-      }));
+      const options = vendorsArray.map((vendor) => {
+        const value = vendor.id || vendor._id || vendor.vendorId;
+        const label = vendor.full_name;
+        return {
+          value,
+          label: String(label),
+        };
+      });
       
       setVendorOptions(options);
     } catch (error) {
       console.error('Error loading vendors:', error);
       setVendorOptions([]);
-    } finally {
-      setIsLoadingVendors(false);
     }
   };
 
@@ -135,29 +134,48 @@ export default function AddSiteInventory() {
 
   const handleAddNewVendor = async (vendorData) => {
     try {
-      // Create vendor via API
-      const response = await createVendor({
-        name: vendorData.name,
-        countryCode: vendorData.countryCode,
-        contactNumber: vendorData.contactNumber,
-      });
-      
-      // Get the created vendor data
-      const createdVendor = response?.data?.data || response?.data || vendorData;
-      
-      // Add to options list
+      if (!workspaceId) {
+        showError(t('errors.workspaceRequired', { defaultValue: 'Workspace is required' }));
+        throw new Error('Workspace ID is required to create vendor');
+      }
+
+      // Prepare vendor payload with correct field names for builder/vendor API
+      // API expects: { full_name, country_code, phone_number, company_Name, address, role, workspace_id }
+      const payload = {
+        full_name: (vendorData.name || '').trim(),
+        country_code: vendorData.countryCode || '+91',
+        phone_number: (vendorData.contactNumber || '').trim(),
+        company_Name: vendorData.company_Name || vendorData.companyName || '',
+        address: vendorData.address || '',
+        role: 'vendors',
+        workspace_id: workspaceId,
+      };
+
+      // Create vendor via hook (returns axios response)
+      const response = await createVendor(payload);
+
+      // Try to extract created vendor object from response
+      const createdVendor =
+        response?.data?.user ||
+        response?.data?.vendor ||
+        response?.data?.data ||
+        response?.data ||
+        payload;
+
       const newOption = {
-        value: createdVendor.id || createdVendor._id || Date.now().toString(),
-        label: createdVendor.name || vendorData.name,
+        value:
+          createdVendor.id ||
+          createdVendor._id ||
+          createdVendor.vendorId ||
+          createdVendor.userId ||
+          Date.now().toString(),
+        // Use full_name for display; fallback to name from modal
+        label: createdVendor.full_name || vendorData.name || '',
       };
       
       setVendorOptions((prev) => [...prev, newOption]);
-      
-      // Select the newly created vendor
       setSelectedVendor(newOption.value);
-      
       showSuccess(t('addStock.vendorAdded', { defaultValue: 'Vendor added successfully' }));
-      
       return newOption;
     } catch (error) {
       console.error('Error creating vendor:', error);
@@ -481,28 +499,19 @@ export default function AddSiteInventory() {
             <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
               {uploadedFiles.map((file, index) => (
                 <div key={index} className="relative group">
-                  <div className="aspect-square rounded-lg overflow-hidden bg-gray-100">
-                    {file.type.startsWith('image/') ? (
-                      <img
-                        src={URL.createObjectURL(file)}
-                        alt={`Upload ${index + 1}`}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <video
-                        src={URL.createObjectURL(file)}
-                        className="w-full h-full object-cover"
-                      />
-                    )}
+                  <div className=" aspect-square border-black-soft border-2 rounded-lg">
+                    <img
+                      src={URL.createObjectURL(file)}
+                      alt={`Upload ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <button
                     type="button"
                     onClick={() => handleRemoveFile(index)}
-                    className="absolute top-2 right-2 bg-accent text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="absolute top-2 right-2 bg-accent text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+                    <X className="w-4 h-4" />
                   </button>
                 </div>
               ))}

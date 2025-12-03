@@ -1,10 +1,10 @@
 import { useState, useCallback } from 'react';
-import { 
-  createSiteInventory, 
-  updateSiteInventory, 
-  getSiteInventory, 
+import {
+  createSiteInventory,
+  updateSiteInventory,
+  getSiteInventory,
   deleteSiteInventory,
-  getSiteInventoryList 
+  getSiteInventoryList
 } from '../api';
 import { showError, showSuccess } from '../../../utils/toast';
 import { useTranslation } from 'react-i18next';
@@ -46,7 +46,7 @@ export const useSiteInventory = () => {
         err?.response?.data?.error ||
         err?.message ||
         t('errors.createFailed', { defaultValue: 'Failed to create site inventory item. Please try again.' });
-      
+
       setError(errorMessage);
       showError(errorMessage);
       throw err;
@@ -81,7 +81,7 @@ export const useSiteInventory = () => {
         err?.response?.data?.error ||
         err?.message ||
         t('errors.updateFailed', { defaultValue: 'Failed to update site inventory item. Please try again.' });
-      
+
       setError(errorMessage);
       showError(errorMessage);
       throw err;
@@ -100,10 +100,10 @@ export const useSiteInventory = () => {
       setIsLoading(true);
       setError(null);
       const response = await getSiteInventory(id);
-      
+
       // Handle different response structures
       let responseData = null;
-      
+
       if (response?.success && response?.data) {
         responseData = response.data;
       } else if (response?.data) {
@@ -111,7 +111,7 @@ export const useSiteInventory = () => {
       } else if (response && typeof response === 'object') {
         responseData = response;
       }
-      
+
       return responseData;
     } catch (err) {
       const errorMessage =
@@ -138,31 +138,38 @@ export const useSiteInventory = () => {
       setIsLoading(true);
       setError(null);
       const response = await getSiteInventoryList(params);
-      
-      // Handle different response structures
+
       let itemsArray = [];
-      
-      if (Array.isArray(response?.data)) {
-        itemsArray = response.data;
-      } else if (Array.isArray(response?.data?.data)) {
-        itemsArray = response.data.data;
-      } else if (Array.isArray(response)) {
-        itemsArray = response;
-      } else if (response?.data && typeof response.data === 'object') {
-        itemsArray = response.data.data || Object.values(response.data).filter(Array.isArray)[0] || [];
+
+      // Most common: axios response { data: { items: [...] } }
+      if (Array.isArray(response?.data?.items)) {
+        itemsArray = response.data.items;
       }
-      
-      // Ensure we have an array
+      // http wrapper returning data directly { items: [...] }
+      else if (Array.isArray(response?.items)) {
+        itemsArray = response.items;
+      }
+      // data is already array
+      else if (Array.isArray(response?.data)) {
+        itemsArray = response.data;
+      }
+      // plain array
+      else if (Array.isArray(response)) {
+        itemsArray = response;
+      }
+
+      // safety fallback only
       if (!Array.isArray(itemsArray)) {
         itemsArray = [];
       }
-      
+
       return itemsArray;
     } catch (err) {
       const errorMessage =
         err?.response?.data?.message ||
         err?.message ||
         t('errors.fetchFailed', { defaultValue: 'Failed to load site inventory items. Please try again.' });
+  
       setError(errorMessage);
       showError(errorMessage);
       throw err;
@@ -170,6 +177,7 @@ export const useSiteInventory = () => {
       setIsLoading(false);
     }
   }, [t]);
+  
 
   /**
    * Delete site inventory item
@@ -181,7 +189,7 @@ export const useSiteInventory = () => {
       setIsLoading(true);
       setError(null);
       const response = await deleteSiteInventory(id);
-      
+
       showSuccess(
         tCommon('successMessages.deleted', {
           defaultValue: 'Site inventory item deleted successfully',

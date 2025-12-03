@@ -15,7 +15,7 @@ const BREADCRUMB_TRANSLATION_KEYS = {
   builders: "sidebar.mainMenu.buildersClients",
   clients: "sidebar.mainMenu.buildersClients",
   vendors: "sidebar.mainMenu.vendors",
-  addVendor: "builderClient.form.addVendor", 
+  addVendor: "builderClient.form.addVendor",  
   editVendor: "builderClient.form.editVendor", 
   "past-work": "sidebar.mainMenu.pastWork",
   "business-card": "sidebar.mainMenu.businessCard",

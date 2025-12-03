@@ -5,6 +5,7 @@
 
 import http from '../../../services/http';
 import { SITE_INVENTORY_ENDPOINTS_FLAT } from '../constants/siteInventoryEndpoints';
+import { BUILDER_CLIENT_ENDPOINTS_FLAT } from '../../builderClient/constants/builderClientEndpoints';
 
 /**
  * Create site inventory item
@@ -178,19 +179,51 @@ export const createUnit = async (data) => {
 
 /**
  * Get list of vendors
+ * @param {string|number} workspaceId - Workspace ID
  * @returns {Promise<Object>} List of vendors
  */
-export const getVendorsList = async () => {
-  return http.get(SITE_INVENTORY_ENDPOINTS_FLAT.VENDORS_LIST);
+export const getVendorsList = async (workspaceId) => {
+  if (!workspaceId) {
+    throw new Error('Workspace ID is required');
+  }
+  // Use builder endpoint with role=vendors
+  return http.get(`${BUILDER_CLIENT_ENDPOINTS_FLAT.USER_ROLES}?workspace_id=${workspaceId}&role=vendors`);
 };
 
 /**
  * Create new vendor
- * @param {Object} data - Vendor data (name, countryCode, contactNumber)
+ * @param {Object|FormData} data - Vendor data (full_name, country_code, phone_number, company_Name, address, workspace_id)
  * @returns {Promise<Object>} API response
  */
 export const createVendor = async (data) => {
-  return http.post(SITE_INVENTORY_ENDPOINTS_FLAT.VENDORS_CREATE, data);
+  // Build payload according to API requirements
+  // API expects: { full_name, country_code, phone_number, company_Name, address, role: "vendors", workspace_id }
+  let payload = {};
+  
+  if (data instanceof FormData) {
+    // If FormData, append role
+    const formData = new FormData();
+    formData.append('full_name', data.get('name') || data.get('full_name') || '');
+    formData.append('country_code', data.get('countryCode') || data.get('country_code') || '+91');
+    formData.append('phone_number', data.get('contactNumber') || data.get('phone_number') || data.get('phone') || '');
+    formData.append('company_Name', data.get('company_Name') || data.get('companyName') || '');
+    formData.append('address', data.get('address') || '');
+    formData.append('role', 'vendors');
+    formData.append('workspace_id', data.get('workspace_id') || data.get('workspaceId') || '');
+    return http.post(BUILDER_CLIENT_ENDPOINTS_FLAT.BUILDER_CREATE, formData);
+  } else {
+    // If object, build JSON payload
+    payload = {
+      full_name: data.name || data.full_name || '',
+      country_code: data.countryCode || data.country_code || '+91',
+      phone_number: data.contactNumber || data.phone_number || data.phone || '',
+      company_Name: data.company_Name || data.companyName || '',
+      address: data.address || '',
+      role: 'vendors',
+      workspace_id: data.workspace_id || data.workspaceId || data.WID || '',
+    };
+    return http.post(BUILDER_CLIENT_ENDPOINTS_FLAT.BUILDER_CREATE, payload);
+  }
 };
 
 /**

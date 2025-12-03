@@ -61,7 +61,16 @@ export default function SiteInventory() {
     // Filter by material type
     if (materialType) {
       filtered = filtered.filter((item) => {
-        const itemType = item?.materialType || item?.type || item?.category;
+        const itemType =
+          item?.materialType ||
+          item?.type ||
+          item?.category ||
+          // Fallback from inventoryTypeId: 1 = reusable, 2 = consumable
+          (item?.inventoryTypeId === 1 || item?.inventoryTypeId === '1'
+            ? 'reusable'
+            : item?.inventoryTypeId === 2 || item?.inventoryTypeId === '2'
+            ? 'consumable'
+            : undefined);
         return itemType?.toLowerCase() === materialType.toLowerCase();
       });
     }
@@ -79,80 +88,26 @@ export default function SiteInventory() {
     setFilteredItems(filtered);
   }, [inventoryItems, materialType, debouncedSearch]);
 
-
   const loadInventoryItems = async () => {
     try {
-      // Build query parameters
       const params = {};
-      
-      // Add projectID if available
-      if (projectId) {
-        params.projectID = projectId;
-      }
-      // Reusable = 1, Consumable = 2
-      if (materialType === 'reusable') {
-        params.inventoryTypeId = 1;
-      } else if (materialType === 'consumable') {
-        params.inventoryTypeId = 2;
-      }
-      
-      // Try to get items from API first
+      if (projectId) params.projectID = projectId;
+      if (materialType === "reusable") params.inventoryTypeId = 1;
+      if (materialType === "consumable") params.inventoryTypeId = 2;
+  
+      // Fetch items
       const itemsArray = await getItems(params);
-      
-      // Ensure we have an array
-      let allItems = Array.isArray(itemsArray) ? itemsArray : [];
-      
-      // If no items from API, use mock data
-      if (allItems.length === 0) {
-        allItems = getMockInventoryItems();
-      }
-      
-      // Filter items to show only logged-in user's items (if user filtering needed)
-      const userId = user?.id || user?.userId || user?.user_id || user?._id;
-      
-      let filteredItems = allItems;
-      
-      if (userId) {
-        filteredItems = allItems.filter((item) => {
-          const itemUserId = item?.userId || 
-                            item?.user_id || 
-                            item?.user?.id || 
-                            item?.user?._id ||
-                            item?.createdBy ||
-                            item?.created_by ||
-                            item?.ownerId ||
-                            item?.owner_id;
-          
-          // If item has userId, filter by it, otherwise show all (for mock data)
-          if (itemUserId) {
-            return String(itemUserId) === String(userId);
-          }
-          return true; // Show items without userId (mock data)
-        });
-      }
-      
-      // If projectId is provided, filter items by project
-      if (projectId) {
-        filteredItems = filteredItems.filter((item) => {
-          const itemProjectId = item?.projectId || 
-                               item?.project_id || 
-                               item?.project?.id ||
-                               item?.project?.project_id;
-          // If item has projectId, filter by it, otherwise show all (for mock data)
-          if (itemProjectId) {
-            return String(itemProjectId) === String(projectId);
-          }
-          return true; // Show items without projectId (mock data)
-        });
-      }
-      
-      setInventoryItems(filteredItems);
+  
+      // Direct set — no user filtering, no bad project filtering
+      setInventoryItems(itemsArray || []);
+  
     } catch (error) {
-      // On error, use mock data
-      const mockItems = getMockInventoryItems();
-      setInventoryItems(mockItems);
+      console.error('Error loading inventory items:', error);
+      showError("Failed to load inventory items");
+      setInventoryItems([]);
     }
   };
+  
 
   const handleCreateSiteInventory = () => {
     navigate(ROUTES_FLAT.ADD_SITE_INVENTORY, {
