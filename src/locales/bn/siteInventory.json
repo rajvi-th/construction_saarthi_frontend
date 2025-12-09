@@ -16,6 +16,13 @@
     "quantity": "পরিমাণ",
     "costPerUnit": "প্রতি ইউনিট খরচ",
     "totalPrice": "মোট মূল্য",
+    "purchased": "ক্রয় করা হয়েছে",
+    "used": "ব্যবহার করা হয়েছে",
+    "inStock": "স্টকে আছে",
+    "currentStock": "বর্তমান স্টক",
+    "purchasedPrice": "ক্রয় মূল্য",
+    "logUsage": "ব্যবহার লগ",
+    "noLogUsage": "কোনো ব্যবহার লগ ইতিহাস উপলব্ধ নেই",
     "transfer": "স্থানান্তর",
     "actions": {
         "restock": "সামগ্রী পুনরায় স্টক করুন",
@@ -102,9 +109,6 @@
         "updateFailed": "সাইট ইনভেন্টরি আইটেম আপডেট করতে ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন।",
         "fetchFailed": "সাইট ইনভেন্টরি আইটেম লোড করতে ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন।"
     },
-    "purchased": "ক্রয় করা হয়েছে",
-    "currentStock": "বর্তমান স্টক",
-    "purchasedPrice": "ক্রয় মূল্য",
     "logUsageModal": {
         "title": "ব্যবহার লগ করুন",
         "subtitle": "আপনার সাইটে ব্যবহৃত পরিমাণ লিখুন।",
@@ -241,5 +245,41 @@
             "fileTooLarge": "ফাইলের আকার 10MB এর কম হতে হবে",
             "createFailed": "ইনভেন্টরি আইটেম তৈরি করতে ব্যর্থ"
         }
+    },
+    "itemDetails": {
+        "notFound": "আইটেম খুঁজে পাওয়া যায়নি",
+        "backToList": "তালিকায় ফিরে যান",
+        "askForMaterial": "উপাদান অনুরোধ করুন",
+        "transferMaterial": "উপাদান স্থানান্তর করুন",
+        "lastUpdated": "সর্বশেষ আপডেট",
+        "quantity": "পরিমাণ",
+        "avgCostPerUnit": "প্রতি ইউনিট গড় খরচ",
+        "totalPrice": "মোট মূল্য",
+        "currentStock": "বর্তমান স্টক",
+        "conditionDescription": "অবস্থা/বিবরণ",
+        "distribution": "বিতরণ",
+        "usedInYourSite": "আপনার সাইটে ব্যবহৃত",
+        "noDistribution": "কোনও বিতরণ ইতিহাস পাওয়া যায়নি",
+        "release": "রিলিজ",
+        "status": {
+            "approved": "অনুমোদিত",
+            "pending": "অপেক্ষমাণ",
+            "rejected": "প্রত্যাখ্যাত"
+        }
+    },
+    "releaseModal": {
+        "title": "রিলিজ {{itemName}}",
+        "subtitle": "সাইট থেকে যে পরিমাণ রিলিজ করতে চান তা লিখুন।",
+        "quantity": "রিলিজ পরিমাণ",
+        "cancel": "বাতিল করুন",
+        "release": "রিলিজ",
+        "errors": {
+            "quantityRequired": "পরিমাণ প্রয়োজন"
+        }
+    },
+    "destroyModal": {
+        "title": "ডেস্ট্রয় {{itemName}}",
+        "subtitle": "ক্ষতিগ্রস্ত বা বাতিল করা উপাদানের পরিমাণ লিখুন।",
+        "cancel": "বাতিল করুন"
     }
 }

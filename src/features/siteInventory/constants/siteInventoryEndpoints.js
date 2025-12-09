@@ -16,6 +16,7 @@ export const SITE_INVENTORY_ENDPOINTS = {
     TRANSFER_REJECT: '/inventoryItem/transferRequest/reject', // POST /inventoryItem/transferRequest/reject/:workspaceID
     ASK_MATERIAL_REQUESTS: '/inventoryItem/askMaterialRequests', // GET /inventoryItem/askMaterialRequests?projectID=23
     REQUEST_MATERIAL: '/inventoryItem/requestMaterial', // POST /inventoryItem/requestMaterial
+    RESTOCK_MATERIAL: '/inventoryItem/restockMaterial', // POST /inventoryItem/restockMaterial
   },
   // Materials Endpoints
   MATERIALS: {
@@ -47,6 +48,7 @@ export const SITE_INVENTORY_ENDPOINTS_FLAT = {
   SITE_INVENTORY_TRANSFER_REJECT: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.TRANSFER_REJECT, // POST /inventoryItem/transferRequest/reject/:workspaceID
   SITE_INVENTORY_ASK_MATERIAL_REQUESTS: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.ASK_MATERIAL_REQUESTS, // GET /inventoryItem/askMaterialRequests
   SITE_INVENTORY_REQUEST_MATERIAL: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.REQUEST_MATERIAL, // POST /inventoryItem/requestMaterial
+  SITE_INVENTORY_RESTOCK_MATERIAL: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.RESTOCK_MATERIAL, // POST /inventoryItem/restockMaterial
   // Materials
   MATERIALS_LIST: SITE_INVENTORY_ENDPOINTS.MATERIALS.LIST, // GET /materials
   MATERIALS_CREATE: SITE_INVENTORY_ENDPOINTS.MATERIALS.CREATE, // POST /materials/create

@@ -16,6 +16,13 @@
     "quantity": "मात्रा",
     "costPerUnit": "प्रति इकाई लागत",
     "totalPrice": "कुल मूल्य",
+    "purchased": "खरीदल गइल",
+    "used": "इस्तेमाल कइल गइल",
+    "inStock": "स्टॉक में",
+    "currentStock": "वर्तमान स्टॉक",
+    "purchasedPrice": "खरीद मूल्य",
+    "logUsage": "उपयोग लॉग",
+    "noLogUsage": "कोई उपयोग लॉग इतिहास उपलब्ध नइखे",
     "transfer": "स्थानांतरण",
     "actions": {
         "restock": "सामग्री पुनः स्टॉक करीं",
@@ -102,9 +109,6 @@
         "updateFailed": "साइट इन्वेंटरी आइटम अपडेट करे में विफल। कृपया पुनः प्रयास करीं।",
         "fetchFailed": "साइट इन्वेंटरी आइटम लोड करे में विफल। कृपया पुनः प्रयास करीं।"
     },
-    "purchased": "खरीदल गइल",
-    "currentStock": "वर्तमान स्टॉक",
-    "purchasedPrice": "खरीद मूल्य",
     "logUsageModal": {
         "title": "उपयोग लॉग करीं",
         "subtitle": "तूंरी साइट पर उपयोग की गई मात्रा दर्ज करीं।",
@@ -241,5 +245,41 @@
             "fileTooLarge": "फाइल का आकार 10MB से कम होना चाहिए",
             "createFailed": "इन्वेंटरी आइटम बनावे में विफल"
         }
+    },
+    "itemDetails": {
+        "notFound": "आइटम नहीं मिलल",
+        "backToList": "लिस्ट पर वापस जाईं",
+        "askForMaterial": "सामग्री के रिक्वेस्ट करीं",
+        "transferMaterial": "सामग्री ट्रांसफर करीं",
+        "lastUpdated": "आखिरी बार अपडेट",
+        "quantity": "मात्रा",
+        "avgCostPerUnit": "औसत प्रति यूनिट लागत",
+        "totalPrice": "कुल मूल्य",
+        "currentStock": "वर्तमान स्टॉक",
+        "conditionDescription": "स्थिति/विवरण",
+        "distribution": "डिस्ट्रिब्यूशन",
+        "usedInYourSite": "रउआ साइट पर इस्तेमाल भइल",
+        "noDistribution": "कोई डिस्ट्रिब्यूशन हिस्ट्री उपलब्ध नइखे",
+        "release": "रिलीज़ करीं",
+        "status": {
+            "approved": "मंजूर",
+            "pending": "लंबित",
+            "rejected": "खारिज"
+        }
+    },
+    "releaseModal": {
+        "title": "रिलीज़ {{itemName}}",
+        "subtitle": "जेतना मात्रा साइट से रिलीज़ करे के बा, ओह मात्रा के दर्ज करीं।",
+        "quantity": "रिलीज़ मात्रा",
+        "cancel": "रद्द करीं",
+        "release": "रिलीज़ करीं",
+        "errors": {
+            "quantityRequired": "मात्रा जरूरी बा"
+        }
+    },
+    "destroyModal": {
+        "title": "डिस्ट्रॉय {{itemName}}",
+        "subtitle": "जेतना मात्रा सामग्री खराब हो गइल बा या फेंक देहल बा, उ मात्रा दर्ज करीं।",
+        "cancel": "रद्द करीं"
     }
 }

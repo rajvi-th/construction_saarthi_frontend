@@ -17,8 +17,12 @@
   "costPerUnit": "Cost Per Unit",
   "totalPrice": "Total Price",
   "purchased": "Purchased",
+  "used": "Used",
+  "inStock": "In Stock",
   "currentStock": "Current Stock",
   "purchasedPrice": "Purchased Price",
+  "logUsage": "Log Usage",
+  "noLogUsage": "No log usage history available",
   "transfer": "Transfer",
   "actions": {
     "restock": "Restock Material",
@@ -243,6 +247,42 @@
     "createFailed": "Failed to create site inventory item. Please try again.",
     "updateFailed": "Failed to update site inventory item. Please try again.",
     "fetchFailed": "Failed to load site inventory items. Please try again."
+  },
+  "itemDetails": {
+    "notFound": "Item not found",
+    "backToList": "Back to List",
+    "askForMaterial": "Ask for Material",
+    "transferMaterial": "Transfer Material",
+    "lastUpdated": "Last Updated",
+    "quantity": "Quantity",
+    "avgCostPerUnit": "Avg Cost per Unit",
+    "totalPrice": "Total Price",
+    "currentStock": "Current Stock",
+    "conditionDescription": "Condition/Description",
+    "distribution": "Distribution",
+    "usedInYourSite": "Used in Your Site",
+    "noDistribution": "No distribution history available",
+    "release": "Release",
+    "status": {
+      "approved": "Approved",
+      "pending": "Pending",
+      "rejected": "Rejected"
+    }
+  },
+  "releaseModal": {
+    "title": "Release {{itemName}}",
+    "subtitle": "Enter the quantity you want to release from site.",
+    "quantity": "Release Quantity",
+    "cancel": "Cancel",
+    "release": "Release",
+    "errors": {
+      "quantityRequired": "Quantity is required"
+    }
+  },
+  "destroyModal": {
+    "title": "Destroy {{itemName}}",
+    "subtitle": "Enter the quantity of material that has been damaged or discarded.",
+    "cancel": "Cancel"
   }
 }
 

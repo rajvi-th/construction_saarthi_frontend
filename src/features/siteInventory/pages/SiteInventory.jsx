@@ -42,6 +42,8 @@ export default function SiteInventory() {
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [logUsageModalOpen, setLogUsageModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [destroyModalOpen, setDestroyModalOpen] = useState(false);
+  const [destroyItem, setDestroyItem] = useState(null);
   
   // Get project context from navigation state (if navigated from project details)
   const projectId = location.state?.projectId;
@@ -80,7 +82,13 @@ export default function SiteInventory() {
     if (debouncedSearch.trim()) {
       const search = debouncedSearch.toLowerCase();
       filtered = filtered.filter((item) => {
-        const itemName = (item?.material?.name || item?.name || item?.itemName || '').toLowerCase();
+        const itemName = (
+          item?.material?.name ||
+          item?.materialName ||
+          item?.name ||
+          item?.itemName ||
+          ''
+        ).toLowerCase();
         const specification = (item?.Description || item?.specification || item?.spec || '').toLowerCase();
         return itemName.includes(search) || specification.includes(search);
       });
@@ -163,9 +171,34 @@ export default function SiteInventory() {
     });
   };
 
+  const handleViewDetails = (item) => {
+    const itemId = item.id || item._id;
+    
+    // Determine if item is consumable
+    const inventoryTypeId = item.inventoryTypeId;
+    const materialType = item.materialType || item.type || 
+      (inventoryTypeId === 1 || inventoryTypeId === '1' ? 'reusable' : 
+       inventoryTypeId === 2 || inventoryTypeId === '2' ? 'consumable' : 'reusable');
+    const isConsumable = materialType?.toLowerCase() === 'consumable';
+    
+    // Navigate to appropriate details page
+    const route = isConsumable 
+      ? ROUTES_FLAT.CONSUMABLE_ITEM_DETAILS 
+      : ROUTES_FLAT.INVENTORY_ITEM_DETAILS;
+    
+    navigate(route.replace(':id', itemId), {
+      state: projectId ? { projectId, projectName } : undefined,
+    });
+  };
+
   const handleRestock = (item) => {
-    // TODO: Implement restock functionality
-    console.log('Restock item:', item);
+    navigate(ROUTES_FLAT.ADD_STOCK, {
+      state: {
+        item, 
+        projectId,
+        projectName,
+      },
+    });
   };
 
   const handleLogUsage = (logData) => {
@@ -183,8 +216,8 @@ export default function SiteInventory() {
   };
 
   const handleDestroy = (item) => {
-    // TODO: Implement destroy functionality
-    console.log('Destroy item:', item);
+    setDestroyItem(item);
+    setDestroyModalOpen(true);
   };
 
   const handleDownloadPDF = (item) => {
@@ -586,6 +619,7 @@ export default function SiteInventory() {
                   onDestroy={handleDestroy}
                   onLogUsage={handleLogUsageClick}
                   onDownloadPDF={handleDownloadPDF}
+                  onViewDetails={handleViewDetails}
                   t={t}
                   formatDate={formatDate}
                   formatCurrency={formatCurrency}
@@ -788,6 +822,35 @@ export default function SiteInventory() {
         item={selectedItem}
       />
 
+      {/* Destroy Material Modal */}
+      <LogUsageModal
+        isOpen={destroyModalOpen}
+        onClose={() => {
+          setDestroyModalOpen(false);
+          setDestroyItem(null);
+        }}
+        onLogUsage={(logData) => {
+          // TODO: Integrate destroy material API
+          console.log('Destroy material from list page:', logData);
+          setDestroyModalOpen(false);
+          setDestroyItem(null);
+        }}
+        item={destroyItem}
+        title={t('destroyModal.title', {
+          defaultValue: 'Destroy {{itemName}}',
+          itemName:
+            destroyItem?.material?.name ||
+            destroyItem?.materialName ||
+            destroyItem?.name ||
+            destroyItem?.itemName ||
+            '',
+        })}
+        subtitle={t('destroyModal.subtitle', {
+          defaultValue:
+            'Enter the quantity of material that has been damaged or discarded.',
+        })}
+      />
+
       {/* Delete Confirmation Modal */}
       <ConfirmModal
         isOpen={deleteModalOpen}
@@ -797,7 +860,12 @@ export default function SiteInventory() {
           itemToDelete?.item
             ? t('deleteModal.title', {
                 defaultValue: 'Delete {{itemName}}',
-                itemName: itemToDelete.item?.material?.name || itemToDelete.item.name || itemToDelete.item.itemName || 'Item',
+                itemName:
+                  itemToDelete.item?.material?.name ||
+                  itemToDelete.item.materialName ||
+                  itemToDelete.item.name ||
+                  itemToDelete.item.itemName ||
+                  'Item',
               })
             : t('deleteModal.title', { defaultValue: 'Delete Item', itemName: 'Item' })
         }
@@ -805,7 +873,13 @@ export default function SiteInventory() {
           itemToDelete?.item
             ? t('deleteModal.message', {
                 defaultValue: 'Are you sure you want to delete {{itemName}} from inventory? This action is irreversible, and your data cannot be recovered.',
-                itemName: (itemToDelete.item?.material?.name || itemToDelete.item.name || itemToDelete.item.itemName || 'this item').toLowerCase(),
+                itemName: (
+                  itemToDelete.item?.material?.name ||
+                  itemToDelete.item.materialName ||
+                  itemToDelete.item.name ||
+                  itemToDelete.item.itemName ||
+                  'this item'
+                ).toLowerCase(),
               })
             : t('deleteModal.message', {
                 defaultValue: 'Are you sure you want to delete this item? This action is irreversible.',

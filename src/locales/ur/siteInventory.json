@@ -16,6 +16,13 @@
     "quantity": "مقدار",
     "costPerUnit": "فی یونٹ لاگت",
     "totalPrice": "کل قیمت",
+    "purchased": "خریدا گیا",
+    "used": "استعمال کیا گیا",
+    "inStock": "اسٹاک میں",
+    "currentStock": "موجودہ اسٹاک",
+    "purchasedPrice": "خریداری کی قیمت",
+    "logUsage": "استعمال لاگ",
+    "noLogUsage": "استعمال لاگ کی تاریخ دستیاب نہیں ہے",
     "transfer": "منتقلی",
     "actions": {
         "restock": "مواد دوبارہ اسٹاک کریں",
@@ -102,9 +109,6 @@
         "updateFailed": "سائٹ انوینٹری آئٹم اپ ڈیٹ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔",
         "fetchFailed": "سائٹ انوینٹری آئٹمز لوڈ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
     },
-    "purchased": "خریدا گیا",
-    "currentStock": "موجودہ اسٹاک",
-    "purchasedPrice": "خریداری کی قیمت",
     "logUsageModal": {
         "title": "استعمال لاگ کریں",
         "subtitle": "اپنی سائٹ پر استعمال شدہ مقدار درج کریں۔",
@@ -241,5 +245,41 @@
             "fileTooLarge": "فائل کا سائز 10MB سے کم ہونا چاہیے",
             "createFailed": "انوینٹری آئٹم بنانے میں ناکام"
         }
+    },
+    "itemDetails": {
+        "notFound": "آئٹم نہیں ملا",
+        "backToList": "فہرست پر واپس جائیں",
+        "askForMaterial": "مواد کی درخواست کریں",
+        "transferMaterial": "مواد منتقل کریں",
+        "lastUpdated": "آخری بار اپ ڈیٹ",
+        "quantity": "مقدار",
+        "avgCostPerUnit": "فی یونٹ اوسط لاگت",
+        "totalPrice": "کل قیمت",
+        "currentStock": "موجودہ اسٹاک",
+        "conditionDescription": "حالت/تفصیل",
+        "distribution": "تقسیم",
+        "usedInYourSite": "آپ کی سائٹ پر استعمال ہوا",
+        "noDistribution": "کوئی تقسیم کی ہسٹری دستیاب نہیں",
+        "release": "ریلیز کریں",
+        "status": {
+            "approved": "منظور شدہ",
+            "pending": "زیر التواء",
+            "rejected": "مسترد"
+        }
+    },
+    "releaseModal": {
+        "title": "ریلیز {{itemName}}",
+        "subtitle": "وہ مقدار درج کریں جو آپ سائٹ سے ریلیز کرنا چاہتے ہیں۔",
+        "quantity": "ریلیز مقدار",
+        "cancel": "منسوخ کریں",
+        "release": "ریلیز کریں",
+        "errors": {
+            "quantityRequired": "مقدار درکار ہے"
+        }
+    },
+    "destroyModal": {
+        "title": "تباہ کریں {{itemName}}",
+        "subtitle": "اس مواد کی مقدار درج کریں جو خراب یا ضائع ہو چکا ہے۔",
+        "cancel": "منسوخ کریں"
     }
 }

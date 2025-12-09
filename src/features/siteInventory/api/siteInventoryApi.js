@@ -386,3 +386,30 @@ export const requestMaterial = async (data) => {
   );
 };
 
+/**
+ * Restock material (Add stock to inventory item)
+ * @param {Object} data - Restock data
+ * @param {string|number} data.inventoryId - Inventory item ID
+ * @param {string|number} data.quantity - Quantity to add
+ * @param {string|number} data.projectID - Project ID
+ * @param {string|number} data.vendorID - Vendor ID
+ * @param {string|number} data.price - Price per unit
+ * @param {string|number} data.inventoryTypeId - Inventory type ID (1=Reusable, 2=Consumable)
+ * @returns {Promise<Object>} API response
+ */
+export const restockMaterial = async (data) => {
+  const payload = {
+    inventoryId: data.inventoryId,
+    quantity: data.quantity,
+    projectID: data.projectID,
+    vendorID: data.vendorID,
+    price: data.price,
+    inventoryTypeId: data.inventoryTypeId,
+  };
+  
+  return http.post(
+    SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_RESTOCK_MATERIAL,
+    payload
+  );
+};
+

@@ -50,6 +50,8 @@ const Coupon = lazy(() => import('../features/subscription/pages/Coupon'));
 const SiteInventory = lazy(() => import('../features/siteInventory/pages/SiteInventory'));
 const AddSiteInventory = lazy(() => import('../features/siteInventory/pages/AddSiteInventory'));
 const EditSiteInventory = lazy(() => import('../features/siteInventory/pages/EditSiteInventory'));
+const InventoryItemDetails = lazy(() => import('../features/siteInventory/pages/InventoryItemDetails'));
+const ConsumableItemDetails = lazy(() => import('../features/siteInventory/pages/ConsumableItemDetails'));
 const AddNewAsk = lazy(() => import('../features/siteInventory/pages/AddNewAsk'));
 const AddStock = lazy(() => import('../features/siteInventory/pages/AddStock'));
 
@@ -133,6 +135,8 @@ function AppRoutes() {
             <Route path={ROUTES_FLAT.SITE_INVENTORY} element={<SiteInventory />} />
             <Route path={ROUTES_FLAT.ADD_SITE_INVENTORY} element={<AddSiteInventory />} />
             <Route path={ROUTES_FLAT.EDIT_SITE_INVENTORY} element={<EditSiteInventory />} />
+            <Route path={ROUTES_FLAT.INVENTORY_ITEM_DETAILS} element={<InventoryItemDetails />} />
+            <Route path={ROUTES_FLAT.CONSUMABLE_ITEM_DETAILS} element={<ConsumableItemDetails />} />
             <Route path={ROUTES_FLAT.ADD_NEW_ASK} element={<AddNewAsk />} />
             <Route path={ROUTES_FLAT.ADD_STOCK} element={<AddStock />} />
             <Route path={ROUTES_FLAT.BUILDERS} element={<Builders />} />

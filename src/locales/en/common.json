@@ -132,6 +132,11 @@
     "goHome": "Go Home",
     "stackTrace": "Stack Trace",
     "developmentMode": "Error details are shown above (development mode)"
+  },
+  "pagination": {
+    "show": "Show",
+    "perPage": "per page",
+    "of": "of"
   }
 }
 

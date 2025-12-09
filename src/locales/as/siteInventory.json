@@ -16,6 +16,13 @@
     "quantity": "পৰিমাণ",
     "costPerUnit": "প্ৰতি একক খৰচ",
     "totalPrice": "মুঠ মূল্য",
+    "purchased": "ক্ৰয় কৰা হৈছে",
+    "used": "ব্যৱহাৰ কৰা হৈছে",
+    "inStock": "ষ্টকত আছে",
+    "currentStock": "বৰ্তমান ষ্টক",
+    "purchasedPrice": "ক্ৰয় মূল্য",
+    "logUsage": "ব্যৱহাৰ লগ",
+    "noLogUsage": "ব্যৱহাৰ লগ ইতিহাস উপলব্ধ নহয়",
     "transfer": "স্থানান্তৰ",
     "actions": {
         "restock": "সামগ্ৰী পুনৰায় ষ্টক কৰক",
@@ -102,9 +109,6 @@
         "updateFailed": "ছাইট ইনভেন্টৰী আইটেম আপডেট কৰাত ব্যৰ্থ। অনুগ্ৰহ কৰি পুনৰ চেষ্টা কৰক।",
         "fetchFailed": "ছাইট ইনভেন্টৰী আইটেম লোড কৰাত ব্যৰ্থ। অনুগ্ৰহ কৰি পুনৰ চেষ্টা কৰক।"
     },
-    "purchased": "কিনা হৈছে",
-    "currentStock": "বৰ্তমান স্টক",
-    "purchasedPrice": "ক্ৰয় মূল্য",
     "logUsageModal": {
         "title": "ব্যৱহাৰ লগ কৰক",
         "subtitle": "আপোনাৰ ছাইটত ব্যৱহৃত পৰিমাণ লিখক।",
@@ -241,5 +245,41 @@
             "fileTooLarge": "ফাইলৰ আকাৰ 10MB তকৈ কম হ'ব লাগিব",
             "createFailed": "ইনভেন্টৰী আইটেম সৃষ্টি কৰাত ব্যৰ্থ"
         }
+    },
+    "itemDetails": {
+        "notFound": "আইটেম পোৱা নগল",
+        "backToList": "তালিকালৈ ফিৰিওক",
+        "askForMaterial": "বস্তু অনুৰোধ কৰক",
+        "transferMaterial": "বস্তু স্থানান্তৰ কৰক",
+        "lastUpdated": "শেহতীয়াভাবে আপডেট",
+        "quantity": "পৰিমাণ",
+        "avgCostPerUnit": "প্ৰতি একক গড় খৰচ",
+        "totalPrice": "মুঠ মূল্য",
+        "currentStock": "বৰ্তমান স্টক",
+        "conditionDescription": "অৱস্থা/বিৱৰণ",
+        "distribution": "বিতৰণ",
+        "usedInYourSite": "আপোনাৰ ছাইটত ব্যৱহৃত",
+        "noDistribution": "কোনো বিতৰণ ইতিহাস উপলব্ধ নাই",
+        "release": "মুক্ত কৰক",
+        "status": {
+            "approved": "অনুমোদিত",
+            "pending": "অপেক্ষাৰত",
+            "rejected": "প্রত্যাখ্যাত"
+        }
+    },
+    "releaseModal": {
+        "title": "ৰিলিজ {{itemName}}",
+        "subtitle": "ছাইটৰ পৰা আপুনি যি পৰিমাণ ৰিলিজ কৰিব খোজে সেয়া লিখক।",
+        "quantity": "ৰিলিজ পৰিমাণ",
+        "cancel": "বাতিল কৰক",
+        "release": "ৰিলিজ কৰক",
+        "errors": {
+            "quantityRequired": "পৰিমাণ আৱশ্যক"
+        }
+    },
+    "destroyModal": {
+        "title": "ডিষ্ট্ৰয় {{itemName}}",
+        "subtitle": "ক্ষতিগ্ৰস্ত বা বাদ দিয়া বস্তুৰ পৰিমাণ লিখক।",
+        "cancel": "বাতিল কৰক"
     }
 }
