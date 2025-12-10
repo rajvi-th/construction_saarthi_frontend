@@ -277,6 +277,32 @@
             "quantityRequired": "ಪ್ರಮಾಣ ಅಗತ್ಯವಿದೆ"
         }
     },
+    "destroyMaterialModal": {
+        "title": "ವಸ್ತುವನ್ನು ನಾಶಪಡಿಸಿ",
+        "subtitle": "ಹಾನಿಗೊಳಗಾದ ಅಥವಾ ತ್ಯಜಿಸಲಾದ ವಸ್ತುವಿನ ಪ್ರಮಾಣವನ್ನು ನಮೂದಿಸಿ.",
+        "material": "ವಸ್ತು",
+        "materialPlaceholder": "ವಸ್ತುವನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+        "quantity": "ಪ್ರಮಾಣ",
+        "reason": "ಕಾರಣ",
+        "reasonPlaceholder": "ಇಲ್ಲಿ ಪಠ್ಯವನ್ನು ನಮೂದಿಸಿ",
+        "cancel": "ರದ್ದುಮಾಡಿ",
+        "destroy": "ವಸ್ತುವನ್ನು ನಾಶಪಡಿಸಿ",
+        "destroying": "ನಾಶಪಡಿಸಲಾಗುತ್ತಿದೆ...",
+        "errors": {
+            "materialRequired": "ವಸ್ತು ಅಗತ್ಯವಿದೆ",
+            "quantityRequired": "ಪ್ರಮಾಣ ಅಗತ್ಯವಿದೆ",
+            "reasonRequired": "ಕಾರಣ ಅಗತ್ಯವಿದೆ"
+        }
+    },
+    "destroyMaterials": {
+        "addDestroyMaterial": "ನಾಶಪಡಿಸಿದ ವಸ್ತುವನ್ನು ಸೇರಿಸಿ",
+        "success": "ವಸ್ತು ವಿಜಯವಾಗಿ ನಾಶವಾಯಿತು",
+        "reason": "ಕಾರಣ",
+        "emptyState": {
+            "title": "ನಾಶಪಡಿಸಿದ ವಸ್ತುಗಳು ಇಲ್ಲ",
+            "message": "ನಾಶಪಡಿಸಿದ ವಸ್ತುಗಳು ಕಂಡುಬಂದಿಲ್ಲ"
+        }
+    },
     "destroyModal": {
         "title": "ಡಿಸ್ಟ್ರಾಯ್ {{itemName}}",
         "subtitle": "ಹಾನಿಗೊಳಗಾದ ಅಥವಾ ತ್ಯಜಿಸಲಾದ ವಸ್ತುವಿನ ಪ್ರಮಾಣವನ್ನು ನಮೂದಿಸಿ.",

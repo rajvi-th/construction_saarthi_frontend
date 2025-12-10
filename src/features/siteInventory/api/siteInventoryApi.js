@@ -413,3 +413,63 @@ export const restockMaterial = async (data) => {
   );
 };
 
+/**
+ * Get restock requests
+ * @param {Object} [params] - Query parameters
+ * @param {string|number} [params.projectID] - Project ID filter
+ * @param {string} [params.requestStatus] - Request status filter (e.g., 'active', 'pending', 'approved', 'rejected')
+ * @param {string|number} [params.inventoryTypeId] - Inventory type ID filter (1=Reusable, 2=Consumable)
+ * @param {string} [params.status] - Status filter (optional, if needed)
+ * @returns {Promise<Object>} List of restock requests
+ */
+export const getRestockRequests = async (params = {}) => {
+  // Build query string from params
+  const queryParams = new URLSearchParams();
+  
+  if (params.projectID) {
+    queryParams.append('projectID', params.projectID);
+  }
+  
+  if (params.requestStatus) {
+    queryParams.append('requestStatus', params.requestStatus);
+  }
+  
+  if (params.inventoryTypeId) {
+    queryParams.append('inventoryTypeId', params.inventoryTypeId);
+  }
+  
+  // Include status parameter if provided (even if empty, as per API example)
+  if (params.status !== undefined) {
+    queryParams.append('status', params.status || '');
+  }
+  
+  const queryString = queryParams.toString();
+  const url = queryString 
+    ? `${SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_RESTOCK_REQUESTS}?${queryString}`
+    : SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_RESTOCK_REQUESTS;
+  
+  return http.get(url);
+};
+
+/**
+ * Get destroyed materials
+ * @param {Object} [params] - Query parameters
+ * @param {string|number} [params.projectID] - Project ID filter
+ * @returns {Promise<Object>} List of destroyed materials
+ */
+export const getDestroyedMaterials = async (params = {}) => {
+  // Build query string from params
+  const queryParams = new URLSearchParams();
+  
+  if (params.projectID) {
+    queryParams.append('projectID', params.projectID);
+  }
+  
+  const queryString = queryParams.toString();
+  const url = queryString 
+    ? `${SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_DESTROYED_MATERIALS}?${queryString}`
+    : SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_DESTROYED_MATERIALS;
+  
+  return http.get(url);
+};
+

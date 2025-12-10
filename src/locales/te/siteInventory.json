@@ -277,6 +277,32 @@
             "quantityRequired": "పరిమాణం అవసరం"
         }
     },
+    "destroyMaterialModal": {
+        "title": "పదార్థాన్ని నాశనం చేయండి",
+        "subtitle": "నష్టపోయిన లేదా విసరిపెట్టిన పదార్థం పరిమాణాన్ని నమోదు చేయండి.",
+        "material": "పదార్థం",
+        "materialPlaceholder": "పదార్థాన్ని ఎంచుకోండి",
+        "quantity": "పరిమాణం",
+        "reason": "కారణం",
+        "reasonPlaceholder": "ఇక్కడ టెక్స్ట్‌ను నమోదు చేయండి",
+        "cancel": "రద్దు చేయండి",
+        "destroy": "పదార్థాన్ని నాశనం చేయండి",
+        "destroying": "నాశనం చేస్తోంది...",
+        "errors": {
+            "materialRequired": "పదార్థం అవసరం",
+            "quantityRequired": "పరిమాణం అవసరం",
+            "reasonRequired": "కారణం అవసరం"
+        }
+    },
+    "destroyMaterials": {
+        "addDestroyMaterial": "నాశనం పదార్థాన్ని జోడించండి",
+        "success": "పదార్థం విజయవంతంగా నాశనమైంది",
+        "reason": "కారణం",
+        "emptyState": {
+            "title": "నాశనం పదార్థాలు లేవు",
+            "message": "నాశనం పదార్థాలు కనుగొనబడలేదు"
+        }
+    },
     "destroyModal": {
         "title": "నాశనం చేయండి {{itemName}}",
         "subtitle": "నష్టపోయిన లేదా విసరిపెట్టిన పదార్థం పరిమాణాన్ని నమోదు చేయండి.",

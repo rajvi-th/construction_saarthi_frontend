@@ -277,6 +277,32 @@
             "quantityRequired": "مقدار درکار ہے"
         }
     },
+    "destroyMaterialModal": {
+        "title": "مواد تباہ کریں",
+        "subtitle": "اس مواد کی مقدار درج کریں جو خراب یا ضائع ہو چکا ہے۔",
+        "material": "مواد",
+        "materialPlaceholder": "مواد منتخب کریں",
+        "quantity": "مقدار",
+        "reason": "وجہ",
+        "reasonPlaceholder": "یہاں متن درج کریں",
+        "cancel": "منسوخ کریں",
+        "destroy": "مواد تباہ کریں",
+        "destroying": "تباہ کیا جا رہا ہے...",
+        "errors": {
+            "materialRequired": "مواد ضروری ہے",
+            "quantityRequired": "مقدار ضروری ہے",
+            "reasonRequired": "وجہ ضروری ہے"
+        }
+    },
+    "destroyMaterials": {
+        "addDestroyMaterial": "تباہ شدہ مواد شامل کریں",
+        "success": "مواد کامیابی سے تباہ ہو گیا",
+        "reason": "وجہ",
+        "emptyState": {
+            "title": "تباہ شدہ مواد نہیں",
+            "message": "تباہ شدہ مواد نہیں ملا"
+        }
+    },
     "destroyModal": {
         "title": "تباہ کریں {{itemName}}",
         "subtitle": "اس مواد کی مقدار درج کریں جو خراب یا ضائع ہو چکا ہے۔",

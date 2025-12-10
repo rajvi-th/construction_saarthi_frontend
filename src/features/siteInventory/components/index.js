@@ -16,5 +16,7 @@ export { default as AddMaterialModal } from './AddMaterialModal';
 export { default as RestockRequestCard } from './RestockRequestCard';
 export { default as AddVendorModal } from './AddVendorModal';
 export { default as ReleaseModal } from './ReleaseModal';
+export { default as DestroyMaterialCard } from './DestroyMaterialCard';
+export { default as DestroyMaterialModal } from './DestroyMaterialModal';
 
 

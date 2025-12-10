@@ -277,6 +277,32 @@
             "quantityRequired": "পৰিমাণ আৱশ্যক"
         }
     },
+    "destroyMaterialModal": {
+        "title": "বস্তু ধ্বংস কৰক",
+        "subtitle": "ক্ষতিগ্ৰস্ত বা বাদ দিয়া বস্তুৰ পৰিমাণ লিখক।",
+        "material": "বস্তু",
+        "materialPlaceholder": "বস্তু নির্বাচন কৰক",
+        "quantity": "পৰিমাণ",
+        "reason": "কাৰণ",
+        "reasonPlaceholder": "ইয়াত টেক্সট লিখক",
+        "cancel": "বাতিল কৰক",
+        "destroy": "বস্তু ধ্বংস কৰক",
+        "destroying": "ধ্বংস কৰা হৈছে...",
+        "errors": {
+            "materialRequired": "বস্তু প্রয়োজন",
+            "quantityRequired": "পৰিমাণ প্রয়োজন",
+            "reasonRequired": "কাৰণ প্রয়োজন"
+        }
+    },
+    "destroyMaterials": {
+        "addDestroyMaterial": "ধ্বংস বস্তু যোগ কৰক",
+        "success": "বস্তু সফলভাবে ধ্বংস হ'ল",
+        "reason": "কাৰণ",
+        "emptyState": {
+            "title": "কোন ধ্বংস বস্তু নাই",
+            "message": "কোন ধ্বংস বস্তু পোৱা নগ'ল"
+        }
+    },
     "destroyModal": {
         "title": "ডিষ্ট্ৰয় {{itemName}}",
         "subtitle": "ক্ষতিগ্ৰস্ত বা বাদ দিয়া বস্তুৰ পৰিমাণ লিখক।",

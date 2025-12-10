@@ -279,6 +279,32 @@
       "quantityRequired": "Quantity is required"
     }
   },
+  "destroyMaterialModal": {
+    "title": "Destroy Material",
+    "subtitle": "Enter the quantity of material that has been damaged or discarded.",
+    "material": "Material",
+    "materialPlaceholder": "Select material",
+    "quantity": "Quantity",
+    "reason": "Reason",
+    "reasonPlaceholder": "Enter text here",
+    "cancel": "Cancel",
+    "destroy": "Destroy Material",
+    "destroying": "Destroying...",
+    "errors": {
+      "materialRequired": "Material is required",
+      "quantityRequired": "Quantity is required",
+      "reasonRequired": "Reason is required"
+    }
+  },
+  "destroyMaterials": {
+    "addDestroyMaterial": "Add Destroy Material",
+    "success": "Material destroyed successfully",
+    "reason": "Reason",
+    "emptyState": {
+      "title": "No Destroyed Materials",
+      "message": "No destroyed materials found"
+    }
+  },
   "destroyModal": {
     "title": "Destroy {{itemName}}",
     "subtitle": "Enter the quantity of material that has been damaged or discarded.",

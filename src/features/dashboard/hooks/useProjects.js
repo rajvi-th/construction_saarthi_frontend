@@ -34,13 +34,7 @@ export const useProjects = (workspaceId) => {
         id: project.id || project.project_id,
 
         // Use profilePhoto as main image
-        image:
-          project.profilePhoto?.[0] ||
-          project.document?.[0] ||
-          project.image ||
-          project.image_url ||
-          project.photo ||
-          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400",
+        image:project.profilePhoto,
 
         title: project.name || project.title || "Untitled Project",
 

@@ -261,7 +261,38 @@
         "cancel": "રદ કરો",
         "release": "રિલીઝ કરો",
         "errors": {
-            "quantityRequired": "મാത്രા આવશ્યક છે"
+            "quantityRequired": "માત્રા આવશ્યક છે"
         }
+    },
+    "destroyMaterialModal": {
+        "title": "સામગ્રી નષ્ટ કરો",
+        "subtitle": "નુકસાન પહોંચાડેલી અથવા કાઢી નાખેલી સામગ્રીની માત્રા દાખલ કરો.",
+        "material": "સામગ્રી",
+        "materialPlaceholder": "સામગ્રી પસંદ કરો",
+        "quantity": "માત્રા",
+        "reason": "કારણ",
+        "reasonPlaceholder": "અહીં ટેક્સ્ટ દાખલ કરો",
+        "cancel": "રદ કરો",
+        "destroy": "સામગ્રી નષ્ટ કરો",
+        "destroying": "નષ્ટ કરી રહ્યા છીએ...",
+        "errors": {
+            "materialRequired": "સામગ્રી આવશ્યક છે",
+            "quantityRequired": "માત્રા આવશ્યક છે",
+            "reasonRequired": "કારણ આવશ્યક છે"
+        }
+    },
+    "destroyMaterials": {
+        "addDestroyMaterial": "નષ્ટ સામગ્રી ઉમેરો",
+        "success": "સામગ્રી સફળતાપૂર્વક નષ્ટ થઈ",
+        "reason": "કારણ",
+        "emptyState": {
+            "title": "કોઈ નષ્ટ સામગ્રી નથી",
+            "message": "કોઈ નષ્ટ સામગ્રી મળી નથી"
+        }
+    },
+    "destroyModal": {
+        "title": "નષ્ટ કરો {{itemName}}",
+        "subtitle": "નુકસાન પહોંચાડેલી અથવા કાઢી નાખેલી સામગ્રીની માત્રા દાખલ કરો.",
+        "cancel": "રદ કરો"
     }
 }

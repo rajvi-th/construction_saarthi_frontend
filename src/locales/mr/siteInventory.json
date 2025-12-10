@@ -277,6 +277,32 @@
             "quantityRequired": "प्रमाण आवश्यक आहे"
         }
     },
+    "destroyMaterialModal": {
+        "title": "सामग्री नष्ट करा",
+        "subtitle": "खराब झालेल्या किंवा टाकून दिलेल्या सामग्रीचे प्रमाण प्रविष्ट करा.",
+        "material": "सामग्री",
+        "materialPlaceholder": "सामग्री निवडा",
+        "quantity": "प्रमाण",
+        "reason": "कारण",
+        "reasonPlaceholder": "येथे मजकूर प्रविष्ट करा",
+        "cancel": "रद्द करा",
+        "destroy": "सामग्री नष्ट करा",
+        "destroying": "नष्ट करत आहे...",
+        "errors": {
+            "materialRequired": "सामग्री आवश्यक आहे",
+            "quantityRequired": "प्रमाण आवश्यक आहे",
+            "reasonRequired": "कारण आवश्यक आहे"
+        }
+    },
+    "destroyMaterials": {
+        "addDestroyMaterial": "नष्ट सामग्री जोडा",
+        "success": "सामग्री यशस्वीरित्या नष्ट झाली",
+        "reason": "कारण",
+        "emptyState": {
+            "title": "नष्ट सामग्री नाही",
+            "message": "नष्ट सामग्री सापडली नाही"
+        }
+    },
     "destroyModal": {
         "title": "डिस्ट्रॉय {{itemName}}",
         "subtitle": "जितके प्रमाण साहित्य खराब झाले किंवा टाकून दिले गेले आहे ते प्रविष्ट करा.",

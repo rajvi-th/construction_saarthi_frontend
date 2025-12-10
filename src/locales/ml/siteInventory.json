@@ -277,6 +277,32 @@
             "quantityRequired": "അളവ് ആവശ്യമാണ്"
         }
     },
+    "destroyMaterialModal": {
+        "title": "വസ്തു നശിപ്പിക്കുക",
+        "subtitle": "നശിച്ചോ ഉപേക്ഷിച്ചോ ഉള്ള വസ്തുവിന്റെ അളവ് നൽകുക.",
+        "material": "വസ്തു",
+        "materialPlaceholder": "വസ്തു തിരഞ്ഞെടുക്കുക",
+        "quantity": "അളവ്",
+        "reason": "കാരണം",
+        "reasonPlaceholder": "ഇവിടെ ടെക്സ്റ്റ് നൽകുക",
+        "cancel": "റദ്ദാക്കുക",
+        "destroy": "വസ്തു നശിപ്പിക്കുക",
+        "destroying": "നശിപ്പിക്കുന്നു...",
+        "errors": {
+            "materialRequired": "വസ്തു ആവശ്യമാണ്",
+            "quantityRequired": "അളവ് ആവശ്യമാണ്",
+            "reasonRequired": "കാരണം ആവശ്യമാണ്"
+        }
+    },
+    "destroyMaterials": {
+        "addDestroyMaterial": "നശിപ്പിച്ച വസ്തു ചേർക്കുക",
+        "success": "വസ്തു വിജയകരമായി നശിപ്പിച്ചു",
+        "reason": "കാരണം",
+        "emptyState": {
+            "title": "നശിപ്പിച്ച വസ്തുക്കൾ ഇല്ല",
+            "message": "നശിപ്പിച്ച വസ്തുക്കൾ കണ്ടെത്തിയില്ല"
+        }
+    },
     "destroyModal": {
         "title": "ഡിസ్ట్రോയ് {{itemName}}",
         "subtitle": "നശിച്ചോ ഉപേക്ഷിച്ചോ ഉള്ള വസ്തുവിന്റെ അളവ് നൽകുക.",

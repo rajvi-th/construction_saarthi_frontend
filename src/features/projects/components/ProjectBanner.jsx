@@ -7,35 +7,41 @@ import { useTranslation } from 'react-i18next';
 import CircularProgress from '../../../components/ui/CircularProgress';
 import ProjectStatusPill from './ProjectStatusPill';
 
-// Status badge color mapping
-const getStatusColor = (status) => {
-  const statusMap = {
-    completed: 'green',
-    pending: 'pink',
-    in_progress: 'blue',
-    upcoming: 'yellow',
-  };
-  return statusMap[status?.toLowerCase()] || 'green';
-};
 
 export default function ProjectBanner({ project }) {
   const { t } = useTranslation('projects');
   
-  const imageSrc = project.profile_photo || project.image || 'https://via.placeholder.com/1200x400?text=Project+Image';
-  const title = project.site_name || project.name || 'Untitled Project';
-  const address = project.address || 'No address provided';
-  const status = project.status || 'Completed';
-  const progress = project.progress ?? project.completion_percentage ?? 0;
+  // Find profilePhoto from media array
+  const mediaArray = project?.media || [];
+  const profilePhotoMedia = mediaArray.find(
+    (item) => item.typeName === 'profilePhoto' || item.typeId === '1' || item.typeId === 1
+  );
+  
+  const imageSrc = profilePhotoMedia?.url || project?.profilePhoto || project?.profile_photo || '';
+  
+  const title = project?.site_name || project?.name || 'Untitled Project';
+  const address = project?.details?.address || project?.address || 'No address provided';
+  const status = project?.status || 'Completed';
+  const progress = project?.progress ?? project?.completion_percentage ?? 0;
 
   return (
     <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
       {/* Project Image */}
-      <div className="w-full h-[220px] relative">
-        <img
-          src={imageSrc}
-          alt={title}
-          className="w-full h-full object-cover"
-        />
+      <div className="w-full h-[220px] relative bg-gray-200">
+        {imageSrc ? (
+          <img
+            src={imageSrc}
+            alt={title}
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              e.target.style.display = 'none';
+            }}
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
+            <span className="text-gray-400 text-sm">No Image</span>
+          </div>
+        )}
 
         {/* Progress on image for small screens */}
         <div className="absolute bottom-2 right-2 sm:hidden">

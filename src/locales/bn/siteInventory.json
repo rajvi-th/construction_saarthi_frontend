@@ -277,6 +277,32 @@
             "quantityRequired": "পরিমাণ প্রয়োজন"
         }
     },
+    "destroyMaterialModal": {
+        "title": "উপাদান ধ্বংস করুন",
+        "subtitle": "ক্ষতিগ্রস্ত বা বাতিল করা উপাদানের পরিমাণ লিখুন।",
+        "material": "উপাদান",
+        "materialPlaceholder": "উপাদান নির্বাচন করুন",
+        "quantity": "পরিমাণ",
+        "reason": "কারণ",
+        "reasonPlaceholder": "এখানে টেক্সট লিখুন",
+        "cancel": "বাতিল করুন",
+        "destroy": "উপাদান ধ্বংস করুন",
+        "destroying": "ধ্বংস করা হচ্ছে...",
+        "errors": {
+            "materialRequired": "উপাদান প্রয়োজন",
+            "quantityRequired": "পরিমাণ প্রয়োজন",
+            "reasonRequired": "কারণ প্রয়োজন"
+        }
+    },
+    "destroyMaterials": {
+        "addDestroyMaterial": "ধ্বংস উপাদান যোগ করুন",
+        "success": "উপাদান সফলভাবে ধ্বংস হয়েছে",
+        "reason": "কারণ",
+        "emptyState": {
+            "title": "কোন ধ্বংস উপাদান নেই",
+            "message": "কোন ধ্বংস উপাদান পাওয়া যায়নি"
+        }
+    },
     "destroyModal": {
         "title": "ডেস্ট্রয় {{itemName}}",
         "subtitle": "ক্ষতিগ্রস্ত বা বাতিল করা উপাদানের পরিমাণ লিখুন।",

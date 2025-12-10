@@ -277,6 +277,32 @@
             "quantityRequired": "அளவு தேவை"
         }
     },
+    "destroyMaterialModal": {
+        "title": "பொருளை அழிக்கவும்",
+        "subtitle": "சேதமடைந்த அல்லது கைவிடப்பட்ட பொருளின் அளவை உள்ளிடவும்.",
+        "material": "பொருள்",
+        "materialPlaceholder": "பொருளைத் தேர்ந்தெடுக்கவும்",
+        "quantity": "அளவு",
+        "reason": "காரணம்",
+        "reasonPlaceholder": "இங்கே உரையை உள்ளிடவும்",
+        "cancel": "ரத்துசெய்",
+        "destroy": "பொருளை அழிக்கவும்",
+        "destroying": "அழிக்கப்படுகிறது...",
+        "errors": {
+            "materialRequired": "பொருள் தேவை",
+            "quantityRequired": "அளவு தேவை",
+            "reasonRequired": "காரணம் தேவை"
+        }
+    },
+    "destroyMaterials": {
+        "addDestroyMaterial": "அழிக்கப்பட்ட பொருளைச் சேர்க்கவும்",
+        "success": "பொருள் வெற்றிகரமாக அழிக்கப்பட்டது",
+        "reason": "காரணம்",
+        "emptyState": {
+            "title": "அழிக்கப்பட்ட பொருட்கள் இல்லை",
+            "message": "அழிக்கப்பட்ட பொருட்கள் காணப்படவில்லை"
+        }
+    },
     "destroyModal": {
         "title": "அழிக்கவும் {{itemName}}",
         "subtitle": "சேதமடைந்த அல்லது கைவிடப்பட்ட பொருளின் அளவை உள்ளிடவும்.",

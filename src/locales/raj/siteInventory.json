@@ -277,6 +277,32 @@
             "quantityRequired": "मात्रा जरूरी है"
         }
     },
+    "destroyMaterialModal": {
+        "title": "सामग्री नष्ट करो",
+        "subtitle": "जितनी मात्रा सामग्री खराब या फैंक दी गई है, ऊ मात्रा लिखो।",
+        "material": "सामग्री",
+        "materialPlaceholder": "सामग्री चुनो",
+        "quantity": "मात्रा",
+        "reason": "कारण",
+        "reasonPlaceholder": "यहां टेक्स्ट दर्ज करो",
+        "cancel": "रद्द करो",
+        "destroy": "सामग्री नष्ट करो",
+        "destroying": "नष्ट किया जा रहा है...",
+        "errors": {
+            "materialRequired": "सामग्री आवश्यक है",
+            "quantityRequired": "मात्रा आवश्यक है",
+            "reasonRequired": "कारण आवश्यक है"
+        }
+    },
+    "destroyMaterials": {
+        "addDestroyMaterial": "नष्ट सामग्री जोड़ो",
+        "success": "सामग्री सफलतापूर्वक नष्ट हो गई",
+        "reason": "कारण",
+        "emptyState": {
+            "title": "कोई नष्ट सामग्री नहीं",
+            "message": "कोई नष्ट सामग्री नहीं मिली"
+        }
+    },
     "destroyModal": {
         "title": "डिस्ट्रॉय {{itemName}}",
         "subtitle": "जितनी मात्रा सामग्री खराब या फैंक दी गई है, ऊ मात्रा लिखो।",

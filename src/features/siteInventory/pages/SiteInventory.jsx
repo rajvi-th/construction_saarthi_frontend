@@ -11,9 +11,9 @@ import Button from '../../../components/ui/Button';
 import Radio from '../../../components/ui/Radio';
 import DropdownMenu from '../../../components/ui/DropdownMenu';
 import ConfirmModal from '../../../components/ui/ConfirmModal';
-import { InventoryItemCard, Tabs, TransferRequestCard, ApproveTransferModal, RejectTransferModal, LogUsageModal, AskForMaterialCard, RestockRequestCard } from '../components';
+import { InventoryItemCard, Tabs, TransferRequestCard, ApproveTransferModal, RejectTransferModal, LogUsageModal, AskForMaterialCard, RestockRequestCard, DestroyMaterialCard, DestroyMaterialModal } from '../components';
 import { useSiteInventory } from '../hooks';
-import { getTransferRequests, approveTransferRequest, rejectTransferRequest, getAskMaterialRequests } from '../api/siteInventoryApi';
+import { getTransferRequests, approveTransferRequest, rejectTransferRequest, getAskMaterialRequests, getRestockRequests, getDestroyedMaterials } from '../api/siteInventoryApi';
 import { useAuth } from '../../auth/store';
 import { ROUTES_FLAT } from '../../../constants/routes';
 import { PROJECT_ROUTES } from '../../projects/constants';
@@ -37,6 +37,8 @@ export default function SiteInventory() {
   const [isLoadingTransferRequests, setIsLoadingTransferRequests] = useState(false);
   const [askForMaterials, setAskForMaterials] = useState([]);
   const [restockRequests, setRestockRequests] = useState([]);
+  const [destroyMaterials, setDestroyMaterials] = useState([]);
+  const [isLoadingDestroyMaterials, setIsLoadingDestroyMaterials] = useState(false);
   const [approveModalOpen, setApproveModalOpen] = useState(false);
   const [rejectModalOpen, setRejectModalOpen] = useState(false);
   const [selectedRequest, setSelectedRequest] = useState(null);
@@ -44,6 +46,7 @@ export default function SiteInventory() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [destroyModalOpen, setDestroyModalOpen] = useState(false);
   const [destroyItem, setDestroyItem] = useState(null);
+  const [addDestroyMaterialModalOpen, setAddDestroyMaterialModalOpen] = useState(false);
   
   // Get project context from navigation state (if navigated from project details)
   const projectId = location.state?.projectId;
@@ -220,6 +223,14 @@ export default function SiteInventory() {
     setDestroyModalOpen(true);
   };
 
+  const handleAddDestroyMaterial = async (destroyData) => {
+    // TODO: Integrate destroy material API call
+    console.log('Destroy material:', destroyData);
+    // After successful API call, reload destroy materials list
+    await loadDestroyMaterials();
+    showSuccess(t('destroyMaterials.success', { defaultValue: 'Material destroyed successfully' }));
+  };
+
   const handleDownloadPDF = (item) => {
     // TODO: Implement PDF download functionality
     console.log('Download PDF for item:', item);
@@ -342,6 +353,103 @@ export default function SiteInventory() {
     }
   }, [projectId, t]);
 
+  const loadRestockRequests = useCallback(async () => {
+    try {
+      const params = {
+        requestStatus: 'active', // Default to active requests
+      };
+      
+      if (projectId) {
+        params.projectID = projectId;
+      }
+      
+      // Determine inventoryTypeId based on materialType filter
+      if (materialType === 'reusable') {
+        params.inventoryTypeId = 1;
+      } else if (materialType === 'consumable') {
+        params.inventoryTypeId = 2;
+      }
+      
+      const response = await getRestockRequests(params);
+      
+      // Handle different response structures
+      let requestsArray = [];
+      
+      // Most common: axios response { data: { requests: [...] } }
+      if (Array.isArray(response?.data?.requests)) {
+        requestsArray = response.data.requests;
+      }
+      // http wrapper returning { requests: [...] } directly
+      else if (Array.isArray(response?.requests)) {
+        requestsArray = response.requests;
+      }
+      // Fallbacks
+      else if (Array.isArray(response?.data)) {
+        requestsArray = response.data;
+      } else if (Array.isArray(response)) {
+        requestsArray = response;
+      } else if (response?.data && typeof response.data === 'object') {
+        requestsArray =
+          response.data.requests ||
+          response.data.data ||
+          Object.values(response.data).find((v) => Array.isArray(v)) ||
+          [];
+      }
+      setRestockRequests(Array.isArray(requestsArray) ? requestsArray : []);
+    } catch (error) {
+      console.error('Error loading restock requests:', error);
+      const errorMessage = error?.response?.data?.message || error?.message || t('errors.fetchFailed', { defaultValue: 'Failed to load restock requests' });
+      showError(errorMessage);
+      setRestockRequests([]);
+    }
+  }, [projectId, materialType, t]);
+
+  const loadDestroyMaterials = useCallback(async () => {
+    setIsLoadingDestroyMaterials(true);
+    try {
+      const params = {};
+      
+      if (projectId) {
+        params.projectID = projectId;
+      }
+      
+      const response = await getDestroyedMaterials(params);
+      
+      // Handle different response structures
+      let materialsArray = [];
+      
+      // Most common: axios response { data: { materials: [...] } }
+      if (Array.isArray(response?.data?.materials)) {
+        materialsArray = response.data.materials;
+      }
+      // http wrapper returning { materials: [...] } directly
+      else if (Array.isArray(response?.materials)) {
+        materialsArray = response.materials;
+      }
+      // Fallbacks
+      else if (Array.isArray(response?.data)) {
+        materialsArray = response.data;
+      } else if (Array.isArray(response)) {
+        materialsArray = response;
+      } else if (response?.data && typeof response.data === 'object') {
+        materialsArray =
+          response.data.materials ||
+          response.data.data ||
+          Object.values(response.data).find((v) => Array.isArray(v)) ||
+          [];
+      }
+      
+      setDestroyMaterials(Array.isArray(materialsArray) ? materialsArray : []);
+    } catch (error) {
+      console.error('Error loading destroy materials:', error);
+      const errorMessage = error?.response?.data?.message || error?.message || t('errors.fetchFailed', { defaultValue: 'Failed to load destroy materials' });
+      showError(errorMessage);
+      setDestroyMaterials([]);
+    } finally {
+      setIsLoadingDestroyMaterials(false);
+    }
+  }, [projectId, t]);
+
   // Load data when tab changes or projectId changes
   useEffect(() => {
     if (!user) return;
@@ -351,9 +459,11 @@ export default function SiteInventory() {
     } else if (activeTab === 'ask') {
       loadAskMaterialRequests();
     } else if (activeTab === 'restock') {
-      setRestockRequests([]);
+      loadRestockRequests();
+    } else if (activeTab === 'destroy') {
+      loadDestroyMaterials();
     }
-  }, [activeTab, projectId, user, loadTransferRequests, loadAskMaterialRequests]);
+  }, [activeTab, projectId, materialType, user, loadTransferRequests, loadAskMaterialRequests, loadRestockRequests, loadDestroyMaterials]);
 
   const handleApproveRequest = async (approvedData) => {
     try {
@@ -781,6 +891,54 @@ export default function SiteInventory() {
         </>
       )}
 
+      {/* Destroy Materials Tab */}
+      {activeTab === 'destroy' && (
+        <>
+          {/* Header with Add Destroy Material Button */}
+          <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex-1"></div>
+            <div className="flex justify-end">
+              <button
+                onClick={() => {
+                  setAddDestroyMaterialModalOpen(true);
+                }}
+                className="flex items-center gap-2 text-accent transition-colors cursor-pointer whitespace-nowrap"
+              >
+                <span className="w-4.5 h-4.5 rounded-full bg-accent flex items-center justify-center">
+                  <Plus className="w-3.5 h-3.5 text-white stroke-3"/>
+                </span>
+                <span className="font-medium text-sm sm:text-base">
+                  {t('destroyMaterials.addDestroyMaterial', { defaultValue: 'Add Destroy Material' })}
+                </span>
+              </button>
+            </div>
+          </div>
+
+          {/* Destroy Materials List */}
+          {isLoadingDestroyMaterials ? (
+            <div className="flex items-center justify-center min-h-[400px]">
+              <Loader size="lg" />
+            </div>
+          ) : destroyMaterials.length === 0 ? (
+            <EmptyState
+              image={EmptyStateSvg}
+              title={t('destroyMaterials.emptyState.title', { defaultValue: 'No Destroyed Materials' })}
+              message={t('destroyMaterials.emptyState.message', { defaultValue: 'No destroyed materials found' })}
+            />
+          ) : (
+            <div className="grid grid-cols-1 gap-4">
+              {destroyMaterials.map((item) => (
+                <DestroyMaterialCard
+                  key={item.id || item._id}
+                  item={item}
+                  t={t}
+                />
+              ))}
+            </div>
+          )}
+        </>
+      )}
+
       {/* Approve Transfer Modal */}
       <ApproveTransferModal
         isOpen={approveModalOpen}
@@ -849,6 +1007,16 @@ export default function SiteInventory() {
           defaultValue:
             'Enter the quantity of material that has been damaged or discarded.',
         })}
+      />
+
+      {/* Add Destroy Material Modal */}
+      <DestroyMaterialModal
+        isOpen={addDestroyMaterialModalOpen}
+        onClose={() => {
+          setAddDestroyMaterialModalOpen(false);
+        }}
+        onDestroy={handleAddDestroyMaterial}
+        projectId={projectId}
       />
 
       {/* Delete Confirmation Modal */}
