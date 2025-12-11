@@ -21,6 +21,26 @@ export const getUsersByRole = async (workspaceId, role) => {
 };
 
 /**
+ * Get user-role mapping for a specific user in a workspace
+ * Backend endpoint example:
+ *   GET /builder/user-roles/{userId}?workspace_id={workspaceId}&role={role}
+ *
+ * @param {string|number} userId - User ID (builder / client / vendor user id)
+ * @param {string|number} workspaceId - Workspace ID
+ * @param {string} role - Role key, e.g. 'contractor', 'builder', 'vendors'
+ * @returns {Promise<Object>} API response with role mapping (id etc.)
+ */
+export const getUserRoleByUserId = async (userId, workspaceId, role) => {
+  if (!userId || !workspaceId || !role) {
+    throw new Error('userId, workspaceId and role are required');
+  }
+
+  return http.get(
+    `${BUILDER_CLIENT_ENDPOINTS_FLAT.USER_ROLES}/${userId}?workspace_id=${workspaceId}&role=${role}`
+  );
+};
+
+/**
  * Get list of builders
  * @param {string|number} workspaceId - Workspace ID
  * @returns {Promise<Object>} List of builders
@@ -45,15 +65,6 @@ export const getClients = async (workspaceId) => {
  */
 export const getVendors = async (workspaceId) => {
   return getUsersByRole(workspaceId, 'vendors');
-};
-
-/**
- * Get builder details
- * @param {string} id - Builder ID
- * @returns {Promise<Object>} Builder data
- */
-export const getBuilder = async (id) => {
-  return http.get(`${BUILDER_CLIENT_ENDPOINTS_FLAT.BUILDER_GET}/${id}`);
 };
 
 /**

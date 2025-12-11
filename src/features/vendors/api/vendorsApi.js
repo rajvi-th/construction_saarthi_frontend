@@ -20,15 +20,6 @@ export const getVendors = async (workspaceId) => {
 };
 
 /**
- * Get vendor details
- * @param {string} id - Vendor ID
- * @returns {Promise<Object>} Vendor data
- */
-export const getVendor = async (id) => {
-  return http.get(`${BUILDER_CLIENT_ENDPOINTS_FLAT.BUILDER_GET}/${id}`);
-};
-
-/**
  * Create vendor
  * @param {Object} data - Vendor data
  * @returns {Promise<Object>} API response

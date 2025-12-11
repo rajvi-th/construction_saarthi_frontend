@@ -25,6 +25,7 @@ export const AUTH_ENDPOINTS = {
     MEMBERS: '/workspace/member',
     UPDATE_MEMBER: '/workspace/member',
     DELETE_MEMBER: '/workspace/member',
+    ROLE: '/workspace/role',
   },
 
   // Member Endpoints (part of auth/workspace flow)
@@ -61,6 +62,7 @@ export const AUTH_ENDPOINTS_FLAT = {
   WORKSPACE_MEMBERS: AUTH_ENDPOINTS.WORKSPACE.MEMBERS,
   WORKSPACE_UPDATE_MEMBER: AUTH_ENDPOINTS.WORKSPACE.UPDATE_MEMBER,
   WORKSPACE_DELETE_MEMBER: AUTH_ENDPOINTS.WORKSPACE.DELETE_MEMBER,
+  WORKSPACE_ROLE: AUTH_ENDPOINTS.WORKSPACE.ROLE,
 
   // Member
   MEMBER_ADD: AUTH_ENDPOINTS.MEMBER.ADD,

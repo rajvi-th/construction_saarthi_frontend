@@ -1,13 +1,13 @@
 import { useState, useCallback } from 'react';
-import { 
-  createBuilder, 
-  updateBuilder, 
-  getBuilder, 
+import {
+  createBuilder,
+  updateBuilder,
   deleteBuilder,
   getBuilders,
 } from '../api';
 import { showError, showSuccess } from '../../../utils/toast';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../../hooks/useAuth';
 
 /**
  * Custom hook for builder and client operations
@@ -16,6 +16,7 @@ import { useTranslation } from 'react-i18next';
 export const useBuilderClient = () => {
   const { t: tCommon } = useTranslation('common');
   const { t } = useTranslation('builderClient');
+  const { selectedWorkspace } = useAuth();
   const [isCreating, setIsCreating] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -92,26 +93,33 @@ export const useBuilderClient = () => {
 
   /**
    * Get builder by ID
-   * @param {string} id - Builder ID
-   * @returns {Promise<Object>} Builder data
+   * Fetches builders list for current workspace and finds matching builder
+   * @param {string|number} id - Builder user ID
+   * @returns {Promise<Object|null>} Builder data or null if not found
    */
   const getBuilderData = useCallback(async (id) => {
+    if (!selectedWorkspace) {
+      const errorMessage = t('errors.workspaceRequired', { defaultValue: 'Workspace is required' });
+      showError(errorMessage);
+      throw new Error(errorMessage);
+    }
+
     try {
       setIsLoading(true);
       setError(null);
-      const response = await getBuilder(id);
-      
-      let responseData = null;
-      
-      if (response?.success && response?.data) {
-        responseData = response.data;
-      } else if (response?.data) {
-        responseData = response.data;
-      } else if (response && typeof response === 'object') {
-        responseData = response;
-      }
-      
-      return responseData;
+
+      // Use unified builders list endpoint and find by id
+      const response = await getBuilders(selectedWorkspace);
+      const buildersArray = Array.isArray(response?.users) ? response.users : [];
+
+      const builder =
+        buildersArray.find(
+          (b) =>
+            String(b.id) === String(id) ||
+            String(b.user_id) === String(id)
+        ) || null;
+
+      return builder;
     } catch (err) {
       const errorMessage =
         err?.response?.data?.message ||
@@ -123,7 +131,7 @@ export const useBuilderClient = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [t]);
+  }, [t, selectedWorkspace]);
 
   /**
    * Get list of builders

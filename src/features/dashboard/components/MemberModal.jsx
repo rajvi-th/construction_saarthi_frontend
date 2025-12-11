@@ -73,6 +73,13 @@ export default function MemberModal({
         const requestData = {
           member_id: Number(member.id || member.member_id),
           workspace_id: Number(workspaceId),
+          // Backend may require user_id for identifying the user in the workspace
+          user_id: Number(
+            member.user_id ||
+              member.userId ||
+              member.id ||
+              member.member_id
+          ),
           country_code: memberData.country_code || '+91',
           phone_number: memberData.phone_number,
           name: memberData.name,

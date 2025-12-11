@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { X } from 'lucide-react';
 import Button from '../../../components/ui/Button';
 import Input from '../../../components/ui/Input';
 import PhoneInput from '../../../components/ui/PhoneInput';
 import Dropdown from '../../../components/ui/Dropdown';
+import { getWorkspaceRoles } from '../api';
+import { showError } from '../../../utils/toast';
 
 export default function MemberForm({
     initialData = null,
@@ -16,10 +18,10 @@ export default function MemberForm({
     
     // Parse phone number and country code from initial data
     const parsePhoneData = () => {
-        const phoneValue = initialData?.phone || initialData?.phone_number || '';
+        // Prefer raw phone_number from backend; fallback to formatted phone
+        const phoneValue = initialData?.phone_number || initialData?.phone || '';
         if (!phoneValue) return { phone: '', countryCode: '+91' };
         
-        // Handle phone number with country code (e.g., "+91 666654321")
         const parts = phoneValue.toString().split(' ');
         if (parts.length > 1) {
             return {
@@ -37,34 +39,71 @@ export default function MemberForm({
     const [phone, setPhone] = useState(initialPhone);
     const [countryCode, setCountryCode] = useState(initialCountryCode);
 
-    // ROLE MAPPING FOR EDIT MODE
-    const roleMapByName = {
-        contractorPartner: 8,
-        contractor_partner: 8,
-        "Contractor Partner": 8,
+    // Dynamic roles from backend
+    const [roleOptions, setRoleOptions] = useState([]);
+    const [isRoleLoading, setIsRoleLoading] = useState(false);
+    const [selectedRole, setSelectedRole] = useState(null);
 
-        supervisorEngineer: 6,
-        supervisor_engineer: 6,
-        "Supervisor/Engineer": 6,
+    // Fetch roles from /workspace/role
+    useEffect(() => {
+        let isMounted = true;
 
-        builder: 5,
-        Builder: 5,
-        "builder": 5,
-    };
+        const fetchRoles = async () => {
+            try {
+                setIsRoleLoading(true);
+                const response = await getWorkspaceRoles();
+                const rawRoles = Array.isArray(response)
+                    ? response
+                    : response?.role || response?.data || response?.roles || [];
 
-    const resolvedInitialRole =
-        initialData?.roleId ||
-        roleMapByName[initialData?.role] ||
-        null;
+                const options = (rawRoles || []).map((role) => ({
+                    value: Number(role.id ?? role.roleId),
+                    label: role.name || role.role_name || role.role || String(role.id),
+                    _raw: role,
+                })).filter(opt => !!opt.value && !!opt.label);
 
-    const [selectedRole, setSelectedRole] = useState(resolvedInitialRole);
+                if (!isMounted) return;
 
-    // Role options - hardcoded with specific IDs
-    const roleOptions = [
-        { value: 8, label: t('createWorkspace.addNewMember.roles.contractorPartner', { ns: 'auth', defaultValue: 'Contractor Partner' }) },
-        { value: 6, label: t('createWorkspace.addNewMember.roles.supervisorEngineer', { ns: 'auth', defaultValue: 'Supervisor/Engineer' }) },
-        { value: 5, label: t('createWorkspace.addNewMember.roles.builder', { ns: 'auth', defaultValue: 'Builder' }) },
-    ];
+                setRoleOptions(options);
+
+                // Pre-select role in edit mode
+                if (initialData && !selectedRole) {
+                    let nextSelected = null;
+
+                    if (initialData.roleId) {
+                        nextSelected = Number(initialData.roleId);
+                    } else if (initialData.role) {
+                        const target = String(initialData.role).toLowerCase().trim();
+                        const match = options.find((opt) =>
+                            opt.label.toLowerCase().trim() === target ||
+                            String(opt._raw?.name || '').toLowerCase().trim() === target ||
+                            String(opt._raw?.key || '').toLowerCase().trim() === target
+                        );
+                        if (match) {
+                            nextSelected = match.value;
+                        }
+                    }
+
+                    if (nextSelected) {
+                        setSelectedRole(nextSelected);
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching workspace roles:', error);
+                showError(t('errors.rolesLoadFailed', { defaultValue: 'Failed to load roles. Please try again.' }));
+            } finally {
+                if (isMounted) {
+                    setIsRoleLoading(false);
+                }
+            }
+        };
+
+        fetchRoles();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [initialData, t, selectedRole]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -149,7 +188,15 @@ export default function MemberForm({
                         options={roleOptions}
                         value={selectedRole}
                         onChange={setSelectedRole}
-                        placeholder={t('createWorkspace.addNewMember.selectRole', { ns: 'auth', defaultValue: 'Select member role' })}
+                        placeholder={
+                            isRoleLoading
+                                ? t('loading', { defaultValue: 'Loading...' })
+                                : t('createWorkspace.addNewMember.selectRole', {
+                                    ns: 'auth',
+                                    defaultValue: 'Select member role',
+                                  })
+                        }
+                        disabled={isRoleLoading || roleOptions.length === 0}
                         label=""
                     />
                 )}

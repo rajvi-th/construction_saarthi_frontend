@@ -3,11 +3,11 @@ import {
   getVendors,
   createVendor,
   updateVendor,
-  getVendor,
   deleteVendor,
 } from '../api';
 import { showError, showSuccess } from '../../../utils/toast';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../../hooks/useAuth';
 
 /**
  * Custom hook for vendor operations
@@ -16,6 +16,7 @@ import { useTranslation } from 'react-i18next';
 export const useVendors = () => {
   const { t: tCommon } = useTranslation('common');
   const { t } = useTranslation('builderClient'); 
+  const { selectedWorkspace } = useAuth();
   const [isCreating, setIsCreating] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -92,26 +93,33 @@ export const useVendors = () => {
 
   /**
    * Get vendor by ID
-   * @param {string} id - Vendor ID
-   * @returns {Promise<Object>} Vendor data
+   * Fetches vendors list for current workspace and finds matching vendor
+   * @param {string|number} id - Vendor user ID
+   * @returns {Promise<Object|null>} Vendor data
    */
   const getVendorData = useCallback(async (id) => {
+    if (!selectedWorkspace) {
+      const errorMessage = t('errors.workspaceRequired', { defaultValue: 'Workspace is required' });
+      showError(errorMessage);
+      throw new Error(errorMessage);
+    }
+
     try {
       setIsLoading(true);
       setError(null);
-      const response = await getVendor(id);
-      
-      let responseData = null;
-      
-      if (response?.success && response?.data) {
-        responseData = response.data;
-      } else if (response?.data) {
-        responseData = response.data;
-      } else if (response && typeof response === 'object') {
-        responseData = response;
-      }
-      
-      return responseData;
+
+      // Use unified vendors list endpoint and find by id
+      const response = await getVendors(selectedWorkspace);
+      const vendorsArray = Array.isArray(response?.users) ? response.users : [];
+
+      const vendor =
+        vendorsArray.find(
+          (v) =>
+            String(v.id) === String(id) ||
+            String(v.user_id) === String(id)
+        ) || null;
+
+      return vendor;
     } catch (err) {
       const errorMessage =
         err?.response?.data?.message ||
@@ -123,7 +131,7 @@ export const useVendors = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [t]);
+  }, [t, selectedWorkspace]);
 
   /**
    * Get list of vendors
