@@ -1,0 +1,22 @@
+{
+  "title": "म्हारो पिछलो काम",
+  "emptyTitle": "कोई प्रोजेक्ट ना जोड़्यो गयो",
+  "emptyMessage": "आपणा प्रस्ताव में देखावण खातर आपणा प्रोजेक्ट जोड़ो।",
+  "addButton": "प्रोजेक्ट (साइट) जोड़ो",
+  "untitled": "बिन नाम रो प्रोजेक्ट",
+  "addTitle": "प्रोजेक्ट (साइट) जोड़ो",
+  "projectName": "प्रोजेक्ट नाम",
+  "projectNamePlaceholder": "प्रोजेक्ट को नाम लिखो",
+  "address": "पतो",
+  "addressPlaceholder": "साइट को पतो लिखो",
+  "uploadTitle": "फोटो/ वीडियो / दस्तावेज अपलोड करो",
+  "uploadImagesVideos": "इमेज/वीडियो अपलोड करो*",
+  "uploadDocuments": "दस्तावेज अपलोड करो",
+  "supportedFormatsLabel": "समर्थित फॉर्मेट:",
+  "supportedFormats": "JPG, PNG, Mp4, PDF",
+  "maxSizeEach": "प्रत्येक 10MB",
+  "uploadButton": "अपलोड",
+  "addSubmit": "प्रोजेक्ट जोड़ो"
+}
+
+

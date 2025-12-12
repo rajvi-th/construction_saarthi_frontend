@@ -1,0 +1,22 @@
+{
+  "title": "আমার পূর্ববর্তী কাজ",
+  "emptyTitle": "কোনো প্রজেক্ট যোগ করা হয়নি",
+  "emptyMessage": "আপনার প্রস্তাবে দেখানোর জন্য আপনার প্রজেক্টগুলো যোগ করুন।",
+  "addButton": "প্রজেক্ট (সাইট) যোগ করুন",
+  "untitled": "নামহীন প্রজেক্ট",
+  "addTitle": "প্রজেক্ট (সাইট) যোগ করুন",
+  "projectName": "প্রজেক্টের নাম",
+  "projectNamePlaceholder": "প্রজেক্টের নাম লিখুন",
+  "address": "ঠিকানা",
+  "addressPlaceholder": "সাইটের ঠিকানা লিখুন",
+  "uploadTitle": "ফটো/ ভিডিও / নথি আপলোড করুন",
+  "uploadImagesVideos": "ইমেজ/ভিডিও আপলোড করুন*",
+  "uploadDocuments": "নথি আপলোড করুন",
+  "supportedFormatsLabel": "সমর্থিত ফরম্যাট:",
+  "supportedFormats": "JPG, PNG, Mp4, PDF",
+  "maxSizeEach": "প্রতি ফাইল 10MB",
+  "uploadButton": "আপলোড",
+  "addSubmit": "প্রজেক্ট যোগ করুন"
+}
+
+

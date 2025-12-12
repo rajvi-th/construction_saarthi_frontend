@@ -1,0 +1,22 @@
+{
+  "title": "میرا سابقہ کام",
+  "emptyTitle": "کوئی پروجیکٹ شامل نہیں کیا گیا",
+  "emptyMessage": "اپنی تجویز میں دکھانے کے لیے اپنے پروجیکٹس شامل کریں۔",
+  "addButton": "پروجیکٹ (سائٹ) شامل کریں",
+  "untitled": "بلا عنوان پروجیکٹ",
+  "addTitle": "پروجیکٹ (سائٹ) شامل کریں",
+  "projectName": "پروجیکٹ کا نام*",
+  "projectNamePlaceholder": "پروجیکٹ کا نام درج کریں",
+  "address": "پتہ*",
+  "addressPlaceholder": "سائٹ کا پتہ درج کریں",
+  "uploadTitle": "تصاویر/ ویڈیوز / دستاویزات اپ لوڈ کریں",
+  "uploadImagesVideos": "امیجز/ویڈیوز اپ لوڈ کریں*",
+  "uploadDocuments": "دستاویزات اپ لوڈ کریں",
+  "supportedFormatsLabel": "سپوٹڈ فارمیٹ:",
+  "supportedFormats": "JPG, PNG, Mp4, PDF",
+  "maxSizeEach": "ہر فائل 10MB",
+  "uploadButton": "اپ لوڈ",
+  "addSubmit": "پروجیکٹ شامل کریں"
+}
+
+

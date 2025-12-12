@@ -181,6 +181,22 @@ import bhoProjectGallery from '../locales/bho/projectGallery.json';
 import asProjectGallery from '../locales/as/projectGallery.json';
 import hryProjectGallery from '../locales/hry/projectGallery.json';
 
+// Import pastProjects translations for all languages
+import enPastProjects from '../locales/en/pastProjects.json';
+import hiPastProjects from '../locales/hi/pastProjects.json';
+import guPastProjects from '../locales/gu/pastProjects.json';
+import bnPastProjects from '../locales/bn/pastProjects.json';
+import taPastProjects from '../locales/ta/pastProjects.json';
+import mrPastProjects from '../locales/mr/pastProjects.json';
+import tePastProjects from '../locales/te/pastProjects.json';
+import knPastProjects from '../locales/kn/pastProjects.json';
+import mlPastProjects from '../locales/ml/pastProjects.json';
+import urPastProjects from '../locales/ur/pastProjects.json';
+import rajPastProjects from '../locales/raj/pastProjects.json';
+import bhoPastProjects from '../locales/bho/pastProjects.json';
+import asPastProjects from '../locales/as/pastProjects.json';
+import hryPastProjects from '../locales/hry/pastProjects.json';
+
 // Get saved language from localStorage or default to 'en'
 const savedLang = localStorage.getItem('lang') || 'en';
 
@@ -197,6 +213,7 @@ const resources = {
     subscription: enSubscription,
     builderClient: enBuilderClient,
     projectGallery: enProjectGallery,
+    pastProjects: enPastProjects,
   },
   hi: {
     common: hiCommon,
@@ -210,6 +227,7 @@ const resources = {
     subscription: hiSubscription,
     builderClient: hiBuilderClient,
     projectGallery: hiProjectGallery,
+    pastProjects: hiPastProjects,
   },
   gu: {
     common: guCommon,
@@ -223,6 +241,7 @@ const resources = {
     subscription: guSubscription,
     builderClient: guBuilderClient,
     projectGallery: guProjectGallery,
+    pastProjects: guPastProjects,
   },
   bn: {
     common: bnCommon,
@@ -236,6 +255,7 @@ const resources = {
     subscription: bnSubscription,
     builderClient: bnBuilderClient,
     projectGallery: bnProjectGallery,
+    pastProjects: bnPastProjects,
   },
   ta: {
     common: taCommon,
@@ -249,6 +269,7 @@ const resources = {
     subscription: taSubscription,
     builderClient: taBuilderClient,
     projectGallery: taProjectGallery,
+    pastProjects: taPastProjects,
   },
   mr: {
     common: mrCommon,
@@ -262,6 +283,7 @@ const resources = {
     subscription: mrSubscription,
     builderClient: mrBuilderClient,
     projectGallery: mrProjectGallery,
+    pastProjects: mrPastProjects,
   },
   te: {
     common: teCommon,
@@ -275,6 +297,7 @@ const resources = {
     subscription: teSubscription,
     builderClient: teBuilderClient,
     projectGallery: teProjectGallery,
+    pastProjects: tePastProjects,
   },
   kn: {
     common: knCommon,
@@ -288,6 +311,7 @@ const resources = {
     subscription: knSubscription,
     builderClient: knBuilderClient,
     projectGallery: knProjectGallery,
+    pastProjects: knPastProjects,
   },
   ml: {
     common: mlCommon,
@@ -301,6 +325,7 @@ const resources = {
     subscription: mlSubscription,
     builderClient: mlBuilderClient,
     projectGallery: mlProjectGallery,
+    pastProjects: mlPastProjects,
   },
   ur: {
     common: urCommon,
@@ -314,6 +339,7 @@ const resources = {
     subscription: urSubscription,
     builderClient: urBuilderClient,
     projectGallery: urProjectGallery,
+    pastProjects: urPastProjects,
   },
   raj: {
     common: rajCommon,
@@ -327,6 +353,7 @@ const resources = {
     subscription: rajSubscription,
     builderClient: rajBuilderClient,
     projectGallery: rajProjectGallery,
+    pastProjects: rajPastProjects,
   },
   bho: {
     common: bhoCommon,
@@ -340,6 +367,7 @@ const resources = {
     subscription: bhoSubscription,
     builderClient: bhoBuilderClient,
     projectGallery: bhoProjectGallery,
+    pastProjects: bhoPastProjects,
   },
   as: {
     common: asCommon,
@@ -353,6 +381,7 @@ const resources = {
     subscription: asSubscription,
     builderClient: asBuilderClient,
     projectGallery: asProjectGallery,
+    pastProjects: asPastProjects,
   },
   hry: {
     common: hryCommon,
@@ -366,6 +395,7 @@ const resources = {
     subscription: hrySubscription,
     builderClient: hryBuilderClient,
     projectGallery: hryProjectGallery,
+    pastProjects: hryPastProjects,
   },
 };
 
@@ -380,7 +410,7 @@ i18n
       escapeValue: false, // React already escapes values
     },
     defaultNS: 'common',
-    ns: ['common', 'auth', 'dashboard', 'account', 'businessCard', 'siteInventory', 'referEarn', 'subscription', 'builderClient', 'projectGallery'],
+    ns: ['common', 'auth', 'dashboard', 'account', 'businessCard', 'siteInventory', 'referEarn', 'subscription', 'builderClient', 'projectGallery', 'projects', 'pastProjects'],
   });
 
 export default i18n;

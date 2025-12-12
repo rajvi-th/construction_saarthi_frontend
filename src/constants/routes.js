@@ -75,6 +75,12 @@ export const ROUTES = {
     ADD: '/vendors/add',
     EDIT: '/vendors/:id/edit',
   },
+
+  // Past Projects Routes
+  PAST_PROJECTS: {
+    LIST: '/past-work',
+    ADD: '/past-work/add',
+  },
   // Project Gallery Routes
   PROJECT_GALLERY: {
     HOME: '/gallery',
@@ -144,6 +150,10 @@ export const ROUTES_FLAT = {
   VENDORS: ROUTES.VENDORS.LIST,
   ADD_VENDOR: ROUTES.VENDORS.ADD,
   EDIT_VENDOR: ROUTES.VENDORS.EDIT,
+
+  // Past Projects
+  PAST_PROJECTS: ROUTES.PAST_PROJECTS.LIST,
+  PAST_PROJECTS_ADD: ROUTES.PAST_PROJECTS.ADD,
   
   // Project Gallery
   PROJECT_GALLERY: ROUTES.PROJECT_GALLERY.HOME,

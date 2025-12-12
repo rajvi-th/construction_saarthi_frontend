@@ -18,6 +18,7 @@ const BREADCRUMB_TRANSLATION_KEYS = {
   addVendor: "builderClient.form.addVendor",  
   editVendor: "builderClient.form.editVendor", 
   "past-work": "sidebar.mainMenu.pastWork",
+  addpastwork: "pastProjects.addTitle",
   "business-card": "sidebar.mainMenu.businessCard",
   "site-inventory": "sidebar.mainMenu.siteInventory",
   refer: "sidebar.mainMenu.referEarn",
@@ -31,6 +32,7 @@ const BREADCRUMB_TRANSLATION_KEYS = {
 const Navbar = () => {
   const { t } = useTranslation("common");
   const { t: tBuilderClient } = useTranslation("builderClient");
+  const { t: tPastProjects } = useTranslation("pastProjects");
   const location = useLocation();
   const { user: authUser } = useAuth();
 
@@ -108,6 +110,11 @@ const Navbar = () => {
       return processedSegments;
     }
 
+    // Handle past-work add route: /past-work/add → ['past-work', 'addPastWork']
+    if (segments[0] === "past-work" && segments[1] === "add") {
+      return ["past-work", "addPastWork"];
+    }
+
     return segments;
   }, [location.pathname, location.state]);
 
@@ -118,6 +125,13 @@ const Navbar = () => {
     // Use builderClient namespace for vendor-specific translations
     if (translationKey.startsWith("builderClient.")) {
       return tBuilderClient(translationKey.replace("builderClient.", ""), {
+        defaultValue: last.replace(/-/g, " "),
+      });
+    }
+
+    // Use pastProjects namespace for past work related translations
+    if (translationKey.startsWith("pastProjects.")) {
+      return tPastProjects(translationKey.replace("pastProjects.", ""), {
         defaultValue: last.replace(/-/g, " "),
       });
     }
@@ -158,6 +172,12 @@ const Navbar = () => {
                   // Use builderClient namespace for vendor-specific translations
                   if (translationKey.startsWith("builderClient.")) {
                     return tBuilderClient(translationKey.replace("builderClient.", ""), {
+                      defaultValue: crumb.replace(/-/g, " "),
+                    });
+                  }
+                  // Use pastProjects namespace for past work related translations
+                  if (translationKey.startsWith("pastProjects.")) {
+                    return tPastProjects(translationKey.replace("pastProjects.", ""), {
                       defaultValue: crumb.replace(/-/g, " "),
                     });
                   }

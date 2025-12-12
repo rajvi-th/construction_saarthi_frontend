@@ -60,10 +60,6 @@ export default function BusinessCardDetail({ businessCard, onDelete }) {
         showError(t('downloadError', { defaultValue: 'Failed to find business card element.' }));
         return;
       }
-
-      // Use html2canvas or similar library to capture the card
-      // For now, we'll show a success message
-      // TODO: Implement actual image download functionality
       showSuccess(t('downloadSuccess', { defaultValue: 'Business card download started!' }));
     } catch (error) {
       showError(t('downloadError', { defaultValue: 'Failed to download business card.' }));
@@ -216,12 +212,16 @@ export default function BusinessCardDetail({ businessCard, onDelete }) {
                   transform: 'rotateY(180deg)',
                 }}
               >
-                <div className="flex flex-col sm:flex-row h-full p-3 sm:p-6">
+                {/* Back side layout
+                  - Mobile: full-width contact block, vertically centered with no extra top/bottom padding
+                  - Desktop: logo/brand left, contact details right
+                */}
+                <div className="flex flex-col sm:flex-row h-full px-3 sm:px-6 py-6 sm:py-0">
                   {/* Left Side - Logo and Company Name (Hidden on mobile) */}
                   <div className="hidden sm:flex flex-col justify-center w-1/2 pr-4 border-r-[3px] border-[#B02E0C14]">
                     {/* Logo */}
                     {logo && (
-                      <div className="mb-4 sm:mb-6 flex justify-center">
+                      <div className="mb-6 sm:mb-0 flex justify-center">
                         <img
                           src={logo}
                           alt="Company Logo"
@@ -241,7 +241,7 @@ export default function BusinessCardDetail({ businessCard, onDelete }) {
                   </div>
 
                   {/* Right Side - Contact Information with Icons */}
-                  <div className="flex flex-col justify-center w-full sm:w-1/2 sm:pl-4 space-y-2 sm:space-y-3">
+                  <div className="flex flex-col items-center justify-center w-full sm:w-1/2 sm:items-start sm:pl-4 space-y-2 sm:space-y-3">
                     {[
                       { icon: User, value: fullName, key: 'name' },
                       { icon: Phone, value: phone, key: 'phone' },
@@ -252,9 +252,14 @@ export default function BusinessCardDetail({ businessCard, onDelete }) {
                       .map((item) => {
                         const IconComponent = item.icon;
                         return (
-                          <div key={item.key} className="flex items-center gap-2 sm:pl-4">
+                          <div
+                            key={item.key}
+                            className="flex items-center justify-center sm:justify-start gap-2 sm:pl-4"
+                          >
                             <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 text-accent flex-shrink-0" />
-                            <p className="text-sm sm:text-base md:text-lg text-primary break-words">{item.value}</p>
+                            <p className="text-sm sm:text-base md:text-lg text-primary break-words text-center sm:text-left">
+                              {item.value}
+                            </p>
                           </div>
                         );
                       })}

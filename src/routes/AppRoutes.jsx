@@ -65,6 +65,10 @@ const Vendors = lazy(() => import('../features/vendors/pages/Vendors'));
 const AddVendor = lazy(() => import('../features/vendors/pages/AddVendor'));
 const EditVendor = lazy(() => import('../features/vendors/pages/EditVendor'));
 
+// Past Projects
+const PastProjects = lazy(() => import('../features/pastProject/pages/PastProjects'));
+const AddPastProject = lazy(() => import('../features/pastProject/pages/AddPastProject'));
+
 // Project Gallery
 const ProjectGallery = lazy(() => import('../features/projectGallery/pages/ProjectGallery'));
 const ProjectGalleryDetails = lazy(() => import('../features/projectGallery/pages/ProjectGalleryDetails'));
@@ -149,6 +153,8 @@ function AppRoutes() {
             <Route path={ROUTES_FLAT.VENDORS} element={<Vendors />} />
             <Route path={ROUTES_FLAT.ADD_VENDOR} element={<AddVendor />} />
             <Route path={ROUTES_FLAT.EDIT_VENDOR} element={<EditVendor />} />
+            <Route path={ROUTES_FLAT.PAST_PROJECTS} element={<PastProjects />} />
+            <Route path={ROUTES_FLAT.PAST_PROJECTS_ADD} element={<AddPastProject />} />
             <Route path={ROUTES_FLAT.PROJECT_GALLERY} element={<ProjectGallery />} />
             <Route path={ROUTES_FLAT.PROJECT_GALLERY_DETAILS} element={<ProjectGalleryDetails />} />
             <Route path={ROUTES_FLAT.PROJECT_GALLERY_UPLOAD} element={<UploadMedia />} />

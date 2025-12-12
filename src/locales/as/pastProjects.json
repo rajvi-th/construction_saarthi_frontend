@@ -1,0 +1,22 @@
+{
+  "title": "মোৰ পূৰ্বৰ কাম",
+  "emptyTitle": "কোনো প্ৰজেক্ট যোগ কৰা হোৱা নাই",
+  "emptyMessage": "আপোনাৰ প্ৰস্তাৱত দেখুৱাবলৈ আপোনাৰ প্ৰজেক্টসমূহ যোগ কৰক।",
+  "addButton": "প্ৰজেক্ট (ছাইট) যোগ কৰক",
+  "untitled": "নামবিহীন প্ৰজেক্ট",
+  "addTitle": "প্ৰজেক্ট (ছাইট) যোগ কৰক",
+  "projectName": "প্ৰজেক্ট নাম",
+  "projectNamePlaceholder": "প্ৰজেক্ট নাম লিখক",
+  "address": "ঠিকনা",
+  "addressPlaceholder": "ছাইটৰ ঠিকনা লিখক",
+  "uploadTitle": "ফটো/ ভিডিঅ' / নথি আপলোড কৰক",
+  "uploadImagesVideos": "ইমেজ/ভিডিঅ' আপলোড কৰক*",
+  "uploadDocuments": "নথি আপলোড কৰক",
+  "supportedFormatsLabel": "সমৰ্থিত ফৰমেট:",
+  "supportedFormats": "JPG, PNG, Mp4, PDF",
+  "maxSizeEach": "প্ৰত্যেকটো 10MB",
+  "uploadButton": "আপলোড",
+  "addSubmit": "প্ৰজেক্ট যোগ কৰক"
+}
+
+

@@ -1,0 +1,22 @@
+{
+  "title": "ನನ್ನ ಹಳೆಯ ಕೆಲಸ",
+  "emptyTitle": "ಯಾವುದೇ ಪ್ರಾಜೆಕ್ಟ್ ಸೇರಿಸಲಾಗಿಲ್ಲ",
+  "emptyMessage": "ನಿಮ್ಮ ಪ್ರಸ್ತಾವನೆಯಲ್ಲಿ ತೋರಿಸಲು ನಿಮ್ಮ ಪ್ರಾಜೆಕ್ಟ್‌ಗಳನ್ನು ಸೇರಿಸಿ.",
+  "addButton": "ಪ್ರಾಜೆಕ್ಟ್ (ಸೈಟ್) ಸೇರಿಸಿ",
+  "untitled": "ಹೆಸರು ಇಲ್ಲದ ಪ್ರಾಜೆಕ್ಟ್",
+  "addTitle": "ಪ್ರಾಜೆಕ್ಟ್ (ಸೈಟ್) ಸೇರಿಸಿ",
+  "projectName": "ಪ್ರಾಜೆಕ್ಟ್ ಹೆಸರು*",
+  "projectNamePlaceholder": "ಪ್ರಾಜೆಕ್ಟ್ ಹೆಸರು ನಮೂದಿಸಿ",
+  "address": "ವಿಳಾಸ*",
+  "addressPlaceholder": "ಸೈಟ್ ವಿಳಾಸ ನಮೂದಿಸಿ",
+  "uploadTitle": "ಫೋಟೋ/ ವೀಡಿಯೊ / ಡಾಕ್ಯುಮೆಂಟ್‌ಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ",
+  "uploadImagesVideos": "ಇಮೇಜ್/ವೀಡಿಯೊ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ*",
+  "uploadDocuments": "ಡಾಕ್ಯುಮೆಂಟ್‌ಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ",
+  "supportedFormatsLabel": "ಬೆಂಬಲಿತ ಫಾರ್ಮಾಟ್:",
+  "supportedFormats": "JPG, PNG, Mp4, PDF",
+  "maxSizeEach": "ಪ್ರತಿ ಒಂದು 10MB",
+  "uploadButton": "ಅಪ್‌ಲೋಡ್",
+  "addSubmit": "ಪ್ರಾಜೆಕ್ಟ್ ಸೇರಿಸಿ"
+}
+
+

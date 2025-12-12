@@ -1,0 +1,22 @@
+{
+  "title": "My Past Work",
+  "emptyTitle": "No Project Added",
+  "emptyMessage": "Add your projects to show in your proposal.",
+  "addButton": "Add Project (Site)",
+  "untitled": "Untitled Project",
+  "addTitle": "Add Project (Site)",
+  "projectName": "Project Name",
+  "projectNamePlaceholder": "Enter project name",
+  "address": "Address",
+  "addressPlaceholder": "Enter site address",
+  "uploadTitle": "Upload Photos/ Videos / Documents",
+  "uploadImagesVideos": "Upload Images/Videos*",
+  "uploadDocuments": "Upload Documents",
+  "supportedFormatsLabel": "Supported Format:",
+  "supportedFormats": "JPG, PNG, Mp4, PDF",
+  "maxSizeEach": "10MB each",
+  "uploadButton": "Upload",
+  "addSubmit": "Add Project"
+}
+
+
