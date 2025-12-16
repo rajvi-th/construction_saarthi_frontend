@@ -265,9 +265,21 @@ export const uploadMedia = async (projectKey, files) => {
  * Create a new project
  * @param {Object} data - Project data
  * @param {string|number} data.workspaceId - Workspace ID (will be used in URL path)
+ * @param {string} data.projectKey - Project key from startProject
  * @param {string} data.name - Project name
  * @param {string} data.status - Project status
- * @param {Object} data.details - Project details
+ * @param {string} data.address - Project address
+ * @param {number} data.builderId - Builder ID
+ * @param {string} data.startDate - Start date (YYYY-MM-DD)
+ * @param {string} data.endDate - End date (YYYY-MM-DD)
+ * @param {string} data.totalArea - Total area
+ * @param {number} data.gaugeTypeId - Gauge type ID (1 for sqft, 2 for meter)
+ * @param {string} data.perUnitRate - Per unit rate
+ * @param {string} data.numberOfFloors - Number of floors
+ * @param {number} data.contractTypeId - Contract type ID
+ * @param {number} data.constructionTypeId - Construction type ID
+ * @param {string} data.description - Project description
+ * @param {string} data.estimatedBudget - Estimated budget
  * @returns {Promise<Object>} Created project
  */
 export const createProject = async (data) => {
@@ -275,14 +287,30 @@ export const createProject = async (data) => {
     throw new Error('Workspace ID is required');
   }
   
+  if (!data.projectKey) {
+    throw new Error('Project key is required');
+  }
+  
   if (!data.name || !data.name.trim()) {
     throw new Error('Project name is required');
   }
   
   const requestBody = {
+    projectKey: data.projectKey,
     name: data.name.trim(),
     status: data.status || 'pending',
-    details: data.details || {},
+    address: data.address || '',
+    builderId: data.builderId ? Number(data.builderId) : null,
+    startDate: data.startDate || null,
+    endDate: data.endDate || null,
+    totalArea: data.totalArea ? String(data.totalArea) : null,
+    gaugeTypeId: data.gaugeTypeId ? Number(data.gaugeTypeId) : null,
+    perUnitRate: data.perUnitRate ? String(data.perUnitRate) : null,
+    numberOfFloors: data.numberOfFloors ? String(data.numberOfFloors) : null,
+    contractTypeId: data.contractTypeId ? Number(data.contractTypeId) : null,
+    constructionTypeId: data.constructionTypeId ? Number(data.constructionTypeId) : null,
+    description: data.description || '',
+    estimatedBudget: data.estimatedBudget ? String(data.estimatedBudget) : null,
   };
   
   // Include workspaceId in the URL path: /project/create/{workspaceId}
@@ -323,21 +351,144 @@ export const getAllConstructionTypes = async (workspaceId) => {
 /**
  * Create a new construction type
  * @param {Object} data - Construction type data
+ * @param {string|number} data.workspaceId - Workspace ID (required)
  * @param {string} data.name - Construction type name
- * @param {boolean} [data.requiresFloors] - Whether this type requires floors
+ * @param {boolean} [data.requiresFloors] - Whether this type requires floors (optional, not in API)
  * @returns {Promise<Object>} Created construction type
  */
 export const createConstructionType = async (data) => {
   if (!data.name || !data.name.trim()) {
     throw new Error('Construction type name is required');
   }
+
+  if (!data.workspaceId) {
+    throw new Error('Workspace ID is required');
+  }
   
   const requestBody = {
     name: data.name.trim(),
-    requiresFloors: data.requiresFloors !== undefined ? data.requiresFloors : true,
+    workspace_id: Number(data.workspaceId),
   };
   
   const response = await http.post(PROJECT_ENDPOINTS_FLAT.CONSTRUCTION_CREATE, requestBody);
+  
+  return response?.data || response || {};
+};
+
+/**
+ * Edit/Update an existing project
+ * @param {string|number} projectId - Project ID
+ * @param {Object} data - Project data
+ * @param {string} data.name - Project name
+ * @param {string} data.status - Project status (pending, in_progress, completed)
+ * @param {number} data.builderId - Builder ID
+ * @param {string} data.description - Project description
+ * @param {number} data.gaugeTypeId - Gauge type ID (1 for sqft, 2 for meter)
+ * @param {number} data.constructionTypeId - Construction type ID
+ * @param {number} data.contractTypeId - Contract type ID
+ * @param {string} data.startDate - Start date (YYYY-MM-DD)
+ * @param {string} data.endDate - End date (YYYY-MM-DD)
+ * @param {string} data.perUnitRate - Per unit rate
+ * @param {string} data.totalArea - Total area
+ * @param {string} data.numberOfFloors - Number of floors
+ * @param {string} data.estimatedBudget - Estimated budget
+ * @param {string} data.address - Project address
+ * @param {File} [data.profilePhoto] - Profile photo file
+ * @param {File|File[]} [data.media] - Media files (videos/photos)
+ * @returns {Promise<Object>} Updated project
+ */
+export const editProject = async (projectId, data) => {
+  if (!projectId) {
+    throw new Error('Project ID is required');
+  }
+
+  if (!data.name || !data.name.trim()) {
+    throw new Error('Project name is required');
+  }
+
+  const formData = new FormData();
+
+  // Append text fields - always send required fields, send optional fields only if they have values
+  formData.append('name', data.name.trim());
+  formData.append('status', data.status || 'pending');
+  if (data.builderId) formData.append('builderId', String(data.builderId));
+  if (data.description !== null && data.description !== undefined) {
+    formData.append('description', data.description || '');
+  }
+  if (data.gaugeTypeId) formData.append('gaugeTypeId', String(data.gaugeTypeId));
+  if (data.constructionTypeId) formData.append('constructionTypeId', String(data.constructionTypeId));
+  if (data.contractTypeId) formData.append('contractTypeId', String(data.contractTypeId));
+  if (data.startDate) formData.append('startDate', data.startDate);
+  if (data.endDate) formData.append('endDate', data.endDate);
+  if (data.perUnitRate !== null && data.perUnitRate !== undefined) {
+    formData.append('perUnitRate', String(data.perUnitRate || ''));
+  }
+  if (data.totalArea !== null && data.totalArea !== undefined) {
+    formData.append('totalArea', String(data.totalArea || ''));
+  }
+  if (data.numberOfFloors !== null && data.numberOfFloors !== undefined) {
+    formData.append('numberOfFloors', String(data.numberOfFloors || ''));
+  }
+  if (data.estimatedBudget !== null && data.estimatedBudget !== undefined) {
+    formData.append('estimatedBudget', String(data.estimatedBudget || ''));
+  }
+  if (data.address !== null && data.address !== undefined) {
+    formData.append('address', data.address || '');
+  }
+
+  // Append files
+  if (data.profilePhoto instanceof File) {
+    formData.append('profilePhoto', data.profilePhoto);
+  }
+
+  // Handle media files - can be single file or array
+  if (data.media) {
+    if (Array.isArray(data.media)) {
+      data.media.forEach((file) => {
+        if (file instanceof File) {
+          formData.append('media', file);
+        }
+      });
+    } else if (data.media instanceof File) {
+      formData.append('media', data.media);
+    }
+  }
+
+  // Use axios directly with FormData (similar to uploadMedia)
+  const token = localStorage.getItem('token');
+  
+  try {
+    const response = await axios.put(
+      `${config.API_BASE_URL}${PROJECT_ENDPOINTS_FLAT.PROJECT_UPDATE}/${projectId}`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          ...(token && { Authorization: `Bearer ${token}` }),
+        },
+      }
+    );
+    
+    return response.data;
+  } catch (error) {
+    console.error('Edit project error:', error);
+    console.error('Error response:', error?.response?.data);
+    throw error;
+  }
+};
+
+/**
+ * Delete a project
+ * @param {string|number} projectId - Project ID
+ * @returns {Promise<Object>} Delete response
+ */
+export const deleteProject = async (projectId) => {
+  if (!projectId) {
+    throw new Error('Project ID is required');
+  }
+
+  // Based on Postman request: DELETE /api/project/{id}
+  const response = await http.delete(`${PROJECT_ENDPOINTS_FLAT.PROJECT_LIST}/${projectId}`);
   
   return response?.data || response || {};
 };
@@ -372,6 +523,7 @@ export const getAllContractTypes = async (workspaceId) => {
 /**
  * Create a new contract type
  * @param {Object} data - Contract type data
+ * @param {string|number} data.workspaceId - Workspace ID (required)
  * @param {string} data.name - Contract type name
  * @returns {Promise<Object>} Created contract type
  */
@@ -379,9 +531,14 @@ export const createContractType = async (data) => {
   if (!data.name || !data.name.trim()) {
     throw new Error('Contract type name is required');
   }
+
+  if (!data.workspaceId) {
+    throw new Error('Workspace ID is required');
+  }
   
   const requestBody = {
     name: data.name.trim(),
+    workspace_id: Number(data.workspaceId),
   };
   
   const response = await http.post(PROJECT_ENDPOINTS_FLAT.CONTRACT_TYPE_CREATE, requestBody);

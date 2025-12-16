@@ -3,6 +3,7 @@
  * Reusable component for displaying project banner with image, title, address, status, and progress
  */
 
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '../../../components/ui/CircularProgress';
 import ProjectStatusPill from './ProjectStatusPill';
@@ -20,12 +21,21 @@ const getStatusColor = (status) => {
 
 export default function ProjectBanner({ project }) {
   const { t } = useTranslation('projects');
+  const [imageError, setImageError] = useState(false);
   
-  const imageSrc = project.profile_photo || project.image || 'https://via.placeholder.com/1200x400?text=Project+Image';
+  // Simple gray placeholder as data URI (no external dependency)
+  const defaultImage = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI0MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2YzZjRmNiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiM5Y2EzYWYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5ObyBJbWFnZTwvdGV4dD48L3N2Zz4=';
+  const imageSrc = imageError 
+    ? defaultImage 
+    : project.profile_photo || project.image || defaultImage;
   const title = project.site_name || project.name || 'Untitled Project';
   const address = project.address || 'No address provided';
   const status = project.status || 'Completed';
   const progress = project.progress ?? project.completion_percentage ?? 0;
+
+  const handleImageError = () => {
+    setImageError(true);
+  };
 
   return (
     <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
@@ -34,6 +44,7 @@ export default function ProjectBanner({ project }) {
         <img
           src={imageSrc}
           alt={title}
+          onError={handleImageError}
           className="w-full h-full object-cover"
         />
 

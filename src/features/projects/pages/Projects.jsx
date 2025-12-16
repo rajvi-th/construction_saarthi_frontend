@@ -15,7 +15,7 @@ import Loader from '../../../components/ui/Loader';
 import { ProjectCard } from '../components';
 import { PROJECT_ROUTES } from '../constants';
 import { useAuth } from '../../../hooks/useAuth';
-import { useProjects } from '../hooks';
+import { useProjects, useDeleteProject } from '../hooks';
 import { ChevronDown } from "lucide-react";
 import PageHeader from '../../../components/layout/PageHeader';
 
@@ -33,7 +33,10 @@ export default function Projects() {
     setSearchQuery,
     statusFilter,
     setStatusFilter,
+    refetch: refetchProjects,
   } = useProjects(selectedWorkspace);
+
+  const { deleteProject: deleteProjectHook, isDeleting } = useDeleteProject();
 
   const STATUS_OPTIONS = [
     { value: '', label: t('status.all') },
@@ -71,11 +74,20 @@ export default function Projects() {
     setProjectToDelete(project);
   };
 
-  const handleConfirmDelete = () => {
-    // TODO: Implement actual delete API call
-    // For now, just close modal (filtering is handled by the hook)
-    if (projectToDelete) {
+  const handleConfirmDelete = async () => {
+    if (!projectToDelete) return;
+
+    try {
+      await deleteProjectHook(projectToDelete.id);
+      
+      // Refetch projects list to update UI
+      await refetchProjects();
+      
+      // Close modal
       setProjectToDelete(null);
+    } catch (error) {
+      // Error is already handled in the hook
+      console.error("Error deleting project:", error);
     }
   };
 
@@ -196,6 +208,7 @@ export default function Projects() {
               confirmText={t('deleteModal.confirm')}
               cancelText={t('cancel', { ns: 'common' })}
               confirmVariant="primary"
+              isLoading={isDeleting}
             />
           </>
         )}

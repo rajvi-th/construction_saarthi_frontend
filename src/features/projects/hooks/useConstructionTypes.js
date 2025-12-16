@@ -47,12 +47,21 @@ export const useConstructionTypes = (workspaceId) => {
   }, [workspaceId]);
 
   const createConstructionType = useCallback(async (data) => {
+    if (!workspaceId) {
+      showError('Workspace not selected');
+      throw new Error('Workspace not selected');
+    }
+
     try {
       // Create construction type via API
       const response = await createConstructionTypeApi({
+        workspaceId: workspaceId,
         name: data.label,
         requiresFloors: data.requiresFloors !== undefined ? data.requiresFloors : true,
       });
+
+      // Refetch construction types to get the updated list with the new item
+      await fetchConstructionTypes();
 
       // Get the new construction type ID from response
       const newConstructionTypeId = response?.id?.toString() ||
@@ -60,21 +69,12 @@ export const useConstructionTypes = (workspaceId) => {
         response?.constructionTypeId?.toString() ||
         data.value;
 
-      // Add to construction types list
+      // Find the newly created construction type from the refetched list
       const newConstructionType = {
         value: newConstructionTypeId,
         label: data.label,
         requiresFloors: data.requiresFloors,
       };
-
-      setConstructionTypes((prev) => {
-        // Check if it already exists
-        const exists = prev.some((type) => type.label.toLowerCase() === data.label.toLowerCase());
-        if (exists) {
-          return prev;
-        }
-        return [...prev, newConstructionType];
-      });
 
       showSuccess('Construction type added successfully');
 
@@ -88,7 +88,7 @@ export const useConstructionTypes = (workspaceId) => {
       showError(errorMessage);
       throw err;
     }
-  }, []);
+  }, [workspaceId, fetchConstructionTypes]);
 
   useEffect(() => {
     fetchConstructionTypes();

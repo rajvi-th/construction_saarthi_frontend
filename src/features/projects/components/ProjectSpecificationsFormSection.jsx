@@ -27,6 +27,9 @@ function ProjectSpecificationsFormSection({
   contractTypeOptions = [],
   isLoadingContractTypes = false,
   onAddNewContractType,
+  onSaveAndContinue,
+  onBack,
+  onCancel,
 }) {
   return (
     <div className="bg-white rounded-2xl shadow-sm p-4 md:p-7.5">
@@ -154,22 +157,39 @@ function ProjectSpecificationsFormSection({
 
       {/* Actions */}
       <div className="mt-6 flex justify-end gap-3">
-        <Button
-          type="button"
-          variant="secondary"
-          size="sm"
-          className="px-6"
-        >
-          {t('cancel', { ns: 'common' })}
-        </Button>
-        <Button
-          type="submit"
-          variant="primary"
-          size="sm"
-          className="px-6"
-        >
-          {t('addNewProject.form.saveAndContinue')}
-        </Button>
+        {onBack && (
+          <Button
+            type="button"
+            variant="secondary"
+            size="sm"
+            className="px-6"
+            onClick={onBack}
+          >
+            {t('common.back', { defaultValue: 'Back' })}
+          </Button>
+        )}
+        {onCancel && (
+          <Button
+            type="button"
+            variant="secondary"
+            size="sm"
+            className="px-6"
+            onClick={onCancel}
+          >
+            {t('cancel', { ns: 'common' })}
+          </Button>
+        )}
+        {onSaveAndContinue && (
+          <Button
+            type="button"
+            variant="primary"
+            size="sm"
+            className="px-6"
+            onClick={onSaveAndContinue}
+          >
+            {t('addNewProject.form.saveAndContinue')}
+          </Button>
+        )}
       </div>
     </div>
   );
