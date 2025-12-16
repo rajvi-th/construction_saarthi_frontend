@@ -47,11 +47,20 @@ export const useContractTypes = (workspaceId) => {
   }, [workspaceId]);
 
   const createContractType = useCallback(async (data) => {
+    if (!workspaceId) {
+      showError('Workspace not selected');
+      throw new Error('Workspace not selected');
+    }
+
     try {
       // Create contract type via API
       const response = await createContractTypeApi({
+        workspaceId: workspaceId,
         name: data.label,
       });
+
+      // Refetch contract types to get the updated list with the new item
+      await fetchContractTypes();
 
       // Get the new contract type ID from response
       const newContractTypeId = response?.id?.toString() ||
@@ -59,20 +68,11 @@ export const useContractTypes = (workspaceId) => {
         response?.contractTypeId?.toString() ||
         data.value;
 
-      // Add to contract types list
+      // Find the newly created contract type from the refetched list
       const newContractType = {
         value: newContractTypeId,
         label: data.label,
       };
-
-      setContractTypes((prev) => {
-        // Check if it already exists
-        const exists = prev.some((type) => type.label.toLowerCase() === data.label.toLowerCase());
-        if (exists) {
-          return prev;
-        }
-        return [...prev, newContractType];
-      });
 
       showSuccess('Contract type added successfully');
 
@@ -86,7 +86,7 @@ export const useContractTypes = (workspaceId) => {
       showError(errorMessage);
       throw err;
     }
-  }, []);
+  }, [workspaceId, fetchContractTypes]);
 
   useEffect(() => {
     fetchContractTypes();

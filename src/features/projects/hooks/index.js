@@ -15,4 +15,8 @@ export { useContractTypes } from './useContractTypes';
 export { default as useContractTypesDefault } from './useContractTypes';
 export { useCreateProject } from './useCreateProject';
 export { default as useCreateProjectDefault } from './useCreateProject';
+export { useEditProject } from './useEditProject';
+export { default as useEditProjectDefault } from './useEditProject';
+export { useDeleteProject } from './useDeleteProject';
+export { default as useDeleteProjectDefault } from './useDeleteProject';
 

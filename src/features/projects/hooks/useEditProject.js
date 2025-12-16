@@ -1,26 +1,28 @@
 /**
- * Custom hook for creating projects
+ * Custom hook for editing projects
  * @param {string|number} workspaceId - Workspace ID
- * @returns {Object} { createProject, isSubmitting, error }
+ * @returns {Object} { editProject, isSubmitting, error }
  */
 
 import { useState, useCallback } from "react";
-import {
-  startProject,
-  createProject as createProjectApi,
-} from "../api";
+import { editProject as editProjectApi } from "../api";
 import { showError, showSuccess } from "../../../utils/toast";
 import { useTranslation } from "react-i18next";
 
-export const useCreateProject = (workspaceId) => {
+export const useEditProject = (workspaceId) => {
   const { t } = useTranslation("projects");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
-  const createProject = useCallback(
-    async (data) => {
+  const editProject = useCallback(
+    async (projectId, data) => {
       if (!workspaceId) {
         showError("Workspace not selected");
+        return null;
+      }
+
+      if (!projectId) {
+        showError("Project ID is required");
         return null;
       }
 
@@ -28,26 +30,6 @@ export const useCreateProject = (workspaceId) => {
         setIsSubmitting(true);
         setError(null);
 
-        // Step 1: Start project to get projectKey (unless provided from pre-init)
-        let projectKey = data?.projectKey;
-        if (!projectKey) {
-          const startResponse = await startProject(workspaceId);
-          projectKey =
-            startResponse?.projectKey ||
-            startResponse?.project_key ||
-            startResponse?.key;
-        }
-
-        if (!projectKey) {
-          throw new Error("Failed to get project key");
-        }
-
-        // Step 2: Skip media upload
-        // Files are already uploaded individually when selected in UploadDocumentsSection
-        // No need to upload again during project creation
-        // The projectKey links the files to the project
-
-        // Step 3: Create project with all details
         // Format dates to YYYY-MM-DD
         const formatDate = (date) => {
           if (!date) return null;
@@ -76,8 +58,6 @@ export const useCreateProject = (workspaceId) => {
         };
 
         const projectData = {
-          workspaceId: workspaceId,
-          projectKey: projectKey,
           name: data.siteName,
           status: mapStatus(data.projectStatus),
           address: data.address || "",
@@ -92,24 +72,26 @@ export const useCreateProject = (workspaceId) => {
           constructionTypeId: data.constructionType || null,
           description: data.projectDescription || "",
           estimatedBudget: data.estimatedBudget || null,
+          profilePhoto: data.profilePhoto || null,
+          media: data.media || null,
         };
 
-        const response = await createProjectApi(projectData);
+        const response = await editProjectApi(projectId, projectData);
 
         showSuccess(
-          t("addNewProject.form.projectCreated", {
-            defaultValue: "Project created successfully",
+          t("addNewProject.form.projectUpdated", {
+            defaultValue: "Project updated successfully",
           })
         );
 
         return response;
       } catch (err) {
-        console.error("Error creating project:", err);
+        console.error("Error editing project:", err);
         const errorMessage =
           err?.response?.data?.message ||
           err?.message ||
-          t("addNewProject.form.createError", {
-            defaultValue: "Failed to create project",
+          t("addNewProject.form.updateError", {
+            defaultValue: "Failed to update project",
           });
         setError(errorMessage);
         showError(errorMessage);
@@ -122,10 +104,11 @@ export const useCreateProject = (workspaceId) => {
   );
 
   return {
-    createProject,
+    editProject,
     isSubmitting,
     error,
   };
 };
 
-export default useCreateProject;
+export default useEditProject;
+

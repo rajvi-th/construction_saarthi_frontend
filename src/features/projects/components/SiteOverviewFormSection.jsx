@@ -3,14 +3,17 @@
  * Top card for Add New Project - Site Overview + profile photo upload
  */
 
-import { useRef, useState } from 'react';
-import { Camera } from 'lucide-react';
-import Button from '../../../components/ui/Button';
-import DatePicker from '../../../components/ui/DatePicker';
-import Radio from '../../../components/ui/Radio';
-import Dropdown from '../../../components/ui/Dropdown';
+import { useRef, useState } from "react";
+import { Camera } from "lucide-react";
+import Button from "../../../components/ui/Button";
+import DatePicker from "../../../components/ui/DatePicker";
+import Radio from "../../../components/ui/Radio";
+import Dropdown from "../../../components/ui/Dropdown";
 
-import FormInput from '../../../components/forms/FormInput';
+import { uploadMedia } from "../api/projectApi";
+import { showError, showSuccess } from "../../../utils/toast";
+
+import FormInput from "../../../components/forms/FormInput";
 
 function SiteOverviewFormSection({
   t,
@@ -29,10 +32,14 @@ function SiteOverviewFormSection({
   onAddNewBuilder,
   workspaceId,
   onProfilePhotoChange,
+  projectKey,
+  onSaveAndContinue,
+  onCancel,
 }) {
   const fileInputRef = useRef(null);
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [profilePhotoPreview, setProfilePhotoPreview] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const handlePhotoClick = () => {
     if (fileInputRef.current) {
@@ -45,16 +52,16 @@ function SiteOverviewFormSection({
     if (!file) return;
 
     // Validate file type
-    if (!file.type.startsWith('image/')) {
+    if (!file.type.startsWith("image/")) {
       // eslint-disable-next-line no-console
-      console.error('Please select an image file');
+      console.error("Please select an image file");
       return;
     }
 
     // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       // eslint-disable-next-line no-console
-      console.error('Image size should be less than 5MB');
+      console.error("Image size should be less than 5MB");
       return;
     }
 
@@ -67,12 +74,28 @@ function SiteOverviewFormSection({
     if (onProfilePhotoChange) {
       onProfilePhotoChange(file);
     }
+
+    // If we already have a projectKey, upload immediately
+    if (projectKey) {
+      (async () => {
+        try {
+          setIsUploading(true);
+          await uploadMedia(projectKey, { profilePhoto: [file] });
+          showSuccess("Profile photo uploaded");
+        } catch (err) {
+          console.error("Failed to upload profile photo", err);
+          showError("Failed to upload profile photo");
+        } finally {
+          setIsUploading(false);
+        }
+      })();
+    }
   };
 
   return (
     <div className="bg-white rounded-2xl shadow-sm p-4 md:p-7.5">
       <h2 className="text-base sm:text-lg font-semibold text-primary mb-5">
-        {t('addNewProject.steps.siteOverview')}
+        {t("addNewProject.steps.siteOverview")}
       </h2>
 
       {/* Upload Project Profile Photo */}
@@ -92,7 +115,10 @@ function SiteOverviewFormSection({
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <Camera className="w-6 h-6 sm:w-7 sm:h-7 text-primary" strokeWidth={2.5} />
+                <Camera
+                  className="w-6 h-6 sm:w-7 sm:h-7 text-primary"
+                  strokeWidth={2.5}
+                />
               )}
             </button>
             {/* Camera icon overlay when photo is selected */}
@@ -111,63 +137,73 @@ function SiteOverviewFormSection({
           <input
             ref={fileInputRef}
             type="file"
-            accept=".jpg,.jpeg,.png"
+            accept="image/*"
             className="hidden"
             onChange={handleFileChange}
           />
 
           {/* Title */}
           <p className="mt-3 text-sm sm:text-base font-medium text-primary">
-            {t('addNewProject.form.uploadPhoto')}
+            {t("addNewProject.form.uploadPhoto")}
           </p>
 
           {/* Supported format */}
           <p className="mt-1 text-xs sm:text-xs text-primary-light">
-            {t('addNewProject.form.supportedFormat')}
+            {t("addNewProject.form.supportedFormat")}
           </p>
+          {isUploading && (
+            <p className="mt-1 text-xs sm:text-xs text-primary-light">
+              Uploading...
+            </p>
+          )}
         </div>
       </div>
 
       {/* Site Overview Fields */}
       <div className="grid grid-cols-1 gap-4">
         <FormInput
-          label={t('addNewProject.form.siteName')}
+          label={t("addNewProject.form.siteName")}
           name="siteName"
-          placeholder={t('addNewProject.form.siteNamePlaceholder')}
+          placeholder={t("addNewProject.form.siteNamePlaceholder")}
           register={register}
           required
           labelClassName="text-primary font-normal"
           validationRules={{
-            required: t('addNewProject.validation.siteNameRequired'),
+            required: t("addNewProject.validation.siteNameRequired"),
           }}
           errors={errors}
         />
 
         <FormInput
-          label={t('addNewProject.form.address')}
+          label={t("addNewProject.form.address")}
           name="address"
-          placeholder={t('addNewProject.form.addressPlaceholder')}
+          placeholder={t("addNewProject.form.addressPlaceholder")}
           register={register}
           required
           labelClassName="text-primary font-normal"
           validationRules={{
-            required: t('addNewProject.validation.addressRequired'),
+            required: t("addNewProject.validation.addressRequired"),
           }}
           errors={errors}
         />
 
         <div className="mb-4">
           <Dropdown
-            label={t('addNewProject.form.builderName')}
+            label={t("addNewProject.form.builderName")}
             value={builderName}
             onChange={onBuilderNameChange}
-            placeholder={isLoadingBuilders ? t('addNewProject.form.loadingBuilders') || 'Loading builders...' : t('addNewProject.form.selectBuilder')}
+            placeholder={
+              isLoadingBuilders
+                ? t("addNewProject.form.loadingBuilders") ||
+                  "Loading builders..."
+                : t("addNewProject.form.selectBuilder")
+            }
             options={builderOptions}
             error={errors.builderName?.message}
             disabled={isLoadingBuilders}
             showSeparator={true}
             onAddNew={onAddNewBuilder}
-            addButtonLabel={t('addNewProject.form.addNewBuilder')}
+            addButtonLabel={t("addNewProject.form.addNewBuilder")}
             useBuilderModal={true}
             workspaceId={workspaceId}
           />
@@ -175,13 +211,13 @@ function SiteOverviewFormSection({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <DatePicker
-            label={t('addNewProject.form.estStartDate')}
+            label={t("addNewProject.form.estStartDate")}
             value={startDate}
             onChange={setStartDate}
             placeholder="dd/mm/yyyy"
           />
           <DatePicker
-            label={t('addNewProject.form.estCompletionDate')}
+            label={t("addNewProject.form.estCompletionDate")}
             value={completionDate}
             onChange={setCompletionDate}
             placeholder="dd/mm/yyyy"
@@ -191,22 +227,22 @@ function SiteOverviewFormSection({
         {/* Project Status */}
         <div className="mt-2">
           <p className="block text-sm font-medium text-primary mb-2">
-            {t('addNewProject.form.projectStatus')}
+            {t("addNewProject.form.projectStatus")}
           </p>
           <div className="flex items-center gap-6">
             <Radio
               name="projectStatus"
               value="upcoming"
-              label={t('addNewProject.form.upcoming')}
-              checked={projectStatus === 'upcoming'}
-              onChange={() => onStatusChange('upcoming')}
+              label={t("addNewProject.form.upcoming")}
+              checked={projectStatus === "upcoming"}
+              onChange={() => onStatusChange("upcoming")}
             />
             <Radio
               name="projectStatus"
               value="in_progress"
-              label={t('addNewProject.form.inProgress')}
-              checked={projectStatus === 'in_progress'}
-              onChange={() => onStatusChange('in_progress')}
+              label={t("addNewProject.form.inProgress")}
+              checked={projectStatus === "in_progress"}
+              onChange={() => onStatusChange("in_progress")}
             />
           </div>
         </div>
@@ -214,22 +250,28 @@ function SiteOverviewFormSection({
 
       {/* Actions */}
       <div className="mt-6 flex justify-end gap-3">
-        <Button
-          type="button"
-          variant="secondary"
-          size="sm"
-          className="px-6"
-        >
-          {t('cancel', { ns: 'common' })}
-        </Button>
-        <Button
-          type="submit"
-          variant="primary"
-          size="sm"
-          className="px-6"
-        >
-          {t('addNewProject.form.saveAndContinue')}
-        </Button>
+        {onCancel && (
+          <Button 
+            type="button" 
+            variant="secondary" 
+            size="sm" 
+            className="px-6"
+            onClick={onCancel}
+          >
+            {t("cancel", { ns: "common" })}
+          </Button>
+        )}
+        {onSaveAndContinue && (
+          <Button 
+            type="button" 
+            variant="primary" 
+            size="sm" 
+            className="px-6"
+            onClick={onSaveAndContinue}
+          >
+            {t("addNewProject.form.saveAndContinue")}
+          </Button>
+        )}
       </div>
     </div>
   );
