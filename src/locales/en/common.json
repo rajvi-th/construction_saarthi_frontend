@@ -142,10 +142,11 @@
       "title": "No Project Added",
       "message": "Add your projects to show in your proposal"
     },
-  "pagination": {
-    "show": "Show",
-    "perPage": "per page",
-    "of": "of"
+    "pagination": {
+      "show": "Show",
+      "perPage": "per page",
+      "of": "of"
+    }
   }
 }
 

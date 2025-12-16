@@ -81,6 +81,13 @@ export const ROUTES = {
     LIST: '/past-work',
     ADD: '/past-work/add',
   },
+  // Past Work Routes
+  PAST_WORK: {
+    LIST: '/past-work',
+    DETAILS: '/past-work/:id',
+    ADD_NEW: '/past-work/add-new',
+    EDIT: '/past-work/:id/edit',
+  },
   // Project Gallery Routes
   PROJECT_GALLERY: {
     HOME: '/gallery',
@@ -154,6 +161,11 @@ export const ROUTES_FLAT = {
   // Past Projects
   PAST_PROJECTS: ROUTES.PAST_PROJECTS.LIST,
   PAST_PROJECTS_ADD: ROUTES.PAST_PROJECTS.ADD,
+  
+  // Past Work
+  PAST_WORK: ROUTES.PAST_WORK.LIST,
+  PAST_WORK_DETAILS: ROUTES.PAST_WORK.DETAILS,
+  EDIT_PAST_WORK: ROUTES.PAST_WORK.EDIT,
   
   // Project Gallery
   PROJECT_GALLERY: ROUTES.PROJECT_GALLERY.HOME,
