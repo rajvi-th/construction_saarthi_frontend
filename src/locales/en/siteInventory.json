@@ -17,8 +17,12 @@
   "costPerUnit": "Cost Per Unit",
   "totalPrice": "Total Price",
   "purchased": "Purchased",
+  "used": "Used",
+  "inStock": "In Stock",
   "currentStock": "Current Stock",
   "purchasedPrice": "Purchased Price",
+  "logUsage": "Log Usage",
+  "noLogUsage": "No log usage history available",
   "transfer": "Transfer",
   "actions": {
     "restock": "Restock Material",
@@ -126,7 +130,9 @@
   },
   "approveModal": {
     "title": "Approve Transfer Request",
-    "confirmationMessage": "Are you sure you want to approve transfer request of {{materialName}} from {{fromProject}}?",
+    "confirmationSimple": "Are you sure you want to approve transfer of",
+    "from": "from",
+    "to": "to",
     "quantity": "Quantity",
     "quantityPlaceholder": "Enter quantity",
     "costPerUnit": "Cost Per Unit",
@@ -241,6 +247,68 @@
     "createFailed": "Failed to create site inventory item. Please try again.",
     "updateFailed": "Failed to update site inventory item. Please try again.",
     "fetchFailed": "Failed to load site inventory items. Please try again."
+  },
+  "itemDetails": {
+    "notFound": "Item not found",
+    "backToList": "Back to List",
+    "askForMaterial": "Ask for Material",
+    "transferMaterial": "Transfer Material",
+    "lastUpdated": "Last Updated",
+    "quantity": "Quantity",
+    "avgCostPerUnit": "Avg Cost per Unit",
+    "totalPrice": "Total Price",
+    "currentStock": "Current Stock",
+    "conditionDescription": "Condition/Description",
+    "distribution": "Distribution",
+    "usedInYourSite": "Used in Your Site",
+    "noDistribution": "No distribution history available",
+    "release": "Release",
+    "status": {
+      "approved": "Approved",
+      "pending": "Pending",
+      "rejected": "Rejected"
+    }
+  },
+  "releaseModal": {
+    "title": "Release {{itemName}}",
+    "subtitle": "Enter the quantity you want to release from site.",
+    "quantity": "Release Quantity",
+    "cancel": "Cancel",
+    "release": "Release",
+    "errors": {
+      "quantityRequired": "Quantity is required"
+    }
+  },
+  "destroyMaterialModal": {
+    "title": "Destroy Material",
+    "subtitle": "Enter the quantity of material that has been damaged or discarded.",
+    "material": "Material",
+    "materialPlaceholder": "Select material",
+    "quantity": "Quantity",
+    "reason": "Reason",
+    "reasonPlaceholder": "Enter text here",
+    "cancel": "Cancel",
+    "destroy": "Destroy Material",
+    "destroying": "Destroying...",
+    "errors": {
+      "materialRequired": "Material is required",
+      "quantityRequired": "Quantity is required",
+      "reasonRequired": "Reason is required"
+    }
+  },
+  "destroyMaterials": {
+    "addDestroyMaterial": "Add Destroy Material",
+    "success": "Material destroyed successfully",
+    "reason": "Reason",
+    "emptyState": {
+      "title": "No Destroyed Materials",
+      "message": "No destroyed materials found"
+    }
+  },
+  "destroyModal": {
+    "title": "Destroy {{itemName}}",
+    "subtitle": "Enter the quantity of material that has been damaged or discarded.",
+    "cancel": "Cancel"
   }
 }
 

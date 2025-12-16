@@ -1,0 +1,60 @@
+{
+  "title": "प्रोजेक्ट गैलरी",
+  "searchPlaceholder": "प्रोजेक्ट खोजो",
+  "filter": "फिल्टर",
+  "filterOptions": {
+    "all": "सभी",
+    "inProcess": "प्रगति में",
+    "completed": "पूर्ण",
+    "upcoming": "आगामी",
+    "recent": "हाल का",
+    "oldest": "पुराना",
+    "custom": "कस्टम"
+  },
+  "emptyState": {
+    "noProjects": "कोई प्रोजेक्ट नहीं मिला",
+    "adjustSearch": "अपनी खोज या फिल्टर बदल के देखो",
+    "getStarted": "एक प्रोजेक्ट जोड़ के शुरू करो",
+    "noPhotos": "कोई फोटो अपलोड नहीं किया गया",
+    "noVideos": "कोई वीडियो अपलोड नहीं किया गया",
+    "noDocuments": "कोई दस्तावेज़ अपलोड नहीं किया गया",
+    "noItems": "कोई आइटम नहीं मिला",
+    "photosMessage": "अपने प्रोजेक्ट फोटो जोड़ो जो आपके प्रस्ताव में दिखाई दें।",
+    "videosMessage": "अपने प्रोजेक्ट वीडियो जोड़ो जो आपके प्रस्ताव में दिखाई दें।",
+    "documentsMessage": "अपने प्रोजेक्ट दस्तावेज़ जोड़ो जो आपके प्रस्ताव में दिखाई दें।",
+    "noItemsMessage": "दिखाने के लिए कोई आइटम नहीं।",
+    "uploadPhotos": "फोटो अपलोड करो",
+    "uploadVideos": "वीडियो अपलोड करो",
+    "uploadDocuments": "दस्तावेज़ अपलोड करो"
+  },
+  "tabs": {
+    "photos": "फोटो",
+    "videos": "वीडियो",
+    "documents": "दस्तावेज़"
+  },
+  "actions": {
+    "view": "देखो",
+    "play": "चलाओ",
+    "download": "डाउनलोड",
+    "delete": "हटाओ"
+  },
+  "deleteModal": {
+    "title": "मीडिया हटाओ",
+    "message": "क्या तुम सच में इस आइटम को हटाना चाहते हो? यह कार्रवाई पूर्ववत नहीं की जा सकती।",
+    "confirm": "हाँ, हटाओ",
+    "cancel": "रद्द करो"
+  },
+  "upload": {
+    "title": "फोटो/ वीडियो / दस्तावेज़ अपलोड करो",
+    "supportedFormats": "JPG, PNG, Mp4, PDF",
+    "supportedFormatLabel": "समर्थित फॉर्मेट:",
+    "maxSizeEach": "10MB EACH",
+    "button": "अपलोड",
+    "uploading": "अपलोड हो रिया है...",
+    "success": "फाइलें सफलतापूर्वक अपलोड हो गईं",
+    "error": "फाइलें अपलोड करने में दिक्कत आई"
+  },
+  "projectNotFound": "प्रोजेक्ट नहीं मिला",
+  "projectNotFoundMessage": "जो प्रोजेक्ट तुम ढूंढ रहे हो वो मौजूद नहीं है।",
+  "backToGallery": "गैलरी पर वापस जाओ"
+}

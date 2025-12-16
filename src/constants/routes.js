@@ -58,15 +58,34 @@ export const ROUTES = {
     LIST: '/site-inventory',
     ADD: '/site-inventory/add',
     EDIT: '/site-inventory/:id/edit',
+    DETAILS: '/site-inventory/:id',
+    CONSUMABLE_DETAILS: '/site-inventory/consumable/:id',
     ADD_NEW_ASK: '/site-inventory/add-new-ask',
     ADD_STOCK: '/site-inventory/restock/add-stock',
   },
-  // Past Work Routes
-  PAST_WORK: {
+  // Builder Client Routes
+  BUILDER_CLIENT: {
+    BUILDERS: '/builders',
+    ADD: '/builders/add',
+    EDIT: '/builders/:id/edit',
+  },
+  // Vendors Routes
+  VENDORS: {
+    LIST: '/vendors',
+    ADD: '/vendors/add',
+    EDIT: '/vendors/:id/edit',
+  },
+
+  // Past Projects Routes
+  PAST_PROJECTS: {
     LIST: '/past-work',
-    DETAILS: '/past-work/:id',
-    ADD_NEW: '/past-work/add-new',
-    EDIT: '/past-work/:id/edit',
+    ADD: '/past-work/add',
+  },
+  // Project Gallery Routes
+  PROJECT_GALLERY: {
+    HOME: '/gallery',
+    PROJECT_GALLERY: '/gallery/:projectId',
+    UPLOAD: '/gallery/:projectId/upload',
   },
 };
 
@@ -117,14 +136,29 @@ export const ROUTES_FLAT = {
   SITE_INVENTORY: ROUTES.SITE_INVENTORY.LIST,
   ADD_SITE_INVENTORY: ROUTES.SITE_INVENTORY.ADD,
   EDIT_SITE_INVENTORY: ROUTES.SITE_INVENTORY.EDIT,
+  INVENTORY_ITEM_DETAILS: ROUTES.SITE_INVENTORY.DETAILS,
+  CONSUMABLE_ITEM_DETAILS: ROUTES.SITE_INVENTORY.CONSUMABLE_DETAILS,
   ADD_NEW_ASK: ROUTES.SITE_INVENTORY.ADD_NEW_ASK,
   ADD_STOCK: ROUTES.SITE_INVENTORY.ADD_STOCK,
   
-  // Past Work
-  PAST_WORK: ROUTES.PAST_WORK.LIST,
-  PAST_WORK_DETAILS: ROUTES.PAST_WORK.DETAILS,
-  ADD_PAST_WORK: ROUTES.PAST_WORK.ADD_NEW,
-  EDIT_PAST_WORK: ROUTES.PAST_WORK.EDIT,
+  // Builder Client
+  BUILDERS: ROUTES.BUILDER_CLIENT.BUILDERS,
+  ADD_BUILDER: ROUTES.BUILDER_CLIENT.ADD,
+  EDIT_BUILDER: ROUTES.BUILDER_CLIENT.EDIT,
+  
+  // Vendors
+  VENDORS: ROUTES.VENDORS.LIST,
+  ADD_VENDOR: ROUTES.VENDORS.ADD,
+  EDIT_VENDOR: ROUTES.VENDORS.EDIT,
+
+  // Past Projects
+  PAST_PROJECTS: ROUTES.PAST_PROJECTS.LIST,
+  PAST_PROJECTS_ADD: ROUTES.PAST_PROJECTS.ADD,
+  
+  // Project Gallery
+  PROJECT_GALLERY: ROUTES.PROJECT_GALLERY.HOME,
+  PROJECT_GALLERY_DETAILS: ROUTES.PROJECT_GALLERY.PROJECT_GALLERY,
+  PROJECT_GALLERY_UPLOAD: ROUTES.PROJECT_GALLERY.UPLOAD,
 };
 
 /**

@@ -1,0 +1,22 @@
+{
+  "title": "నా గత పని",
+  "emptyTitle": "ఏ ప్రాజెక్ట్ ను కూడా జోడించలేదు",
+  "emptyMessage": "మీ ప్రతిపాదనలో చూపడానికి మీ ప్రాజెక్ట్‌లను జోడించండి.",
+  "addButton": "ప్రాజెక్ట్ (సైట్) జోడించండి",
+  "untitled": "పేరు లేని ప్రాజెక్ట్",
+  "addTitle": "ప్రాజెక్ట్ (సైట్) జోడించండి",
+  "projectName": "ప్రాజెక్ట్ పేరు",
+  "projectNamePlaceholder": "ప్రాజెక్ట్ పేరు నమోదు చేయండి",
+  "address": "చిరునామా",
+  "addressPlaceholder": "సైట్ చిరునామా నమోదు చేయండి",
+  "uploadTitle": "ఫోటోలు/ వీడియోలు / డాక్యుమెంట్లు అప్‌లోడ్ చేయండి",
+  "uploadImagesVideos": "ఇమేజ్/వీడియోలను అప్‌లోడ్ చేయండి*",
+  "uploadDocuments": "డాక్యుమెంట్లు అప్‌లోడ్ చేయండి",
+  "supportedFormatsLabel": "సపోర్ట్ చేసిన ఫార్మాట్:",
+  "supportedFormats": "JPG, PNG, Mp4, PDF",
+  "maxSizeEach": "ప్రతి ఫైలు 10MB",
+  "uploadButton": "అప్‌లోడ్",
+  "addSubmit": "ప్రాజెక్ట్ జోడించండి"
+}
+
+

@@ -16,6 +16,13 @@
     "quantity": "प्रमाण",
     "costPerUnit": "प्रति युनिट खर्च",
     "totalPrice": "एकूण किंमत",
+    "purchased": "खरेदी केले",
+    "used": "वापरले",
+    "inStock": "स्टॉकमध्ये आहे",
+    "currentStock": "सध्याचा स्टॉक",
+    "purchasedPrice": "खरेदी किंमत",
+    "logUsage": "वापर लॉग",
+    "noLogUsage": "वापर लॉग इतिहास उपलब्ध नाही",
     "transfer": "हस्तांतरण",
     "actions": {
         "restock": "सामग्री पुन्हा स्टॉक करा",
@@ -62,14 +69,16 @@
     },
     "approveModal": {
         "title": "हस्तांतरण विनंती मंजूर करा",
-        "confirmationMessage": "तुम्ही {{fromProject}} मधून {{materialName}} चे हस्तांतरण विनंती मंजूर करू इच्छिता?",
+        "confirmationSimple": "तुम्हाला हे हस्तांतरण मंजूर करायचे आहे का?",
+        "from": "कडून",
+        "to": "पर्यंत",
         "quantity": "प्रमाण",
         "quantityPlaceholder": "प्रमाण प्रविष्ट करा",
         "costPerUnit": "प्रति युनिट खर्च",
         "totalPrice": "एकूण किंमत",
         "cancel": "रद्द करा",
         "approve": "मंजूर करा",
-        "approving": "मंजूर करत आहे...",
+        "approving": "মंजूर करत आहे...",
         "errors": {
             "quantityRequired": "प्रमाण आवश्यक आहे",
             "totalPriceRequired": "एकूण किंमत आवश्यक आहे"
@@ -100,9 +109,6 @@
         "updateFailed": "साइट इन्व्हेंटरी वस्तू अद्यतनित करण्यात अयशस्वी. कृपया पुन्हा प्रयत्न करा.",
         "fetchFailed": "साइट इन्व्हेंटरी वस्तू लोड करण्यात अयशस्वी. कृपया पुन्हा प्रयत्न करा."
     },
-    "purchased": "खरेदी केले",
-    "currentStock": "सध्याचा स्टॉक",
-    "purchasedPrice": "खरेदी किंमत",
     "logUsageModal": {
         "title": "वापर लॉग करा",
         "subtitle": "तुमच्या साइटवर वापरलेली मात्रा प्रविष्ट करा.",
@@ -239,5 +245,67 @@
             "fileTooLarge": "फाइल आकार 10MB पेक्षा कमी असावा",
             "createFailed": "इन्व्हेंटरी आयटम तयार करण्यात अयशस्वी"
         }
+    },
+    "itemDetails": {
+        "notFound": "आयटम सापडला नाही",
+        "backToList": "यादीकडे परत जा",
+        "askForMaterial": "सामग्रीची विनंती करा",
+        "transferMaterial": "सामग्री ट्रान्सफर करा",
+        "lastUpdated": "शेवटचे अद्यतनित",
+        "quantity": "प्रमाण",
+        "avgCostPerUnit": "प्रति युनिट सरासरी खर्च",
+        "totalPrice": "एकूण किंमत",
+        "currentStock": "वर्तमान स्टॉक",
+        "conditionDescription": "स्थिती/वर्णन",
+        "distribution": "वितरण",
+        "usedInYourSite": "तुमच्या साइटवर वापरलेले",
+        "noDistribution": "कोणताही वितरण इतिहास उपलब्ध नाही",
+        "release": "रिलीझ करा",
+        "status": {
+            "approved": "मंजूर",
+            "pending": "प्रलंबित",
+            "rejected": "नाकारले"
+        }
+    },
+    "releaseModal": {
+        "title": "रिलीझ {{itemName}}",
+        "subtitle": "साइटवरून आपण जितके प्रमाण रिलीझ करू इच्छिता ते प्रविष्ट करा.",
+        "quantity": "रिलीझ प्रमाण",
+        "cancel": "रद्द करा",
+        "release": "रिलीझ करा",
+        "errors": {
+            "quantityRequired": "प्रमाण आवश्यक आहे"
+        }
+    },
+    "destroyMaterialModal": {
+        "title": "सामग्री नष्ट करा",
+        "subtitle": "खराब झालेल्या किंवा टाकून दिलेल्या सामग्रीचे प्रमाण प्रविष्ट करा.",
+        "material": "सामग्री",
+        "materialPlaceholder": "सामग्री निवडा",
+        "quantity": "प्रमाण",
+        "reason": "कारण",
+        "reasonPlaceholder": "येथे मजकूर प्रविष्ट करा",
+        "cancel": "रद्द करा",
+        "destroy": "सामग्री नष्ट करा",
+        "destroying": "नष्ट करत आहे...",
+        "errors": {
+            "materialRequired": "सामग्री आवश्यक आहे",
+            "quantityRequired": "प्रमाण आवश्यक आहे",
+            "reasonRequired": "कारण आवश्यक आहे"
+        }
+    },
+    "destroyMaterials": {
+        "addDestroyMaterial": "नष्ट सामग्री जोडा",
+        "success": "सामग्री यशस्वीरित्या नष्ट झाली",
+        "reason": "कारण",
+        "emptyState": {
+            "title": "नष्ट सामग्री नाही",
+            "message": "नष्ट सामग्री सापडली नाही"
+        }
+    },
+    "destroyModal": {
+        "title": "डिस्ट्रॉय {{itemName}}",
+        "subtitle": "जितके प्रमाण साहित्य खराब झाले किंवा टाकून दिले गेले आहे ते प्रविष्ट करा.",
+        "cancel": "रद्द करा"
     }
 }

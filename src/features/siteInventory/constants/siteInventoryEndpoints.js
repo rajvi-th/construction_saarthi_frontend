@@ -12,10 +12,13 @@ export const SITE_INVENTORY_ENDPOINTS = {
     UPDATE: '/site-inventory/edit', // PUT /site-inventory/edit/{id}
     DELETE: '/site-inventory', // DELETE /site-inventory/{id}
     TRANSFER_REQUESTS: '/inventoryItem/transferRequests', // GET /inventoryItem/transferRequests?scope=incoming&projectID=23
-    TRANSFER_APPROVE: '/inventoryItem/transferRequest/approve', // POST /inventoryItem/transferRequest/approve/:workspaceID
+    TRANSFER_APPROVE: '/inventoryItem/transferRequest/approve', // POST /inventoryItem/transferRequest/approve/:transferRequestId
     TRANSFER_REJECT: '/inventoryItem/transferRequest/reject', // POST /inventoryItem/transferRequest/reject/:workspaceID
     ASK_MATERIAL_REQUESTS: '/inventoryItem/askMaterialRequests', // GET /inventoryItem/askMaterialRequests?projectID=23
     REQUEST_MATERIAL: '/inventoryItem/requestMaterial', // POST /inventoryItem/requestMaterial
+    RESTOCK_MATERIAL: '/inventoryItem/restockMaterial', // POST /inventoryItem/restockMaterial
+    RESTOCK_REQUESTS: '/inventoryItem/restockRequests', // GET /inventoryItem/restockRequests?projectID=29&requestStatus=active&inventoryTypeId=2
+    DESTROYED_MATERIALS: '/inventoryItem/destroyedMaterials', // GET /inventoryItem/destroyedMaterials?projectID=23
   },
   // Materials Endpoints
   MATERIALS: {
@@ -32,6 +35,10 @@ export const SITE_INVENTORY_ENDPOINTS = {
     LIST: '/vendors', // GET /vendors - List all vendors
     CREATE: '/vendors/create', // POST /vendors/create - Create new vendor
   },
+  // Inventory Types Endpoints
+  INVENTORY_TYPES: {
+    LIST: '/inventory/all', // GET /inventory/all - List all inventory types
+  },
 };
 
 // Flattened endpoints for easier access
@@ -47,6 +54,9 @@ export const SITE_INVENTORY_ENDPOINTS_FLAT = {
   SITE_INVENTORY_TRANSFER_REJECT: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.TRANSFER_REJECT, // POST /inventoryItem/transferRequest/reject/:workspaceID
   SITE_INVENTORY_ASK_MATERIAL_REQUESTS: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.ASK_MATERIAL_REQUESTS, // GET /inventoryItem/askMaterialRequests
   SITE_INVENTORY_REQUEST_MATERIAL: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.REQUEST_MATERIAL, // POST /inventoryItem/requestMaterial
+  SITE_INVENTORY_RESTOCK_MATERIAL: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.RESTOCK_MATERIAL, // POST /inventoryItem/restockMaterial
+  SITE_INVENTORY_RESTOCK_REQUESTS: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.RESTOCK_REQUESTS, // GET /inventoryItem/restockRequests
+  SITE_INVENTORY_DESTROYED_MATERIALS: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.DESTROYED_MATERIALS, // GET /inventoryItem/destroyedMaterials
   // Materials
   MATERIALS_LIST: SITE_INVENTORY_ENDPOINTS.MATERIALS.LIST, // GET /materials
   MATERIALS_CREATE: SITE_INVENTORY_ENDPOINTS.MATERIALS.CREATE, // POST /materials/create
@@ -56,6 +66,8 @@ export const SITE_INVENTORY_ENDPOINTS_FLAT = {
   // Vendors
   VENDORS_LIST: SITE_INVENTORY_ENDPOINTS.VENDORS.LIST, // GET /vendors
   VENDORS_CREATE: SITE_INVENTORY_ENDPOINTS.VENDORS.CREATE, // POST /vendors/create
+  // Inventory Types
+  INVENTORY_TYPES_LIST: SITE_INVENTORY_ENDPOINTS.INVENTORY_TYPES.LIST, // GET /inventory/all
 };
 
 export default SITE_INVENTORY_ENDPOINTS_FLAT;

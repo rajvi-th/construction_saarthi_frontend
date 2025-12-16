@@ -16,6 +16,13 @@
     "quantity": "ಪ್ರಮಾಣ",
     "costPerUnit": "ಯೂನಿಟ್‌ಗೆ ವೆಚ್ಚ",
     "totalPrice": "ಒಟ್ಟು ಬೆಲೆ",
+    "purchased": "ಖರೀದಿಸಲಾಗಿದೆ",
+    "used": "ಬಳಸಲಾಗಿದೆ",
+    "inStock": "ಸ್ಟಾಕ್‌ನಲ್ಲಿ ಇದೆ",
+    "currentStock": "ಪ್ರಸ್ತುತ ಸ್ಟಾಕ್",
+    "purchasedPrice": "ಖರೀದಿ ಬೆಲೆ",
+    "logUsage": "ಬಳಕೆ ಲಾಗ್",
+    "noLogUsage": "ಬಳಕೆ ಲಾಗ್ ಇತಿಹಾಸ ಲಭ್ಯವಿಲ್ಲ",
     "transfer": "ವರ್ಗಾವಣೆ",
     "actions": {
         "restock": "ಸಾಮಗ್ರಿಗಳನ್ನು ಮರು ಸ್ಟಾಕ್ ಮಾಡಿ",
@@ -62,7 +69,9 @@
     },
     "approveModal": {
         "title": "ವರ್ಗಾವಣೆ ವಿನಂತಿಯನ್ನು ಅನುಮೋದಿಸಿ",
-        "confirmationMessage": "ನೀವು {{fromProject}} ನಿಂದ {{materialName}} ನ ವರ್ಗಾವಣೆ ವಿನಂತಿಯನ್ನು ಅನುಮೋದಿಸಲು ಬಯಸುತ್ತೀರಾ?",
+        "confirmationSimple": "ವರ್ಗಾವಣೆಯನ್ನು ಅನುಮೋದಿಸಲು ನೀವು ಖಚಿತವೇ?",
+        "from": "ಇಂದ",
+        "to": "ಗೆ",
         "quantity": "ಪ್ರಮಾಣ",
         "quantityPlaceholder": "ಪ್ರಮಾಣವನ್ನು ನಮೂದಿಸಿ",
         "costPerUnit": "ಯೂನಿಟ್‌ಗೆ ವೆಚ್ಚ",
@@ -100,9 +109,6 @@
         "updateFailed": "ಸೈಟ್ ಇನ್ವೆಂಟರಿ ವಸ್ತುವನ್ನು ನವೀಕರಿಸಲು ವಿಫಲವಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
         "fetchFailed": "ಸೈಟ್ ಇನ್ವೆಂಟರಿ ವಸ್ತುಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."
     },
-    "purchased": "ಖರೀದಿಸಲಾಗಿದೆ",
-    "currentStock": "ಪ್ರಸ್ತುತ ಸ್ಟಾಕ್",
-    "purchasedPrice": "ಖರೀದಿ ಬೆಲೆ",
     "logUsageModal": {
         "title": "ಬಳಕೆಯನ್ನು ಲಾಗ್ ಮಾಡಿ",
         "subtitle": "ನಿಮ್ಮ ಸೈಟ್‌ನಲ್ಲಿ ಬಳಸಿದ ಪ್ರಮಾಣವನ್ನು ನಮೂದಿಸಿ.",
@@ -239,5 +245,67 @@
             "fileTooLarge": "ಫೈಲ್ ಗಾತ್ರ 10MB ಗಿಂತ ಕಡಿಮೆ ಇರಬೇಕು",
             "createFailed": "ಇನ್ವೆಂಟರಿ ಅಂಶವನ್ನು ರಚಿಸಲು ವಿಫಲವಾಗಿದೆ"
         }
+    },
+    "itemDetails": {
+        "notFound": "ಐಟಂ ಕಂಡುಬಂದಿಲ್ಲ",
+        "backToList": "ಪಟ್ಟಿಗೆ ಹಿಂತಿರುಗಿ",
+        "askForMaterial": "ವಸ್ತುವಿಗಾಗಿ ವಿನಂತಿಸಿ",
+        "transferMaterial": "ವಸ್ತು ವರ್ಗಾಯಿಸಿ",
+        "lastUpdated": "ಕೊನೆಯ ನವೀಕರಣ",
+        "quantity": "ಪ್ರಮಾಣ",
+        "avgCostPerUnit": "ಪ್ರತಿ ಯೂನಿಟ್ ಸರಾಸರಿ ವೆಚ್ಚ",
+        "totalPrice": "ಒಟ್ಟು ಬೆಲೆ",
+        "currentStock": "ಪ್ರಸ್ತುತ ಸ್ಟಾಕ್",
+        "conditionDescription": "ಸ್ಥಿತಿ/ವಿವರಣೆ",
+        "distribution": "ವಿತರಣಾ",
+        "usedInYourSite": "ನಿಮ್ಮ ಸೈಟಿನಲ್ಲಿ ಬಳಸಲಾಗಿದೆ",
+        "noDistribution": "ಯಾವುದೇ ವಿತರಣೆ ಇತಿಹಾಸ ಲಭ್ಯವಿಲ್ಲ",
+        "release": "ರಿಲೀಸ್ ಮಾಡಿ",
+        "status": {
+            "approved": "ಅನುಮೋದಿಸಲಾಗಿದೆ",
+            "pending": "ಬಾಕಿ",
+            "rejected": "ನಿರಾಕರಿಸಲಾಗಿದೆ"
+        }
+    },
+    "releaseModal": {
+        "title": "ರಿಲೀಸ್ {{itemName}}",
+        "subtitle": "ಸೈಟ್‌ನಿಂದ ನೀವು ರಿಲೀಸ್ ಮಾಡಲು ಬಯಸುವ ಪ್ರಮಾಣವನ್ನು ನಮೂದಿಸಿ.",
+        "quantity": "ರಿಲೀಸ್ ಪ್ರಮಾಣ",
+        "cancel": "ರದ್ದುಮಾಡಿ",
+        "release": "ರಿಲೀಸ್ ಮಾಡಿ",
+        "errors": {
+            "quantityRequired": "ಪ್ರಮಾಣ ಅಗತ್ಯವಿದೆ"
+        }
+    },
+    "destroyMaterialModal": {
+        "title": "ವಸ್ತುವನ್ನು ನಾಶಪಡಿಸಿ",
+        "subtitle": "ಹಾನಿಗೊಳಗಾದ ಅಥವಾ ತ್ಯಜಿಸಲಾದ ವಸ್ತುವಿನ ಪ್ರಮಾಣವನ್ನು ನಮೂದಿಸಿ.",
+        "material": "ವಸ್ತು",
+        "materialPlaceholder": "ವಸ್ತುವನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+        "quantity": "ಪ್ರಮಾಣ",
+        "reason": "ಕಾರಣ",
+        "reasonPlaceholder": "ಇಲ್ಲಿ ಪಠ್ಯವನ್ನು ನಮೂದಿಸಿ",
+        "cancel": "ರದ್ದುಮಾಡಿ",
+        "destroy": "ವಸ್ತುವನ್ನು ನಾಶಪಡಿಸಿ",
+        "destroying": "ನಾಶಪಡಿಸಲಾಗುತ್ತಿದೆ...",
+        "errors": {
+            "materialRequired": "ವಸ್ತು ಅಗತ್ಯವಿದೆ",
+            "quantityRequired": "ಪ್ರಮಾಣ ಅಗತ್ಯವಿದೆ",
+            "reasonRequired": "ಕಾರಣ ಅಗತ್ಯವಿದೆ"
+        }
+    },
+    "destroyMaterials": {
+        "addDestroyMaterial": "ನಾಶಪಡಿಸಿದ ವಸ್ತುವನ್ನು ಸೇರಿಸಿ",
+        "success": "ವಸ್ತು ವಿಜಯವಾಗಿ ನಾಶವಾಯಿತು",
+        "reason": "ಕಾರಣ",
+        "emptyState": {
+            "title": "ನಾಶಪಡಿಸಿದ ವಸ್ತುಗಳು ಇಲ್ಲ",
+            "message": "ನಾಶಪಡಿಸಿದ ವಸ್ತುಗಳು ಕಂಡುಬಂದಿಲ್ಲ"
+        }
+    },
+    "destroyModal": {
+        "title": "ಡಿಸ್ಟ್ರಾಯ್ {{itemName}}",
+        "subtitle": "ಹಾನಿಗೊಳಗಾದ ಅಥವಾ ತ್ಯಜಿಸಲಾದ ವಸ್ತುವಿನ ಪ್ರಮಾಣವನ್ನು ನಮೂದಿಸಿ.",
+        "cancel": "ರದ್ದುಮಾಡಿ"
     }
 }

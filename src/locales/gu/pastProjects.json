@@ -1,0 +1,22 @@
+{
+  "title": "મારું ભૂતકાળનું કામ",
+  "emptyTitle": "કોઈ પ્રોજેક્ટ ઉમેરાયો નથી",
+  "emptyMessage": "તમારા પ્રસ્તાવમાં બતાવવા માટે તમારા પ્રોજેક્ટ્સ ઉમેરો.",
+  "addButton": "પ્રોજેક્ટ (સાઇટ) ઉમેરો",
+  "untitled": "અનામ પ્રોજેક્ટ",
+  "addTitle": "પ્રોજેક્ટ (સાઇટ) ઉમેરો",
+  "projectName": "પ્રોજેક્ટ નામ",
+  "projectNamePlaceholder": "પ્રોજેક્ટ નામ દાખલ કરો",
+  "address": "સરનામું",
+  "addressPlaceholder": "સાઇટનું સરનામું દાખલ કરો",
+  "uploadTitle": "ફોટા/ વિડિઓ / દસ્તાવેજો અપલોડ કરો",
+  "uploadImagesVideos": "ઇમેજ/વિડિઓ અપલોડ કરો*",
+  "uploadDocuments": "દસ્તાવેજો અપલોડ કરો",
+  "supportedFormatsLabel": "સમર્થિત ફોર્મેટ:",
+  "supportedFormats": "JPG, PNG, Mp4, PDF",
+  "maxSizeEach": "દરેક 10MB",
+  "uploadButton": "અપલોડ",
+  "addSubmit": "પ્રોજેક્ટ ઉમેરો"
+}
+
+

@@ -12,6 +12,7 @@ export default function FileUpload({
   supportedFormats = 'PDF, JPG, PNG',
   maxSize = 10,
   maxSizeUnit = 'MB',
+  maxSizeText = '',
   onFileSelect,
   className = '',
   accept = '.pdf,.jpg,.jpeg,.png',
@@ -92,7 +93,9 @@ export default function FileUpload({
 
         {/* Supported Formats */}
         <p className="text-xs sm:text-sm text-secondary mb-4 sm:mb-6">
-          {supportedFormatLabel} {supportedFormats} ({maxSize}{maxSizeUnit} EACH)
+          {supportedFormatLabel}{' '}
+          {supportedFormats}{' '}
+          ({maxSizeText || `${maxSize}${maxSizeUnit} EACH`})
         </p>
 
         {/* Upload Button */}

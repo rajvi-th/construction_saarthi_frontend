@@ -1,0 +1,64 @@
+{
+  "pages": {
+    "builders": {
+      "title": "بلڈرز اور کلائنٹس",
+      "noBuilders": "کوئی بلڈر یا کلائنٹ نہیں ملا"
+    },
+    "vendors": {
+      "title": "وینڈرز کا انتظام کریں"
+    }
+  },
+  "searchPlaceholder": "بلڈر تلاش کریں",
+  "searchVendorsPlaceholder": "وینڈرز تلاش کریں",
+  "addBuilder": "بلڈر شامل کریں",
+  "deleteConfirm": "کیا آپ واقعی {{name}} کو حذف کرنا چاہتے ہیں؟",
+  "noDetails": "کوئی اضافی تفصیلات دستیاب نہیں",
+  "expand": "پھیلائیں",
+  "collapse": "سکیڑیں",
+  "menu": {
+    "edit": "ترمیم کریں",
+    "delete": "حذف کریں"
+  },
+  "emptyState": {
+    "noResults": "کوئی نتائج نہیں ملے",
+    "noBuildersClients": "کوئی بلڈر یا کلائنٹ نہیں",
+    "noVendors": "کوئی وینڈرز نہیں",
+    "noResultsMessage": "آپ کی تلاش سے میل کھانے والا کوئی بلڈر یا کلائنٹ نہیں ملا۔ براہ کرم اپنے تلاش کے الفاظ کو ایڈجسٹ کریں۔",
+    "noBuildersClientsMessage": "آپ نے ابھی تک کوئی بلڈر یا کلائنٹ شامل نہیں کیا۔ شروع کرنے کے لیے اپنا پہلا بلڈر یا کلائنٹ شامل کریں۔",
+    "noVendorsMessage": "آپ نے ابھی تک کوئی وینڈر شامل نہیں کیا۔ شروع کرنے کے لیے اپنا پہلا وینڈر شامل کریں۔",
+    "addBuilder": "بلڈر شامل کریں"
+  },
+  "form": {
+    "addBuilder": "بلڈر شامل کریں",
+    "editBuilder": "بلڈر میں ترمیم کریں",
+    "updateBuilder": "بلڈر اپ ڈیٹ کریں",
+    "addVendor": "وینڈر شامل کریں",
+    "editVendor": "وینڈر میں ترمیم کریں",
+    "updateVendor": "وینڈر اپ ڈیٹ کریں",
+    "cancel": "منسوخ کریں",
+    "builderName": "بلڈر کا نام",
+    "vendorName": "وینڈر کا نام",
+    "contactNumber": "رابطہ نمبر",
+    "companyName": "کمپنی کا نام",
+    "address": "پتہ",
+    "changePhoto": "تصویر تبدیل کریں",
+    "placeholders": {
+      "enterName": "نام درج کریں",
+      "phoneNumber": "000 000 0000",
+      "enterCompanyName": "کمپنی کا نام درج کریں",
+      "enterAddress": "پتہ درج کریں"
+    },
+    "errors": {
+      "nameRequired": "بلڈر کا نام ضروری ہے",
+      "phoneRequired": "رابطہ نمبر ضروری ہے",
+      "invalidPhone": "براہ کرم درست فون نمبر درج کریں",
+      "invalidImage": "براہ کرم ایک تصویری فائل منتخب کریں",
+      "imageSize": "تصویر کا سائز 5MB سے کم ہونا چاہیے",
+      "workspaceRequired": "ورک اسپیس ضروری ہے",
+      "createFailed": "بلڈر بنانے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔",
+      "updateFailed": "بلڈر اپ ڈیٹ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔",
+      "fetchFailed": "بلڈر ڈیٹا لوڈ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
+    }
+  }
+}
+

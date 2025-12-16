@@ -14,6 +14,8 @@ export default function LogUsageModal({
   onClose,
   onLogUsage,
   item,
+  title,
+  subtitle,
 }) {
   const { t } = useTranslation('siteInventory');
   
@@ -118,10 +120,10 @@ export default function LogUsageModal({
         {/* Header */}
         <div className="px-6 py-4">
           <h3 className="text-2xl font-medium text-primary">
-            {t('logUsageModal.title', { defaultValue: 'Log Usage' })}
+            {title || t('logUsageModal.title', { defaultValue: 'Log Usage' })}
           </h3>
           <p className="text-base text-secondary mt-2">
-            {t('logUsageModal.subtitle', { defaultValue: 'Enter the quantity used on your site.' })}
+            {subtitle || t('logUsageModal.subtitle', { defaultValue: 'Enter the quantity used on your site.' })}
           </p>
         </div>
 

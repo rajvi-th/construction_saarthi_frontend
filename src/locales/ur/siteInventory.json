@@ -16,6 +16,13 @@
     "quantity": "مقدار",
     "costPerUnit": "فی یونٹ لاگت",
     "totalPrice": "کل قیمت",
+    "purchased": "خریدا گیا",
+    "used": "استعمال کیا گیا",
+    "inStock": "اسٹاک میں",
+    "currentStock": "موجودہ اسٹاک",
+    "purchasedPrice": "خریداری کی قیمت",
+    "logUsage": "استعمال لاگ",
+    "noLogUsage": "استعمال لاگ کی تاریخ دستیاب نہیں ہے",
     "transfer": "منتقلی",
     "actions": {
         "restock": "مواد دوبارہ اسٹاک کریں",
@@ -62,7 +69,9 @@
     },
     "approveModal": {
         "title": "منتقلی کی درخواست منظور کریں",
-        "confirmationMessage": "کیا آپ {{fromProject}} سے {{materialName}} کی منتقلی کی درخواست کو منظور کرنا چاہتے ہیں؟",
+        "confirmationSimple": "کیا آپ منتقلی کو منظور کرنا چاہتے ہیں؟",
+        "from": "سے",
+        "to": "تک",
         "quantity": "مقدار",
         "quantityPlaceholder": "مقدار درج کریں",
         "costPerUnit": "فی یونٹ لاگت",
@@ -100,9 +109,6 @@
         "updateFailed": "سائٹ انوینٹری آئٹم اپ ڈیٹ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔",
         "fetchFailed": "سائٹ انوینٹری آئٹمز لوڈ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
     },
-    "purchased": "خریدا گیا",
-    "currentStock": "موجودہ اسٹاک",
-    "purchasedPrice": "خریداری کی قیمت",
     "logUsageModal": {
         "title": "استعمال لاگ کریں",
         "subtitle": "اپنی سائٹ پر استعمال شدہ مقدار درج کریں۔",
@@ -239,5 +245,67 @@
             "fileTooLarge": "فائل کا سائز 10MB سے کم ہونا چاہیے",
             "createFailed": "انوینٹری آئٹم بنانے میں ناکام"
         }
+    },
+    "itemDetails": {
+        "notFound": "آئٹم نہیں ملا",
+        "backToList": "فہرست پر واپس جائیں",
+        "askForMaterial": "مواد کی درخواست کریں",
+        "transferMaterial": "مواد منتقل کریں",
+        "lastUpdated": "آخری بار اپ ڈیٹ",
+        "quantity": "مقدار",
+        "avgCostPerUnit": "فی یونٹ اوسط لاگت",
+        "totalPrice": "کل قیمت",
+        "currentStock": "موجودہ اسٹاک",
+        "conditionDescription": "حالت/تفصیل",
+        "distribution": "تقسیم",
+        "usedInYourSite": "آپ کی سائٹ پر استعمال ہوا",
+        "noDistribution": "کوئی تقسیم کی ہسٹری دستیاب نہیں",
+        "release": "ریلیز کریں",
+        "status": {
+            "approved": "منظور شدہ",
+            "pending": "زیر التواء",
+            "rejected": "مسترد"
+        }
+    },
+    "releaseModal": {
+        "title": "ریلیز {{itemName}}",
+        "subtitle": "وہ مقدار درج کریں جو آپ سائٹ سے ریلیز کرنا چاہتے ہیں۔",
+        "quantity": "ریلیز مقدار",
+        "cancel": "منسوخ کریں",
+        "release": "ریلیز کریں",
+        "errors": {
+            "quantityRequired": "مقدار درکار ہے"
+        }
+    },
+    "destroyMaterialModal": {
+        "title": "مواد تباہ کریں",
+        "subtitle": "اس مواد کی مقدار درج کریں جو خراب یا ضائع ہو چکا ہے۔",
+        "material": "مواد",
+        "materialPlaceholder": "مواد منتخب کریں",
+        "quantity": "مقدار",
+        "reason": "وجہ",
+        "reasonPlaceholder": "یہاں متن درج کریں",
+        "cancel": "منسوخ کریں",
+        "destroy": "مواد تباہ کریں",
+        "destroying": "تباہ کیا جا رہا ہے...",
+        "errors": {
+            "materialRequired": "مواد ضروری ہے",
+            "quantityRequired": "مقدار ضروری ہے",
+            "reasonRequired": "وجہ ضروری ہے"
+        }
+    },
+    "destroyMaterials": {
+        "addDestroyMaterial": "تباہ شدہ مواد شامل کریں",
+        "success": "مواد کامیابی سے تباہ ہو گیا",
+        "reason": "وجہ",
+        "emptyState": {
+            "title": "تباہ شدہ مواد نہیں",
+            "message": "تباہ شدہ مواد نہیں ملا"
+        }
+    },
+    "destroyModal": {
+        "title": "تباہ کریں {{itemName}}",
+        "subtitle": "اس مواد کی مقدار درج کریں جو خراب یا ضائع ہو چکا ہے۔",
+        "cancel": "منسوخ کریں"
     }
 }

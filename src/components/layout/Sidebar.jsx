@@ -91,7 +91,7 @@ const Sidebar = () => {
       labelKey: "sidebar.mainMenu.buildersClients",
       icon: builderClient,
       activeIcon: builderLight,
-      path: "/clients",
+      path: ROUTES_FLAT.BUILDERS,
     },
     {
       label: "Manage Vendors",

@@ -50,9 +50,29 @@ const Coupon = lazy(() => import('../features/subscription/pages/Coupon'));
 const SiteInventory = lazy(() => import('../features/siteInventory/pages/SiteInventory'));
 const AddSiteInventory = lazy(() => import('../features/siteInventory/pages/AddSiteInventory'));
 const EditSiteInventory = lazy(() => import('../features/siteInventory/pages/EditSiteInventory'));
+const InventoryItemDetails = lazy(() => import('../features/siteInventory/pages/InventoryItemDetails'));
+const ConsumableItemDetails = lazy(() => import('../features/siteInventory/pages/ConsumableItemDetails'));
 const AddNewAsk = lazy(() => import('../features/siteInventory/pages/AddNewAsk'));
 const AddStock = lazy(() => import('../features/siteInventory/pages/AddStock'));
 
+// Builder Client
+const Builders = lazy(() => import('../features/builderClient/pages/Builders'));
+const AddBuilder = lazy(() => import('../features/builderClient/pages/AddBuilder'));
+const EditBuilder = lazy(() => import('../features/builderClient/pages/EditBuilder'));
+
+// Vendors
+const Vendors = lazy(() => import('../features/vendors/pages/Vendors'));
+const AddVendor = lazy(() => import('../features/vendors/pages/AddVendor'));
+const EditVendor = lazy(() => import('../features/vendors/pages/EditVendor'));
+
+// Past Projects
+const PastProjects = lazy(() => import('../features/pastProject/pages/PastProjects'));
+const AddPastProject = lazy(() => import('../features/pastProject/pages/AddPastProject'));
+
+// Project Gallery
+const ProjectGallery = lazy(() => import('../features/projectGallery/pages/ProjectGallery'));
+const ProjectGalleryDetails = lazy(() => import('../features/projectGallery/pages/ProjectGalleryDetails'));
+const UploadMedia = lazy(() => import('../features/projectGallery/pages/UploadMedia'));
 
 // Projects
 const Projects = lazy(() => import('../features/projects/pages/Projects'));
@@ -70,8 +90,6 @@ const EditPastProject = lazy(() => import('../features/pastProject/pages/EditPas
 // Workers (will be created later)
 // const Workers = lazy(() => import('../features/workers/pages/Workers'));
 
-// Vendors (will be created later)
-// const Vendors = lazy(() => import('../features/vendors/pages/Vendors'));
 
 // Materials (will be created later)
 // const Materials = lazy(() => import('../features/materials/pages/Materials'));
@@ -113,7 +131,6 @@ function AppRoutes() {
             <Route path={ROUTES_FLAT.PROJECTS} element={<Projects />} />
             <Route path={ROUTES_FLAT.PROJECT_DETAILS} element={<ProjectDetails />} />
             <Route path={ROUTES_FLAT.ADD_NEW_PROJECT} element={<AddNewProject />} />
-            {/* Reuse AddNewProject page for editing an existing project */}
             <Route path={ROUTES_FLAT.EDIT_PROJECT} element={<AddNewProject />} />
             <Route path={ROUTES_FLAT.SETTINGS} element={<Settings />} />
             <Route path={ROUTES_FLAT.MEMBERS} element={<Members />} />
@@ -131,12 +148,25 @@ function AppRoutes() {
             <Route path={ROUTES_FLAT.SITE_INVENTORY} element={<SiteInventory />} />
             <Route path={ROUTES_FLAT.ADD_SITE_INVENTORY} element={<AddSiteInventory />} />
             <Route path={ROUTES_FLAT.EDIT_SITE_INVENTORY} element={<EditSiteInventory />} />
+            <Route path={ROUTES_FLAT.INVENTORY_ITEM_DETAILS} element={<InventoryItemDetails />} />
+            <Route path={ROUTES_FLAT.CONSUMABLE_ITEM_DETAILS} element={<ConsumableItemDetails />} />
             <Route path={ROUTES_FLAT.ADD_NEW_ASK} element={<AddNewAsk />} />
             <Route path={ROUTES_FLAT.ADD_STOCK} element={<AddStock />} />
             <Route path={ROUTES_FLAT.PAST_WORK} element={<PastWork />} />
             <Route path={ROUTES_FLAT.PAST_WORK_DETAILS} element={<PastProjectDetail />} />
             <Route path={ROUTES.PAST_WORK.ADD_NEW} element={<EditPastProject />} />
             <Route path={ROUTES_FLAT.EDIT_PAST_WORK} element={<EditPastProject />} />
+            <Route path={ROUTES_FLAT.BUILDERS} element={<Builders />} />
+            <Route path={ROUTES_FLAT.ADD_BUILDER} element={<AddBuilder />} />
+            <Route path={ROUTES_FLAT.EDIT_BUILDER} element={<EditBuilder />} />
+            <Route path={ROUTES_FLAT.VENDORS} element={<Vendors />} />
+            <Route path={ROUTES_FLAT.ADD_VENDOR} element={<AddVendor />} />
+            <Route path={ROUTES_FLAT.EDIT_VENDOR} element={<EditVendor />} />
+            <Route path={ROUTES_FLAT.PAST_PROJECTS} element={<PastProjects />} />
+            <Route path={ROUTES_FLAT.PAST_PROJECTS_ADD} element={<AddPastProject />} />
+            <Route path={ROUTES_FLAT.PROJECT_GALLERY} element={<ProjectGallery />} />
+            <Route path={ROUTES_FLAT.PROJECT_GALLERY_DETAILS} element={<ProjectGalleryDetails />} />
+            <Route path={ROUTES_FLAT.PROJECT_GALLERY_UPLOAD} element={<UploadMedia />} />
           </Route>
         </Route>
 

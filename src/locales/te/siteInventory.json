@@ -16,6 +16,13 @@
     "quantity": "పరిమాణం",
     "costPerUnit": "యూనిట్ కు ఖర్చు",
     "totalPrice": "మొత్తం ధర",
+    "purchased": "కొనుగోలు చేయబడింది",
+    "used": "ఉపయోగించబడింది",
+    "inStock": "స్టాక్‌లో ఉంది",
+    "currentStock": "ప్రస్తుత స్టాక్",
+    "purchasedPrice": "కొనుగోలు ధర",
+    "logUsage": "ఉపయోగ లాగ్",
+    "noLogUsage": "ఉపయోగ లాగ్ చరిత్ర అందుబాటులో లేదు",
     "transfer": "బదిలీ",
     "actions": {
         "restock": "సామగ్రిని మళ్లీ స్టాక్ చేయండి",
@@ -62,7 +69,9 @@
     },
     "approveModal": {
         "title": "బదిలీ అభ్యర్థనను అనుమోదించండి",
-        "confirmationMessage": "మీరు {{fromProject}} నుండి {{materialName}} యొక్క బదిలీ అభ్యర్థనను అనుమోదించాలనుకుంటున్నారా?",
+        "confirmationSimple": "మీరు బదిలీని అనుమోదించాలనుకుంటున్నారా?",
+        "from": "నుండి",
+        "to": "వరకు",
         "quantity": "పరిమాణం",
         "quantityPlaceholder": "పరిమాణం నమోదు చేయండి",
         "costPerUnit": "యూనిట్ కు ఖర్చు",
@@ -100,9 +109,6 @@
         "updateFailed": "సైట్ ఇన్వెంటరీ అంశాన్ని నవీకరించడంలో విఫలమైంది. దయచేసి మళ్లీ ప్రయత్నించండి.",
         "fetchFailed": "సైట్ ఇన్వెంటరీ అంశాలను లోడ్ చేయడంలో విఫలమైంది. దయచేసి మళ్లీ ప్రయత్నించండి."
     },
-    "purchased": "కొనుగోలు చేయబడింది",
-    "currentStock": "ప్రస్తుత స్టాక్",
-    "purchasedPrice": "కొనుగోలు ధర",
     "logUsageModal": {
         "title": "వినియోగాన్ని లాగ్ చేయండి",
         "subtitle": "మీ సైట్‌లో ఉపయోగించిన పరిమాణాన్ని నమోదు చేయండి.",
@@ -239,5 +245,67 @@
             "fileTooLarge": "ఫైల్ పరిమాణం 10MB కంటే తక్కువగా ఉండాలి",
             "createFailed": "ఇన్వెంటరీ అంశాన్ని సృష్టించడంలో విఫలమైంది"
         }
+    },
+    "itemDetails": {
+        "notFound": "అంశం కనబడలేదు",
+        "backToList": "జాబితాకు తిరిగి వెళ్ళండి",
+        "askForMaterial": "పదార్థాన్ని అభ్యర్థించండి",
+        "transferMaterial": "పదార్థాన్ని బదిలీ చేయండి",
+        "lastUpdated": "చివరిసారిగా నవీకరించబడింది",
+        "quantity": "పరిమాణం",
+        "avgCostPerUnit": "ప్రతి యూనిట్‌కు సగటు ఖర్చు",
+        "totalPrice": "మొత్తం ధర",
+        "currentStock": "ప్రస్తుతం ఉన్న స్టాక్",
+        "conditionDescription": "పరిస్థితి/వివరణ",
+        "distribution": "పంపిణీ",
+        "usedInYourSite": "మీ సైటులో ఉపయోగించబడింది",
+        "noDistribution": "పంపిణీ చరిత్ర అందుబాటులో లేదు",
+        "release": "రిలీజ్ చేయండి",
+        "status": {
+            "approved": "అంగీకరించబడింది",
+            "pending": "పెండింగ్‌లో ఉంది",
+            "rejected": "తిరస్కరించబడింది"
+        }
+    },
+    "releaseModal": {
+        "title": "రిలీజ్ {{itemName}}",
+        "subtitle": "సైట్ నుండి విడుదల చేయాలనుకునే పరిమాణాన్ని నమోదు చేయండి.",
+        "quantity": "రిలీజ్ పరిమాణం",
+        "cancel": "రద్దు చేయండి",
+        "release": "రిలీజ్ చేయండి",
+        "errors": {
+            "quantityRequired": "పరిమాణం అవసరం"
+        }
+    },
+    "destroyMaterialModal": {
+        "title": "పదార్థాన్ని నాశనం చేయండి",
+        "subtitle": "నష్టపోయిన లేదా విసరిపెట్టిన పదార్థం పరిమాణాన్ని నమోదు చేయండి.",
+        "material": "పదార్థం",
+        "materialPlaceholder": "పదార్థాన్ని ఎంచుకోండి",
+        "quantity": "పరిమాణం",
+        "reason": "కారణం",
+        "reasonPlaceholder": "ఇక్కడ టెక్స్ట్‌ను నమోదు చేయండి",
+        "cancel": "రద్దు చేయండి",
+        "destroy": "పదార్థాన్ని నాశనం చేయండి",
+        "destroying": "నాశనం చేస్తోంది...",
+        "errors": {
+            "materialRequired": "పదార్థం అవసరం",
+            "quantityRequired": "పరిమాణం అవసరం",
+            "reasonRequired": "కారణం అవసరం"
+        }
+    },
+    "destroyMaterials": {
+        "addDestroyMaterial": "నాశనం పదార్థాన్ని జోడించండి",
+        "success": "పదార్థం విజయవంతంగా నాశనమైంది",
+        "reason": "కారణం",
+        "emptyState": {
+            "title": "నాశనం పదార్థాలు లేవు",
+            "message": "నాశనం పదార్థాలు కనుగొనబడలేదు"
+        }
+    },
+    "destroyModal": {
+        "title": "నాశనం చేయండి {{itemName}}",
+        "subtitle": "నష్టపోయిన లేదా విసరిపెట్టిన పదార్థం పరిమాణాన్ని నమోదు చేయండి.",
+        "cancel": "రద్దు చేయండి"
     }
 }

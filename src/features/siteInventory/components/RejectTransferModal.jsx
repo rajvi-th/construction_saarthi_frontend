@@ -17,7 +17,7 @@ export default function RejectTransferModal({
 }) {
   const { t } = useTranslation('siteInventory');
   
-  const [rejectionType, setRejectionType] = useState('voice'); // 'voice', 'text', 'both'
+  const [rejectionType, setRejectionType] = useState('voice');
   const [voiceNote, setVoiceNote] = useState(null);
   const [textReason, setTextReason] = useState('');
   const [errors, setErrors] = useState({});

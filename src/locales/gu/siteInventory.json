@@ -16,6 +16,13 @@
     "quantity": "માત્રા",
     "costPerUnit": "પ્રતિ એકમ ખર્ચ",
     "totalPrice": "કુલ કિંમત",
+    "purchased": "ખરીદ્યું",
+    "used": "ઉપયોગ કર્યું",
+    "inStock": "સ્ટોકમાં",
+    "currentStock": "વર્તમાન સ્ટોક",
+    "purchasedPrice": "ખરીદી કિંમત",
+    "logUsage": "ઉપયોગ લોગ",
+    "noLogUsage": "કોઈ ઉપયોગ લોગ ઇતિહાસ ઉપલબ્ધ નથી",
     "transfer": "સ્થાનાંતરણ",
     "actions": {
         "restock": "સામગ્રી પુનઃ સ્ટોક કરો",
@@ -62,7 +69,9 @@
     },
     "approveModal": {
         "title": "ટ્રાન્સફર વિનંતી મંજૂર કરો",
-        "confirmationMessage": "શું તમે {{fromProject}} થી {{materialName}} ના ટ્રાન્સફર વિનંતીને મંજૂર કરવા માંગો છો?",
+        "confirmationSimple": "શું તમે આ ટ્રાન્સફર મંજૂર કરવા માંગો છો?",
+        "from": "થી",
+        "to": "સુધી",
         "quantity": "માત્રા",
         "quantityPlaceholder": "માત્રા દાખલ કરો",
         "costPerUnit": "પ્રતિ એકમ ખર્ચ",
@@ -100,9 +109,6 @@
         "updateFailed": "સાઇટ ઇન્વેન્ટરી આઇટમ અપડેટ કરવામાં અસફળ. કૃપા કરીને ફરી પ્રયાસ કરો.",
         "fetchFailed": "સાઇટ ઇન્વેન્ટરી આઇટમ્સ લોડ કરવામાં અસફળ. કૃપા કરીને ફરી પ્રયાસ કરો."
     },
-    "purchased": "ખરીદ્યું",
-    "currentStock": "વર્તમાન સ્ટોક",
-    "purchasedPrice": "ખરીદી કિંમત",
     "logUsageModal": {
         "title": "ઉપયોગ લોગ કરો",
         "subtitle": "તમારી સાઇટ પર ઉપયોગમાં લેવાયેલી માત્રા દાખલ કરો.",
@@ -226,5 +232,67 @@
             "fileTooLarge": "ફાઇલનું કદ 10MB કરતાં ઓછું હોવું જોઈએ",
             "createFailed": "ઇન્વેન્ટરી આઇટમ બનાવવામાં અસફળ"
         }
+    },
+    "itemDetails": {
+        "notFound": "આઇટમ મળ્યો નથી",
+        "backToList": "યાદી પર પાછા જાઓ",
+        "askForMaterial": "સામગ્રી માટે વિનંતી કરો",
+        "transferMaterial": "સામગ્રી ટ્રાન્સફર કરો",
+        "lastUpdated": "છેલ્લે અપડેટ",
+        "quantity": "માત્રા",
+        "avgCostPerUnit": "સરેરાશ પ્રતિ એકમ ખર્ચ",
+        "totalPrice": "કુલ કિંમત",
+        "currentStock": "વર્તમાન સ્ટોક",
+        "conditionDescription": "સ્થિતિ/વર્ણન",
+        "distribution": "વિતરણ",
+        "usedInYourSite": "તમારી સાઇટ પર ઉપયોગ થયું",
+        "noDistribution": "કોઈ વિતરણ ઇતિહાસ ઉપલબ્ધ નથી",
+        "release": "રિલીઝ કરો",
+        "status": {
+            "approved": "મંજૂર",
+            "pending": "લંબિત",
+            "rejected": "નકારવામાં આવ્યું"
+        }
+    },
+    "releaseModal": {
+        "title": "રિલીઝ {{itemName}}",
+        "subtitle": "સાઇટમાંથી રિલીઝ કરવા માંગો છો એટલી માત્રા દાખલ કરો.",
+        "quantity": "રિલીઝ માત્રા",
+        "cancel": "રદ કરો",
+        "release": "રિલીઝ કરો",
+        "errors": {
+            "quantityRequired": "માત્રા આવશ્યક છે"
+        }
+    },
+    "destroyMaterialModal": {
+        "title": "સામગ્રી નષ્ટ કરો",
+        "subtitle": "નુકસાન પહોંચાડેલી અથવા કાઢી નાખેલી સામગ્રીની માત્રા દાખલ કરો.",
+        "material": "સામગ્રી",
+        "materialPlaceholder": "સામગ્રી પસંદ કરો",
+        "quantity": "માત્રા",
+        "reason": "કારણ",
+        "reasonPlaceholder": "અહીં ટેક્સ્ટ દાખલ કરો",
+        "cancel": "રદ કરો",
+        "destroy": "સામગ્રી નષ્ટ કરો",
+        "destroying": "નષ્ટ કરી રહ્યા છીએ...",
+        "errors": {
+            "materialRequired": "સામગ્રી આવશ્યક છે",
+            "quantityRequired": "માત્રા આવશ્યક છે",
+            "reasonRequired": "કારણ આવશ્યક છે"
+        }
+    },
+    "destroyMaterials": {
+        "addDestroyMaterial": "નષ્ટ સામગ્રી ઉમેરો",
+        "success": "સામગ્રી સફળતાપૂર્વક નષ્ટ થઈ",
+        "reason": "કારણ",
+        "emptyState": {
+            "title": "કોઈ નષ્ટ સામગ્રી નથી",
+            "message": "કોઈ નષ્ટ સામગ્રી મળી નથી"
+        }
+    },
+    "destroyModal": {
+        "title": "નષ્ટ કરો {{itemName}}",
+        "subtitle": "નુકસાન પહોંચાડેલી અથવા કાઢી નાખેલી સામગ્રીની માત્રા દાખલ કરો.",
+        "cancel": "રદ કરો"
     }
 }

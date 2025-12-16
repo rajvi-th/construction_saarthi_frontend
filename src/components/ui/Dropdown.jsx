@@ -27,6 +27,7 @@ export default function Dropdown({
   workspaceId = null,
   customModal: CustomModal = null,
   customModalProps = {},
+  position = 'bottom', // 'top' or 'bottom'
 }) {
   const { t } = useTranslation('common');
   const [isOpen, setIsOpen] = useState(false);
@@ -90,7 +91,9 @@ export default function Dropdown({
       )}
 
       {isOpen && (
-        <div className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-64 overflow-auto px-2 py-2">
+        <div className={`absolute z-50 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-64 overflow-auto px-2 py-2 ${
+          position === 'top' ? 'bottom-full mb-1' : 'top-full mt-1'
+        }`}>
           {options.length === 0 && (
             <div className="px-4 py-3 text-sm text-gray-500 text-center">
               No options available

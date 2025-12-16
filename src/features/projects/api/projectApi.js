@@ -60,8 +60,7 @@ export const getProjectDetails = async (projectId, workspaceId = null) => {
     // Try to fetch from details endpoint first
     const response = await http.get(`${PROJECT_ENDPOINTS_FLAT.PROJECT_DETAILS}/${projectId}`);
     
-    // Handle response structure
-    const projectData = response?.data || response?.project || response || null;
+    const projectData = response?.project || response?.data?.project || response?.data || response || null;
     
     if (projectData) {
       return projectData;

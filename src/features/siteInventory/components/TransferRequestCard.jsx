@@ -3,7 +3,7 @@
  * Displays a single transfer request with status and actions
  */
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { X, Check, Play, Pause } from 'lucide-react';
 import StatusBadge from '../../../components/ui/StatusBadge';
 import ApproveTransferModal from './ApproveTransferModal';
@@ -17,28 +17,74 @@ export default function TransferRequestCard({
   formatCurrency,
 }) {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [audioDuration, setAudioDuration] = useState(0);
+  const [audioCurrentTime, setAudioCurrentTime] = useState(0);
+  const audioRef = useRef(null);
   const [isApproveModalOpen, setIsApproveModalOpen] = useState(false);
 
   const {
-    id,
     quantity,
+    item_count,
     materialName,
-    specification,
     fromProject,
     toProject,
+    whichProject,
+    to_project,
     status,
     timestamp,
     rejectionReason,
-    rejectionAudio,
   } = request;
+
+  // Normalize rejection audio URL from API
+  const rejectionAudio =
+    request.rejection_audio_url || request.rejectionAudio || null;
+
+  // Prefer quantity, but fall back to item_count from API
+  const displayQuantity = quantity ?? item_count ?? 0;
+
+  // Normalized project labels for display - names only (no ID fallback)
+  const fromProjectId = fromProject || whichProject;
+  const toProjectId = toProject || to_project;
+
+  const fromProjectLabel =
+    request.fromProjectname ||
+    request.fromProjectName ||
+    request.from_project_name ||
+    '';
+
+  const toProjectLabel =
+    request.toProject ||
+    request.to_project_name ||
+    '';
+
+  // Data passed to ApproveTransferModal (quantity + from/to project)
+  const approveModalRequest = {
+    ...request,
+    quantity: displayQuantity,
+    fromProject: fromProjectLabel || fromProjectId || '',
+    toProject: toProjectLabel || toProjectId || '',
+  };
+
+  const formatSeconds = (seconds) => {
+    if (!seconds || Number.isNaN(seconds)) return '00:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins.toString().padStart(2, '0')}:${secs
+      .toString()
+      .padStart(2, '0')}`;
+  };
 
   const handleApproveClick = () => {
     setIsApproveModalOpen(true);
   };
 
-  const handleApprove = (approvedData) => {
-    onApprove?.(approvedData);
-    setIsApproveModalOpen(false);
+  const handleApprove = async (approvedData) => {
+    try {
+      await onApprove?.(approvedData);
+      setIsApproveModalOpen(false);
+    } catch (error) {
+      console.error('Error in handleApprove:', error);
+    }
   };
 
   const handleReject = () => {
@@ -46,8 +92,18 @@ export default function TransferRequestCard({
   };
 
   const toggleAudio = () => {
-    setIsPlaying(!isPlaying);
-    // TODO: Implement actual audio playback
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (audio.paused) {
+      audio
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch((err) => console.log('Audio play error:', err));
+    } else {
+      audio.pause();
+      setIsPlaying(false);
+    }
   };
 
   return (
@@ -56,12 +112,22 @@ export default function TransferRequestCard({
       <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
         <div className="flex-1 w-full">
           <p className="text-sm sm:text-base text-secondary flex flex-wrap items-center gap-1 mb-3 sm:mb-0">
-            <span className="font-medium text-primary">{quantity} </span> 
+            <span className="font-medium text-primary">{displayQuantity} </span> 
             <span>{materialName}</span>
-            <span>{t('transferRequests.beingSent', { defaultValue: 'are being sent from your project' })}</span>
-            <span className="font-medium text-primary">{fromProject}</span>
-            <span>{t('transferRequests.to', { defaultValue: 'to' })}</span>
-            <span className="font-medium text-primary">{toProject}</span>
+            <span>
+              {t('transferRequests.beingSent', {
+                defaultValue: 'are being sent from',
+              })}
+            </span>
+            {toProjectLabel && (
+              <span className="font-medium text-primary">{toProjectLabel}</span>
+            )}
+            <span>
+              {t('transferRequests.to', { defaultValue: 'to your project' })}
+            </span>
+            {fromProjectLabel && (
+              <span className="font-medium text-primary">{fromProjectLabel}</span>
+            )}
           </p>
           
           {/* Status Badge and Timestamp for Approved/Rejected */}
@@ -118,26 +184,62 @@ export default function TransferRequestCard({
           </p>
           
           <div className="space-y-3">
-            {/* Audio Player */}
+            {/* Audio Player - same style as AskForMaterialCard */}
             {rejectionAudio && (
-              <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg w-full sm:w-fit">
-                <button
-                  onClick={toggleAudio}
-                  className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center hover:bg-[#9F290A] transition-colors cursor-pointer"
-                >
-                  {isPlaying ? (
-                    <Pause className="w-5 h-5 text-white" />
-                  ) : (
-                    <Play className="w-5 h-5 text-white ml-0.5" fill="currentColor" />
-                  )}
-                </button>
-                <div className="flex-1 min-w-0 sm:min-w-[200px]">
-                  <div className="w-full h-1 bg-gray-200 rounded-full overflow-hidden">
-                    <div className="h-full bg-accent" style={{ width: '30%' }}></div>
+              <>
+                <audio
+                  ref={audioRef}
+                  src={rejectionAudio}
+                  type="audio/aac"
+                  preload="metadata"
+                  onLoadedMetadata={() => {
+                    setAudioDuration(audioRef.current?.duration || 0);
+                  }}
+                  onCanPlayThrough={() => {
+                    if (!audioDuration && audioRef.current) {
+                      setAudioDuration(audioRef.current.duration || 0);
+                    }
+                  }}
+                  onTimeUpdate={() => {
+                    setAudioCurrentTime(audioRef.current?.currentTime || 0);
+                  }}
+                  onEnded={() => {
+                    setIsPlaying(false);
+                    setAudioCurrentTime(0);
+                  }}
+                />
+
+                <div className="flex items-center gap-3 px-3 py-2 bg-[#F5F5F7] rounded-full w-full max-w-xs">
+                  <button
+                    onClick={toggleAudio}
+                    className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center hover:bg-[#9F290A] transition-colors cursor-pointer"
+                  >
+                    {isPlaying ? (
+                      <Pause className="w-5 h-5" />
+                    ) : (
+                      <Play className="w-5 h-5 ml-0.5" />
+                    )}
+                  </button>
+
+                  <div className="flex-1 flex items-center gap-2">
+                    <div className="relative w-full h-1.5 bg-[#E5E5EA] rounded-full">
+                      <div
+                        className="h-full bg-accent rounded-full"
+                        style={{
+                          width:
+                            audioDuration > 0
+                              ? `${(audioCurrentTime / audioDuration) * 100}%`
+                              : '0%',
+                        }}
+                      ></div>
+                    </div>
+
+                    <span className="text-[11px] text-primary">
+                      {formatSeconds(audioDuration - audioCurrentTime)}
+                    </span>
                   </div>
-                  <p className="text-xs text-secondary mt-1">00:12</p>
                 </div>
-              </div>
+              </>
             )}
             
             {/* Text Reason */}
@@ -155,7 +257,7 @@ export default function TransferRequestCard({
         isOpen={isApproveModalOpen}
         onClose={() => setIsApproveModalOpen(false)}
         onApprove={handleApprove}
-        request={request}
+        request={approveModalRequest}
         formatCurrency={formatCurrency}
       />
     </div>

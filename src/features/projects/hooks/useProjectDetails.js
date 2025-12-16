@@ -73,7 +73,12 @@ export const useProjectDetails = (projectId, workspaceId) => {
       }
     };
 
-    const profilePhotoUrl = extractProfilePhotoUrl(projectData.profilePhoto);
+    // Extract profilePhoto from media array if available
+    const mediaArray = projectData?.media || [];
+    const profilePhotoFromMedia = mediaArray.find(
+      (item) => item.typeName === 'profilePhoto' || item.typeId === '1' || item.typeId === 1
+    );
+    const profilePhotoUrl = profilePhotoFromMedia?.url || extractProfilePhotoUrl(projectData.profilePhoto);
 
     return {
       id: projectData.id || projectData.project_id,
@@ -83,8 +88,8 @@ export const useProjectDetails = (projectId, workspaceId) => {
       status: projectData.status || 'in_progress',
       progress: details.progress || projectData.progress || 0,
       completion_percentage: details.completion_percentage || projectData.completion_percentage || 0,
-      profile_photo: profilePhotoUrl,
-      image: profilePhotoUrl,
+      profilePhoto: profilePhotoUrl, // Also add as profilePhoto for backward compatibility
+      media: mediaArray, // Preserve media array
       builder_name: details.builderName || projectData.builder_name || '',
       contact_number: details.contactNumber || projectData.contact_number || '',
       builder_company: details.builderCompany || projectData.builder_company || '',

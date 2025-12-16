@@ -73,12 +73,29 @@ export const useProjects = (workspaceId) => {
     setIsLoading(true);
 
     const s = debouncedSearch.toLowerCase();
-    const status = statusFilter.toLowerCase();
+    const status = statusFilter ? statusFilter.toLowerCase() : '';
 
     const results = projects.filter((p) => {
-      const matchesStatus = !status || p.status.toLowerCase() === status;
+      // Status filter: match exact status or handle variations
+      const projectStatus = (p.status || '').toLowerCase();
+      let matchesStatus = true;
+      
+      if (status) {
+        // Handle status variations
+        if (status === 'in_progress' || status === 'in process') {
+          matchesStatus = projectStatus === 'in_progress' || projectStatus === 'in process' || projectStatus === 'inprocess';
+        } else if (status === 'completed') {
+          matchesStatus = projectStatus === 'completed' || projectStatus === 'complete';
+        } else if (status === 'upcoming') {
+          matchesStatus = projectStatus === 'upcoming' || projectStatus === 'pending' || projectStatus === 'not_started';
+        } else {
+          matchesStatus = projectStatus === status;
+        }
+      }
+      
       if (!matchesStatus) return false;
 
+      // Search filter
       const target = `${p.name} ${p.address}`.toLowerCase();
       return target.includes(s);
     });

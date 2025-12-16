@@ -11,16 +11,21 @@ import NumberInput from '../../../components/ui/NumberInput';
 import Dropdown from '../../../components/ui/Dropdown';
 import Button from '../../../components/ui/Button';
 import { ROUTES_FLAT } from '../../../constants/routes';
-import { getVendorsList, createVendor } from '../api/siteInventoryApi';
+import { getVendorsList, createVendor, restockMaterial } from '../api/siteInventoryApi';
 import { showSuccess, showError } from '../../../utils/toast';
+import { useAuth } from '../../../hooks/useAuth';
 import AddVendorModal from '../components/AddVendorModal';
 
 export default function AddStock() {
   const { t } = useTranslation('siteInventory');
   const navigate = useNavigate();
   const location = useLocation();
+  const { selectedWorkspace } = useAuth();
   
-  const { request, projectId, projectName } = location.state || {};
+  const { request, item, projectId, projectName } = location.state || {};
+  
+  // Use item if available (from InventoryItemCard restock), otherwise use request (from RestockRequestCard)
+  const restockData = item || request;
   
   const [quantity, setQuantity] = useState('');
   const [costPerUnit, setCostPerUnit] = useState('');
@@ -32,13 +37,27 @@ export default function AddStock() {
   const [isLoadingVendors, setIsLoadingVendors] = useState(false);
   const [isAddVendorModalOpen, setIsAddVendorModalOpen] = useState(false);
 
-  // Get unit from request
-  const unit = request?.quantityUnit || 'piece';
+  // Get unit from restockData (item or request)
+  // For item: check material.unitId or quantityUnit
+  // For request: check quantityUnit
+  const unit = restockData?.quantityUnit || 
+               restockData?.unit || 
+               restockData?.material?.unitName || 
+               (restockData?.material?.unitId ? `Unit ${restockData.material.unitId}` : 'piece');
+  
+  // Get material name
+  const materialName = restockData?.material?.name || 
+                       restockData?.materialName || 
+                       restockData?.name || 
+                       restockData?.itemName || 
+                       '';
 
   // Fetch vendors from API
   useEffect(() => {
-    loadVendors();
-  }, []);
+    if (selectedWorkspace) {
+      loadVendors();
+    }
+  }, [selectedWorkspace]);
 
   // Calculate total price when quantity or cost per unit changes
   useEffect(() => {
@@ -57,14 +76,23 @@ export default function AddStock() {
   }, [quantity, costPerUnit]);
 
   const loadVendors = async () => {
+    if (!selectedWorkspace) {
+      return;
+    }
+    
     try {
       setIsLoadingVendors(true);
-      const response = await getVendorsList();
+      const response = await getVendorsList(selectedWorkspace);
       
       // Handle different response structures
+      // API response structure: { users: [...] } or direct array
       let vendorsArray = [];
       
-      if (Array.isArray(response?.data)) {
+      if (Array.isArray(response?.users)) {
+        vendorsArray = response.users;
+      } else if (Array.isArray(response?.data?.users)) {
+        vendorsArray = response.data.users;
+      } else if (Array.isArray(response?.data)) {
         vendorsArray = response.data;
       } else if (Array.isArray(response?.data?.data)) {
         vendorsArray = response.data.data;
@@ -75,10 +103,13 @@ export default function AddStock() {
       }
       
       // Transform vendors to dropdown options format
-      const options = vendorsArray.map((vendor) => ({
-        value: vendor.id || vendor._id || vendor.vendorId,
-        label: vendor.name || vendor.vendorName || vendor.label || vendor,
-      }));
+      const options = vendorsArray.map((vendor) => {
+        const vendorLabel = vendor.full_name || vendor.name || vendor.vendorName || vendor.label || 'Unknown Vendor';
+        return {
+          value: vendor.id || vendor._id || vendor.vendorId,
+          label: String(vendorLabel), // Ensure it's always a string
+        };
+      });
       
       setVendorOptions(options);
     } catch (error) {
@@ -90,12 +121,20 @@ export default function AddStock() {
   };
 
   const handleAddNewVendor = async (vendorData) => {
+    if (!selectedWorkspace) {
+      showError(t('addStock.errors.workspaceRequired', { defaultValue: 'Workspace is required' }));
+      return;
+    }
+    
     try {
       // Create vendor via API
       const response = await createVendor({
         name: vendorData.name,
         countryCode: vendorData.countryCode,
         contactNumber: vendorData.contactNumber,
+        companyName: vendorData.companyName,
+        address: vendorData.address,
+        workspace_id: selectedWorkspace,
       });
       
       // Get the created vendor data
@@ -104,7 +143,7 @@ export default function AddStock() {
       // Add to options list
       const newOption = {
         value: createdVendor.id || createdVendor._id || Date.now().toString(),
-        label: createdVendor.name || vendorData.name,
+        label: String(createdVendor.full_name || createdVendor.name || vendorData.name || 'Unknown Vendor'),
       };
       
       setVendorOptions((prev) => [...prev, newOption]);
@@ -159,22 +198,46 @@ export default function AddStock() {
     setIsSubmitting(true);
     
     try {
-      // TODO: Implement API call to add stock
-      console.log('Adding stock:', {
-        requestId: request?.id,
+      // Get inventory ID from item or request
+      const inventoryId = item?.id || item?._id || request?.inventoryId || request?.id;
+      
+      if (!inventoryId) {
+        showError(t('addStock.errors.inventoryIdRequired', { defaultValue: 'Inventory ID is required' }));
+        setIsSubmitting(false);
+        return;
+      }
+      
+      if (!projectId) {
+        showError(t('addStock.errors.projectRequired', { defaultValue: 'Project ID is required' }));
+        setIsSubmitting(false);
+        return;
+      }
+      
+      // Get inventoryTypeId from item or request
+      const inventoryTypeId = item?.inventoryTypeId || request?.inventoryTypeId || 1; // Default to 1 (reusable)
+      
+      // Call restock API
+      await restockMaterial({
+        inventoryId: inventoryId,
         quantity: parseFloat(quantity),
-        costPerUnit: parseFloat(costPerUnit) || 0,
-        totalPrice: parseFloat(totalPrice),
-        vendorId: selectedVendor,
+        projectID: projectId,
+        vendorID: selectedVendor,
+        price: parseFloat(costPerUnit) || 0,
+        inventoryTypeId: inventoryTypeId,
       });
       
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      showSuccess(t('addStock.success', { defaultValue: 'Stock added successfully' }));
       
       // Navigate back after success
-      navigate(-1);
+      navigate(ROUTES_FLAT.SITE_INVENTORY, {
+        state: projectId ? { projectId, projectName } : undefined,
+      });
     } catch (error) {
       console.error('Error adding stock:', error);
+      const errorMessage = error?.response?.data?.message || 
+                          error?.message || 
+                          t('addStock.errors.restockFailed', { defaultValue: 'Failed to add stock. Please try again.' });
+      showError(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -188,8 +251,8 @@ export default function AddStock() {
     navigate(-1);
   };
 
-  if (!request) {
-    // If no request data, redirect back
+  if (!restockData) {
+    // If no restock data (item or request), redirect back
     navigate(-1);
     return null;
   }
@@ -197,7 +260,7 @@ export default function AddStock() {
   return (
     <div className="max-w-4xl mx-auto">
       <PageHeader
-        title={`${t('addStock.title', { defaultValue: 'Restock Material' })} • ${request.materialName || ''}`}
+        title={materialName ? `${t('addStock.title', { defaultValue: 'Restock Material' })} • ${materialName}` : t('addStock.title', { defaultValue: 'Restock Material' })}
         showBackButton
         onBack={handleBack}
       />

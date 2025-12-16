@@ -4,6 +4,7 @@
  */
 
 import { useState, useEffect } from 'react';
+import { X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import Button from '../../../components/ui/Button';
 import NumberInput from '../../../components/ui/NumberInput';
@@ -80,43 +81,54 @@ export default function ApproveTransferModal({
     const validate = () => {
         const newErrors = {};
 
-        if (!quantity || parseFloat(quantity) <= 0) {
-            newErrors.quantity = t('approveModal.errors.quantityRequired', { defaultValue: 'Quantity is required' });
+        const qty = parseFloat(quantity) || 0;
+        const cost = parseFloat(costPerUnit) || 0;
+
+        if (!quantity || qty <= 0) {
+            newErrors.quantity = "Quantity is required";
         }
 
-        if (!totalPrice || parseFloat(totalPrice) <= 0) {
-            newErrors.totalPrice = t('approveModal.errors.totalPriceRequired', { defaultValue: 'Total price is required' });
+        if (!costPerUnit || cost <= 0) {
+            newErrors.costPerUnit = "Cost per unit is required";
         }
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
 
+
     const handleApprove = async () => {
-        if (!validate()) {
-            return;
-        }
+        if (!validate()) return;
 
         setIsLoading(true);
+
         try {
+            const qty = parseFloat(quantity) || 0;
+            const cost = parseFloat(costPerUnit) || 0;
+
+            const effectiveTotal = qty * cost;
+
             await onApprove?.({
                 ...request,
-                approvedQuantity: parseFloat(quantity),
-                approvedCostPerUnit: parseFloat(costPerUnit) || 0,
-                approvedTotalPrice: parseFloat(totalPrice),
+                approvedQuantity: qty,
+                approvedCostPerUnit: cost,
+                approvedTotalPrice: effectiveTotal,
             });
-            onClose();
-            // Reset form
+
             setQuantity('');
             setCostPerUnit('');
             setTotalPrice('');
             setErrors({});
+
+            onClose();
+
         } catch (error) {
-            console.error('Error approving transfer:', error);
+            console.error(error);
         } finally {
             setIsLoading(false);
         }
     };
+
 
     const handleClose = () => {
         if (!isLoading) {
@@ -130,7 +142,6 @@ export default function ApproveTransferModal({
 
     if (!isOpen) return null;
 
-    const unit = request?.quantityUnit || request?.unit || 'piece';
 
     return (
         <div
@@ -143,10 +154,20 @@ export default function ApproveTransferModal({
         >
             <div className="bg-white rounded-3xl shadow-xl w-full max-w-lg my-auto">
                 {/* Header */}
-                <div className="px-6 py-4">
-                    <h3 className="text-2xl font-medium text-primary text-center">
+                <div className="px-6 py-4 flex items-center justify-between gap-4">
+                    <h3 className="text-2xl font-medium text-primary">
                         {t('approveModal.title', { defaultValue: 'Approve Transfer Request' })}
                     </h3>
+
+                    <button
+                        type="button"
+                        onClick={handleClose}
+                        disabled={isLoading}
+                        className="w-8 h-8 flex items-center justify-center text-secondary transition-colors cursor-pointer"
+                        aria-label={t('approveModal.cancel', { defaultValue: 'Cancel' })}
+                    >
+                        <X className="w-4 h-4" />
+                    </button>
                 </div>
 
                 {/* Body */}
@@ -154,29 +175,21 @@ export default function ApproveTransferModal({
                     {/* Confirmation Message */}
                     <div className="mb-4">
                         <p className="text-base text-secondary">
-                            {t('approveModal.confirmationMessage', {
-                                defaultValue: 'Are you sure you want to approve transfer request of {{materialName}} from {{fromProject}}?',
-                            })
-                                .replace('{{materialName}}', `<MATERIAL>`)
-                                .replace('{{fromProject}}', `<PROJECT>`)
-                                .split(/(<MATERIAL>|<PROJECT>)/g)
-                                .map((part, index) => {
-                                    if (part === '<MATERIAL>') {
-                                        return (
-                                            <span key={index} className="text-primary font-medium">
-                                                {request?.materialName}
-                                            </span>
-                                        );
-                                    }
-                                    if (part === '<PROJECT>') {
-                                        return (
-                                            <span key={index} className="text-primary font-medium">
-                                                {request?.fromProject}
-                                            </span>
-                                        );
-                                    }
-                                    return part;
-                                })}
+                            {t('approveModal.confirmationSimple', {
+                                defaultValue: 'Are you sure you want to approve transfer of',
+                            })}{' '}
+                            <span className="text-primary font-medium">
+                                {request?.materialName}
+                            </span>{' '}
+                            {t('approveModal.from', { defaultValue: 'from' })}{' '}
+                            <span className="text-primary font-medium">
+                                {request?.fromProject}
+                            </span>{' '}
+                            {t('approveModal.to', { defaultValue: 'to' })}{' '}
+                            <span className="text-primary font-medium">
+                                {request?.toProject}
+                            </span>
+                            ?
                         </p>
                     </div>
 
@@ -206,13 +219,10 @@ export default function ApproveTransferModal({
                             <NumberInput
                                 label={t('approveModal.costPerUnit', { defaultValue: 'Cost Per Unit' })}
                                 value={costPerUnit}
-                                onChange={(e) => {
-                                    const value = e.target.value;
-                                    setCostPerUnit(value);
-                                }}
+                                onChange={(e) => setCostPerUnit(e.target.value)}
                                 placeholder="00"
-                                unit={unit}
                                 showCurrency
+                                error={errors.costPerUnit}
                                 disabled={isLoading}
                             />
                         </div>

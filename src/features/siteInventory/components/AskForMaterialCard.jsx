@@ -3,33 +3,71 @@
  * Displays a single "Ask for Materials" request with status and rejection reason
  */
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Play, Pause } from 'lucide-react';
 import StatusBadge from '../../../components/ui/StatusBadge';
 
-export default function AskForMaterialCard({
-  request,
-  t,
-  formatTime,
-}) {
+export default function AskForMaterialCard({ request, t, formatTime }) {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [audioDuration, setAudioDuration] = useState(0);
+  const [audioCurrentTime, setAudioCurrentTime] = useState(0);
+  const audioRef = useRef(null);
 
-  const {
-    id,
-    quantity,
-    materialName,
-    fromProject,
-    urgency,
-    status,
-    timestamp,
-    rejectionReason,
-    rejectionAudio,
-  } = request;
+  // Map backend response fields to UI-friendly variables
+  const status = request.status;
+
+  // Quantity / title content
+  const quantity = request.item_count ?? request.quantity ?? 0;
+  const materialName =
+    request.materialName ||
+    request.material?.name ||
+    ''; // backend currently doesn't send name, so this may be empty
+
+  // "From: <project>" text - show ONLY project name (no ID fallback)
+  const fromProjectName =
+    request.fromProjectname ||
+    request.fromProjectName ||
+    request.from_project_name ||
+    '';
+  const hasFromProject = !!fromProjectName;
+
+  // Asking description line (grey text)
+  const askingDescription =
+    request.asking_description || request.description || '';
+
+  // Timestamps
+  const timestamp = request.createdAt || request.updatedAt || request.timestamp;
+
+  // Rejection info
+  const rejectionReason =
+    request.rejected_description || request.rejectionReason || '';
+  const rejectionAudio =
+    request.rejection_audio_url || request.rejectionAudio || null;
+
+  const formatSeconds = (seconds) => {
+    if (!seconds || Number.isNaN(seconds)) return '00:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins.toString().padStart(2, '0')}:${secs
+      .toString()
+      .padStart(2, '0')}`;
+  };
 
   const toggleAudio = () => {
-    setIsPlaying(!isPlaying);
-    // TODO: Implement actual audio playback
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (audio.paused) {
+      audio
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch(err => console.log("Audio play error:", err));
+    } else {
+      audio.pause();
+      setIsPlaying(false);
+    }
   };
+
 
   const getStatusBadge = () => {
     switch (status?.toLowerCase()) {
@@ -59,23 +97,28 @@ export default function AskForMaterialCard({
   };
 
   return (
-    <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100">
+    <div className="bg-white rounded-2xl px-4 py-3 shadow-sm border border-gray-100">
       {/* Header Section */}
-      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 mb-4">
+      <div className="flex flex-col sm:flex-row items-start sm:justify-between gap-3">
         <div className="flex-1">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-            <h3 className="text-base sm:text-lg text-primary">
-              {quantity} {materialName}
+          <div className="flex flex-col justify-start items-start">
+            <h3 className="text-base sm:text-lg text-primary font-medium">
+              {quantity}{' '}
+              {materialName ||
+                t('askForMaterials.items', { defaultValue: 'items' })}
             </h3>
-            <span className="text-base sm:text-lg">
-              {t('askForMaterials.from', { defaultValue: 'from' })} {fromProject}
-            </span>
+            {hasFromProject && (
+              <span className="text-base sm:text-lg capitalize text-secondary">
+                {t('askForMaterials.from', { defaultValue: 'From' })}:&nbsp;
+                {fromProjectName}
+              </span>
+            )}
           </div>
-          <p className="text-base text-secondary">
-            {urgency}
-          </p>
+          {askingDescription && (
+            <p className="text-base text-secondary">{askingDescription}</p>
+          )}
         </div>
-        
+
         {/* Status Badge and Timestamp */}
         <div className="flex items-center gap-2 sm:gap-3">
           {getStatusBadge()}
@@ -91,31 +134,65 @@ export default function AskForMaterialCard({
           <p className="text-sm font-medium text-primary mb-3">
             {t('askForMaterials.rejectionReason', { defaultValue: 'Reason for rejection' })}
           </p>
-          
+
           <div className="space-y-3">
             {/* Audio Player */}
             {rejectionAudio && (
-              <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg w-fit">
-                <button
-                  onClick={toggleAudio}
-                  className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center hover:bg-[#9F290A] transition-colors cursor-pointer"
-                  aria-label={isPlaying ? 'Pause audio' : 'Play audio'}
-                >
-                  {isPlaying ? (
-                    <Pause className="w-5 h-5 text-white" />
-                  ) : (
-                    <Play className="w-5 h-5 text-white ml-0.5" fill="currentColor" />
-                  )}
-                </button>
-                <div className="flex-1 min-w-[200px]">
-                  <div className="w-full h-1 bg-gray-200 rounded-full overflow-hidden">
-                    <div className="h-full bg-accent" style={{ width: '30%' }}></div>
+              <>
+                <audio
+                  ref={audioRef}
+                  src={rejectionAudio}
+                  type="audio/aac"
+                  preload="metadata"
+                  onLoadedMetadata={() => {
+                    setAudioDuration(audioRef.current.duration);
+                  }}
+                  onCanPlayThrough={() => {
+                    if (!audioDuration) {
+                      setAudioDuration(audioRef.current.duration);
+                    }
+                  }}
+                  onTimeUpdate={() => {
+                    setAudioCurrentTime(audioRef.current.currentTime);
+                  }}
+                  onEnded={() => {
+                    setIsPlaying(false);
+                    setAudioCurrentTime(0);
+                  }}
+                />
+
+                 <div className="flex items-center gap-3 px-3 py-2 bg-[#F5F5F7] rounded-full w-full max-w-xs">
+                  <button
+                    onClick={toggleAudio}
+                    className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center hover:bg-[#9F290A] transition-colors cursor-pointer"
+                  >
+                    {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}
+                  </button>
+
+                  <div className="flex-1 flex items-center gap-2">
+                    <div className="relative w-full h-1.5 bg-[#E5E5EA] rounded-full">
+                      <div
+                        className="h-full bg-accent rounded-full"
+                        style={{
+                          width:
+                            audioDuration > 0
+                              ? `${(audioCurrentTime / audioDuration) * 100}%`
+                              : "0%",
+                        }}
+                      ></div>
+                    </div>
+
+                    {/* SHOW REVERSE COUNTDOWN TIME */}
+                    <span className="text-[11px] text-primary">
+                      {formatSeconds(audioDuration - audioCurrentTime)}
+                    </span>
                   </div>
-                  <p className="text-xs text-secondary mt-1">00:12</p>
                 </div>
-              </div>
+
+              </>
+
             )}
-            
+
             {/* Text Reason */}
             {rejectionReason && (
               <p className="text-sm">

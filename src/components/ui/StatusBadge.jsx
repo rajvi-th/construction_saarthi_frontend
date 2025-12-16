@@ -83,22 +83,18 @@ export const statusBadgeAvatarColors = {
   pink: statusBadgeColors.pink.border,
   darkblue: statusBadgeColors.darkblue.border,
 };
-
-
 export default function StatusBadge({ text, color = "red", className = "" }) {
-  const colors = {
-    red: `border-1 border-[${statusBadgeColors.red.border}] bg-[${statusBadgeColors.red.background}] text-[${statusBadgeColors.red.text}]`,
-    green: `border-1 border-[${statusBadgeColors.green.border}] bg-[${statusBadgeColors.green.background}] text-[${statusBadgeColors.green.text}]`,
-    yellow: `border-1 border-[${statusBadgeColors.yellow.border}] bg-[${statusBadgeColors.yellow.background}] text-[${statusBadgeColors.yellow.text}]`,
-    blue: `border-1 border-[${statusBadgeColors.blue.border}] bg-[${statusBadgeColors.blue.background}] text-[${statusBadgeColors.blue.text}]`,
-    purple: `border-1 border-[${statusBadgeColors.purple.border}] bg-[${statusBadgeColors.purple.background}] text-[${statusBadgeColors.purple.text}]`,
-    pink: `border-1 border-[${statusBadgeColors.pink.border}] bg-[${statusBadgeColors.pink.background}] text-[${statusBadgeColors.pink.text}]`,
-    darkblue: `border-1 border-[${statusBadgeColors.darkblue.border}] bg-[${statusBadgeColors.darkblue.background}] text-[${statusBadgeColors.darkblue.text}]`,
-  };
+  // Fallback to red if an unknown color is passed
+  const selectedColors = statusBadgeColors[color] || statusBadgeColors.red;
 
   return (
     <div
-      className={`px-3 py-2 rounded-lg flex items-center justify-center font-semibold ${colors[color] || colors.red} ${className}`}
+      className={`px-3 py-2 rounded-lg flex items-center justify-center font-medium border ${className}`}
+      style={{
+        borderColor: selectedColors.border,
+        backgroundColor: selectedColors.background,
+        color: selectedColors.text,
+      }}
     >
       {text}
     </div>

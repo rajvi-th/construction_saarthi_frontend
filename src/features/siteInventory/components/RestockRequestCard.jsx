@@ -13,7 +13,6 @@ export default function RestockRequestCard({
   t,
 }) {
   const {
-    id,
     quantity,
     materialName,
     quantityUnit,

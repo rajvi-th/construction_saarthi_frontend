@@ -49,6 +49,13 @@ export default function EditMemberPage() {
             const requestData = {
                 member_id: Number(memberData.id || memberData.member_id),
                 workspace_id: Number(workspaceId),
+                // Backend may require user_id along with workspace_id
+                user_id: Number(
+                    memberData.user_id ||
+                    memberData.userId ||
+                    memberData.id ||
+                    memberData.member_id
+                ),
                 country_code: updatedData.country_code || '+91',
                 phone_number: updatedData.phone_number,
                 name: updatedData.name,

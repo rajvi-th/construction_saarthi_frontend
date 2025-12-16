@@ -1,0 +1,20 @@
+{
+  "title": "എന്റെ പഴയ ജോലി",
+  "emptyTitle": "ഒരു പ്രോജക്റ്റും ചേർത്തിട്ടില്ല",
+  "emptyMessage": "നിങ്ങളുടെ പ്രൊപ്പോസലിൽ കാണിക്കാൻ നിങ്ങളുടെ പ്രോജക്റ്റുകൾ ചേർക്കുക.",
+  "addButton": "പ്രോജക്റ്റ് (സൈറ്റ്) ചേർക്കുക",
+  "untitled": "പേര് ഇല്ലാത്ത പ്രോജക്റ്റ്",
+  "addTitle": "പ്രോജക്റ്റ് (സൈറ്റ്) ചേർക്കുക",
+  "projectName": "പ്രോജക്റ്റ് പേര്",
+  "projectNamePlaceholder": "പ്രോജക്റ്റ് പേര് നൽകുക",
+  "address": "വിലാസം",
+  "addressPlaceholder": "സൈറ്റ് വിലാസം നൽകുക",
+  "uploadTitle": "ഫോട്ടോ/ വീഡിയോ / ഡോക്യുമെന്റുകൾ അപ്‌ലോഡ് ചെയ്യുക",
+  "uploadImagesVideos": "ഇമേജ്/വീഡിയോ അപ്‌ലോഡ് ചെയ്യുക*",
+  "uploadDocuments": "ഡോക്യുമെന്റുകൾ അപ്‌ലോഡ് ചെയ്യുക",
+  "supportedFormatsLabel": "പിന്തുണയ്ക്കുന്ന ഫോർമാറ്റ്:",
+  "supportedFormats": "JPG, PNG, Mp4, PDF",
+  "maxSizeEach": "ഓരോന്നും 10MB",
+  "uploadButton": "അപ്‌ലോഡ്",
+  "addSubmit": "പ്രോജക്റ്റ് ചേർക്കുക"
+}

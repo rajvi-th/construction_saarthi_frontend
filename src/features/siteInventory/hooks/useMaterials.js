@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { getMaterialsList, createMaterial } from '../api/siteInventoryApi';
 import { showError, showSuccess } from '../../../utils/toast';
 import { useTranslation } from 'react-i18next';
@@ -6,9 +6,10 @@ import { useAuth } from '../../../hooks/useAuth';
 
 /**
  * Custom hook for fetching and managing materials
+ * @param {string|number} inventoryTypeId - Inventory type ID (required: 1=Reusable, 2=Consumable)
  * @returns {Object} { materials, materialOptions, isLoadingMaterials, isCreatingMaterial, error, refetch, createNewMaterial }
  */
-export const useMaterials = () => {
+export const useMaterials = (inventoryTypeId) => {
   const { t } = useTranslation('siteInventory');
   const { selectedWorkspace } = useAuth();
   const [materials, setMaterials] = useState([]);
@@ -21,8 +22,7 @@ export const useMaterials = () => {
    * Fetch materials list
    */
   const fetchMaterials = useCallback(async () => {
-    if (!selectedWorkspace) {
-      console.warn('No workspace selected');
+    if (!selectedWorkspace || !inventoryTypeId) {
       setMaterials([]);
       setMaterialOptions([]);
       setIsLoadingMaterials(false);
@@ -32,19 +32,19 @@ export const useMaterials = () => {
     try {
       setIsLoadingMaterials(true);
       setError(null);
-      const response = await getMaterialsList(selectedWorkspace);
+      const response = await getMaterialsList(selectedWorkspace, inventoryTypeId);
       
-      // Handle different response structures
+      // API response structure: { materials: [...] } or direct array
       let materialsArray = [];
       
-      if (Array.isArray(response?.data)) {
+      if (Array.isArray(response?.data?.materials)) {
+        materialsArray = response.data.materials;
+      } else if (Array.isArray(response?.materials)) {
+        materialsArray = response.materials;
+      } else if (Array.isArray(response?.data)) {
         materialsArray = response.data;
-      } else if (Array.isArray(response?.data?.data)) {
-        materialsArray = response.data.data;
       } else if (Array.isArray(response)) {
         materialsArray = response;
-      } else if (response?.data && typeof response.data === 'object') {
-        materialsArray = response.data.data || Object.values(response.data).filter(Array.isArray)[0] || [];
       }
       
       setMaterials(materialsArray);
@@ -68,40 +68,82 @@ export const useMaterials = () => {
     } finally {
       setIsLoadingMaterials(false);
     }
-  }, [selectedWorkspace, t]);
+  }, [selectedWorkspace, inventoryTypeId, t]);
 
   /**
    * Create a new material
    * @param {Object} materialData - Material data
    * @param {string} materialData.name - Material name
    * @param {string} materialData.type - Material type ('reusable' or 'consumable')
-   * @param {string} materialData.unit - Unit name
    * @param {string|number} materialData.unitId - Unit ID
    * @returns {Promise<Object>} Created material data
    */
   const createNewMaterial = useCallback(async (materialData) => {
+    if (!selectedWorkspace) {
+      showError(t('errors.workspaceRequired', { defaultValue: 'Please select a workspace first' }));
+      throw new Error('Workspace ID is required');
+    }
+
     try {
       setIsCreatingMaterial(true);
       setError(null);
       
-      const response = await createMaterial({
-        name: materialData.name || materialData.label,
-        type: materialData.type, // 'reusable' or 'consumable'
-        unit: materialData.unit,
-        unitId: materialData.unitId,
-      });
+      // Convert type string to inventoryTypeId number
+      // Reusable = 1, Consumable = 2
+      let inventoryTypeId = 2; // Default to Consumable
+      if (materialData.type === 'reusable') {
+        inventoryTypeId = 1;
+      } else if (materialData.type === 'consumable') {
+        inventoryTypeId = 2;
+      } else if (materialData.inventoryTypeId) {
+        // If inventoryTypeId is already provided, use it
+        inventoryTypeId = typeof materialData.inventoryTypeId === 'string' 
+          ? parseInt(materialData.inventoryTypeId, 10) 
+          : materialData.inventoryTypeId;
+      }
       
-      // Get the created material data
+      // Ensure unitId is a number and is valid
+      if (!materialData.unitId) {
+        showError(t('addNewAsk.errors.unitRequired', { defaultValue: 'Unit is required' }));
+        throw new Error('Unit ID is required');
+      }
+      
+      const unitId = typeof materialData.unitId === 'string' 
+        ? parseInt(materialData.unitId, 10) 
+        : materialData.unitId;
+      
+      if (isNaN(unitId) || unitId <= 0) {
+        showError(t('addNewAsk.errors.unitRequired', { defaultValue: 'Valid unit is required' }));
+        throw new Error('Valid unit ID is required');
+      }
+      
+      // Ensure name is not empty
+      const materialName = (materialData.name || materialData.label || '').trim();
+      if (!materialName) {
+        showError(t('addNewAsk.errors.itemNameRequired', { defaultValue: 'Material name is required' }));
+        throw new Error('Material name is required');
+      }
+      
+      // API expects: { name, unitId, WID, inventoryTypeId }
+      const payload = {
+        name: materialName,
+        unitId: unitId,
+        WID: typeof selectedWorkspace === 'string' ? parseInt(selectedWorkspace, 10) : selectedWorkspace,
+        inventoryTypeId: inventoryTypeId,
+      };
+      
+      const response = await createMaterial(payload);
+      
       // API response structure: { message: "...", material: { id, name, unitId, ... } }
       const createdMaterial = response?.data?.material || response?.material || response?.data?.data || response?.data || materialData;
       
       // Add to materials list
-      // API response only contains unitId, not unit name
       const newMaterial = {
         id: createdMaterial.id || createdMaterial._id,
         name: createdMaterial.name || materialData.name || materialData.label,
-        type: createdMaterial.inventoryTypeId || materialData.type,
-        unitId: createdMaterial.unitId || materialData.unitId,
+        type: createdMaterial.inventoryTypeId || inventoryTypeId,
+        unitId: createdMaterial.unitId || unitId,
+        unitName: materialData.unitName || materialData.unit, // Store unit name if available
       };
       
       setMaterials((prev) => [...prev, newMaterial]);
@@ -128,7 +170,12 @@ export const useMaterials = () => {
     } finally {
       setIsCreatingMaterial(false);
     }
-  }, [t]);
+  }, [selectedWorkspace, t]);
+
+  // Automatically fetch materials when workspace changes
+  useEffect(() => {
+    fetchMaterials();
+  }, [fetchMaterials]);
 
   return {
     materials,

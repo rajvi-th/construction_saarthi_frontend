@@ -1,0 +1,60 @@
+{
+  "title": "प्रोजेक्ट गैलरी",
+  "searchPlaceholder": "प्रोजेक्ट खोजीं",
+  "filter": "फिल्टर",
+  "filterOptions": {
+    "all": "सभी",
+    "inProcess": "प्रगति में",
+    "completed": "पूर्ण",
+    "upcoming": "आगामी",
+    "recent": "हाल का",
+    "oldest": "पुराना",
+    "custom": "कस्टम"
+  },
+  "emptyState": {
+    "noProjects": "कोई प्रोजेक्ट ना मिलल",
+    "adjustSearch": "अपना खोज या फिल्टर बदल के देखीं",
+    "getStarted": "एगो प्रोजेक्ट जोड़ के शुरू करीं",
+    "noPhotos": "कोई फोटो अपलोड ना भइल",
+    "noVideos": "कोई वीडियो अपलोड ना भइल",
+    "noDocuments": "कोई दस्तावेज़ अपलोड ना भइल",
+    "noItems": "कोई आइटम ना मिलल",
+    "photosMessage": "अपना प्रोजेक्ट फोटो जोड़ीं जे आपन प्रस्ताव में दिखाई दे।",
+    "videosMessage": "अपना प्रोजेक्ट वीडियो जोड़ीं जे आपन प्रस्ताव में दिखाई दे।",
+    "documentsMessage": "अपना प्रोजेक्ट दस्तावेज़ जोड़ीं जे आपन प्रस्ताव में दिखाई दे।",
+    "noItemsMessage": "दिखावे खातिर कोई आइटम ना बा।",
+    "uploadPhotos": "फोटो अपलोड करीं",
+    "uploadVideos": "वीडियो अपलोड करीं",
+    "uploadDocuments": "दस्तावेज़ अपलोड करीं"
+  },
+  "tabs": {
+    "photos": "फोटो",
+    "videos": "वीडियो",
+    "documents": "दस्तावेज़"
+  },
+  "actions": {
+    "view": "देखीं",
+    "play": "चलाईं",
+    "download": "डाउनलोड",
+    "delete": "हटाईं"
+  },
+  "deleteModal": {
+    "title": "मीडिया हटाईं",
+    "message": "का रउआ सच्चे में एह आइटम के हटावे के चाहत बानी? एह काम के पूर्ववत ना कइल जा सकेला।",
+    "confirm": "हाँ, हटाईं",
+    "cancel": "रद्द करीं"
+  },
+  "upload": {
+    "title": "फोटो/ वीडियो / दस्तावेज़ अपलोड करीं",
+    "supportedFormats": "JPG, PNG, Mp4, PDF",
+    "supportedFormatLabel": "समर्थित फॉर्मेट:",
+    "maxSizeEach": "10MB EACH",
+    "button": "अपलोड करीं",
+    "uploading": "अपलोड हो रहल बा...",
+    "success": "फाइल सफलतापूर्वक अपलोड भइल",
+    "error": "फाइल अपलोड करे में दिक्कत भइल"
+  },
+  "projectNotFound": "प्रोजेक्ट ना मिलल",
+  "projectNotFoundMessage": "जवना प्रोजेक्ट के खोजत बानी ओ अस्तित्व में ना बा।",
+  "backToGallery": "गैलरी पर वापस जाईं"
+}

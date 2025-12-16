@@ -148,6 +148,15 @@ export const getAllRoles = async () => {
 };
 
 /**
+ * Get workspace roles
+ * Uses /workspace/role endpoint
+ * @returns {Promise<Array>} List of roles for current workspace/user
+ */
+export const getWorkspaceRoles = async () => {
+  return http.get(AUTH_ENDPOINTS_FLAT.WORKSPACE_ROLE);
+};
+
+/**
  * Add member to workspace
  * @param {Object} data - Member data
  * @param {string} data.country_code - Country code (e.g., "+91")
@@ -184,6 +193,7 @@ export const updateMember = async (data) => {
   return http.put(AUTH_ENDPOINTS_FLAT.WORKSPACE_UPDATE_MEMBER, {
     member_id: data.member_id,
     workspace_id: data.workspace_id,
+    user_id: data.user_id,
     country_code: data.country_code,
     phone_number: data.phone_number,
     name: data.name,

@@ -1,0 +1,63 @@
+{
+  "pages": {
+    "builders": {
+      "title": "बिल्डर आ क्लाइंट",
+      "noBuilders": "कोनो बिल्डर या क्लाइंट ना मिलल"
+    },
+    "vendors": {
+      "title": "वेंडर मैनेज करीं"
+    }
+  },
+  "searchPlaceholder": "बिल्डर खोजीं",
+  "searchVendorsPlaceholder": "वेंडर खोजीं",
+  "addBuilder": "बिल्डर जोड़ीं",
+  "deleteConfirm": "का रउआ सच्चे {{name}} के मिटावे के चाहत बानी?",
+  "noDetails": "कोनो अतिरिक्त जानकारी ना बा",
+  "expand": "बढ़ावीं",
+  "collapse": "छोट करीं",
+  "menu": {
+    "edit": "संपादन करीं",
+    "delete": "मिटावीं"
+  },
+  "emptyState": {
+    "noResults": "कोनो नतीजा ना मिलल",
+    "noBuildersClients": "कोनो बिल्डर या क्लाइंट ना बा",
+    "noVendors": "कोनो वेंडर ना बा",
+    "noResultsMessage": "रउआ के खोज से मिलत जुलत कोनो बिल्डर या क्लाइंट ना मिलल। कृपया अपना खोज शब्द बदलीं।",
+    "noBuildersClientsMessage": "रउआ अबतक कोनो बिल्डर या क्लाइंट ना जोड़ल बानी। शुरू करे खातिर अपना पहिलका बिल्डर या क्लाइंट जोड़ीं।",
+    "noVendorsMessage": "रउआ अबतक कोनो वेंडर ना जोड़ल बानी। शुरू करे खातिर अपना पहिलका वेंडर जोड़ीं।",
+    "addBuilder": "बिल्डर जोड़ीं"
+  },
+  "form": {
+    "addBuilder": "बिल्डर जोड़ीं",
+    "editBuilder": "बिल्डर संपादन करीं",
+    "updateBuilder": "बिल्डर अपडेट करीं",
+    "addVendor": "वेंडर जोड़ीं",
+    "editVendor": "वेंडर संपादन करीं",
+    "updateVendor": "वेंडर अपडेट करीं",
+    "cancel": "रद्द करीं",
+    "builderName": "बिल्डर के नाम",
+    "vendorName": "वेंडर के नाम",
+    "contactNumber": "संपर्क नंबर",
+    "companyName": "कंपनी के नाम",
+    "address": "पता",
+    "changePhoto": "फोटो बदलीं",
+    "placeholders": {
+      "enterName": "नाम डालीं",
+      "phoneNumber": "000 000 0000",
+      "enterCompanyName": "कंपनी के नाम डालीं",
+      "enterAddress": "पता डालीं"
+    },
+    "errors": {
+      "nameRequired": "बिल्डर के नाम जरूरी बा",
+      "phoneRequired": "संपर्क नंबर जरूरी बा",
+      "invalidPhone": "कृपया सही फोन नंबर डालीं",
+      "invalidImage": "कृपया एगो इमेज फाइल चुनीं",
+      "imageSize": "इमेज के साइज 5MB से कम होखे के चाही",
+      "workspaceRequired": "वर्कस्पेस जरूरी बा",
+      "createFailed": "बिल्डर बनावे में नाकाम। कृपया फिर से कोसिस करीं।",
+      "updateFailed": "बिल्डर अपडेट करे में नाकाम। कृपया फिर से कोसिस करीं।",
+      "fetchFailed": "बिल्डर डेटा लोड करे में नाकाम। कृपया फिर से कोसिस करीं।"
+    }
+  }
+}
