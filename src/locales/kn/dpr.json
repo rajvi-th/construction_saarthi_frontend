@@ -1,0 +1,92 @@
+{
+  "header": {
+    "title": "ದೈನಂದಿನ ಪ್ರಗತಿ ವರದಿ (DPR)"
+  },
+  "search": {
+    "placeholder": "ಯೋಜನೆಗಳನ್ನು ಹುಡುಕಿ"
+  },
+  "filter": {
+    "label": "ಫಿಲ್ಟರ್",
+    "all": "ಎಲ್ಲಾ",
+    "completed": "ಪೂರ್ಣಗೊಂಡಿದೆ",
+    "inProgress": "ಪ್ರಗತಿಯಲ್ಲಿದೆ",
+    "upcoming": "ಮುಂಬರುವ"
+  },
+  "actions": {
+    "addReport": "ವರದಿ ಸೇರಿಸಿ",
+    "cancel": "ರದ್ದುಮಾಡಿ",
+    "download": "ಡೌನ್‌ಲೋಡ್",
+    "upload": "ಅಪ್‌ಲೋಡ್",
+    "downloadReport": "ವರದಿಯನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
+    "editReport": "ವರದಿಯನ್ನು ಸಂಪಾದಿಸಿ",
+    "deleteReport": "ವರದಿಯನ್ನು ಅಳಿಸಿ"
+  },
+  "emptyState": {
+    "noProjects": "ಯೋಜನೆಗಳು ಕಂಡುಬಂದಿಲ್ಲ",
+    "noReports": "ವರದಿಗಳು ಕಂಡುಬಂದಿಲ್ಲ",
+    "adjustSearch": "ನಿಮ್ಮ ಹುಡುಕಾಟ ಅಥವಾ ಫಿಲ್ಟರ್ ಅನ್ನು ಸರಿಹೊಂದಿಸಲು ಪ್ರಯತ್ನಿಸಿ",
+    "getStarted": "ನಿಮ್ಮ ಮೊದಲ ಯೋಜನೆಯನ್ನು ಸೇರಿಸುವ ಮೂಲಕ ಪ್ರಾರಂಭಿಸಿ"
+  },
+  "form": {
+    "title": "ಹೊಸ ವರದಿ ಸೇರಿಸಿ",
+    "workTimeDuration": {
+      "label": "ಇಂದಿನ ಕೆಲಸದ ಸಮಯ",
+      "startTime": "ಪ್ರಾರಂಭ ಸಮಯ",
+      "endTime": "ಅಂತ್ಯ ಸಮಯ"
+    },
+    "status": {
+      "label": "ಸ್ಥಿತಿ",
+      "placeholder": "ಯೋಜನೆ ಸ್ಥಿತಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ"
+    },
+    "labour": {
+      "label": "ಇಂದು ಒಟ್ಟು ಕಾರ್ಮಿಕರು",
+      "present": "ಹಾಜರಿರುವ ಕಾರ್ಮಿಕರು",
+      "halfDay": "ಅರ್ಧ ದಿನದ ಕಾರ್ಮಿಕರು",
+      "absent": "ಗೈರುಹಾಜರಿರುವ ಕಾರ್ಮಿಕರು"
+    },
+    "photosVideos": {
+      "label": "ಫೋಟೋಗಳು/ವೀಡಿಯೊಗಳು",
+      "title": "ಫೋಟೋಗಳು/ವೀಡಿಯೊಗಳು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ",
+      "supportedFormat": "ಸಮರ್ಥಿತ ಸ್ವರೂಪ: JPG, PNG, Mp4 (10MB EACH)",
+      "supportedFormatLabel": "ಸಮರ್ಥಿತ ಸ್ವರೂಪ:"
+    },
+    "workProgress": {
+      "label": "ಕೆಲಸದ ಪ್ರಗತಿ",
+      "todaySummary": "ಇಂದಿನ ಕೆಲಸದ ಸಾರಾಂಶ",
+      "todaySummaryPlaceholder": "ಸಾರಾಂಶ ನಮೂದಿಸಿ",
+      "plannedWork": "ಯೋಜಿತ ಕೆಲಸ",
+      "plannedWorkPlaceholder": "ವಿವರಗಳನ್ನು ನಮೂದಿಸಿ",
+      "actualWork": "ಮಾಡಿದ ವಾಸ್ತವಿಕ ಕೆಲಸ",
+      "actualWorkPlaceholder": "ವಿವರಗಳನ್ನು ನಮೂದಿಸಿ",
+      "delayReason": "ವಿಳಂಬಕ್ಕೆ ಕಾರಣ",
+      "delayReasonPlaceholder": "ಕಾರಣವನ್ನು ನಮೂದಿಸಿ"
+    },
+    "reportDetails": {
+      "workTimeDuration": "ಇಂದಿನ ಕೆಲಸದ ಸಮಯ",
+      "totalLabour": "ಇಂದು ಒಟ್ಟು ಕಾರ್ಮಿಕರು",
+      "present": "ಹಾಜರಿರುವ",
+      "halfDay": "ಅರ್ಧ ದಿನ",
+      "absent": "ಗೈರುಹಾಜರಿರುವ",
+      "photos": "ಫೋಟೋಗಳು",
+      "workProgress": "ಕೆಲಸದ ಪ್ರಗತಿ",
+      "todaySummary": "ಇಂದಿನ ಕೆಲಸದ ಸಾರಾಂಶ",
+      "plannedWork": "ಯೋಜಿತ ಕೆಲಸ",
+      "actualWork": "ಮಾಡಿದ ವಾಸ್ತವಿಕ ಕೆಲಸ",
+      "delayReason": "ವಿಳಂಬಕ್ಕೆ ಕಾರಣ"
+    },
+    "errors": {
+      "startTimeRequired": "ಪ್ರಾರಂಭ ಸಮಯ ಅಗತ್ಯವಿದೆ",
+      "endTimeRequired": "ಅಂತ್ಯ ಸಮಯ ಅಗತ್ಯವಿದೆ",
+      "statusRequired": "ಸ್ಥಿತಿ ಅಗತ್ಯವಿದೆ",
+      "todaySummaryRequired": "ಇಂದಿನ ಕೆಲಸದ ಸಾರಾಂಶ ಅಗತ್ಯವಿದೆ",
+      "plannedWorkRequired": "ಯೋಜಿತ ಕೆಲಸ ಅಗತ್ಯವಿದೆ",
+      "actualWorkRequired": "ಮಾಡಿದ ವಾಸ್ತವಿಕ ಕೆಲಸ ಅಗತ್ಯವಿದೆ",
+      "delayReasonRequired": "ವಿಳಂಬಕ್ಕೆ ಕಾರಣ ಅಗತ್ಯವಿದೆ"
+    }
+  },
+  "deleteModal": {
+    "title": "ವರದಿಯನ್ನು ಅಳಿಸಿ",
+    "message": "ನೀವು ನಿಜವಾಗಿಯೂ ಈ ವರದಿಯನ್ನು ಅಳಿಸಲು ಬಯಸುತ್ತೀರಾ? ಈ ಕ್ರಮವನ್ನು ಹಿಂದಕ್ಕೆ ತೆಗೆದುಕೊಳ್ಳಲು ಸಾಧ್ಯವಿಲ್ಲ, ಮತ್ತು ನಿಮ್ಮ ಡೇಟಾವನ್ನು ಮರುಪಡೆಯಲು ಸಾಧ್ಯವಿಲ್ಲ.",
+    "confirmText": "ಹೌದು, ಅಳಿಸಿ"
+  }
+}

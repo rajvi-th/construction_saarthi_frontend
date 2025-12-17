@@ -1,0 +1,92 @@
+{
+  "header": {
+    "title": "डेली प्रोग्रेस रिपोर्ट (DPR)"
+  },
+  "search": {
+    "placeholder": "प्रोजेक्ट्स खोजीं"
+  },
+  "filter": {
+    "label": "फ़िल्टर",
+    "all": "सभी",
+    "completed": "पूर्ण",
+    "inProgress": "प्रगति में",
+    "upcoming": "आगामी"
+  },
+  "actions": {
+    "addReport": "रिपोर्ट जोड़ीं",
+    "cancel": "रद्द करीं",
+    "download": "डाउनलोड",
+    "upload": "अपलोड",
+    "downloadReport": "रिपोर्ट डाउनलोड करीं",
+    "editReport": "रिपोर्ट संपादित करीं",
+    "deleteReport": "रिपोर्ट हटाईं"
+  },
+  "emptyState": {
+    "noProjects": "कोई प्रोजेक्ट ना मिलल",
+    "noReports": "कोई रिपोर्ट ना मिलल",
+    "adjustSearch": "अपना खोज या फ़िल्टर के समायोजन करे के कोसिस करीं",
+    "getStarted": "अपना पहिला प्रोजेक्ट जोड़ के शुरुआत करीं"
+  },
+  "form": {
+    "title": "नया रिपोर्ट जोड़ीं",
+    "workTimeDuration": {
+      "label": "आज के काम के समय",
+      "startTime": "शुरुआत के समय",
+      "endTime": "समाप्ति के समय"
+    },
+    "status": {
+      "label": "स्थिति",
+      "placeholder": "प्रोजेक्ट स्थिति चुनीं"
+    },
+    "labour": {
+      "label": "आज के कुल मजदूरी",
+      "present": "उपस्थित मजदूर",
+      "halfDay": "आधा दिन के मजदूर",
+      "absent": "अनुपस्थित मजदूर"
+    },
+    "photosVideos": {
+      "label": "फोटो/वीडियो",
+      "title": "फोटो/वीडियो अपलोड करीं",
+      "supportedFormat": "समर्थित प्रारूप: JPG, PNG, Mp4 (10MB EACH)",
+      "supportedFormatLabel": "समर्थित प्रारूप:"
+    },
+    "workProgress": {
+      "label": "काम के प्रगति",
+      "todaySummary": "आज के काम के सारांश",
+      "todaySummaryPlaceholder": "सारांश दर्ज करीं",
+      "plannedWork": "योजनाबद्ध काम",
+      "plannedWorkPlaceholder": "विवरण दर्ज करीं",
+      "actualWork": "कइल गइल वास्तविक काम",
+      "actualWorkPlaceholder": "विवरण दर्ज करीं",
+      "delayReason": "विलंब के कारण",
+      "delayReasonPlaceholder": "कारण दर्ज करीं"
+    },
+    "reportDetails": {
+      "workTimeDuration": "आज के काम के समय",
+      "totalLabour": "आज के कुल मजदूरी",
+      "present": "उपस्थित",
+      "halfDay": "आधा दिन",
+      "absent": "अनुपस्थित",
+      "photos": "फोटो",
+      "workProgress": "काम के प्रगति",
+      "todaySummary": "आज के काम के सारांश",
+      "plannedWork": "योजनाबद्ध काम",
+      "actualWork": "कइल गइल वास्तविक काम",
+      "delayReason": "विलंब के कारण"
+    },
+    "errors": {
+      "startTimeRequired": "शुरुआत के समय जरूरी बा",
+      "endTimeRequired": "समाप्ति के समय जरूरी बा",
+      "statusRequired": "स्थिति जरूरी बा",
+      "todaySummaryRequired": "आज के काम के सारांश जरूरी बा",
+      "plannedWorkRequired": "योजनाबद्ध काम जरूरी बा",
+      "actualWorkRequired": "कइल गइल वास्तविक काम जरूरी बा",
+      "delayReasonRequired": "विलंब के कारण जरूरी बा"
+    }
+  },
+  "deleteModal": {
+    "title": "रिपोर्ट हटाईं",
+    "message": "का रउआ वाकई एह रिपोर्ट के हटावल चाहत बानी? ई कार्रवाई वापस नइखे हो सकेला, आ राउर डेटा के दोबारा ना मिल सकेला।",
+    "confirmText": "हाँ, हटाईं"
+  }
+}

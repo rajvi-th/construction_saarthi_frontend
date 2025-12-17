@@ -1,0 +1,92 @@
+{
+  "header": {
+    "title": "দৈনিক অগ্রগতি রিপোর্ট (DPR)"
+  },
+  "search": {
+    "placeholder": "প্রকল্প খুঁজুন"
+  },
+  "filter": {
+    "label": "ফিল্টার",
+    "all": "সব",
+    "completed": "সম্পন্ন",
+    "inProgress": "চলমান",
+    "upcoming": "আসন্ন"
+  },
+  "actions": {
+    "addReport": "রিপোর্ট যোগ করুন",
+    "cancel": "বাতিল",
+    "download": "ডাউনলোড",
+    "upload": "আপলোড",
+    "downloadReport": "রিপোর্ট ডাউনলোড করুন",
+    "editReport": "রিপোর্ট সম্পাদনা করুন",
+    "deleteReport": "রিপোর্ট মুছুন"
+  },
+  "emptyState": {
+    "noProjects": "কোন প্রকল্প পাওয়া যায়নি",
+    "noReports": "কোন রিপোর্ট পাওয়া যায়নি",
+    "adjustSearch": "আপনার অনুসন্ধান বা ফিল্টার সামঞ্জস্য করার চেষ্টা করুন",
+    "getStarted": "আপনার প্রথম প্রকল্প যোগ করে শুরু করুন"
+  },
+  "form": {
+    "title": "নতুন রিপোর্ট যোগ করুন",
+    "workTimeDuration": {
+      "label": "আজকের কাজের সময়কাল",
+      "startTime": "শুরুর সময়",
+      "endTime": "শেষ সময়"
+    },
+    "status": {
+      "label": "অবস্থা",
+      "placeholder": "প্রকল্পের অবস্থা নির্বাচন করুন"
+    },
+    "labour": {
+      "label": "আজ মোট শ্রমিক",
+      "present": "উপস্থিত শ্রমিক",
+      "halfDay": "অর্ধ দিবসের শ্রমিক",
+      "absent": "অনুপস্থিত শ্রমিক"
+    },
+    "photosVideos": {
+      "label": "ছবি/ভিডিও",
+      "title": "ছবি/ভিডিও আপলোড করুন",
+      "supportedFormat": "সমর্থিত ফরম্যাট: JPG, PNG, Mp4 (10MB EACH)",
+      "supportedFormatLabel": "সমর্থিত ফরম্যাট:"
+    },
+    "workProgress": {
+      "label": "কাজের অগ্রগতি",
+      "todaySummary": "আজকের কাজের সারাংশ",
+      "todaySummaryPlaceholder": "সারাংশ লিখুন",
+      "plannedWork": "পরিকল্পিত কাজ",
+      "plannedWorkPlaceholder": "বিস্তারিত লিখুন",
+      "actualWork": "প্রকৃত কাজ সম্পন্ন",
+      "actualWorkPlaceholder": "বিস্তারিত লিখুন",
+      "delayReason": "বিলম্বের কারণ",
+      "delayReasonPlaceholder": "কারণ লিখুন"
+    },
+    "reportDetails": {
+      "workTimeDuration": "আজকের কাজের সময়কাল",
+      "totalLabour": "আজ মোট শ্রমিক",
+      "present": "উপস্থিত",
+      "halfDay": "অর্ধ দিবস",
+      "absent": "অনুপস্থিত",
+      "photos": "ছবি",
+      "workProgress": "কাজের অগ্রগতি",
+      "todaySummary": "আজকের কাজের সারাংশ",
+      "plannedWork": "পরিকল্পিত কাজ",
+      "actualWork": "প্রকৃত কাজ সম্পন্ন",
+      "delayReason": "বিলম্বের কারণ"
+    },
+    "errors": {
+      "startTimeRequired": "শুরুর সময় প্রয়োজন",
+      "endTimeRequired": "শেষ সময় প্রয়োজন",
+      "statusRequired": "অবস্থা প্রয়োজন",
+      "todaySummaryRequired": "আজকের কাজের সারাংশ প্রয়োজন",
+      "plannedWorkRequired": "পরিকল্পিত কাজ প্রয়োজন",
+      "actualWorkRequired": "প্রকৃত কাজ সম্পন্ন প্রয়োজন",
+      "delayReasonRequired": "বিলম্বের কারণ প্রয়োজন"
+    }
+  },
+  "deleteModal": {
+    "title": "রিপোর্ট মুছুন",
+    "message": "আপনি কি নিশ্চিতভাবে এই রিপোর্টটি মুছতে চান? এই কাজটি অপরিবর্তনীয়, এবং আপনার ডেটা পুনরুদ্ধার করা যাবে না।",
+    "confirmText": "হ্যাঁ, মুছুন"
+  }
+}

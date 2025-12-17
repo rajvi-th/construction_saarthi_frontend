@@ -1,0 +1,92 @@
+{
+  "header": {
+    "title": "দৈনন্দিন অগ্ৰগতি ৰিপোৰ্ট (DPR)"
+  },
+  "search": {
+    "placeholder": "প্ৰকল্পসমূহ বিচাৰক"
+  },
+  "filter": {
+    "label": "ফিল্টাৰ",
+    "all": "সকলো",
+    "completed": "সম্পূৰ্ণ",
+    "inProgress": "অগ্ৰগতি হৈ আছে",
+    "upcoming": "অহা"
+  },
+  "actions": {
+    "addReport": "ৰিপোৰ্ট যোগ কৰক",
+    "cancel": "বাতিল কৰক",
+    "download": "ডাউনল'ড",
+    "upload": "আপল'ড",
+    "downloadReport": "ৰিপোৰ্ট ডাউনল'ড কৰক",
+    "editReport": "ৰিপোৰ্ট সম্পাদনা কৰক",
+    "deleteReport": "ৰিপোৰ্ট মচক"
+  },
+  "emptyState": {
+    "noProjects": "কোনো প্ৰকল্প পোৱা নগ'ল",
+    "noReports": "কোনো ৰিপোৰ্ট পোৱা নগ'ল",
+    "adjustSearch": "আপোনাৰ সন্ধান বা ফিল্টাৰ সমন্বয় কৰাৰ চেষ্টা কৰক",
+    "getStarted": "আপোনাৰ প্ৰথম প্ৰকল্প যোগ কৰি আৰম্ভ কৰক"
+  },
+  "form": {
+    "title": "নতুন ৰিপোৰ্ট যোগ কৰক",
+    "workTimeDuration": {
+      "label": "আজিৰ কামৰ সময়",
+      "startTime": "আৰম্ভণিৰ সময়",
+      "endTime": "শেষৰ সময়"
+    },
+    "status": {
+      "label": "অৱস্থা",
+      "placeholder": "প্ৰকল্পৰ অৱস্থা বাছনি কৰক"
+    },
+    "labour": {
+      "label": "আজি মুঠ শ্ৰমিক",
+      "present": "উপস্থিত শ্ৰমিক",
+      "halfDay": "আধা দিনৰ শ্ৰমিক",
+      "absent": "অনুপস্থিত শ্ৰমিক"
+    },
+    "photosVideos": {
+      "label": "ছবি/ভিডিঅ'",
+      "title": "ছবি/ভিডিঅ' আপল'ড কৰক",
+      "supportedFormat": "সমৰ্থিত ফৰ্মেট: JPG, PNG, Mp4 (10MB EACH)",
+      "supportedFormatLabel": "সমৰ্থিত ফৰ্মেট:"
+    },
+    "workProgress": {
+      "label": "কামৰ অগ্ৰগতি",
+      "todaySummary": "আজিৰ কামৰ সাৰাংশ",
+      "todaySummaryPlaceholder": "সাৰাংশ লিখক",
+      "plannedWork": "পৰিকল্পিত কাম",
+      "plannedWorkPlaceholder": "বিৱৰণ লিখক",
+      "actualWork": "কৰা হোৱা প্ৰকৃত কাম",
+      "actualWorkPlaceholder": "বিৱৰণ লিখক",
+      "delayReason": "বিলম্বৰ কাৰণ",
+      "delayReasonPlaceholder": "কাৰণ লিখক"
+    },
+    "reportDetails": {
+      "workTimeDuration": "আজিৰ কামৰ সময়",
+      "totalLabour": "আজি মুঠ শ্ৰমিক",
+      "present": "উপস্থিত",
+      "halfDay": "আধা দিন",
+      "absent": "অনুপস্থিত",
+      "photos": "ছবি",
+      "workProgress": "কামৰ অগ্ৰগতি",
+      "todaySummary": "আজিৰ কামৰ সাৰাংশ",
+      "plannedWork": "পৰিকল্পিত কাম",
+      "actualWork": "কৰা হোৱা প্ৰকৃত কাম",
+      "delayReason": "বিলম্বৰ কাৰণ"
+    },
+    "errors": {
+      "startTimeRequired": "আৰম্ভণিৰ সময় প্ৰয়োজন",
+      "endTimeRequired": "শেষৰ সময় প্ৰয়োজন",
+      "statusRequired": "অৱস্থা প্ৰয়োজন",
+      "todaySummaryRequired": "আজিৰ কামৰ সাৰাংশ প্ৰয়োজন",
+      "plannedWorkRequired": "পৰিকল্পিত কাম প্ৰয়োজন",
+      "actualWorkRequired": "কৰা হোৱা প্ৰকৃত কাম প্ৰয়োজন",
+      "delayReasonRequired": "বিলম্বৰ কাৰণ প্ৰয়োজন"
+    }
+  },
+  "deleteModal": {
+    "title": "ৰিপোৰ্ট মচক",
+    "message": "আপুনি সঁচাকৈয়ে এই ৰিপোৰ্টটো মচিব বিচাৰে নেকি? এই কাৰ্য্যটো উলটাই আনিব নোৱাৰি, আৰু আপোনাৰ ডাটা পুনৰুদ্ধাৰ কৰিব নোৱাৰি।",
+    "confirmText": "হয়, মচক"
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "header": {
+    "title": "દૈનિક પ્રગતિ રિપોર્ટ (DPR)"
+  },
+  "search": {
+    "placeholder": "પ્રોજેક્ટ્સ શોધો"
+  },
+  "filter": {
+    "label": "ફિલ્ટર",
+    "all": "બધા",
+    "completed": "પૂર્ણ",
+    "inProgress": "પ્રગતિમાં",
+    "upcoming": "આગામી"
+  },
+  "actions": {
+    "addReport": "રિપોર્ટ ઉમેરો",
+    "cancel": "રદ કરો",
+    "download": "ડાઉનલોડ",
+    "upload": "અપલોડ",
+    "downloadReport": "રિપોર્ટ ડાઉનલોડ કરો",
+    "editReport": "રિપોર્ટ સંપાદિત કરો",
+    "deleteReport": "રિપોર્ટ કાઢી નાખો"
+  },
+  "emptyState": {
+    "noProjects": "કોઈ પ્રોજેક્ટ મળ્યું નથી",
+    "noReports": "કોઈ રિપોર્ટ મળી નથી",
+    "adjustSearch": "તમારી શોધ અથવા ફિલ્ટરને સમાયોજિત કરવાનો પ્રયાસ કરો",
+    "getStarted": "તમારું પહેલું પ્રોજેક્ટ ઉમેરીને શરૂ કરો"
+  },
+  "form": {
+    "title": "નવી રિપોર્ટ ઉમેરો",
+    "workTimeDuration": {
+      "label": "આજનો કામનો સમય",
+      "startTime": "શરૂઆતનો સમય",
+      "endTime": "સમાપ્તિનો સમય"
+    },
+    "status": {
+      "label": "સ્થિતિ",
+      "placeholder": "પ્રોજેક્ટ સ્થિતિ પસંદ કરો"
+    },
+    "labour": {
+      "label": "આજની કુલ મજૂરી",
+      "present": "હાજર મજૂરો",
+      "halfDay": "અડધા દિવસના મજૂરો",
+      "absent": "ગેરહાજર મજૂરો"
+    },
+    "photosVideos": {
+      "label": "ફોટા/વિડિયો",
+      "title": "ફોટા/વિડિયો અપલોડ કરો",
+      "supportedFormat": "સમર્થિત ફોર્મેટ: JPG, PNG, Mp4 (10MB EACH)",
+      "supportedFormatLabel": "સમર્થિત ફોર્મેટ:"
+    },
+    "workProgress": {
+      "label": "કામની પ્રગતિ",
+      "todaySummary": "આજનો કામનો સારાંશ",
+      "todaySummaryPlaceholder": "સારાંશ દાખલ કરો",
+      "plannedWork": "યોજનાબદ્ધ કામ",
+      "plannedWorkPlaceholder": "વિગતો દાખલ કરો",
+      "actualWork": "કરેલું વાસ્તવિક કામ",
+      "actualWorkPlaceholder": "વિગતો દાખલ કરો",
+      "delayReason": "વિલંબનો કારણ",
+      "delayReasonPlaceholder": "કારણ દાખલ કરો"
+    },
+    "reportDetails": {
+      "workTimeDuration": "આજનો કામનો સમય",
+      "totalLabour": "આજની કુલ મજૂરી",
+      "present": "હાજર",
+      "halfDay": "અડધો દિવસ",
+      "absent": "ગેરહાજર",
+      "photos": "ફોટા",
+      "workProgress": "કામની પ્રગતિ",
+      "todaySummary": "આજનો કામનો સારાંશ",
+      "plannedWork": "યોજનાબદ્ધ કામ",
+      "actualWork": "કરેલું વાસ્તવિક કામ",
+      "delayReason": "વિલંબનો કારણ"
+    },
+    "errors": {
+      "startTimeRequired": "શરૂઆતનો સમય જરૂરી છે",
+      "endTimeRequired": "સમાપ્તિનો સમય જરૂરી છે",
+      "statusRequired": "સ્થિતિ જરૂરી છે",
+      "todaySummaryRequired": "આજનો કામનો સારાંશ જરૂરી છે",
+      "plannedWorkRequired": "યોજનાબદ્ધ કામ જરૂરી છે",
+      "actualWorkRequired": "કરેલું વાસ્તવિક કામ જરૂરી છે",
+      "delayReasonRequired": "વિલંબનો કારણ જરૂરી છે"
+    }
+  },
+  "deleteModal": {
+    "title": "રિપોર્ટ કાઢી નાખો",
+    "message": "શું તમે ખરેખર આ રિપોર્ટ કાઢી નાખવા માંગો છો? આ કાર્યવાહી પાછી ફેરવી શકાય તેવી નથી અને તમારો ડેટા પુનઃપ્રાપ્ત કરી શકાશે નહીં.",
+    "confirmText": "હા, કાઢી નાખો"
+  }
+}

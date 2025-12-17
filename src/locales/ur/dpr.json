@@ -1,0 +1,92 @@
+{
+  "header": {
+    "title": "روزمرہ پیش رفت رپورٹ (DPR)"
+  },
+  "search": {
+    "placeholder": "منصوبے تلاش کریں"
+  },
+  "filter": {
+    "label": "فلٹر",
+    "all": "سب",
+    "completed": "مکمل",
+    "inProgress": "جاری",
+    "upcoming": "آنے والا"
+  },
+  "actions": {
+    "addReport": "رپورٹ شامل کریں",
+    "cancel": "منسوخ کریں",
+    "download": "ڈاؤن لوڈ",
+    "upload": "اپ لوڈ",
+    "downloadReport": "رپورٹ ڈاؤن لوڈ کریں",
+    "editReport": "رپورٹ میں ترمیم کریں",
+    "deleteReport": "رپورٹ حذف کریں"
+  },
+  "emptyState": {
+    "noProjects": "کوئی منصوبہ نہیں ملا",
+    "noReports": "کوئی رپورٹ نہیں ملی",
+    "adjustSearch": "اپنی تلاش یا فلٹر کو ایڈجسٹ کرنے کی کوشش کریں",
+    "getStarted": "اپنا پہلا منصوبہ شامل کرکے شروع کریں"
+  },
+  "form": {
+    "title": "نیا رپورٹ شامل کریں",
+    "workTimeDuration": {
+      "label": "آج کام کا وقت",
+      "startTime": "شروع کا وقت",
+      "endTime": "ختم کا وقت"
+    },
+    "status": {
+      "label": "حالت",
+      "placeholder": "پروجیکٹ کی حالت منتخب کریں"
+    },
+    "labour": {
+      "label": "آج کل مزدور",
+      "present": "حاضر مزدور",
+      "halfDay": "آدھے دن کے مزدور",
+      "absent": "غائب مزدور"
+    },
+    "photosVideos": {
+      "label": "تصاویر/ویڈیوز",
+      "title": "تصاویر/ویڈیوز اپ لوڈ کریں",
+      "supportedFormat": "معاون فارمیٹ: JPG, PNG, Mp4 (10MB EACH)",
+      "supportedFormatLabel": "معاون فارمیٹ:"
+    },
+    "workProgress": {
+      "label": "کام کی ترقی",
+      "todaySummary": "آج کام کا خلاصہ",
+      "todaySummaryPlaceholder": "خلاصہ درج کریں",
+      "plannedWork": "منصوبہ بند کام",
+      "plannedWorkPlaceholder": "تفصیلات درج کریں",
+      "actualWork": "کیا گیا اصل کام",
+      "actualWorkPlaceholder": "تفصیلات درج کریں",
+      "delayReason": "تاخیر کی وجہ",
+      "delayReasonPlaceholder": "وجہ درج کریں"
+    },
+    "reportDetails": {
+      "workTimeDuration": "آج کام کا وقت",
+      "totalLabour": "آج کل مزدور",
+      "present": "حاضر",
+      "halfDay": "آدھا دن",
+      "absent": "غائب",
+      "photos": "تصاویر",
+      "workProgress": "کام کی ترقی",
+      "todaySummary": "آج کام کا خلاصہ",
+      "plannedWork": "منصوبہ بند کام",
+      "actualWork": "کیا گیا اصل کام",
+      "delayReason": "تاخیر کی وجہ"
+    },
+    "errors": {
+      "startTimeRequired": "شروع کا وقت ضروری ہے",
+      "endTimeRequired": "ختم کا وقت ضروری ہے",
+      "statusRequired": "حالت ضروری ہے",
+      "todaySummaryRequired": "آج کام کا خلاصہ ضروری ہے",
+      "plannedWorkRequired": "منصوبہ بند کام ضروری ہے",
+      "actualWorkRequired": "کیا گیا اصل کام ضروری ہے",
+      "delayReasonRequired": "تاخیر کی وجہ ضروری ہے"
+    }
+  },
+  "deleteModal": {
+    "title": "رپورٹ حذف کریں",
+    "message": "کیا آپ واقعی اس رپورٹ کو حذف کرنا چاہتے ہیں؟ یہ عمل ناقابلِ واپسی ہے، اور آپ کا ڈیٹا دوبارہ حاصل نہیں کیا جا سکتا۔",
+    "confirmText": "ہاں، حذف کریں"
+  }
+}

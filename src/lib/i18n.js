@@ -197,6 +197,22 @@ import bhoPastProjects from '../locales/bho/pastProjects.json';
 import asPastProjects from '../locales/as/pastProjects.json';
 import hryPastProjects from '../locales/hry/pastProjects.json';
 
+// Import dpr translations for all languages
+import enDpr from '../locales/en/dpr.json';
+import hiDpr from '../locales/hi/dpr.json';
+import guDpr from '../locales/gu/dpr.json';
+import bnDpr from '../locales/bn/dpr.json';
+import taDpr from '../locales/ta/dpr.json';
+import mrDpr from '../locales/mr/dpr.json';
+import teDpr from '../locales/te/dpr.json';
+import knDpr from '../locales/kn/dpr.json';
+import mlDpr from '../locales/ml/dpr.json';
+import urDpr from '../locales/ur/dpr.json';
+import rajDpr from '../locales/raj/dpr.json';
+import bhoDpr from '../locales/bho/dpr.json';
+import asDpr from '../locales/as/dpr.json';
+import hryDpr from '../locales/hry/dpr.json';
+
 // Get saved language from localStorage or default to 'en'
 const savedLang = localStorage.getItem('lang') || 'en';
 
@@ -214,6 +230,7 @@ const resources = {
     builderClient: enBuilderClient,
     projectGallery: enProjectGallery,
     pastProjects: enPastProjects,
+    dpr: enDpr,
   },
   hi: {
     common: hiCommon,
@@ -228,6 +245,7 @@ const resources = {
     builderClient: hiBuilderClient,
     projectGallery: hiProjectGallery,
     pastProjects: hiPastProjects,
+    dpr: hiDpr,
   },
   gu: {
     common: guCommon,
@@ -242,6 +260,7 @@ const resources = {
     builderClient: guBuilderClient,
     projectGallery: guProjectGallery,
     pastProjects: guPastProjects,
+    dpr: guDpr,
   },
   bn: {
     common: bnCommon,
@@ -256,6 +275,7 @@ const resources = {
     builderClient: bnBuilderClient,
     projectGallery: bnProjectGallery,
     pastProjects: bnPastProjects,
+    dpr: bnDpr,
   },
   ta: {
     common: taCommon,
@@ -270,6 +290,7 @@ const resources = {
     builderClient: taBuilderClient,
     projectGallery: taProjectGallery,
     pastProjects: taPastProjects,
+    dpr: taDpr,
   },
   mr: {
     common: mrCommon,
@@ -284,6 +305,7 @@ const resources = {
     builderClient: mrBuilderClient,
     projectGallery: mrProjectGallery,
     pastProjects: mrPastProjects,
+    dpr: mrDpr,
   },
   te: {
     common: teCommon,
@@ -298,6 +320,7 @@ const resources = {
     builderClient: teBuilderClient,
     projectGallery: teProjectGallery,
     pastProjects: tePastProjects,
+    dpr: teDpr,
   },
   kn: {
     common: knCommon,
@@ -312,6 +335,7 @@ const resources = {
     builderClient: knBuilderClient,
     projectGallery: knProjectGallery,
     pastProjects: knPastProjects,
+    dpr: knDpr,
   },
   ml: {
     common: mlCommon,
@@ -326,6 +350,7 @@ const resources = {
     builderClient: mlBuilderClient,
     projectGallery: mlProjectGallery,
     pastProjects: mlPastProjects,
+    dpr: mlDpr,
   },
   ur: {
     common: urCommon,
@@ -340,6 +365,7 @@ const resources = {
     builderClient: urBuilderClient,
     projectGallery: urProjectGallery,
     pastProjects: urPastProjects,
+    dpr: urDpr,
   },
   raj: {
     common: rajCommon,
@@ -354,6 +380,7 @@ const resources = {
     builderClient: rajBuilderClient,
     projectGallery: rajProjectGallery,
     pastProjects: rajPastProjects,
+    dpr: rajDpr,
   },
   bho: {
     common: bhoCommon,
@@ -368,6 +395,7 @@ const resources = {
     builderClient: bhoBuilderClient,
     projectGallery: bhoProjectGallery,
     pastProjects: bhoPastProjects,
+    dpr: bhoDpr,
   },
   as: {
     common: asCommon,
@@ -382,6 +410,7 @@ const resources = {
     builderClient: asBuilderClient,
     projectGallery: asProjectGallery,
     pastProjects: asPastProjects,
+    dpr: asDpr,
   },
   hry: {
     common: hryCommon,
@@ -396,6 +425,7 @@ const resources = {
     builderClient: hryBuilderClient,
     projectGallery: hryProjectGallery,
     pastProjects: hryPastProjects,
+    dpr: hryDpr,
   },
 };
 
@@ -410,7 +440,7 @@ i18n
       escapeValue: false, // React already escapes values
     },
     defaultNS: 'common',
-    ns: ['common', 'auth', 'dashboard', 'account', 'businessCard', 'siteInventory', 'referEarn', 'subscription', 'builderClient', 'projectGallery', 'projects', 'pastProjects'],
+    ns: ['common', 'auth', 'dashboard', 'account', 'businessCard', 'siteInventory', 'referEarn', 'subscription', 'builderClient', 'projectGallery', 'projects', 'pastProjects', 'dpr'],
   });
 
 export default i18n;

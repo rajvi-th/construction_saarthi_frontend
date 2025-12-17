@@ -1,38 +1,38 @@
 /**
- * Input Component
- * Reusable input field with label and error support
+ * Textarea Component
+ * Reusable textarea field with label and error support
  */
 
-export default function Input({
+export default function Textarea({
   label,
-  placeholder = 'Enter name',
+  placeholder = 'Enter details',
   value,
   onChange,
-  type = 'text',
   required = false,
   error,
   disabled = false,
+  rows = 4,
   className = '',
   ...props
 }) {
   return (
     <div className={`w-full ${className}`}>
       {label && (
-        <label className="block text-sm font-normal text-black mb-2">
+        <label className="block text-sm font-medium text-primary mb-2">
           {label}
-          {required &&<span>*</span>}
+          {required && <span className="text-accent ml-1">*</span>}
         </label>
       )}
       
-      <input
-        type={type}
+      <textarea
         value={value}
         onChange={onChange}
         placeholder={placeholder}
         disabled={disabled}
+        rows={rows}
         className={`
-          w-full px-4 py-3 rounded-lg border bg-white text-primary 
-          placeholder:text-secondary text-sm focus:outline-none transition-colors
+          w-full px-4 py-2.5 rounded-lg border bg-white text-primary 
+          placeholder:text-secondary focus:outline-none transition-colors resize-none
           ${error 
             ? 'border-accent focus:border-accent' 
             : 'border-gray-200 focus:border-[rgba(6,12,18,0.3)]'
@@ -51,3 +51,4 @@ export default function Input({
     </div>
   );
 }
+

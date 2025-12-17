@@ -87,7 +87,7 @@ export default function FileUpload({
         </div>
 
         {/* Title */}
-        <h3 className="text-lg sm:text-xl font-bold text-primary mb-2">
+        <h3 className="text-md sm:text-xl font-medium text-primary mb-2">
           {title}
         </h3>
 

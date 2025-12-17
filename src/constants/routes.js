@@ -94,6 +94,13 @@ export const ROUTES = {
     PROJECT_GALLERY: '/gallery/:projectId',
     UPLOAD: '/gallery/:projectId/upload',
   },
+  // Daily Progress Report Routes
+  DPR: {
+    LIST: '/dpr',
+    PROJECT_REPORTS: '/dpr/projects/:projectId',
+    REPORT_DETAILS: '/dpr/projects/:projectId/reports/:reportId',
+    ADD_REPORT: '/dpr/projects/:projectId/add-report',
+  },
 };
 
 // Flattened routes for easier access
@@ -171,6 +178,12 @@ export const ROUTES_FLAT = {
   PROJECT_GALLERY: ROUTES.PROJECT_GALLERY.HOME,
   PROJECT_GALLERY_DETAILS: ROUTES.PROJECT_GALLERY.PROJECT_GALLERY,
   PROJECT_GALLERY_UPLOAD: ROUTES.PROJECT_GALLERY.UPLOAD,
+  
+  // Daily Progress Report
+  DPR: ROUTES.DPR.LIST,
+  DPR_PROJECT_REPORTS: ROUTES.DPR.PROJECT_REPORTS,
+  DPR_REPORT_DETAILS: ROUTES.DPR.REPORT_DETAILS,
+  DPR_ADD_REPORT: ROUTES.DPR.ADD_REPORT,
 };
 
 /**

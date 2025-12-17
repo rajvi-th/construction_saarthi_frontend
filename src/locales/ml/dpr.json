@@ -1,0 +1,92 @@
+{
+  "header": {
+    "title": "ദൈനംദിന പുരോഗതി റിപ്പോർട്ട് (DPR)"
+  },
+  "search": {
+    "placeholder": "പ്രോജക്റ്റുകൾ തിരയുക"
+  },
+  "filter": {
+    "label": "ഫിൽട്ടർ",
+    "all": "എല്ലാം",
+    "completed": "പൂർത്തിയായി",
+    "inProgress": "പുരോഗതിയിൽ",
+    "upcoming": "വരാനിരിക്കുന്ന"
+  },
+  "actions": {
+    "addReport": "റിപ്പോർട്ട് ചേർക്കുക",
+    "cancel": "റദ്ദാക്കുക",
+    "download": "ഡൗൺലോഡ്",
+    "upload": "അപ്‌ലോഡ്",
+    "downloadReport": "റിപ്പോർട്ട് ഡൗൺലോഡ് ചെയ്യുക",
+    "editReport": "റിപ്പോർട്ട് തിരുത്തുക",
+    "deleteReport": "റിപ്പോർട്ട് ഇല്ലാതാക്കുക"
+  },
+  "emptyState": {
+    "noProjects": "പ്രോജക്റ്റുകൾ കണ്ടെത്തിയില്ല",
+    "noReports": "റിപ്പോർട്ടുകൾ കണ്ടെത്തിയില്ല",
+    "adjustSearch": "നിങ്ങളുടെ തിരയൽ അല്ലെങ്കിൽ ഫിൽട്ടർ ക്രമീകരിക്കാൻ ശ്രമിക്കുക",
+    "getStarted": "നിങ്ങളുടെ ആദ്യ പ്രോജക്റ്റ് ചേർത്ത് ആരംഭിക്കുക"
+  },
+  "form": {
+    "title": "പുതിയ റിപ്പോർട്ട് ചേർക്കുക",
+    "workTimeDuration": {
+      "label": "ഇന്നത്തെ ജോലി സമയം",
+      "startTime": "ആരംഭ സമയം",
+      "endTime": "അവസാന സമയം"
+    },
+    "status": {
+      "label": "അവസ്ഥ",
+      "placeholder": "പ്രോജക്റ്റ് അവസ്ഥ തിരഞ്ഞെടുക്കുക"
+    },
+    "labour": {
+      "label": "ഇന്ന് ആകെ തൊഴിലാളികൾ",
+      "present": "പ്രസന്റ് തൊഴിലാളികൾ",
+      "halfDay": "അർദ്ധദിവസം തൊഴിലാളികൾ",
+      "absent": "അഭാവമുള്ള തൊഴിലാളികൾ"
+    },
+    "photosVideos": {
+      "label": "ഫോട്ടോകൾ/വീഡിയോകൾ",
+      "title": "ഫോട്ടോകൾ/വീഡിയോകൾ അപ്‌ലോഡ് ചെയ്യുക",
+      "supportedFormat": "പിന്തുണയ്ക്കുന്ന ഫോർമാറ്റ്: JPG, PNG, Mp4 (10MB EACH)",
+      "supportedFormatLabel": "പിന്തുണയ്ക്കുന്ന ഫോർമാറ്റ്:"
+    },
+    "workProgress": {
+      "label": "ജോലി പുരോഗതി",
+      "todaySummary": "ഇന്നത്തെ ജോലി സംഗ്രഹം",
+      "todaySummaryPlaceholder": "സംഗ്രഹം നൽകുക",
+      "plannedWork": "ആസൂത്രിത ജോലി",
+      "plannedWorkPlaceholder": "വിശദാംശങ്ങൾ നൽകുക",
+      "actualWork": "ചെയ്ത യഥാർത്ഥ ജോലി",
+      "actualWorkPlaceholder": "വിശദാംശങ്ങൾ നൽകുക",
+      "delayReason": "കാലതാമസത്തിന്റെ കാരണം",
+      "delayReasonPlaceholder": "കാരണം നൽകുക"
+    },
+    "reportDetails": {
+      "workTimeDuration": "ഇന്നത്തെ ജോലി സമയം",
+      "totalLabour": "ഇന്ന് ആകെ തൊഴിലാളികൾ",
+      "present": "ഹാജർ",
+      "halfDay": "അർദ്ധദിവസം",
+      "absent": "ഗൈർഹാജർ",
+      "photos": "ഫോട്ടോകൾ",
+      "workProgress": "ജോലി പുരോഗതി",
+      "todaySummary": "ഇന്നത്തെ ജോലി സംഗ്രഹം",
+      "plannedWork": "ആസൂത്രിത ജോലി",
+      "actualWork": "ചെയ്ത യഥാർത്ഥ ജോലി",
+      "delayReason": "കാലതാമസത്തിന്റെ കാരണം"
+    },
+    "errors": {
+      "startTimeRequired": "ആരംഭ സമയം ആവശ്യമാണ്",
+      "endTimeRequired": "അവസാന സമയം ആവശ്യമാണ്",
+      "statusRequired": "അവസ്ഥ ആവശ്യമാണ്",
+      "todaySummaryRequired": "ഇന്നത്തെ ജോലി സംഗ്രഹം ആവശ്യമാണ്",
+      "plannedWorkRequired": "ആസൂത്രിത ജോലി ആവശ്യമാണ്",
+      "actualWorkRequired": "ചെയ്ത യഥാർത്ഥ ജോലി ആവശ്യമാണ്",
+      "delayReasonRequired": "കാലതാമസത്തിന്റെ കാരണം ആവശ്യമാണ്"
+    }
+  },
+  "deleteModal": {
+    "title": "റിപ്പോർട്ട് ഇല്ലാതാക്കുക",
+    "message": "നിങ്ങൾക്ക് ഈ റിപ്പോർട്ട് ശരിക്കും ഇല്ലാതാക്കണോ? ഈ നടപടി തിരിച്ചു മാറ്റാൻ കഴിയില്ല, കൂടാതെ നിങ്ങളുടെ ഡാറ്റ വീണ്ടെടുക്കാൻ കഴിയില്ല.",
+    "confirmText": "അതെ, ഇല്ലാതാക്കുക"
+  }
+}

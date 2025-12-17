@@ -72,8 +72,12 @@ export default function ProjectDetails() {
         console.log('Gallery tool clicked');
         break;
       case 'dpr':
-        // TODO: Navigate to daily progress report page
-        console.log('DPR tool clicked');
+        navigate(ROUTES_FLAT.DPR, {
+          state: {
+            projectId: project?.id,
+            projectName: project?.site_name || project?.name,
+          },
+        });
         break;
       case 'notes':
         // TODO: Navigate to notes page

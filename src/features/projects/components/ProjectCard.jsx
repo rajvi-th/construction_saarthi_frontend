@@ -12,20 +12,13 @@ import ProjectStatusPill from './ProjectStatusPill';
 export default function ProjectCard({ project, onOpenDetails, onEdit, onDelete }) {
   const { t } = useTranslation('projects');
   const [imageError, setImageError] = useState(false);
-  
-  // Simple gray placeholder as data URI (no external dependency)
-  const defaultImage = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzljYTNhZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==';
-  const imageSrc =
-    imageError
-      ? defaultImage
-      : project.profile_photo ||
-        project.image ||
-        defaultImage;
 
   const title = project.site_name || project.name || 'Untitled project';
   const address = project.address || 'No address provided';
   const status = project.status || 'Completed';
   const progress = project.progress ?? project.completion_percentage ?? 0;
+  const imageSrc = project.profile_photo || project.image || '';
+  const showImage = Boolean(imageSrc) && !imageError;
 
   const handleImageError = () => {
     setImageError(true);
@@ -39,12 +32,22 @@ export default function ProjectCard({ project, onOpenDetails, onEdit, onDelete }
       <div className="flex flex-col gap-4 p-3.5 sm:flex-row sm:items-center">
         {/* Project Image */}
         <div className="w-full sm:w-64 flex-shrink-0 relative">
-          <img
-            src={imageSrc}
-            alt={title}
-            onError={handleImageError}
-            className="w-full h-36 sm:h-40 md:h-44 object-cover rounded-[12px]"
-          />
+          {showImage ? (
+            <img
+              src={imageSrc}
+              alt={title}
+              onError={handleImageError}
+              className="w-full h-36 sm:h-40 md:h-44 object-cover rounded-[12px]"
+            />
+          ) : (
+            <div
+              className="w-full h-36 sm:h-40 md:h-44 rounded-[12px] bg-[#F3F4F6] flex items-center justify-center text-xs text-[#060C1280]"
+              aria-label={t('projectCard.noImage', 'No image')}
+              title={t('projectCard.noImage', 'No image')}
+            >
+              {t('projectCard.noImage', 'No image')}
+            </div>
+          )}
 
           {/* Circular progress over image on small screens (bottom-right) */}
           <div className="absolute bottom-1 right-1 sm:hidden ">

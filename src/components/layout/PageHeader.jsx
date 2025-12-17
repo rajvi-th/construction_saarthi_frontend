@@ -26,25 +26,25 @@ export default function PageHeader({
 
   return (
     <div className={`mb-4 sm:mb-5 md:mb-6 ${className}`}>
-      <div className="flex items-center justify-between gap-3 sm:gap-4 flex-wrap">
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between lg:gap-4">
         {/* Title Section */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
           {showBackButton && (
             <button
               onClick={handleBack}
-              className="p-1 pl-0! transition-colors cursor-pointer flex-shrink-0"
+              className="p-1 pl-0 transition-colors cursor-pointer flex-shrink-0"
               aria-label="Back"
             >
               <ArrowLeft className="w-5 h-5 md:w-6 md:h-6 text-primary" />
             </button>
           )}
-          <h1 className="text-lg sm:text-xl md:text-2xl lg:text-[22px] font-semibold text-primary">
+          <h1 className="text-lg sm:text-xl md:text-2xl lg:text-[22px] font-semibold text-primary min-w-0 break-words line-clamp-2 lg:line-clamp-1">
             {title}
           </h1>
         </div>
         {/* Actions Section */}
         {children && (
-          <div className="flex-shrink-0 w-full sm:w-auto">
+          <div className="w-full lg:w-auto min-w-0">
             {children}
           </div>
         )}

@@ -1,0 +1,92 @@
+{
+  "header": {
+    "title": "தினசரி முன்னேற்ற அறிக்கை (DPR)"
+  },
+  "search": {
+    "placeholder": "திட்டங்களைத் தேடு"
+  },
+  "filter": {
+    "label": "வடிகட்டி",
+    "all": "அனைத்தும்",
+    "completed": "முடிந்தது",
+    "inProgress": "முன்னேற்றத்தில்",
+    "upcoming": "வரவிருக்கிறது"
+  },
+  "actions": {
+    "addReport": "அறிக்கை சேர்",
+    "cancel": "ரத்துசெய்",
+    "download": "பதிவிறக்க",
+    "upload": "பதிவேற்று",
+    "downloadReport": "அறிக்கையை பதிவிறக்கவும்",
+    "editReport": "அறிக்கையைத் திருத்தவும்",
+    "deleteReport": "அறிக்கையை நீக்கவும்"
+  },
+  "emptyState": {
+    "noProjects": "திட்டங்கள் எதுவும் கிடைக்கவில்லை",
+    "noReports": "அறிக்கைகள் எதுவும் கிடைக்கவில்லை",
+    "adjustSearch": "உங்கள் தேடல் அல்லது வடிகட்டியை சரிசெய்ய முயற்சிக்கவும்",
+    "getStarted": "உங்கள் முதல் திட்டத்தைச் சேர்ப்பதன் மூலம் தொடங்கவும்"
+  },
+  "form": {
+    "title": "புதிய அறிக்கை சேர்",
+    "workTimeDuration": {
+      "label": "இன்றைய வேலை நேரம்",
+      "startTime": "தொடங்கும் நேரம்",
+      "endTime": "முடிவு நேரம்"
+    },
+    "status": {
+      "label": "நிலை",
+      "placeholder": "திட்ட நிலையைத் தேர்ந்தெடுக்கவும்"
+    },
+    "labour": {
+      "label": "இன்றைய மொத்த தொழிலாளர்கள்",
+      "present": "வந்துள்ள தொழிலாளர்கள்",
+      "halfDay": "அரை நாள் தொழிலாளர்கள்",
+      "absent": "வராத தொழிலாளர்கள்"
+    },
+    "photosVideos": {
+      "label": "புகைப்படங்கள்/வீடியோக்கள்",
+      "title": "புகைப்படங்கள்/வீடியோக்கள் பதிவேற்றவும்",
+      "supportedFormat": "ஆதரிக்கப்படும் வடிவம்: JPG, PNG, Mp4 (10MB EACH)",
+      "supportedFormatLabel": "ஆதரிக்கப்படும் வடிவம்:"
+    },
+    "workProgress": {
+      "label": "வேலை முன்னேற்றம்",
+      "todaySummary": "இன்றைய வேலை சுருக்கம்",
+      "todaySummaryPlaceholder": "சுருக்கத்தை உள்ளிடவும்",
+      "plannedWork": "திட்டமிடப்பட்ட வேலை",
+      "plannedWorkPlaceholder": "விவரங்களை உள்ளிடவும்",
+      "actualWork": "செய்யப்பட்ட உண்மையான வேலை",
+      "actualWorkPlaceholder": "விவரங்களை உள்ளிடவும்",
+      "delayReason": "தாமதத்திற்கான காரணம்",
+      "delayReasonPlaceholder": "காரணத்தை உள்ளிடவும்"
+    },
+    "reportDetails": {
+      "workTimeDuration": "இன்றைய வேலை நேரம்",
+      "totalLabour": "இன்றைய மொத்த தொழிலாளர்கள்",
+      "present": "வந்துள்ளோர்",
+      "halfDay": "அரை நாள்",
+      "absent": "வராதோர்",
+      "photos": "புகைப்படங்கள்",
+      "workProgress": "வேலை முன்னேற்றம்",
+      "todaySummary": "இன்றைய வேலை சுருக்கம்",
+      "plannedWork": "திட்டமிடப்பட்ட வேலை",
+      "actualWork": "செய்யப்பட்ட உண்மையான வேலை",
+      "delayReason": "தாமதத்திற்கான காரணம்"
+    },
+    "errors": {
+      "startTimeRequired": "தொடங்கும் நேரம் தேவை",
+      "endTimeRequired": "முடிவு நேரம் தேவை",
+      "statusRequired": "நிலை தேவை",
+      "todaySummaryRequired": "இன்றைய வேலை சுருக்கம் தேவை",
+      "plannedWorkRequired": "திட்டமிடப்பட்ட வேலை தேவை",
+      "actualWorkRequired": "செய்யப்பட்ட உண்மையான வேலை தேவை",
+      "delayReasonRequired": "தாமதத்திற்கான காரணம் தேவை"
+    }
+  },
+  "deleteModal": {
+    "title": "அறிக்கையை நீக்கவும்",
+    "message": "இந்த அறிக்கையை நீக்க விரும்புகிறீர்களா? இந்த செயலை மீட்டெடுக்க முடியாது, மேலும் உங்கள் தரவை மீட்டெடுக்க முடியாது.",
+    "confirmText": "ஆம், நீக்கு"
+  }
+}

@@ -79,6 +79,12 @@ const Projects = lazy(() => import('../features/projects/pages/Projects'));
 const ProjectDetails = lazy(() => import('../features/projects/pages/ProjectDetails'));
 const AddNewProject = lazy(() => import('../features/projects/pages/AddNewProject'));
 
+// Daily Progress Report
+const DailyProgressReport = lazy(() => import('../features/dailyProgressReport/pages/DailyProgressReport'));
+const ProjectReports = lazy(() => import('../features/dailyProgressReport/pages/ProjectReports'));
+const ReportDetails = lazy(() => import('../features/dailyProgressReport/pages/ReportDetails'));
+const AddReport = lazy(() => import('../features/dailyProgressReport/pages/AddReport'));
+
 // Past Work
 const PastWork = lazy(() => import('../features/pastProject/pages/PastWork'));
 const PastProjectDetail = lazy(() => import('../features/pastProject/pages/PastProjectDetail'));
@@ -167,6 +173,10 @@ function AppRoutes() {
             <Route path={ROUTES_FLAT.PROJECT_GALLERY} element={<ProjectGallery />} />
             <Route path={ROUTES_FLAT.PROJECT_GALLERY_DETAILS} element={<ProjectGalleryDetails />} />
             <Route path={ROUTES_FLAT.PROJECT_GALLERY_UPLOAD} element={<UploadMedia />} />
+            <Route path={ROUTES_FLAT.DPR} element={<DailyProgressReport />} />
+            <Route path={ROUTES_FLAT.DPR_PROJECT_REPORTS} element={<ProjectReports />} />
+            <Route path={ROUTES_FLAT.DPR_REPORT_DETAILS} element={<ReportDetails />} />
+            <Route path={ROUTES_FLAT.DPR_ADD_REPORT} element={<AddReport />} />
           </Route>
         </Route>
 

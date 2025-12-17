@@ -1,0 +1,92 @@
+{
+  "header": {
+    "title": "రోజువారీ పురోగతి నివేదిక (DPR)"
+  },
+  "search": {
+    "placeholder": "ప్రాజెక్టులను శోధించండి"
+  },
+  "filter": {
+    "label": "ఫిల్టర్",
+    "all": "అన్నీ",
+    "completed": "పూర్తయింది",
+    "inProgress": "పురోగతిలో",
+    "upcoming": "రాబోయే"
+  },
+  "actions": {
+    "addReport": "నివేదిక జోడించండి",
+    "cancel": "రద్దు చేయి",
+    "download": "డౌన్‌లోడ్",
+    "upload": "అప్‌లోడ్",
+    "downloadReport": "నివేదికను డౌన్‌లోడ్ చేయండి",
+    "editReport": "నివేదికను సవరించండి",
+    "deleteReport": "నివేదికను తొలగించండి"
+  },
+  "emptyState": {
+    "noProjects": "ప్రాజెక్టులు కనుగొనబడలేదు",
+    "noReports": "నివేదికలు కనుగొనబడలేదు",
+    "adjustSearch": "మీ శోధన లేదా ఫిల్టర్‌ను సర్దుబాటు చేయడానికి ప్రయత్నించండి",
+    "getStarted": "మీ మొదటి ప్రాజెక్ట్‌ను జోడించడం ద్వారా ప్రారంభించండి"
+  },
+  "form": {
+    "title": "కొత్త నివేదిక జోడించండి",
+    "workTimeDuration": {
+      "label": "నేటి పని సమయ వ్యవధి",
+      "startTime": "ప్రారంభ సమయం",
+      "endTime": "ముగింపు సమయం"
+    },
+    "status": {
+      "label": "స్థితి",
+      "placeholder": "ప్రాజెక్ట్ స్థితిని ఎంచుకోండి"
+    },
+    "labour": {
+      "label": "నేడు మొత్తం కార్మికులు",
+      "present": "హాజరు కార్మికులు",
+      "halfDay": "అర్ధ రోజు కార్మికులు",
+      "absent": "గైర్హాజరు కార్మికులు"
+    },
+    "photosVideos": {
+      "label": "ఫోటోలు/వీడియోలు",
+      "title": "ఫోటోలు/వీడియోలు అప్‌లోడ్ చేయండి",
+      "supportedFormat": "సమర్థిత ఫార్మాట్: JPG, PNG, Mp4 (10MB EACH)",
+      "supportedFormatLabel": "సమర్థిత ఫార్మాట్:"
+    },
+    "workProgress": {
+      "label": "పని పురోగతి",
+      "todaySummary": "నేటి పని సారాంశం",
+      "todaySummaryPlaceholder": "సారాంశం నమోదు చేయండి",
+      "plannedWork": "యోజించిన పని",
+      "plannedWorkPlaceholder": "వివరాలు నమోదు చేయండి",
+      "actualWork": "చేసిన వాస్తవ పని",
+      "actualWorkPlaceholder": "వివరాలు నమోదు చేయండి",
+      "delayReason": "విలంబానికి కారణం",
+      "delayReasonPlaceholder": "కారణం నమోదు చేయండి"
+    },
+    "reportDetails": {
+      "workTimeDuration": "నేటి పని సమయ వ్యవధి",
+      "totalLabour": "నేడు మొత్తం కార్మికులు",
+      "present": "హాజరు",
+      "halfDay": "అర్ధ రోజు",
+      "absent": "గైర్హాజరు",
+      "photos": "ఫోటోలు",
+      "workProgress": "పని పురోగతి",
+      "todaySummary": "నేటి పని సారాంశం",
+      "plannedWork": "యోజించిన పని",
+      "actualWork": "చేసిన వాస్తవ పని",
+      "delayReason": "విలంబానికి కారణం"
+    },
+    "errors": {
+      "startTimeRequired": "ప్రారంభ సమయం అవసరం",
+      "endTimeRequired": "ముగింపు సమయం అవసరం",
+      "statusRequired": "స్థితి అవసరం",
+      "todaySummaryRequired": "నేటి పని సారాంశం అవసరం",
+      "plannedWorkRequired": "యోజించిన పని అవసరం",
+      "actualWorkRequired": "చేసిన వాస్తవ పని అవసరం",
+      "delayReasonRequired": "విలంబానికి కారణం అవసరం"
+    }
+  },
+  "deleteModal": {
+    "title": "నివేదికను తొలగించండి",
+    "message": "మీరు నిజంగా ఈ నివేదికను తొలగించాలనుకుంటున్నారా? ఈ చర్యను తిరిగి మార్చలేరు, మరియు మీ డేటాను పునరుద్ధరించలేరు.",
+    "confirmText": "అవును, తొలగించండి"
+  }
+}

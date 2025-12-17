@@ -4,6 +4,7 @@
  * Supports leftIcon and leftIconName props for icons (left side only)
  */
 
+import { cloneElement, isValidElement } from 'react';
 import * as LucideIcons from 'lucide-react';
 
 export default function Button({
@@ -26,6 +27,7 @@ export default function Button({
     primary: 'bg-accent text-white hover:bg-[#9F290A] focus:ring-accent disabled:opacity-50 disabled:cursor-not-allowed',
     secondary: 'bg-[#FBFBFB] text-secondary border border-gray-200 hover:bg-gray-50 focus:ring-gray-300 disabled:opacity-50 disabled:cursor-not-allowed',
     danger: 'bg-accent text-white hover:bg-[#9F290A] focus:ring-accent disabled:opacity-50 disabled:cursor-not-allowed',
+    accentSoft: 'rounded-full bg-[#B02E0C0F] text-[#B02E0C] hover:bg-[#B02E0C1A] focus:ring-[#B02E0C]/20 disabled:opacity-50 disabled:cursor-not-allowed',
   };
 
   const sizes = {
@@ -38,6 +40,23 @@ export default function Button({
     sm: 'w-3 h-3',
   };
 
+  const cx = (...classes) => classes.filter(Boolean).join(' ');
+
+  const iconWrapperVariants = {
+    primary: 'bg-white rounded-full p-1 text-accent',
+    secondary: 'bg-white rounded-full p-1 text-accent',
+    danger: 'bg-white rounded-full p-1 text-accent',
+    accentSoft: 'bg-transparent p-0 text-current',
+  };
+
+  const applyIconClassName = (iconEl) => {
+    if (!iconClassName) return iconEl;
+    if (!isValidElement(iconEl)) return iconEl;
+    return cloneElement(iconEl, {
+      className: cx(iconEl.props?.className, iconClassName),
+    });
+  };
+
   // Get icon component from lucide-react by name
   const getIconByName = (iconName, customSize) => {
     if (!iconName) return null;
@@ -46,12 +65,12 @@ export default function Button({
       return null;
     }
     const sizeClass = customSize || iconSizes[size];
-      return <IconComponent className={sizeClass} strokeWidth={3} />;
+    return <IconComponent className={cx(sizeClass, iconClassName)} strokeWidth={3} />;
   };
 
   // Render left icon (priority: leftIcon > leftIconName)
   const renderLeftIcon = () => {
-    if (leftIcon) return leftIcon;
+    if (leftIcon) return applyIconClassName(leftIcon);
     if (leftIconName) return getIconByName(leftIconName, iconSize);
     return null;
   };
@@ -69,7 +88,13 @@ export default function Button({
       {...props}
     >
       {leftIconElement && (
-        <span className={`flex items-center justify-center bg-white rounded-full p-1 text-accent ${iconClassName || ''}`}>
+        <span
+          className={cx(
+            'flex items-center justify-center',
+            iconWrapperVariants[variant] || iconWrapperVariants.primary,
+            leftIconWrapperClassName,
+          )}
+        >
           {leftIconElement}
         </span>
       )}

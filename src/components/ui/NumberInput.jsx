@@ -32,9 +32,9 @@ export default function NumberInput({
   return (
     <div className={`w-full ${className}`}>
       {label && (
-        <label className="block text-sm font-medium text-primary mb-2">
+        <label className="block text-sm font-normal text-black mb-2">
           {label}
-          {required && <span className="text-accent ml-1">*</span>}
+          {required &&<span>*</span>}
         </label>
       )}
       

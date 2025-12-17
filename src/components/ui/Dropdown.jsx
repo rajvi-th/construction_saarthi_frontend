@@ -18,6 +18,7 @@ export default function Dropdown({
   disabled = false,
   className = '',
   error,
+  required = false,
   showSeparator = false,
   addButtonLabel = 'Add New',
   onAddNew,
@@ -59,8 +60,9 @@ export default function Dropdown({
   return (
     <div className={`relative ${className}`} ref={dropdownRef}>
       {label && (
-        <label className="block text-sm font-medium text-primary font-normal mb-2">
+        <label className="block text-md text-black font-medium mb-2">
           {label}
+          {required && <span>*</span>}
         </label>
       )}
 
