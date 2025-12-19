@@ -213,6 +213,22 @@ import bhoDpr from '../locales/bho/dpr.json';
 import asDpr from '../locales/as/dpr.json';
 import hryDpr from '../locales/hry/dpr.json';
 
+// Import notes translations for all languages
+import enNotes from '../locales/en/notes.json';
+import hiNotes from '../locales/hi/notes.json';
+import guNotes from '../locales/gu/notes.json';
+import bnNotes from '../locales/bn/notes.json';
+import taNotes from '../locales/ta/notes.json';
+import mrNotes from '../locales/mr/notes.json';
+import teNotes from '../locales/te/notes.json';
+import knNotes from '../locales/kn/notes.json';
+import mlNotes from '../locales/ml/notes.json';
+import urNotes from '../locales/ur/notes.json';
+import rajNotes from '../locales/raj/notes.json';
+import bhoNotes from '../locales/bho/notes.json';
+import asNotes from '../locales/as/notes.json';
+import hryNotes from '../locales/hry/notes.json';
+
 // Get saved language from localStorage or default to 'en'
 const savedLang = localStorage.getItem('lang') || 'en';
 
@@ -231,6 +247,7 @@ const resources = {
     projectGallery: enProjectGallery,
     pastProjects: enPastProjects,
     dpr: enDpr,
+    notes: enNotes,
   },
   hi: {
     common: hiCommon,
@@ -246,6 +263,7 @@ const resources = {
     projectGallery: hiProjectGallery,
     pastProjects: hiPastProjects,
     dpr: hiDpr,
+    notes: hiNotes,
   },
   gu: {
     common: guCommon,
@@ -261,6 +279,7 @@ const resources = {
     projectGallery: guProjectGallery,
     pastProjects: guPastProjects,
     dpr: guDpr,
+    notes: guNotes,
   },
   bn: {
     common: bnCommon,
@@ -276,6 +295,7 @@ const resources = {
     projectGallery: bnProjectGallery,
     pastProjects: bnPastProjects,
     dpr: bnDpr,
+    notes: bnNotes,
   },
   ta: {
     common: taCommon,
@@ -291,6 +311,7 @@ const resources = {
     projectGallery: taProjectGallery,
     pastProjects: taPastProjects,
     dpr: taDpr,
+    notes: taNotes,
   },
   mr: {
     common: mrCommon,
@@ -306,6 +327,7 @@ const resources = {
     projectGallery: mrProjectGallery,
     pastProjects: mrPastProjects,
     dpr: mrDpr,
+    notes: mrNotes,
   },
   te: {
     common: teCommon,
@@ -321,6 +343,7 @@ const resources = {
     projectGallery: teProjectGallery,
     pastProjects: tePastProjects,
     dpr: teDpr,
+    notes: teNotes,
   },
   kn: {
     common: knCommon,
@@ -336,6 +359,7 @@ const resources = {
     projectGallery: knProjectGallery,
     pastProjects: knPastProjects,
     dpr: knDpr,
+    notes: knNotes,
   },
   ml: {
     common: mlCommon,
@@ -351,6 +375,7 @@ const resources = {
     projectGallery: mlProjectGallery,
     pastProjects: mlPastProjects,
     dpr: mlDpr,
+    notes: mlNotes,
   },
   ur: {
     common: urCommon,
@@ -366,6 +391,7 @@ const resources = {
     projectGallery: urProjectGallery,
     pastProjects: urPastProjects,
     dpr: urDpr,
+    notes: urNotes,
   },
   raj: {
     common: rajCommon,
@@ -381,6 +407,7 @@ const resources = {
     projectGallery: rajProjectGallery,
     pastProjects: rajPastProjects,
     dpr: rajDpr,
+    notes: rajNotes,
   },
   bho: {
     common: bhoCommon,
@@ -396,6 +423,7 @@ const resources = {
     projectGallery: bhoProjectGallery,
     pastProjects: bhoPastProjects,
     dpr: bhoDpr,
+    notes: bhoNotes,
   },
   as: {
     common: asCommon,
@@ -411,6 +439,7 @@ const resources = {
     projectGallery: asProjectGallery,
     pastProjects: asPastProjects,
     dpr: asDpr,
+    notes: asNotes,
   },
   hry: {
     common: hryCommon,
@@ -426,6 +455,7 @@ const resources = {
     projectGallery: hryProjectGallery,
     pastProjects: hryPastProjects,
     dpr: hryDpr,
+    notes: hryNotes,
   },
 };
 
@@ -440,7 +470,7 @@ i18n
       escapeValue: false, // React already escapes values
     },
     defaultNS: 'common',
-    ns: ['common', 'auth', 'dashboard', 'account', 'businessCard', 'siteInventory', 'referEarn', 'subscription', 'builderClient', 'projectGallery', 'projects', 'pastProjects', 'dpr'],
+    ns: ['common', 'auth', 'dashboard', 'account', 'businessCard', 'siteInventory', 'referEarn', 'subscription', 'builderClient', 'projectGallery', 'projects', 'pastProjects', 'dpr', 'notes'],
   });
 
 export default i18n;

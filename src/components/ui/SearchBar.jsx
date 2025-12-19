@@ -23,7 +23,7 @@ export default function SearchBar({
         placeholder={placeholder}
         {...(value !== undefined ? { value } : { defaultValue })}
         onChange={onChange}
-        className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 bg-white text-primary placeholder:text-secondary focus:outline-none focus:border-[rgba(6,12,18,0.3)] transition-colors"
+        className="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 bg-white text-primary placeholder:text-secondary focus:outline-none focus:border-[rgba(6,12,18,0.3)] transition-colors"
         {...props}
       />
     </div>

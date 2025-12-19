@@ -119,7 +119,7 @@ const Dashboard = () => {
     {
       icon: Mic,
       label: t("quickActions.notes"),
-      onClick: () => {},
+      onClick: () => navigate(ROUTES_FLAT.NOTES),
     },
   ];
 

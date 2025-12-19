@@ -85,6 +85,13 @@ const ProjectReports = lazy(() => import('../features/dailyProgressReport/pages/
 const ReportDetails = lazy(() => import('../features/dailyProgressReport/pages/ReportDetails'));
 const AddReport = lazy(() => import('../features/dailyProgressReport/pages/AddReport'));
 
+// Notes
+const NotesList = lazy(() => import('../features/notes/pages/NotesList'));
+const ProjectNotes = lazy(() => import('../features/notes/pages/ProjectNotes'));
+const AddNote = lazy(() => import('../features/notes/pages/AddNote'));
+const NoteDetails = lazy(() => import('../features/notes/pages/NoteDetails'));
+const EditNote = lazy(() => import('../features/notes/pages/EditNote'));
+
 // Past Work
 const PastWork = lazy(() => import('../features/pastProject/pages/PastWork'));
 const PastProjectDetail = lazy(() => import('../features/pastProject/pages/PastProjectDetail'));
@@ -177,6 +184,11 @@ function AppRoutes() {
             <Route path={ROUTES_FLAT.DPR_PROJECT_REPORTS} element={<ProjectReports />} />
             <Route path={ROUTES_FLAT.DPR_REPORT_DETAILS} element={<ReportDetails />} />
             <Route path={ROUTES_FLAT.DPR_ADD_REPORT} element={<AddReport />} />
+            <Route path={ROUTES_FLAT.NOTES} element={<NotesList />} />
+            <Route path={ROUTES_FLAT.NOTES_PROJECT_NOTES} element={<ProjectNotes />} />
+            <Route path={ROUTES_FLAT.NOTES_ADD} element={<AddNote />} />
+            <Route path={ROUTES_FLAT.NOTES_DETAILS} element={<NoteDetails />} />
+            <Route path={ROUTES_FLAT.NOTES_EDIT} element={<EditNote />} />
           </Route>
         </Route>
 

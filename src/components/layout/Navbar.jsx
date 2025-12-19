@@ -21,6 +21,9 @@ const BREADCRUMB_TRANSLATION_KEYS = {
   addpastwork: "pastProjects.addTitle",
   "business-card": "sidebar.mainMenu.businessCard",
   "site-inventory": "sidebar.mainMenu.siteInventory",
+  notes: "notes.title",
+  addNewNote: "notes.addNewNote",
+  editNote: "notes.editNote",
   refer: "sidebar.mainMenu.referEarn",
   subscription: "sidebar.mainMenu.subscription",
   account: "sidebar.mainMenu.account",
@@ -33,6 +36,7 @@ const Navbar = () => {
   const { t } = useTranslation("common");
   const { t: tBuilderClient } = useTranslation("builderClient");
   const { t: tPastProjects } = useTranslation("pastProjects");
+  const { t: tNotes } = useTranslation("notes");
   const location = useLocation();
   const { user: authUser } = useAuth();
 
@@ -115,31 +119,62 @@ const Navbar = () => {
       return ["past-work", "addPastWork"];
     }
 
+    // Handle notes routes: replace "add" with "addNewNote" and "edit" with "editNote" for breadcrumb translation
+    if (segments[0] === "notes" && segments.length > 1) {
+      const processedSegments = [...segments];
+      // Check if "add" is in any position (could be segments[1] for /notes/add or segments[2] for /notes/:id/add)
+      const addIndex = processedSegments.findIndex((seg, idx) => idx > 0 && seg === "add");
+      if (addIndex !== -1) {
+        processedSegments[addIndex] = "addNewNote";
+      }
+      // Check if "edit" is in any position (could be segments[1] for /notes/edit or segments[2] for /notes/:id/edit)
+      const editIndex = processedSegments.findIndex((seg, idx) => idx > 0 && seg === "edit");
+      if (editIndex !== -1) {
+        processedSegments[editIndex] = "editNote";
+      }
+      return processedSegments;
+    }
+
     return segments;
   }, [location.pathname, location.state]);
 
   const currentBreadcrumb = useMemo(() => {
     const last = breadcrumbs[breadcrumbs.length - 1] || "dashboard";
-    const translationKey = BREADCRUMB_TRANSLATION_KEYS[last.toLowerCase()] || "";
+    // Try original case first, then lowercase for camelCase keys like "addNewNote"
+    const translationKey = BREADCRUMB_TRANSLATION_KEYS[last] || 
+                          BREADCRUMB_TRANSLATION_KEYS[last.toLowerCase()] || 
+                          "";
     
     // Use builderClient namespace for vendor-specific translations
-    if (translationKey.startsWith("builderClient.")) {
+    if (translationKey && translationKey.startsWith("builderClient.")) {
       return tBuilderClient(translationKey.replace("builderClient.", ""), {
         defaultValue: last.replace(/-/g, " "),
       });
     }
 
     // Use pastProjects namespace for past work related translations
-    if (translationKey.startsWith("pastProjects.")) {
+    if (translationKey && translationKey.startsWith("pastProjects.")) {
       return tPastProjects(translationKey.replace("pastProjects.", ""), {
         defaultValue: last.replace(/-/g, " "),
       });
     }
+
+    // Use notes namespace for notes-related translations
+    if (translationKey && translationKey.startsWith("notes.")) {
+      return tNotes(translationKey.replace("notes.", ""), {
+        defaultValue: last.replace(/-/g, " "),
+      });
+    }
     
-    return t(translationKey, {
-      defaultValue: last.replace(/-/g, " "),
-    });
-  }, [breadcrumbs, t, tBuilderClient]);
+    if (translationKey) {
+      return t(translationKey, {
+        defaultValue: last.replace(/-/g, " "),
+      });
+    }
+    
+    // Fallback: return the original value if no translation key found
+    return last.replace(/-/g, " ");
+  }, [breadcrumbs, t, tBuilderClient, tPastProjects, tNotes]);
 
   return (
     <header className="fixed top-0 left-0 right-0 lg:left-[300px] py-3 px-4 md:px-8 bg-white border-b border-black-soft z-40 flex items-center justify-between ">
@@ -168,22 +203,41 @@ const Navbar = () => {
                 }
               >
                 {(() => {
-                  const translationKey = BREADCRUMB_TRANSLATION_KEYS[crumb.toLowerCase()] || "";
+                  // Try original case first, then lowercase for camelCase keys like "addNewNote"
+                  const translationKey = BREADCRUMB_TRANSLATION_KEYS[crumb] || 
+                                        BREADCRUMB_TRANSLATION_KEYS[crumb.toLowerCase()] || 
+                                        "";
+                  
+                  // Skip translation for numeric IDs (they're data, not UI text)
+                  if (!translationKey && /^\d+$/.test(crumb)) {
+                    return crumb;
+                  }
+                  
                   // Use builderClient namespace for vendor-specific translations
-                  if (translationKey.startsWith("builderClient.")) {
+                  if (translationKey && translationKey.startsWith("builderClient.")) {
                     return tBuilderClient(translationKey.replace("builderClient.", ""), {
                       defaultValue: crumb.replace(/-/g, " "),
                     });
                   }
                   // Use pastProjects namespace for past work related translations
-                  if (translationKey.startsWith("pastProjects.")) {
+                  if (translationKey && translationKey.startsWith("pastProjects.")) {
                     return tPastProjects(translationKey.replace("pastProjects.", ""), {
                       defaultValue: crumb.replace(/-/g, " "),
                     });
                   }
-                  return t(translationKey, {
-                    defaultValue: crumb.replace(/-/g, " "),
-                  });
+                  // Use notes namespace for notes-related translations
+                  if (translationKey && translationKey.startsWith("notes.")) {
+                    return tNotes(translationKey.replace("notes.", ""), {
+                      defaultValue: crumb.replace(/-/g, " "),
+                    });
+                  }
+                  if (translationKey) {
+                    return t(translationKey, {
+                      defaultValue: crumb.replace(/-/g, " "),
+                    });
+                  }
+                  // Fallback: return the original value if no translation key found
+                  return crumb.replace(/-/g, " ");
                 })()}
               </span>
             </span>

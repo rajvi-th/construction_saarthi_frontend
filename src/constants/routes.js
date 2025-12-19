@@ -101,6 +101,14 @@ export const ROUTES = {
     REPORT_DETAILS: '/dpr/projects/:projectId/reports/:reportId',
     ADD_REPORT: '/dpr/projects/:projectId/add-report',
   },
+  // Notes Routes
+  NOTES: {
+    LIST: '/notes',
+    PROJECT_NOTES: '/notes/projects/:projectId',
+    ADD: '/notes/add',
+    DETAILS: '/notes/:id',
+    EDIT: '/notes/:id/edit',
+  },
 };
 
 // Flattened routes for easier access
@@ -184,6 +192,13 @@ export const ROUTES_FLAT = {
   DPR_PROJECT_REPORTS: ROUTES.DPR.PROJECT_REPORTS,
   DPR_REPORT_DETAILS: ROUTES.DPR.REPORT_DETAILS,
   DPR_ADD_REPORT: ROUTES.DPR.ADD_REPORT,
+  
+  // Notes
+  NOTES: ROUTES.NOTES.LIST,
+  NOTES_PROJECT_NOTES: ROUTES.NOTES.PROJECT_NOTES,
+  NOTES_ADD: ROUTES.NOTES.ADD,
+  NOTES_DETAILS: ROUTES.NOTES.DETAILS,
+  NOTES_EDIT: ROUTES.NOTES.EDIT,
 };
 
 /**

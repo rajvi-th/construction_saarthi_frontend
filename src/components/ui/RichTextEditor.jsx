@@ -135,15 +135,15 @@ export default function RichTextEditor({
       onClick={onClick}
       title={title}
       className={`
-        p-2 rounded hover:bg-gray-100 transition-colors relative
+        p-1.5 sm:p-2 rounded hover:bg-gray-100 transition-colors relative
         ${isActive ? 'bg-gray-200' : ''}
         ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
       `}
       disabled={disabled}
     >
-      <Icon className="w-4 h-4 text-primary" />
+      <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
       {hasDropdown && (
-        <ChevronDown className="w-3 h-3 text-primary absolute -bottom-0.5 -right-0.5" />
+        <ChevronDown className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-primary absolute -bottom-0.5 -right-0.5" />
       )}
     </button>
   );
@@ -151,7 +151,7 @@ export default function RichTextEditor({
   return (
     <div className={`border border-black-soft rounded-lg overflow-hidden bg-white ${className}`}>
       {/* Toolbar */}
-      <div className="border-b border-black-soft p-2 flex items-center justify-center gap-1 flex-wrap">
+      <div className="border-b border-black-soft p-1.5 sm:p-2 flex items-center justify-center gap-0.5 sm:gap-1 flex-wrap">
         {/* Undo */}
         <ToolbarButton
           icon={Undo2}
@@ -169,7 +169,7 @@ export default function RichTextEditor({
         />
 
         {/* Divider */}
-        <div className="w-px h-6 bg-gray-300 mx-1" />
+        <div className="w-px h-5 sm:h-6 bg-gray-300 mx-0.5 sm:mx-1" />
 
         {/* Bullet List */}
         <ToolbarButton
@@ -207,7 +207,7 @@ export default function RichTextEditor({
         />
 
         {/* Divider */}
-        <div className="w-px h-6 bg-gray-300 mx-1" />
+        <div className="w-px h-5 sm:h-6 bg-gray-300 mx-0.5 sm:mx-1" />
 
         {/* Alignment Options */}
         <div className="relative" ref={alignmentMenuRef}>
@@ -218,16 +218,16 @@ export default function RichTextEditor({
             title="Alignment"
           />
           {showAlignmentMenu && (
-            <div className="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[150px]">
+            <div className="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-[140px] sm:min-w-[150px]">
               <button
                 type="button"
                 onClick={() => {
                   execCommand('justifyLeft');
                   setShowAlignmentMenu(false);
                 }}
-                className="w-full text-left px-4 py-2 text-sm hover:bg-gray-50 flex items-center gap-2"
+                className="w-full text-left px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm hover:bg-gray-50 flex items-center gap-2"
               >
-                <AlignLeft className="w-4 h-4" />
+                <AlignLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 Align Left
               </button>
               <button
@@ -236,9 +236,9 @@ export default function RichTextEditor({
                   execCommand('justifyCenter');
                   setShowAlignmentMenu(false);
                 }}
-                className="w-full text-left px-4 py-2 text-sm hover:bg-gray-50 flex items-center gap-2"
+                className="w-full text-left px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm hover:bg-gray-50 flex items-center gap-2"
               >
-                <AlignCenter className="w-4 h-4" />
+                <AlignCenter className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 Align Center
               </button>
               <button
@@ -247,9 +247,9 @@ export default function RichTextEditor({
                   execCommand('justifyRight');
                   setShowAlignmentMenu(false);
                 }}
-                className="w-full text-left px-4 py-2 text-sm hover:bg-gray-50 flex items-center gap-2"
+                className="w-full text-left px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm hover:bg-gray-50 flex items-center gap-2"
               >
-                <AlignRight className="w-4 h-4" />
+                <AlignRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 Align Right
               </button>
               <button
@@ -258,9 +258,9 @@ export default function RichTextEditor({
                   execCommand('justifyFull');
                   setShowAlignmentMenu(false);
                 }}
-                className="w-full text-left px-4 py-2 text-sm hover:bg-gray-50 flex items-center gap-2"
+                className="w-full text-left px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm hover:bg-gray-50 flex items-center gap-2"
               >
-                <AlignJustify className="w-4 h-4" />
+                <AlignJustify className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 Justify
               </button>
             </div>
@@ -268,7 +268,7 @@ export default function RichTextEditor({
         </div>
 
         {/* Divider */}
-        <div className="w-px h-6 bg-gray-300 mx-1" />
+        <div className="w-px h-5 sm:h-6 bg-gray-300 mx-0.5 sm:mx-1" />
 
         {/* Link */}
         <ToolbarButton
@@ -285,7 +285,7 @@ export default function RichTextEditor({
         />
 
         {/* Divider */}
-        <div className="w-px h-6 bg-gray-300 mx-1" />
+        <div className="w-px h-5 sm:h-6 bg-gray-300 mx-0.5 sm:mx-1" />
 
         {/* Code Block */}
         <ToolbarButton
@@ -318,8 +318,8 @@ export default function RichTextEditor({
         onKeyDown={handleKeyDown}
         data-placeholder={placeholder}
         className={`
-          min-h-[200px] max-h-[500px] overflow-y-auto p-4
-          focus:outline-none text-primary
+          min-h-[150px] sm:min-h-[200px] max-h-[400px] sm:max-h-[500px] overflow-y-auto p-3 sm:p-4
+          focus:outline-none text-primary text-sm sm:text-base
           ${disabled ? 'bg-gray-50 cursor-not-allowed' : 'bg-white cursor-text'}
           [&:empty:before]:content-[attr(data-placeholder)]
           [&:empty:before]:text-secondary
@@ -339,9 +339,9 @@ export default function RichTextEditor({
             }
           }}
         >
-          <div className="bg-white rounded-3xl shadow-xl w-full max-w-md">
-            <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-              <h3 className="text-xl font-semibold text-primary">Insert Link</h3>
+          <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl w-full max-w-md mx-4">
+            <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-200 flex items-center justify-between">
+              <h3 className="text-lg sm:text-xl font-semibold text-primary">Insert Link</h3>
               <button
                 type="button"
                 onClick={() => {
@@ -350,10 +350,10 @@ export default function RichTextEditor({
                 }}
                 className="p-1 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
               >
-                <X className="w-5 h-5 text-secondary" />
+                <X className="w-4 h-4 sm:w-5 sm:h-5 text-secondary" />
               </button>
             </div>
-            <div className="px-6 py-6">
+            <div className="px-4 sm:px-6 py-4 sm:py-6">
               <Input
                 label="Link URL"
                 placeholder="https://example.com"
@@ -367,13 +367,14 @@ export default function RichTextEditor({
                 autoFocus
               />
             </div>
-            <div className="flex items-center justify-end gap-3 px-6 pb-6">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:justify-end px-4 sm:px-6 pb-4 sm:pb-6">
               <Button
                 variant="secondary"
                 onClick={() => {
                   setShowLinkModal(false);
                   setLinkUrl('');
                 }}
+                className="w-full sm:w-auto"
               >
                 Cancel
               </Button>
@@ -381,6 +382,7 @@ export default function RichTextEditor({
                 variant="primary"
                 onClick={handleInsertLink}
                 disabled={!linkUrl.trim()}
+                className="w-full sm:w-auto"
               >
                 Insert
               </Button>
@@ -400,9 +402,9 @@ export default function RichTextEditor({
             }
           }}
         >
-          <div className="bg-white rounded-3xl shadow-xl w-full max-w-md">
-            <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-              <h3 className="text-xl font-semibold text-primary">Insert Image</h3>
+          <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl w-full max-w-md mx-4">
+            <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-200 flex items-center justify-between">
+              <h3 className="text-lg sm:text-xl font-semibold text-primary">Insert Image</h3>
               <button
                 type="button"
                 onClick={() => {
@@ -411,10 +413,10 @@ export default function RichTextEditor({
                 }}
                 className="p-1 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
               >
-                <X className="w-5 h-5 text-secondary" />
+                <X className="w-4 h-4 sm:w-5 sm:h-5 text-secondary" />
               </button>
             </div>
-            <div className="px-6 py-6">
+            <div className="px-4 sm:px-6 py-4 sm:py-6">
               <Input
                 label="Image URL"
                 placeholder="https://example.com/image.jpg"
@@ -428,13 +430,14 @@ export default function RichTextEditor({
                 autoFocus
               />
             </div>
-            <div className="flex items-center justify-end gap-3 px-6 pb-6">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:justify-end px-4 sm:px-6 pb-4 sm:pb-6">
               <Button
                 variant="secondary"
                 onClick={() => {
                   setShowImageModal(false);
                   setImageUrl('');
                 }}
+                className="w-full sm:w-auto"
               >
                 Cancel
               </Button>
@@ -442,6 +445,7 @@ export default function RichTextEditor({
                 variant="primary"
                 onClick={handleInsertImage}
                 disabled={!imageUrl.trim()}
+                className="w-full sm:w-auto"
               >
                 Insert
               </Button>

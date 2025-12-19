@@ -7,7 +7,7 @@ import DropdownMenu from '../../../components/ui/DropdownMenu';
 import Loader from '../../../components/ui/Loader';
 import { PROJECT_ROUTES } from '../constants';
 import { useAuth } from '../../../hooks/useAuth';
-import { ROUTES_FLAT } from '../../../constants/routes';
+import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
 import {
   ProjectBanner,
   SiteManagementTools,
@@ -80,8 +80,10 @@ export default function ProjectDetails() {
         });
         break;
       case 'notes':
-        // TODO: Navigate to notes page
-        console.log('Notes tool clicked');
+        // Navigate to project notes page
+        if (project?.id) {
+          navigate(getRoute(ROUTES_FLAT.NOTES_PROJECT_NOTES, { projectId: project.id }));
+        }
         break;
       default:
         console.log('Tool clicked:', toolId);

@@ -74,13 +74,13 @@ export default function Dropdown({
           disabled={disabled}
           onClick={() => !disabled && setIsOpen(!isOpen)}
           className={`
-            w-full px-4 py-2.5 rounded-lg border bg-white text-left flex items-center justify-between
+            w-full px-4 py-2 rounded-xl border bg-white text-left flex items-center justify-between
             transition-colors focus:outline-none
-            ${error ? "border-red-500" : "border-gray-300 focus:border-black/30"}
+            ${error ? "border-red-500" : "border-gray-200 focus:border-black/30"}
             ${disabled ? "opacity-50 cursor-not-allowed bg-gray-50" : "cursor-pointer hover:border-gray-400"}
           `}
         >
-          <span className={selectedOption ? "" : "text-gray-400"}>
+          <span className={selectedOption ? "" : "text-secondary"}>
             {selectedOption ? selectedOption.label : placeholder}
           </span>
 
