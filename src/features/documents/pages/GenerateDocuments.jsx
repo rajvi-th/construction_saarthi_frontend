@@ -10,7 +10,7 @@ import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
 import PageHeader from '../../../components/layout/PageHeader';
 import SearchBar from '../../../components/ui/SearchBar';
 import Dropdown from '../../../components/ui/Dropdown';
-import aiPoweredIcon from '../../../assets/icons/Frame 2529.svg';
+import aiPoweredIcon from '../../../assets/icons/aipowered.svg';
 
 // Static projects data with images from Daily Progress Report
 const staticProjects = [
@@ -126,8 +126,8 @@ export default function GenerateDocuments() {
       </PageHeader>
 
       {/* AI Powered Badge - Fixed on right side */}
-      <div className="fixed right-0 top-1/2 -translate-y-1/2 z-10 hidden lg:block">
-        <img src={aiPoweredIcon} alt="AI Powered" className="h-9" />
+      <div className="fixed right-0 top-1/2 -translate-y-1/2 z-10 block">
+        <img src={aiPoweredIcon} alt="AI Powered" className="h-9 cursor-pointer" />
       </div>
 
       {/* Projects List */}
@@ -172,7 +172,7 @@ export default function GenerateDocuments() {
                   <h3 className="text-sm sm:text-base font-semibold text-primary mb-1 truncate">
                     {project.name}
                   </h3>
-                  <p className="text-xs sm:text-sm text-secondary mb-7 line-clamp-1">
+                  <p className="text-xs sm:text-sm text-secondary mb-2 sm:mb-7 line-clamp-1">
                     {project.address}
                   </p>
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm">
