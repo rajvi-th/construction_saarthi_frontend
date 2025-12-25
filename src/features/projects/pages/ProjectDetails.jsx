@@ -52,8 +52,10 @@ export default function ProjectDetails() {
         });
         break;
       case 'finance':
-        // TODO: Navigate to finance page
-        console.log('Finance tool clicked');
+        // Navigate to finance project detail page
+        if (project?.id) {
+          navigate(getRoute(ROUTES_FLAT.FINANCE_PROJECT_DETAILS, { projectId: project.id }));
+        }
         break;
       case 'calculator':
         // TODO: Navigate to calculator page

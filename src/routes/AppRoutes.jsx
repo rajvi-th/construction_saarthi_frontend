@@ -97,6 +97,18 @@ const GenerateDocuments = lazy(() => import('../features/documents/pages/Generat
 const ProjectDocuments = lazy(() => import('../features/documents/pages/ProjectDocuments'));
 const DocumentDetails = lazy(() => import('../features/documents/pages/DocumentDetails'));
 
+// Finance
+const FinanceList = lazy(() => import('../features/finance/pages/FinanceList'));
+const FinanceProjectDetail = lazy(() => import('../features/finance/pages/FinanceProjectDetail'));
+const BuilderInvoices = lazy(() => import('../features/finance/pages/BuilderInvoices'));
+const SectionDetail = lazy(() => import('../features/finance/pages/SectionDetail'));
+const PaymentReceived = lazy(() => import('../features/finance/pages/PaymentReceived'));
+const ExpensesToPay = lazy(() => import('../features/finance/pages/ExpensesToPay'));
+const PayableBills = lazy(() => import('../features/finance/pages/PayableBills'));
+const ExpensesPaid = lazy(() => import('../features/finance/pages/ExpensesPaid'));
+const CreatePaymentEntry = lazy(() => import('../features/finance/pages/CreatePaymentEntry'));
+const EditPaymentEntry = lazy(() => import('../features/finance/pages/EditPaymentEntry'));
+
 // Past Work
 const PastWork = lazy(() => import('../features/pastProject/pages/PastWork'));
 const PastProjectDetail = lazy(() => import('../features/pastProject/pages/PastProjectDetail'));
@@ -197,6 +209,16 @@ function AppRoutes() {
             <Route path={ROUTES_FLAT.DOCUMENTS} element={<GenerateDocuments />} />
             <Route path={ROUTES_FLAT.DOCUMENTS_PROJECT_DOCUMENTS} element={<ProjectDocuments />} />
             <Route path={ROUTES_FLAT.DOCUMENTS_DOCUMENT_DETAILS} element={<DocumentDetails />} />
+            <Route path={ROUTES_FLAT.FINANCE} element={<FinanceList />} />
+            <Route path={ROUTES_FLAT.FINANCE_PROJECT_DETAILS} element={<FinanceProjectDetail />} />
+            <Route path={ROUTES_FLAT.FINANCE_SECTION_DETAIL} element={<SectionDetail />} />
+            <Route path={ROUTES_FLAT.FINANCE_BUILDER_INVOICES} element={<BuilderInvoices />} />
+            <Route path={ROUTES_FLAT.FINANCE_PAYMENT_RECEIVED} element={<PaymentReceived />} />
+            <Route path={ROUTES_FLAT.FINANCE_EXPENSES_TO_PAY} element={<ExpensesToPay />} />
+            <Route path={ROUTES_FLAT.FINANCE_PAYABLE_BILLS_SECTION} element={<PayableBills />} />
+            <Route path={ROUTES_FLAT.FINANCE_EXPENSES_PAID} element={<ExpensesPaid />} />
+            <Route path={ROUTES_FLAT.FINANCE_CREATE_PAYMENT_ENTRY} element={<CreatePaymentEntry />} />
+            <Route path={ROUTES_FLAT.FINANCE_EDIT_PAYMENT_ENTRY} element={<EditPaymentEntry />} />
           </Route>
         </Route>
 

@@ -245,6 +245,22 @@ import bhoDocuments from '../locales/bho/documents.json';
 import asDocuments from '../locales/as/documents.json';
 import hryDocuments from '../locales/hry/documents.json';
 
+// Import finance translations for all languages
+import enFinance from '../locales/en/finance.json';
+import hiFinance from '../locales/hi/finance.json';
+import guFinance from '../locales/gu/finance.json';
+import bnFinance from '../locales/bn/finance.json';
+import taFinance from '../locales/ta/finance.json';
+import mrFinance from '../locales/mr/finance.json';
+import teFinance from '../locales/te/finance.json';
+import knFinance from '../locales/kn/finance.json';
+import mlFinance from '../locales/ml/finance.json';
+import urFinance from '../locales/ur/finance.json';
+import rajFinance from '../locales/raj/finance.json';
+import bhoFinance from '../locales/bho/finance.json';
+import asFinance from '../locales/as/finance.json';
+import hryFinance from '../locales/hry/finance.json';
+
 // Get saved language from localStorage or default to 'en'
 const savedLang = localStorage.getItem('lang') || 'en';
 
@@ -265,6 +281,7 @@ const resources = {
     dpr: enDpr,
     notes: enNotes,
     documents: enDocuments,
+    finance: enFinance,
   },
   hi: {
     common: hiCommon,
@@ -282,6 +299,7 @@ const resources = {
     dpr: hiDpr,
     notes: hiNotes,
     documents: hiDocuments,
+    finance: hiFinance,
   },
   gu: {
     common: guCommon,
@@ -299,6 +317,7 @@ const resources = {
     dpr: guDpr,
     notes: guNotes,
     documents: guDocuments,
+    finance: guFinance,
   },
   bn: {
     common: bnCommon,
@@ -316,6 +335,7 @@ const resources = {
     dpr: bnDpr,
     notes: bnNotes,
     documents: bnDocuments,
+    finance: bnFinance,
   },
   ta: {
     common: taCommon,
@@ -333,6 +353,7 @@ const resources = {
     dpr: taDpr,
     notes: taNotes,
     documents: taDocuments,
+    finance: taFinance,
   },
   mr: {
     common: mrCommon,
@@ -350,6 +371,7 @@ const resources = {
     dpr: mrDpr,
     notes: mrNotes,
     documents: mrDocuments,
+    finance: mrFinance,
   },
   te: {
     common: teCommon,
@@ -367,6 +389,7 @@ const resources = {
     dpr: teDpr,
     notes: teNotes,
     documents: teDocuments,
+    finance: teFinance,
   },
   kn: {
     common: knCommon,
@@ -384,6 +407,7 @@ const resources = {
     dpr: knDpr,
     notes: knNotes,
     documents: knDocuments,
+    finance: knFinance,
   },
   ml: {
     common: mlCommon,
@@ -401,6 +425,7 @@ const resources = {
     dpr: mlDpr,
     notes: mlNotes,
     documents: mlDocuments,
+    finance: mlFinance,
   },
   ur: {
     common: urCommon,
@@ -418,6 +443,7 @@ const resources = {
     dpr: urDpr,
     notes: urNotes,
     documents: urDocuments,
+    finance: urFinance,
   },
   raj: {
     common: rajCommon,
@@ -435,6 +461,7 @@ const resources = {
     dpr: rajDpr,
     notes: rajNotes,
     documents: rajDocuments,
+    finance: rajFinance,
   },
   bho: {
     common: bhoCommon,
@@ -452,6 +479,7 @@ const resources = {
     dpr: bhoDpr,
     notes: bhoNotes,
     documents: bhoDocuments,
+    finance: bhoFinance,
   },
   as: {
     common: asCommon,
@@ -469,6 +497,7 @@ const resources = {
     dpr: asDpr,
     notes: asNotes,
     documents: asDocuments,
+    finance: asFinance,
   },
   hry: {
     common: hryCommon,
@@ -486,6 +515,7 @@ const resources = {
     dpr: hryDpr,
     notes: hryNotes,
     documents: hryDocuments,
+    finance: hryFinance,
   },
 };
 

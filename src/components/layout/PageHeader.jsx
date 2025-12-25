@@ -27,7 +27,7 @@ export default function PageHeader({
 
   return (
     <div className={`mb-4 sm:mb-5 md:mb-6 ${className}`}>
-      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-4">
+      <div className="flex flex-col gap-3 sm:gap-3 md:flex-row md:items-center md:justify-between md:gap-4">
         {/* Title Section */}
         <div className={`flex items-center gap-2 sm:gap-3 min-w-0 flex-1 ${titleActions ? 'justify-between md:justify-start' : ''}`}>
           <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
@@ -37,10 +37,10 @@ export default function PageHeader({
                 className="p-1 pl-0 transition-colors cursor-pointer flex-shrink-0"
                 aria-label="Back"
               >
-                <ArrowLeft className="w-5 h-5 md:w-6 md:h-6 text-primary" />
+                <ArrowLeft className="w-5 h-5 sm:w-5 sm:h-5 md:w-6 md:h-6 text-primary" />
               </button>
             )}
-            <h1 className="text-lg sm:text-xl md:text-2xl lg:text-[22px] font-semibold text-primary min-w-0 break-words line-clamp-2 md:line-clamp-1">
+            <h1 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-primary min-w-0 break-words line-clamp-2 sm:line-clamp-1">
               {title}
             </h1>
           </div>
@@ -53,7 +53,7 @@ export default function PageHeader({
         </div>
         {/* Actions Section */}
         {children && (
-          <div className="w-full md:w-auto min-w-0">
+          <div className="w-full sm:w-auto min-w-0 flex-shrink-0">
             {children}
           </div>
         )}

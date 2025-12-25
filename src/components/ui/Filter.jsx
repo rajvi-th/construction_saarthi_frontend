@@ -27,7 +27,7 @@ export default function Filter({
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className={`py-3 px-4 rounded-xl border border-[#E5E7EB] bg-white text-sm flex items-center gap-2 cursor-pointer font-light ${className}`}
+          className={`py-2 px-4 rounded-xl border border-[#E5E7EB] bg-white text-sm flex items-center gap-2 cursor-pointer font-light ${className}`}
         >
           <img 
             src={sortVerticalIcon} 

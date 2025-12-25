@@ -40,7 +40,7 @@ export default function NumberInput({
       
       <div className="relative flex items-center">
         {showCurrency && (
-          <span className="absolute left-4 text-sm text-primary font-medium z-10">₹</span>
+          <span className="absolute left-4 text-md text-secondary font-normal z-10">₹</span>
         )}
         <input
           type="text"
