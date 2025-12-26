@@ -3,31 +3,109 @@
  * Displays add-ons for members and calculations
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { User, Plus, Minus } from 'lucide-react';
 import Button from '../../../components/ui/Button';
 import AddMemberModal from './AddMemberModal';
+import { getSubscriptionPlans } from '../api/subscriptionApi';
+import { getWorkspaceMembers } from '../../auth/api';
+import { useAuth } from '../../auth/store';
+import { showError } from '../../../utils/toast';
 import { ROUTES_FLAT } from '../../../constants/routes';
-
-const MEMBERS = [
-  { id: 1, name: 'Ramesh', role: 'Supervisor' },
-  { id: 2, name: 'Mohit', role: 'Engineer' },
-];
 
 export default function AddOns() {
   const { t } = useTranslation('subscription');
   const navigate = useNavigate();
+  const { selectedWorkspace } = useAuth();
   const [calculationQuantity, setCalculationQuantity] = useState(1);
   const [isAddMemberModalOpen, setIsAddMemberModalOpen] = useState(false);
+  const [members, setMembers] = useState([]);
+  const [isLoadingMembers, setIsLoadingMembers] = useState(true);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const usedMembers = 2;
   const totalMembers = 3;
   const usedCalculations = 47;
   const totalCalculations = 50;
-  const memberPrice = 99;
+  const [memberPrice, setMemberPrice] = useState(99);
   const calculationPrice = 99;
+
+  // Get first 2 members for display
+  const displayedMembers = members.slice(0, 2);
+
+  useEffect(() => {
+    const fetchAddMemberPrice = async () => {
+      try {
+        const response = await getSubscriptionPlans();
+
+        // Ensure response is an array
+        const plansData = Array.isArray(response) ? response : [];
+
+        // Get the first active plan's addMember price
+        const firstPlan = plansData.find(plan =>
+          plan &&
+          plan.is_active !== false &&
+          plan.is_deleted !== true &&
+          plan.addMember?.price_per_member
+        );
+
+        if (firstPlan?.addMember?.price_per_member) {
+          const price = parseFloat(firstPlan.addMember.price_per_member);
+          if (!isNaN(price)) {
+            setMemberPrice(price);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching add member price:', error);
+        // Keep default price on error
+      }
+    };
+
+    fetchAddMemberPrice();
+  }, []);
+
+  useEffect(() => {
+    const fetchMembers = async () => {
+      if (!selectedWorkspace) {
+        setIsLoadingMembers(false);
+        return;
+      }
+
+      try {
+        setIsLoadingMembers(true);
+        const response = await getWorkspaceMembers(selectedWorkspace);
+
+        // Handle different response structures (same pattern as AddedMembers and useMembers hook)
+        const membersData = response?.data || response?.members || response || [];
+        const membersList = Array.isArray(membersData) ? membersData : [];
+
+        // Map API response to component format
+        const mappedMembers = membersList.map(member => ({
+          id: member.id,
+          name: member.name || '',
+          role: member.role || '',
+          phone: member.phone_number
+            ? `${member.country_code || ''} ${member.phone_number}`.trim()
+            : '',
+        }));
+
+        setMembers(mappedMembers);
+      } catch (error) {
+        console.error('Error fetching workspace members:', error);
+        const errorMessage = error?.response?.data?.message ||
+          error?.message ||
+          'Failed to load members';
+        showError(errorMessage);
+        setMembers([]);
+      } finally {
+        setIsLoadingMembers(false);
+      }
+    };
+
+    fetchMembers();
+  }, [selectedWorkspace, refreshKey]);
 
   const handleAddMember = () => {
     setIsAddMemberModalOpen(true);
@@ -38,9 +116,14 @@ export default function AddOns() {
   };
 
   const handleSaveMember = (memberData) => {
-    // TODO: Handle saving member data via API
-    console.log('Member data to save:', memberData);
-    setIsAddMemberModalOpen(false);
+    // This callback is kept for backward compatibility
+    // The actual API call is now handled in AddMemberModal
+    console.log('Member data saved:', memberData);
+  };
+
+  const handleMemberAdded = () => {
+    // Refresh members list after successful addition
+    setRefreshKey(prev => prev + 1);
   };
 
   const handleViewAddedMembers = () => {
@@ -76,49 +159,55 @@ export default function AddOns() {
                   total: totalMembers,
                 })}
               </p>
-              <p className="text-sm md:text-[20px] font-semibold text-accent mt-2">
-                ₹{memberPrice}
-                <span className="text-xs md:text-sm font-normal text-primary-light">
-                  /user/month
-                </span>
-              </p>
             </div>
-            <div className="flex-shrink-0 flex flex-col sm:flex-row items-end sm:items-center justify-end gap-2 sm:gap-4">
-              <Button
-                variant="primary"
-                size="md"
-                onClick={handleAddMember}
-                className="whitespace-nowrap !rounded-xl"
-              >
-                {t('addOns.addMember', { defaultValue: 'Add Member' })}
-              </Button>
-              <button
-                type="button"
-                onClick={handleViewAddedMembers}
-                className="text-sm md:text-[13px] font-medium text-accent whitespace-nowrap cursor-pointer"
-              >
-                <span className="sm:hidden">
-                  {t('addOns.viewMembersMobile', { defaultValue: 'View members' })}
-                </span>
-                <span className="hidden sm:inline">
-                  {t('addOns.viewAddedMembers', {
-                    defaultValue: 'View Added Member List',
-                  })}
-                </span>
-              </button>
-            </div>
+            <p className="text-sm md:text-[20px] font-semibold text-accent mt-2">
+              ₹{memberPrice}
+              <span className="text-xs md:text-sm font-normal text-primary-light">
+                /user/month
+              </span>
+            </p>
           </div>
 
           {/* Members List */}
           <div className="space-y-2 pt-3 border-t border-lightGray">
-            {MEMBERS.map((member) => (
-              <div key={member.id} className="flex items-center gap-2">
-                <User className="w-4 h-4 text-accent flex-shrink-0" />
-                <p className="text-sm md:text-base text-primary">
-                  {member.name}: <span className="text-primary-light">{member.role}</span>
-                </p>
-              </div>
-            ))}
+            {isLoadingMembers ? (
+              <p className="text-sm text-primary-light">{t('common.loading', { defaultValue: 'Loading members...' })}</p>
+            ) : displayedMembers.length > 0 ? (
+              displayedMembers.map((member) => (
+                <div key={member.id} className="flex items-center gap-2">
+                  <User className="w-4 h-4 text-accent flex-shrink-0" />
+                  <p className="text-sm md:text-base text-primary">
+                    {member.name}: <span className="text-primary-light">{member.role}</span>
+                  </p>
+                </div>
+              ))
+            ) : (
+              <p className="text-sm text-primary-light">{t('addOns.noMembers', { defaultValue: 'No members found' })}</p>
+            )}
+          </div>
+          <div className="flex-shrink-0 flex items-center justify-end gap-2 sm:gap-4 mt-2 md:mt-0">
+            <button
+              type="button"
+              onClick={handleViewAddedMembers}
+              className="text-sm md:text-[13px] font-medium text-accent whitespace-nowrap cursor-pointer"
+            >
+              <span className="sm:hidden">
+                {t('addOns.viewMembersMobile', { defaultValue: 'View members' })}
+              </span>
+              <span className="hidden sm:inline">
+                {t('addOns.viewAddedMembers', {
+                  defaultValue: 'View Added Member List',
+                })}
+              </span>
+            </button>
+            <Button
+              variant="primary"
+              size="md"
+              onClick={handleAddMember}
+              className="whitespace-nowrap !rounded-xl !px-4 !py-2"
+            >
+              {t('addOns.addMember', { defaultValue: 'Add Member' })}
+            </Button>
           </div>
         </div>
 
@@ -186,6 +275,7 @@ export default function AddOns() {
         isOpen={isAddMemberModalOpen}
         onClose={handleCloseModal}
         onSave={handleSaveMember}
+        onMemberAdded={handleMemberAdded}
         existingMembersCount={usedMembers}
         memberPrice={memberPrice}
       />

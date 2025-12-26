@@ -16,7 +16,26 @@
   "supportedFormats": "JPG, PNG, Mp4, PDF",
   "maxSizeEach": "हर एगो 10MB",
   "uploadButton": "अपलोड",
-  "addSubmit": "प्रोजेक्ट जोड़ीं"
+  "addSubmit": "प्रोजेक्ट जोड़ीं",
+  "uploading": "अपलोड हो रहल बा...",
+  "uploadingFiles": "फाइल अपलोड हो रहल बा...",
+  "adding": "जोड़ल जा रहल बा...",
+  "validation": {
+    "projectKeyRequired": "प्रोजेक्ट की जरूरत बा। कृपया पेज रीफ्रेश करीं आ फेर कोशिश करीं।",
+    "projectNameRequired": "प्रोजेक्ट के नाम जरूरी बा",
+    "addressRequired": "पता जरूरी बा",
+    "workspaceRequired": "वर्कस्पेस जरूरी बा",
+    "onlyPdfAllowed": "दस्तावेज़ सेक्शन में सिर्फ PDF फाइल मान्य बा",
+    "filesRequired": "कृपया कम से कम एक फाइल अपलोड करीं"
+  },
+  "success": {
+    "filesUploaded": "फाइल सफलतापूर्वक अपलोड हो गइल!",
+    "projectAdded": "प्रोजेक्ट सफलतापूर्वक जोड़ल गइल!"
+  },
+  "error": {
+    "uploadFailed": "फाइल अपलोड करे में असफल। कृपया फेर कोशिश करीं।",
+    "addFailed": "प्रोजेक्ट जोड़े में असफल। कृपया फेर कोशिश करीं।"
+  }
 }
 
 

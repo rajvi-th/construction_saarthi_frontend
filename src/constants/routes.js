@@ -80,12 +80,7 @@ export const ROUTES = {
   PAST_PROJECTS: {
     LIST: '/past-work',
     ADD: '/past-work/add',
-  },
-  // Past Work Routes
-  PAST_WORK: {
-    LIST: '/past-work',
     DETAILS: '/past-work/:id',
-    ADD_NEW: '/past-work/add-new',
     EDIT: '/past-work/:id/edit',
   },
   // Project Gallery Routes
@@ -108,6 +103,13 @@ export const ROUTES = {
     ADD: '/notes/add',
     DETAILS: '/notes/:id',
     EDIT: '/notes/:id/edit',
+  },
+  // Labour Attendance Routes
+  LABOUR_ATTENDANCE: {
+    LIST: '/labour-attendance',
+    PROJECT: "/labour-attendance/:projectId",
+    ADD_LABOUR: '/labour-attendance/:projectId/add-labour',
+    LABOUR_DETAILS: '/labour-attendance/:projectId/labour/:labourId',
   },
   // Documents Routes
   DOCUMENTS: {
@@ -182,11 +184,8 @@ export const ROUTES_FLAT = {
   // Past Projects
   PAST_PROJECTS: ROUTES.PAST_PROJECTS.LIST,
   PAST_PROJECTS_ADD: ROUTES.PAST_PROJECTS.ADD,
-  
-  // Past Work
-  PAST_WORK: ROUTES.PAST_WORK.LIST,
-  PAST_WORK_DETAILS: ROUTES.PAST_WORK.DETAILS,
-  EDIT_PAST_WORK: ROUTES.PAST_WORK.EDIT,
+  PAST_PROJECTS_DETAILS: ROUTES.PAST_PROJECTS.DETAILS,
+  PAST_PROJECTS_EDIT: ROUTES.PAST_PROJECTS.EDIT,
   
   // Project Gallery
   PROJECT_GALLERY: ROUTES.PROJECT_GALLERY.HOME,
@@ -205,6 +204,13 @@ export const ROUTES_FLAT = {
   NOTES_ADD: ROUTES.NOTES.ADD,
   NOTES_DETAILS: ROUTES.NOTES.DETAILS,
   NOTES_EDIT: ROUTES.NOTES.EDIT,
+
+  // Labour Attendance
+  LABOUR_ATTENDANCE: ROUTES.LABOUR_ATTENDANCE.LIST,
+   LABOUR_ATTENDANCE_PROJECT: ROUTES.LABOUR_ATTENDANCE.PROJECT,
+  LABOUR_ATTENDANCE_ADD_LABOUR: ROUTES.LABOUR_ATTENDANCE.ADD_LABOUR,
+  LABOUR_ATTENDANCE_LABOUR_DETAILS: ROUTES.LABOUR_ATTENDANCE.LABOUR_DETAILS,
+
   
   // Documents
   DOCUMENTS: ROUTES.DOCUMENTS.GENERATE_DOCUMENTS,

@@ -16,7 +16,26 @@
   "supportedFormats": "JPG, PNG, Mp4, PDF",
   "maxSizeEach": "প্ৰত্যেকটো 10MB",
   "uploadButton": "আপলোড",
-  "addSubmit": "প্ৰজেক্ট যোগ কৰক"
+  "addSubmit": "প্ৰজেক্ট যোগ কৰক",
+  "uploading": "আপলোড হৈ আছে...",
+  "uploadingFiles": "ফাইল আপলোড হৈ আছে...",
+  "adding": "যোগ কৰা হৈ আছে...",
+  "validation": {
+    "projectKeyRequired": "প্ৰজেক্ট কী প্ৰয়োজন। অনুগ্ৰহ কৰি পৃষ্ঠাটো ৰিফ্ৰেছ কৰক আৰু আকৌ চেষ্টা কৰক।",
+    "projectNameRequired": "প্ৰজেক্ট নাম প্ৰয়োজন",
+    "addressRequired": "ঠিকনা প্ৰয়োজন",
+    "workspaceRequired": "ৱৰ্কস্পেচ প্ৰয়োজন",
+    "onlyPdfAllowed": "নথি বিভাগত কেৱল PDF ফাইল অনুমোদিত",
+    "filesRequired": "অনুগ্ৰহ কৰি অন্ততঃ এটা ফাইল আপলোড কৰক"
+  },
+  "success": {
+    "filesUploaded": "ফাইল সফলভাৱে আপলোড হ'ল!",
+    "projectAdded": "প্ৰজেক্ট সফলভাৱে যোগ কৰা হ'ল!"
+  },
+  "error": {
+    "uploadFailed": "ফাইল আপলোড কৰিবলৈ ব্যৰ্থ। অনুগ্ৰহ কৰি আকৌ চেষ্টা কৰক।",
+    "addFailed": "প্ৰজেক্ট যোগ কৰিবলৈ ব্যৰ্থ। অনুগ্ৰহ কৰি আকৌ চেষ্টা কৰক।"
+  }
 }
 
 

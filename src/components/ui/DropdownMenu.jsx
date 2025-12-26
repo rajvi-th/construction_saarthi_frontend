@@ -79,7 +79,7 @@
                 {/* Dropdown Menu */}
                 {isOpen && (
                     <div
-                        className={`absolute ${positionClasses[position]} top-full mt-1 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50 min-w-[180px] px-2`}
+                         className={`absolute ${positionClasses[position]} top-full mt-1 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50 min-w-[150px] w-max px-2`}
                     >
                         {items.map((item, index) => (
                             <button
@@ -97,7 +97,7 @@
                                 <span
                                     className={`text-sm ${
                                         item.textColor || 'text-gray-700'
-                                    }`}
+                                     } whitespace-nowrap`}
                                 >
                                     {item.label}
                                 </span>

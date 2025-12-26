@@ -11,6 +11,7 @@ import Button from '../../../components/ui/Button';
 import Loader from '../../../components/ui/Loader';
 import PageHeader from '../../../components/layout/PageHeader';
 import { PAST_PROJECT_ROUTES } from '../constants';
+import { getRoute } from '../../../constants/routes';
 import pencilIcon from '../../../assets/icons/pencil.svg';
 import PastProjectBanner from '../components/PastProjectBanner';
 import PastProjectDocumentsGallery from '../components/PastProjectDocumentsGallery';
@@ -96,7 +97,17 @@ export default function PastProjectDetail() {
 
   const handleEdit = () => {
     if (!project) return;
-    navigate(PAST_PROJECT_ROUTES.EDIT.replace(':id', project.id), {
+    
+    // Get project ID (can be id, projectKey, or _id)
+    const projectId = project.id || project.projectKey || project._id;
+    
+    if (!projectId) {
+      console.error('Project ID not found');
+      return;
+    }
+
+    // Navigate to edit page
+    navigate(getRoute(PAST_PROJECT_ROUTES.EDIT, { id: projectId }), {
       state: { project },
     });
   };

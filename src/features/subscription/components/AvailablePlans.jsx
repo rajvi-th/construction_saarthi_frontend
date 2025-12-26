@@ -3,64 +3,176 @@
  * Displays all available subscription plans with benefits
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Check } from 'lucide-react';
+import { getAvailablePlans, getSubscriptionPlans } from '../api/subscriptionApi';
+import { showError } from '../../../utils/toast';
 
 export default function AvailablePlans({ selectedPlanId, onPlanSelect }) {
   const { t } = useTranslation('subscription');
+  const [benefits, setBenefits] = useState([]);
+  const [isLoadingBenefits, setIsLoadingBenefits] = useState(true);
+  const [plans, setPlans] = useState([]);
+  const [isLoadingPlans, setIsLoadingPlans] = useState(true);
 
-  const BENEFITS = [
-    t('availablePlans.benefits.unlimitedAccess', { defaultValue: 'Unlimited access to all current + future modules' }),
-    t('availablePlans.benefits.exportDownload', { defaultValue: 'Export/Download capabilities unlocked' }),
-    t('availablePlans.benefits.freeUsers', { defaultValue: '3 Free Additional Users (supervisor/engineer/client)' }),
-    t('availablePlans.benefits.calculations', { defaultValue: '50 Construction Calculations per subscription (more purchasable)' }),
-  ];
+  useEffect(() => {
+    const fetchBenefits = async () => {
+      try {
+        setIsLoadingBenefits(true);
+        const response = await getAvailablePlans();
+        
+        // Ensure response is an array
+        const benefitsData = Array.isArray(response) ? response : [];
+        
+        // Filter active and non-deleted benefits, map to description
+        const activeBenefits = benefitsData
+          .filter(item => {
+            if (!item || !item.description) return false;
+            // Include if is_active is true or undefined/null (default to true)
+            if (item.is_active === false) return false;
+            // Exclude if is_deleted is true
+            if (item.is_deleted === true) return false;
+            return true;
+          })
+          .map(item => item.description)
+          .filter(Boolean); // Remove any empty descriptions
+        
+        setBenefits(activeBenefits);
+      } catch (error) {
+        console.error('Error fetching available plans:', error);
+        const errorMessage = error?.response?.data?.message || 
+                           error?.message || 
+                           'Failed to load benefits';
+        showError(errorMessage);
+        // Fallback to default benefits on error
+        setBenefits([
+          t('availablePlans.benefits.unlimitedAccess', { defaultValue: 'Unlimited access to all current + future modules' }),
+          t('availablePlans.benefits.exportDownload', { defaultValue: 'Export/Download capabilities unlocked' }),
+          t('availablePlans.benefits.freeUsers', { defaultValue: '3 Free Additional Users (supervisor/engineer/client)' }),
+          t('availablePlans.benefits.calculations', { defaultValue: '50 Construction Calculations per subscription (more purchasable)' }),
+        ]);
+      } finally {
+        setIsLoadingBenefits(false);
+      }
+    };
 
-  const PLANS = [
-    {
-      id: 'monthly',
-      name: t('availablePlans.plans.monthly', { defaultValue: 'Monthly' }),
-      description: t('availablePlans.plans.description', { defaultValue: 'Contractor + 3 Free Users' }),
-      price: 999,
-      savings: 450,
-      savingsType: 'amount',
-      isSelected: true,
-    },
-    {
-      id: '3month',
-      name: t('availablePlans.plans.3month', { defaultValue: '3 Month Plan' }),
-      description: t('availablePlans.plans.description', { defaultValue: 'Contractor + 3 Free Users' }),
-      price: 1499,
-      savings: 650,
-      savingsType: 'amount',
-      isSelected: false,
-    },
-    {
-      id: '6month',
-      name: t('availablePlans.plans.6month', { defaultValue: '6 Month Plan' }),
-      description: t('availablePlans.plans.description', { defaultValue: 'Contractor + 3 Free Users' }),
-      price: 2499,
-      savings: 850,
-      savingsType: 'amount',
-      isSelected: false,
-    },
-    {
-      id: '12month',
-      name: t('availablePlans.plans.12month', { defaultValue: '12 Month Plan' }),
-      description: t('availablePlans.plans.description', { defaultValue: 'Contractor + 3 Free Users' }),
-      price: 3999,
-      savings: null,
-      savingsType: 'bestValue',
-      isSelected: false,
-    },
-  ];
-  const [plans, setPlans] = useState(
-    PLANS.map(plan => ({
-      ...plan,
-      isSelected: plan.id === selectedPlanId || plan.id === 'monthly',
-    }))
-  );
+    fetchBenefits();
+  }, [t]);
+
+  useEffect(() => {
+    const fetchPlans = async () => {
+      try {
+        setIsLoadingPlans(true);
+        const response = await getSubscriptionPlans();
+        
+        // Ensure response is an array
+        const plansData = Array.isArray(response) ? response : [];
+        
+        // Filter active and non-deleted plans
+        const activePlans = plansData
+          .filter(plan => {
+            if (!plan) return false;
+            // Include if is_active is true or undefined/null (default to true)
+            if (plan.is_active === false) return false;
+            // Exclude if is_deleted is true
+            if (plan.is_deleted === true) return false;
+            return true;
+          })
+          .map((plan, index) => {
+            const planName = (plan.name || '').toLowerCase();
+            
+            // Determine display name and id based on plan name
+            let displayName, planId;
+            if (planName.includes('12 month') || planName.includes('12month') || planName.includes('yearly')) {
+              displayName = t('availablePlans.plans.yearly', { defaultValue: 'Yearly' });
+              planId = 'yearly';
+            } else if (planName.includes('3 year') || planName.includes('3year') || 
+                       planName.includes('36 month') || planName.includes('36month')) {
+              displayName = t('availablePlans.plans.3years', { defaultValue: '3 Years' });
+              planId = '3years';
+            } else {
+              // Use original name if no match
+              displayName = plan.name || '';
+              planId = plan.id || `plan-${index}`;
+            }
+            
+            // Build description from plan data
+            const freeUsersCount = (plan.free_main_user_count || 0) + (plan.free_sub_user_count || 0);
+            const description = freeUsersCount > 0 
+              ? t('availablePlans.plans.description', { defaultValue: `Contractor + ${freeUsersCount} Free Users` })
+              : t('availablePlans.plans.description', { defaultValue: 'Contractor + 3 Free Users' });
+            
+            return {
+              id: planId,
+              apiId: plan.id,
+              name: displayName,
+              description: description,
+              price: parseFloat(plan.price) || 0,
+              isSelected: (planId === selectedPlanId) || (index === 0 && !selectedPlanId),
+              originalData: plan,
+            };
+          });
+        
+        // Sort: Yearly first, then 3 Years, then others
+        activePlans.sort((a, b) => {
+          if (a.id === 'yearly') return -1;
+          if (b.id === 'yearly') return 1;
+          if (a.id === '3years') return -1;
+          if (b.id === '3years') return 1;
+          // Sort by original index/price if neither is yearly or 3years
+          return parseFloat(a.originalData?.price || 0) - parseFloat(b.originalData?.price || 0);
+        });
+        
+        setPlans(activePlans);
+      } catch (error) {
+        console.error('Error fetching subscription plans:', error);
+        const errorMessage = error?.response?.data?.message || 
+                           error?.message || 
+                           'Failed to load subscription plans';
+        showError(errorMessage);
+        // Fallback to empty array on error
+        setPlans([]);
+      } finally {
+        setIsLoadingPlans(false);
+      }
+    };
+
+    fetchPlans();
+  }, [t]);
+
+  // Notify parent of selected plan when plans are loaded or selectedPlanId changes
+  useEffect(() => {
+    if (plans.length > 0 && onPlanSelect) {
+      const selectedPlan = plans.find(
+        plan => plan.id === selectedPlanId || (!selectedPlanId && plan.id === 'yearly')
+      ) || plans[0];
+      
+      if (selectedPlan) {
+        onPlanSelect(selectedPlan.id, selectedPlan);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [plans, selectedPlanId]);
+
+  // Update selected plan when selectedPlanId prop changes
+  useEffect(() => {
+    if (plans.length > 0) {
+      setPlans(prevPlans => {
+        const hasChanges = prevPlans.some(plan => {
+          const shouldBeSelected = plan.id === selectedPlanId || (!selectedPlanId && plan.id === 'yearly');
+          return plan.isSelected !== shouldBeSelected;
+        });
+        
+        if (!hasChanges) return prevPlans;
+        
+        return prevPlans.map(plan => ({
+          ...plan,
+          isSelected: plan.id === selectedPlanId || (!selectedPlanId && plan.id === 'yearly'),
+        }));
+      });
+    }
+  }, [selectedPlanId, plans.length]);
 
   const handlePlanSelect = (planId) => {
     const updatedPlans = plans.map(plan => ({
@@ -69,7 +181,9 @@ export default function AvailablePlans({ selectedPlanId, onPlanSelect }) {
     }));
     setPlans(updatedPlans);
     if (onPlanSelect) {
-      onPlanSelect(planId);
+      // Find the selected plan and pass full plan data
+      const selectedPlan = updatedPlans.find(plan => plan.id === planId);
+      onPlanSelect(planId, selectedPlan);
     }
   };
 
@@ -81,17 +195,32 @@ export default function AvailablePlans({ selectedPlanId, onPlanSelect }) {
 
       {/* Benefits List */}
       <div className="mb-4 space-y-2">
-        {BENEFITS.map((benefit, index) => (
-          <div key={index} className="flex items-start gap-2">
-            <Check className="w-5 h-5 text-[#B3330E] flex-shrink-0 mt-0.5" strokeWidth={2.5} />
-            <p className="text-sm text-primary">{benefit}</p>
+        {isLoadingBenefits ? (
+          <div className="flex items-center justify-center py-4">
+            <p className="text-sm text-primary-light">{t('common.loading', { defaultValue: 'Loading benefits...' })}</p>
           </div>
-        ))}
+        ) : benefits.length > 0 ? (
+          benefits.map((benefit, index) => (
+            <div key={index} className="flex items-start gap-2">
+              <Check className="w-5 h-5 text-[#B3330E] flex-shrink-0 mt-0.5" strokeWidth={2.5} />
+              <p className="text-sm text-primary">{benefit}</p>
+            </div>
+          ))
+        ) : (
+          <div className="flex items-center justify-center py-4">
+            <p className="text-sm text-primary-light">{t('availablePlans.noBenefits', { defaultValue: 'No benefits available' })}</p>
+          </div>
+        )}
       </div>
 
       {/* Plans Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
-        {plans.map((plan) => (
+      {isLoadingPlans ? (
+        <div className="flex items-center justify-center py-8">
+          <p className="text-primary-light">{t('common.loading', { defaultValue: 'Loading plans...' })}</p>
+        </div>
+      ) : plans.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+          {plans.map((plan) => (
           <div
             key={plan.id}
             onClick={() => handlePlanSelect(plan.id)}
@@ -101,21 +230,6 @@ export default function AvailablePlans({ selectedPlanId, onPlanSelect }) {
                 : 'border-lightGray bg-[#F6F6F6CC]'
             }`}
           >
-            {/* Savings Badge */}
-            {plan.savings && plan.savingsType === 'amount' && (
-              <div className="absolute -top-2 right-3 bg-[#FF9500] text-white text-[10px] md:text-xs px-2.5 py-1 rounded-lg shadow-sm z-10">
-                {t('availablePlans.saveAmount', { 
-                  defaultValue: 'Save ₹{{amount}}',
-                  amount: plan.savings 
-                })}
-              </div>
-            )}
-            {plan.savingsType === 'bestValue' && (
-              <div className="absolute -top-2 right-3 bg-[#34C759] text-white text-[10px] md:text-xs px-2.5 py-1 rounded-lg shadow-sm z-10">
-                {t('availablePlans.bestValue', { defaultValue: 'Best Value' })}
-              </div>
-            )}
-
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-3 flex-1 min-w-0">
                 <div className="flex-shrink-0 mt-1">
@@ -145,8 +259,13 @@ export default function AvailablePlans({ selectedPlanId, onPlanSelect }) {
               </div>
             </div>
           </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="flex items-center justify-center py-8">
+          <p className="text-primary-light">{t('availablePlans.noPlans', { defaultValue: 'No plans available' })}</p>
+        </div>
+      )}
     </section>
   );
 }

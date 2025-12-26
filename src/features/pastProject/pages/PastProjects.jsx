@@ -12,7 +12,8 @@ import EmptyState from '../../../components/shared/EmptyState';
 import SearchBar from '../../../components/ui/SearchBar';
 import Button from '../../../components/ui/Button';
 import EmptyStateSvg from '../../../assets/icons/EmptyState.svg';
-import { ROUTES_FLAT } from '../../../constants/routes';
+import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
+import { PAST_PROJECT_ROUTES } from '../constants';
 import { useAuth } from '../../../hooks/useAuth';
 import { usePastProjects } from '../hooks/usePastProjects';
 import { startPastProject } from '../api/pastProjectApi';
@@ -79,40 +80,21 @@ export default function PastProjects() {
     }
   };
 
-  const handleProjectClick = async (project) => {
-    if (!selectedWorkspace) {
-      showError(t('validation.workspaceRequired', { defaultValue: 'Workspace is required' }));
+  const handleProjectClick = (project) => {
+    // Get project ID (can be id, projectKey, or _id)
+    const projectId = project.id || project.projectKey || project._id;
+    
+    if (!projectId) {
+      showError(t('error.projectIdNotFound', { defaultValue: 'Project ID not found' }));
       return;
     }
 
-    setIsLoadingProjectKey(true);
-
-    try {
-      // Call startPastProject API every time project card is clicked
-      const startResponse = await startPastProject(selectedWorkspace);
-      const projectKey = startResponse?.projectKey || startResponse?.data?.projectKey;
-
-      if (!projectKey) {
-        throw new Error('Failed to get project key from start API');
-      }
-
-      // Navigate with the new projectKey
-      navigate(ROUTES_FLAT.PAST_PROJECTS_ADD, {
-        state: {
-          projectKey: projectKey,
-          project: project, 
-        },
-      });
-    } catch (error) {
-      console.error('Error getting project key:', error);
-      const errorMessage =
-        error?.response?.data?.message ||
-        error?.message ||
-        t('error.failedToStart', { defaultValue: 'Failed to start project. Please try again.' });
-      showError(errorMessage);
-    } finally {
-      setIsLoadingProjectKey(false);
-    }
+    // Navigate to project detail page
+    navigate(getRoute(PAST_PROJECT_ROUTES.DETAILS, { id: projectId }), {
+      state: {
+        project: project,
+      },
+    });
   };
 
   // Get project image from pastWorkMedia array (only non-deleted items)
@@ -212,7 +194,7 @@ export default function PastProjects() {
               <div
                 key={project.id || project.projectKey || idx}
                 onClick={() => handleProjectClick(project)}
-                className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-md transition-shadow cursor-pointer"
+                className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm cursor-pointer"
                 style={{ opacity: isLoadingProjectKey ? 0.6 : 1 }}
               >
                 <div className="flex gap-4 items-center">

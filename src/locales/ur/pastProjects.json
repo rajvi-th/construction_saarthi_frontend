@@ -16,7 +16,26 @@
   "supportedFormats": "JPG, PNG, Mp4, PDF",
   "maxSizeEach": "ہر فائل 10MB",
   "uploadButton": "اپ لوڈ",
-  "addSubmit": "پروجیکٹ شامل کریں"
+  "addSubmit": "پروجیکٹ شامل کریں",
+  "uploading": "اپ لوڈ ہو رہا ہے...",
+  "uploadingFiles": "فائلیں اپ لوڈ ہو رہی ہیں...",
+  "adding": "شامل کیا جا رہا ہے...",
+  "validation": {
+    "projectKeyRequired": "پروجیکٹ کی ضرورت ہے۔ براہ کرم صفحہ کو ریفریش کریں اور دوبارہ کوشش کریں۔",
+    "projectNameRequired": "پروجیکٹ کا نام ضروری ہے",
+    "addressRequired": "پتہ ضروری ہے",
+    "workspaceRequired": "ورک اسپیس ضروری ہے",
+    "onlyPdfAllowed": "دستاویزات سیکشن میں صرف PDF فائلیں اجازت ہیں",
+    "filesRequired": "براہ کرم کم از کم ایک فائل اپ لوڈ کریں"
+  },
+  "success": {
+    "filesUploaded": "فائلیں کامیابی سے اپ لوڈ ہو گئیں!",
+    "projectAdded": "پروجیکٹ کامیابی سے شامل کر دیا گیا!"
+  },
+  "error": {
+    "uploadFailed": "فائلیں اپ لوڈ کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔",
+    "addFailed": "پروجیکٹ شامل کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
+  }
 }
 
 

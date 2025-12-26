@@ -68,6 +68,8 @@ const EditVendor = lazy(() => import('../features/vendors/pages/EditVendor'));
 // Past Projects
 const PastProjects = lazy(() => import('../features/pastProject/pages/PastProjects'));
 const AddPastProject = lazy(() => import('../features/pastProject/pages/AddPastProject'));
+const PastProjectDetail = lazy(() => import('../features/pastProject/pages/PastProjectDetail'));
+const EditPastProject = lazy(() => import('../features/pastProject/pages/EditPastProject'));
 
 // Project Gallery
 const ProjectGallery = lazy(() => import('../features/projectGallery/pages/ProjectGallery'));
@@ -92,15 +94,17 @@ const AddNote = lazy(() => import('../features/notes/pages/AddNote'));
 const NoteDetails = lazy(() => import('../features/notes/pages/NoteDetails'));
 const EditNote = lazy(() => import('../features/notes/pages/EditNote'));
 
+// Labour Attendance
+const LabourAttendanceProjectList = lazy(() => import('../features/labourAttendance/pages/ProjectList'));
+const LabourAttendance = lazy(() => import('../features/labourAttendance/pages/LabourAttendance'));
+const AddLabour = lazy(() => import('../features/labourAttendance/pages/AddLabour'));
+const LabourDetails = lazy(() => import('../features/labourAttendance/pages/LabourDetails'));
+
 // Documents
 const GenerateDocuments = lazy(() => import('../features/documents/pages/GenerateDocuments'));
 const ProjectDocuments = lazy(() => import('../features/documents/pages/ProjectDocuments'));
 const DocumentDetails = lazy(() => import('../features/documents/pages/DocumentDetails'));
 
-// Past Work
-const PastWork = lazy(() => import('../features/pastProject/pages/PastWork'));
-const PastProjectDetail = lazy(() => import('../features/pastProject/pages/PastProjectDetail'));
-const EditPastProject = lazy(() => import('../features/pastProject/pages/EditPastProject'));
 
 // Bookings (will be created later)
 // const Bookings = lazy(() => import('../features/bookings/pages/Bookings'));
@@ -170,10 +174,6 @@ function AppRoutes() {
             <Route path={ROUTES_FLAT.CONSUMABLE_ITEM_DETAILS} element={<ConsumableItemDetails />} />
             <Route path={ROUTES_FLAT.ADD_NEW_ASK} element={<AddNewAsk />} />
             <Route path={ROUTES_FLAT.ADD_STOCK} element={<AddStock />} />
-            <Route path={ROUTES_FLAT.PAST_WORK} element={<PastWork />} />
-            <Route path={ROUTES_FLAT.PAST_WORK_DETAILS} element={<PastProjectDetail />} />
-            <Route path={ROUTES.PAST_WORK.ADD_NEW} element={<EditPastProject />} />
-            <Route path={ROUTES_FLAT.EDIT_PAST_WORK} element={<EditPastProject />} />
             <Route path={ROUTES_FLAT.BUILDERS} element={<Builders />} />
             <Route path={ROUTES_FLAT.ADD_BUILDER} element={<AddBuilder />} />
             <Route path={ROUTES_FLAT.EDIT_BUILDER} element={<EditBuilder />} />
@@ -182,6 +182,8 @@ function AppRoutes() {
             <Route path={ROUTES_FLAT.EDIT_VENDOR} element={<EditVendor />} />
             <Route path={ROUTES_FLAT.PAST_PROJECTS} element={<PastProjects />} />
             <Route path={ROUTES_FLAT.PAST_PROJECTS_ADD} element={<AddPastProject />} />
+            <Route path={ROUTES_FLAT.PAST_PROJECTS_DETAILS} element={<PastProjectDetail />} />
+            <Route path={ROUTES_FLAT.PAST_PROJECTS_EDIT} element={<EditPastProject />} />
             <Route path={ROUTES_FLAT.PROJECT_GALLERY} element={<ProjectGallery />} />
             <Route path={ROUTES_FLAT.PROJECT_GALLERY_DETAILS} element={<ProjectGalleryDetails />} />
             <Route path={ROUTES_FLAT.PROJECT_GALLERY_UPLOAD} element={<UploadMedia />} />
@@ -194,6 +196,10 @@ function AppRoutes() {
             <Route path={ROUTES_FLAT.NOTES_ADD} element={<AddNote />} />
             <Route path={ROUTES_FLAT.NOTES_DETAILS} element={<NoteDetails />} />
             <Route path={ROUTES_FLAT.NOTES_EDIT} element={<EditNote />} />
+            <Route path={ROUTES_FLAT.LABOUR_ATTENDANCE} element={<LabourAttendanceProjectList />} />
+            <Route path={ROUTES_FLAT.LABOUR_ATTENDANCE_PROJECT} element={<LabourAttendance />} />
+            <Route path={ROUTES_FLAT.LABOUR_ATTENDANCE_ADD_LABOUR} element={<AddLabour />} />
+            <Route path={ROUTES_FLAT.LABOUR_ATTENDANCE_LABOUR_DETAILS} element={<LabourDetails />} />
             <Route path={ROUTES_FLAT.DOCUMENTS} element={<GenerateDocuments />} />
             <Route path={ROUTES_FLAT.DOCUMENTS_PROJECT_DOCUMENTS} element={<ProjectDocuments />} />
             <Route path={ROUTES_FLAT.DOCUMENTS_DOCUMENT_DETAILS} element={<DocumentDetails />} />

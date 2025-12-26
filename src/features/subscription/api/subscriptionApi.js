@@ -1,65 +1,54 @@
-// /**
-//  * Subscription API
-//  * API calls for subscription features
-//  */
+/**
+ * Subscription API
+ * API calls for subscription features
+ */
 
-// import http from '../../../services/http';
-// import { SUBSCRIPTION_ENDPOINTS_FLAT } from '../constants/subscriptionEndpoints';
+import http from '../../../services/http';
+import { SUBSCRIPTION_ENDPOINTS_FLAT } from '../constants/subscriptionEndpoints';
 
-// /**
-//  * Get all subscriptions
-//  * @returns {Promise<Array>} List of subscriptions
-//  */
-// export const getSubscriptions = async () => {
-//   return http.get(SUBSCRIPTION_ENDPOINTS_FLAT.LIST);
-// };
+/**
+ * Get available plans (benefits list)
+ * @returns {Promise<Array>} List of available plan benefits
+ */
+export const getAvailablePlans = async () => {
+  try {
+    const response = await http.get(SUBSCRIPTION_ENDPOINTS_FLAT.AVAILABLE_PLANS);
+    
+    // Handle different response structures
+    if (Array.isArray(response)) {
+      return response;
+    }
+    
+    // Check for features property (API returns { features: [...] })
+    if (response?.features && Array.isArray(response.features)) {
+      return response.features;
+    }
+    
+    // Fallback to other possible structures
+    return response?.data || response?.plans || [];
+  } catch (error) {
+    console.error('Get available plans error:', error);
+    throw error;
+  }
+};
 
-// /**
-//  * Get subscription details by ID
-//  * @param {string|number} subscriptionId - Subscription ID
-//  * @returns {Promise<Object>} Subscription details
-//  */
-// export const getSubscriptionDetails = async (subscriptionId) => {
-//   if (!subscriptionId) {
-//     throw new Error('Subscription ID is required');
-//   }
-  
-//   return http.get(SUBSCRIPTION_ENDPOINTS_FLAT.DETAILS.replace(':id', subscriptionId));
-// };
-
-// /**
-//  * Create a new subscription
-//  * @param {Object} subscriptionData - Subscription data
-//  * @returns {Promise<Object>} Created subscription
-//  */
-// export const createSubscription = async (subscriptionData) => {
-//   return http.post(SUBSCRIPTION_ENDPOINTS_FLAT.CREATE, subscriptionData);
-// };
-
-// /**
-//  * Update subscription
-//  * @param {string|number} subscriptionId - Subscription ID
-//  * @param {Object} subscriptionData - Updated subscription data
-//  * @returns {Promise<Object>} Updated subscription
-//  */
-// export const updateSubscription = async (subscriptionId, subscriptionData) => {
-//   if (!subscriptionId) {
-//     throw new Error('Subscription ID is required');
-//   }
-  
-//   return http.put(SUBSCRIPTION_ENDPOINTS_FLAT.UPDATE.replace(':id', subscriptionId), subscriptionData);
-// };
-
-// /**
-//  * Cancel subscription
-//  * @param {string|number} subscriptionId - Subscription ID
-//  * @returns {Promise<Object>} Cancelled subscription
-//  */
-// export const cancelSubscription = async (subscriptionId) => {
-//   if (!subscriptionId) {
-//     throw new Error('Subscription ID is required');
-//   }
-  
-//   return http.post(SUBSCRIPTION_ENDPOINTS_FLAT.CANCEL.replace(':id', subscriptionId));
-// };
+/**
+ * Get subscription plans
+ * @returns {Promise<Array>} List of subscription plans
+ */
+export const getSubscriptionPlans = async () => {
+  try {
+    const response = await http.get(SUBSCRIPTION_ENDPOINTS_FLAT.GET_SUBSCRIPTION_PLANS);
+    
+    // Handle different response structures
+    if (Array.isArray(response)) {
+      return response;
+    }
+    
+    return response?.data || response?.plans || [];
+  } catch (error) {
+    console.error('Get subscription plans error:', error);
+    throw error;
+  }
+};
 

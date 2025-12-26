@@ -171,7 +171,7 @@ const Sidebar = () => {
       {/* MOBILE MENU BUTTON (only when sidebar is closed) */}
       {!open && (
         <button
-          className="lg:hidden p-2 rounded-full bg-white fixed top-2.5 md:top-4.5 sm:top-4.5 left-4 z-[999]"
+          className="lg:hidden p-2 rounded-full bg-white fixed top-2.5 md:top-4.5 sm:top-4.5 left-4 z-50"
           onClick={() => setOpen(true)}
           aria-label="Open sidebar"
         >

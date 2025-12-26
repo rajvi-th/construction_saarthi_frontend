@@ -245,6 +245,22 @@ import bhoDocuments from '../locales/bho/documents.json';
 import asDocuments from '../locales/as/documents.json';
 import hryDocuments from '../locales/hry/documents.json';
 
+// Import labourAttendance translations for all languages
+import enLabourAttendance from '../locales/en/labourAttendance.json';
+import hiLabourAttendance from '../locales/hi/labourAttendance.json';
+import guLabourAttendance from '../locales/gu/labourAttendance.json';
+import bnLabourAttendance from '../locales/bn/labourAttendance.json';
+import taLabourAttendance from '../locales/ta/labourAttendance.json';
+import mrLabourAttendance from '../locales/mr/labourAttendance.json';
+import teLabourAttendance from '../locales/te/labourAttendance.json';
+import knLabourAttendance from '../locales/kn/labourAttendance.json';
+import mlLabourAttendance from '../locales/ml/labourAttendance.json';
+import urLabourAttendance from '../locales/ur/labourAttendance.json';
+import rajLabourAttendance from '../locales/raj/labourAttendance.json';
+import bhoLabourAttendance from '../locales/bho/labourAttendance.json';
+import asLabourAttendance from '../locales/as/labourAttendance.json';
+import hryLabourAttendance from '../locales/hry/labourAttendance.json';
+
 // Get saved language from localStorage or default to 'en'
 const savedLang = localStorage.getItem('lang') || 'en';
 
@@ -265,6 +281,7 @@ const resources = {
     dpr: enDpr,
     notes: enNotes,
     documents: enDocuments,
+    labourAttendance: enLabourAttendance,
   },
   hi: {
     common: hiCommon,
@@ -282,6 +299,7 @@ const resources = {
     dpr: hiDpr,
     notes: hiNotes,
     documents: hiDocuments,
+    labourAttendance: hiLabourAttendance,
   },
   gu: {
     common: guCommon,
@@ -299,6 +317,7 @@ const resources = {
     dpr: guDpr,
     notes: guNotes,
     documents: guDocuments,
+    labourAttendance: guLabourAttendance,
   },
   bn: {
     common: bnCommon,
@@ -316,6 +335,7 @@ const resources = {
     dpr: bnDpr,
     notes: bnNotes,
     documents: bnDocuments,
+    labourAttendance: bnLabourAttendance,
   },
   ta: {
     common: taCommon,
@@ -333,6 +353,7 @@ const resources = {
     dpr: taDpr,
     notes: taNotes,
     documents: taDocuments,
+    labourAttendance: taLabourAttendance,
   },
   mr: {
     common: mrCommon,
@@ -350,6 +371,7 @@ const resources = {
     dpr: mrDpr,
     notes: mrNotes,
     documents: mrDocuments,
+    labourAttendance: mrLabourAttendance,
   },
   te: {
     common: teCommon,
@@ -367,6 +389,7 @@ const resources = {
     dpr: teDpr,
     notes: teNotes,
     documents: teDocuments,
+    labourAttendance: teLabourAttendance,
   },
   kn: {
     common: knCommon,
@@ -384,6 +407,7 @@ const resources = {
     dpr: knDpr,
     notes: knNotes,
     documents: knDocuments,
+    labourAttendance: knLabourAttendance,
   },
   ml: {
     common: mlCommon,
@@ -401,6 +425,7 @@ const resources = {
     dpr: mlDpr,
     notes: mlNotes,
     documents: mlDocuments,
+    labourAttendance: mlLabourAttendance,
   },
   ur: {
     common: urCommon,
@@ -418,6 +443,7 @@ const resources = {
     dpr: urDpr,
     notes: urNotes,
     documents: urDocuments,
+    labourAttendance: urLabourAttendance,
   },
   raj: {
     common: rajCommon,
@@ -435,6 +461,7 @@ const resources = {
     dpr: rajDpr,
     notes: rajNotes,
     documents: rajDocuments,
+    labourAttendance: rajLabourAttendance,
   },
   bho: {
     common: bhoCommon,
@@ -452,6 +479,7 @@ const resources = {
     dpr: bhoDpr,
     notes: bhoNotes,
     documents: bhoDocuments,
+    labourAttendance: bhoLabourAttendance,
   },
   as: {
     common: asCommon,
@@ -469,6 +497,7 @@ const resources = {
     dpr: asDpr,
     notes: asNotes,
     documents: asDocuments,
+    labourAttendance: asLabourAttendance,
   },
   hry: {
     common: hryCommon,
@@ -486,6 +515,7 @@ const resources = {
     dpr: hryDpr,
     notes: hryNotes,
     documents: hryDocuments,
+    labourAttendance: hryLabourAttendance,
   },
 };
 
@@ -500,7 +530,7 @@ i18n
       escapeValue: false, // React already escapes values
     },
     defaultNS: 'common',
-    ns: ['common', 'auth', 'dashboard', 'account', 'businessCard', 'siteInventory', 'referEarn', 'subscription', 'builderClient', 'projectGallery', 'projects', 'pastProjects', 'dpr', 'notes'],
+    ns: ['common', 'auth', 'dashboard', 'account', 'businessCard', 'siteInventory', 'referEarn', 'subscription', 'builderClient', 'projectGallery', 'projects', 'pastProjects', 'dpr', 'notes', 'documents', 'labourAttendance'],
   });
 
 export default i18n;

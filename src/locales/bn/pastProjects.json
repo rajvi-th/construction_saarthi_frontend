@@ -16,7 +16,26 @@
   "supportedFormats": "JPG, PNG, Mp4, PDF",
   "maxSizeEach": "প্রতি ফাইল 10MB",
   "uploadButton": "আপলোড",
-  "addSubmit": "প্রজেক্ট যোগ করুন"
+  "addSubmit": "প্রজেক্ট যোগ করুন",
+  "uploading": "আপলোড হচ্ছে...",
+  "uploadingFiles": "ফাইল আপলোড হচ্ছে...",
+  "adding": "যোগ করা হচ্ছে...",
+  "validation": {
+    "projectKeyRequired": "প্রজেক্ট কী প্রয়োজন। অনুগ্রহ করে পৃষ্ঠাটি রিফ্রেশ করুন এবং আবার চেষ্টা করুন।",
+    "projectNameRequired": "প্রজেক্টের নাম প্রয়োজন",
+    "addressRequired": "ঠিকানা প্রয়োজন",
+    "workspaceRequired": "ওয়ার্কস্পেস প্রয়োজন",
+    "onlyPdfAllowed": "নথি বিভাগে শুধুমাত্র PDF ফাইল অনুমোদিত",
+    "filesRequired": "অনুগ্রহ করে অন্তত একটি ফাইল আপলোড করুন"
+  },
+  "success": {
+    "filesUploaded": "ফাইল সফলভাবে আপলোড হয়েছে!",
+    "projectAdded": "প্রজেক্ট সফলভাবে যোগ করা হয়েছে!"
+  },
+  "error": {
+    "uploadFailed": "ফাইল আপলোড করতে ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন।",
+    "addFailed": "প্রজেক্ট যোগ করতে ব্যর্থ। অনুগ্রহ করে আবার চেষ্টা করুন।"
+  }
 }
 
 

@@ -89,19 +89,19 @@ export default function ReferralSummaryCards({
             <button
               type="button"
               onClick={handleCopy}
-              className="w-9 h-9 rounded-lg flex items-center justify-center bg-[#FFF1F2] border border-[#FECACA] text-[#DC2626] hover:bg-[#FEE2E2] transition-colors"
+              className="w-9 h-9 rounded-lg flex items-center justify-center cursor-pointer bg-[#FFF1F2] border border-[#FECACA] text-[#DC2626] hover:bg-[#FEE2E2] transition-colors"
               aria-label={t('summary.copyCode')}
             >
               <Copy className="w-4 h-4" strokeWidth={2.4} />
             </button>
-            <button
+            {/* <button
               type="button"
               onClick={handleShare}
               className="w-9 h-9 rounded-lg flex items-center justify-center bg-[#ECFDF3] border border-[#BBF7D0] text-[#16A34A] hover:bg-[#DCFCE7] transition-colors"
               aria-label={t('summary.shareCode')}
             >
               <Share2 className="w-4 h-4" strokeWidth={2.4} />
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

@@ -2,46 +2,6 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChevronDown } from 'lucide-react';
 
-const mockInvites = [
-  {
-    id: 1,
-    name: 'Ramesh Patel',
-    initials: 'RP',
-    inviteStatus: 'Signed up & added first project',
-    rewardStatus: 'Rewarded on 10 June 2025',
-    statusLabel: 'Earned ₹200',
-    statusType: 'success',
-    codeUsed: 'USER200',
-    joinedVia: 'WhatsApp',
-  },
-  {
-    id: 2,
-    name: 'Krishna Soni',
-    initials: 'KS',
-    inviteStatus: 'Signed up, project not added yet',
-    rewardStatus: 'Pending action from invitee',
-    statusLabel: 'Pending Action',
-    statusType: 'warning',
-  },
-  {
-    id: 3,
-    name: 'Raghav Mishra',
-    initials: 'RM',
-    inviteStatus: 'Invitation sent',
-    rewardStatus: 'Awaiting signup',
-    statusLabel: 'Invite Sent',
-    statusType: 'default',
-  },
-  {
-    id: 4,
-    name: 'Raghav Mishra',
-    initials: 'RM',
-    inviteStatus: 'Code expired, send a fresh invite',
-    rewardStatus: 'No reward earned',
-    statusLabel: 'Code Expired',
-    statusType: 'danger',
-  },
-];
 
 const getStatusClasses = (type) => {
   switch (type) {
@@ -69,7 +29,7 @@ const getAvatarClasses = (type) => {
   }
 };
 
-export default function InvitesList({ invites = mockInvites }) {
+export default function InvitesList({ invites = [] }) {
   const { t } = useTranslation('referEarn');
   const [expandedId, setExpandedId] = useState(invites[0]?.id ?? null);
 
@@ -89,7 +49,12 @@ export default function InvitesList({ invites = mockInvites }) {
       </header>
 
       <div className="flex flex-col gap-3 md:gap-3.5 pb-4">
-        {invites.map((invite) => {
+        {invites.length === 0 ? (
+          <div className="text-center py-8 text-primary-light">
+            <p>{t('invites.noInvites', { defaultValue: 'No invites found.' })}</p>
+          </div>
+        ) : (
+          invites.map((invite) => {
           const isExpanded = expandedId === invite.id;
 
           return (
@@ -129,7 +94,7 @@ export default function InvitesList({ invites = mockInvites }) {
                     e.stopPropagation();
                     handleToggle(invite.id);
                   }}
-                  className="w-7 h-7 flex items-center justify-center bg-white text-secondary transition-colors"
+                  className="w-7 h-7 flex items-center justify-center bg-white text-secondary transition-colors cursor-pointer"
                   aria-label={isExpanded ? t('invites.collapseDetails') : t('invites.expandDetails')}
                 >
                   <ChevronDown
@@ -187,7 +152,8 @@ export default function InvitesList({ invites = mockInvites }) {
             )}
           </article>
         );
-        })}
+        })
+        )}
       </div>
     </section>
   );

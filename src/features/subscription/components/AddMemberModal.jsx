@@ -11,6 +11,9 @@ import Button from '../../../components/ui/Button';
 import Input from '../../../components/ui/Input';
 import Radio from '../../../components/ui/Radio';
 import PhoneInput from '../../../components/ui/PhoneInput';
+import { addMember } from '../../auth/api';
+import { useAuth } from '../../auth/store';
+import { showSuccess, showError } from '../../../utils/toast';
 
 export default function AddMemberModal({
   isOpen,
@@ -18,8 +21,10 @@ export default function AddMemberModal({
   onSave,
   existingMembersCount = 2,
   memberPrice = 99,
+  onMemberAdded,
 }) {
-  const { t } = useTranslation('subscription');
+  const { t, i18n } = useTranslation('subscription');
+  const { selectedWorkspace } = useAuth();
   const [formData, setFormData] = useState({
     full_name: '',
     country_code: '+91',
@@ -27,6 +32,21 @@ export default function AddMemberModal({
     role: 'supervisor_engineer',
   });
   const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Map role string to roleId
+  // roleId 2: Supervisor/Engineer
+  // roleId 4: Builder/Client (as per API example)
+  const getRoleId = (role) => {
+    switch (role) {
+      case 'supervisor_engineer':
+        return 2;
+      case 'builder_client':
+        return 4;
+      default:
+        return 2; // Default to supervisor/engineer
+    }
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -100,25 +120,74 @@ export default function AddMemberModal({
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!validateForm()) {
       return;
     }
 
-    // Call onSave with form data
-    onSave({
-      ...formData,
-    });
+    // Validate workspace_id is required
+    if (!selectedWorkspace) {
+      showError(t('addMemberModal.errors.workspaceRequired', {
+        defaultValue: 'Workspace ID is required. Please select a workspace.',
+      }));
+      return;
+    }
 
-    // Reset form
-    setFormData({
-      full_name: '',
-      country_code: '+91',
-      phone_number: '',
-      role: 'supervisor_engineer',
-    });
-    setErrors({});
-    onClose();
+    setIsLoading(true);
+
+    try {
+      const currentLanguage = i18n.language || 'en';
+      const roleId = getRoleId(formData.role);
+
+      // Prepare API request body
+      const requestData = {
+        country_code: formData.country_code || '+91',
+        phone_number: formData.phone_number,
+        name: formData.full_name,
+        roleId: roleId,
+        workspace_id: Number(selectedWorkspace),
+        language: currentLanguage,
+      };
+
+      // API call to add member
+      await addMember(requestData);
+
+      // Show success message
+      showSuccess(t('addMemberModal.success', {
+        defaultValue: 'Member added successfully!',
+      }));
+
+      // Reset form
+      setFormData({
+        full_name: '',
+        country_code: '+91',
+        phone_number: '',
+        role: 'supervisor_engineer',
+      });
+      setErrors({});
+
+      // Call onSave callback if provided (for backward compatibility)
+      if (onSave) {
+        onSave(formData);
+      }
+
+      // Call onMemberAdded callback to refresh member list
+      if (onMemberAdded) {
+        onMemberAdded();
+      }
+
+      onClose();
+    } catch (error) {
+      console.error('Error adding member:', error);
+      const errorMessage = error?.response?.data?.message ||
+        error?.message ||
+        t('addMemberModal.errors.addFailed', {
+          defaultValue: 'Failed to add member. Please try again.',
+        });
+      showError(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleKeyPress = (e) => {
@@ -247,11 +316,13 @@ export default function AddMemberModal({
 
         {/* Footer */}
         <div className="flex items-center justify-end gap-3 pb-5 px-4 pt-4">
-          <Button variant="secondary" onClick={onClose}>
+          <Button variant="secondary" onClick={onClose} disabled={isLoading}>
             {t('addMemberModal.cancel', { defaultValue: 'Cancel' })}
           </Button>
-          <Button variant="primary" onClick={handleSave}>
-            {t('addMemberModal.addMember', { defaultValue: 'Add Member' })}
+          <Button variant="primary" onClick={handleSave} disabled={isLoading}>
+            {isLoading
+              ? t('addMemberModal.adding', { defaultValue: 'Adding...' })
+              : t('addMemberModal.addMember', { defaultValue: 'Add Member' })}
           </Button>
         </div>
       </div>

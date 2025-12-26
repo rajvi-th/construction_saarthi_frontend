@@ -114,7 +114,7 @@ const Dashboard = () => {
     {
       icon: Users,
       label: t("quickActions.labourSheet"),
-      onClick: () => {},
+      onClick: () => navigate(ROUTES_FLAT.LABOUR_ATTENDANCE),
     },
     {
       icon: Mic,

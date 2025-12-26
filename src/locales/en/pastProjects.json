@@ -16,7 +16,26 @@
   "supportedFormats": "JPG, PNG, Mp4, PDF",
   "maxSizeEach": "10MB each",
   "uploadButton": "Upload",
-  "addSubmit": "Add Project"
+  "addSubmit": "Add Project",
+  "uploading": "Uploading...",
+  "uploadingFiles": "Uploading files...",
+  "adding": "Adding...",
+  "validation": {
+    "projectKeyRequired": "Project key is required. Please refresh and try again.",
+    "projectNameRequired": "Project name is required",
+    "addressRequired": "Address is required",
+    "workspaceRequired": "Workspace is required",
+    "onlyPdfAllowed": "Only PDF files are allowed in documents section",
+    "filesRequired": "Please upload at least one file"
+  },
+  "success": {
+    "filesUploaded": "Files uploaded successfully!",
+    "projectAdded": "Project added successfully!"
+  },
+  "error": {
+    "uploadFailed": "Failed to upload files. Please try again.",
+    "addFailed": "Failed to add project. Please try again."
+  }
 }
 
 

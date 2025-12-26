@@ -4,7 +4,7 @@
  * Uses feature API + shared UI components
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 import PageHeader from '../../../components/layout/PageHeader';
@@ -25,7 +25,8 @@ export default function Subscription() {
   const navigate = useNavigate();
   const location = useLocation();
   const { subscriptions, isLoadingSubscriptions } = useSubscriptions();
-  const [selectedPlanId, setSelectedPlanId] = useState('monthly');
+  const [selectedPlanId, setSelectedPlanId] = useState('yearly');
+  const [selectedPlan, setSelectedPlan] = useState(null);
   const [appliedCoupon, setAppliedCoupon] = useState(
     location.state?.appliedCoupon || null
   );
@@ -40,9 +41,18 @@ export default function Subscription() {
     navigate(ROUTES_FLAT.REFER_EARN_WALLET);
   };
 
-  const handlePlanSelect = (planId) => {
+  const handlePlanSelect = useCallback((planId, planData) => {
     setSelectedPlanId(planId);
-  };
+    if (planData) {
+      // Convert plan data to format expected by SubscriptionBottomBar
+      setSelectedPlan({
+        name: planData.name,
+        price: planData.price,
+        period: planId === 'yearly' ? 'Year' : planId === '3years' ? '3 Years' : 'Month',
+        description: planData.description,
+      });
+    }
+  }, []);
 
   const handleCancel = () => {
     // TODO: Handle cancel action
@@ -54,18 +64,11 @@ export default function Subscription() {
     console.log('Continue clicked');
   };
 
-  // Get selected plan details
-  const selectedPlan = {
-    name: selectedPlanId === 'monthly' ? t('availablePlans.plans.monthly', { defaultValue: 'Monthly' }) : 
-          selectedPlanId === '3month' ? t('availablePlans.plans.3month', { defaultValue: '3 Month Plan' }) :
-          selectedPlanId === '6month' ? t('availablePlans.plans.6month', { defaultValue: '6 Month Plan' }) : 
-          t('availablePlans.plans.12month', { defaultValue: '12 Month Plan' }),
-    price: selectedPlanId === 'monthly' ? 999 :
-           selectedPlanId === '3month' ? 1499 :
-           selectedPlanId === '6month' ? 2499 : 3999,
-    period: selectedPlanId === 'monthly' 
-      ? t('availablePlans.plans.periodMonth', { defaultValue: 'Month' })
-      : t('availablePlans.plans.periodMonths', { defaultValue: 'Months' }),
+  // Default plan if none selected
+  const displayPlan = selectedPlan || {
+    name: t('availablePlans.plans.yearly', { defaultValue: 'Yearly' }),
+    price: 3999,
+    period: 'Year',
     description: t('availablePlans.plans.description', { defaultValue: 'Contractor + 3 Free Users' }),
   };
 
@@ -104,7 +107,7 @@ export default function Subscription() {
             
             {/* Bottom Bar - Inside Page Content */}
             <SubscriptionBottomBar
-              selectedPlan={selectedPlan}
+              selectedPlan={displayPlan}
               onCancel={handleCancel}
               onContinue={handleContinue}
             />

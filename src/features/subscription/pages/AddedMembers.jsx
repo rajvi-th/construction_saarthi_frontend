@@ -4,7 +4,7 @@
  * Uses feature API + shared UI components
  */
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import PageHeader from '../../../components/layout/PageHeader';
 import Loader from '../../../components/ui/Loader';
@@ -13,35 +13,9 @@ import { MoreVertical, Trash2 } from 'lucide-react';
 import DropdownMenu from '../../../components/ui/DropdownMenu';
 import RemoveMemberModal from '../../../components/ui/RemoveMemberModal';
 import { AddMemberModal } from '../components';
-
-const MOCK_MEMBERS = [
-    {
-        id: 1,
-        name: 'Ramesh Patel',
-        phone: '+91 65745 54584',
-        planLabel: 'Free Plan',
-        role: 'Client',
-        isPaid: false,
-    },
-    {
-        id: 2,
-        name: 'Ramesh Patel',
-        phone: '+91 65745 54584',
-        planLabel: 'Free Plan',
-        role: 'Engineer',
-        isPaid: true,
-        extraPrice: 199,
-    },
-    {
-        id: 3,
-        name: 'Ramesh Patel',
-        phone: '+91 65745 54584',
-        planLabel: 'Free Plan',
-        role: 'Client',
-        isPaid: true,
-        extraPrice: 199,
-    },
-];
+import { getWorkspaceMembers, deleteMember } from '../../auth/api';
+import { useAuth } from '../../auth/store';
+import { showError, showSuccess } from '../../../utils/toast';
 
 const getInitials = (name = '') => {
     const parts = name.trim().split(' ');
@@ -59,12 +33,59 @@ const getAvatarClasses = (role) => {
 
 export default function AddedMembers() {
     const { t } = useTranslation('subscription');
+    const { selectedWorkspace } = useAuth();
     const [search, setSearch] = useState('');
-    const [members, setMembers] = useState(MOCK_MEMBERS);
+    const [members, setMembers] = useState([]);
     const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
     const [memberToRemove, setMemberToRemove] = useState(null);
     const [isAddMemberModalOpen, setIsAddMemberModalOpen] = useState(false);
-    const isLoading = false; // Placeholder for future API loading state
+    const [isLoading, setIsLoading] = useState(true);
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [refreshKey, setRefreshKey] = useState(0);
+
+    useEffect(() => {
+        const fetchMembers = async () => {
+            if (!selectedWorkspace) {
+                setIsLoading(false);
+                return;
+            }
+
+            try {
+                setIsLoading(true);
+                const response = await getWorkspaceMembers(selectedWorkspace);
+                
+                // Handle different response structures (same pattern as useMembers hook)
+                const membersData = response?.data || response?.members || response || [];
+                const membersList = Array.isArray(membersData) ? membersData : [];
+                
+                // Map API response to component format
+                const mappedMembers = membersList.map(member => ({
+                    id: member.id,
+                    name: member.name || '',
+                    phone: member.phone_number 
+                        ? `${member.country_code || ''} ${member.phone_number}`.trim()
+                        : '',
+                    role: member.role || '',
+                    planLabel: 'Free Plan', // Default value, update if API provides this
+                    isPaid: false, // Default value, update if API provides this
+                    extraPrice: null, // Default value, update if API provides this
+                }));
+                
+                setMembers(mappedMembers);
+            } catch (error) {
+                console.error('Error fetching workspace members:', error);
+                const errorMessage = error?.response?.data?.message || 
+                                   error?.message || 
+                                   'Failed to load members';
+                showError(errorMessage);
+                setMembers([]);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchMembers();
+    }, [selectedWorkspace, refreshKey]);
 
     const filteredMembers = useMemo(() => {
         if (!search.trim()) return members;
@@ -95,11 +116,47 @@ export default function AddedMembers() {
         setMemberToRemove(null);
     };
 
-    const handleConfirmRemove = () => {
-        if (memberToRemove) {
-            setMembers((prev) => prev.filter((m) => m.id !== memberToRemove.id));
+    const handleConfirmRemove = async () => {
+        if (!memberToRemove || !selectedWorkspace) {
+            showError(t('addedMembers.errors.removeFailed', {
+                defaultValue: 'Failed to remove member. Please try again.',
+            }));
+            return;
         }
-        handleCloseRemoveModal();
+
+        setIsDeleting(true);
+
+        try {
+            // Prepare API request body
+            const requestData = {
+                workspace_id: Number(selectedWorkspace),
+                member_id: Number(memberToRemove.id),
+            };
+
+            // API call to delete member
+            await deleteMember(requestData);
+
+            // Show success message
+            showSuccess(t('addedMembers.success.removeSuccess', {
+                defaultValue: 'Member removed successfully!',
+            }));
+
+            // Refresh members list after successful deletion
+            setRefreshKey(prev => prev + 1);
+
+            // Close modal
+            handleCloseRemoveModal();
+        } catch (error) {
+            console.error('Error removing member:', error);
+            const errorMessage = error?.response?.data?.message ||
+                error?.message ||
+                t('addedMembers.errors.removeFailed', {
+                    defaultValue: 'Failed to remove member. Please try again.',
+                });
+            showError(errorMessage);
+        } finally {
+            setIsDeleting(false);
+        }
     };
 
     const handleCloseAddMemberModal = () => {
@@ -107,22 +164,14 @@ export default function AddedMembers() {
     };
 
     const handleSaveMember = (memberData) => {
-        // Simple client-side append; can be replaced with API integration later
-        const newMember = {
-            id: Date.now(),
-            name: memberData.full_name || 'New Member',
-            phone: `${memberData.country_code || '+91'} ${memberData.phone_number || ''}`,
-            planLabel: 'Free Plan',
-            role:
-                memberData.role === 'builder_client'
-                    ? 'Client'
-                    : 'Engineer',
-            isPaid: true,
-            extraPrice: 199,
-        };
+        // This callback is kept for backward compatibility
+        // The actual API call is now handled in AddMemberModal
+        console.log('Member data saved:', memberData);
+    };
 
-        setMembers((prev) => [newMember, ...prev]);
-        setIsAddMemberModalOpen(false);
+    const handleMemberAdded = () => {
+        // Refresh members list after successful addition
+        setRefreshKey(prev => prev + 1);
     };
 
     return (
@@ -235,12 +284,14 @@ export default function AddedMembers() {
                 onClose={handleCloseRemoveModal}
                 onConfirm={handleConfirmRemove}
                 memberName={memberToRemove?.name}
+                isLoading={isDeleting}
             />
 
             <AddMemberModal
                 isOpen={isAddMemberModalOpen}
                 onClose={handleCloseAddMemberModal}
                 onSave={handleSaveMember}
+                onMemberAdded={handleMemberAdded}
                 existingMembersCount={members.length}
                 memberPrice={99}
             />

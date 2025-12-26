@@ -13,6 +13,9 @@ export default function RemoveMemberModal({
   memberName = '',
   title,
   description,
+  confirmText,
+  cancelText,
+  isLoading = false,
 }) {
   const { t } = useTranslation('subscription');
   
@@ -31,11 +34,14 @@ export default function RemoveMemberModal({
       ? t('removeMemberModal.description', { name: safeName, defaultValue: `Are you sure you want to remove ${safeName}? This action is irreversible, and your data cannot be recovered.` })
       : t('removeMemberModal.descriptionDefault', { defaultValue: 'Are you sure you want to remove this member? This action is irreversible, and your data cannot be recovered.' }));
 
+  const finalCancelText = cancelText || t('removeMemberModal.cancel', { defaultValue: 'Cancel' });
+  const finalConfirmText = confirmText || t('removeMemberModal.confirm', { defaultValue: 'Yes, Remove' });
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 overflow-y-auto"
       onClick={(e) => {
-        if (e.target === e.currentTarget) {
+        if (e.target === e.currentTarget && !isLoading) {
           onClose?.();
         }
       }}
@@ -54,16 +60,21 @@ export default function RemoveMemberModal({
             size="md"
             className="w-full sm:w-[140px]"
             onClick={onClose}
+            disabled={isLoading}
           >
-            {t('removeMemberModal.cancel', { defaultValue: 'Cancel' })}
+            {finalCancelText}
           </Button>
           <Button
             variant="primary"
             size="md"
             className="w-full sm:w-[160px]"
             onClick={onConfirm}
+            disabled={isLoading}
           >
-            {t('removeMemberModal.confirm', { defaultValue: 'Yes, Remove' })}
+            {isLoading 
+              ? t('removeMemberModal.removing', { defaultValue: 'Removing...' })
+              : finalConfirmText
+            }
           </Button>
         </div>
       </div>
