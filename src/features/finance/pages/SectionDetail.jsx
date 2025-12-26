@@ -22,7 +22,7 @@ import blackPencilIcon from "../../../assets/icons/Blackpencil.svg";
 import emptyStateIcon from "../../../assets/icons/EmptyState.svg";
 import pdfIcon from "../../../assets/icons/Pdf.svg";
 import downloadIcon from "../../../assets/icons/Download Minimalistic.svg";
-import pencilIcon from "../../../assets/icons/pen.svg";
+import pencilIcon from "../../../assets/icons/Pen.svg";
 import trashIcon from "../../../assets/icons/Trash.svg";
 import { Plus } from "lucide-react";
 

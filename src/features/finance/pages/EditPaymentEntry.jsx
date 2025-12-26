@@ -77,8 +77,6 @@ export default function EditPaymentEntry() {
     if (paymentEntry) {
       const modeMap = {
         Cash: "cash",
-        Cash: "cash",
-        Cheque: "cheque",
         Cheque: "cheque",
         "Bank Transfer": "bank_transfer",
         BankTransfer: "bank_transfer",

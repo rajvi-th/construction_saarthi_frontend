@@ -25,7 +25,7 @@ import pendingAmountIcon from "../../../assets/icons/Pendingred.svg";
 import downloadIcon from "../../../assets/icons/Download Minimalistic.svg";
 import sortVerticalIcon from "../../../assets/icons/Sort Vertical.svg";
 import pdfIcon from "../../../assets/icons/Download Minimalistic.svg";
-import pencilIcon from "../../../assets/icons/pen.svg";
+import pencilIcon from "../../../assets/icons/Pen.svg";
 import trashIcon from "../../../assets/icons/Trash.svg";
 import emptyStateIcon from "../../../assets/icons/EmptyState.svg";
 import { Plus, ChevronDown, ChevronUp, MoreVertical } from "lucide-react";

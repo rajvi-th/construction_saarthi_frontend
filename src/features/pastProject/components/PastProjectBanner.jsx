@@ -8,7 +8,8 @@ import { useTranslation } from 'react-i18next';
 
 export default function PastProjectBanner({ project }) {
   const { t } = useTranslation('pastProjects');
-  const imageSrc = project.profile_photo || project.image || 'https://via.placeholder.com/1200x400?text=Past+Project+Image';
+  const placeholderImage = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI0MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2YzZjRmNiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiM5Y2EzYWYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5QYXN0IFByb2plY3QgSW1hZ2U8L3RleHQ+PC9zdmc+';
+  const imageSrc = project.profile_photo || project.image || placeholderImage;
   const title = project.site_name || project.name || t('untitled', { defaultValue: 'Untitled Project' });
   const address = project.address || t('detail.noAddressProvided', { defaultValue: 'No address provided' });
 

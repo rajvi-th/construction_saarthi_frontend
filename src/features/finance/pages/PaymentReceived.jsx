@@ -21,7 +21,7 @@ import pendingIcon from "../../../assets/icons/Pendingred.svg";
 import amountReceivableIcon from "../../../assets/icons/Amountrecevaible.svg";
 import downloadIcon from "../../../assets/icons/Download Minimalistic.svg";
 import pdfIcon from "../../../assets/icons/Download Minimalistic.svg";
-import pencilIcon from "../../../assets/icons/pen.svg";
+import pencilIcon from "../../../assets/icons/Pen.svg";
 import trashIcon from "../../../assets/icons/Trash.svg";
 import sortVerticalIcon from "../../../assets/icons/Sort Vertical.svg";
 import emptyStateIcon from "../../../assets/icons/EmptyState.svg";
