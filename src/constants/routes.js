@@ -117,6 +117,19 @@ export const ROUTES = {
     PROJECT_DOCUMENTS: '/documents/projects/:projectId',
     DOCUMENT_DETAILS: '/documents/projects/:projectId/documents/:documentId',
   },
+  // Finance Routes
+  FINANCE: {
+    LIST: '/finance',
+    PROJECT_DETAILS: '/finance/projects/:projectId',
+    BUILDER_INVOICES: '/finance/projects/:projectId/builder-invoices',
+    SECTION_DETAIL: '/finance/projects/:projectId/builder-invoices/sections/:sectionId',
+    PAYMENT_RECEIVED: '/finance/projects/:projectId/payment-received',
+    EXPENSES_TO_PAY: '/finance/projects/:projectId/expenses-to-pay',
+    PAYABLE_BILLS_SECTION: '/finance/projects/:projectId/expenses-to-pay/sections/:sectionId',
+    EXPENSES_PAID: '/finance/projects/:projectId/expenses-paid',
+    CREATE_PAYMENT_ENTRY: '/finance/projects/:projectId/expenses-paid/create',
+    EDIT_PAYMENT_ENTRY: '/finance/projects/:projectId/expenses-paid/:entryId/edit',
+  },
 };
 
 // Flattened routes for easier access
@@ -216,6 +229,18 @@ export const ROUTES_FLAT = {
   DOCUMENTS: ROUTES.DOCUMENTS.GENERATE_DOCUMENTS,
   DOCUMENTS_PROJECT_DOCUMENTS: ROUTES.DOCUMENTS.PROJECT_DOCUMENTS,
   DOCUMENTS_DOCUMENT_DETAILS: ROUTES.DOCUMENTS.DOCUMENT_DETAILS,
+  
+  // Finance
+  FINANCE: ROUTES.FINANCE.LIST,
+  FINANCE_PROJECT_DETAILS: ROUTES.FINANCE.PROJECT_DETAILS,
+  FINANCE_BUILDER_INVOICES: ROUTES.FINANCE.BUILDER_INVOICES,
+  FINANCE_SECTION_DETAIL: ROUTES.FINANCE.SECTION_DETAIL,
+  FINANCE_PAYMENT_RECEIVED: ROUTES.FINANCE.PAYMENT_RECEIVED,
+  FINANCE_EXPENSES_TO_PAY: ROUTES.FINANCE.EXPENSES_TO_PAY,
+  FINANCE_PAYABLE_BILLS_SECTION: ROUTES.FINANCE.PAYABLE_BILLS_SECTION,
+  FINANCE_EXPENSES_PAID: ROUTES.FINANCE.EXPENSES_PAID,
+  FINANCE_CREATE_PAYMENT_ENTRY: ROUTES.FINANCE.CREATE_PAYMENT_ENTRY,
+  FINANCE_EDIT_PAYMENT_ENTRY: ROUTES.FINANCE.EDIT_PAYMENT_ENTRY,
 };
 
 /**

@@ -260,6 +260,21 @@ import rajLabourAttendance from '../locales/raj/labourAttendance.json';
 import bhoLabourAttendance from '../locales/bho/labourAttendance.json';
 import asLabourAttendance from '../locales/as/labourAttendance.json';
 import hryLabourAttendance from '../locales/hry/labourAttendance.json';
+// Import finance translations for all languages
+import enFinance from '../locales/en/finance.json';
+import hiFinance from '../locales/hi/finance.json';
+import guFinance from '../locales/gu/finance.json';
+import bnFinance from '../locales/bn/finance.json';
+import taFinance from '../locales/ta/finance.json';
+import mrFinance from '../locales/mr/finance.json';
+import teFinance from '../locales/te/finance.json';
+import knFinance from '../locales/kn/finance.json';
+import mlFinance from '../locales/ml/finance.json';
+import urFinance from '../locales/ur/finance.json';
+import rajFinance from '../locales/raj/finance.json';
+import bhoFinance from '../locales/bho/finance.json';
+import asFinance from '../locales/as/finance.json';
+import hryFinance from '../locales/hry/finance.json';
 
 // Get saved language from localStorage or default to 'en'
 const savedLang = localStorage.getItem('lang') || 'en';
@@ -282,6 +297,7 @@ const resources = {
     notes: enNotes,
     documents: enDocuments,
     labourAttendance: enLabourAttendance,
+    finance: enFinance,
   },
   hi: {
     common: hiCommon,
@@ -300,6 +316,7 @@ const resources = {
     notes: hiNotes,
     documents: hiDocuments,
     labourAttendance: hiLabourAttendance,
+    finance: hiFinance,
   },
   gu: {
     common: guCommon,
@@ -318,6 +335,7 @@ const resources = {
     notes: guNotes,
     documents: guDocuments,
     labourAttendance: guLabourAttendance,
+    finance: guFinance,
   },
   bn: {
     common: bnCommon,
@@ -336,6 +354,7 @@ const resources = {
     notes: bnNotes,
     documents: bnDocuments,
     labourAttendance: bnLabourAttendance,
+    finance: bnFinance,
   },
   ta: {
     common: taCommon,
@@ -354,6 +373,7 @@ const resources = {
     notes: taNotes,
     documents: taDocuments,
     labourAttendance: taLabourAttendance,
+    finance: taFinance,
   },
   mr: {
     common: mrCommon,
@@ -372,6 +392,7 @@ const resources = {
     notes: mrNotes,
     documents: mrDocuments,
     labourAttendance: mrLabourAttendance,
+    finance: mrFinance,
   },
   te: {
     common: teCommon,
@@ -390,6 +411,7 @@ const resources = {
     notes: teNotes,
     documents: teDocuments,
     labourAttendance: teLabourAttendance,
+    finance: teFinance,
   },
   kn: {
     common: knCommon,
@@ -408,6 +430,7 @@ const resources = {
     notes: knNotes,
     documents: knDocuments,
     labourAttendance: knLabourAttendance,
+    finance: knFinance,
   },
   ml: {
     common: mlCommon,
@@ -426,6 +449,7 @@ const resources = {
     notes: mlNotes,
     documents: mlDocuments,
     labourAttendance: mlLabourAttendance,
+    finance: mlFinance,
   },
   ur: {
     common: urCommon,
@@ -444,6 +468,7 @@ const resources = {
     notes: urNotes,
     documents: urDocuments,
     labourAttendance: urLabourAttendance,
+    finance: urFinance,
   },
   raj: {
     common: rajCommon,
@@ -462,6 +487,7 @@ const resources = {
     notes: rajNotes,
     documents: rajDocuments,
     labourAttendance: rajLabourAttendance,
+    finance: rajFinance,
   },
   bho: {
     common: bhoCommon,
@@ -480,6 +506,7 @@ const resources = {
     notes: bhoNotes,
     documents: bhoDocuments,
     labourAttendance: bhoLabourAttendance,
+    finance: bhoFinance,
   },
   as: {
     common: asCommon,
@@ -498,6 +525,7 @@ const resources = {
     notes: asNotes,
     documents: asDocuments,
     labourAttendance: asLabourAttendance,
+    finance: asFinance,
   },
   hry: {
     common: hryCommon,
@@ -516,6 +544,7 @@ const resources = {
     notes: hryNotes,
     documents: hryDocuments,
     labourAttendance: hryLabourAttendance,
+    finance: hryFinance,
   },
 };
 

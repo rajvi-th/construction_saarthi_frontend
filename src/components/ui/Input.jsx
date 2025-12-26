@@ -31,7 +31,7 @@ export default function Input({
         placeholder={placeholder}
         disabled={disabled}
         className={`
-          w-full px-4 py-3 rounded-lg border bg-white text-primary 
+          w-full px-4 py-3 rounded-xl border bg-white text-primary 
           placeholder:text-secondary text-sm focus:outline-none transition-colors
           ${error 
             ? 'border-accent focus:border-accent' 

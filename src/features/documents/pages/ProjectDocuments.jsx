@@ -9,7 +9,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
 import PageHeader from '../../../components/layout/PageHeader';
-import aiPoweredIcon from '../../../assets/icons/Frame 2529.svg';
+import aiPoweredIcon from '../../../assets/icons/aipowered.svg';
 
 // Static project names mapping
 const staticProjectNames = {
@@ -134,8 +134,8 @@ export default function ProjectDocuments() {
       />
 
       {/* AI Powered Badge - Fixed on right side */}
-      <div className="fixed right-0 top-1/2 -translate-y-1/2 z-10 hidden lg:block">
-        <img src={aiPoweredIcon} alt="AI Powered" className="h-9" />
+      <div className="fixed right-0 top-1/2 -translate-y-1/2 z-10 block">
+        <img src={aiPoweredIcon} alt="AI Powered" className="h-9 cursor-pointer" />
       </div>
 
       {/* Document Categories */}
@@ -148,7 +148,7 @@ export default function ProjectDocuments() {
             {/* Category Header */}
             <button
               onClick={() => toggleCategory(category.id)}
-              className="w-full px-4 sm:px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors cursor-pointer"
+              className="w-full px-4 sm:px-6 py-4 flex items-center justify-between cursor-pointer"
             >
               <h3 className="text-base sm:text-lg font-medium text-primary">
                 {category.title}
@@ -170,7 +170,7 @@ export default function ProjectDocuments() {
                     className="bg-white rounded-lg p-4 border border-gray-200 flex items-start gap-3 relative cursor-pointer"
                   >
                     {/* Red vertical bar - Vector element */}
-                    <div className="w-1 h-7 bg-accent rounded-full absolute left-0 top-3 bottom-4"></div>
+                    <div className="w-1 h-6 bg-accent rounded-full absolute left-0 top-3 bottom-4"></div>
                     <div className="flex-1 pl-3">
                       <h4 className="text-sm sm:text-base font-medium text-primary mb-1">
                         {document.name}

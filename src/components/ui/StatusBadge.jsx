@@ -43,7 +43,7 @@ export const statusBadgeColors = {
   },
   pink: {
     border: "rgba(255, 45, 85, 0.4)",
-    background: "rgba(255, 45, 85, 0.006)",
+    background: "#FFEEF3",
     text: "#FF2D55",
   },
   darkblue: {
@@ -89,7 +89,7 @@ export default function StatusBadge({ text, color = "red", className = "" }) {
 
   return (
     <div
-      className={`px-3 py-2 rounded-lg flex items-center justify-center font-medium border ${className}`}
+      className={`px-3 py-1 rounded-full flex items-center justify-center font-medium border ${className}`}
       style={{
         borderColor: selectedColors.border,
         backgroundColor: selectedColors.background,

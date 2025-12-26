@@ -32,6 +32,12 @@ const BREADCRUMB_TRANSLATION_KEYS = {
   settings: "sidebar.settings.settings",
   help: "sidebar.settings.help",
   contact: "sidebar.settings.contact",
+  finance: "finance.finance",
+  "builder-invoices": "finance.builderInvoices",
+  "payment-received": "finance.paymentReceived",
+  "expenses-paid": "finance.expensesPaid",
+  "expenses-to-pay": "finance.expensesToPay",
+  sections: "finance.sections",
 };
 
 const Navbar = () => {
@@ -40,6 +46,7 @@ const Navbar = () => {
   const { t: tPastProjects } = useTranslation("pastProjects");
   const { t: tNotes } = useTranslation("notes");
   const { t: tDocuments } = useTranslation("documents");
+  const { t: tFinance } = useTranslation("finance");
   const location = useLocation();
   const { user: authUser } = useAuth();
 
@@ -157,6 +164,38 @@ const Navbar = () => {
       return processedSegments;
     }
 
+    // Handle finance routes: /finance/projects/:projectId/...
+    if (segments[0] === "finance" && segments.length > 1) {
+      const processedSegments = ["finance"];
+      if (segments[1] === "projects" && segments.length > 2) {
+        // For /finance/projects/:projectId, show: Finance / Projects / ProjectName
+        if (segments.length === 3) {
+          processedSegments.push("projects", segments[2]);
+        } else if (segments.length > 3) {
+          // For /finance/projects/:projectId/builder-invoices, show: Finance / Projects / ProjectName / Builder Invoices
+          // For /finance/projects/:projectId/builder-invoices/sections/:sectionId, show: Finance / Projects / ProjectName / Builder Invoices / Sections / SectionId
+          processedSegments.push("projects", segments[2]);
+          if (segments[3] === "builder-invoices") {
+            processedSegments.push("builder-invoices");
+            if (segments[4] === "sections" && segments.length > 5) {
+              processedSegments.push("sections", segments[5]);
+            }
+          } else if (segments[3] === "payment-received") {
+            processedSegments.push("payment-received");
+          } else if (segments[3] === "expenses-paid") {
+            processedSegments.push("expenses-paid");
+          } else if (segments[3] === "expenses-to-pay") {
+            processedSegments.push("expenses-to-pay");
+            if (segments[4] === "sections" && segments.length > 5) {
+              processedSegments.push("sections", segments[5]);
+            }
+          }
+        }
+        return processedSegments;
+      }
+      return processedSegments;
+    }
+
     return segments;
   }, [location.pathname, location.state]);
 
@@ -194,6 +233,13 @@ const Navbar = () => {
         defaultValue: last.replace(/-/g, " "),
       });
     }
+
+    // Use finance namespace for finance-related translations
+    if (translationKey && translationKey.startsWith("finance.")) {
+      return tFinance(translationKey.replace("finance.", ""), {
+        defaultValue: last.replace(/-/g, " "),
+      });
+    }
     
     if (translationKey) {
       return t(translationKey, {
@@ -203,7 +249,7 @@ const Navbar = () => {
     
     // Fallback: return the original value if no translation key found
     return last.replace(/-/g, " ");
-  }, [breadcrumbs, t, tBuilderClient, tPastProjects, tNotes, tDocuments]);
+  }, [breadcrumbs, t, tBuilderClient, tPastProjects, tNotes, tDocuments, tFinance]);
 
   return (
     <header className="fixed top-0 left-0 right-0 lg:left-[300px] py-3 px-4 md:px-8 bg-white border-b border-black-soft z-40 flex items-center justify-between ">
@@ -263,6 +309,12 @@ const Navbar = () => {
                   // Use documents namespace for documents-related translations
                   if (translationKey && translationKey.startsWith("documents.")) {
                     return tDocuments(translationKey.replace("documents.", ""), {
+                      defaultValue: crumb.replace(/-/g, " "),
+                    });
+                  }
+                  // Use finance namespace for finance-related translations
+                  if (translationKey && translationKey.startsWith("finance.")) {
+                    return tFinance(translationKey.replace("finance.", ""), {
                       defaultValue: crumb.replace(/-/g, " "),
                     });
                   }

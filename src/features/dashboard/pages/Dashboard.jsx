@@ -98,7 +98,7 @@ const Dashboard = () => {
     {
       icon: IndianRupee,
       label: t("quickActions.finance"),
-      onClick: () => {},
+      onClick: () => navigate(ROUTES_FLAT.FINANCE),
     },
     {
       icon: ClipboardList,

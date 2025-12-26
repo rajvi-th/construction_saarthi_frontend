@@ -55,20 +55,13 @@ export default function AddItemModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 overflow-y-auto">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-md my-auto">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          <h3 className="text-sm font-medium text-primary">{title}</h3>
-          <button
-            type="button"
-            onClick={onClose}
-            className="transition-colors cursor-pointer"
-          >
-            <X className="w-4 h-4 text-secondary" />
-          </button>
+        <div className="flex items-center justify-between p-4">
+          <h3 className="text-md font-medium text-primary">{title}</h3>
         </div>
 
         {/* Body */}
-        <div className="p-4">
-          <label className="block text-sm font-medium text-primary mb-2">
+        <div className="px-4 py-2">
+          <label className="block text-sm font-normal text-primary mb-2">
             {label}
           </label>
           <input
@@ -78,12 +71,12 @@ export default function AddItemModal({
             onKeyDown={handleKeyPress}
             placeholder={placeholder}
             autoFocus
-            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:border-[rgba(6,12,18,0.3)] transition-colors"
+            className="w-full px-4 py-4 text-sm rounded-lg border border-gray-200 focus:outline-none focus:border-[rgba(6,12,18,0.3)] transition-colors"
           />
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-end gap-2 p-4 border-t border-gray-200">
+        <div className="flex items-center justify-end gap-2 p-4 ">
           <Button variant="secondary" onClick={onClose}>
             Cancel
           </Button>

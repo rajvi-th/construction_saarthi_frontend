@@ -5,7 +5,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ChevronDown, Plus } from 'lucide-react';
+import { ChevronDown, Plus, Search } from 'lucide-react';
 import AddItemModal from './AddItemModal';
 import BuilderFormModal from './BuilderFormModal';
 
@@ -29,26 +29,45 @@ export default function Dropdown({
   customModal: CustomModal = null,
   customModalProps = {},
   position = 'bottom', // 'top' or 'bottom'
+  searchable = false, // Enable search functionality
+  searchPlaceholder = 'Search...', // Placeholder for search input
 }) {
   const { t } = useTranslation('common');
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [internalOptions, setInternalOptions] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const dropdownRef = useRef(null);
+  const searchInputRef = useRef(null);
 
   // Merge external + internal options
   const options = [...externalOptions, ...internalOptions];
+
+  // Filter options based on search query
+  const filteredOptions = searchable && searchQuery
+    ? options.filter((option) =>
+        option.label?.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : options;
 
   // Close dropdown on outside click
   useEffect(() => {
     const handler = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setIsOpen(false);
+        setSearchQuery('');
       }
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, []);
+
+  // Focus search input when dropdown opens and searchable is enabled
+  useEffect(() => {
+    if (isOpen && searchable && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [isOpen, searchable]);
 
   const selectedOption = options.find((opt) => opt.value === value);
 
@@ -60,7 +79,7 @@ export default function Dropdown({
   return (
     <div className={`relative ${className}`} ref={dropdownRef}>
       {label && (
-        <label className="block text-md text-black font-normal mb-2">
+        <label className="block text-md text-black font-normal mb-1">
           {label}
           {required && <span>*</span>}
         </label>
@@ -74,7 +93,7 @@ export default function Dropdown({
           disabled={disabled}
           onClick={() => !disabled && setIsOpen(!isOpen)}
           className={`
-            w-full px-4 py-2 rounded-xl border bg-white text-left flex items-center justify-between
+            w-full px-4 py-3 rounded-xl border bg-white text-sm text-left flex items-center justify-between
             transition-colors focus:outline-none
             ${error ? "border-red-500" : "border-gray-200 focus:border-black/30"}
             ${disabled ? "opacity-50 cursor-not-allowed bg-gray-50" : "cursor-pointer hover:border-gray-400"}
@@ -93,16 +112,35 @@ export default function Dropdown({
       )}
 
       {isOpen && (
-        <div className={`absolute z-50 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-64 overflow-auto px-2 py-2 ${
+        <div className={`absolute z-50 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-64 overflow-auto ${
           position === 'top' ? 'bottom-full mb-1' : 'top-full mt-1'
         }`}>
-          {options.length === 0 && (
-            <div className="px-4 py-3 text-sm text-gray-500 text-center">
-              No options available
+          {/* Search Input */}
+          {searchable && (
+            <div className="sticky top-0 bg-white border-b border-gray-200 px-2 py-2 z-10">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder={searchPlaceholder}
+                  className="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-gray-400"
+                  onClick={(e) => e.stopPropagation()}
+                />
+              </div>
             </div>
           )}
 
-          {options.map((option) => {
+          <div className="px-2 py-2">
+            {filteredOptions.length === 0 && (
+              <div className="px-4 py-3 text-sm text-gray-500 text-center">
+                {searchQuery ? 'No results found' : 'No options available'}
+              </div>
+            )}
+
+            {filteredOptions.map((option) => {
             const isSelected = value === option.value;
             return (
               <button
@@ -115,7 +153,8 @@ export default function Dropdown({
                 {renderOption ? renderOption(option, isSelected) : option.label}
               </button>
             );
-          })}
+            })}
+          </div>
 
           {showSeparator && (
             <>
@@ -200,8 +239,8 @@ export default function Dropdown({
             onChange?.(newOption.value);
           }}
           title={addButtonLabel || t('add', { defaultValue: 'Add New' })}
-          placeholder={t('enterName', { defaultValue: 'Enter name' })}
-          label={t('name', { defaultValue: 'Name' })}
+          placeholder={t('enterbankName', { defaultValue: 'Enter bank name' })}
+          label={t('bankname', { defaultValue: 'Bank Name' })}
         />
       ) : null}
     </div>
