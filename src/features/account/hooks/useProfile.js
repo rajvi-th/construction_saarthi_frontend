@@ -35,10 +35,8 @@ export const useProfile = () => {
         delete profileData.user_detail;
       }
       
-      console.log('Merged Profile Data:', profileData);
       setProfile(profileData);
     } catch (err) {
-      console.error('Error fetching profile:', err);
       const errorMessage =
         err?.response?.data?.message ||
         err?.message ||
@@ -76,10 +74,6 @@ export const useProfile = () => {
       );
       return updatedUser;
     } catch (err) {
-      console.error('Error updating profile:', err);
-      console.error('Error response:', err?.response);
-      console.error('Error data:', err?.response?.data);
-      
       // Extract error message from response
       const errorMessage =
         err?.response?.data?.message ||

@@ -36,15 +36,7 @@ export default function AddPastProject() {
   const [projectKey, setProjectKey] = useState(projectKeyFromState);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [isInitializing, setIsInitializing] = useState(false);
-
-  const handleBack = () => {
-    navigate(ROUTES_FLAT.PAST_PROJECTS);
-  };
-
-  const handleCancel = () => {
-    navigate(ROUTES_FLAT.PAST_PROJECTS);
-  };
-
+  
   // Get file type helper
   const getFileType = (file) => {
     const type = file.type || '';
@@ -328,7 +320,7 @@ export default function AddPastProject() {
         <PageHeader
           title={t('addTitle', { ns: 'pastProjects', defaultValue: 'Add Project (Site)' })}
           showBackButton
-          onBack={handleBack}
+          backTo={ROUTES_FLAT.PAST_PROJECTS}
         />
         <div className="mt-8 flex items-center justify-center">
           <div className="flex flex-col items-center gap-4">
@@ -347,7 +339,7 @@ export default function AddPastProject() {
         <PageHeader
           title={t('addTitle', { ns: 'pastProjects', defaultValue: 'Add Project (Site)' })}
           showBackButton
-          onBack={handleBack}
+          backTo={ROUTES_FLAT.PAST_PROJECTS}
         />
 
         <form
@@ -589,7 +581,7 @@ export default function AddPastProject() {
               type="button"
               variant="secondary"
               className="w-full sm:w-auto px-6"
-              onClick={handleCancel}
+              onClick={() => navigate(ROUTES_FLAT.PAST_PROJECTS)}
               disabled={isSubmitting}
             >
               {t('cancel', { ns: 'common', defaultValue: 'Cancel' })}

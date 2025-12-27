@@ -45,8 +45,6 @@ export default function AddNewMemberPage() {
                 language: currentLanguage,
             };
 
-            console.log('Adding member with data:', requestData);
-
             // API call to add member
             await addMember(requestData);
 
@@ -63,7 +61,6 @@ export default function AddNewMemberPage() {
                 state: { workspaceId: workspaceId }
             });
         } catch (error) {
-            console.error('Error adding member:', error);
             const errorMessage = error?.response?.data?.message || 
                                 error?.message || 
                                 t('createWorkspace.addNewMember.error', { 

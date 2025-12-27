@@ -200,7 +200,7 @@ export default function UploadMedia() {
       <PageHeader
         title={projectName}
         showBackButton
-        onBack={handleBack}
+        backTo={ROUTES_FLAT.PROJECT_GALLERY_DETAILS.replace(':projectId', finalProjectId)}
         className="capitalize!"
       />
 

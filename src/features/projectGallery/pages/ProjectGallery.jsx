@@ -33,10 +33,6 @@ export default function ProjectGallery() {
     { value: 'upcoming', label: t('filterOptions.upcoming', { defaultValue: 'Upcoming' }) },
   ];
 
-  const handleBack = () => {
-    navigate(-1);
-  };
-
   const handleStatusFilterChange = (value) => {
     setStatusFilter(value || '');
   };
@@ -46,8 +42,7 @@ export default function ProjectGallery() {
         {/* Header Section */}
         <PageHeader
           title={t('title', { defaultValue: 'Projects Gallery' })}
-          showBackButton
-          onBack={handleBack}
+          showBackButton={false}
           className="capitalize!"
         >
           {/* Search and Filter */}

@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Trash } from 'lucide-react';
 import Button from '../../../components/ui/Button';
@@ -30,10 +30,6 @@ export default function ProjectDetails() {
   
   const { project, isLoading } = useProjectDetails(projectIdFromState, selectedWorkspace);
 
-  const handleBack = () => {
-    navigate(PROJECT_ROUTES.PROJECTS);
-  };
-
   const handleEdit = () => {
     if (!project) return;
     navigate(PROJECT_ROUTES.EDIT_PROJECT.replace(':id', project.id));
@@ -59,19 +55,15 @@ export default function ProjectDetails() {
         break;
       case 'calculator':
         // TODO: Navigate to calculator page
-        console.log('Calculator tool clicked');
         break;
       case 'documents':
         // TODO: Navigate to documents page
-        console.log('Documents tool clicked');
         break;
       case 'labour':
         // TODO: Navigate to labour sheet page
-        console.log('Labour sheet tool clicked');
         break;
       case 'gallery':
         // TODO: Navigate to gallery page
-        console.log('Gallery tool clicked');
         break;
       case 'dpr':
         navigate(ROUTES_FLAT.DPR, {
@@ -88,7 +80,7 @@ export default function ProjectDetails() {
         }
         break;
       default:
-        console.log('Tool clicked:', toolId);
+        break;
     }
   };
 
@@ -105,9 +97,6 @@ export default function ProjectDetails() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <p className="text-secondary text-lg mb-2">{t('projectDetails.notFound')}</p>
-          <Button variant="primary" onClick={handleBack}>
-            {t('projectDetails.backToProjects')}
-          </Button>
         </div>
       </div>
     );
@@ -125,6 +114,8 @@ export default function ProjectDetails() {
           <PageHeader
             title={project.site_name || project.name}
             className="flex-1 min-w-0"
+            showBackButton={true}
+            backTo={PROJECT_ROUTES.PROJECTS}
           />
           {/* Right: Actions */}
           <div className="flex items-center gap-2 justify-between flex-wrap sm:flex-nowrap sm:justify-end">
@@ -143,7 +134,6 @@ export default function ProjectDetails() {
                     label: t('projectDetails.deleteProject'),
                     onClick: () => {
                       // TODO: Implement delete with confirmation
-                      console.log('Delete project:', project?.id);
                     },
                     icon: <Trash className="w-4 h-4 text-accent" />,
                     textColor: 'text-accent',

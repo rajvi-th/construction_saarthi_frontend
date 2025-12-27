@@ -125,10 +125,6 @@ export default function ProjectGalleryDetails() {
     { id: 'documents', label: t('tabs.documents', { defaultValue: 'Documents' }) },
   ];
 
-  const handleBack = () => {
-    navigate(ROUTES_FLAT.PROJECT_GALLERY);
-  };
-
   const handleFilterChange = (value) => {
     setFilterValue(value || '');
   };
@@ -321,7 +317,7 @@ export default function ProjectGalleryDetails() {
         <PageHeader
           title={t('projectNotFound', { defaultValue: 'Project Not Found' })}
           showBackButton
-          onBack={handleBack}
+          backTo={ROUTES_FLAT.PROJECT_GALLERY}
           className="capitalize!" 
         />
         <EmptyState
@@ -343,8 +339,8 @@ export default function ProjectGalleryDetails() {
       {/* Header Section */}
       <PageHeader
         title={projectName}
-        showBackButton
-        onBack={handleBack}
+        showBackButton={true}
+        backTo={ROUTES_FLAT.PROJECT_GALLERY}
         className="capitalize!"
       >
         {/* Search and Filter */}

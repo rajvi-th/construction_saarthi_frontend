@@ -47,7 +47,6 @@ export const getPastProjects = async (workspaceId, filters = {}) => {
 
     return response.data;
   } catch (error) {
-    console.error('Get past projects error:', error);
     throw error;
   }
 };
@@ -78,7 +77,6 @@ export const startPastProject = async (workspaceId) => {
 
     return response.data;
   } catch (error) {
-    console.error('Start past project error:', error);
     throw error;
   }
 };
@@ -122,7 +120,6 @@ export const createPastProject = async (workspaceId, data) => {
 
     return response.data;
   } catch (error) {
-    console.error('Create past project error:', error);
     throw error;
   }
 };
@@ -149,7 +146,6 @@ export const getPastProjectById = async (projectId) => {
 
     return response.data?.data || response.data;
   } catch (error) {
-    console.error('Get past project by ID error:', error);
     throw error;
   }
 };
@@ -234,12 +230,6 @@ export const updatePastProject = async (projectId, data, workspaceId = null) => 
         files: Array.isArray(endpoint.body.files) ? endpoint.body.files : [],
       };
       
-      // Log the exact body being sent for debugging
-      console.log('Sending update request:', {
-        url: endpoint.url,
-        body: JSON.parse(JSON.stringify(bodyToSend)), // Deep clone to see actual values
-      });
-      
       const response = await axios.put(
         endpoint.url,
         bodyToSend,
@@ -255,17 +245,8 @@ export const updatePastProject = async (projectId, data, workspaceId = null) => 
     } catch (error) {
       lastError = error;
       
-      // Log the error details for debugging
-      console.error(`Update attempt failed for ${endpoint.url}:`, {
-        status: error.response?.status,
-        statusText: error.response?.statusText,
-        data: error.response?.data,
-        body: endpoint.body,
-      });
-      
       // If 404, try next pattern
       if (error.response?.status === 404) {
-        console.log(`Trying alternative endpoint pattern: ${endpoint.url}`);
         continue;
       }
       
@@ -279,12 +260,6 @@ export const updatePastProject = async (projectId, data, workspaceId = null) => 
           (typeof errorData === 'string' ? errorData : null) ||
           error.message ||
           'Server error occurred while updating project';
-        
-        console.error(`Server error (500) for ${endpoint.url}:`, {
-          message: errorMessage,
-          fullResponse: errorData,
-          requestBody: endpoint.body,
-        });
         
         // Create enhanced error with server message
         const enhancedError = new Error(errorMessage);
@@ -301,7 +276,6 @@ export const updatePastProject = async (projectId, data, workspaceId = null) => 
   
   // If all patterns failed with 404, throw the last error
   if (lastError) {
-    console.error('Update past project error - all endpoint patterns failed:', lastError);
     throw lastError;
   }
   
@@ -358,7 +332,6 @@ export const uploadPastProjectMedia = async (projectKey, files) => {
 
     return response.data;
   } catch (error) {
-    console.error('Upload past project media error:', error);
     throw error;
   }
 };

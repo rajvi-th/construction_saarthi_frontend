@@ -101,7 +101,9 @@ export default function Projects() {
         {/* Header Section */}
         <div className="mb-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between md:flex-wrap lg:items-center">
-            <PageHeader title={t('header.title')} />
+            <PageHeader title={t('header.title')} 
+            showBackButton={false}
+            />
 
 
             {/* Actions: search, filter, button */}

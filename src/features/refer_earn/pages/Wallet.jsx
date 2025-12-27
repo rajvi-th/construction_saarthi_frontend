@@ -3,6 +3,7 @@ import PageHeader from '../../../components/layout/PageHeader';
 import Loader from '../../../components/ui/Loader';
 import walletIcon from '../../../assets/icons/Wallet.svg';
 import { Crown, ChevronRight } from 'lucide-react';
+import { ROUTES_FLAT } from '../../../constants/routes';
 
 const WALLET_ACTIVITIES = [
   {
@@ -53,7 +54,10 @@ export default function Wallet() {
   return (
     <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-0 md:px-4 bg-[#F9FAFB]">
-        <PageHeader title={t('wallet.title')} />
+        <PageHeader title={t('wallet.title')}
+        showBackButton={true}
+        backTo={ROUTES_FLAT.REFER_EARN}
+        />
 
         {/* Current balance card */}
         <section className="mb-8">

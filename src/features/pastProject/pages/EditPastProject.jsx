@@ -197,14 +197,6 @@ export default function EditPastProject() {
     }
   }, [project]);
 
-  const handleBack = () => {
-    if (isAddMode) {
-      navigate(PAST_PROJECT_ROUTES.LIST);
-    } else {
-      navigate(getRoute(PAST_PROJECT_ROUTES.DETAILS, { id }), { state: { project } });
-    }
-  };
-
   const handleSave = async () => {
     if (!projectName.trim()) {
       showError(t('validation.projectNameRequired', { defaultValue: 'Project name is required' }));
@@ -443,8 +435,8 @@ export default function EditPastProject() {
               ? t('addTitle', { ns: 'pastProjects', defaultValue: 'Add Project (Site)' })
               : projectName || project?.site_name || project?.name || t('editTitle', { ns: 'pastProjects', defaultValue: 'Edit Project' })
           }
-          showBackButton
-          onBack={handleBack}
+          showBackButton={true}
+          backTo={PAST_PROJECT_ROUTES.LIST}
         />
 
         {/* Basic details */}
@@ -666,7 +658,7 @@ export default function EditPastProject() {
             variant="secondary"
             size="sm"
             className="w-full sm:w-auto px-6"
-            onClick={handleBack}
+            onClick={() => navigate(PAST_PROJECT_ROUTES.LIST)}
             disabled={isSaving}
           >
             {t('cancel', { ns: 'common', defaultValue: 'Cancel' })}

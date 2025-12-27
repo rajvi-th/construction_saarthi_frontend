@@ -99,7 +99,9 @@ export default function DailyProgressReport() {
       <div className="max-w-7xl mx-auto px-4 sm:px-0">
         {/* Header Section */}
         <div className="mb-6">
-          <PageHeader title={t('header.title')}>
+          <PageHeader title={t('header.title')}
+          showBackButton={false}
+          >
             <div className="flex flex-col sm:flex-row sm:items-center sm:flex-wrap gap-3 flex-1 w-full lg:justify-end">
               <SearchBar
                 placeholder={t('search.placeholder')}

@@ -191,6 +191,8 @@ export default function AddMaterialModal({
               addButtonLabel={t('addNewAsk.addNewUnit', { defaultValue: 'Add New Unit' })}
               onAddNew={handleAddNewUnit}
               disabled={isLoadingUnits || isSaving}
+              addModalPlaceholder={t('addNewAsk.unitNamePlaceholder', { defaultValue: 'Enter unit name' })}
+              addModalLabel={t('addNewAsk.unitName', { defaultValue: 'Unit Name' })}
             />
           </div>
         </div>

@@ -123,7 +123,10 @@ export default function ProjectReports() {
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="mb-6">
-          <PageHeader title={projectName}>
+          <PageHeader title={projectName}
+          showBackButton={true}
+          backTo={ROUTES.DPR.LIST}
+          >
             <div className="flex flex-col sm:flex-row sm:items-center sm:flex-wrap gap-3 flex-1 w-full lg:justify-end">
               <SearchBar
                 placeholder={t('search.placeholder')}

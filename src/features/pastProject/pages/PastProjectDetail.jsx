@@ -106,6 +106,8 @@ export default function PastProjectDetail() {
       <div className="max-w-7xl mx-auto">
         <PageHeader
           title={project.site_name || project.name}
+          showBackButton={true}
+          backTo={PAST_PROJECT_ROUTES.LIST}
         >
           <Button
             size="xs"

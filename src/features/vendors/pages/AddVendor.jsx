@@ -54,6 +54,7 @@ export default function AddVendor() {
       <PageHeader
         title={t('form.addVendor', { defaultValue: 'Add Vendor' })}
         showBackButton={true}
+        backTo={ROUTES_FLAT.VENDORS}
       />
 
       {/* Form */}

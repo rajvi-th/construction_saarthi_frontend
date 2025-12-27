@@ -10,6 +10,7 @@ import { ArrowLeft } from 'lucide-react';
 export default function PageHeader({
   title,
   onBack,
+  backTo, // Custom route path to navigate to (e.g., '/projects', '/inventory')
   showBackButton = true,
   className = '',
   children, // For additional actions/buttons on the right side
@@ -20,6 +21,8 @@ export default function PageHeader({
   const handleBack = () => {
     if (onBack) {
       onBack();
+    } else if (backTo) {
+      navigate(backTo);
     } else {
       navigate(-1);
     }

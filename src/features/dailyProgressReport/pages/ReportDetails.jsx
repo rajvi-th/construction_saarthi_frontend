@@ -132,7 +132,10 @@ export default function ReportDetails() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-0">
       {/* Header with actions */}
-      <PageHeader title={reportData.title}>
+      <PageHeader title={reportData.title}
+      showBackButton={true}
+      backTo={ROUTES.DPR.PROJECT_REPORTS}
+      >
         <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2 w-full lg:w-auto lg:justify-end">
           <Button
             size="sm"
