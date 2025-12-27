@@ -87,10 +87,6 @@ export default function CreateInvoiceModal({ isOpen, onClose, onCreate, isLoadin
       return;
     }
 
-    // Debug: Log files before sending
-    console.log('Files from modal:', uploadedFiles);
-    console.log('Files are File instances:', uploadedFiles.every(f => f instanceof File));
-
     const result = await onCreate({
       milestoneTitle: milestoneTitle.trim(),
       percentage: percentage.trim(),

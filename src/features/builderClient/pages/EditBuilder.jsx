@@ -77,6 +77,7 @@ export default function EditBuilder() {
         <PageHeader
           title={t('form.editBuilder', { defaultValue: 'Edit Builder' })}
           showBackButton={true}
+          backTo={ROUTES_FLAT.BUILDERS}
         />
         <div className="flex items-center justify-center py-20">
           <Loader size="lg" />
@@ -91,6 +92,7 @@ export default function EditBuilder() {
         <PageHeader
           title={t('form.editBuilder', { defaultValue: 'Edit Builder' })}
           showBackButton={true}
+          backTo={ROUTES_FLAT.BUILDERS}
         />
         <div className="p-4 rounded-lg bg-red-50 border border-red-200">
           <p className="text-sm text-accent">{error}</p>
@@ -105,6 +107,7 @@ export default function EditBuilder() {
       <PageHeader
         title={t('form.editBuilder', { defaultValue: 'Edit Builder' })}
         showBackButton={true}
+        backTo={ROUTES_FLAT.BUILDERS}
       />
 
       {/* Form */}

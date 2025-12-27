@@ -3,12 +3,13 @@
  * Modal for destroying material from inventory
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '../../../components/ui/Button';
 import Dropdown from '../../../components/ui/Dropdown';
 import NumberInput from '../../../components/ui/NumberInput';
 import RichTextEditor from '../../../components/ui/RichTextEditor';
+import Radio from '../../../components/ui/Radio';
 import { useMaterials, useUnits, useInventoryTypes } from '../hooks';
 import { useAuth } from '../../../hooks/useAuth';
 import AddMaterialModal from './AddMaterialModal';
@@ -30,12 +31,19 @@ export default function DestroyMaterialModal({
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
-  // Set default inventory type when options are loaded
+  // Filter to show only "Reusable" inventory type
+  const reusableTypeOptions = useMemo(() => {
+    return inventoryTypeOptions.filter((type) =>
+      type.label?.toLowerCase().includes('reusable')
+    );
+  }, [inventoryTypeOptions]);
+
+  // Set default inventory type to Reusable when options are loaded
   useEffect(() => {
-    if (inventoryTypeOptions.length > 0 && !materialType) {
-      setMaterialType(inventoryTypeOptions[0].value);
+    if (reusableTypeOptions.length > 0 && !materialType) {
+      setMaterialType(reusableTypeOptions[0].value);
     }
-  }, [inventoryTypeOptions, materialType]);
+  }, [reusableTypeOptions, materialType]);
 
   // Use materialType directly as inventoryTypeId (it's already the ID)
   const inventoryTypeId = materialType;
@@ -46,8 +54,8 @@ export default function DestroyMaterialModal({
   const selectedMaterialData = materials.find((m) => (m.id || m._id || m.materialId) === selectedMaterial);
   const materialUnitId = selectedMaterialData?.unitId;
   const unitOption = unitOptions.find((u) => u.value === materialUnitId);
-  // Use unit from selected material or default
-  const unit = unitOption?.label || selectedMaterialData?.unitName || 'piece';
+  // Use unit_name from selected material, fallback to unitName, unitOption label, or default
+  const unit = selectedMaterialData?.unit_name || selectedMaterialData?.unitName || unitOption?.label || 'piece';
 
   // Initialize form when modal opens
   useEffect(() => {
@@ -56,16 +64,22 @@ export default function DestroyMaterialModal({
       setQuantity('');
       setReason('');
       setErrors({});
-      setMaterialType('reusable');
+      // Set default inventory type to Reusable when options are loaded
+      if (reusableTypeOptions.length > 0) {
+        const reusableValue = reusableTypeOptions[0].value;
+        setMaterialType(reusableValue);
+      }
     }
-  }, [isOpen]);
+  }, [isOpen, reusableTypeOptions]);
 
-  // Fetch materials when modal opens
+  // Fetch materials when modal opens or materialType changes
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && materialType) {
       refetchMaterials();
+      // Clear selected material when type changes
+      setSelectedMaterial('');
     }
-  }, [isOpen, refetchMaterials]);
+  }, [isOpen, materialType, refetchMaterials]);
 
   useEffect(() => {
     if (isOpen) {
@@ -193,22 +207,44 @@ export default function DestroyMaterialModal({
 
         {/* Body */}
         <div className="px-6 pb-6 space-y-4 overflow-y-auto flex-1 min-h-0">
+          {/* Material Type Radio Buttons - Only show Reusable */}
+          {reusableTypeOptions.length > 0 && (
+            <div className="flex gap-6 flex-wrap">
+              {isLoadingInventoryTypes ? (
+                <div className="text-sm text-secondary">Loading...</div>
+              ) : (
+                reusableTypeOptions.map((type) => (
+                  <Radio
+                    key={type.value}
+                    name="destroyMaterialType"
+                    value={type.value}
+                    checked={materialType?.toString() === type.value?.toString()}
+                    onChange={(e) => setMaterialType(e.target.value)}
+                    label={type.label}
+                  />
+                ))
+              )}
+            </div>
+          )}
+
           {/* Material Dropdown */}
           <div>
             <Dropdown
               label={t('destroyMaterialModal.material', { defaultValue: 'Material' })}
-              options={materialOptions}
+              options={materialOptions || []}
               value={selectedMaterial}
               onChange={(value) => {
-                setSelectedMaterial(value);
-                if (errors.material) {
-                  setErrors({ ...errors, material: '' });
+                if (value) {
+                  setSelectedMaterial(value);
+                  if (errors.material) {
+                    setErrors({ ...errors, material: '' });
+                  }
                 }
               }}
               placeholder={t('destroyMaterialModal.materialPlaceholder', { defaultValue: 'Select material' })}
               error={errors.material}
               required
-              disabled={isLoadingMaterials || isLoading}
+              disabled={isLoadingMaterials || isLoading || !materialType}
               showSeparator={true}
               addButtonLabel={t('addNewAsk.addNewMaterial', { defaultValue: 'Add New Material' })}
               onAddNew={handleAddNewMaterial}

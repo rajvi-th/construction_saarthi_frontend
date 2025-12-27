@@ -189,9 +189,6 @@ export const uploadMedia = async (projectKey, files) => {
   // Add projectKey to formData
   formData.append('projectKey', projectKey);
   
-  // Debug: Log files structure
-  console.log('Uploading media files:', { projectKey, files });
-  
   // Add files by key (media type)
   Object.entries(files).forEach(([key, fileArray]) => {
     // Skip if empty
@@ -204,37 +201,19 @@ export const uploadMedia = async (projectKey, files) => {
         // If file is a File object, append it
         if (file instanceof File) {
           formData.append(key, file);
-          console.log(`Appended ${key}[${index}]:`, file.name, file.type);
         } else if (file && file.file && file.file instanceof File) {
           // If file is wrapped in an object with .file property
           formData.append(key, file.file);
-          console.log(`Appended ${key}[${index}]:`, file.file.name, file.file.type);
-        } else {
-          console.warn(`Skipping invalid file in ${key}[${index}]:`, file);
         }
       });
     } else if (fileArray instanceof File) {
       // Single file
       formData.append(key, fileArray);
-      console.log(`Appended ${key}:`, fileArray.name, fileArray.type);
     } else if (fileArray && fileArray.file && fileArray.file instanceof File) {
       // Single file wrapped in object
       formData.append(key, fileArray.file);
-      console.log(`Appended ${key}:`, fileArray.file.name, fileArray.file.type);
-    } else {
-      console.warn(`Skipping invalid file for ${key}:`, fileArray);
     }
   });
-  
-  // Debug: Log FormData contents
-  console.log('FormData entries:');
-  for (const [key, value] of formData.entries()) {
-    if (value instanceof File) {
-      console.log(`${key}:`, value.name, `(${value.size} bytes, ${value.type})`);
-    } else {
-      console.log(`${key}:`, value);
-    }
-  }
   
   // Use axios directly with FormData (bypass http service to set Content-Type correctly)
   const token = localStorage.getItem('token');
@@ -251,11 +230,8 @@ export const uploadMedia = async (projectKey, files) => {
       }
     );
     
-    console.log('Upload response:', response.data);
     return response.data;
   } catch (error) {
-    console.error('Upload error:', error);
-    console.error('Error response:', error?.response?.data);
     throw error;
   }
 };
@@ -470,8 +446,6 @@ export const editProject = async (projectId, data) => {
     
     return response.data;
   } catch (error) {
-    console.error('Edit project error:', error);
-    console.error('Error response:', error?.response?.data);
     throw error;
   }
 };

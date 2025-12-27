@@ -13,11 +13,12 @@ export const SITE_INVENTORY_ENDPOINTS = {
     DELETE: '/site-inventory', // DELETE /site-inventory/{id}
     TRANSFER_REQUESTS: '/inventoryItem/transferRequests', // GET /inventoryItem/transferRequests?scope=incoming&projectID=23
     TRANSFER_APPROVE: '/inventoryItem/transferRequest/approve', // POST /inventoryItem/transferRequest/approve/:transferRequestId
-    TRANSFER_REJECT: '/inventoryItem/transferRequest/reject', // POST /inventoryItem/transferRequest/reject/:workspaceID
+    TRANSFER_REJECT: '/inventoryItem/transferRequest/reject', // POST /inventoryItem/transferRequest/reject/:transferRequestId
     ASK_MATERIAL_REQUESTS: '/inventoryItem/askMaterialRequests', // GET /inventoryItem/askMaterialRequests?projectID=23
     REQUEST_MATERIAL: '/inventoryItem/requestMaterial', // POST /inventoryItem/requestMaterial
     RESTOCK_MATERIAL: '/inventoryItem/restockMaterial', // POST /inventoryItem/restockMaterial
     RESTOCK_REQUESTS: '/inventoryItem/restockRequests', // GET /inventoryItem/restockRequests?projectID=29&requestStatus=active&inventoryTypeId=2
+    DESTROY_MATERIAL: '/inventoryItem/destroyMaterial', // POST /inventoryItem/destroyMaterial
     DESTROYED_MATERIALS: '/inventoryItem/destroyedMaterials', // GET /inventoryItem/destroyedMaterials?projectID=23
   },
   // Materials Endpoints
@@ -56,6 +57,7 @@ export const SITE_INVENTORY_ENDPOINTS_FLAT = {
   SITE_INVENTORY_REQUEST_MATERIAL: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.REQUEST_MATERIAL, // POST /inventoryItem/requestMaterial
   SITE_INVENTORY_RESTOCK_MATERIAL: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.RESTOCK_MATERIAL, // POST /inventoryItem/restockMaterial
   SITE_INVENTORY_RESTOCK_REQUESTS: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.RESTOCK_REQUESTS, // GET /inventoryItem/restockRequests
+  SITE_INVENTORY_DESTROY_MATERIAL: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.DESTROY_MATERIAL, // POST /inventoryItem/destroyMaterial
   SITE_INVENTORY_DESTROYED_MATERIALS: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.DESTROYED_MATERIALS, // GET /inventoryItem/destroyedMaterials
   // Materials
   MATERIALS_LIST: SITE_INVENTORY_ENDPOINTS.MATERIALS.LIST, // GET /materials

@@ -31,6 +31,8 @@ export default function Dropdown({
   position = 'bottom', // 'top' or 'bottom'
   searchable = false, // Enable search functionality
   searchPlaceholder = 'Search...', // Placeholder for search input
+  addModalPlaceholder, // Custom placeholder for AddItemModal
+  addModalLabel, // Custom label for AddItemModal
 }) {
   const { t } = useTranslation('common');
   const [isOpen, setIsOpen] = useState(false);
@@ -239,8 +241,8 @@ export default function Dropdown({
             onChange?.(newOption.value);
           }}
           title={addButtonLabel || t('add', { defaultValue: 'Add New' })}
-          placeholder={t('enterbankName', { defaultValue: 'Enter bank name' })}
-          label={t('bankname', { defaultValue: 'Bank Name' })}
+          placeholder={addModalPlaceholder || t('enter', { defaultValue: 'Enter' })}
+          label={addModalLabel || t('label', { defaultValue: 'Label' })}
         />
       ) : null}
     </div>

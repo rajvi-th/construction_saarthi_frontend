@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Trash } from 'lucide-react';
 import Button from '../../../components/ui/Button';
@@ -59,19 +59,15 @@ export default function ProjectDetails() {
         break;
       case 'calculator':
         // TODO: Navigate to calculator page
-        console.log('Calculator tool clicked');
         break;
       case 'documents':
         // TODO: Navigate to documents page
-        console.log('Documents tool clicked');
         break;
       case 'labour':
         // TODO: Navigate to labour sheet page
-        console.log('Labour sheet tool clicked');
         break;
       case 'gallery':
         // TODO: Navigate to gallery page
-        console.log('Gallery tool clicked');
         break;
       case 'dpr':
         navigate(ROUTES_FLAT.DPR, {
@@ -88,7 +84,7 @@ export default function ProjectDetails() {
         }
         break;
       default:
-        console.log('Tool clicked:', toolId);
+        break;
     }
   };
 
@@ -143,7 +139,6 @@ export default function ProjectDetails() {
                     label: t('projectDetails.deleteProject'),
                     onClick: () => {
                       // TODO: Implement delete with confirmation
-                      console.log('Delete project:', project?.id);
                     },
                     icon: <Trash className="w-4 h-4 text-accent" />,
                     textColor: 'text-accent',

@@ -62,8 +62,6 @@ export default function EditMemberPage() {
                 roleId: Number(updatedData.roleId),
             };
 
-            console.log('Updating member with data:', requestData);
-
             // API call to update member
             await updateMember(requestData);
 
@@ -80,7 +78,6 @@ export default function EditMemberPage() {
                 state: { workspaceId: workspaceId }
             });
         } catch (error) {
-            console.error('Error updating member:', error);
             const errorMessage = error?.response?.data?.message || 
                                 error?.message || 
                                 t('createWorkspace.addNewMember.updateError', { 

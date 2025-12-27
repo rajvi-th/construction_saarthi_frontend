@@ -55,7 +55,7 @@ export default function AddNewAsk() {
   const selectedMaterialData = materials.find(
     (m) => (m.id || m._id || m.materialId) === selectedMaterial
   );
-  const quantityUnit = selectedMaterialData?.unitName || 'pieces';
+  const quantityUnit = selectedMaterialData?.unit_name || selectedMaterialData?.unitName;
 
   // Fetch materials from API
   useEffect(() => {
@@ -186,29 +186,21 @@ export default function AddNewAsk() {
         setIsSubmitting(false);
         return;
       }
-
-      // If multiple projects are selected, we could make multiple API calls
-      const fromProjectId = selectedProjects[0].value;
       
-      // Call API for each selected project (if multiple)
-      const apiCalls = selectedProjects.map((project) =>
-        requestMaterial({
-          inventoryId: selectedMaterial,
-          quantity: parseFloat(quantity) || 0,
-          description: description,
-          fromProjectId: project.value,
-          toProjects: [currentProjectId],
-        })
-      );
-
-      await Promise.all(apiCalls);
+      // Create a single API call with all selected projects in toProjects array
+      await requestMaterial({
+        inventoryId: selectedMaterial,
+        quantity: parseFloat(quantity) || 0,
+        description: description,
+        fromProjectId: currentProjectId,
+        toProjects: selectedProjects.map(project => project.value),
+      });
       
       showSuccess(t('addNewAsk.success', { defaultValue: 'Material request sent successfully' }));
       
       // Navigate back after success
       navigate(-1);
     } catch (error) {
-      console.error('Error submitting request:', error);
       const errorMessage = error?.response?.data?.message || error?.message || t('addNewAsk.errors.submitFailed', { defaultValue: 'Failed to send material request' });
       showError(errorMessage);
     } finally {
@@ -226,21 +218,21 @@ export default function AddNewAsk() {
 
       <form onSubmit={handleSubmit} className="mt-6">
         {/* Material Type Radio Buttons */}
-        <div className="mb-6 flex gap-6">
-          <Radio
-            name="materialType"
-            value="reusable"
-            checked={materialType === 'reusable'}
-            onChange={(e) => setMaterialType(e.target.value)}
-            label={t('materialType.reusable', { defaultValue: 'Reusable' })}
-          />
-          <Radio
-            name="materialType"
-            value="consumable"
-            checked={materialType === 'consumable'}
-            onChange={(e) => setMaterialType(e.target.value)}
-            label={t('materialType.consumable', { defaultValue: 'Consumable' })}
-          />
+        <div className="mb-6 flex gap-6 flex-wrap">
+          {isLoadingInventoryTypes ? (
+            <div className="text-sm text-secondary">Loading...</div>
+          ) : (
+            inventoryTypeOptions.map((type) => (
+              <Radio
+                key={type.value}
+                name="materialType"
+                value={type.value}
+                checked={materialType?.toString() === type.value?.toString()}
+                onChange={(e) => setMaterialType(e.target.value)}
+                label={type.label}
+              />
+            ))
+          )}
         </div>
 
         {/* Material Dropdown */}
@@ -307,7 +299,9 @@ export default function AddNewAsk() {
           {/* Project Dropdown - shown only when no project is selected */}
           {selectedProjects.length === 0 && (
             <Dropdown
-              options={projectOptions}
+              options={projectOptions.filter(
+                (project) => project.value?.toString() !== currentProjectId?.toString()
+              )}
               value=""
               onChange={handleProjectSelect}
               placeholder={t('addNewAsk.requestFromPlaceholder', { defaultValue: 'Select project' })}

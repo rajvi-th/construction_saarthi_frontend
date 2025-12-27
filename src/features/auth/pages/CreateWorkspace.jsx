@@ -40,7 +40,6 @@ export default function CreateWorkspacePage() {
                     const membersData = response?.data || response?.members || response || [];
                     setMembers(Array.isArray(membersData) ? membersData : []);
                 } catch (error) {
-                    console.error('Error fetching workspace members:', error);
                     setMembers([]);
                 } finally {
                     setIsFetchingMembers(false);
@@ -109,8 +108,6 @@ export default function CreateWorkspacePage() {
                 role: 'owner', // Default role is "owner" for workspace creator
             });
 
-            console.log('Workspace creation response:', response);
-
             // Show success message
             showSuccess(
                 response?.message || 
@@ -124,8 +121,6 @@ export default function CreateWorkspacePage() {
                                   response?.data?.workspace_id ||
                                   response?.id || 
                                   response?.workspace_id;
-            
-            console.log('Extracted workspace ID:', newWorkspaceId);
             
             // Set workspace created state regardless of ID availability
             setIsWorkspaceCreated(true);
@@ -142,7 +137,6 @@ export default function CreateWorkspacePage() {
                     const membersData = membersResponse?.data || membersResponse?.members || membersResponse || [];
                     setMembers(Array.isArray(membersData) ? membersData : []);
                 } catch (error) {
-                    console.error('Error fetching workspace members:', error);
                     setMembers([]);
                 } finally {
                     setIsFetchingMembers(false);

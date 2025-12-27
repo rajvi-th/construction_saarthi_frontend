@@ -311,16 +311,16 @@ export const approveTransferRequest = async (transferRequestId, data) => {
 
 /**
  * Reject transfer request
- * @param {string|number} workspaceID - Workspace ID
+ * @param {string|number} transferRequestId - Transfer request ID
  * @param {Object} data - Rejection data
  * @param {string} data.reason - Rejection reason (text)
- * @param {string} data.rejectionType - Rejection type ('text', 'audio', or 'both')
- * @param {File} [data.audioFile] - Audio file (optional, required if rejectionType is 'audio' or 'both')
+ * @param {string} data.rejectionType - Rejection type ('text', 'voice', or 'both')
+ * @param {File} [data.audioFile] - Audio file (optional, required if rejectionType is 'voice' or 'both')
  * @returns {Promise<Object>} API response
  */
-export const rejectTransferRequest = async (workspaceID, data) => {
-  if (!workspaceID) {
-    throw new Error('Workspace ID is required');
+export const rejectTransferRequest = async (transferRequestId, data) => {
+  if (!transferRequestId) {
+    throw new Error('Transfer request ID is required');
   }
   
   const formData = new FormData();
@@ -334,7 +334,7 @@ export const rejectTransferRequest = async (workspaceID, data) => {
   }
   
   return http.post(
-    `${SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_TRANSFER_REJECT}/${workspaceID}`,
+    `${SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_TRANSFER_REJECT}/${transferRequestId}`,
     formData
   );
 };
@@ -454,6 +454,27 @@ export const getRestockRequests = async (params = {}) => {
     : SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_RESTOCK_REQUESTS;
   
   return http.get(url);
+};
+
+/**
+ * Destroy material
+ * @param {Object} data - Destroy material data
+ * @param {string|number} data.inventoryId - Inventory item ID
+ * @param {string|number} data.quantity - Quantity to destroy
+ * @param {string} data.reason - Reason for destruction
+ * @returns {Promise<Object>} API response
+ */
+export const destroyMaterial = async (data) => {
+  const payload = {
+    inventoryId: data.inventoryId,
+    quantity: data.quantity,
+    reason: data.reason || '',
+  };
+  
+  return http.post(
+    SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_DESTROY_MATERIAL,
+    payload
+  );
 };
 
 /**

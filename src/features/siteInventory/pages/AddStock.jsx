@@ -113,7 +113,8 @@ export default function AddStock() {
       
       setVendorOptions(options);
     } catch (error) {
-      console.error('Error loading vendors:', error);
+      const errorMessage = error?.response?.data?.message || error?.message || t('addStock.errors.vendorLoadFailed', { defaultValue: 'Failed to load vendors' });
+      showError(errorMessage);
       setVendorOptions([]);
     } finally {
       setIsLoadingVendors(false);
@@ -155,7 +156,6 @@ export default function AddStock() {
       
       return newOption;
     } catch (error) {
-      console.error('Error creating vendor:', error);
       const errorMessage = error?.response?.data?.message || error?.message || t('addStock.vendorAddFailed', { defaultValue: 'Failed to add vendor' });
       showError(errorMessage);
       throw error;
@@ -233,7 +233,6 @@ export default function AddStock() {
         state: projectId ? { projectId, projectName } : undefined,
       });
     } catch (error) {
-      console.error('Error adding stock:', error);
       const errorMessage = error?.response?.data?.message || 
                           error?.message || 
                           t('addStock.errors.restockFailed', { defaultValue: 'Failed to add stock. Please try again.' });

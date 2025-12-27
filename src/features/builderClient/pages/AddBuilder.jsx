@@ -52,6 +52,7 @@ export default function AddBuilder() {
       <PageHeader
         title={t('form.addBuilder', { defaultValue: 'Add Builder' })}
         showBackButton={true}
+        backTo={ROUTES_FLAT.BUILDERS}
       />
 
       {/* Form */}

@@ -187,9 +187,6 @@ export default function PastProjectDocumentsGallery({
   const handleViewDocument = (doc) => {
     if (doc.url && doc.url !== '#') {
       window.open(doc.url, '_blank');
-    } else {
-      // If no URL, you could show a message or handle differently
-      console.log('Document URL not available:', doc.name);
     }
   };
 

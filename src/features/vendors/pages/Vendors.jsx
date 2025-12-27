@@ -269,7 +269,7 @@ export default function Vendors() {
       {/* Header with Search and Add Button */}
       <PageHeader
         title={t("pages.vendors.title", { defaultValue: "Manage Vendors" })}
-        showBackButton={true}
+        showBackButton={false}
       >
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-start sm:items-center w-full lg:w-auto">
           <div className="flex-1 w-full sm:w-auto sm:flex-none">

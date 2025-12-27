@@ -56,23 +56,15 @@ export default function ConfirmModal({
   if (!isOpen) return null;
 
   const handleConfirm = async () => {
-    console.log('ConfirmModal handleConfirm called');
-    
     if (!onConfirm) {
-      console.error('onConfirm is not defined');
       return;
     }
     
-    console.log('Calling onConfirm');
     const result = await onConfirm();
-    console.log('onConfirm result:', result);
     
     // Close modal if onConfirm returns true or undefined (success)
     if (result !== false) {
-      console.log('Closing modal - result is not false');
       onClose();
-    } else {
-      console.log('Not closing modal - result is false');
     }
   };
 

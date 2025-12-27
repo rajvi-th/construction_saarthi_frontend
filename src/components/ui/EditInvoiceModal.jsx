@@ -104,10 +104,6 @@ export default function EditInvoiceModal({
       return;
     }
 
-    // Debug: Log files before sending
-    console.log('Files from edit modal:', uploadedFiles);
-    console.log('Files are File instances:', uploadedFiles.every(f => f instanceof File));
-
     const updatedData = {
       id: invoice.id,
       milestoneTitle: milestoneTitle.trim(),

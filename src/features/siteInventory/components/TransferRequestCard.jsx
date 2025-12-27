@@ -119,14 +119,14 @@ export default function TransferRequestCard({
                 defaultValue: 'are being sent from',
               })}
             </span>
-            {toProjectLabel && (
-              <span className="font-medium text-primary">{toProjectLabel}</span>
+            {fromProjectLabel && (
+              <span className="font-medium text-primary">{fromProjectLabel}</span>
             )}
             <span>
               {t('transferRequests.to', { defaultValue: 'to your project' })}
             </span>
-            {fromProjectLabel && (
-              <span className="font-medium text-primary">{fromProjectLabel}</span>
+            {toProjectLabel && (
+              <span className="font-medium text-primary">{toProjectLabel}</span>
             )}
           </p>
           

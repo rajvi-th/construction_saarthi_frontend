@@ -50,24 +50,18 @@ export default function EditSectionModal({
   }, [isOpen]);
 
   const handleSave = async () => {
-    console.log('EditSectionModal handleSave called:', { sectionName });
-    
     if (!sectionName.trim()) {
       setError('Section name is required');
       return;
     }
 
-    console.log('Calling onSave with:', sectionName.trim());
     const result = await onSave(sectionName.trim());
-    console.log('onSave result:', result);
     
     // Only close if onSave doesn't return false/null (indicating failure)
     if (result !== false && result !== null) {
       setSectionName('');
       setError('');
       onClose();
-    } else {
-      console.log('onSave returned false/null, not closing modal');
     }
   };
 

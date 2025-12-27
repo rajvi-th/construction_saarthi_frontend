@@ -13,7 +13,7 @@ import DropdownMenu from '../../../components/ui/DropdownMenu';
 import ConfirmModal from '../../../components/ui/ConfirmModal';
 import { InventoryItemCard, Tabs, TransferRequestCard, ApproveTransferModal, RejectTransferModal, LogUsageModal, AskForMaterialCard, RestockRequestCard, DestroyMaterialCard, DestroyMaterialModal } from '../components';
 import { useSiteInventory, useInventoryTypes } from '../hooks';
-import { getTransferRequests, approveTransferRequest, rejectTransferRequest, getAskMaterialRequests, getRestockRequests, getDestroyedMaterials } from '../api/siteInventoryApi';
+import { getTransferRequests, approveTransferRequest, rejectTransferRequest, getAskMaterialRequests, getRestockRequests, getDestroyedMaterials, destroyMaterial } from '../api/siteInventoryApi';
 import { useAuth } from '../../auth/store';
 import { ROUTES_FLAT } from '../../../constants/routes';
 import { PROJECT_ROUTES } from '../../projects/constants';
@@ -227,11 +227,22 @@ export default function SiteInventory() {
   };
 
   const handleAddDestroyMaterial = async (destroyData) => {
-    // TODO: Integrate destroy material API call
-    console.log('Destroy material:', destroyData);
-    // After successful API call, reload destroy materials list
-    await loadDestroyMaterials();
-    showSuccess(t('destroyMaterials.success', { defaultValue: 'Material destroyed successfully' }));
+    try {
+      // Call destroy material API
+      await destroyMaterial({
+        inventoryId: destroyData.materialId, // materialId is used as inventoryId
+        quantity: destroyData.quantity,
+        reason: destroyData.reason || '',
+      });
+      
+      // After successful API call, reload destroy materials list
+      await loadDestroyMaterials();
+      showSuccess(t('destroyMaterials.success', { defaultValue: 'Material destroyed successfully' }));
+    } catch (error) {
+      const errorMessage = error?.response?.data?.message || error?.message || t('errors.destroyFailed', { defaultValue: 'Failed to destroy material' });
+      showError(errorMessage);
+      throw error;
+    }
   };
 
   const handleDownloadPDF = (item) => {
@@ -315,7 +326,7 @@ export default function SiteInventory() {
     } finally {
       setIsLoadingTransferRequests(false);
     }
-  }, [projectId, t]);
+  }, [projectId, materialType, t]);
 
   const loadAskMaterialRequests = useCallback(async () => {
     try {
@@ -521,22 +532,19 @@ export default function SiteInventory() {
   };
 
   const handleRejectRequest = async (rejectedData) => {
-    if (!selectedWorkspace) {
-      showError(t('errors.workspaceRequired', { defaultValue: 'Please select a workspace first' }));
-      return;
-    }
-
     try {
       const requestId = rejectedData.id || rejectedData._id;
       
-      // Map rejection type from modal ('voice', 'text', 'both') to API format ('audio', 'text', 'both')
-      let rejectionType = rejectedData.rejectionType || 'text';
-      if (rejectionType === 'voice') {
-        rejectionType = 'audio';
+      if (!requestId) {
+        showError(t('errors.requestIdRequired', { defaultValue: 'Transfer request ID is required' }));
+        return;
       }
       
-      // Call reject API
-      await rejectTransferRequest(selectedWorkspace, {
+      // API expects 'voice', 'text', or 'both' (not 'audio')
+      const rejectionType = rejectedData.rejectionType || 'text';
+      
+      // Call reject API with transferRequestId
+      await rejectTransferRequest(requestId, {
         reason: rejectedData.textReason || 'Rejected',
         rejectionType: rejectionType,
         audioFile: rejectedData.voiceNote, 
@@ -561,7 +569,6 @@ export default function SiteInventory() {
       // Reload transfer requests to get updated data
       await loadTransferRequests();
     } catch (error) {
-      console.error('Error rejecting transfer request:', error);
       const errorMessage = error?.response?.data?.message || error?.message || t('errors.rejectFailed', { defaultValue: 'Failed to reject transfer request' });
       showError(errorMessage);
     }
