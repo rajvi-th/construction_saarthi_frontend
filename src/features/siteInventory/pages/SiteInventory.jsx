@@ -574,11 +574,6 @@ export default function SiteInventory() {
     }
   };
 
-  const handleApproveClick = (request) => {
-    setSelectedRequest(request);
-    setApproveModalOpen(true);
-  };
-
   const handleRejectClick = (request) => {
     setSelectedRequest(request);
     setRejectModalOpen(true);

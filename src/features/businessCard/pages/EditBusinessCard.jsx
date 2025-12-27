@@ -35,19 +35,13 @@ export default function EditBusinessCard() {
     fetchBusinessCard();
   }, [id, getCard, navigate]);
 
-  const handleCancel = () => {
-    navigate(ROUTES_FLAT.BUSINESS_CARD);
-  };
-
   const handleSubmit = async (formData) => {
     if (!id) return;
 
     try {
       await updateCard(id, formData);
-      // Navigate back to business card list after successful update
       navigate(ROUTES_FLAT.BUSINESS_CARD);
     } catch (error) {
-      // Error is already handled in the hook
     }
   };
 
@@ -65,13 +59,14 @@ export default function EditBusinessCard() {
       <PageHeader
         title={t('edit.title', { defaultValue: 'Edit Business Card' })}
         showBackButton={true}
+        backTo={ROUTES_FLAT.BUSINESS_CARD}
       />
 
       {/* Business Card Form */}
       <BusinessCardForm
         initialData={businessCardData}
         onSubmit={handleSubmit}
-        onCancel={handleCancel}
+        onCancel={() => navigate(ROUTES_FLAT.BUSINESS_CARD)}
         isLoading={isUpdating || isLoading}
       />
     </div>
