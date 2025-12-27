@@ -17,10 +17,10 @@ import {
 } from "lucide-react";
 import PageHeader from "../../../components/layout/PageHeader";
 import SearchBar from "../../../components/ui/SearchBar";
-import Button from "../../../components/ui/Button";
 import Loader from "../../../components/ui/Loader";
 import DropdownMenu from "../../../components/ui/DropdownMenu";
 import EmptyState from "../../../components/shared/EmptyState";
+import RemoveMemberModal from "../../../components/ui/RemoveMemberModal";
 import { useAuth } from "../../../hooks/useAuth";
 import { useVendors } from "../hooks";
 import { ROUTES_FLAT } from "../../../constants/routes";
@@ -34,6 +34,9 @@ export default function Vendors() {
   const [allItems, setAllItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedId, setExpandedId] = useState(null);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   // Fetch vendors
   useEffect(() => {
@@ -87,28 +90,34 @@ export default function Vendors() {
     }
   };
 
-  const handleDelete = async (item) => {
-    const itemName = item.name || item.full_name || "this item";
+  const handleDelete = (item) => {
+    setItemToDelete(item);
+    setDeleteModalOpen(true);
+  };
 
-    if (
-      window.confirm(
-        t("deleteConfirm", {
-          name: itemName,
-          defaultValue: `Are you sure you want to delete ${itemName}?`,
-        })
-      )
-    ) {
-      try {
-        await deleteVendor(item.id || item._id);
-        if (selectedWorkspace) {
-          // Re-fetch vendors
-          const data = await getVendors(selectedWorkspace);
-          setAllItems(data || []);
-        }
-      } catch (error) {
-        console.error("Failed to delete:", error);
+  const handleDeleteConfirm = async () => {
+    if (!itemToDelete) return;
+
+    setIsDeleting(true);
+    try {
+      await deleteVendor(itemToDelete.id || itemToDelete._id);
+      if (selectedWorkspace) {
+        // Re-fetch vendors
+        const data = await getVendors(selectedWorkspace);
+        setAllItems(data || []);
       }
+      setDeleteModalOpen(false);
+      setItemToDelete(null);
+    } catch (error) {
+      console.error("Failed to delete:", error);
+    } finally {
+      setIsDeleting(false);
     }
+  };
+
+  const handleDeleteCancel = () => {
+    setDeleteModalOpen(false);
+    setItemToDelete(null);
   };
 
   // Get initials for avatar
@@ -329,6 +338,21 @@ export default function Vendors() {
           {filteredList.map((item) => renderItemCard(item))}
         </div>
       )}
+
+      {/* Delete Confirmation Modal */}
+      <RemoveMemberModal
+        isOpen={deleteModalOpen}
+        onClose={handleDeleteCancel}
+        onConfirm={handleDeleteConfirm}
+        title={t("removeVendor.title", { defaultValue: "Remove Vendor" })}
+        description={t("removeVendor.description", {
+          defaultValue:
+            "Are you sure you want to remove vendor? This action is irreversible, and your data cannot be recovered.",
+        })}
+        confirmText={t("removeVendor.confirm", { defaultValue: "Yes, Remove" })}
+        cancelText={t("removeVendor.cancel", { defaultValue: "Cancel" })}
+        isLoading={isDeleting}
+      />
     </div>
   );
 }

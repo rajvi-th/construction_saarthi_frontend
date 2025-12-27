@@ -50,7 +50,7 @@ export default function RemoveMemberModal({
         <h2 className="text-2xl sm:text-[28px] font-semibold text-primary mb-4">
           {finalTitle}
         </h2>
-        <p className="text-sm sm:text-base text-primary-light leading-relaxed mb-8 max-w-3xl">
+        <p className="text-sm sm:text-base text-secondary leading-relaxed mb-8 max-w-3xl">
           {finalDescription}
         </p>
 
@@ -65,7 +65,7 @@ export default function RemoveMemberModal({
             {finalCancelText}
           </Button>
           <Button
-            variant="primary"
+            variant="danger"
             size="md"
             className="w-full sm:w-[160px]"
             onClick={onConfirm}

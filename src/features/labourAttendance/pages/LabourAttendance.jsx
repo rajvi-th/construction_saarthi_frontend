@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useCallback } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import PageHeader from '../../../components/layout/PageHeader';
 import LabourAttendanceCards from '../components/LabourAttendanceCards';
@@ -53,6 +53,12 @@ function LabourAttendance() {
     // State to receive attendanceData and overtimeData from LabourAttendanceCards
     const [attendanceDataFromCards, setAttendanceDataFromCards] = useState({});
     const [overtimeDataFromCards, setOvertimeDataFromCards] = useState({});
+    
+    // Memoize callback to prevent infinite loops
+    const handleAttendanceDataChange = useCallback((attendanceData, overtimeData) => {
+      setAttendanceDataFromCards(attendanceData);
+      setOvertimeDataFromCards(overtimeData);
+    }, []);
 
     // Apply status filter based on attendance data
     const finalFilteredLabourList = useMemo(() => {
@@ -232,13 +238,6 @@ function LabourAttendance() {
             valueColor: '#FF9500',
         },
         {
-            title: t('attendancePage.summary.overtime'),
-            value: String(calculatedSummary.overtime),
-            border: '#007AFF14',
-            bg: '#007AFF0A',
-            valueColor: '#007AFF',
-        },
-        {
             title: t('attendancePage.summary.totalPay'),
             value: formatCurrencyINR(calculatedSummary.totalPayable),
             border: 'var(--color-lightGray)',
@@ -296,12 +295,12 @@ function LabourAttendance() {
 
                             {/* ================= ROW 2 ================= */}
                             <div className="
-  grid grid-cols-1 sm:grid-cols-2
-  xl:flex xl:flex-nowrap
-  gap-2 w-full xl:w-fit
-  xl:pr-4
-">
-
+                                grid grid-cols-1 sm:grid-cols-2
+                                xl:flex xl:flex-nowrap
+                                gap-2
+                                xl:pr-4
+                                w-full xl:w-fit
+                                ">
 
                                 {/* Filter */}
                                 <div className="w-full xl:min-w-[100px]">
@@ -373,7 +372,7 @@ function LabourAttendance() {
             </div>
 
             {/* Summary Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
                 {summaryCards.map((card) => (
                     <div
                         key={card.title}
@@ -403,10 +402,7 @@ function LabourAttendance() {
                     onRefresh={refetchLabours}
                     isLoading={isLoadingLabours}
                     dateRange={dateRange}
-                    onAttendanceDataChange={(attendanceData, overtimeData) => {
-                      setAttendanceDataFromCards(attendanceData);
-                      setOvertimeDataFromCards(overtimeData);
-                    }}
+                    onAttendanceDataChange={handleAttendanceDataChange}
                 />
 
             </div>

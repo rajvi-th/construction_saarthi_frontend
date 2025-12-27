@@ -128,6 +128,187 @@ export const createPastProject = async (workspaceId, data) => {
 };
 
 /**
+ * Get past project by ID
+ * @param {string|number} projectId - Project ID
+ * @returns {Promise<Object>} Project details with pastWorkMedia
+ */
+export const getPastProjectById = async (projectId) => {
+  if (!projectId) {
+    throw new Error('Project ID is required');
+  }
+
+  const url = `${config.API_BASE_URL}${PAST_PROJECT_ENDPOINTS_FLAT.PAST_PROJECT_GET_BY_ID}/${projectId}`;
+  const token = localStorage.getItem('token');
+
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        ...(token && { Authorization: `Bearer ${token}` }),
+      },
+    });
+
+    return response.data?.data || response.data;
+  } catch (error) {
+    console.error('Get past project by ID error:', error);
+    throw error;
+  }
+};
+
+/**
+ * Update a past project
+ * @param {string|number} projectId - Project ID
+ * @param {Object} data - Project data to update
+ * @param {string} data.name - Project name
+ * @param {string} data.address - Project address
+ * @param {string} data.projectKey - Optional project key (if available)
+ * @param {string|number} workspaceId - Optional workspace ID (if needed by API)
+ * @returns {Promise<Object>} Updated project
+ */
+export const updatePastProject = async (projectId, data, workspaceId = null) => {
+  if (!projectId) {
+    throw new Error('Project ID is required');
+  }
+
+  if (!data.name || !data.address) {
+    throw new Error('Project name and address are required');
+  }
+
+  const token = localStorage.getItem('token');
+  
+  // Build request body - include projectKey if available (similar to create API)
+  // Backend requires 'files' to be an array (even if empty) - 'files is not iterable' error occurs otherwise
+  const requestBody = {
+    name: data.name,
+    address: data.address,
+    files: Array.isArray(data.files) ? data.files : [], // Always ensure files is an array
+  };
+  
+  // Include projectKey if provided (backend might require it)
+  if (data.projectKey) {
+    requestBody.projectKey = data.projectKey;
+  }
+  
+  // Include workspaceId if provided
+  if (workspaceId) {
+    requestBody.workspaceId = workspaceId;
+  }
+  
+  // Try different endpoint patterns based on common API structures
+  const endpointsToTry = [];
+  
+  // Pattern 1: PUT /my-past-work/update/:projectId (ID in URL) - Most common pattern
+  endpointsToTry.push({
+    url: `${config.API_BASE_URL}${PAST_PROJECT_ENDPOINTS_FLAT.PAST_PROJECT_UPDATE}/${projectId}`,
+    body: requestBody,
+  });
+  
+  // Pattern 2: PUT /my-past-work/update (ID in body)
+  endpointsToTry.push({
+    url: `${config.API_BASE_URL}${PAST_PROJECT_ENDPOINTS_FLAT.PAST_PROJECT_UPDATE}`,
+    body: {
+      id: projectId,
+      ...requestBody,
+    },
+  });
+  
+  // Pattern 3: PUT /my-past-work/update/:workspaceId/:projectId (if workspaceId provided)
+  if (workspaceId) {
+    endpointsToTry.push({
+      url: `${config.API_BASE_URL}${PAST_PROJECT_ENDPOINTS_FLAT.PAST_PROJECT_UPDATE}/${workspaceId}/${projectId}`,
+      body: {
+        name: data.name,
+        address: data.address,
+        files: Array.isArray(data.files) ? data.files : [], // Always ensure files is an array
+        ...(data.projectKey && { projectKey: data.projectKey }),
+      },
+    });
+  }
+
+  let lastError = null;
+  
+  for (const endpoint of endpointsToTry) {
+    try {
+      // Ensure files is always a proper array (not undefined/null)
+      const bodyToSend = {
+        ...endpoint.body,
+        files: Array.isArray(endpoint.body.files) ? endpoint.body.files : [],
+      };
+      
+      // Log the exact body being sent for debugging
+      console.log('Sending update request:', {
+        url: endpoint.url,
+        body: JSON.parse(JSON.stringify(bodyToSend)), // Deep clone to see actual values
+      });
+      
+      const response = await axios.put(
+        endpoint.url,
+        bodyToSend,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token && { Authorization: `Bearer ${token}` }),
+          },
+        }
+      );
+
+      return response.data?.data || response.data;
+    } catch (error) {
+      lastError = error;
+      
+      // Log the error details for debugging
+      console.error(`Update attempt failed for ${endpoint.url}:`, {
+        status: error.response?.status,
+        statusText: error.response?.statusText,
+        data: error.response?.data,
+        body: endpoint.body,
+      });
+      
+      // If 404, try next pattern
+      if (error.response?.status === 404) {
+        console.log(`Trying alternative endpoint pattern: ${endpoint.url}`);
+        continue;
+      }
+      
+      // If 500, endpoint exists but server error - extract detailed error message
+      // Don't try other patterns for 500, throw immediately with detailed error
+      if (error.response?.status === 500) {
+        const errorData = error.response?.data;
+        const errorMessage = 
+          errorData?.message || 
+          errorData?.error ||
+          (typeof errorData === 'string' ? errorData : null) ||
+          error.message ||
+          'Server error occurred while updating project';
+        
+        console.error(`Server error (500) for ${endpoint.url}:`, {
+          message: errorMessage,
+          fullResponse: errorData,
+          requestBody: endpoint.body,
+        });
+        
+        // Create enhanced error with server message
+        const enhancedError = new Error(errorMessage);
+        enhancedError.response = error.response;
+        enhancedError.config = error.config;
+        enhancedError.status = 500;
+        throw enhancedError;
+      }
+      
+      // For other errors (400, 401, 403, etc.), throw immediately
+      throw error;
+    }
+  }
+  
+  // If all patterns failed with 404, throw the last error
+  if (lastError) {
+    console.error('Update past project error - all endpoint patterns failed:', lastError);
+    throw lastError;
+  }
+  
+  throw new Error('Failed to update past project: No suitable endpoint found.');
+};
+
+/**
  * Upload media files for a past project
  * @param {string} projectKey - Project key
  * @param {File[]} files - Array of File objects to upload

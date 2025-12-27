@@ -11,7 +11,7 @@ import documentIcon from '../../../assets/icons/document.svg';
 import DropdownMenu from '../../../components/ui/DropdownMenu';
 import ConfirmModal from '../../../components/ui/ConfirmModal';
 
-// Format date for grouping
+// Format date for display
 const formatDate = (dateString) => {
   if (!dateString) return 'Unknown';
   try {
@@ -26,101 +26,59 @@ const formatDate = (dateString) => {
   }
 };
 
-// Group files by date
-const groupFilesByDate = (files) => {
-  return files.reduce((acc, file) => {
-    const date = file.uploadDate || formatDate(file.date) || 'Unknown';
-    if (!acc[date]) {
-      acc[date] = [];
-    }
-    acc[date].push(file);
-    return acc;
-  }, {});
+// Format file size
+const formatFileSize = (url) => {
+  // If we have size info, use it, otherwise return empty
+  return '';
 };
 
-// Static mock data for UI testing
-const MOCK_DOCUMENTS = [
-  {
-    id: 'doc1',
-    name: 'Final_Proposal.pdf',
-    url: '#',
-    size: '4.7 MB',
-    date: '26 Sep 2024 3:20 PM',
-    uploadDate: '26 Sep 2024',
-  },
-  {
-    id: 'doc2',
-    name: 'Terms_Conditions.pdf',
-    url: '#',
-    size: '9.5 MB',
-    date: '26 Sep 2024 3:20 PM',
-    uploadDate: '26 Sep 2024',
-  },
-  {
-    id: 'doc3',
-    name: 'Project_Estimate.xlsx',
-    url: '#',
-    size: '2.3 MB',
-    date: '25 Sep 2024 2:15 PM',
-    uploadDate: '25 Sep 2024',
-  },
-];
+// Get file name from URL
+const getFileNameFromUrl = (url) => {
+  if (!url) return 'Untitled';
+  try {
+    const urlParts = url.split('/');
+    const fileName = urlParts[urlParts.length - 1];
+    // Remove query parameters if any
+    return fileName.split('?')[0] || 'Untitled';
+  } catch {
+    return 'Untitled';
+  }
+};
 
-const MOCK_PHOTOS = [
-  {
-    id: 'photo1',
-    url: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=400&fit=crop',
-    name: 'Construction Site 1',
-    uploadDate: '26 Sep 2024',
-  },
-  {
-    id: 'photo2',
-    url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=400&fit=crop',
-    name: 'Construction Site 2',
-    uploadDate: '26 Sep 2024',
-  },
-  {
-    id: 'photo3',
-    url: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=400&h=400&fit=crop',
-    name: 'Construction Site 3',
-    uploadDate: '26 Sep 2024',
-  },
-  {
-    id: 'photo4',
-    url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=400&fit=crop',
-    name: 'Building Exterior',
-    uploadDate: '25 Sep 2024',
-  },
-  {
-    id: 'photo5',
-    url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&h=400&fit=crop',
-    name: 'Interior View',
-    uploadDate: '25 Sep 2024',
-  },
-  {
-    id: 'photo6',
-    url: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&h=400&fit=crop',
-    name: 'Foundation Work',
-    uploadDate: '24 Sep 2024',
-  },
-];
-
-const MOCK_VIDEOS = [
-  {
-    id: 'video1',
-    url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-    thumbnail: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=300&fit=crop',
-    name: 'Project Progress Video',
-    uploadDate: '26 Sep 2024',
-  },
-  {
-    id: 'video2',
-    url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-    thumbnail: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&h=300&fit=crop',
-    name: 'Site Tour',
-    uploadDate: '25 Sep 2024',
-  },
-];
+// Determine media type from URL and typeId
+const getMediaType = (mediaItem) => {
+  const url = mediaItem.url || '';
+  const typeId = String(mediaItem.typeId || '');
+  const urlLower = url.toLowerCase();
+  
+  // Check file extension
+  if (urlLower.match(/\.(jpg|jpeg|png|gif|webp|bmp|svg)$/i)) {
+    return 'photo';
+  }
+  if (urlLower.match(/\.(mp4|avi|mov|wmv|flv|webm|mkv)$/i)) {
+    return 'video';
+  }
+  if (urlLower.match(/\.(pdf|doc|docx|xls|xlsx|ppt|pptx|txt)$/i)) {
+    return 'document';
+  }
+  
+  // Check typeId (common patterns: 1, 3, 12 = photos)
+  // Based on API response, typeId "12" appears to be photos
+  // Note: We prioritize file extension over typeId for accuracy
+  if (typeId === '1' || typeId === '3' || typeId === '12' || typeId === 1 || typeId === 3 || typeId === 12) {
+    // If typeId suggests photo but file extension suggests otherwise, trust file extension
+    if (urlLower.match(/\.(mp4|avi|mov|wmv|flv|webm|mkv)$/i)) {
+      return 'video';
+    }
+    if (urlLower.match(/\.(pdf|doc|docx|xls|xlsx|ppt|pptx|txt)$/i)) {
+      return 'document';
+    }
+    return 'photo';
+  }
+  
+  // Default to document if can't determine (safer default)
+  return 'document';
+};
 
 export default function PastProjectDocumentsGallery({
   project,
@@ -135,22 +93,95 @@ export default function PastProjectDocumentsGallery({
   const [photoItems, setPhotoItems] = useState([]);
   const [videoItems, setVideoItems] = useState([]);
 
-  // Initialize documents from project or mock data
+  // Process media from both API structures:
+  // 1. Detail API: pastWorkMedia array with typeId
+  // 2. List API: photo, document, myPastWorkdocument arrays
   useEffect(() => {
-    if (project?.documents && project.documents.length > 0) {
-      setDocuments(project.documents);
-    } else {
-      setDocuments(MOCK_DOCUMENTS);
+    const categorized = {
+      documents: [],
+      photos: [],
+      videos: [],
+    };
+
+    // Helper to add item to categorized array
+    const addToCategory = (url, category, id = null, createdAt = null, typeId = null) => {
+      if (!url) return;
+      
+      const fileName = getFileNameFromUrl(url);
+      const formattedDate = createdAt ? formatDate(createdAt) : formatDate(new Date());
+      
+      const formattedItem = {
+        id: id || `item-${Date.now()}-${Math.random()}`,
+        url: url,
+        name: fileName,
+        date: formattedDate,
+        uploadDate: formattedDate,
+        createdAt: createdAt || new Date().toISOString(),
+        typeId: typeId,
+      };
+
+      if (category === 'document') {
+        categorized.documents.push(formattedItem);
+      } else if (category === 'photo') {
+        categorized.photos.push(formattedItem);
+      } else if (category === 'video') {
+        formattedItem.thumbnail = url;
+        categorized.videos.push(formattedItem);
+      }
+    };
+
+    // 1. Process pastWorkMedia array (Detail API structure)
+    if (project?.pastWorkMedia && Array.isArray(project.pastWorkMedia)) {
+      const activeMedia = project.pastWorkMedia.filter(
+        (media) => !media.isDeleted && media.url
+      );
+
+      activeMedia.forEach((mediaItem) => {
+        const mediaType = getMediaType(mediaItem);
+        addToCategory(mediaItem.url, mediaType, mediaItem.id, mediaItem.createdAt, mediaItem.typeId);
+      });
     }
 
-    // Initialize photos and videos from project or mock data
-    const initialPhotos =
-      project?.photos && project.photos.length > 0 ? project.photos : MOCK_PHOTOS;
-    const initialVideos =
-      project?.videos && project.videos.length > 0 ? project.videos : MOCK_VIDEOS;
+    // 2. Process array fields from List API structure
+    // Handle photo arrays
+    if (project?.photo && Array.isArray(project.photo)) {
+      project.photo.forEach((url) => {
+        addToCategory(url, 'photo');
+      });
+    }
+    if (project?.myPastWorkphoto && Array.isArray(project.myPastWorkphoto)) {
+      project.myPastWorkphoto.forEach((url) => {
+        addToCategory(url, 'photo');
+      });
+    }
 
-    setPhotoItems(initialPhotos);
-    setVideoItems(initialVideos);
+    // Handle document arrays
+    if (project?.document && Array.isArray(project.document)) {
+      project.document.forEach((url) => {
+        // Determine if it's actually a document or photo based on extension
+        const urlLower = url.toLowerCase();
+        if (urlLower.match(/\.(jpg|jpeg|png|gif|webp|bmp|svg)$/i)) {
+          addToCategory(url, 'photo');
+        } else {
+          addToCategory(url, 'document');
+        }
+      });
+    }
+    if (project?.myPastWorkdocument && Array.isArray(project.myPastWorkdocument)) {
+      project.myPastWorkdocument.forEach((url) => {
+        // Determine if it's actually a document or photo based on extension
+        const urlLower = url.toLowerCase();
+        if (urlLower.match(/\.(jpg|jpeg|png|gif|webp|bmp|svg)$/i)) {
+          addToCategory(url, 'photo');
+        } else {
+          addToCategory(url, 'document');
+        }
+      });
+    }
+
+    setDocuments(categorized.documents);
+    setPhotoItems(categorized.photos);
+    setVideoItems(categorized.videos);
   }, [project]);
 
   const handleViewDocument = (doc) => {
@@ -215,9 +246,11 @@ export default function PastProjectDocumentsGallery({
                   <p className="text-sm font-medium text-primary truncate">
                     {doc.name}
                   </p>
-                  <p className="text-xs text-primary-light ">
-                    {doc.size} • {doc.date}
-                  </p>
+                  {doc.date && (
+                    <p className="text-xs text-primary-light">
+                      {doc.date}
+                    </p>
+                  )}
                 </div>
                 <div onClick={(e) => e.stopPropagation()}>
                   <DropdownMenu
@@ -364,7 +397,7 @@ export default function PastProjectDocumentsGallery({
         )}
       </div>
       )}
-
+      
       {/* Delete Confirmation Modal */}
       <ConfirmModal
         isOpen={!!documentToDelete}

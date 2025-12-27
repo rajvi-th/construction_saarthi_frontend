@@ -9,7 +9,7 @@ import Input from '../../../components/ui/Input';
 import Button from '../../../components/ui/Button';
 import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
 import { useAuth } from '../../auth/store';
-import { createPayLabour, moveLabourToProject, createAttendance, createOTPayableBill, getAttendance } from '../api/labourAttendanceApi';
+import { createPayLabour, moveLabourToProject, createAttendance, getAttendance } from '../api/labourAttendanceApi';
 import { showError, showLoading, updateToast } from '../../../utils/toast';
 import { useProjectsAll } from '../hooks/useProjectsAll';
 
@@ -64,31 +64,6 @@ function getCurrentDateYYYYMMDD() {
   return `${yyyy}-${mm}-${dd}`;
 }
 
-function calculatePayableAmount(labour, overtimeData = null) {
-  const dailyWage = Number(labour.pay || 0);
-  const status = labour.status;
-
-  if (status === 'P') {
-    return dailyWage; // Full day for Present
-  }
-  if (status === 'OT') {
-    // Overtime: daily wage + (rate per hour * hours)
-    const basePay = dailyWage;
-    if (overtimeData && overtimeData.ratePerHour && overtimeData.otHours) {
-      const overtimePay = Number(overtimeData.ratePerHour) * Number(overtimeData.otHours);
-      return basePay + overtimePay;
-    }
-    return basePay; // If no overtime data, just return base pay
-  }
-  if (status === 'H') {
-    return dailyWage / 2; // Half day
-  }
-  if (status === 'A') {
-    return 0; // Absent
-  }
-  return 0; // Default for no status
-}
-
 export default function LabourAttendanceCards({
   projectId,
   projectName,
@@ -108,13 +83,16 @@ export default function LabourAttendanceCards({
   const [activeLabour, setActiveLabour] = useState(null);
   const [deleteLabour, setDeleteLabour] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [overtimeData, setOvertimeData] = useState({}); // { labourId: { ratePerHour, otHours } }
-  const [overtimeInputs, setOvertimeInputs] = useState({}); // { labourId: { ratePerHour: '', otHours: '' } }
+  const [overtimeData, setOvertimeData] = useState({}); // { labourId: { ot_rate, ot_hours } }
+  const [overtimeInputs, setOvertimeInputs] = useState({}); // { labourId: { ot_rate: '', ot_hours: '' } }
   const [attendanceData, setAttendanceData] = useState({}); // { labourId: { status, payable_amount } }
   const [isLoadingAttendance, setIsLoadingAttendance] = useState(false);
+  const [showOvertimeInputs, setShowOvertimeInputs] = useState({}); // { labourId: true/false } - controls visibility of OT inputs
 
   // Fetch attendance data when date or project changes
   useEffect(() => {
+    let isMounted = true;
+    
     const fetchAttendance = async () => {
       if (!selectedWorkspace || !projectId) return;
       
@@ -139,6 +117,8 @@ export default function LabourAttendanceCards({
           date: dateToUse,
         });
 
+        if (!isMounted) return;
+
         // Handle different response structures
         // API returns: { success: true, totals: {...}, attendanceRecords: Array(3) }
         let attendanceList = [];
@@ -152,6 +132,9 @@ export default function LabourAttendanceCards({
         
         // Map attendance data by labour_id - use both number and string keys for compatibility
         const attendanceMap = {};
+        const newOvertimeData = {};
+        const newOvertimeInputs = {};
+        
         attendanceList.forEach((attendance) => {
           const labourIdNum = Number(attendance.labour_id);
           const labourIdStr = String(attendance.labour_id);
@@ -168,47 +151,59 @@ export default function LabourAttendanceCards({
             
             const dailyWage = attendance.daily_wage || attendance.labourDetails?.Daily_wage || 0;
             
-            // Calculate payable amount based on status
-            let calculatedPayable = 0;
-            if (mappedStatus === 'P') {
-              calculatedPayable = dailyWage; // Full day
-            } else if (mappedStatus === 'H') {
-              calculatedPayable = dailyWage / 2; // Half day
-            } else if (mappedStatus === 'OT') {
-              calculatedPayable = dailyWage; // Base pay for OT (overtime will be added separately)
-            } else if (mappedStatus === 'A') {
-              calculatedPayable = 0; // Absent
-            }
-            
             const attendanceInfo = {
               status: mappedStatus,
               payable_amount: attendance.payable_amount !== undefined && attendance.payable_amount !== null 
                 ? attendance.payable_amount 
-                : calculatedPayable,
+                : 0,
               daily_wage: dailyWage,
             };
             
             // Store with both number and string keys for compatibility
             attendanceMap[labourIdNum] = attendanceInfo;
             attendanceMap[labourIdStr] = attendanceInfo;
+            
+            // If status is OT, populate overtime inputs if available from API
+            if (mappedStatus === 'OT' && attendance.ot_rate && attendance.ot_hours) {
+              newOvertimeData[labourIdNum] = {
+                ot_rate: attendance.ot_rate,
+                ot_hours: attendance.ot_hours,
+              };
+              newOvertimeInputs[labourIdNum] = {
+                ot_rate: String(attendance.ot_rate || ''),
+                ot_hours: String(attendance.ot_hours || ''),
+              };
+            }
           }
         });
         
         setAttendanceData(attendanceMap);
+        setOvertimeData(newOvertimeData);
+        setOvertimeInputs((prev) => ({ ...prev, ...newOvertimeInputs }));
+        
         // Notify parent component about attendance data change
+        // Use current overtimeData from state, not from dependency
         if (onAttendanceDataChange) {
-          onAttendanceDataChange(attendanceMap, overtimeData);
+          onAttendanceDataChange(attendanceMap, newOvertimeData);
         }
       } catch (e) {
+        if (!isMounted) return;
         console.error('Error fetching attendance:', e);
         // Don't show error toast, just log it
       } finally {
-        setIsLoadingAttendance(false);
+        if (isMounted) {
+          setIsLoadingAttendance(false);
+        }
       }
     };
 
     fetchAttendance();
-  }, [selectedWorkspace, projectId, dateRange, onAttendanceDataChange, overtimeData]);
+    
+    return () => {
+      isMounted = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedWorkspace, projectId, dateRange]); // Removed onAttendanceDataChange and overtimeData to prevent infinite loop
 
   const { projects } = useProjectsAll(selectedWorkspace);
   const projectsOptions = useMemo(() => {
@@ -277,75 +272,74 @@ export default function LabourAttendanceCards({
     }
 
     if (status === 'OT') {
-      // When OT is clicked, immediately update local state to prevent flickering
+      // When OT is clicked, show inputs immediately by updating attendanceData optimistically
       const labourIdNum = toNumber(labourId);
       const labourIdStr = String(labourId);
       
-      // Get existing attendance data to preserve daily_wage and payable_amount
+      // Get existing attendance data to preserve daily_wage
       const existingAttendance = attendanceData[labourIdNum] || attendanceData[labourIdStr];
       const dailyWage = existingAttendance?.daily_wage || labour.pay || 0;
       
-      // Create the updated attendance data object
-      const updatedAttendanceData = {
-        ...attendanceData,
-        [labourIdNum]: {
-          ...(attendanceData[labourIdNum] || {}),
-          status: 'OT',
-          daily_wage: dailyWage,
-        },
-        [labourIdStr]: {
-          ...(attendanceData[labourIdStr] || {}),
-          status: 'OT',
-          daily_wage: dailyWage,
-        },
-      };
+      // Check if OT data already exists (for editing)
+      const existingOTData = overtimeData[labourIdNum] || overtimeData[labourIdStr] || overtimeData[labourId];
       
-      // Optimistically update local attendance data immediately - prevents flickering
-      setAttendanceData(updatedAttendanceData);
+      // Optimistically update attendanceData to show OT status immediately
+      setAttendanceData((prev) => {
+        const updated = {
+          ...prev,
+          [labourIdNum]: {
+            status: 'OT',
+            daily_wage: dailyWage,
+            payable_amount: dailyWage, // Base pay, will be updated after saving
+          },
+          [labourIdStr]: {
+            status: 'OT',
+            daily_wage: dailyWage,
+            payable_amount: dailyWage,
+          },
+        };
+        // Notify parent component
+        if (onAttendanceDataChange) {
+          onAttendanceDataChange(updated, overtimeData);
+        }
+        return updated;
+      });
       
-      // Notify parent component immediately with updated data
-      if (onAttendanceDataChange) {
-        onAttendanceDataChange(updatedAttendanceData, overtimeData);
-      }
-      
-      // Initialize overtime inputs immediately
+      // Populate overtime inputs from existing data if available, otherwise initialize empty
       setOvertimeInputs((prev) => {
-        if (!prev[labourId]) {
+        if (existingOTData) {
+          // If existing OT data found, populate inputs with that data
           return {
             ...prev,
-            [labourId]: { ratePerHour: '', otHours: '' },
+            [labourId]: {
+              ot_rate: String(existingOTData.ot_rate || ''),
+              ot_hours: String(existingOTData.ot_hours || ''),
+            },
+          };
+        } else if (!prev[labourId]) {
+          // If no existing data and no inputs, initialize empty
+          return {
+            ...prev,
+            [labourId]: { ot_rate: '', ot_hours: '' },
           };
         }
         return prev;
       });
       
+      // Show overtime inputs
+      setShowOvertimeInputs((prev) => ({
+        ...prev,
+        [labourId]: true,
+      }));
+      
       // Call parent status change handler
       onStatusChange?.(labourId, 'OT');
-      
-      // Then make API call in background (non-blocking)
-      createAttendance({
-        workspace_id,
-        project_id: pid,
-        shift_type_id,
-        labour_id: lid,
-        date: currentDate,
-        status: 'P',
-      }).catch((e) => {
-        console.error('Error creating attendance:', e);
-        showError(e?.response?.data?.message || e?.message || 'Failed to mark attendance');
-        
-        // On error, revert the optimistic update
-        const revertedAttendanceData = { ...attendanceData };
-        delete revertedAttendanceData[labourIdNum];
-        delete revertedAttendanceData[labourIdStr];
-        setAttendanceData(revertedAttendanceData);
-        if (onAttendanceDataChange) {
-          onAttendanceDataChange(revertedAttendanceData, overtimeData);
-        }
-      });
     } else {
       // For P, A, H statuses - create attendance
       try {
+        const existingAttendance = attendanceData[toNumber(labourId)] || attendanceData[String(labourId)];
+        const dailyWage = existingAttendance?.daily_wage || labour.pay || 0;
+        
         await createAttendance({
           workspace_id,
           project_id: pid,
@@ -353,9 +347,10 @@ export default function LabourAttendanceCards({
           labour_id: lid,
           date: currentDate,
           status,
+          daily_wage: dailyWage,
         });
         
-        // Clear overtime data if switching away from OT
+        // Clear overtime data and hide inputs if switching away from OT
         if (labour.status === 'OT' && status !== 'OT') {
           setOvertimeData((prev) => {
             const next = { ...prev };
@@ -367,23 +362,26 @@ export default function LabourAttendanceCards({
             delete next[labourId];
             return next;
           });
+          setShowOvertimeInputs((prev) => {
+            const next = { ...prev };
+            delete next[labourId];
+            return next;
+          });
         }
         
         onStatusChange?.(labourId, status);
         
-        // Refresh attendance data for this specific labour to get updated status and payable_amount
+        // Refresh attendance data by re-fetching all attendance (only once)
         const workspace_id_num = toNumber(selectedWorkspace);
         const pid_num = toNumber(projectId);
-        if (workspace_id_num && pid_num && lid) {
+        if (workspace_id_num && pid_num) {
           try {
-            // Fetch attendance for this specific labour
             const response = await getAttendance({
               workspace_id: workspace_id_num,
               project_id: pid_num,
               date: currentDate,
-              labour_id: lid, // Filter by specific labour_id
             });
-            // Handle different response structures
+            
             let attendanceList = [];
             if (Array.isArray(response?.attendanceRecords)) {
               attendanceList = response.attendanceRecords;
@@ -393,11 +391,15 @@ export default function LabourAttendanceCards({
               attendanceList = response;
             }
             
-            // Update attendance data for this specific labour
-            if (attendanceList.length > 0) {
-              const attendance = attendanceList[0]; // Should be single record for specific labour_id
+            // Map all attendance data
+            const attendanceMap = {};
+            const updatedOvertimeData = {};
+            const updatedOvertimeInputs = {};
+            
+            attendanceList.forEach((attendance) => {
               const lidNum = Number(attendance.labour_id);
               const lidStr = String(attendance.labour_id);
+              
               if (lidNum) {
                 const statusMap = {
                   Present: 'P',
@@ -408,53 +410,36 @@ export default function LabourAttendanceCards({
                 const mappedStatus = statusMap[attendance.status] || attendance.status;
                 const dailyWage = attendance.daily_wage || attendance.labourDetails?.Daily_wage || 0;
                 
-                // Calculate payable amount based on status
-                let calculatedPayable = 0;
-                if (mappedStatus === 'P') {
-                  calculatedPayable = dailyWage; // Full day
-                } else if (mappedStatus === 'H') {
-                  calculatedPayable = dailyWage / 2; // Half day
-                } else if (mappedStatus === 'OT') {
-                  calculatedPayable = dailyWage; // Base pay for OT
-                } else if (mappedStatus === 'A') {
-                  calculatedPayable = 0; // Absent
-                }
-                
                 const attendanceInfo = {
                   status: mappedStatus,
-                  payable_amount: attendance.payable_amount !== undefined && attendance.payable_amount !== null && attendance.payable_amount > 0
-                    ? attendance.payable_amount
-                    : calculatedPayable,
+                  payable_amount: attendance.payable_amount !== undefined && attendance.payable_amount !== null 
+                    ? attendance.payable_amount 
+                    : 0,
                   daily_wage: dailyWage,
                 };
-                // Update only this labour's attendance data
-                setAttendanceData((prev) => {
-                  const updated = {
-                    ...prev,
-                    [lidNum]: attendanceInfo,
-                    [lidStr]: attendanceInfo,
+                
+                attendanceMap[lidNum] = attendanceInfo;
+                attendanceMap[lidStr] = attendanceInfo;
+                
+                // If status is OT, populate overtime data if available from API
+                if (mappedStatus === 'OT' && attendance.ot_rate && attendance.ot_hours) {
+                  updatedOvertimeData[lidNum] = {
+                    ot_rate: attendance.ot_rate,
+                    ot_hours: attendance.ot_hours,
                   };
-                  // Notify parent component about attendance data change
-                  if (onAttendanceDataChange) {
-                    onAttendanceDataChange(updated, overtimeData);
-                  }
-                  return updated;
-                });
-              }
-            } else {
-              // If no attendance record found, clear the status for this labour
-              const lidNum = toNumber(labourId);
-              const lidStr = String(labourId);
-              setAttendanceData((prev) => {
-                const next = { ...prev };
-                delete next[lidNum];
-                delete next[lidStr];
-                // Notify parent component about attendance data change
-                if (onAttendanceDataChange) {
-                  onAttendanceDataChange(next, overtimeData);
+                  updatedOvertimeInputs[lidNum] = {
+                    ot_rate: String(attendance.ot_rate || ''),
+                    ot_hours: String(attendance.ot_hours || ''),
+                  };
                 }
-                return next;
-              });
+              }
+            });
+            
+            setAttendanceData(attendanceMap);
+            setOvertimeData((prev) => ({ ...prev, ...updatedOvertimeData }));
+            setOvertimeInputs((prev) => ({ ...prev, ...updatedOvertimeInputs }));
+            if (onAttendanceDataChange) {
+              onAttendanceDataChange(attendanceMap, { ...overtimeData, ...updatedOvertimeData });
             }
           } catch (e) {
             console.error('Error refreshing attendance:', e);
@@ -473,7 +458,7 @@ export default function LabourAttendanceCards({
     setOvertimeInputs((prev) => ({
       ...prev,
       [labourId]: {
-        ...(prev[labourId] || { ratePerHour: '', otHours: '' }),
+        ...(prev[labourId] || { ot_rate: '', ot_hours: '' }),
         [field]: value,
       },
     }));
@@ -483,14 +468,14 @@ export default function LabourAttendanceCards({
     const inputs = overtimeInputs[labourId];
     if (!inputs) return;
 
-    const rate = Number(inputs.ratePerHour);
-    const hours = Number(inputs.otHours);
+    const ot_rate = Number(inputs.ot_rate);
+    const ot_hours = Number(inputs.ot_hours);
 
-    if (!inputs.ratePerHour.trim() || rate <= 0) {
+    if (!inputs.ot_rate?.trim() || ot_rate <= 0) {
       showError('Please enter a valid rate');
       return;
     }
-    if (!inputs.otHours.trim() || hours <= 0) {
+    if (!inputs.ot_hours?.trim() || ot_hours <= 0) {
       showError('Please enter valid hours');
       return;
     }
@@ -501,10 +486,10 @@ export default function LabourAttendanceCards({
     const workspace_id = toNumber(selectedWorkspace);
     const pid = toNumber(projectId);
     const lid = toNumber(labourId);
+    const shift_type_id = toNumber(labour.shiftTypeId || labour.shift_type_id);
     const currentDate = getCurrentDateYYYYMMDD();
-    const totalAmount = rate * hours;
 
-    if (!workspace_id || !pid || !lid) {
+    if (!workspace_id || !pid || !lid || !shift_type_id) {
       showError('Missing required information');
       return;
     }
@@ -512,72 +497,61 @@ export default function LabourAttendanceCards({
     const toastId = showLoading('Saving overtime...');
     setIsSubmitting(true);
     try {
-      // Create OT payable bill
-      await createOTPayableBill({
+      // Get existing attendance data to get daily_wage
+      const existingAttendance = attendanceData[toNumber(labourId)] || attendanceData[String(labourId)];
+      const dailyWage = existingAttendance?.daily_wage || labour.pay || 0;
+
+      // Create OT attendance with ot_rate and ot_hours
+      await createAttendance({
         workspace_id,
         project_id: pid,
-        title: 'labourd attandse', // As per API example
-        amount: totalAmount,
-        status: 'Pending',
-        method: 'Cash',
+        shift_type_id,
         labour_id: lid,
-        paidDate: currentDate,
+        date: currentDate,
+        status: 'OT',
+        ot_rate,
+        ot_hours,
+        daily_wage: dailyWage,
       });
-
-      // Create OT attendance
-      const shift_type_id = toNumber(labour.shiftTypeId || labour.shift_type_id);
-      if (shift_type_id) {
-        await createAttendance({
-          workspace_id,
-          project_id: pid,
-          shift_type_id,
-          labour_id: lid,
-          date: currentDate,
-          status: 'OT',
-        });
-      }
 
       // Save overtime data locally
       setOvertimeData((prev) => {
         const updated = {
           ...prev,
-          [labourId]: { ratePerHour: rate, otHours: hours },
+          [labourId]: { ot_rate, ot_hours },
         };
-        // Notify parent component about overtime data change
-        if (onAttendanceDataChange) {
-          onAttendanceDataChange(attendanceData, updated);
-        }
         return updated;
       });
 
-      // Refresh attendance data for this specific labour to get updated payable_amount
+      // Refresh attendance data by re-fetching all attendance (only once)
       const workspace_id_num = toNumber(selectedWorkspace);
       const pid_num = toNumber(projectId);
-      if (workspace_id_num && pid_num && lid) {
+      if (workspace_id_num && pid_num) {
         try {
-            // Fetch attendance for this specific labour
-            const response = await getAttendance({
-              workspace_id: workspace_id_num,
-              project_id: pid_num,
-              date: currentDate,
-              labour_id: lid, // Filter by specific labour_id
-            });
-            
-            // Handle different response structures
-            let attendanceList = [];
-            if (Array.isArray(response?.attendanceRecords)) {
-              attendanceList = response.attendanceRecords;
-            } else if (Array.isArray(response?.data)) {
-              attendanceList = response.data;
-            } else if (Array.isArray(response)) {
-              attendanceList = response;
-            }
+          const response = await getAttendance({
+            workspace_id: workspace_id_num,
+            project_id: pid_num,
+            date: currentDate,
+          });
           
-          // Update attendance data for this specific labour
-          if (attendanceList.length > 0) {
-            const attendance = attendanceList[0]; // Should be single record for specific labour_id
+          let attendanceList = [];
+          if (Array.isArray(response?.attendanceRecords)) {
+            attendanceList = response.attendanceRecords;
+          } else if (Array.isArray(response?.data)) {
+            attendanceList = response.data;
+          } else if (Array.isArray(response)) {
+            attendanceList = response;
+          }
+          
+          // Map all attendance data
+          const attendanceMap = {};
+          const updatedOvertimeData = {};
+          const updatedOvertimeInputs = {};
+          
+          attendanceList.forEach((attendance) => {
             const lidNum = Number(attendance.labour_id);
             const lidStr = String(attendance.labour_id);
+            
             if (lidNum) {
               const statusMap = {
                 Present: 'P',
@@ -588,44 +562,67 @@ export default function LabourAttendanceCards({
               const mappedStatus = statusMap[attendance.status] || attendance.status;
               const dailyWage = attendance.daily_wage || attendance.labourDetails?.Daily_wage || 0;
               
-              // Calculate payable amount based on status
-              let calculatedPayable = 0;
-              if (mappedStatus === 'P') {
-                calculatedPayable = dailyWage; // Full day
-              } else if (mappedStatus === 'H') {
-                calculatedPayable = dailyWage / 2; // Half day
-              } else if (mappedStatus === 'OT') {
-                calculatedPayable = dailyWage; // Base pay for OT
-              } else if (mappedStatus === 'A') {
-                calculatedPayable = 0; // Absent
-              }
-              
               const attendanceInfo = {
                 status: mappedStatus,
-                payable_amount: attendance.payable_amount !== undefined && attendance.payable_amount !== null && attendance.payable_amount > 0
-                  ? attendance.payable_amount
-                  : calculatedPayable,
+                payable_amount: attendance.payable_amount !== undefined && attendance.payable_amount !== null 
+                  ? attendance.payable_amount 
+                  : 0,
                 daily_wage: dailyWage,
               };
-              // Update only this labour's attendance data
-              setAttendanceData((prev) => {
-                const updated = {
-                  ...prev,
-                  [lidNum]: attendanceInfo,
-                  [lidStr]: attendanceInfo,
+              
+              attendanceMap[lidNum] = attendanceInfo;
+              attendanceMap[lidStr] = attendanceInfo;
+              
+              // If status is OT, populate overtime data if available from API
+              if (mappedStatus === 'OT' && attendance.ot_rate && attendance.ot_hours) {
+                updatedOvertimeData[lidNum] = {
+                  ot_rate: attendance.ot_rate,
+                  ot_hours: attendance.ot_hours,
                 };
-                // Notify parent component about attendance data change
-                if (onAttendanceDataChange) {
-                  onAttendanceDataChange(updated, overtimeData);
-                }
-                return updated;
-              });
+                updatedOvertimeInputs[lidNum] = {
+                  ot_rate: String(attendance.ot_rate || ''),
+                  ot_hours: String(attendance.ot_hours || ''),
+                };
+              }
             }
+          });
+          
+          setAttendanceData(attendanceMap);
+          setOvertimeData((prev) => ({ ...prev, ...updatedOvertimeData }));
+          // Preserve existing inputs for OT labours even if API doesn't return them
+          setOvertimeInputs((prev) => {
+            const merged = { ...prev, ...updatedOvertimeInputs };
+            // For all OT labours, ensure inputs are preserved
+            Object.keys(attendanceMap).forEach((key) => {
+              const attendanceInfo = attendanceMap[key];
+              if (attendanceInfo?.status === 'OT') {
+                const labourIdKey = Number(key) || key;
+                // If API didn't return inputs but we have them locally, preserve them
+                if (!merged[labourIdKey] && prev[labourIdKey]) {
+                  merged[labourIdKey] = prev[labourIdKey];
+                }
+                // Also ensure we have inputs for OT status (initialize if missing)
+                if (!merged[labourIdKey]) {
+                  merged[labourIdKey] = { ot_rate: '', ot_hours: '' };
+                }
+              }
+            });
+            return merged;
+          });
+          if (onAttendanceDataChange) {
+            onAttendanceDataChange(attendanceMap, { ...overtimeData, ...updatedOvertimeData });
           }
         } catch (e) {
           console.error('Error refreshing attendance:', e);
         }
       }
+
+      // Hide overtime inputs after successful save
+      setShowOvertimeInputs((prev) => {
+        const next = { ...prev };
+        delete next[labourId];
+        return next;
+      });
 
       updateToast(toastId, { type: 'success', message: 'Overtime saved successfully' });
       onRefresh?.();
@@ -751,7 +748,13 @@ export default function LabourAttendanceCards({
                       // Get daily wage from attendanceData or labour
                       const dailyWage = attendanceInfo?.daily_wage || labour.pay || 0;
                       
-                      // Calculate payable amount based on status
+                      // Use payable_amount from API if available and not zero
+                      const apiPayable = attendanceInfo?.payable_amount;
+                      if (apiPayable !== undefined && apiPayable !== null && apiPayable > 0) {
+                        return formatCurrencyINR(apiPayable);
+                      }
+                      
+                      // Calculate payable amount based on status if no API amount
                       let payableAmount = 0;
                       
                       if (currentStatus === 'P') {
@@ -759,23 +762,9 @@ export default function LabourAttendanceCards({
                       } else if (currentStatus === 'H') {
                         payableAmount = dailyWage / 2; // Half day
                       } else if (currentStatus === 'OT') {
-                        // Overtime: daily wage + (rate per hour * hours)
-                        const basePay = dailyWage;
-                        const otData = overtimeData[labour.id];
-                        if (otData && otData.ratePerHour && otData.otHours) {
-                          const overtimePay = Number(otData.ratePerHour) * Number(otData.otHours);
-                          payableAmount = basePay + overtimePay;
-                        } else {
-                          payableAmount = basePay; // If no overtime data, just return base pay
-                        }
+                        payableAmount = dailyWage; // Base pay for OT (API should provide full amount)
                       } else if (currentStatus === 'A') {
                         payableAmount = 0; // Absent
-                      }
-                      
-                      // Use payable_amount from API if available and not zero, otherwise use calculated
-                      const apiPayable = attendanceInfo?.payable_amount;
-                      if (apiPayable !== undefined && apiPayable !== null && apiPayable > 0) {
-                        return formatCurrencyINR(apiPayable);
                       }
                       
                       return formatCurrencyINR(payableAmount);
@@ -784,23 +773,16 @@ export default function LabourAttendanceCards({
                 </div>
               </div>
 
-              {/* Overtime inputs - show when OT is selected */}
-              {(() => {
-                const labourIdNum = Number(labour.id);
-                const labourIdStr = String(labour.id);
-                const attendanceInfo = attendanceData[labourIdNum] || attendanceData[labourIdStr];
-                // Only show OT inputs if attendanceInfo exists and status is OT
-                // Don't fallback to labour.status to prevent flickering
-                return attendanceInfo?.status === 'OT';
-              })() && (
+              {/* Overtime inputs - show only when showOvertimeInputs is true for this labour */}
+              {showOvertimeInputs[labour.id] && (
                 <div className="pt-3 border-t border-lightGray max-w-[450px]">
                   <div className="flex items-end gap-3 mb-3">
                     <div className="flex-1">
                       <Input
-                        label={t('overtimeModal.ratePerHour', { defaultValue: 'Rate/hr' })}
-                        placeholder={t('overtimeModal.ratePlaceholder', { defaultValue: 'Rate/hr' })}
-                        value={overtimeInputs[labour.id]?.ratePerHour || ''}
-                        onChange={(e) => handleOvertimeInputChange(labour.id, 'ratePerHour', e.target.value)}
+                        label={t('overtimeModal.ratePerHour', { defaultValue: 'OT Rate' })}
+                        placeholder={t('overtimeModal.ratePlaceholder', { defaultValue: 'OT Rate' })}
+                        value={overtimeInputs[labour.id]?.ot_rate || ''}
+                        onChange={(e) => handleOvertimeInputChange(labour.id, 'ot_rate', e.target.value)}
                         type="number"
                         step="any"
                         min="0"
@@ -810,8 +792,8 @@ export default function LabourAttendanceCards({
                       <Input
                         label={t('overtimeModal.otHours', { defaultValue: 'OT Hours' })}
                         placeholder={t('overtimeModal.hoursPlaceholder', { defaultValue: 'OT Hours' })}
-                        value={overtimeInputs[labour.id]?.otHours || ''}
-                        onChange={(e) => handleOvertimeInputChange(labour.id, 'otHours', e.target.value)}
+                        value={overtimeInputs[labour.id]?.ot_hours || ''}
+                        onChange={(e) => handleOvertimeInputChange(labour.id, 'ot_hours', e.target.value)}
                         type="number"
                         step="any"
                         min="0"
@@ -833,7 +815,7 @@ export default function LabourAttendanceCards({
                         size="sm"
                         className="w-[120px]"
                         onClick={() => handleSaveOvertime(labour.id)}
-                        disabled={isSubmitting || !overtimeInputs[labour.id]?.ratePerHour?.trim() || !overtimeInputs[labour.id]?.otHours?.trim()}
+                        disabled={isSubmitting || !overtimeInputs[labour.id]?.ot_rate?.trim() || !overtimeInputs[labour.id]?.ot_hours?.trim()}
                       >
                         {isSubmitting ? t('common.loading', { defaultValue: 'Saving...' }) : t('common.save', { defaultValue: 'Save' })}
                       </Button>

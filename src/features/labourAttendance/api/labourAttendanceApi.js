@@ -104,7 +104,19 @@ export const getAttendance = async ({ workspace_id, project_id, date, labour_id 
   return http.get(E.ATTENDANCE.GET, { params });
 };
 
-export const createAttendance = async ({ workspace_id, project_id, shift_type_id, labour_id, date, status }) => {
+export const createAttendance = async ({ 
+  workspace_id, 
+  project_id, 
+  shift_type_id, 
+  labour_id, 
+  date, 
+  status,
+  ot_rate = null,
+  ot_hours = null,
+  daily_wage = null,
+  method = 'Cash',
+  expenseSections = 'labour'
+}) => {
   if (!workspace_id) throw new Error('Workspace ID is required');
   if (!project_id) throw new Error('Project ID is required');
   if (!shift_type_id) throw new Error('Shift type ID is required');
@@ -121,14 +133,29 @@ export const createAttendance = async ({ workspace_id, project_id, shift_type_id
   };
   const apiStatus = statusMap[status] || status;
 
-  return http.post(E.ATTENDANCE.CREATE, {
+  const payload = {
     workspace_id: Number(workspace_id),
     project_id: Number(project_id),
     shift_type_id: Number(shift_type_id),
     labour_id: Number(labour_id),
     date: String(date), // YYYY-MM-DD format
     status: apiStatus,
-  });
+    method: String(method),
+    expenseSections: String(expenseSections),
+  };
+
+  // Add OT fields only if status is OT
+  if (status === 'OT' && ot_rate !== null && ot_hours !== null) {
+    payload.ot_rate = Number(ot_rate);
+    payload.ot_hours = Number(ot_hours);
+  }
+
+  // Add daily_wage if provided
+  if (daily_wage !== null) {
+    payload.daily_wage = Number(daily_wage);
+  }
+
+  return http.post(E.ATTENDANCE.CREATE, payload);
 };
 
 export const createOTPayableBill = async ({ workspace_id, project_id, title, amount, status, method, labour_id, paidDate }) => {

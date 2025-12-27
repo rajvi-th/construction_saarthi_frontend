@@ -15,57 +15,8 @@ import { getRoute } from '../../../constants/routes';
 import pencilIcon from '../../../assets/icons/pencil.svg';
 import PastProjectBanner from '../components/PastProjectBanner';
 import PastProjectDocumentsGallery from '../components/PastProjectDocumentsGallery';
-
-// Mock data structure - will be replaced with API call
-const MOCK_PAST_PROJECT_DATA = {
-  '1': {
-    id: '1',
-    site_name: 'Shivaay Residency, Bopal',
-    name: 'Shivaay Residency, Bopal',
-    address: '86, Veer Nariman Road, Churchgate, Mumbai',
-    profile_photo: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=400&fit=crop',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=400&fit=crop',
-    documents: [
-      {
-        id: 'doc1',
-        name: 'Final_Proposal.pdf',
-        url: '#',
-        size: '4.7 MB',
-        date: '26 Sep 2024 3:20 PM',
-        uploadDate: '26 Sep 2024',
-      },
-      {
-        id: 'doc2',
-        name: 'Terms_Conditions.pdf',
-        url: '#',
-        size: '9.5 MB',
-        date: '26 Sep 2024 3:20 PM',
-        uploadDate: '26 Sep 2024',
-      },
-    ],
-    photos: [
-      {
-        id: 'photo1',
-        url: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=400&fit=crop',
-        name: 'Construction Site 1',
-        uploadDate: '26 Sep 2024',
-      },
-      {
-        id: 'photo2',
-        url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=400&fit=crop',
-        name: 'Construction Site 2',
-        uploadDate: '26 Sep 2024',
-      },
-      {
-        id: 'photo3',
-        url: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=400&h=400&fit=crop',
-        name: 'Construction Site 3',
-        uploadDate: '26 Sep 2024',
-      },
-    ],
-    videos: [],
-  },
-};
+import { getPastProjectById } from '../api/pastProjectApi';
+import { showError } from '../../../utils/toast';
 
 export default function PastProjectDetail() {
   const { t } = useTranslation(['pastProjects', 'common']);
@@ -73,23 +24,36 @@ export default function PastProjectDetail() {
   const { id } = useParams();
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   // Get project from location state or fetch by ID
   const projectFromState = location.state?.project;
   const [project, setProject] = useState(projectFromState);
 
   useEffect(() => {
-    // If no project in state, fetch by ID (mock for now)
+    // If no project in state, fetch by ID from API
     if (!project && id) {
       setIsLoading(true);
-      // Simulate API call
-      setTimeout(() => {
-        const mockProject = MOCK_PAST_PROJECT_DATA[id] || null;
-        setProject(mockProject);
-        setIsLoading(false);
-      }, 500);
+      setError(null);
+      
+      getPastProjectById(id)
+        .then((projectData) => {
+          setProject(projectData);
+        })
+        .catch((err) => {
+          console.error('Error fetching project:', err);
+          const errorMessage =
+            err?.response?.data?.message ||
+            err?.message ||
+            t('error.failedToLoad', { defaultValue: 'Failed to load project details' });
+          setError(errorMessage);
+          showError(errorMessage);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
-  }, [id, project]);
+  }, [id, project, t]);
 
   const handleBack = () => {
     navigate(PAST_PROJECT_ROUTES.LIST);
@@ -97,10 +61,10 @@ export default function PastProjectDetail() {
 
   const handleEdit = () => {
     if (!project) return;
-    
+
     // Get project ID (can be id, projectKey, or _id)
     const projectId = project.id || project.projectKey || project._id;
-    
+
     if (!projectId) {
       console.error('Project ID not found');
       return;
@@ -120,12 +84,12 @@ export default function PastProjectDetail() {
     );
   }
 
-  if (!project) {
+  if (error || (!project && !isLoading)) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <p className="text-secondary text-lg mb-2">
-            {t('error.projectNotFound', { ns: 'pastProjects', defaultValue: 'Past project not found' })}
+            {error || t('error.projectNotFound', { ns: 'pastProjects', defaultValue: 'Past project not found' })}
           </p>
           <Button variant="primary" onClick={handleBack}>
             {t('detail.backToPastWork', { ns: 'pastProjects', defaultValue: 'Back to Past Work' })}
@@ -139,22 +103,21 @@ export default function PastProjectDetail() {
   return (
     <div >
       {/* Header */}
+      <div className="max-w-7xl mx-auto">
+        <PageHeader
+          title={project.site_name || project.name}
+        >
+          <Button
+            size="xs"
+            onClick={handleEdit}
+            className="!border-accent font-medium !text-accent text-xs sm:!text-sm !bg-[#B02E0C0F] !rounded-full px-3 py-1.5 sm:px-5 sm:py-2.5"
+          >
+            <img src={pencilIcon} alt={t('detail.editProject', { ns: 'pastProjects', defaultValue: 'Edit Project' })} className="w-4 h-4 object-contain" />
+            {t('detail.editProject', { ns: 'pastProjects', defaultValue: 'Edit Project' })}
+          </Button>
+        </PageHeader>
+      </div>
 
-          <div className="max-w-7xl mx-auto">
-            <PageHeader
-              title={project.site_name || project.name}
-            >
-              <Button
-                size="xs"
-                onClick={handleEdit}
-                className="!border-accent font-medium !text-accent text-xs sm:!text-sm !bg-[#B02E0C0F] !rounded-full px-3 py-1.5 sm:px-5 sm:py-2.5"
-              >
-                <img src={pencilIcon} alt={t('detail.editProject', { ns: 'pastProjects', defaultValue: 'Edit Project' })} className="w-4 h-4 object-contain" />
-                {t('detail.editProject', { ns: 'pastProjects', defaultValue: 'Edit Project' })}
-              </Button>
-            </PageHeader>
-          </div>
- 
 
       <div className="max-w-7xl mx-auto">
         {/* Project Banner Section */}

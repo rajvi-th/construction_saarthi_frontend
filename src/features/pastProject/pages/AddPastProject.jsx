@@ -124,37 +124,27 @@ export default function AddPastProject() {
   const handleDocumentFileSelect = async (files) => {
     const fileArray = Array.from(files);
     
-    // Filter only PDF files for documents
-    const pdfFiles = fileArray.filter((file) => {
-      const fileType = file.type || '';
-      const fileName = file.name || '';
-      return fileType === 'application/pdf' || fileName.toLowerCase().endsWith('.pdf');
-    });
-
-    if (pdfFiles.length === 0) {
-      showError(t('validation.onlyPdfAllowed', { defaultValue: 'Only PDF files are allowed in documents section' }));
-      return;
-    }
-
-    const filesWithPreview = pdfFiles.map((file) => {
+    // Accept all file types (images, videos, documents)
+    const filesWithPreview = fileArray.map((file) => {
+      const fileType = getFileType(file);
       return {
         file,
         id: Date.now() + Math.random(),
         name: file.name,
-        type: 'document',
-        previewUrl: null, // PDFs don't have preview
+        type: fileType,
+        previewUrl: fileType === 'image' || fileType === 'video' ? createPreviewUrl(file) : null,
         isUploaded: false,
       };
     });
     setDocumentFiles((prev) => [...prev, ...filesWithPreview]);
 
     // Upload files immediately
-    const uploadSuccess = await uploadFilesImmediately(pdfFiles);
+    const uploadSuccess = await uploadFilesImmediately(fileArray);
     if (uploadSuccess) {
       // Mark files as uploaded
       setDocumentFiles((prev) =>
         prev.map((f) => {
-          if (pdfFiles.includes(f.file)) {
+          if (fileArray.includes(f.file)) {
             return { ...f, isUploaded: true };
           }
           return f;
@@ -493,13 +483,13 @@ export default function AddPastProject() {
             </p>
             <FileUpload
               title={baseUploadTitle}
-              supportedFormats="PDF"
+              supportedFormats={supportedFormats}
               maxSize={10}
               maxSizeUnit="MB"
               maxSizeText={maxSizeEach}
               supportedFormatLabel={supportedFormatsLabel}
               onFileSelect={handleDocumentFileSelect}
-              accept=".pdf"
+              accept=".jpg,.jpeg,.png,.mp4,.pdf"
               uploadButtonText={
                 isUploading
                   ? t('uploading', { defaultValue: 'Uploading...' })
@@ -515,31 +505,77 @@ export default function AddPastProject() {
                 <span>{t('uploadingFiles', { defaultValue: 'Uploading files...' })}</span>
               </div>
             )}
-            {/* Document Files Preview - Only PDF */}
+            {/* Document Files Preview - All formats */}
             {documentFiles.length > 0 && (
               <div className="mt-4">
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                   {documentFiles.map((fileItem) => (
                     <div key={fileItem.id} className="relative group">
-                      <div className="relative w-full h-24 sm:h-28 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-center">
-                        <FileText className="w-6 h-6 text-gray-400" />
-                        {fileItem.isUploaded && (
-                          <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-2 py-1 rounded">
-                            ✓
+                      {fileItem.type === 'image' && fileItem.previewUrl ? (
+                        <div className="relative">
+                          <img
+                            src={fileItem.previewUrl}
+                            alt={fileItem.name}
+                            className="w-full h-24 sm:h-28 object-cover rounded-lg border border-gray-200"
+                          />
+                          {fileItem.isUploaded && (
+                            <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-2 py-1 rounded">
+                              ✓
+                            </div>
+                          )}
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveDocumentFile(fileItem.id)}
+                            disabled={isSubmitting || isUploading}
+                            className="absolute -top-2 -right-2 bg-accent text-white rounded-full p-1 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:bg-accent/90 transition-colors"
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
+                        </div>
+                      ) : fileItem.type === 'video' && fileItem.previewUrl ? (
+                        <div className="relative">
+                          <video
+                            src={fileItem.previewUrl}
+                            className="w-full h-24 sm:h-28 object-cover rounded-lg border border-gray-200"
+                          />
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/20 rounded-lg">
+                            <Video className="w-6 h-6 text-white" />
                           </div>
-                        )}
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveDocumentFile(fileItem.id)}
-                          disabled={isSubmitting || isUploading}
-                          className="absolute -top-2 -right-2 bg-accent text-white rounded-full p-1 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:bg-accent/90 transition-colors"
-                        >
-                          <X className="w-4 h-4" />
-                        </button>
-                        <p className="absolute bottom-1 left-1 right-1 text-xs text-gray-600 truncate px-1">
-                          {fileItem.name}
-                        </p>
-                      </div>
+                          {fileItem.isUploaded && (
+                            <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-2 py-1 rounded">
+                              ✓
+                            </div>
+                          )}
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveDocumentFile(fileItem.id)}
+                            disabled={isSubmitting || isUploading}
+                            className="absolute -top-2 -right-2 bg-accent text-white rounded-full p-1 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:bg-accent/90 transition-colors"
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="relative w-full h-24 sm:h-28 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-center">
+                          <FileText className="w-6 h-6 text-gray-400" />
+                          {fileItem.isUploaded && (
+                            <div className="absolute top-1 left-1 bg-green-500 text-white text-xs px-2 py-1 rounded">
+                              ✓
+                            </div>
+                          )}
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveDocumentFile(fileItem.id)}
+                            disabled={isSubmitting || isUploading}
+                            className="absolute -top-2 -right-2 bg-accent text-white rounded-full p-1 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:bg-accent/90 transition-colors"
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
+                          <p className="absolute bottom-1 left-1 right-1 text-xs text-gray-600 truncate px-1">
+                            {fileItem.name}
+                          </p>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>

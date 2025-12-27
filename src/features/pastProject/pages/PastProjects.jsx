@@ -19,6 +19,52 @@ import { usePastProjects } from '../hooks/usePastProjects';
 import { startPastProject } from '../api/pastProjectApi';
 import { showError } from '../../../utils/toast';
 
+// Placeholder image (SVG data URI)
+const PLACEHOLDER_IMAGE = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgwIiBoZWlnaHQ9IjI4MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNiIgZmlsbD0iIzljYTNhZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlBhc3QgUHJvamVjdDwvdGV4dD48L3N2Zz4=';
+
+// Project Card Component with image error handling
+function ProjectCard({ project, imageSrc, placeholderImage, onProjectClick, isLoadingProjectKey, t }) {
+  const [imageError, setImageError] = useState(false);
+  const projectName = project.name || project.title || t('untitled', {
+    ns: 'pastProjects',
+    defaultValue: 'Untitled Project',
+  });
+  const address = project.address || project.location || '';
+  const displayImage = imageError ? placeholderImage : imageSrc;
+
+  return (
+    <div
+      onClick={onProjectClick}
+      className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm cursor-pointer hover:shadow-md transition-shadow"
+      style={{ opacity: isLoadingProjectKey ? 0.6 : 1 }}
+    >
+      <div className="flex gap-4 items-center">
+        {/* Project Image - Always show */}
+        <div className="flex-shrink-0">
+          <img
+            src={displayImage}
+            alt={projectName}
+            onError={() => setImageError(true)}
+            className="w-24 h-24 sm:w-28 sm:h-28 rounded-lg object-cover bg-gray-100"
+          />
+        </div>
+
+        {/* Project Details */}
+        <div className="flex-1 min-w-0">
+          <h3 className="text-base sm:text-lg font-semibold text-primary mb-1 line-clamp-1 capitalize">
+            {projectName}
+          </h3>
+          {address && (
+            <p className="text-xs sm:text-sm text-secondary mb-2 line-clamp-2 capitalize">
+              {address}
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function PastProjects() {
   const { t } = useTranslation(['pastProjects', 'common', 'projects']);
   const navigate = useNavigate();
@@ -83,7 +129,7 @@ export default function PastProjects() {
   const handleProjectClick = (project) => {
     // Get project ID (can be id, projectKey, or _id)
     const projectId = project.id || project.projectKey || project._id;
-    
+
     if (!projectId) {
       showError(t('error.projectIdNotFound', { defaultValue: 'Project ID not found' }));
       return;
@@ -97,23 +143,70 @@ export default function PastProjects() {
     });
   };
 
-  // Get project image from pastWorkMedia array (only non-deleted items)
-  const getProjectImage = (project) => {
-    if (!project.pastWorkMedia || !Array.isArray(project.pastWorkMedia)) {
-      return null;
+  // Helper function to get first valid URL from array or string
+  const getFirstImageUrl = (value) => {
+    if (!value) return null;
+    if (Array.isArray(value)) {
+      return value.length > 0 ? value[0] : null;
     }
-    
-    // Filter out deleted items and get the first available image
-    const activeMedia = project.pastWorkMedia.filter(
-      (media) => !media.isDeleted && media.url
-    );
-    
-    // Prefer image types (typeId 1 or 3), fallback to any media
-    const imageMedia = activeMedia.find(
-      (media) => media.typeId === '1' || media.typeId === 1 || media.typeId === '3' || media.typeId === 3
-    );
-    
-    return imageMedia?.url || activeMedia[0]?.url || null;
+    if (typeof value === 'string' && value.trim()) {
+      return value;
+    }
+    return null;
+  };
+
+  // Get project image from multiple sources with fallback
+  const getProjectImage = (project) => {
+    // 1. Check pastWorkMedia array (only non-deleted items)
+    if (project.pastWorkMedia && Array.isArray(project.pastWorkMedia)) {
+      const activeMedia = project.pastWorkMedia.filter(
+        (media) => !media.isDeleted && media.url
+      );
+
+      // Prefer image types (typeId 1, 3, or 12), fallback to any media
+      const imageMedia = activeMedia.find(
+        (media) => {
+          const typeId = String(media.typeId || '');
+          return typeId === '1' || typeId === '3' || typeId === '12' || 
+                 media.typeId === 1 || media.typeId === 3 || media.typeId === 12;
+        }
+      );
+
+      if (imageMedia?.url) return imageMedia.url;
+      
+      // Fallback: find first image by file extension
+      const imageByExtension = activeMedia.find((media) => {
+        const url = (media.url || '').toLowerCase();
+        return url.match(/\.(jpg|jpeg|png|gif|webp|bmp|svg)$/i);
+      });
+      if (imageByExtension?.url) return imageByExtension.url;
+      
+      // Last fallback: any media
+      if (activeMedia[0]?.url) return activeMedia[0].url;
+    }
+
+    // 2. Check array fields (API returns arrays)
+    const profilePhotoUrl = getFirstImageUrl(project.profilePhoto);
+    if (profilePhotoUrl) return profilePhotoUrl;
+
+    const photoUrl = getFirstImageUrl(project.photo);
+    if (photoUrl) return photoUrl;
+
+    const myPastWorkphotoUrl = getFirstImageUrl(project.myPastWorkphoto);
+    if (myPastWorkphotoUrl) return myPastWorkphotoUrl;
+
+    // 3. Check string fields (backward compatibility)
+    if (project.profile_photo) {
+      const url = getFirstImageUrl(project.profile_photo);
+      if (url) return url;
+    }
+    if (project.image) {
+      const url = getFirstImageUrl(project.image);
+      if (url) return url;
+    }
+
+    // 4. Return placeholder if no image found
+    return PLACEHOLDER_IMAGE;
   };
 
   return (
@@ -183,45 +276,17 @@ export default function PastProjects() {
       ) : (
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {filteredItems.map((project, idx) => {
-            const projectName = project.name || project.title || t('untitled', {
-              ns: 'pastProjects',
-              defaultValue: 'Untitled Project',
-            });
-            const address = project.address || project.location || '';
             const imageSrc = getProjectImage(project);
-
             return (
-              <div
+              <ProjectCard
                 key={project.id || project.projectKey || idx}
-                onClick={() => handleProjectClick(project)}
-                className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm cursor-pointer"
-                style={{ opacity: isLoadingProjectKey ? 0.6 : 1 }}
-              >
-                <div className="flex gap-4 items-center">
-                  {/* Project Image - Only show if image exists */}
-                  {imageSrc && (
-                    <div className="flex-shrink-0">
-                      <img
-                        src={imageSrc}
-                        alt={projectName}
-                        className="w-24 h-24 sm:w-28 sm:h-28 rounded-lg object-cover"
-                      />
-                    </div>
-                  )}
-
-                  {/* Project Details */}
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-base sm:text-lg font-semibold text-primary mb-1 line-clamp-1 capitalize">
-                      {projectName}
-                    </h3>
-                    {address && (
-                      <p className="text-xs sm:text-sm text-secondary mb-2 line-clamp-2 capitalize  ">
-                        {address}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </div>
+                project={project}
+                imageSrc={imageSrc}
+                placeholderImage={PLACEHOLDER_IMAGE}
+                onProjectClick={() => handleProjectClick(project)}
+                isLoadingProjectKey={isLoadingProjectKey}
+                t={t}
+              />
             );
           })}
         </div>

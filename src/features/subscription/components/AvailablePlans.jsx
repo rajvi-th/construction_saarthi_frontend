@@ -3,143 +3,89 @@
  * Displays all available subscription plans with benefits
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Check } from 'lucide-react';
-import { getAvailablePlans, getSubscriptionPlans } from '../api/subscriptionApi';
+import { useSubscriptions } from '../hooks';
 import { showError } from '../../../utils/toast';
 
 export default function AvailablePlans({ selectedPlanId, onPlanSelect }) {
   const { t } = useTranslation('subscription');
-  const [benefits, setBenefits] = useState([]);
-  const [isLoadingBenefits, setIsLoadingBenefits] = useState(true);
+  const { subscriptions, availablePlans, isLoadingSubscriptions, isLoadingAvailablePlans } = useSubscriptions();
   const [plans, setPlans] = useState([]);
-  const [isLoadingPlans, setIsLoadingPlans] = useState(true);
 
+  // Map available plans to benefits descriptions
+  const benefits = useMemo(() => {
+    if (!availablePlans || availablePlans.length === 0) {
+      // Fallback to default benefits
+      return [
+        t('availablePlans.benefits.unlimitedAccess', { defaultValue: 'Unlimited access to all current + future modules' }),
+        t('availablePlans.benefits.exportDownload', { defaultValue: 'Export/Download capabilities unlocked' }),
+        t('availablePlans.benefits.freeUsers', { defaultValue: '3 Free Additional Users (supervisor/engineer/client)' }),
+        t('availablePlans.benefits.calculations', { defaultValue: '50 Construction Calculations per subscription (more purchasable)' }),
+      ];
+    }
+    
+    return availablePlans
+      .map(item => item.description)
+      .filter(Boolean); // Remove any empty descriptions
+  }, [availablePlans, t]);
+
+  // Process subscription plans data
   useEffect(() => {
-    const fetchBenefits = async () => {
-      try {
-        setIsLoadingBenefits(true);
-        const response = await getAvailablePlans();
-        
-        // Ensure response is an array
-        const benefitsData = Array.isArray(response) ? response : [];
-        
-        // Filter active and non-deleted benefits, map to description
-        const activeBenefits = benefitsData
-          .filter(item => {
-            if (!item || !item.description) return false;
-            // Include if is_active is true or undefined/null (default to true)
-            if (item.is_active === false) return false;
-            // Exclude if is_deleted is true
-            if (item.is_deleted === true) return false;
-            return true;
-          })
-          .map(item => item.description)
-          .filter(Boolean); // Remove any empty descriptions
-        
-        setBenefits(activeBenefits);
-      } catch (error) {
-        console.error('Error fetching available plans:', error);
-        const errorMessage = error?.response?.data?.message || 
-                           error?.message || 
-                           'Failed to load benefits';
-        showError(errorMessage);
-        // Fallback to default benefits on error
-        setBenefits([
-          t('availablePlans.benefits.unlimitedAccess', { defaultValue: 'Unlimited access to all current + future modules' }),
-          t('availablePlans.benefits.exportDownload', { defaultValue: 'Export/Download capabilities unlocked' }),
-          t('availablePlans.benefits.freeUsers', { defaultValue: '3 Free Additional Users (supervisor/engineer/client)' }),
-          t('availablePlans.benefits.calculations', { defaultValue: '50 Construction Calculations per subscription (more purchasable)' }),
-        ]);
-      } finally {
-        setIsLoadingBenefits(false);
-      }
-    };
+    if (!subscriptions || subscriptions.length === 0) {
+      setPlans([]);
+      return;
+    }
 
-    fetchBenefits();
-  }, [t]);
-
-  useEffect(() => {
-    const fetchPlans = async () => {
-      try {
-        setIsLoadingPlans(true);
-        const response = await getSubscriptionPlans();
+    const processedPlans = subscriptions
+      .map((plan, index) => {
+        const planName = (plan.name || '').toLowerCase();
         
-        // Ensure response is an array
-        const plansData = Array.isArray(response) ? response : [];
+        // Determine display name and id based on plan name
+        let displayName, planId;
+        if (planName.includes('12 month') || planName.includes('12month') || planName.includes('yearly')) {
+          displayName = t('availablePlans.plans.yearly', { defaultValue: 'Yearly' });
+          planId = 'yearly';
+        } else if (planName.includes('3 year') || planName.includes('3year') || 
+                   planName.includes('36 month') || planName.includes('36month')) {
+          displayName = t('availablePlans.plans.3years', { defaultValue: '3 Years' });
+          planId = '3years';
+        } else {
+          // Use original name if no match
+          displayName = plan.name || '';
+          planId = plan.id || `plan-${index}`;
+        }
         
-        // Filter active and non-deleted plans
-        const activePlans = plansData
-          .filter(plan => {
-            if (!plan) return false;
-            // Include if is_active is true or undefined/null (default to true)
-            if (plan.is_active === false) return false;
-            // Exclude if is_deleted is true
-            if (plan.is_deleted === true) return false;
-            return true;
-          })
-          .map((plan, index) => {
-            const planName = (plan.name || '').toLowerCase();
-            
-            // Determine display name and id based on plan name
-            let displayName, planId;
-            if (planName.includes('12 month') || planName.includes('12month') || planName.includes('yearly')) {
-              displayName = t('availablePlans.plans.yearly', { defaultValue: 'Yearly' });
-              planId = 'yearly';
-            } else if (planName.includes('3 year') || planName.includes('3year') || 
-                       planName.includes('36 month') || planName.includes('36month')) {
-              displayName = t('availablePlans.plans.3years', { defaultValue: '3 Years' });
-              planId = '3years';
-            } else {
-              // Use original name if no match
-              displayName = plan.name || '';
-              planId = plan.id || `plan-${index}`;
-            }
-            
-            // Build description from plan data
-            const freeUsersCount = (plan.free_main_user_count || 0) + (plan.free_sub_user_count || 0);
-            const description = freeUsersCount > 0 
-              ? t('availablePlans.plans.description', { defaultValue: `Contractor + ${freeUsersCount} Free Users` })
-              : t('availablePlans.plans.description', { defaultValue: 'Contractor + 3 Free Users' });
-            
-            return {
-              id: planId,
-              apiId: plan.id,
-              name: displayName,
-              description: description,
-              price: parseFloat(plan.price) || 0,
-              isSelected: (planId === selectedPlanId) || (index === 0 && !selectedPlanId),
-              originalData: plan,
-            };
-          });
+        // Build description from plan data
+        const freeUsersCount = (plan.free_main_user_count || 0) + (plan.free_sub_user_count || 0);
+        const description = freeUsersCount > 0 
+          ? t('availablePlans.plans.description', { defaultValue: `Contractor + ${freeUsersCount} Free Users` })
+          : t('availablePlans.plans.description', { defaultValue: 'Contractor + 3 Free Users' });
         
-        // Sort: Yearly first, then 3 Years, then others
-        activePlans.sort((a, b) => {
-          if (a.id === 'yearly') return -1;
-          if (b.id === 'yearly') return 1;
-          if (a.id === '3years') return -1;
-          if (b.id === '3years') return 1;
-          // Sort by original index/price if neither is yearly or 3years
-          return parseFloat(a.originalData?.price || 0) - parseFloat(b.originalData?.price || 0);
-        });
-        
-        setPlans(activePlans);
-      } catch (error) {
-        console.error('Error fetching subscription plans:', error);
-        const errorMessage = error?.response?.data?.message || 
-                           error?.message || 
-                           'Failed to load subscription plans';
-        showError(errorMessage);
-        // Fallback to empty array on error
-        setPlans([]);
-      } finally {
-        setIsLoadingPlans(false);
-      }
-    };
-
-    fetchPlans();
-  }, [t]);
+        return {
+          id: planId,
+          apiId: plan.id,
+          name: displayName,
+          description: description,
+          price: parseFloat(plan.price) || 0,
+          isSelected: (planId === selectedPlanId) || (index === 0 && !selectedPlanId),
+          originalData: plan,
+        };
+      });
+    
+    // Sort: Yearly first, then 3 Years, then others
+    processedPlans.sort((a, b) => {
+      if (a.id === 'yearly') return -1;
+      if (b.id === 'yearly') return 1;
+      if (a.id === '3years') return -1;
+      if (b.id === '3years') return 1;
+      // Sort by original index/price if neither is yearly or 3years
+      return parseFloat(a.originalData?.price || 0) - parseFloat(b.originalData?.price || 0);
+    });
+    
+    setPlans(processedPlans);
+  }, [subscriptions, selectedPlanId, t]);
 
   // Notify parent of selected plan when plans are loaded or selectedPlanId changes
   useEffect(() => {
@@ -152,8 +98,7 @@ export default function AvailablePlans({ selectedPlanId, onPlanSelect }) {
         onPlanSelect(selectedPlan.id, selectedPlan);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [plans, selectedPlanId]);
+  }, [plans, selectedPlanId, onPlanSelect]);
 
   // Update selected plan when selectedPlanId prop changes
   useEffect(() => {
@@ -172,7 +117,7 @@ export default function AvailablePlans({ selectedPlanId, onPlanSelect }) {
         }));
       });
     }
-  }, [selectedPlanId, plans.length]);
+  }, [selectedPlanId]); // Remove plans.length dependency to avoid unnecessary updates
 
   const handlePlanSelect = (planId) => {
     const updatedPlans = plans.map(plan => ({
@@ -195,7 +140,7 @@ export default function AvailablePlans({ selectedPlanId, onPlanSelect }) {
 
       {/* Benefits List */}
       <div className="mb-4 space-y-2">
-        {isLoadingBenefits ? (
+        {isLoadingAvailablePlans ? (
           <div className="flex items-center justify-center py-4">
             <p className="text-sm text-primary-light">{t('common.loading', { defaultValue: 'Loading benefits...' })}</p>
           </div>
@@ -214,7 +159,7 @@ export default function AvailablePlans({ selectedPlanId, onPlanSelect }) {
       </div>
 
       {/* Plans Grid */}
-      {isLoadingPlans ? (
+      {isLoadingSubscriptions ? (
         <div className="flex items-center justify-center py-8">
           <p className="text-primary-light">{t('common.loading', { defaultValue: 'Loading plans...' })}</p>
         </div>

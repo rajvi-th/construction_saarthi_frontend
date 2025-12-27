@@ -10,6 +10,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import PageHeader from '../../../components/layout/PageHeader';
 import Loader from '../../../components/ui/Loader';
 import Button from '../../../components/ui/Button';
+import { SubscriptionProvider } from '../context/SubscriptionContext';
 import { useSubscriptions } from '../hooks';
 import {
   CurrentPlan,
@@ -20,11 +21,11 @@ import {
 } from '../components';
 import { ROUTES_FLAT } from '../../../constants/routes';
 
-export default function Subscription() {
+function SubscriptionContent() {
   const { t } = useTranslation('subscription');
   const navigate = useNavigate();
   const location = useLocation();
-  const { subscriptions, isLoadingSubscriptions } = useSubscriptions();
+  const { isLoadingSubscriptions } = useSubscriptions();
   const [selectedPlanId, setSelectedPlanId] = useState('yearly');
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [appliedCoupon, setAppliedCoupon] = useState(
@@ -52,7 +53,7 @@ export default function Subscription() {
         description: planData.description,
       });
     }
-  }, []);
+  }, []); // Empty dependency array - callback is stable
 
   const handleCancel = () => {
     // TODO: Handle cancel action
@@ -114,5 +115,13 @@ export default function Subscription() {
           </div>
         )}
       </div>
+  );
+}
+
+export default function Subscription() {
+  return (
+    <SubscriptionProvider>
+      <SubscriptionContent />
+    </SubscriptionProvider>
   );
 }

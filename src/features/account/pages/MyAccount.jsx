@@ -136,8 +136,7 @@ export default function MyAccount() {
       label: t('settings.mySubscription', { defaultValue: 'My Subscription' }),
       icon: <Crown className="w-5 h-5" />,
       onClick: () => {
-        // TODO: Navigate to subscription page
-        showError('Feature coming soon');
+        navigate(ROUTES_FLAT.SUBSCRIPTION);
       },
     },
   ];

@@ -1,11 +1,11 @@
-// Static version - no API integration
+import { useSubscriptionContext } from '../context/SubscriptionContext';
+
+/**
+ * Hook to access subscription data from context
+ * This ensures API calls are made only once and shared across components
+ */
 export const useSubscriptions = () => {
-  return {
-    subscriptions: [],
-    isLoadingSubscriptions: false,
-    error: null,
-    refetch: () => Promise.resolve(),
-  };
+  return useSubscriptionContext();
 };
 
 export default useSubscriptions;

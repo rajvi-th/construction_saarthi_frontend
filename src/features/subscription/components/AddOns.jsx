@@ -3,13 +3,13 @@
  * Displays add-ons for members and calculations
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { User, Plus, Minus } from 'lucide-react';
 import Button from '../../../components/ui/Button';
 import AddMemberModal from './AddMemberModal';
-import { getSubscriptionPlans } from '../api/subscriptionApi';
+import { useSubscriptions } from '../hooks';
 import { getWorkspaceMembers } from '../../auth/api';
 import { useAuth } from '../../auth/store';
 import { showError } from '../../../utils/toast';
@@ -19,6 +19,7 @@ export default function AddOns() {
   const { t } = useTranslation('subscription');
   const navigate = useNavigate();
   const { selectedWorkspace } = useAuth();
+  const { subscriptions } = useSubscriptions();
   const [calculationQuantity, setCalculationQuantity] = useState(1);
   const [isAddMemberModalOpen, setIsAddMemberModalOpen] = useState(false);
   const [members, setMembers] = useState([]);
@@ -29,42 +30,32 @@ export default function AddOns() {
   const totalMembers = 3;
   const usedCalculations = 47;
   const totalCalculations = 50;
-  const [memberPrice, setMemberPrice] = useState(99);
   const calculationPrice = 99;
 
   // Get first 2 members for display
   const displayedMembers = members.slice(0, 2);
 
-  useEffect(() => {
-    const fetchAddMemberPrice = async () => {
-      try {
-        const response = await getSubscriptionPlans();
+  // Get member price from shared subscription plans data
+  const memberPrice = useMemo(() => {
+    if (!subscriptions || subscriptions.length === 0) {
+      return 99; // Default price
+    }
 
-        // Ensure response is an array
-        const plansData = Array.isArray(response) ? response : [];
+    // Get the first active plan's addMember price
+    const firstPlan = subscriptions.find(plan =>
+      plan &&
+      plan.addMember?.price_per_member
+    );
 
-        // Get the first active plan's addMember price
-        const firstPlan = plansData.find(plan =>
-          plan &&
-          plan.is_active !== false &&
-          plan.is_deleted !== true &&
-          plan.addMember?.price_per_member
-        );
-
-        if (firstPlan?.addMember?.price_per_member) {
-          const price = parseFloat(firstPlan.addMember.price_per_member);
-          if (!isNaN(price)) {
-            setMemberPrice(price);
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching add member price:', error);
-        // Keep default price on error
+    if (firstPlan?.addMember?.price_per_member) {
+      const price = parseFloat(firstPlan.addMember.price_per_member);
+      if (!isNaN(price)) {
+        return price;
       }
-    };
-
-    fetchAddMemberPrice();
-  }, []);
+    }
+    
+    return 99; // Default price
+  }, [subscriptions]);
 
   useEffect(() => {
     const fetchMembers = async () => {
