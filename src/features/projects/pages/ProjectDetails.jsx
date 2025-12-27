@@ -30,10 +30,6 @@ export default function ProjectDetails() {
   
   const { project, isLoading } = useProjectDetails(projectIdFromState, selectedWorkspace);
 
-  const handleBack = () => {
-    navigate(PROJECT_ROUTES.PROJECTS);
-  };
-
   const handleEdit = () => {
     if (!project) return;
     navigate(PROJECT_ROUTES.EDIT_PROJECT.replace(':id', project.id));
@@ -101,9 +97,6 @@ export default function ProjectDetails() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <p className="text-secondary text-lg mb-2">{t('projectDetails.notFound')}</p>
-          <Button variant="primary" onClick={handleBack}>
-            {t('projectDetails.backToProjects')}
-          </Button>
         </div>
       </div>
     );
@@ -121,6 +114,8 @@ export default function ProjectDetails() {
           <PageHeader
             title={project.site_name || project.name}
             className="flex-1 min-w-0"
+            showBackButton={true}
+            backTo={PROJECT_ROUTES.PROJECTS}
           />
           {/* Right: Actions */}
           <div className="flex items-center gap-2 justify-between flex-wrap sm:flex-nowrap sm:justify-end">

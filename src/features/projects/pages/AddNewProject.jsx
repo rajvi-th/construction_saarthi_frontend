@@ -133,7 +133,7 @@ function AddNewProject() {
   // Handle step navigation with validation
   const handleNextStep = async () => {
     let fieldsToValidate = [];
-    
+
     if (currentStep === 1) {
       // Validate Site Overview fields
       fieldsToValidate = ['siteName', 'address', 'builderName'];
@@ -158,7 +158,7 @@ function AddNewProject() {
     // Validate all required fields from Step 1 (Site Overview)
     const step1Fields = ['siteName', 'address', 'builderName'];
     const step1Valid = await trigger(step1Fields);
-    
+
     if (!step1Valid) {
       showError(t('addNewProject.validation.fillSiteOverview') || "Please fill all required fields in Site Overview section");
       return;
@@ -167,7 +167,7 @@ function AddNewProject() {
     // Validate required fields from Step 2 (Project Specifications)
     const step2Fields = ['totalArea', 'perSqFtRate', 'noOfFloors', 'estimatedBudget'];
     const step2Valid = await trigger(step2Fields);
-    
+
     if (!step2Valid) {
       showError(t('addNewProject.validation.fillProjectSpecifications') || "Please fill all required fields in Project Specifications section");
       return;
@@ -257,7 +257,7 @@ function AddNewProject() {
       // Set form values
       setValue("siteName", projectData.name || projectData.site_name || "");
       setValue("address", projectData.address || "");
-      
+
       // Set builder - need to find builder ID from builders list
       if (originalData.builderId || details.builderId) {
         const builderId = originalData.builderId || details.builderId;
@@ -433,7 +433,7 @@ function AddNewProject() {
           title={
             isEditMode ? t("actions.editProject") : t("addNewProject.title")
           }
-          // showBackButton={false}   // since your original code had no back button
+          backTo={PROJECT_ROUTES.PROJECTS}
           className="py-4 mb-2"
         />
 
@@ -492,9 +492,9 @@ function AddNewProject() {
             />
 
             {/* Card 3: Upload Documents */}
-            <UploadDocumentsSection 
-              t={t} 
-              onFilesChange={setUploadedFiles} 
+            <UploadDocumentsSection
+              t={t}
+              onFilesChange={setUploadedFiles}
               projectKey={preProjectKey}
             />
           </section>
@@ -520,12 +520,12 @@ function AddNewProject() {
             disabled={isSubmitting}
           >
             {isSubmitting
-              ? (isEditMode 
-                  ? t("addNewProject.form.updating", { defaultValue: "Updating..." })
-                  : t("addNewProject.form.creating"))
+              ? (isEditMode
+                ? t("addNewProject.form.updating", { defaultValue: "Updating..." })
+                : t("addNewProject.form.creating"))
               : (isEditMode
-                  ? t("addNewProject.form.updateProject", { defaultValue: "Update Project" })
-                  : t("addNewProject.form.createProject"))}
+                ? t("addNewProject.form.updateProject", { defaultValue: "Update Project" })
+                : t("addNewProject.form.createProject"))}
           </Button>
         </div>
       </div>
