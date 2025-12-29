@@ -9,6 +9,7 @@ import RemoveMemberModal from '../../../components/ui/RemoveMemberModal';
 import AudioPlayer from '../../../components/ui/AudioPlayer';
 import pencilIcon from '../../../assets/icons/pencil.svg';
 import { useAuth } from '../../auth/store';
+import { useWorkspaceRole } from '../../dashboard/hooks';
 import { useLabourProfile } from '../hooks/useLabourProfile';
 import { useLabourDetailsActions } from '../hooks/useLabourDetailsActions';
 import { formatCurrencyINR, formatDate, getInitials } from '../utils/formatting';
@@ -19,6 +20,7 @@ export default function LabourDetails() {
   const { projectId, labourId } = useParams();
   const { state } = useLocation();
   const { selectedWorkspace } = useAuth();
+  const currentUserRole = useWorkspaceRole();
 
   const { profile, isLoading: isLoadingProfile, refetch } = useLabourProfile({
     workspaceId: selectedWorkspace,
@@ -329,17 +331,19 @@ export default function LabourDetails() {
         </div>
       </div>
 
-      {/* Delete */}
-      <div className="pt-6">
-        <button
-          type="button"
-          onClick={() => setDeleteOpen(true)}
-          className="flex items-center gap-2 text-accent text-sm font-medium hover:underline cursor-pointer"
-        >
-          <Trash2 className="w-4 h-4" />
-          {t('common.deleteLabour')}
-        </button>
-      </div>
+      {/* Delete - Hide for supervisor role */}
+      {currentUserRole?.toLowerCase() !== 'supervisor' && (
+        <div className="pt-6">
+          <button
+            type="button"
+            onClick={() => setDeleteOpen(true)}
+            className="flex items-center gap-2 text-accent text-sm font-medium hover:underline cursor-pointer"
+          >
+            <Trash2 className="w-4 h-4" />
+            {t('common.deleteLabour')}
+          </button>
+        </div>
+      )}
 
       <LabourAmountModal
         isOpen={activeModal === 'advance'}

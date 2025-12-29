@@ -16,6 +16,7 @@ import { ProjectCard } from '../components';
 import { PROJECT_ROUTES } from '../constants';
 import { useAuth } from '../../../hooks/useAuth';
 import { useProjects, useDeleteProject } from '../hooks';
+import { useRestrictedRole } from '../../dashboard/hooks';
 import { ChevronDown } from "lucide-react";
 import PageHeader from '../../../components/layout/PageHeader';
 
@@ -23,6 +24,9 @@ export default function Projects() {
   const { t } = useTranslation('projects');
   const navigate = useNavigate();
   const { selectedWorkspace } = useAuth();
+  
+  // Check if user has restricted role (supervisor, builder, contractor)
+  const isRestricted = useRestrictedRole();
   const [projectToDelete, setProjectToDelete] = useState(null);
   
   const {
@@ -143,16 +147,18 @@ export default function Projects() {
                 )}
               />
 
-              <Button
-                variant="primary"
-                size="md"
-                onClick={handleAddNewProject}
-                leftIconName="Plus"
-                iconSize="w-3 h-3 text-accent"
-                className="w-full sm:w-auto whitespace-nowrap rounded-lg py-2.5"
-              >
-                {t('actions.addNewProject')}
-              </Button>
+              {!isRestricted && (
+                <Button
+                  variant="primary"
+                  size="md"
+                  onClick={handleAddNewProject}
+                  leftIconName="Plus"
+                  iconSize="w-3 h-3 text-accent"
+                  className="w-full sm:w-auto whitespace-nowrap rounded-lg py-2.5"
+                >
+                  {t('actions.addNewProject')}
+                </Button>
+              )}
             </div>
           </div>
         </div>
@@ -181,8 +187,8 @@ export default function Projects() {
                   key={project.id}
                   project={project}
                   onOpenDetails={() => handleProjectClick(project)}
-                  onEdit={handleEditProject}
-                  onDelete={handleRequestDelete}
+                  onEdit={!isRestricted ? handleEditProject : null}
+                  onDelete={!isRestricted ? handleRequestDelete : null}
                 />
               ))}
             </div>

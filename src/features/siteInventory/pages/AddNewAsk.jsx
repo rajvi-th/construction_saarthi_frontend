@@ -16,6 +16,7 @@ import Button from '../../../components/ui/Button';
 import { ROUTES_FLAT } from '../../../constants/routes';
 import { showSuccess, showError } from '../../../utils/toast';
 import { useAuth } from '../../../hooks/useAuth';
+import { useWorkspaceRole } from '../../dashboard/hooks';
 import { getAllProjects } from '../../projects/api/projectApi';
 import { useMaterials, useInventoryTypes } from '../hooks';
 import { requestMaterial } from '../api/siteInventoryApi';
@@ -26,6 +27,7 @@ export default function AddNewAsk() {
   const navigate = useNavigate();
   const location = useLocation();
   const { selectedWorkspace } = useAuth();
+  const currentUserRole = useWorkspaceRole();
   
   // Get project context from navigation state (current project - where we're requesting TO)
   const currentProjectId = location.state?.projectId;
@@ -245,12 +247,12 @@ export default function AddNewAsk() {
             placeholder={t('addNewAsk.materialPlaceholder', { defaultValue: 'Select material' })}
             error={errors.material}
             className="w-full"
-            showSeparator={true}
-            addButtonLabel={t('addNewAsk.addNewMaterial', { defaultValue: 'Add New Material' })}
-            onAddNew={handleAddNewMaterial}
+            showSeparator={currentUserRole?.toLowerCase() !== 'supervisor'}
+            addButtonLabel={currentUserRole?.toLowerCase() !== 'supervisor' ? t('addNewAsk.addNewMaterial', { defaultValue: 'Add New Material' }) : ''}
+            onAddNew={currentUserRole?.toLowerCase() !== 'supervisor' ? handleAddNewMaterial : null}
             disabled={isLoadingMaterials}
-            customModal={AddMaterialModal}
-            customModalProps={{ materialType, t }}
+            customModal={currentUserRole?.toLowerCase() !== 'supervisor' ? AddMaterialModal : null}
+            customModalProps={currentUserRole?.toLowerCase() !== 'supervisor' ? { materialType, t } : {}}
           />
         </div>
 

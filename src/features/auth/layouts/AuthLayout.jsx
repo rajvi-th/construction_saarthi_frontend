@@ -50,7 +50,7 @@ export default function AuthLayout({
               </div>
 
               {/* Labourers Card - Bottom Left */}
-              <div className="absolute bottom-40 lg:bottom-54 left-4 lg:left-8 pointer-events-auto">
+              <div className="absolute bottom-40 xl:bottom-60 left-4 lg:left-8 pointer-events-auto">
                 <img 
                   src={authCard2} 
                   alt="18 Labourers Attendance Logged" 

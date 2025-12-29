@@ -4,10 +4,14 @@ import { Plus } from 'lucide-react';
 import PropTypes from 'prop-types';
 import Button from '../../../components/ui/Button';
 import { ROUTES_FLAT } from '../../../constants/routes';
+import { useRestrictedRole } from '../hooks';
 
 const MyProjects = ({ projects, onCreateProject }) => {
   const { t } = useTranslation('dashboard');
   const navigate = useNavigate();
+  
+  // Check if user has restricted role (supervisor, builder, contractor)
+  const isRestricted = useRestrictedRole();
 
   return (
     <div className="mb-6 sm:mb-8">
@@ -63,29 +67,31 @@ const MyProjects = ({ projects, onCreateProject }) => {
           </div>
         ))}
 
-        {/* Create New Project Card */}
-        <div 
-          className="bg-white rounded-xl sm:rounded-2xl shadow-sm flex flex-col items-center justify-center p-6 sm:p-8 relative overflow-hidden"
-          style={{
-            background: 'linear-gradient(to bottom, #FFFFFF 0%, #FFE2DA 100%)'
-          }}
-        >
-          <h3 className="text-base sm:text-lg font-semibold text-primary mb-2 text-center">
-            {t('dashboard.projects.startNew', { ns: 'common', defaultValue: 'Start a New Construction Project' })}
-          </h3>
-          <p className="text-xs sm:text-sm text-secondary mb-4 sm:mb-6 text-center">
-            {t('dashboard.projects.startNewDescription', { ns: 'common', defaultValue: 'Start tracking your site now.' })}
-          </p>
-          <Button
-            variant="primary"
-            size="sm"
-            onClick={onCreateProject || (() => {})}
-            leftIcon={<Plus className="w-3 h-3 text-accent" strokeWidth={3} />}
-            className="w-full"
+        {/* Create New Project Card - Hide for restricted roles */}
+        {!isRestricted && (
+          <div 
+            className="bg-white rounded-xl sm:rounded-2xl shadow-sm flex flex-col items-center justify-center p-6 sm:p-8 relative overflow-hidden"
+            style={{
+              background: 'linear-gradient(to bottom, #FFFFFF 0%, #FFE2DA 100%)'
+            }}
           >
-            {t('dashboard.projects.createProject', { ns: 'common', defaultValue: 'Create Project' })}
-          </Button>
-        </div>
+            <h3 className="text-base sm:text-lg font-semibold text-primary mb-2 text-center">
+              {t('dashboard.projects.startNew', { ns: 'common', defaultValue: 'Start a New Construction Project' })}
+            </h3>
+            <p className="text-xs sm:text-sm text-secondary mb-4 sm:mb-6 text-center">
+              {t('dashboard.projects.startNewDescription', { ns: 'common', defaultValue: 'Start tracking your site now.' })}
+            </p>
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={onCreateProject || (() => {})}
+              leftIcon={<Plus className="w-3 h-3 text-accent" strokeWidth={3} />}
+              className="w-full"
+            >
+              {t('dashboard.projects.createProject', { ns: 'common', defaultValue: 'Create Project' })}
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

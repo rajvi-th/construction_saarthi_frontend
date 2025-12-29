@@ -54,13 +54,13 @@ export default function DocumentCard({ document, onView, onDelete }) {
         else if (document.url) window.open(document.url, '_blank');
       },
     },
-    {
+    ...(onDelete ? [{
       label: t('actions.delete', { defaultValue: 'Delete' }),
       onClick: () => {
         if (onDelete) onDelete(document);
       },
       textColor: 'text-red-600',
-    },
+    }] : []),
   ];
 
   return (

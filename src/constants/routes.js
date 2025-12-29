@@ -62,6 +62,7 @@ export const ROUTES = {
     CONSUMABLE_DETAILS: '/site-inventory/consumable/:id',
     ADD_NEW_ASK: '/site-inventory/add-new-ask',
     ADD_STOCK: '/site-inventory/restock/add-stock',
+    TRANSFER_MATERIAL: '/site-inventory/transfer-material/:inventoryId',
   },
   // Builder Client Routes
   BUILDER_CLIENT: {
@@ -183,6 +184,7 @@ export const ROUTES_FLAT = {
   CONSUMABLE_ITEM_DETAILS: ROUTES.SITE_INVENTORY.CONSUMABLE_DETAILS,
   ADD_NEW_ASK: ROUTES.SITE_INVENTORY.ADD_NEW_ASK,
   ADD_STOCK: ROUTES.SITE_INVENTORY.ADD_STOCK,
+  TRANSFER_MATERIAL: ROUTES.SITE_INVENTORY.TRANSFER_MATERIAL,
   
   // Builder Client
   BUILDERS: ROUTES.BUILDER_CLIENT.BUILDERS,

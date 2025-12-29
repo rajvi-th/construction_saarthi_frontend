@@ -17,7 +17,7 @@ import {
 import { ROUTES_FLAT } from "../../../constants/routes";
 import { PROJECT_ROUTES } from "../../projects/constants";
 import { useAuth } from "../../auth/store";
-import { useProjects } from "../hooks";
+import { useProjects, useRestrictedRole, useWorkspaceRole } from "../hooks";
 import calculatorIcon from "../../../assets/icons/CalculatorMinimalistic.svg";
 import aiIcon from "../../../assets/icons/AI.svg";
 import DashboardBanner from "../components/DashboardBanner";
@@ -31,6 +31,10 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const { selectedWorkspace } = useAuth();
   const { projects, isLoadingProjects } = useProjects(selectedWorkspace);
+  
+  // Check if user has restricted role (supervisor, builder, contractor)
+  const isRestricted = useRestrictedRole();
+  const currentUserRole = useWorkspaceRole();
 
   // Statistics data - dynamic based on projects
   const statistics = useMemo(
@@ -88,47 +92,64 @@ const Dashboard = () => {
     },
   ];
 
-  // Quick actions data
-  const quickActions = [
-    {
-      icon: Building2,
-      label: t("quickActions.myProjects"),
-      onClick: () => navigate(ROUTES_FLAT.PROJECTS),
-    },
-    {
-      icon: IndianRupee,
-      label: t("quickActions.finance"),
-      onClick: () => navigate(ROUTES_FLAT.FINANCE),
-    },
-    {
-      icon: ClipboardList,
-      label: t("quickActions.siteInventory"),
-      onClick: () => {},
-    },
-    {
-      icon: FileText,
-      label: t("quickActions.documents"),
-      badgeIcon: aiIcon,
-      onClick: () => navigate(ROUTES_FLAT.DOCUMENTS),
-    },
-    {
-      icon: Users,
-      label: t("quickActions.labourSheet"),
-      onClick: () => navigate(ROUTES_FLAT.LABOUR_ATTENDANCE),
-    },
-    {
-      icon: Mic,
-      label: t("quickActions.notes"),
-      onClick: () => navigate(ROUTES_FLAT.NOTES),
-    },
-  ];
+  // Quick actions data - filter Documents for restricted roles
+  const quickActions = useMemo(() => {
+    const allActions = [
+      {
+        icon: Building2,
+        label: t("quickActions.myProjects"),
+        onClick: () => navigate(ROUTES_FLAT.PROJECTS),
+      },
+      {
+        icon: IndianRupee,
+        label: t("quickActions.finance"),
+        onClick: () => navigate(ROUTES_FLAT.FINANCE),
+      },
+      {
+        icon: ClipboardList,
+        label: t("quickActions.siteInventory"),
+        onClick: () => {},
+      },
+      {
+        icon: FileText,
+        label: t("quickActions.documents"),
+        badgeIcon: aiIcon,
+        onClick: () => navigate(ROUTES_FLAT.DOCUMENTS),
+      },
+      {
+        icon: Users,
+        label: t("quickActions.labourSheet"),
+        onClick: () => navigate(ROUTES_FLAT.LABOUR_ATTENDANCE),
+      },
+      {
+        icon: Mic,
+        label: t("quickActions.notes"),
+        onClick: () => navigate(ROUTES_FLAT.NOTES),
+      },
+    ];
+    
+    // Filter actions based on role
+    let filteredActions = allActions;
+    
+    // Hide Documents for restricted roles (supervisor, builder, contractor)
+    if (isRestricted) {
+      filteredActions = filteredActions.filter((action) => action.label !== t("quickActions.documents"));
+    }
+    
+    // Hide Finance for supervisor role
+    if (currentUserRole?.toLowerCase() === 'supervisor') {
+      filteredActions = filteredActions.filter((action) => action.label !== t("quickActions.finance"));
+    }
+    
+    return filteredActions;
+  }, [t, navigate, isRestricted, currentUserRole]);
 
   return (
     <>
       <div className="max-w-7xl mx-auto">
         <DashboardBanner onTryItNow={() => {}} />
 
-        <StatisticsCards statistics={statistics} />
+        {!isRestricted && <StatisticsCards statistics={statistics} />}
 
         <ActionCards actionCards={actionCards} />
 

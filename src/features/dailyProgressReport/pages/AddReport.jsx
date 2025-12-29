@@ -14,6 +14,7 @@ import NumberInput from '../../../components/ui/NumberInput';
 import FileUpload from '../../../components/ui/FileUpload';
 import Input from '../../../components/ui/Input';
 import Button from '../../../components/ui/Button';
+import { useWorkspaceRole } from '../../dashboard/hooks';
 import { ROUTES, getRoute } from '../../../constants/routes';
 
 export default function AddReport() {
@@ -25,6 +26,22 @@ export default function AddReport() {
   const projectName = location.state?.projectName || 'Project';
   const isEdit = Boolean(location.state?.isEdit);
   const report = location.state?.report || null;
+  const currentUserRole = useWorkspaceRole();
+  
+  // We need to watch for role changes and redirect when it becomes 'builder'
+  useEffect(() => {
+    if (currentUserRole && currentUserRole.toLowerCase() === 'builder') {
+      navigate(getRoute(ROUTES.DPR.PROJECT_REPORTS, { projectId }), {
+        state: { projectName, projectId },
+        replace: true,
+      });
+    }
+  }, [currentUserRole, navigate, projectId, projectName]);
+  
+  // Don't render form if builder role (early return for better UX)
+  if (currentUserRole && currentUserRole.toLowerCase() === 'builder') {
+    return null;
+  }
 
   const toTimeValue = (input) => {
     if (input == null) return '';

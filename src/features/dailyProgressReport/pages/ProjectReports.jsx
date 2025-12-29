@@ -11,6 +11,7 @@ import Filter from '../../../components/ui/Filter';
 import PageHeader from '../../../components/layout/PageHeader';
 import { ReportCard } from '../components';
 import { ROUTES, getRoute } from '../../../constants/routes';
+import { useWorkspaceRole } from '../../dashboard/hooks';
 import addCircleIcon from '../../../assets/icons/Add Circle.svg';
 
 export default function ProjectReports() {
@@ -19,9 +20,13 @@ export default function ProjectReports() {
   const { projectId } = useParams();
   const location = useLocation();
   const projectName = location.state?.projectName || 'Project';
+  const currentUserRole = useWorkspaceRole();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
+  
+  // Check if user can add reports (builder role cannot add)
+  const canAddReport = currentUserRole?.toLowerCase() !== 'builder';
 
   // Mock data - will be replaced with API integration later
   const MOCK_REPORTS = [
@@ -143,18 +148,20 @@ export default function ProjectReports() {
                 className="w-full sm:w-[140px] flex-shrink-0"
               />
 
-               <button
-                 type="button"
-                 onClick={handleAddReport}
-                 className="flex items-center justify-center sm:justify-start gap-2 text-accent font-medium whitespace-normal sm:whitespace-nowrap flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity w-full sm:w-auto"
-               >
-                 <img 
-                   src={addCircleIcon} 
-                   alt="Add" 
-                   className="w-5 h-5 flex-shrink-0"
-                 />
-                 <span className="text-sm sm:text-base">{t('actions.addReport')}</span>
-               </button>
+              {canAddReport && (
+                <button
+                  type="button"
+                  onClick={handleAddReport}
+                  className="flex items-center justify-center sm:justify-start gap-2 text-accent font-medium whitespace-normal sm:whitespace-nowrap flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity w-full sm:w-auto"
+                >
+                  <img 
+                    src={addCircleIcon} 
+                    alt="Add" 
+                    className="w-5 h-5 flex-shrink-0"
+                  />
+                  <span className="text-sm sm:text-base">{t('actions.addReport')}</span>
+                </button>
+              )}
             </div>
           </PageHeader>
         </div>

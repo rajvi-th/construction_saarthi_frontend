@@ -124,11 +124,11 @@ export default function InventoryItemCard({
             <div onClick={(e) => e.stopPropagation()}>
               <DropdownMenu
                 items={[
-                  {
+                  ...(onRestock ? [{
                     label: t('actions.restock', { defaultValue: 'Restock Material' }),
                     onClick: () => onRestock?.(item),
                     icon: <RotateCw className="w-4 h-4" />,
-                  },
+                  }] : []),
                 ...(isConsumable
                   ? [
                       {
@@ -149,7 +149,7 @@ export default function InventoryItemCard({
                   onClick: () => onDownloadPDF?.(item),
                   icon: <Download className="w-4 h-4" />,
                 },
-                {
+                ...(onDelete ? [{
                   label: t('actions.deleteItem', {
                     defaultValue: 'Delete {{itemName}}',
                     itemName: itemName,
@@ -157,7 +157,7 @@ export default function InventoryItemCard({
                   onClick: () => onDelete?.(itemId),
                   icon: <Trash2 className="w-4 h-4 text-accent" />,
                   textColor: 'text-accent',
-                },      
+                }] : []),      
               ]}
               />
             </div>

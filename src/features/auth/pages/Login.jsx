@@ -57,10 +57,10 @@ export default function Login() {
       {/* Main Headline - Bottom Left */}
       <div className="z-10">
         <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight max-w-2xl">
-          Manage All Your Construction Sites in One Place
+          {t('login.leftContent.title', { ns: 'auth' })}
         </h2>
         <p className="text-white text-lg lg:text-xl max-w-2xl">
-          Track progress, materials, and updates for all your projects in one app.
+          {t('login.leftContent.description', { ns: 'auth' })}
         </p>
       </div>
     </div>

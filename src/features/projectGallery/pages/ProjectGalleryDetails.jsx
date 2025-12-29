@@ -14,6 +14,7 @@ import FileUpload from '../../../components/ui/FileUpload';
 import { useProjectDetails } from '../../projects/hooks';
 import { useProjectGallery } from '../hooks';
 import { useAuth } from '../../../hooks/useAuth';
+import { useWorkspaceRole } from '../../dashboard/hooks';
 import { ROUTES_FLAT } from '../../../constants/routes';
 import Tabs from '../components/Tabs';
 import { DocumentCard, VideoCard, PhotoCard } from '../components';
@@ -26,6 +27,7 @@ export default function ProjectGalleryDetails() {
   const { projectId } = useParams();
   const location = useLocation();
   const { selectedWorkspace } = useAuth();
+  const currentUserRole = useWorkspaceRole();
   const [activeTab, setActiveTab] = useState('photos');
   const [searchQuery, setSearchQuery] = useState('');
   const [filterValue, setFilterValue] = useState('');
@@ -117,6 +119,9 @@ export default function ProjectGalleryDetails() {
   const groupedPhotos = activeTab === 'photos' ? groupItemsByDate(filteredItems) : {};
 
   const isLoading = isLoadingProject || isLoadingGallery;
+  
+  // Check if user can delete (builder role cannot delete)
+  const canDelete = currentUserRole?.toLowerCase() !== 'builder';
 
   // Tabs configuration
   const tabs = [
@@ -538,9 +543,9 @@ export default function ProjectGalleryDetails() {
                       onView={(doc) => {
                         if (doc.url) window.open(doc.url, '_blank');
                       }}
-                      onDelete={(doc) => {
+                      onDelete={canDelete ? (doc) => {
                         handleDeleteClick(doc);
-                      }}
+                      } : null}
                     />
                   ))}
                 </div>
@@ -571,9 +576,9 @@ export default function ProjectGalleryDetails() {
                       onPlay={(video) => {
                         if (video.url) window.open(video.url, '_blank');
                       }}
-                      onDelete={(video) => {
+                      onDelete={canDelete ? (video) => {
                         handleDeleteClick(video);
-                      }}
+                      } : null}
                     />
                   ))}
                 </div>
@@ -604,9 +609,9 @@ export default function ProjectGalleryDetails() {
                       onView={(photo) => {
                         if (photo.url) window.open(photo.url, '_blank');
                       }}
-                      onDelete={(photo) => {
+                      onDelete={canDelete ? (photo) => {
                         handleDeleteClick(photo);
-                      }}
+                      } : null}
                     />
                   ))}
                 </div>

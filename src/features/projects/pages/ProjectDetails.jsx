@@ -17,6 +17,7 @@ import {
 import pencilIcon from '../../../assets/icons/pencil.svg';
 import PageHeader from '../../../components/layout/PageHeader';
 import { useProjectDetails } from '../hooks';
+import { useRestrictedRole } from '../../dashboard/hooks';
 
 export default function ProjectDetails() {
   const { t } = useTranslation('projects');
@@ -24,6 +25,9 @@ export default function ProjectDetails() {
   const location = useLocation();
   const { selectedWorkspace } = useAuth();
   const [showFullDescription, setShowFullDescription] = useState(false);
+  
+  // Check if user has restricted role (supervisor, builder, contractor)
+  const isRestricted = useRestrictedRole();
 
   // Get project ID from navigation state
   const projectIdFromState = location.state?.projectId;
@@ -54,16 +58,21 @@ export default function ProjectDetails() {
         }
         break;
       case 'calculator':
-        // TODO: Navigate to calculator page
         break;
       case 'documents':
-        // TODO: Navigate to documents page
+        if (project?.id) {
+          navigate(getRoute(ROUTES_FLAT.DOCUMENTS_PROJECT_DOCUMENTS, { projectId: project.id }));
+        }
         break;
       case 'labour':
-        // TODO: Navigate to labour sheet page
+        if (project?.id) {
+          navigate(getRoute(ROUTES_FLAT.LABOUR_ATTENDANCE_PROJECT, { projectId: project.id }));
+        }
         break;
       case 'gallery':
-        // TODO: Navigate to gallery page
+        if (project?.id) {
+          navigate(getRoute(ROUTES_FLAT.PROJECT_GALLERY_DETAILS, { projectId: project.id }));
+        }
         break;
       case 'dpr':
         navigate(ROUTES_FLAT.DPR, {
@@ -74,7 +83,6 @@ export default function ProjectDetails() {
         });
         break;
       case 'notes':
-        // Navigate to project notes page
         if (project?.id) {
           navigate(getRoute(ROUTES_FLAT.NOTES_PROJECT_NOTES, { projectId: project.id }));
         }
@@ -117,31 +125,33 @@ export default function ProjectDetails() {
             showBackButton={true}
             backTo={PROJECT_ROUTES.PROJECTS}
           />
-          {/* Right: Actions */}
-          <div className="flex items-center gap-2 justify-between flex-wrap sm:flex-nowrap sm:justify-end">
-            <Button
-              size="xs"
-              onClick={handleEdit}
-              className="!border-accent font-medium !text-accent text-xs sm:!text-sm !bg-[#B02E0C0F] !rounded-full px-3 py-1.5 sm:px-5 sm:py-2.5"
-            >
-              <img src={pencilIcon} alt="Edit project" className="w-4 h-4 object-contain" />
-              {t('projectDetails.editProject')}
-            </Button>
-            <div onClick={(e) => e.stopPropagation()}>
-              <DropdownMenu
-                items={[
-                  {
-                    label: t('projectDetails.deleteProject'),
-                    onClick: () => {
-                      // TODO: Implement delete with confirmation
+          {/* Right: Actions - Hide for restricted roles */}
+          {!isRestricted && (
+            <div className="flex items-center gap-2 justify-between flex-wrap sm:flex-nowrap sm:justify-end">
+              <Button
+                size="xs"
+                onClick={handleEdit}
+                className="!border-accent font-medium !text-accent text-xs sm:!text-sm !bg-[#B02E0C0F] !rounded-full px-3 py-1.5 sm:px-5 sm:py-2.5"
+              >
+                <img src={pencilIcon} alt="Edit project" className="w-4 h-4 object-contain" />
+                {t('projectDetails.editProject')}
+              </Button>
+              <div onClick={(e) => e.stopPropagation()}>
+                <DropdownMenu
+                  items={[
+                    {
+                      label: t('projectDetails.deleteProject'),
+                      onClick: () => {
+                        setProjectToDelete(project);
+                      },
+                      icon: <Trash className="w-4 h-4 text-accent" />,
+                      textColor: 'text-accent',
                     },
-                    icon: <Trash className="w-4 h-4 text-accent" />,
-                    textColor: 'text-accent',
-                  },
-                ]}
-              />
+                  ]}
+                />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 

@@ -11,6 +11,8 @@ import PageHeader from '../../../components/layout/PageHeader';
 import Loader from '../../../components/ui/Loader';
 import ConfirmModal from '../../../components/ui/ConfirmModal';
 import Button from '../../../components/ui/Button';
+import { useWorkspaceRole } from '../../dashboard/hooks';
+
 import pencilIcon from '../../../assets/icons/pencil.svg';
 import { ROUTES, getRoute } from '../../../constants/routes';
 
@@ -22,7 +24,11 @@ export default function ReportDetails() {
   const location = useLocation();
   const report = location.state?.report;
   const projectName = location.state?.projectName || 'Project';
+  const currentUserRole = useWorkspaceRole();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  
+  // Check if user can edit/delete reports (builder role cannot edit/delete)
+  const canEditDelete = currentUserRole?.toLowerCase() !== 'builder';
 
   // If report data is not in state, fetch it (mock for now)
   if (!report) {
@@ -146,15 +152,17 @@ export default function ReportDetails() {
           >
             {t('actions.downloadReport')}
           </Button>
-          <Button
-            size="sm"
-            variant="accentSoft"
-            onClick={handleEdit}
-            leftIcon={<img src={pencilIcon} alt="" aria-hidden="true" />}
-            iconClassName="w-4 h-4"
-          >
-            {t('actions.editReport')}
-          </Button>
+          {canEditDelete && (
+            <Button
+              size="sm"
+              variant="accentSoft"
+              onClick={handleEdit}
+              leftIcon={<img src={pencilIcon} alt="" aria-hidden="true" />}
+              iconClassName="w-4 h-4"
+            >
+              {t('actions.editReport')}
+            </Button>
+          )}
         </div>
       </PageHeader>
 
@@ -278,16 +286,18 @@ export default function ReportDetails() {
           </div>
         </div>
 
-        {/* Delete Report Button */}
-        <div className="pt-4">
-          <button
-            onClick={handleDelete}
-            className="flex items-center gap-2 text-accent transition-colors cursor-pointer"
-          >
-            <Trash2 className="w-4 h-4" />
-            <span className="text-sm font-medium">{t('actions.deleteReport')}</span>
-          </button>
-        </div>
+        {/* Delete Report Button - Only show if user can delete */}
+        {canEditDelete && (
+          <div className="pt-4">
+            <button
+              onClick={handleDelete}
+              className="flex items-center gap-2 text-accent transition-colors cursor-pointer"
+            >
+              <Trash2 className="w-4 h-4" />
+              <span className="text-sm font-medium">{t('actions.deleteReport')}</span>
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Delete Confirmation Modal */}

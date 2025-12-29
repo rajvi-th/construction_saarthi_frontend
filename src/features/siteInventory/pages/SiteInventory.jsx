@@ -15,7 +15,8 @@ import { InventoryItemCard, Tabs, TransferRequestCard, ApproveTransferModal, Rej
 import { useSiteInventory, useInventoryTypes } from '../hooks';
 import { getTransferRequests, approveTransferRequest, rejectTransferRequest, getAskMaterialRequests, getRestockRequests, getDestroyedMaterials, destroyMaterial } from '../api/siteInventoryApi';
 import { useAuth } from '../../auth/store';
-import { ROUTES_FLAT } from '../../../constants/routes';
+import { useWorkspaceRole } from '../../dashboard/hooks';
+import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
 import { PROJECT_ROUTES } from '../../projects/constants';
 import { useDebounce } from '../../../hooks/useDebounce';
 import { showError, showSuccess } from '../../../utils/toast';
@@ -25,8 +26,12 @@ export default function SiteInventory() {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, selectedWorkspace } = useAuth();
+  const currentUserRole = useWorkspaceRole();
   const { getItems, deleteItem, isLoading } = useSiteInventory();
   const { inventoryTypes, inventoryTypeOptions, isLoading: isLoadingInventoryTypes } = useInventoryTypes();
+  
+  // Check if user can add/edit/delete/restock (supervisor role cannot)
+  const canModifyInventory = currentUserRole?.toLowerCase() !== 'supervisor';
   const [inventoryItems, setInventoryItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -164,8 +169,19 @@ export default function SiteInventory() {
   };
 
   const handleTransfer = (item) => {
-    // TODO: Implement transfer functionality
-    console.log('Transfer item:', item);
+    const itemId = item.id || item._id;
+    if (!itemId) {
+      showError(t('errors.inventoryIdRequired', { defaultValue: 'Inventory ID is required' }));
+      return;
+    }
+    
+    navigate(getRoute(ROUTES_FLAT.TRANSFER_MATERIAL, { inventoryId: itemId }), {
+      state: {
+        projectId,
+        projectName,
+        item,
+      },
+    });
   };
 
   const handleEdit = (item) => {
@@ -675,15 +691,17 @@ export default function SiteInventory() {
                   className="w-full sm:w-[260px]"
                 />
               </div>
-              <Button
-                variant="primary"
-                onClick={handleCreateSiteInventory}
-                leftIconName="Plus"
-                iconSize="w-4 h-4"
-                className="w-full sm:w-auto whitespace-nowrap"
-              >
-                {t('addButton', { defaultValue: 'Add New Inventory' })}
-              </Button>
+              {canModifyInventory && (
+                <Button
+                  variant="primary"
+                  onClick={handleCreateSiteInventory}
+                  leftIconName="Plus"
+                  iconSize="w-4 h-4"
+                  className="w-full sm:w-auto whitespace-nowrap"
+                >
+                  {t('addButton', { defaultValue: 'Add New Inventory' })}
+                </Button>
+              )}
             </>
           )}
         </div>
@@ -728,8 +746,8 @@ export default function SiteInventory() {
               image={EmptyStateSvg}
               title={t('emptyState.title', { defaultValue: 'No Items Added' })}
               message={t('emptyState.message', { defaultValue: 'Add items to track your site inventory' })}
-              actionLabel={t('emptyState.createButton', { defaultValue: 'Add Site Inventory' })}
-              onAction={handleCreateSiteInventory}
+              actionLabel={canModifyInventory ? t('emptyState.createButton', { defaultValue: 'Add Site Inventory' }) : undefined}
+              onAction={canModifyInventory ? handleCreateSiteInventory : undefined}
             />
           ) : (
             <div className="grid grid-cols-1 gap-4">
@@ -738,9 +756,9 @@ export default function SiteInventory() {
                   key={item.id || item._id}
                   item={item}
                   onTransfer={handleTransfer}
-                  onEdit={handleEdit}
-                  onDelete={handleDeleteClick}
-                  onRestock={handleRestock}
+                  onEdit={canModifyInventory ? handleEdit : null}
+                  onDelete={canModifyInventory ? handleDeleteClick : null}
+                  onRestock={canModifyInventory ? handleRestock : null}
                   onDestroy={handleDestroy}
                   onLogUsage={handleLogUsageClick}
                   onDownloadPDF={handleDownloadPDF}

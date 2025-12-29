@@ -71,43 +71,47 @@ export default function ProjectCard({ project, onOpenDetails, onEdit, onDelete }
             <ProjectStatusPill status={status} />
 
             {/* Menu button visible on small screens here */}
-            <div className="sm:hidden" onClick={(e) => e.stopPropagation()}>
-              <DropdownMenu
-                position="right"
-                items={[
-                  {
-                    label: t('projectCard.editProject'),
-                    onClick: () => onEdit?.(project),
-                  },
-                  {
-                    label: t('projectCard.deleteProject'),
-                    onClick: () => onDelete?.(project),
-                    textColor: 'text-accent',
-                  },
-                ]}
-              />
-            </div>
+            {(onEdit || onDelete) && (
+              <div className="sm:hidden" onClick={(e) => e.stopPropagation()}>
+                <DropdownMenu
+                  position="right"
+                  items={[
+                    onEdit && {
+                      label: t('projectCard.editProject'),
+                      onClick: () => onEdit(project),
+                    },
+                    onDelete && {
+                      label: t('projectCard.deleteProject'),
+                      onClick: () => onDelete(project),
+                      textColor: 'text-accent',
+                    },
+                  ].filter(Boolean)}
+                />
+              </div>
+            )}
           </div>
         </div>
 
         {/* Progress + Menu on >= sm screens (right side) */}
         <div className="hidden sm:flex flex-shrink-0 flex-col items-end justify-between w-full sm:w-auto gap-2">
-          <div onClick={(e) => e.stopPropagation()}>
-            <DropdownMenu
-              position="right"
-              items={[
-                {
-                  label: t('projectCard.editProject'),
-                  onClick: () => onEdit?.(project),
-                },
-                {
-                  label: t('projectCard.deleteProject'),
-                  onClick: () => onDelete?.(project),
-                  textColor: 'text-accent',
-                },
-              ]}
-            />
-          </div>
+          {(onEdit || onDelete) && (
+            <div onClick={(e) => e.stopPropagation()}>
+              <DropdownMenu
+                position="right"
+                items={[
+                  onEdit && {
+                    label: t('projectCard.editProject'),
+                    onClick: () => onEdit(project),
+                  },
+                  onDelete && {
+                    label: t('projectCard.deleteProject'),
+                    onClick: () => onDelete(project),
+                    textColor: 'text-accent',
+                  },
+                ].filter(Boolean)}
+              />
+            </div>
+          )}
 
           <div className="mt-4">
             <CircularProgress percentage={progress} size={78} strokeWidth={7} />

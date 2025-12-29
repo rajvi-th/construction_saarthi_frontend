@@ -10,8 +10,9 @@ import Loader from '../../../components/ui/Loader';
 import Pagination from '../../../components/ui/Pagination';
 import StatusBadge from '../../../components/ui/StatusBadge';
 import { LogUsageModal, ReleaseModal, InventoryItemHeader, InventoryItemInfo } from '../components';
-import { ROUTES_FLAT } from '../../../constants/routes';
+import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
 import Button from '../../../components/ui/Button';
+import { showError } from '../../../utils/toast';
 
 export default function InventoryItemDetails() {
   const { t } = useTranslation('siteInventory');
@@ -208,12 +209,29 @@ export default function InventoryItemDetails() {
     setDestroyModalOpen(false);
   };
 
+  const handleTransferMaterial = () => {
+    const itemId = item?.id || item?._id || id;
+    if (!itemId) {
+      showError(t('errors.inventoryIdRequired', { defaultValue: 'Inventory ID is required' }));
+      return;
+    }
+    
+    navigate(getRoute(ROUTES_FLAT.TRANSFER_MATERIAL, { inventoryId: itemId }), {
+      state: {
+        projectId,
+        projectName,
+        item,
+      },
+    });
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-0">
       {/* Header */}
       <InventoryItemHeader
         itemName={itemName}
         onBack={handleBack}
+        onTransferMaterial={handleTransferMaterial}
         onDestroy={() => setDestroyModalOpen(true)}
         onDelete={() => {}}
       />

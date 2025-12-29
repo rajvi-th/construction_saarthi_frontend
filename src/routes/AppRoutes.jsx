@@ -54,6 +54,7 @@ const InventoryItemDetails = lazy(() => import('../features/siteInventory/pages/
 const ConsumableItemDetails = lazy(() => import('../features/siteInventory/pages/ConsumableItemDetails'));
 const AddNewAsk = lazy(() => import('../features/siteInventory/pages/AddNewAsk'));
 const AddStock = lazy(() => import('../features/siteInventory/pages/AddStock'));
+const TransferMaterial = lazy(() => import('../features/siteInventory/pages/TransferMaterial'));
 
 // Builder Client
 const Builders = lazy(() => import('../features/builderClient/pages/Builders'));
@@ -117,30 +118,6 @@ const ExpensesPaid = lazy(() => import('../features/finance/pages/ExpensesPaid')
 const CreatePaymentEntry = lazy(() => import('../features/finance/pages/CreatePaymentEntry'));
 const EditPaymentEntry = lazy(() => import('../features/finance/pages/EditPaymentEntry'));
 
-// Past Work
-// const PastWork = lazy(() => import('../features/pastProject/pages/PastWork'));
-// const PastProjectDetail = lazy(() => import('../features/pastProject/pages/PastProjectDetail'));
-// const EditPastProject = lazy(() => import('../features/pastProject/pages/EditPastProject'));
-
-// Bookings (will be created later)
-// const Bookings = lazy(() => import('../features/bookings/pages/Bookings'));
-
-// Workers (will be created later)
-// const Workers = lazy(() => import('../features/workers/pages/Workers'));
-
-
-// Materials (will be created later)
-// const Materials = lazy(() => import('../features/materials/pages/Materials'));
-
-// Payments (will be created later)
-// const Payments = lazy(() => import('../features/payments/pages/Payments'));
-
-// Profile (will be created later)
-// const Profile = lazy(() => import('../features/profile/pages/Profile'));
-
-// Chat (will be created later)
-// const Chat = lazy(() => import('../features/chat/pages/Chat'));
-
 // Loading Component for Suspense fallback
 const LoadingFallback = () => (
   <div className="min-h-screen flex items-center justify-center">
@@ -190,6 +167,7 @@ function AppRoutes() {
             <Route path={ROUTES_FLAT.CONSUMABLE_ITEM_DETAILS} element={<ConsumableItemDetails />} />
             <Route path={ROUTES_FLAT.ADD_NEW_ASK} element={<AddNewAsk />} />
             <Route path={ROUTES_FLAT.ADD_STOCK} element={<AddStock />} />
+            <Route path={ROUTES_FLAT.TRANSFER_MATERIAL} element={<TransferMaterial />} />
             <Route path={ROUTES_FLAT.BUILDERS} element={<Builders />} />
             <Route path={ROUTES_FLAT.ADD_BUILDER} element={<AddBuilder />} />
             <Route path={ROUTES_FLAT.EDIT_BUILDER} element={<EditBuilder />} />
@@ -231,80 +209,6 @@ function AppRoutes() {
             <Route path={ROUTES_FLAT.FINANCE_EDIT_PAYMENT_ENTRY} element={<EditPaymentEntry />} />
           </Route>
         </Route>
-
-        {/* 
-        <Route
-          path="/projects/:id"
-          element={
-            <ProtectedRoute>
-              <ProjectDetails />
-            </ProtectedRoute>
-          }
-        />
-        
-        <Route
-          path="/bookings"
-          element={
-            <ProtectedRoute>
-              <Bookings />
-            </ProtectedRoute>
-          }
-        />
-        
-        <Route
-          path="/workers"
-          element={
-            <ProtectedRoute>
-              <Workers />
-            </ProtectedRoute>
-          }
-        />
-        
-        <Route
-          path="/vendors"
-          element={
-            <ProtectedRoute>
-              <Vendors />
-            </ProtectedRoute>
-          }
-        />
-        
-        <Route
-          path="/materials"
-          element={
-            <ProtectedRoute>
-              <Materials />
-            </ProtectedRoute>
-          }
-        />
-        
-        <Route
-          path="/payments"
-          element={
-            <ProtectedRoute>
-              <Payments />
-            </ProtectedRoute>
-          }
-        />
-        
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
-        
-        <Route
-          path="/chat"
-          element={
-            <ProtectedRoute>
-              <Chat />
-            </ProtectedRoute>
-          }
-        />
-        */}
 
         {/* Default redirect */}
         <Route path="/" element={<Navigate to={ROUTES_FLAT.LOGIN} replace />} />

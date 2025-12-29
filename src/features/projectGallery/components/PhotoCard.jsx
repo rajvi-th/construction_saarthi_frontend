@@ -34,13 +34,13 @@ export default function PhotoCard({ photo, onView, onDelete }) {
   const imageUrl = getImageUrl();
 
   const menuItems = [
-    {  
+    ...(onDelete ? [{
       label: t('actions.delete', { defaultValue: 'Delete' }),
       onClick: () => {
         if (onDelete) onDelete(photo);
       },
       textColor: 'text-red-600',
-    },
+    }] : []),
   ];
 
   return (
@@ -60,27 +60,29 @@ export default function PhotoCard({ photo, onView, onDelete }) {
           </div>
         )}
 
-        {/* Options Menu */}
-        <div
-          className="absolute top-1 right-0 z-20"
-          onClick={(e) => {
-            // Prevent card onClick from firing when clicking menu
-            e.stopPropagation();
-          }}
-        >
-          <DropdownMenu
-            items={menuItems}
-            position="right"
-            trigger={
-              <button
-                type="button"
-                className="p-2 cursor-pointer hover:bg-black/10 rounded-lg transition-colors"
-              >
-                <MoreVertical className="w-5 h-5 text-secondary" />
-              </button>
-            }
-          />
-        </div>
+        {/* Options Menu - Only show if there are menu items */}
+        {menuItems.length > 0 && (
+          <div
+            className="absolute top-1 right-0 z-20"
+            onClick={(e) => {
+              // Prevent card onClick from firing when clicking menu
+              e.stopPropagation();
+            }}
+          >
+            <DropdownMenu
+              items={menuItems}
+              position="right"
+              trigger={
+                <button
+                  type="button"
+                  className="p-2 cursor-pointer hover:bg-black/10 rounded-lg transition-colors"
+                >
+                  <MoreVertical className="w-5 h-5 text-secondary" />
+                </button>
+              }
+            />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -41,13 +41,13 @@ export default function VideoCard({ video, onPlay, onDelete }) {
   const thumbnailUrl = getThumbnailUrl();
 
   const menuItems = [
-    {
+    ...(onDelete ? [{
       label: t('actions.delete', { defaultValue: 'Delete' }),
       onClick: () => {
         if (onDelete) onDelete(video);
       },
       textColor: 'text-red-600',
-    },
+    }] : []),
   ];
 
   return (
@@ -74,23 +74,25 @@ export default function VideoCard({ video, onPlay, onDelete }) {
           </div>
         </div>
 
-        {/* Options Menu */}
-        <div
-          className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-        >
-          <DropdownMenu
-            items={menuItems}
-            position="right"
-            trigger={
-              <button className="p-2 cursor-pointer">
-                <MoreVertical className="w-4 h-4 text-secondary" />
-              </button>
-            }
-          />
-        </div>
+        {/* Options Menu - Only show if there are menu items */}
+        {menuItems.length > 0 && (
+          <div
+            className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <DropdownMenu
+              items={menuItems}
+              position="right"
+              trigger={
+                <button className="p-2 cursor-pointer">
+                  <MoreVertical className="w-4 h-4 text-secondary" />
+                </button>
+              }
+            />
+          </div>
+        )}
       </div>
     </div>
   );

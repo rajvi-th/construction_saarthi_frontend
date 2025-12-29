@@ -1,10 +1,11 @@
 // src/layout/Sidebar.jsx
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import SidebarHeader from "./SidebarHeader";
 import { Menu, X, Settings, HelpCircle, Phone } from "lucide-react";
 import { ROUTES_FLAT } from "../../constants/routes";
+import { useWorkspaceRole } from "../../features/dashboard/hooks";
 
 // ICONS (Default + Active versions)
 import home from "../../assets/icons/home.svg";
@@ -32,6 +33,7 @@ import userLight from "../../assets/icons/userLight.svg";
 
 const Sidebar = () => {
   const { t } = useTranslation();
+  const currentUserRole = useWorkspaceRole();
 
   const [open, setOpen] = useState(() => {
     if (typeof window !== "undefined") {
@@ -56,8 +58,9 @@ const Sidebar = () => {
   }, []);
 
 
-  // MENU DATA (INSIDE FILE)
-  const mainMenu = [
+  // MENU DATA (INSIDE FILE) - Filter Refer & Earn for restricted roles
+  const mainMenu = useMemo(() => {
+    const allMenuItems = [
     {
       label: "Dashboard",
       labelKey: "sidebar.mainMenu.dashboard",
@@ -135,7 +138,42 @@ const Sidebar = () => {
       activeIcon: userLight,
       path: "/account",
     },
-  ];
+    ];
+    
+    // Roles that should not see certain menu items
+    const restrictedRoles = ['builder', 'supervisor'];
+    const isRestricted = restrictedRoles.some(
+      (role) => currentUserRole?.toLowerCase() === role.toLowerCase()
+    );
+    
+    // Hide Refer & Earn for builder, contractor, and supervisor roles
+    const rolesToHideReferEarn = ['builder', 'contractor', 'supervisor'];
+    const shouldHideReferEarn = rolesToHideReferEarn.some(
+      (role) => currentUserRole?.toLowerCase() === role.toLowerCase()
+    );
+    
+    // Filter menu items based on restrictions
+    let filteredMenu = allMenuItems;
+    
+    if (isRestricted) {
+      // Hide Builders & Clients, Manage Vendors, and Business Card for builder and supervisor
+      filteredMenu = filteredMenu.filter(
+        (item) => 
+          item.labelKey !== "sidebar.mainMenu.buildersClients" &&
+          item.labelKey !== "sidebar.mainMenu.vendors" &&
+          item.labelKey !== "sidebar.mainMenu.businessCard"
+      );
+    }
+    
+    if (shouldHideReferEarn) {
+      // Hide Refer & Earn for builder, contractor, and supervisor
+      filteredMenu = filteredMenu.filter(
+        (item) => item.labelKey !== "sidebar.mainMenu.referEarn"
+      );
+    }
+    
+    return filteredMenu;
+  }, [currentUserRole]);
 
   const settingsMenu = [
     {

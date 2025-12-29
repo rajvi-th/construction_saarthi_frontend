@@ -83,8 +83,11 @@ const FooterActions = ({ onLogout, t }) => (
 const SidebarHeader = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { selectedWorkspace: storeSelectedWorkspace, selectWorkspace, logout: authLogout } = useAuth();
+  const { selectedWorkspace: storeSelectedWorkspace, selectWorkspace, logout: authLogout, user } = useAuth();
   const dropdownRef = useRef(null);
+  
+  // Get logged-in user's ID to find their role in workspace members
+  const loggedInUserId = user?.id?.toString() || user?.user_id?.toString() || '';
 
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
@@ -121,9 +124,21 @@ const SidebarHeader = () => {
         const WORKSPACE_COLORS = ["red", "green", "yellow", "blue", "purple", "pink", "darkblue"];
 
         const mappedWorkspaces = list.map((workspace, index) => {
-          const userRole = workspace.isOwner
-            ? "Owner"
-            : workspace.members?.[0]?.role || "Member";
+          // Find logged-in user's role from workspace members array
+          let userRole = '';
+          
+          if (loggedInUserId && workspace.members && Array.isArray(workspace.members)) {
+            const currentUserMember = workspace.members.find(
+              (member) => member.id?.toString() === loggedInUserId
+            );
+            if (currentUserMember?.role) {
+              userRole = currentUserMember.role;
+            } else if (workspace.isOwner) {
+              userRole = "owner";
+            }
+          } else if (workspace.isOwner) {
+            userRole = "owner";
+          }
         
           return {
             ...workspace,
@@ -213,8 +228,8 @@ const SidebarHeader = () => {
             <h2 className="font-medium text-primary">
               {currentWorkspace?.name || "Workspace"}
             </h2>
-            <p className="text-sm text-secondary">
-              {currentWorkspace?.role || "Member"}
+            <p className="text-sm text-secondary capitalize">
+              {currentWorkspace?.role || ''}
             </p>
           </div>
         </div>
@@ -258,7 +273,7 @@ const SidebarHeader = () => {
                           <h4 className="text-primary font-medium">
                             {currentWorkspace.name}
                           </h4>
-                          <p className="text-secondary text-sm">
+                          <p className="text-secondary text-sm capitalize">
                             {currentWorkspace.role}
                           </p>
                         </div>

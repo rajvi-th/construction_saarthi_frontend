@@ -5,6 +5,7 @@
 
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
+import { useWorkspaceRole } from '../../dashboard/hooks';
 
 // lucide-react icons (matching your original features)
 import {
@@ -23,6 +24,7 @@ import aiBadgeIcon from '../../../assets/icons/AI.svg';
 
 export default function SiteManagementTools({ tools, onToolClick }) {
   const { t } = useTranslation('projects');
+  const currentUserRole = useWorkspaceRole();
 
   // Replace ONLY icon property with lucide-react components
   const defaultTools = [
@@ -72,7 +74,19 @@ export default function SiteManagementTools({ tools, onToolClick }) {
     },
   ];
 
-  const toolsToDisplay = tools || defaultTools;
+  // Filter tools based on user role
+  let toolsToDisplay = tools || defaultTools;
+  
+  // Hide specific tools for builder role: finance, inventory, labour, notes, documents
+  if (currentUserRole?.toLowerCase() === 'builder') {
+    const restrictedToolIds = ['finance', 'inventory', 'labour', 'notes', 'documents'];
+    toolsToDisplay = toolsToDisplay.filter((tool) => !restrictedToolIds.includes(tool.id));
+  }
+  
+  // Hide documents and finance tools for supervisor role
+  if (currentUserRole?.toLowerCase() === 'supervisor') {
+    toolsToDisplay = toolsToDisplay.filter((tool) => tool.id !== 'documents' && tool.id !== 'finance');
+  }
 
   const renderIcon = (IconComponent) => {
     return (
