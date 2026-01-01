@@ -1,0 +1,141 @@
+{
+    "projectDetails": {
+        "history": "ইতিহাস",
+        "totalCalculations": "মোট গণনা",
+        "usedCalculations": "ব্যবহৃত গণনা",
+        "buyCalculations": "গণনা কিনুন"
+    },
+    "quickActions": {
+        "tabs": {
+            "quantity": "পরিমাণ",
+            "area": "এলাকা",
+            "volume": "আয়তন",
+            "converter": "রূপান্তরকারী",
+            "study": "অধ্যয়ন",
+            "quiz": "কুইজ"
+        },
+        "items": {
+            "constructionCost": "নির্মাণ খরচ",
+            "steelQuantities": "ইস্পাত পরিমাণ",
+            "concrete": "কংক্রিট",
+            "brickWorkPlaster": "ইট কাজ এবং প্লাস্টার",
+            "roofAreaPitch": "ছাদের এলাকা এবং পিচ",
+            "flooringCalculation": "ফ্লোরিং গণনা",
+            "waterTankCapacity": "জলের ট্যাঙ্কের ক্ষমতা",
+            "excavation": "খনন",
+            "swimmingPool": "সুইমিং পুল",
+            "waterProofing": "জলরোধী",
+            "metalCalculator": "ধাতু ক্যালকুলেটর",
+            "railConstruction": "রেল নির্মাণ",
+            "roadCalculation": "রাস্তা গণনা",
+            "paint": "রঙ",
+            "diagonals": "কর্ণ",
+            "antiTermite": "উইপোকা প্রতিরোধী",
+            "acCapacity": "এসি ক্ষমতা",
+            "solarElectric": "সৌর (বৈদ্যুতিক)",
+            "solarWaterHeater": "সৌর জল হিটার",
+            "plywoodSheet": "প্লাইউড শীট",
+            "plum": "প্লাম",
+            "rainWaterHarvesting": "বৃষ্টির জল সংগ্রহ",
+            "shuttering": "শাটারিং",
+            "baluster": "ব্যালাস্টার",
+            "arcCalculator": "আর্ক ক্যালকুলেটর",
+            "precastBoundaryWall": "প্রিকাস্ট সীমানা প্রাচীর",
+            "damCalculations": "বাঁধ গণনা",
+            "sewageSystem": "নিকাশী ব্যবস্থা",
+            "waterSupplySystem": "জল সরবরাহ ব্যবস্থা",
+            "materialWeights": "উপকরণের ওজন",
+            "billOfQuantity": "জথ্যার বিল"
+        }
+    },
+    "comingSoon": {
+        "title": "শীঘ্রই আসছে",
+        "comingSoonText": "শীঘ্রই আসছে...",
+        "launchTextPart1": "আমরা শীঘ্রই একটি ",
+        "launchTextPart2": " চালু করতে যাচ্ছি, সাথে থাকুন।",
+        "backButton": "← নির্মাণ ক্যালকুলেটরে ফিরে যান"
+    },
+    "history": {
+        "sharePdf": "PDF হিসেবে শেয়ার করুন",
+        "downloadReport": "রিপোর্ট ডাউনলোড করুন",
+        "calcTitle": "গণনার শিরোনাম (ঐচ্ছিক)",
+        "enterValue": "মান লিখুন",
+        "constructionArea": "নির্মাণ এলাকা",
+        "constructionCost": "নির্মাণ খরচ",
+        "reset": "রিসেট",
+        "calculate": "গণনা করুন",
+        "materialQuantity": "সামগ্রীর পরিমাণ",
+        "workCost": "বিভিন্ন কাজের খরচ",
+        "headers": {
+            "material": "সামগ্রী",
+            "quantity": "পরিমাণ",
+            "unit": "ইউনিট"
+        },
+        "materials": {
+            "cement": "সিমেন্ট",
+            "sand": "বালি",
+            "aggregate": "পাথর",
+            "steel": "ইস্পাত",
+            "paint": "রঙ",
+            "bricks": "ইট",
+            "flooring": "ফ্লোরিং",
+            "windows": "জানালা",
+            "doors": "দরজা"
+        },
+        "units": {
+            "bags": "ব্যাগ",
+            "ton": "টন",
+            "kg": "কেজি",
+            "liters": "লিটার",
+            "sqft": "বর্গফুট",
+            "nos": "টি"
+        },
+        "works": {
+            "design": "ডিজাইন এবং ইঞ্জিনিয়ারিং",
+            "excavation": "খনন",
+            "foundation": "ভিত্তি",
+            "rcc": "RCC",
+            "brickwork": "ইটের কাজ",
+            "plaster": "প্লাস্টার"
+        }
+    },
+    "steel": {
+        "sections": {
+            "weight": "ওজন",
+            "footing": "ফুটিং",
+            "column": "কলাম",
+            "beam": "বিম",
+            "slab": "স্ল্যাব",
+            "cuttingLength": "কাটিং লেন্থ"
+        },
+        "weight": {
+            "reinforcement": "রিইনফোর্সমেন্ট ওজন"
+        },
+        "footing": {
+            "type1": "ফুটিং টাইপ ১",
+            "type2": "ফুটিং টাইপ ২"
+        },
+        "column": {
+            "type1": "কলাম টাইপ ১",
+            "type2": "কলাম টাইপ ২",
+            "type3": "কলাম টাইপ ৩",
+            "type4": "কলাম টাইপ ৪",
+            "type5": "কলাম টাইপ ৫",
+            "type6": "কলাম টাইপ ৬",
+            "type7": "কলাম টাইপ ৭",
+            "type8": "কলাম টাইপ ৮",
+            "type9": "কলাম টাইপ ৯",
+            "type10": "কলাম টাইপ ১০",
+            "type11": "কলাম টাইপ ১১",
+            "type12": "কলাম টাইপ ১২",
+            "vertical": "কলাম ভার্টিকাল স্টিল",
+            "ring1": "কলাম রিং ১",
+            "ring2": "কলাম রিং ২"
+        },
+        "comingSoon": {
+            "beam": "বিম গণনার UI শীঘ্রই আসছে...",
+            "slab": "স্ল্যাব গণনার UI শীঘ্রই আসছে...",
+            "cutting": "কাটিং লেন্থ গণনার UI শীঘ্রই আসছে..."
+        }
+    }
+}

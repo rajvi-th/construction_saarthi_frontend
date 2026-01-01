@@ -1,0 +1,141 @@
+{
+    "projectDetails": {
+        "history": "تاریخ",
+        "totalCalculations": "کل حسابات",
+        "usedCalculations": "استعمال شدہ حسابات",
+        "buyCalculations": "حسابات خریدیں"
+    },
+    "quickActions": {
+        "tabs": {
+            "quantity": "مقدار",
+            "area": "رقبہ",
+            "volume": "حجم",
+            "converter": "کنورٹر",
+            "study": "مطالعہ",
+            "quiz": "کوئز"
+        },
+        "items": {
+            "constructionCost": "تعمیراتی لاگت",
+            "steelQuantities": "اسٹیل کی مقدار",
+            "concrete": "کنکریٹ",
+            "brickWorkPlaster": "اینٹوں کا کام اور پلستر",
+            "roofAreaPitch": "چھت کا رقبہ اور ڈھلوان",
+            "flooringCalculation": "فرش کا حساب",
+            "waterTankCapacity": "پانی کے ٹینک کی گنجائش",
+            "excavation": "کھدائی",
+            "swimmingPool": "سوئمنگ پول",
+            "waterProofing": "واٹر پروفنگ",
+            "metalCalculator": "دھاتی کیلکولیٹر",
+            "railConstruction": "ریل کی تعمیر",
+            "roadCalculation": "سڑک کا حساب",
+            "paint": "پینٹ",
+            "diagonals": "وتر",
+            "antiTermite": "دیمک سے بچاؤ",
+            "acCapacity": "اے سی کی گنجائش",
+            "solarElectric": "سولر (الیکٹرک)",
+            "solarWaterHeater": "سولر واٹر ہیٹر",
+            "plywoodSheet": "پلائیووڈ شیٹ",
+            "plum": "پلم",
+            "rainWaterHarvesting": "بارش کے پانی کا ذخیرہ",
+            "shuttering": "شٹرنگ",
+            "baluster": "کٹہرا (Baluster)",
+            "arcCalculator": "آرک کیلکولیٹر",
+            "precastBoundaryWall": "پری کاسٹ باؤنڈری وال",
+            "damCalculations": "ڈیم کا حساب",
+            "sewageSystem": "سیوریج سسٹم",
+            "waterSupplySystem": "واٹر سپلائی سسٹم",
+            "materialWeights": "سامان کا وزن",
+            "billOfQuantity": "سامان کا بل (BOQ)"
+        }
+    },
+    "comingSoon": {
+        "title": "جلد آ رہا ہے",
+        "comingSoonText": "جلد آ رہا ہے...",
+        "launchTextPart1": "ہم جلد ہی ایک ",
+        "launchTextPart2": " لانچ کرنے جا رہے ہیں، جڑے رہیں۔",
+        "backButton": "← تعمیراتی کیلکولیٹر پر واپس جائیں"
+    },
+    "history": {
+        "sharePdf": "پی ڈی ایف کے طور پر شیئر کریں",
+        "downloadReport": "رپورٹ ڈاؤن لوڈ کریں",
+        "calcTitle": "حساب کا عنوان (آپشنل)",
+        "enterValue": "قیمت درج کریں",
+        "constructionArea": "تعمیراتی رقبہ",
+        "constructionCost": "تعمیراتی لاگت",
+        "reset": "ری سیٹ",
+        "calculate": "حساب لگائیں",
+        "materialQuantity": "سامان کی مقدار",
+        "workCost": "مختلف کاموں کی لاگت",
+        "headers": {
+            "material": "سامان",
+            "quantity": "مقدار",
+            "unit": "یونٹ"
+        },
+        "materials": {
+            "cement": "سیمنٹ",
+            "sand": "ریت",
+            "aggregate": "بجری",
+            "steel": "سٹیل",
+            "paint": "پینٹ",
+            "bricks": "اینٹیں",
+            "flooring": "فلورنگ",
+            "windows": "کھڑکیاں",
+            "doors": "دروازے"
+        },
+        "units": {
+            "bags": "بوریاں",
+            "ton": "ٹن",
+            "kg": "کلو",
+            "liters": "لیٹر",
+            "sqft": "مربع فٹ",
+            "nos": "تعدا"
+        },
+        "works": {
+            "design": "ڈیزائن اور انجینئرنگ",
+            "excavation": "کھدائی",
+            "foundation": "بنیاد",
+            "rcc": "آر سی سی (RCC)",
+            "brickwork": "اینٹوں کا کام",
+            "plaster": "پلستر"
+        }
+    },
+    "steel": {
+        "sections": {
+            "weight": "وزن",
+            "footing": "فٹنگ",
+            "column": "کالم",
+            "beam": "بیم",
+            "slab": "سلیب",
+            "cuttingLength": "کٹنگ کی لمبائی"
+        },
+        "weight": {
+            "reinforcement": "کمک کا وزن (Reinforcement Weight)"
+        },
+        "footing": {
+            "type1": "فٹنگ ٹائپ 1",
+            "type2": "فٹنگ ٹائپ 2"
+        },
+        "column": {
+            "type1": "کالم ٹائپ 1",
+            "type2": "کالم ٹائپ 2",
+            "type3": "کالم ٹائپ 3",
+            "type4": "کالم ٹائپ 4",
+            "type5": "کالم ٹائپ 5",
+            "type6": "کالم ٹائپ 6",
+            "type7": "کالم ٹائپ 7",
+            "type8": "کالم ٹائپ 8",
+            "type9": "کالم ٹائپ 9",
+            "type10": "کالم ٹائپ 10",
+            "type11": "کالم ٹائپ 11",
+            "type12": "کالم ٹائپ 12",
+            "vertical": "کالم ورٹیکل سٹیل",
+            "ring1": "کالم رنگ 1",
+            "ring2": "کالم رنگ 2"
+        },
+        "comingSoon": {
+            "beam": "بیم کیلکولیشن UI جلد آ رہا ہے...",
+            "slab": "سلیب کیلکولーション UI جلد آ رہا ہے...",
+            "cutting": "کٹنگ کی لمبائی کیلکولیشن UI جلد آ رہا ہے..."
+        }
+    }
+}

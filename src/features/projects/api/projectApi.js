@@ -17,20 +17,20 @@ export const getAllProjects = async (workspaceId) => {
   if (!workspaceId) {
     throw new Error('Workspace ID is required');
   }
-  
+
   const response = await http.get(`${PROJECT_ENDPOINTS_FLAT.PROJECT_LIST}/${workspaceId}`);
-  
+
   // Handle response structure - projects can be in different formats
   let projectsData = response?.projects || response?.data?.projects || response?.data || response || {};
-  
+
   // If projects is an object (key-value pairs), convert to array and preserve IDs
   if (projectsData && typeof projectsData === 'object' && !Array.isArray(projectsData)) {
     projectsData = Object.entries(projectsData).map(([key, value]) => {
       // Extract ID from key if it's in format "project:id"
-      const extractedId = key.startsWith('project:') 
-        ? key.replace('project:', '') 
+      const extractedId = key.startsWith('project:')
+        ? key.replace('project:', '')
         : key;
-      
+
       // Merge the extracted ID with the project data
       return {
         ...value,
@@ -40,7 +40,7 @@ export const getAllProjects = async (workspaceId) => {
       };
     });
   }
-  
+
   // Ensure it's an array
   return Array.isArray(projectsData) ? projectsData : [];
 };
@@ -59,41 +59,41 @@ export const getProjectDetails = async (projectId, workspaceId = null) => {
   try {
     // Try to fetch from details endpoint first
     const response = await http.get(`${PROJECT_ENDPOINTS_FLAT.PROJECT_DETAILS}/${projectId}`);
-    
+
     const projectData = response?.project || response?.data?.project || response?.data || response || null;
-    
+
     if (projectData) {
       return projectData;
     }
-    
+
     // If details endpoint doesn't return data, fetch all projects and filter
     if (workspaceId) {
       const allProjects = await getAllProjects(workspaceId);
-      const project = allProjects.find(p => 
-        p.id?.toString() === projectId.toString() || 
+      const project = allProjects.find(p =>
+        p.id?.toString() === projectId.toString() ||
         p.project_id?.toString() === projectId.toString()
       );
-      
+
       if (project) {
         return project;
       }
     }
-    
+
     throw new Error('Project not found');
   } catch (error) {
     // If details endpoint fails and workspaceId is provided, try fetching all and filtering
     if (workspaceId && error?.response?.status === 404) {
       const allProjects = await getAllProjects(workspaceId);
-      const project = allProjects.find(p => 
-        p.id?.toString() === projectId.toString() || 
+      const project = allProjects.find(p =>
+        p.id?.toString() === projectId.toString() ||
         p.project_id?.toString() === projectId.toString()
       );
-      
+
       if (project) {
         return project;
       }
     }
-    
+
     throw error;
   }
 };
@@ -107,12 +107,12 @@ export const getAllBuilders = async (workspaceId) => {
   if (!workspaceId) {
     throw new Error('Workspace ID is required');
   }
-  
+
   const response = await http.get(`${PROJECT_ENDPOINTS_FLAT.BUILDER_LIST}?workspace_id=${workspaceId}`);
-  
+
   // Handle response structure - API returns { builders: [...] }
   const buildersData = response?.builders || response?.data?.builders || response?.data || response || [];
-  
+
   // Ensure it's an array
   return Array.isArray(buildersData) ? buildersData : [];
 };
@@ -134,11 +134,11 @@ export const createBuilder = async (data) => {
   if (!data.full_name || !data.full_name.trim()) {
     throw new Error('Builder full name is required');
   }
-  
+
   if (!data.workspace_id) {
     throw new Error('Workspace ID is required');
   }
-  
+
   const requestBody = {
     full_name: data.full_name.trim(),
     country_code: data.country_code || '+91',
@@ -149,9 +149,9 @@ export const createBuilder = async (data) => {
     role: data.role || 'builder',
     workspace_id: data.workspace_id,
   };
-  
+
   const response = await http.post(PROJECT_ENDPOINTS_FLAT.BUILDER_CREATE, requestBody);
-  
+
   return response?.data || response || {};
 };
 
@@ -164,9 +164,9 @@ export const startProject = async (workspaceId) => {
   if (!workspaceId) {
     throw new Error('Workspace ID is required');
   }
-  
+
   const response = await http.post(`${PROJECT_ENDPOINTS_FLAT.PROJECT_START}/${workspaceId}`);
-  
+
   return response?.data || response || {};
 };
 
@@ -183,19 +183,19 @@ export const uploadMedia = async (projectKey, files) => {
   if (!projectKey) {
     throw new Error('Project key is required');
   }
-  
+
   const formData = new FormData();
-  
+
   // Add projectKey to formData
   formData.append('projectKey', projectKey);
-  
+
   // Add files by key (media type)
   Object.entries(files).forEach(([key, fileArray]) => {
     // Skip if empty
     if (!fileArray || (Array.isArray(fileArray) && fileArray.length === 0)) {
       return;
     }
-    
+
     if (Array.isArray(fileArray) && fileArray.length > 0) {
       fileArray.forEach((file, index) => {
         // If file is a File object, append it
@@ -214,10 +214,10 @@ export const uploadMedia = async (projectKey, files) => {
       formData.append(key, fileArray.file);
     }
   });
-  
+
   // Use axios directly with FormData (bypass http service to set Content-Type correctly)
   const token = localStorage.getItem('token');
-  
+
   try {
     const response = await axios.post(
       `${config.API_BASE_URL}${PROJECT_ENDPOINTS_FLAT.PROJECT_UPLOAD}`,
@@ -229,7 +229,7 @@ export const uploadMedia = async (projectKey, files) => {
         },
       }
     );
-    
+
     return response.data;
   } catch (error) {
     throw error;
@@ -261,15 +261,15 @@ export const createProject = async (data) => {
   if (!data.workspaceId) {
     throw new Error('Workspace ID is required');
   }
-  
+
   if (!data.projectKey) {
     throw new Error('Project key is required');
   }
-  
+
   if (!data.name || !data.name.trim()) {
     throw new Error('Project name is required');
   }
-  
+
   const requestBody = {
     projectKey: data.projectKey,
     name: data.name.trim(),
@@ -287,13 +287,13 @@ export const createProject = async (data) => {
     description: data.description || '',
     estimatedBudget: data.estimatedBudget ? String(data.estimatedBudget) : null,
   };
-  
+
   // Include workspaceId in the URL path: /project/create/{workspaceId}
   const response = await http.post(
     `${PROJECT_ENDPOINTS_FLAT.PROJECT_CREATE}/${data.workspaceId}`,
     requestBody
   );
-  
+
   return response?.data || response || {};
 };
 
@@ -306,19 +306,19 @@ export const getAllConstructionTypes = async (workspaceId) => {
   if (!workspaceId) {
     throw new Error('Workspace ID is required');
   }
-  
+
   const response = await http.get(`${PROJECT_ENDPOINTS_FLAT.CONSTRUCTION_LIST}/${workspaceId}`);
-  
+
   // Handle response structure - API returns { constructions: [...] }
   // http service already returns response.data, so response is the data object
-  const constructionTypesData = 
-    response?.constructions || 
-    response?.data?.constructions || 
-    response?.constructionTypes || 
-    response?.construction || 
-    (Array.isArray(response) ? response : response?.data) || 
+  const constructionTypesData =
+    response?.constructions ||
+    response?.data?.constructions ||
+    response?.constructionTypes ||
+    response?.construction ||
+    (Array.isArray(response) ? response : response?.data) ||
     [];
-  
+
   // Ensure it's an array
   return Array.isArray(constructionTypesData) ? constructionTypesData : [];
 };
@@ -339,14 +339,14 @@ export const createConstructionType = async (data) => {
   if (!data.workspaceId) {
     throw new Error('Workspace ID is required');
   }
-  
+
   const requestBody = {
     name: data.name.trim(),
     workspace_id: Number(data.workspaceId),
   };
-  
+
   const response = await http.post(PROJECT_ENDPOINTS_FLAT.CONSTRUCTION_CREATE, requestBody);
-  
+
   return response?.data || response || {};
 };
 
@@ -431,7 +431,7 @@ export const editProject = async (projectId, data) => {
 
   // Use axios directly with FormData (similar to uploadMedia)
   const token = localStorage.getItem('token');
-  
+
   try {
     const response = await axios.put(
       `${config.API_BASE_URL}${PROJECT_ENDPOINTS_FLAT.PROJECT_UPDATE}/${projectId}`,
@@ -443,7 +443,7 @@ export const editProject = async (projectId, data) => {
         },
       }
     );
-    
+
     return response.data;
   } catch (error) {
     throw error;
@@ -462,7 +462,7 @@ export const deleteProject = async (projectId) => {
 
   // Based on Postman request: DELETE /api/project/{id}
   const response = await http.delete(`${PROJECT_ENDPOINTS_FLAT.PROJECT_LIST}/${projectId}`);
-  
+
   return response?.data || response || {};
 };
 
@@ -475,20 +475,20 @@ export const getAllContractTypes = async (workspaceId) => {
   if (!workspaceId) {
     throw new Error('Workspace ID is required');
   }
-  
+
   const response = await http.get(`${PROJECT_ENDPOINTS_FLAT.CONTRACT_TYPE_LIST}/${workspaceId}`);
-  
+
   // Handle response structure - API might return { contractTypes: [...] } or { contract_types: [...] }
   // http service already returns response.data, so response is the data object
-  const contractTypesData = 
-    response?.contractTypes || 
+  const contractTypesData =
+    response?.contractTypes ||
     response?.contract_types ||
-    response?.data?.contractTypes || 
+    response?.data?.contractTypes ||
     response?.data?.contract_types ||
-    response?.contract_type || 
-    (Array.isArray(response) ? response : response?.data) || 
+    response?.contract_type ||
+    (Array.isArray(response) ? response : response?.data) ||
     [];
-  
+
   // Ensure it's an array
   return Array.isArray(contractTypesData) ? contractTypesData : [];
 };
@@ -508,13 +508,66 @@ export const createContractType = async (data) => {
   if (!data.workspaceId) {
     throw new Error('Workspace ID is required');
   }
-  
+
   const requestBody = {
     name: data.name.trim(),
     workspace_id: Number(data.workspaceId),
   };
-  
+
   const response = await http.post(PROJECT_ENDPOINTS_FLAT.CONTRACT_TYPE_CREATE, requestBody);
-  
+
   return response?.data || response || {};
+};
+
+/**
+ * Update project status
+ * @param {string|number} projectId - Project ID
+ * @param {string} status - New status (e.g. 'completed', 'in_progress', 'upcoming')
+ * @returns {Promise<Object>} Update response
+ */
+/**
+ * Update project status
+ * @param {string|number} projectId - Project ID
+ * @param {string} status - New status
+ * @returns {Promise<Object>} Update response
+ */
+/**
+ * Update project status
+ * @param {string|number} projectId - Project ID
+ * @param {string} status - New status
+ * @param {Object} [currentProject] - Current project object (required for fallback to edit endpoint)
+ * @returns {Promise<Object>} Update response
+ */
+export const updateProjectStatus = async (projectId, status, currentProject = null) => {
+  if (!projectId) {
+    throw new Error('Project ID is required');
+  }
+
+  // PATCH /api/project/update-status/{id} is getting blocked by CORS.
+  // We try to fallback to the generic edit project endpoint (PUT) which is allowed.
+  // To do this, we need the project name, so we use currentProject if available.
+
+  if (currentProject && currentProject.name) {
+    return editProject(projectId, {
+      ...currentProject,
+      status: status
+    });
+  }
+
+  // If we don't have project data, we force a fetch first
+  try {
+    const project = await getProjectDetails(projectId);
+    return editProject(projectId, {
+      ...project,
+      status: status
+    });
+  } catch (error) {
+    console.warn("Fallback to edit failed, attempting PATCH as last resort");
+    // Last resort: try the PATCH endpoint even if it might fail CORS or 404
+    const response = await http.patch(
+      `/project/update-status/${projectId}`,
+      { status }
+    );
+    return response?.data || response || {};
+  }
 };

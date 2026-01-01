@@ -1,0 +1,141 @@
+{
+    "projectDetails": {
+        "history": "इतिहास",
+        "totalCalculations": "एकूण गणना",
+        "usedCalculations": "वापरलेली गणना",
+        "buyCalculations": "गणना खरेदी करा"
+    },
+    "quickActions": {
+        "tabs": {
+            "quantity": "प्रमाण",
+            "area": "क्षेत्रफळ",
+            "volume": "घनफळ",
+            "converter": "कन्व्हर्टर",
+            "study": "अभ्यास",
+            "quiz": "प्रश्नमंजुषा"
+        },
+        "items": {
+            "constructionCost": "बांधकाम खर्च",
+            "steelQuantities": "स्टीलचे प्रमाण",
+            "concrete": "काँक्रीट",
+            "brickWorkPlaster": "विटांचे काम आणि प्लास्टर",
+            "roofAreaPitch": "छताचे क्षेत्रफळ आणि उतार",
+            "flooringCalculation": "फ्लोअरिंगची गणना",
+            "waterTankCapacity": "पाण्याचे टाकीची क्षमता",
+            "excavation": "उत्खनन",
+            "swimmingPool": "स्विमिंग पूल",
+            "waterProofing": "वॉटर प्रूफिंग",
+            "metalCalculator": "मेटल कॅल्क्युलेटर",
+            "railConstruction": "रेल्वे बांधकाम",
+            "roadCalculation": "रस्ता गणना",
+            "paint": "रंग",
+            "diagonals": "कर्ण",
+            "antiTermite": "वाळवी प्रतिबंधक",
+            "acCapacity": "एसी क्षमता",
+            "solarElectric": "सौर (इलेक्ट्रिक)",
+            "solarWaterHeater": "सौर पाणी गरम करण्याचे यंत्र",
+            "plywoodSheet": "प्लायवूड शीट",
+            "plum": "प्लम",
+            "rainWaterHarvesting": "पावसाच्या पाण्याचे संवर्धन",
+            "shuttering": "शटरिंग",
+            "baluster": "बॅलस्टर",
+            "arcCalculator": "आर्क कॅल्क्युलेटर",
+            "precastBoundaryWall": "प्रीकास्ट बाउंड्री वॉल",
+            "damCalculations": "धरण गणना",
+            "sewageSystem": "सांडपाणी व्यवस्था",
+            "waterSupplySystem": "पानी पुरवठा व्यवस्था",
+            "materialWeights": "साहित्याचे वजन",
+            "billOfQuantity": "साहित्याचे देयक (BOQ)"
+        }
+    },
+    "comingSoon": {
+        "title": "लवकरच येत आहे",
+        "comingSoonText": "लवकरच येत आहे...",
+        "launchTextPart1": "आम्ही लवकरच एक ",
+        "launchTextPart2": " लाँच करणार आहोत, संपर्कात रहा.",
+        "backButton": "← बांधकाम कॅल्क्युलेटरवर परत जा"
+    },
+    "history": {
+        "sharePdf": "PDF म्हणून शेअर करा",
+        "downloadReport": "अहवाल डाउनलोड करा",
+        "calcTitle": "गणनेचे शीर्षक (पर्यायी)",
+        "enterValue": "मूल्य प्रविष्ट करा",
+        "constructionArea": "बांधकाम क्षेत्र",
+        "constructionCost": "बांधकाम खर्च",
+        "reset": "रीसेट",
+        "calculate": "गणना करा",
+        "materialQuantity": "साहित्याचे प्रमाण",
+        "workCost": "विविध कामांचा खर्च",
+        "headers": {
+            "material": "साहित्य",
+            "quantity": "प्रमाण",
+            "unit": "एकक"
+        },
+        "materials": {
+            "cement": "सिमेंट",
+            "sand": "वाळू",
+            "aggregate": "खडी",
+            "steel": "स्टील",
+            "paint": "रंग",
+            "bricks": "विटा",
+            "flooring": "फ्लोअरिंग",
+            "windows": "खिडक्या",
+            "doors": "दरवाजे"
+        },
+        "units": {
+            "bags": "बॅग",
+            "ton": "टन",
+            "kg": "किलो",
+            "liters": "लिटर",
+            "sqft": "चौ. फूट",
+            "nos": "नग"
+        },
+        "works": {
+            "design": "डिझाइन आणि इंजिनीअरिंग",
+            "excavation": "उत्खनन",
+            "foundation": "पाया",
+            "rcc": "RCC",
+            "brickwork": "विटांचे काम",
+            "plaster": "प्लास्टर"
+        }
+    },
+    "steel": {
+        "sections": {
+            "weight": "वजन",
+            "footing": "फूटिंग",
+            "column": "कॉलम",
+            "beam": "बीम",
+            "slab": "स्लॅब",
+            "cuttingLength": "कटिंग लेंथ"
+        },
+        "weight": {
+            "reinforcement": "रिइन्फोर्सेमेंट वजन"
+        },
+        "footing": {
+            "type1": "फूटिंग प्रकार १",
+            "type2": "फूटिंग प्रकार २"
+        },
+        "column": {
+            "type1": "कॉलम प्रकार १",
+            "type2": "कॉलम प्रकार २",
+            "type3": "कॉलम प्रकार ३",
+            "type4": "कॉलम प्रकार ४",
+            "type5": "कॉलम प्रकार ५",
+            "type6": "कॉलम प्रकार ६",
+            "type7": "कॉलम प्रकार ७",
+            "type8": "कॉलम प्रकार ८",
+            "type9": "कॉलम प्रकार ९",
+            "type10": "कॉलम प्रकार १०",
+            "type11": "कॉलम प्रकार ११",
+            "type12": "कॉलम प्रकार १२",
+            "vertical": "कॉलम व्हर्टिकल स्टील",
+            "ring1": "कॉलम रिंग १",
+            "ring2": "कॉलम रिंग २"
+        },
+        "comingSoon": {
+            "beam": "बीम गणना UI लवकरच येत आहे...",
+            "slab": "स्लॅब गणना UI लवकरच येत आहे...",
+            "cutting": "कटिंग लेंथ गणना UI लवकरच येत आहे..."
+        }
+    }
+}

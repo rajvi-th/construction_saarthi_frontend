@@ -51,7 +51,7 @@ const getMediaType = (mediaItem) => {
   const url = mediaItem.url || '';
   const typeId = String(mediaItem.typeId || '');
   const urlLower = url.toLowerCase();
-  
+
   // Check file extension
   if (urlLower.match(/\.(jpg|jpeg|png|gif|webp|bmp|svg)$/i)) {
     return 'photo';
@@ -62,7 +62,7 @@ const getMediaType = (mediaItem) => {
   if (urlLower.match(/\.(pdf|doc|docx|xls|xlsx|ppt|pptx|txt)$/i)) {
     return 'document';
   }
-  
+
   // Check typeId (common patterns: 1, 3, 12 = photos)
   // Based on API response, typeId "12" appears to be photos
   // Note: We prioritize file extension over typeId for accuracy
@@ -76,7 +76,7 @@ const getMediaType = (mediaItem) => {
     }
     return 'photo';
   }
-  
+
   // Default to document if can't determine (safer default)
   return 'document';
 };
@@ -110,10 +110,10 @@ export default function PastProjectDocumentsGallery({
     // Helper to add item to categorized array
     const addToCategory = (url, category, id = null, createdAt = null, typeId = null) => {
       if (!url) return;
-      
+
       const fileName = getFileNameFromUrl(url);
       const formattedDate = createdAt ? formatDate(createdAt) : formatDate(new Date());
-      
+
       const formattedItem = {
         id: id || `item-${Date.now()}-${Math.random()}`,
         url: url,
@@ -203,12 +203,12 @@ export default function PastProjectDocumentsGallery({
     if (documentToDelete) {
       // Remove document from local state
       setDocuments((prev) => prev.filter((doc) => doc.id !== documentToDelete.id));
-      
+
       // Call parent callback if provided (for API integration)
       if (onDocumentDelete) {
         onDocumentDelete(documentToDelete.id);
       }
-      
+
       setDocumentToDelete(null);
     }
   };
@@ -237,8 +237,12 @@ export default function PastProjectDocumentsGallery({
       {showDocuments && documents.length > 0 && (
         <div className="mb-6">
           <h2 className="text-lg font-medium text-primary mb-2">
-            {t('detail.relevantDocuments', { ns: 'pastProjects', defaultValue: 'Relevant Documents' })}
+            {t('detail.relevantDocuments', {
+              ns: 'pastProjects',
+              defaultValue: 'Relevant Documents',
+            })}
           </h2>
+
           <div className="space-y-3">
             {documents.map((doc) => (
               <div
@@ -251,30 +255,42 @@ export default function PastProjectDocumentsGallery({
                 }}
               >
                 <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
-                  <img src={documentIcon} alt="Document" className="w-5 h-5" />
+                  <img
+                    src={documentIcon}
+                    alt="Document"
+                    className="w-5 h-5"
+                  />
                 </div>
+
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-primary truncate">
                     {doc.name}
                   </p>
                   {doc.date && (
-                    <p className="text-xs text-primary-light">
-                      {doc.date}
-                    </p>
+                    <p className="text-xs text-primary-light">{doc.date}</p>
                   )}
                 </div>
+
                 <div onClick={(e) => e.stopPropagation()}>
                   <DropdownMenu
                     items={[
                       {
-                        label: t('detail.viewDocument', { ns: 'pastProjects', defaultValue: 'View Document' }),
+                        label: t('detail.viewDocument', {
+                          ns: 'pastProjects',
+                          defaultValue: 'View Document',
+                        }),
                         onClick: () => handleViewDocument(doc),
                         icon: <Eye className="w-4 h-4" />,
                       },
                       {
-                        label: t('delete', { ns: 'common', defaultValue: 'Delete' }),
+                        label: t('delete', {
+                          ns: 'common',
+                          defaultValue: 'Delete',
+                        }),
                         onClick: () => handleDeleteClick(doc),
-                        icon: <Trash2 className="w-4 h-4 text-accent" />,
+                        icon: (
+                          <Trash2 className="w-4 h-4 text-accent" />
+                        ),
                         textColor: 'text-accent',
                       },
                     ]}
@@ -289,184 +305,219 @@ export default function PastProjectDocumentsGallery({
 
       {/* Project Gallery Section */}
       {showGallery && (
-      <div className="">
-        <h2 className="text-lg sm:text-xl font-medium text-primary mb-4">
-          {t('detail.projectGallery', { ns: 'pastProjects', defaultValue: 'Project Gallery' })}
-        </h2>
+        <div>
+          <h2 className="text-lg sm:text-xl font-medium text-primary mb-4">
+            {t('detail.projectGallery', {
+              ns: 'pastProjects',
+              defaultValue: 'Project Gallery',
+            })}
+          </h2>
 
-        {/* Tabs */}
-        <div className="flex gap-6 border-b border-gray-200 mb-4">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              type="button"
-              onClick={() => setActiveTab(tab.id)}
-              className={`pb-3 text-sm font-medium transition-colors md:px-6 cursor-pointer ${
-                activeTab === tab.id
-                  ? 'text-accent border-b-2 border-accent'
-                  : 'text-secondary hover:text-primary'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
+          {/* Tabs */}
+          <div className="flex gap-6 border-b border-gray-200 mb-4">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setActiveTab(tab.id)}
+                className={`pb-3 text-sm font-medium transition-colors md:px-6 ${activeTab === tab.id
+                    ? 'text-accent border-b-2 border-accent'
+                    : 'text-secondary hover:text-primary'
+                  }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
 
-        {/* Photos Tab */}
-        {activeTab === 'photos' && (
-          <>
-            {photoItems.length > 0 ? (
-              <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-4">
-                {photoItems.map((file) => {
-                  const isImageLoading = loadingImages.has(file.id);
-                  return (
+          {/* Photos Tab */}
+          {activeTab === 'photos' && (
+            <>
+              {photoItems.length > 0 ? (
+                <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-4">
+                  {photoItems.map((file) => (
                     <div
                       key={file.id}
                       className="relative group cursor-pointer w-[140px] sm:w-[160px]"
                     >
                       <div className="aspect-square rounded-xl overflow-hidden border border-gray-200 relative bg-gray-100">
-                        {isImageLoading && (
+                        {loadingImages.has(file.id) && (
                           <div className="absolute inset-0 flex items-center justify-center">
                             <Loader size="sm" />
                           </div>
                         )}
+
                         <img
                           src={file.url}
                           alt={file.name || 'Photo'}
-                          className={`w-full h-full object-cover ${isImageLoading ? 'opacity-0' : 'opacity-100'} transition-opacity`}
+                          className={`w-full h-full object-cover ${loadingImages.has(file.id) ? 'opacity-0' : 'opacity-100'
+                            } transition-opacity`}
                           onLoad={() => {
                             setLoadingImages((prev) => {
-                              const newSet = new Set(prev);
-                              newSet.delete(file.id);
-                              return newSet;
+                              const set = new Set(prev);
+                              set.delete(file.id);
+                              return set;
                             });
                           }}
                           onLoadStart={() => {
                             setLoadingImages((prev) => new Set(prev).add(file.id));
                           }}
-                          onClick={() => {
-                            // Open image in new tab for viewing
-                            window.open(file.url, '_blank');
-                          }}
+                          onClick={() => window.open(file.url, '_blank')}
                         />
                       </div>
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setPhotoItems((prev) => prev.filter((item) => item.id !== file.id));
-                      }}
-                      className="absolute top-2 right-2 w-5 h-5 rounded-full bg-white/90 hover:bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10"
-                    >
-                      <X className="w-3 h-3 text-primary" />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-8 text-secondary">
-                <p className="text-sm">
-                  {t('detail.noPhotosUploaded', { ns: 'pastProjects', defaultValue: 'No photos uploaded yet' })}
-                </p>
-              </div>
-            )}
-          </>
-        )}
 
-        {/* Videos Tab */}
-        {activeTab === 'videos' && (
-          <>
-            {videoItems.length > 0 ? (
-              <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-4">
-                {videoItems.map((file) => {
-                  const isVideoLoading = loadingImages.has(file.id);
-                  return (
-                    <div
-                      key={file.id}
-                      className="relative group cursor-pointer w-[140px] sm:w-[160px]"
-                    >
-                      <div className="aspect-square">
-                        <div className="w-full h-full rounded-xl overflow-hidden border border-gray-200 relative bg-gray-100">
-                        {isVideoLoading && (
-                          <div className="absolute inset-0 flex items-center justify-center z-10">
-                            <Loader size="sm" />
-                          </div>
-                        )}
-                        <img
-                          src={file.thumbnail || file.url}
-                          alt={file.name || 'Video'}
-                          className={`w-full h-full object-cover ${isVideoLoading ? 'opacity-0' : 'opacity-100'} transition-opacity`}
-                          onLoad={() => {
-                            setLoadingImages((prev) => {
-                              const newSet = new Set(prev);
-                              newSet.delete(file.id);
-                              return newSet;
-                            });
-                          }}
-                          onLoadStart={() => {
-                            setLoadingImages((prev) => new Set(prev).add(file.id));
-                          }}
-                          onClick={() => {
-                            // Open video in new tab for viewing
-                            window.open(file.url, '_blank');
-                          }}
-                        />
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/95 shadow-md flex items-center justify-center">
-                            <Play className="w-7 h-7 sm:w-8 sm:h-8 text-primary ml-0.5" fill="currentColor" />
-                        </div>
-                      </div>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setPhotoItems((prev) => prev.filter((item) => item.id !== file.id));
+                        }}
+                        className="absolute top-2 right-2 w-5 h-5 rounded-full bg-white/90 hover:bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10"
+                      >
+                        <X className="w-3 h-3 text-primary" />
+                      </button>
                     </div>
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setVideoItems((prev) => prev.filter((item) => item.id !== file.id));
-                      }}
-                      className="absolute top-2 right-2 w-5 h-5 rounded-full bg-white/90 hover:bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10"
-                    >
-                      <X className="w-3 h-3 text-primary" />
-                    </button>
-                  </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="text-center py-8 text-secondary">
-                <p className="text-sm">
-                  {t('detail.noVideosUploaded', { ns: 'pastProjects', defaultValue: 'No videos uploaded yet' })}
-                </p>
-              </div>
-            )}
-          </>
-        )}
-      </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-secondary">
+                  <p className="text-sm">
+                    {t('detail.noPhotosUploaded', {
+                      ns: 'pastProjects',
+                      defaultValue: 'No photos uploaded yet',
+                    })}
+                  </p>
+                </div>
+              )}
+            </>
+          )}
+
+          {/* Videos Tab */}
+          {activeTab === 'videos' && (
+            <>
+              {videoItems.length > 0 ? (
+                <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-4">
+                  {videoItems.map((file) => {
+                    const isVideoLoading = loadingImages.has(file.id);
+
+                    return (
+                      <div
+                        key={file.id}
+                        className="relative group cursor-pointer w-[140px] sm:w-[160px]"
+                      >
+                        <div className="aspect-square rounded-xl overflow-hidden border border-gray-200 relative bg-gray-100">
+                          {isVideoLoading && (
+                            <div className="absolute inset-0 flex items-center justify-center z-10">
+                              <Loader size="sm" />
+                            </div>
+                          )}
+
+                          <img
+                            src={file.thumbnail || file.url}
+                            alt={file.name || 'Video'}
+                            className={`w-full h-full object-cover ${isVideoLoading
+                                ? 'opacity-0'
+                                : 'opacity-100'
+                              } transition-opacity`}
+                            onLoad={() => {
+                              setLoadingImages((prev) => {
+                                const set = new Set(prev);
+                                set.delete(file.id);
+                                return set;
+                              });
+                            }}
+                            onLoadStart={() => {
+                              setLoadingImages(
+                                (prev) => new Set(prev).add(file.id)
+                              );
+                            }}
+                            onClick={() =>
+                              window.open(file.url, '_blank')
+                            }
+                          />
+
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/95 shadow-md flex items-center justify-center">
+                              <Play
+                                className="w-7 h-7 sm:w-8 sm:h-8 text-primary ml-0.5"
+                                fill="currentColor"
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setVideoItems((prev) =>
+                              prev.filter(
+                                (item) => item.id !== file.id
+                              )
+                            );
+                          }}
+                          className="absolute top-2 right-2 w-5 h-5 rounded-full bg-white/90 hover:bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10"
+                        >
+                          <X className="w-3 h-3 text-primary" />
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-secondary">
+                  <p className="text-sm">
+                    {t('detail.noVideosUploaded', {
+                      ns: 'pastProjects',
+                      defaultValue: 'No videos uploaded yet',
+                    })}
+                  </p>
+                </div>
+              )}
+            </>
+          )}
+        </div>
       )}
-      
+
       {/* Delete Confirmation Modal */}
       <ConfirmModal
         isOpen={!!documentToDelete}
         onClose={handleDeleteCancel}
         onConfirm={handleDeleteConfirm}
-        title={t('detail.deleteDocument', { ns: 'pastProjects', defaultValue: 'Delete Document' })}
+        title={t('detail.deleteDocument', {
+          ns: 'pastProjects',
+          defaultValue: 'Delete Document',
+        })}
         message={
           documentToDelete ? (
             <p>
-              {t('detail.deleteConfirmMessage', { ns: 'pastProjects', defaultValue: 'Are you sure you want to delete' })}{' '}
+              {t('detail.deleteConfirmMessage', {
+                ns: 'pastProjects',
+                defaultValue: 'Are you sure you want to delete',
+              })}{' '}
               <span className="font-medium text-primary">
                 {documentToDelete.name}
               </span>
-              ? {t('detail.deleteConfirmAction', { ns: 'pastProjects', defaultValue: 'This action cannot be undone.' })}
+              ?{' '}
+              {t('detail.deleteConfirmAction', {
+                ns: 'pastProjects',
+                defaultValue: 'This action cannot be undone.',
+              })}
             </p>
           ) : (
             ''
           )
         }
-        confirmText={t('delete', { ns: 'common', defaultValue: 'Delete' })}
-        cancelText={t('cancel', { ns: 'common', defaultValue: 'Cancel' })}
+        confirmText={t('delete', {
+          ns: 'common',
+          defaultValue: 'Delete',
+        })}
+        cancelText={t('cancel', {
+          ns: 'common',
+          defaultValue: 'Cancel',
+        })}
         confirmVariant="primary"
       />
     </>
   );
 }
-

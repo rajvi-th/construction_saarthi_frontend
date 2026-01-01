@@ -12,7 +12,8 @@ import StatusBadge from '../../../components/ui/StatusBadge';
 import { LogUsageModal, ReleaseModal, InventoryItemHeader, InventoryItemInfo } from '../components';
 import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
 import Button from '../../../components/ui/Button';
-import { showError } from '../../../utils/toast';
+import { showError, showSuccess } from '../../../utils/toast';
+import { getSiteInventory, useMaterial, destroyMaterial } from '../api/siteInventoryApi';
 
 export default function InventoryItemDetails() {
   const { t } = useTranslation('siteInventory');
@@ -41,41 +42,25 @@ export default function InventoryItemDetails() {
 
   const loadItemDetails = async () => {
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 500));
+    try {
+      const response = await getSiteInventory(id);
+      const data = response?.data || response;
 
-    const mockItem = {
-      id: id,
-      material: { name: 'Plywood', unitId: 6, unitName: 'sq.ft' },
-      Description: 'Perfect in condition and A1 quality with best price',
-      quantityDetails: [
-        { itemCount: 15, price: 500, vendorID: '49', status: 'add' },
-        { itemCount: 10, price: 500, vendorID: '49', status: 'add' },
-      ],
-      totalPrice: 7500,
-      projectID: projectId || '11',
-      project: { name: projectName || 'colouring demo' },
-      inventoryTypeId: 1,
-      createdAt: '2025-12-03T09:35:58.722Z',
-      updatedAt: '2025-06-30T10:00:00.000Z',
-      images: [
-        'https://images.unsplash.com/photo-1586075010923-2dd4570fb338?w=400',
-        'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400',
-        'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400',
-      ],
-    };
-
-    const mockDistributionHistory = [
-      { id: '1', projectName: 'Shree Villa', quantity: 100, date: '2025-07-01T10:00:00.000Z', status: 'pending', type: 'transfer' },
-      { id: '2', projectName: 'Nirmaan Homes', quantity: 100, date: '2025-06-28T10:00:00.000Z', status: 'approved', type: 'transfer' },
-      { id: '3', projectName: 'Shree Villa', quantity: 100, date: '2025-07-01T10:00:00.000Z', status: 'pending', type: 'transfer' },
-      { id: '4', projectName: 'Saarthi Heights', quantity: 50, date: '2025-06-25T10:00:00.000Z', status: 'approved', type: 'transfer' },
-      { id: '5', projectName: 'Nirmaan Homes', quantity: 100, date: '2025-06-28T10:00:00.000Z', status: 'approved', type: 'transfer' },
-      { id: '6', projectName: 'Current Site', quantity: 100, date: '2025-07-01T10:00:00.000Z', status: 'used', type: 'used' },
-    ];
-
-    setItem(mockItem);
-    setDistributionHistory(mockDistributionHistory);
-    setIsLoading(false);
+      if (data) {
+        setItem(data);
+        // Map distributions and ensure requestType is mapped to type for consistency
+        const history = (data.distributions || []).map(dist => ({
+          ...dist,
+          type: dist.requestType || 'transfer'
+        }));
+        setDistributionHistory(history);
+      }
+    } catch (error) {
+      console.error('Error loading item details:', error);
+      showError(t('itemDetails.errorLoading', { defaultValue: 'Error loading item details' }));
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const formatDate = (dateString) => {
@@ -115,16 +100,17 @@ export default function InventoryItemDetails() {
     );
   }
 
-  const itemName = item.material?.name || 'Unnamed Item';
+  const itemName = item.materialName || item.material?.name || 'Unnamed Item';
   const quantityDetails = item.quantityDetails || [];
-  const specification = item.Description || "";
-  const images = item.images || [];
+  const specification = item.description || item.Description || "";
+  const images = (item.images || []).map(img => typeof img === 'string' ? img : img.url);
 
-  let totalQuantity = quantityDetails.reduce((sum, d) => sum + (parseFloat(d.itemCount) || 0), 0);
-  let avgCostPerUnit = quantityDetails.length ? (quantityDetails.reduce((s, d) => s + d.price, 0) / quantityDetails.length) : 0;
+  let totalQuantity = item.quantity !== undefined ? item.quantity : quantityDetails.reduce((sum, d) => sum + (parseFloat(d.itemCount) || 0), 0);
+  let avgCostPerUnit = item.avgCostPerUnit !== undefined ? item.avgCostPerUnit : (quantityDetails.length ? (quantityDetails.reduce((s, d) => s + d.price, 0) / quantityDetails.length) : 0);
   let totalPrice = item.totalPrice || totalQuantity * avgCostPerUnit;
+  let currentStock = item.currentStock !== undefined ? item.currentStock : totalQuantity;
 
-  const quantityUnit = item.material.unitName || "pcs";
+  const quantityUnit = item.unitName || item.material?.unitName || "pcs";
   const lastUpdated = item.updatedAt || item.createdAt;
 
   // Separate & sort
@@ -181,9 +167,19 @@ export default function InventoryItemDetails() {
   };
 
   const handleLogUsage = async (logData) => {
-    // TODO: Integrate log usage API
-    console.log('Log usage from details page:', logData);
-    setLogUsageModalOpen(false);
+    try {
+      await useMaterial({
+        inventoryId: id,
+        quantity: logData.quantity,
+        reason: logData.reason
+      });
+      showSuccess(t('itemDetails.usageLogged', { defaultValue: 'Usage logged successfully' }));
+      setLogUsageModalOpen(false);
+      loadItemDetails(); // Refetch data
+    } catch (error) {
+      console.error('Error logging usage:', error);
+      showError(t('itemDetails.errorLoggingUsage', { defaultValue: 'Error logging usage' }));
+    }
   };
 
   const handleOpenRelease = (distribution) => {
@@ -204,9 +200,19 @@ export default function InventoryItemDetails() {
   };
 
   const handleDestroy = async (logData) => {
-    // TODO: Integrate destroy material API
-    console.log('Destroy material from details page:', logData);
-    setDestroyModalOpen(false);
+    try {
+      await destroyMaterial({
+        inventoryId: id,
+        quantity: logData.quantity,
+        reason: logData.reason
+      });
+      showSuccess(t('itemDetails.materialDestroyed', { defaultValue: 'Material destruction logged' }));
+      setDestroyModalOpen(false);
+      loadItemDetails(); // Refetch data
+    } catch (error) {
+      console.error('Error destroying material:', error);
+      showError(t('itemDetails.errorDestroying', { defaultValue: 'Error logging material destruction' }));
+    }
   };
 
   const handleTransferMaterial = () => {
@@ -215,8 +221,18 @@ export default function InventoryItemDetails() {
       showError(t('errors.inventoryIdRequired', { defaultValue: 'Inventory ID is required' }));
       return;
     }
-    
+
     navigate(getRoute(ROUTES_FLAT.TRANSFER_MATERIAL, { inventoryId: itemId }), {
+      state: {
+        projectId,
+        projectName,
+        item,
+      },
+    });
+  };
+
+  const handleAskForMaterial = () => {
+    navigate(ROUTES_FLAT.ADD_NEW_ASK, {
       state: {
         projectId,
         projectName,
@@ -231,9 +247,10 @@ export default function InventoryItemDetails() {
       <InventoryItemHeader
         itemName={itemName}
         onBack={handleBack}
+        onAskForMaterial={handleAskForMaterial}
         onTransferMaterial={handleTransferMaterial}
         onDestroy={() => setDestroyModalOpen(true)}
-        onDelete={() => {}}
+        onDelete={() => { }}
       />
 
       {/* Item Info */}
@@ -264,7 +281,7 @@ export default function InventoryItemDetails() {
             },
             {
               label: t('itemDetails.currentStock', { defaultValue: 'Current Stock' }),
-              value: `${totalQuantity} ${quantityUnit}`,
+              value: `${currentStock} ${quantityUnit}`,
             },
           ].map((item, i) => (
             <div key={i} className="pb-4 lg:pb-0 lg:border-r-2 border-[#E7D7C1] last:border-none">

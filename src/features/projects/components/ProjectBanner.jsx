@@ -70,7 +70,7 @@ export default function ProjectBanner({ project }) {
             <p className="text-secondary mb-3 sm:mb-4 text-sm sm:text-base">
               {address}
             </p>
-            <ProjectStatusPill status={status} />
+            <ProjectStatusPill status={status} className="" />
           </div>
 
           {/* Progress on the right for ≥ sm screens */}

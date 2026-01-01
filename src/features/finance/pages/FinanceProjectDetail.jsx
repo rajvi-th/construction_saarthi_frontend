@@ -164,9 +164,8 @@ export default function FinanceProjectDetail() {
                     >
                       <span>{selectedOption?.label || 'Completed'}</span>
                       <ChevronDown
-                        className={`w-4 h-4 transition-transform ${
-                          isOpen ? 'rotate-180' : ''
-                        }`}
+                        className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''
+                          }`}
                         style={{ color: colors.text }}
                       />
                     </button>
@@ -212,7 +211,7 @@ export default function FinanceProjectDetail() {
 function OverviewRow({ label, value }) {
   return (
     <div className="flex flex-col sm:flex-row px-6 py-2 gap-1 sm:gap-0">
-      
+
       {/* Label */}
       <div className="sm:w-32 shrink-0">
         <p className="text-sm text-secondary">

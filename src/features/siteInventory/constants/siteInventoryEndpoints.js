@@ -7,7 +7,7 @@ export const SITE_INVENTORY_ENDPOINTS = {
   // Site Inventory Endpoints
   SITE_INVENTORY: {
     LIST: '/inventoryItem/inventory/list', // GET /inventoryItem/inventory/list?projectID=12&inventoryTypeId=2
-    GET: '/site-inventory', // GET /site-inventory/{id} - Get single item
+    GET: '/inventoryItem/inventory', // GET /inventoryItem/inventory/{id} - Get single item
     CREATE: '/inventoryItem/create', // POST /inventoryItem/create
     UPDATE: '/site-inventory/edit', // PUT /site-inventory/edit/{id}
     DELETE: '/site-inventory', // DELETE /site-inventory/{id}
@@ -20,6 +20,8 @@ export const SITE_INVENTORY_ENDPOINTS = {
     RESTOCK_REQUESTS: '/inventoryItem/restockRequests', // GET /inventoryItem/restockRequests?projectID=29&requestStatus=active&inventoryTypeId=2
     DESTROY_MATERIAL: '/inventoryItem/destroyMaterial', // POST /inventoryItem/destroyMaterial
     DESTROYED_MATERIALS: '/inventoryItem/destroyedMaterials', // GET /inventoryItem/destroyedMaterials?projectID=23
+    USE_MATERIAL: '/inventoryItem/useMaterial', // POST /inventoryItem/useMaterial
+    TRANSFER_REQUEST_CREATE: '/inventoryItem/transferRequest', // POST /inventoryItem/transferRequest
   },
   // Materials Endpoints
   MATERIALS: {
@@ -59,7 +61,9 @@ export const SITE_INVENTORY_ENDPOINTS_FLAT = {
   SITE_INVENTORY_RESTOCK_REQUESTS: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.RESTOCK_REQUESTS, // GET /inventoryItem/restockRequests
   SITE_INVENTORY_DESTROY_MATERIAL: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.DESTROY_MATERIAL, // POST /inventoryItem/destroyMaterial
   SITE_INVENTORY_DESTROYED_MATERIALS: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.DESTROYED_MATERIALS, // GET /inventoryItem/destroyedMaterials
-  // Materials
+  SITE_INVENTORY_USE_MATERIAL: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.USE_MATERIAL, // POST /inventoryItem/useMaterial
+  SITE_INVENTORY_TRANSFER_REQUEST_CREATE: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.TRANSFER_REQUEST_CREATE, // POST /inventoryItem/transferRequest
+  // Materials resources
   MATERIALS_LIST: SITE_INVENTORY_ENDPOINTS.MATERIALS.LIST, // GET /materials
   MATERIALS_CREATE: SITE_INVENTORY_ENDPOINTS.MATERIALS.CREATE, // POST /materials/create
   // Units

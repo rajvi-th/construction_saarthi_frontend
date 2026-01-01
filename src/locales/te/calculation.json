@@ -1,0 +1,141 @@
+{
+    "projectDetails": {
+        "history": "చరిత్ర",
+        "totalCalculations": "మొత్తం గణనలు",
+        "usedCalculations": "ఉపయోగించిన గణనలు",
+        "buyCalculations": "గణనలను కొనండి"
+    },
+    "quickActions": {
+        "tabs": {
+            "quantity": "పరిమాణం",
+            "area": "వైశాల్యం",
+            "volume": "ఘనపరిమాణం",
+            "converter": "కన్వర్టర్",
+            "study": "అధ్యయనం",
+            "quiz": "క్విజ్"
+        },
+        "items": {
+            "constructionCost": "నిర్మాణ వ్యయం",
+            "steelQuantities": "స్టీల్ పరిమాణం",
+            "concrete": "కాంక్రీటు",
+            "brickWorkPlaster": "ఇటుక పని మరియు ప్లాస్టరింగ్",
+            "roofAreaPitch": "పైకప్పు వైశాల్యం మరియు వాలు",
+            "flooringCalculation": "ఫ్లోరింగ్ గణన",
+            "waterTankCapacity": "వాటర్ ట్యాంక్ సామర్థ్యం",
+            "excavation": "త్రవ్వకం",
+            "swimmingPool": "ఈత కొలను",
+            "waterProofing": "వాటర్ ప్రూఫింగ్",
+            "metalCalculator": "మెటల్ కాలిక్యులేటర్",
+            "railConstruction": "రైలు నిర్మాణం",
+            "roadCalculation": "రోడ్డు గణన",
+            "paint": "పెయింట్",
+            "diagonals": "కర్ణాలు",
+            "antiTermite": "చెదలు నిరోధకత",
+            "acCapacity": "ఏసీ సామర్థ్యం",
+            "solarElectric": "సోలార్ (విద్యుత్)",
+            "solarWaterHeater": "సోలార్ వాటర్ హీటర్",
+            "plywoodSheet": "ప్లైవుడ్ షీట్",
+            "plum": "ప్లమ్",
+            "rainWaterHarvesting": "వర్షపు నీటి సంరక్షణ",
+            "shuttering": "షట్టరింగ్",
+            "baluster": "బ్యాలస్టర్",
+            "arcCalculator": "ఆర్క్ కాలిక్యులేటర్",
+            "precastBoundaryWall": "ప్రీకాస్ట్ బౌండరీ గోడ",
+            "damCalculations": "డ్యామ్ గణనలు",
+            "sewageSystem": "మురుగునీటి వ్యవస్థ",
+            "waterSupplySystem": "నీటి సరఫరా వ్యవస్థ",
+            "materialWeights": "మెటీరియల్ బరువులు",
+            "billOfQuantity": "మెటీరియల్ బిల్లు (BOQ)"
+        }
+    },
+    "comingSoon": {
+        "title": "త్వరలో రాబోతోంది",
+        "comingSoonText": "త్వరలో రాబోతోంది...",
+        "launchTextPart1": "మేము త్వరలో ",
+        "launchTextPart2": " ను ప్రారంభించబోతున్నాము, వేచి ఉండండి.",
+        "backButton": "← కన్స్ట్రక్షన్ కాలిక్యులేటర్కు తిరిగి వెళ్లండి"
+    },
+    "history": {
+        "sharePdf": "PDFగా భాగస్వామ్యం చేయండి",
+        "downloadReport": "నివేదికను డౌన్లోడ్ చేయండి",
+        "calcTitle": "గణన శీర్షిక (ఐచ్ఛికం)",
+        "enterValue": "విలువను నమోదు చేయండి",
+        "constructionArea": "నిర్మాణ వైశాల్యం",
+        "constructionCost": "నిర్మాణ వ్యయం",
+        "reset": "రీసెట్",
+        "calculate": "గణన చేయండి",
+        "materialQuantity": "మెటీరియల్ పరిమాణం",
+        "workCost": "వివిధ పనుల వ్యయం",
+        "headers": {
+            "material": "మెటీరియల్",
+            "quantity": "పరిమాణం",
+            "unit": "యూనిట్"
+        },
+        "materials": {
+            "cement": "సిమెంట్",
+            "sand": "ఇసుక",
+            "aggregate": "మెటల్ (కంకర)",
+            "steel": "స్టీల్",
+            "paint": "పెయింట్",
+            "bricks": "ఇటుకలు",
+            "flooring": "ఫ్లోరింగ్",
+            "windows": "కిటికీలు",
+            "doors": "తలుపులు"
+        },
+        "units": {
+            "bags": "బ్యాగులు",
+            "ton": "టన్ను",
+            "kg": "కిలో",
+            "liters": "లీటర్లు",
+            "sqft": "చదరపు అడుగులు",
+            "nos": "సంఖ్య"
+        },
+        "works": {
+            "design": "డిజైన్ & ఇంజనీరింగ్",
+            "excavation": "త్రవ్వకం",
+            "foundation": "పునాది",
+            "rcc": "RCC",
+            "brickwork": "ఇటుక పని",
+            "plaster": "ప్లాస్టరింగ్"
+        }
+    },
+    "steel": {
+        "sections": {
+            "weight": "బరువు",
+            "footing": "ఫుటింగ్",
+            "column": "కాలమ్",
+            "beam": "బీమ్",
+            "slab": "స్లాబ్",
+            "cuttingLength": "కటింగ్ పొడవు"
+        },
+        "weight": {
+            "reinforcement": "రీఇన్ఫోర్స్మెంట్ బరువు"
+        },
+        "footing": {
+            "type1": "ఫుటింగ్ రకం 1",
+            "type2": "ఫుటింగ్ రకం 2"
+        },
+        "column": {
+            "type1": "కాలమ్ రకం 1",
+            "type2": "కాలమ్ రకం 2",
+            "type3": "కాలమ్ రకం 3",
+            "type4": "కాలమ్ రకం 4",
+            "type5": "కాలమ్ రకం 5",
+            "type6": "కాలమ్ రకం 6",
+            "type7": "కాలమ్ రకం 7",
+            "type8": "కాలమ్ రకం 8",
+            "type9": "కాలమ్ రకం 9",
+            "type10": "కాలమ్ రకం 10",
+            "type11": "కాలమ్ రకం 11",
+            "type12": "కాలమ్ రకం 12",
+            "vertical": "కాలమ్ వర్టికల్ స్టీల్",
+            "ring1": "కాలమ్ రింగ్ 1",
+            "ring2": "కాలమ్ రింగ్ 2"
+        },
+        "comingSoon": {
+            "beam": "బీమ్ గణన UI త్వరలో వస్తుంది...",
+            "slab": "స్లాబ్ గణన UI త్వరలో వస్తుంది...",
+            "cutting": "కటింగ్ పొడవు గణన UI త్వరలో వస్తుంది..."
+        }
+    }
+}

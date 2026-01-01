@@ -276,6 +276,22 @@ import bhoFinance from '../locales/bho/finance.json';
 import asFinance from '../locales/as/finance.json';
 import hryFinance from '../locales/hry/finance.json';
 
+// Import calculation translations for all languages
+import enCalculation from '../locales/en/calculation.json';
+import hiCalculation from '../locales/hi/calculation.json';
+import guCalculation from '../locales/gu/calculation.json';
+import bnCalculation from '../locales/bn/calculation.json';
+import taCalculation from '../locales/ta/calculation.json';
+import mrCalculation from '../locales/mr/calculation.json';
+import teCalculation from '../locales/te/calculation.json';
+import knCalculation from '../locales/kn/calculation.json';
+import mlCalculation from '../locales/ml/calculation.json';
+import urCalculation from '../locales/ur/calculation.json';
+import rajCalculation from '../locales/raj/calculation.json';
+import bhoCalculation from '../locales/bho/calculation.json';
+import asCalculation from '../locales/as/calculation.json';
+import hryCalculation from '../locales/hry/calculation.json';
+
 // Get saved language from localStorage or default to 'en'
 const savedLang = localStorage.getItem('lang') || 'en';
 
@@ -298,6 +314,7 @@ const resources = {
     documents: enDocuments,
     labourAttendance: enLabourAttendance,
     finance: enFinance,
+    calculation: enCalculation,
   },
   hi: {
     common: hiCommon,
@@ -317,6 +334,7 @@ const resources = {
     documents: hiDocuments,
     labourAttendance: hiLabourAttendance,
     finance: hiFinance,
+    calculation: hiCalculation,
   },
   gu: {
     common: guCommon,
@@ -336,6 +354,7 @@ const resources = {
     documents: guDocuments,
     labourAttendance: guLabourAttendance,
     finance: guFinance,
+    calculation: guCalculation,
   },
   bn: {
     common: bnCommon,
@@ -355,6 +374,7 @@ const resources = {
     documents: bnDocuments,
     labourAttendance: bnLabourAttendance,
     finance: bnFinance,
+    calculation: bnCalculation,
   },
   ta: {
     common: taCommon,
@@ -374,6 +394,7 @@ const resources = {
     documents: taDocuments,
     labourAttendance: taLabourAttendance,
     finance: taFinance,
+    calculation: taCalculation,
   },
   mr: {
     common: mrCommon,
@@ -393,6 +414,7 @@ const resources = {
     documents: mrDocuments,
     labourAttendance: mrLabourAttendance,
     finance: mrFinance,
+    calculation: mrCalculation,
   },
   te: {
     common: teCommon,
@@ -412,6 +434,7 @@ const resources = {
     documents: teDocuments,
     labourAttendance: teLabourAttendance,
     finance: teFinance,
+    calculation: teCalculation,
   },
   kn: {
     common: knCommon,
@@ -431,6 +454,7 @@ const resources = {
     documents: knDocuments,
     labourAttendance: knLabourAttendance,
     finance: knFinance,
+    calculation: knCalculation,
   },
   ml: {
     common: mlCommon,
@@ -450,6 +474,7 @@ const resources = {
     documents: mlDocuments,
     labourAttendance: mlLabourAttendance,
     finance: mlFinance,
+    calculation: mlCalculation,
   },
   ur: {
     common: urCommon,
@@ -469,6 +494,7 @@ const resources = {
     documents: urDocuments,
     labourAttendance: urLabourAttendance,
     finance: urFinance,
+    calculation: urCalculation,
   },
   raj: {
     common: rajCommon,
@@ -488,6 +514,7 @@ const resources = {
     documents: rajDocuments,
     labourAttendance: rajLabourAttendance,
     finance: rajFinance,
+    calculation: rajCalculation,
   },
   bho: {
     common: bhoCommon,
@@ -507,6 +534,7 @@ const resources = {
     documents: bhoDocuments,
     labourAttendance: bhoLabourAttendance,
     finance: bhoFinance,
+    calculation: bhoCalculation,
   },
   as: {
     common: asCommon,
@@ -526,6 +554,7 @@ const resources = {
     documents: asDocuments,
     labourAttendance: asLabourAttendance,
     finance: asFinance,
+    calculation: asCalculation,
   },
   hry: {
     common: hryCommon,
@@ -545,6 +574,7 @@ const resources = {
     documents: hryDocuments,
     labourAttendance: hryLabourAttendance,
     finance: hryFinance,
+    calculation: hryCalculation,
   },
 };
 
@@ -559,7 +589,7 @@ i18n
       escapeValue: false, // React already escapes values
     },
     defaultNS: 'common',
-    ns: ['common', 'auth', 'dashboard', 'account', 'businessCard', 'siteInventory', 'referEarn', 'subscription', 'builderClient', 'projectGallery', 'projects', 'pastProjects', 'dpr', 'notes', 'documents', 'labourAttendance'],
+    ns: ['common', 'auth', 'dashboard', 'account', 'businessCard', 'siteInventory', 'referEarn', 'subscription', 'builderClient', 'projectGallery', 'projects', 'pastProjects', 'dpr', 'notes', 'documents', 'labourAttendance', 'calculation'],
   });
 
 export default i18n;

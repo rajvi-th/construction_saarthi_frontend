@@ -1,0 +1,141 @@
+{
+    "projectDetails": {
+        "history": "வரலாறு",
+        "totalCalculations": "மொத்த கணக்கீடுகள்",
+        "usedCalculations": "பயன்படுத்தப்பட்ட கணக்கீடுகள்",
+        "buyCalculations": "கணக்கீடுகளை வாங்குங்கள்"
+    },
+    "quickActions": {
+        "tabs": {
+            "quantity": "அளவு",
+            "area": "பரப்பளவு",
+            "volume": "கன அளவு",
+            "converter": "மாற்றி",
+            "study": "படிப்பு",
+            "quiz": "வினாடி வினா"
+        },
+        "items": {
+            "constructionCost": "கட்டுமான செலவு",
+            "steelQuantities": "எஃகு அளவு",
+            "concrete": "கான்கிரீட்",
+            "brickWorkPlaster": "செங்கல் வேலை மற்றும் பூச்சு",
+            "roofAreaPitch": "கூரை பரப்பளவு மற்றும் சாய்வு",
+            "flooringCalculation": "தரைதளம் கணக்கீடு",
+            "waterTankCapacity": "தண்ணீர் தொட்டி கொள்ளளவு",
+            "excavation": "அகழ்வாராய்ச்சி",
+            "swimmingPool": "நீச்சல் குளம்",
+            "waterProofing": "நீர் புகாத பாதுகாப்பு",
+            "metalCalculator": "உலோக கால்குலேட்டர்",
+            "railConstruction": "ரயில் கட்டுமானம்",
+            "roadCalculation": "சாலை கணக்கீடு",
+            "paint": "பெயிண்ட்",
+            "diagonals": "மூலைவிட்டங்கள்",
+            "antiTermite": "கரையான் தடுப்பு",
+            "acCapacity": "ஏசி திறன்",
+            "solarElectric": "சூரிய சக்தி (மின்சாரம்)",
+            "solarWaterHeater": "சூரிய நீர் சூடாக்கி",
+            "plywoodSheet": "ப்ளைவுட் சீட்",
+            "plum": "பிளம்",
+            "rainWaterHarvesting": "மழைநீர் சேகரிப்பு",
+            "shuttering": "ஷட்டரிங்",
+            "baluster": "பலஸ்டர்",
+            "arcCalculator": "ஆர்க் கால்குலேட்டர்",
+            "precastBoundaryWall": "ப்ரீகாஸ்ட் எல்லைச் சுவர்",
+            "damCalculations": "அணை கணக்கீடுகள்",
+            "sewageSystem": "கழிவுநீர் அமைப்பு",
+            "waterSupplySystem": "குடிநீர் விநியோக அமைப்பு",
+            "materialWeights": "பொருள் எடைகள்",
+            "billOfQuantity": "பொருள்களின் பட்டியல் (BOQ)"
+        }
+    },
+    "comingSoon": {
+        "title": "விரைவில் வருகிறது",
+        "comingSoonText": "விரைவில் வருகிறது...",
+        "launchTextPart1": "நாங்கள் விரைவில் ஒரு ",
+        "launchTextPart2": " ஐ அறிமுகப்படுத்த உள்ளோம், இணைந்திருங்கள்.",
+        "backButton": "← கட்டுமான கால்குலேட்டருக்குத் திரும்பு"
+    },
+    "history": {
+        "sharePdf": "PDF ஆகப் பகிரவும்",
+        "downloadReport": "அறிக்கையைப் பதிவிறக்கவும்",
+        "calcTitle": "கணக்கீடு தலைப்பு (விரும்பினால்)",
+        "enterValue": "மதிப்பை உள்ளிடவும்",
+        "constructionArea": "கட்டுமானப் பரப்பு",
+        "constructionCost": "கட்டுமானச் செலவு",
+        "reset": "மீட்டமை",
+        "calculate": "கணக்கிடு",
+        "materialQuantity": "பொருள் அளவு",
+        "workCost": "பல்வேறு பணிகளின் செலவு",
+        "headers": {
+            "material": "பொருள்",
+            "quantity": "அளவு",
+            "unit": "அலகு"
+        },
+        "materials": {
+            "cement": "சிமெண்ட்",
+            "sand": "மணல்",
+            "aggregate": "ஜல்லி",
+            "steel": "எஃகு (ஸ்டீல்)",
+            "paint": "பெயிண்ட்",
+            "bricks": "செங்கற்கள்",
+            "flooring": "தரைத்தளம்",
+            "windows": "ஜன்னல்கள்",
+            "doors": "கதவுகள்"
+        },
+        "units": {
+            "bags": "மூட்டைகள்",
+            "ton": "டன்",
+            "kg": "கிலோ",
+            "liters": "லிட்டர்",
+            "sqft": "சதுர அடி",
+            "nos": "எண்ணிக்கை"
+        },
+        "works": {
+            "design": "வடிவமைப்பு & பொறியியல்",
+            "excavation": "அகழ்வாராய்ச்சி",
+            "foundation": "அடித்தளம்",
+            "rcc": "RCC",
+            "brickwork": "செங்கல் வேலை",
+            "plaster": "பூச்சு வேலை"
+        }
+    },
+    "steel": {
+        "sections": {
+            "weight": "எடை",
+            "footing": "பூட்டிங்",
+            "column": "தூண்",
+            "beam": "பீம்",
+            "slab": "ஸ்லாப்",
+            "cuttingLength": "வெட்டு நீளம்"
+        },
+        "weight": {
+            "reinforcement": "ரீஇன்ஃபோர்ஸ்மென்ட் எடை"
+        },
+        "footing": {
+            "type1": "பூட்டிங் வகை 1",
+            "type2": "பூட்டிங் வகை 2"
+        },
+        "column": {
+            "type1": "தூண் வகை 1",
+            "type2": "தூண் வகை 2",
+            "type3": "தூண் வகை 3",
+            "type4": "தூண் வகை 4",
+            "type5": "தூண் வகை 5",
+            "type6": "தூண் வகை 6",
+            "type7": "தூண் வகை 7",
+            "type8": "தூண் வகை 8",
+            "type9": "தூண் வகை 9",
+            "type10": "தூண் வகை 10",
+            "type11": "தூண் வகை 11",
+            "type12": "தூண் வகை 12",
+            "vertical": "தூண் செங்குத்து எஃகு",
+            "ring1": "தூண் வளையம் 1",
+            "ring2": "தூண் வளையம் 2"
+        },
+        "comingSoon": {
+            "beam": "பீம் கணக்கீடு UI விரைவில்...",
+            "slab": "ஸ்லாப் கணக்கீடு UI விரைவில்...",
+            "cutting": "வெட்டு நீளம் கணக்கீடு UI விரைவில்..."
+        }
+    }
+}

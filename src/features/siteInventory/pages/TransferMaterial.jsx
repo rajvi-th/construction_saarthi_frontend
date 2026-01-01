@@ -16,7 +16,7 @@ import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
 import { showSuccess, showError } from '../../../utils/toast';
 import { useAuth } from '../../../hooks/useAuth';
 import { getAllProjects } from '../../projects/api/projectApi';
-import { requestMaterial } from '../api/siteInventoryApi';
+import { createTransferRequest } from '../api/siteInventoryApi';
 
 export default function TransferMaterial() {
   const { t } = useTranslation('siteInventory');
@@ -24,12 +24,12 @@ export default function TransferMaterial() {
   const location = useLocation();
   const { inventoryId } = useParams();
   const { selectedWorkspace } = useAuth();
-  
+
   // Get project context from navigation state (current project - where we're transferring FROM)
   const currentProjectId = location.state?.projectId;
   const currentProjectName = location.state?.projectName;
   const item = location.state?.item; // Inventory item being transferred
-  
+
   const [selectedProjects, setSelectedProjects] = useState([]);
   const [projectOptions, setProjectOptions] = useState([]);
   const [quantity, setQuantity] = useState('');
@@ -39,9 +39,10 @@ export default function TransferMaterial() {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Get material name and unit from item
+  // Get material name, unit and stock from item
   const materialName = item?.material?.name || item?.materialName || item?.name || 'Material';
   const quantityUnit = item?.material?.unit_name || item?.unit_name || item?.unitName || '';
+  const availableStock = parseFloat(item?.currentStock) || parseFloat(item?.quantity) || 0;
 
   // Calculate total price when quantity or cost per unit changes
   useEffect(() => {
@@ -148,6 +149,19 @@ export default function TransferMaterial() {
         return;
       }
 
+      if (parseFloat(quantity) > availableStock) {
+        setErrors((prev) => ({
+          ...prev,
+          quantity: t('transferMaterial.errors.insufficientStock', {
+            defaultValue: 'Insufficient stock. Available: {{count}} {{unit}}',
+            count: availableStock,
+            unit: quantityUnit
+          })
+        }));
+        setIsSubmitting(false);
+        return;
+      }
+
       if (!costPerUnit || parseFloat(costPerUnit) <= 0) {
         setErrors((prev) => ({ ...prev, costPerUnit: t('transferMaterial.errors.costPerUnitRequired', { defaultValue: 'Cost per unit is required' }) }));
         setIsSubmitting(false);
@@ -165,19 +179,21 @@ export default function TransferMaterial() {
         setIsSubmitting(false);
         return;
       }
-      
-      // Create transfer request using requestMaterial API
-      // For transfer: fromProjectId = currentProjectId, toProjects = selectedProjects
-      await requestMaterial({
-        inventoryId: inventoryId,
+
+      // Create transfer request using createTransferRequest API
+      await createTransferRequest({
+        inventoryTypeId: item?.inventoryTypeId || 1,
+        inventoryId: parseInt(inventoryId),
         quantity: parseFloat(quantity) || 0,
         description: conditionDescription || '',
-        fromProjectId: currentProjectId,
-        toProjects: selectedProjects.map((project) => project.value),
+        projectID: parseInt(currentProjectId),
+        vendorID: parseInt(item?.vendorID || item?.vendorId || 0),
+        costPerUnit: parseFloat(costPerUnit) || 0,
+        to_project: parseInt(selectedProjects[0]?.value),
       });
-      
+
       showSuccess(t('transferMaterial.success', { defaultValue: 'Transfer request sent successfully' }));
-      
+
       // Navigate back after success
       navigate(-1);
     } catch (error) {
@@ -203,7 +219,7 @@ export default function TransferMaterial() {
             {t('transferMaterial.transferTo', { defaultValue: 'Transfer to Project' })}
             <span className="text-accent ml-1">*</span>
           </label>
-          
+
           {/* Selected Projects Tags */}
           {selectedProjects.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-3">
@@ -224,7 +240,7 @@ export default function TransferMaterial() {
               ))}
             </div>
           )}
-          
+
           {/* Project Dropdown - shown only when no project is selected */}
           {selectedProjects.length === 0 && (
             <Dropdown
@@ -250,6 +266,11 @@ export default function TransferMaterial() {
             unit={quantityUnit}
             className="w-full"
           />
+          {availableStock > 0 && (
+            <p className="mt-1 text-xs text-secondary">
+              {t('transferMaterial.availableStock', { defaultValue: 'Available Stock' })}: {availableStock} {quantityUnit}
+            </p>
+          )}
         </div>
 
         {/* Cost Per Unit and Total Price - Side by Side */}
@@ -272,7 +293,7 @@ export default function TransferMaterial() {
             <NumberInput
               label={t('transferMaterial.totalPrice', { defaultValue: 'Total Price' })}
               value={totalPrice}
-              onChange={() => {}} // Read-only, calculated automatically
+              onChange={() => { }} // Read-only, calculated automatically
               placeholder="00"
               showCurrency
               disabled
