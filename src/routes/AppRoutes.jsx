@@ -123,6 +123,11 @@ const History = lazy(() => import('../calculation/LandingPage/pages/History'));
 const SteelQuantities = lazy(() => import('../calculation/steel/LandingPage/pages/SteelQuantities'));
 const ReinforcementWeight = lazy(() => import('../calculation/steel/weight/pages/ReinforcementWeight'));
 const ReinforcementDetailedReport = lazy(() => import('../calculation/steel/weight/pages/ReinforcementDetailedReport'));
+const ReinforcementHistory = lazy(() => import('../calculation/steel/weight/pages/ReinforcementHistory'));
+const FootingType1 = lazy(() => import('../calculation/steel/footing/pages/FootingType1'));
+const FootingType1Detailed = lazy(() => import('../calculation/steel/footing/pages/FootingType1Detailed'));
+const FootingType2 = lazy(() => import('../calculation/steel/footing/pages/FootingType2'));
+const FootingType2Detailed = lazy(() => import('../calculation/steel/footing/pages/FootingType2Detailed'));
 const ComingSoon = lazy(() => import('../calculation/common/ComingSoon'));
 
 // Loading Component for Suspense fallback
@@ -220,6 +225,11 @@ function AppRoutes() {
             <Route path={ROUTES_FLAT.CALCULATION_STEEL_QUANTITIES} element={<SteelQuantities />} />
             <Route path={ROUTES_FLAT.CALCULATION_REINFORCEMENT_WEIGHT} element={<ReinforcementWeight />} />
             <Route path={ROUTES_FLAT.CALCULATION_REINFORCEMENT_WEIGHT_DETAILED} element={<ReinforcementDetailedReport />} />
+            <Route path={ROUTES_FLAT.CALCULATION_REINFORCEMENT_WEIGHT_HISTORY} element={<ReinforcementHistory />} />
+            <Route path={ROUTES_FLAT.CALCULATION_FOOTING_TYPE1} element={<FootingType1 />} />
+            <Route path={ROUTES_FLAT.CALCULATION_FOOTING_TYPE1_DETAILED} element={<FootingType1Detailed />} />
+            <Route path={ROUTES_FLAT.CALCULATION_FOOTING_TYPE2} element={<FootingType2 />} />
+            <Route path={ROUTES_FLAT.CALCULATION_FOOTING_TYPE2_DETAILED} element={<FootingType2Detailed />} />
             <Route path="/calculation/coming-soon" element={<ComingSoon />} />
           </Route>
         </Route>

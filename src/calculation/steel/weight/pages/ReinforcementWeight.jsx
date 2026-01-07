@@ -37,22 +37,22 @@ const ReinforcementWeight = () => {
 
     const dropdownItems = [
         {
-            label: 'History',
+            label: t('projectDetails.history'),
             icon: <HistoryIcon className="w-4 h-4" />,
             onClick: () => console.log('History clicked'),
         },
         {
-            label: 'Share as PDF',
+            label: t('history.sharePdf'),
             icon: <Share2 className="w-4 h-4" />,
             onClick: () => console.log('Share clicked'),
         }
     ];
 
     const resultData = [
-        { material: 'Total Length', quantity: '60.960', unit: 'm' },
-        { material: 'Single Road We.', quantity: '1.878', unit: 'Kg' },
-        { material: 'Total Weight', quantity: '37.565', unit: 'Kg' },
-        { material: 'Total Price', quantity: '7512.941', unit: '₹' },
+        { material: t('steel.weight.totalLength'), quantity: '60.960', unit: 'm' },
+        { material: t('steel.weight.singleRodWeight'), quantity: '1.878', unit: 'Kg' },
+        { material: t('steel.weight.totalWeight'), quantity: '37.565', unit: 'Kg' },
+        { material: t('steel.weight.totalPrice'), quantity: '7512.941', unit: '₹' },
     ];
 
     return (
@@ -92,14 +92,14 @@ const ReinforcementWeight = () => {
                     {/* Radio Group */}
                     <div className="flex items-center gap-8">
                         <Radio
-                            label="Metric"
+                            label={t('steel.weight.metric')}
                             name="unitType"
                             value="metric"
                             checked={unitType === 'metric'}
                             onChange={() => setUnitType('metric')}
                         />
                         <Radio
-                            label="Imperial"
+                            label={t('steel.weight.imperial')}
                             name="unitType"
                             value="imperial"
                             checked={unitType === 'imperial'}
@@ -113,7 +113,7 @@ const ReinforcementWeight = () => {
                     {/* Material Wastage */}
                     <div className="flex flex-col gap-2">
                         <label className="text-sm sm:text-base font-medium text-primary ml-1">
-                            Material Wastage
+                            {t('steel.weight.wastage')}
                         </label>
                         <div className="relative">
                             <input
@@ -121,7 +121,7 @@ const ReinforcementWeight = () => {
                                 value={wastage}
                                 onChange={(e) => setWastage(e.target.value)}
                                 className="w-full h-[58px] bg-white rounded-2xl px-6 py-4 text-base text-primary border border-[#060C121A] focus:outline-none focus:border-accent/40 transition-all"
-                                placeholder='e.g "10"'
+                                placeholder={t('steel.weight.wastagePlaceholder')}
                             />
                             <span className="absolute right-6 top-1/2 -translate-y-1/2 text-secondary font-medium">%</span>
                         </div>
@@ -140,7 +140,7 @@ const ReinforcementWeight = () => {
                                 value={diameter}
                                 onChange={(e) => setDiameter(e.target.value)}
                                 className="flex-1 px-6 text-base text-primary focus:outline-none"
-                                placeholder="Diameter"
+                                placeholder={t('steel.weight.diameter')}
                             />
                         </div>
 
@@ -155,7 +155,7 @@ const ReinforcementWeight = () => {
                                 value={length}
                                 onChange={(e) => setLength(e.target.value)}
                                 className="flex-1 px-6 text-base sm:text-lg text-primary focus:outline-none font-medium"
-                                placeholder="Length"
+                                placeholder={t('steel.weight.length')}
                             />
                         </div>
                     </div>
@@ -169,7 +169,7 @@ const ReinforcementWeight = () => {
                                 value={noOfBars}
                                 onChange={(e) => setNoOfBars(e.target.value)}
                                 className="w-full h-[58px] bg-white rounded-2xl px-6 py-4 text-base sm:text-lg text-primary border border-[#060C121A] focus:outline-none focus:border-accent/40 transition-all"
-                                placeholder="No of Bars"
+                                placeholder={t('steel.weight.noOfBars')}
                             />
                         </div>
 
@@ -180,9 +180,9 @@ const ReinforcementWeight = () => {
                                 value={price}
                                 onChange={(e) => setPrice(e.target.value)}
                                 className="w-full h-[58px] bg-white rounded-2xl px-6 py-4 text-base sm:text-lg text-primary border border-[#060C121A] focus:outline-none focus:border-accent/40 transition-all"
-                                placeholder="Price"
+                                placeholder={t('steel.weight.price')}
                             />
-                            <span className="absolute right-6 top-1/2 -translate-y-1/2 text-secondary font-medium">₹/Kg</span>
+                            <span className="absolute right-6 top-1/2 -translate-y-1/2 text-secondary font-medium">{t('history.units.kg')}/{t('history.units.ton')}</span>
                         </div>
                     </div>
                 </div>
@@ -193,13 +193,13 @@ const ReinforcementWeight = () => {
                         onClick={handleReset}
                         className="h-[52px] px-10 bg-white border border-[#E7D7C1] rounded-xl text-primary font-medium hover:bg-gray-50 transition-all cursor-pointer"
                     >
-                        Reset
+                        {t('steel.weight.reset')}
                     </button>
                     <button
                         onClick={handleCalculate}
                         className="h-[52px] px-10 bg-[#D4947E] text-white rounded-xl font-medium hover:bg-[#C4846E] transition-all cursor-pointer"
                     >
-                        Calculate
+                        {t('steel.weight.calculate')}
                     </button>
                 </div>
             </div>
@@ -208,8 +208,13 @@ const ReinforcementWeight = () => {
             {showResult && (
                 <div className="mt-10 animate-fade-in pb-10">
                     <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-2xl font-semibold text-primary">Result</h2>
-                        <button className="text-accent font-medium hover:underline cursor-pointer">History</button>
+                        <h2 className="text-2xl font-semibold text-primary">{t('steel.weight.result')}</h2>
+                        <button
+                            onClick={() => navigate(ROUTES_FLAT.CALCULATION_REINFORCEMENT_WEIGHT_HISTORY)}
+                            className="text-accent font-medium cursor-pointer"
+                        >
+                            {t('projectDetails.history')}
+                        </button>
                     </div>
 
                     {/* Tabs Synchronized with unitType */}
@@ -218,13 +223,13 @@ const ReinforcementWeight = () => {
                             onClick={() => setUnitType('metric')}
                             className={`px-12 py-3 border-b-2 transition-all cursor-pointer font-medium ${unitType === 'metric' ? 'border-accent text-accent' : 'border-transparent text-secondary'}`}
                         >
-                            Metric
+                            {t('steel.weight.metric')}
                         </button>
                         <button
                             onClick={() => setUnitType('imperial')}
                             className={`px-12 py-3 border-b-2 transition-all cursor-pointer font-medium ${unitType === 'imperial' ? 'border-accent text-accent' : 'border-transparent text-secondary'}`}
                         >
-                            Imperial
+                            {t('steel.weight.imperial')}
                         </button>
                     </div>
 
@@ -233,7 +238,7 @@ const ReinforcementWeight = () => {
                         <table className="w-full text-left border-collapse min-w-[320px]">
                             <thead>
                                 <tr className="bg-[#F7F7F7] border-b border-[#060C120A]">
-                                    {['Material', 'Quantity', 'Unit'].map((header, index) => (
+                                    {[t('history.headers.material'), t('history.headers.quantity'), t('history.headers.unit')].map((header, index) => (
                                         <th
                                             key={index}
                                             className="px-6 py-4 text-sm font-semibold text-primary border-r border-[#060C120A] last:border-r-0"
@@ -257,23 +262,24 @@ const ReinforcementWeight = () => {
 
                     {/* Bottom Actions (Half Width) */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="bg-[#FDF9F4] p-4 rounded-2xl flex items-center justify-between border border-[#F5E6D3]">
-                            <span className="text-lg font-medium text-primary">Total Cost</span>
-                            <span className="text-2xl font-bold text-accent">₹44,567.33</span>
+                        <div className="bg-[#FDF9F4] p-4 rounded-2xl flex items-center justify-between border border-[#F5E6D3] h-[58px]">
+                            <span className=" font-medium text-primary">{t('steel.weight.totalCost')}</span>
+                            <span className=" font-bold text-accent">₹44,567.33</span>
                         </div>
                         <Button
                             variant="primary"
                             onClick={() => navigate(ROUTES_FLAT.CALCULATION_REINFORCEMENT_WEIGHT_DETAILED, {
                                 state: { diameter, length, noOfBars, price, unitType }
                             })}
-                            className="rounded-2xl text-lg font-medium hover:bg-[#B02E0C] transition-all h-full min-h-[78px] w-full"
+                            className="!rounded-2xl text-lg font-medium hover:bg-[#B02E0C] transition-all h-[58px]"
                         >
-                            View Detailed Result
+                            {t('steel.weight.viewDetailed')}
                         </Button>
                     </div>
                 </div>
             )}
         </div>
+
     );
 };
 

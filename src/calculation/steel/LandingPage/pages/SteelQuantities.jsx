@@ -19,6 +19,12 @@ const SteelQuantities = () => {
     const handleItemClick = (itemTitle) => {
         if (itemTitle === t('steel.weight.reinforcement')) {
             navigate('/calculation/steel/weight/reinforcement');
+        } else if (itemTitle === t('steel.footing.type1')) {
+            navigate('/calculation/steel/footing/type1');
+        } else if (itemTitle === t('steel.footing.type2')) {
+            navigate('/calculation/steel/footing/type2');
+        } else if (itemTitle === t('steel.footing.type3')) {
+            navigate('/calculation/coming-soon');
         }
     };
 

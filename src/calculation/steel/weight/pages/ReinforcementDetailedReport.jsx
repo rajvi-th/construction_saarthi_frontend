@@ -1,7 +1,6 @@
-import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import PageHeader from '../../../../components/layout/PageHeader';
+import { ArrowLeft } from 'lucide-react';
 import InputTable from '../components/InputTable';
 import ReportCard from '../components/ReportCard';
 
@@ -20,10 +19,10 @@ const ReinforcementDetailedReport = () => {
     };
 
     const inputData = [
-        { name: 'Diameter', symbol: 'd', value: `${data.diameter} mm` },
-        { name: 'Length', symbol: 'L', value: `${data.length} m` },
-        { name: 'No of Bars', symbol: 'N', value: `${data.noOfBars} NOS` },
-        { name: 'Price', symbol: 'R', value: `${data.price} per kg` },
+        { name: t('steel.weight.diameter'), symbol: 'd', value: `${data.diameter} mm` },
+        { name: t('steel.weight.length'), symbol: 'L', value: `${data.length} m` },
+        { name: t('steel.weight.noOfBars'), symbol: 'N', value: `${data.noOfBars} NOS` },
+        { name: t('steel.weight.price'), symbol: 'R', value: `${data.price} per kg` },
     ];
 
     // Dynamic Calculations
@@ -40,48 +39,61 @@ const ReinforcementDetailedReport = () => {
 
     const outputSections = [
         {
-            title: 'Total Length',
+            title: t('steel.weight.totalLength'),
             items: [
-                { label: 'Total Length Formula', value: 'LXN', isHighlight: true },
-                { label: 'Total Length', value: `${totalLength.toFixed(3)} m` }
+                { label: `${t('steel.weight.totalLength')} ${t('steel.weight.formula')}`, value: 'LXN', isHighlight: true },
+                { label: t('steel.weight.totalLength'), value: `${totalLength.toFixed(3)} m` }
             ]
         },
         {
-            title: 'Single Rod Weight',
+            title: t('steel.weight.singleRodWeight'),
             items: [
-                { label: 'Single Rod Weight Formula', value: '((dxd)/162.28)XL', isHighlight: true },
-                { label: 'Single Rod Weight', value: `${singleRodWeight.toFixed(3)} Kg` }
+                { label: `${t('steel.weight.singleRodWeight')} ${t('steel.weight.formula')}`, value: '((dxd)/162.28)XL', isHighlight: true },
+                { label: t('steel.weight.singleRodWeight'), value: `${singleRodWeight.toFixed(3)} Kg` }
             ]
         },
         {
-            title: 'Total Weight',
+            title: t('steel.weight.totalWeight'),
             items: [
-                { label: 'Total Weight Formula', value: '((dxd)/162.28)XLxN', isHighlight: true },
-                { label: 'Total Weight', value: `${totalWeight.toFixed(3)} Kg` }
+                { label: `${t('steel.weight.totalWeight')} ${t('steel.weight.formula')}`, value: '((dxd)/162.28)XLxN', isHighlight: true },
+                { label: t('steel.weight.totalWeight'), value: `${totalWeight.toFixed(3)} Kg` }
             ]
         },
         {
-            title: 'Total Price',
+            title: t('steel.weight.totalPrice'),
             items: [
-                { label: 'Total Price Formula', value: '((dxd)/162.28)XLxNxR', isHighlight: true },
-                { label: 'Total Price', value: `${totalPrice.toLocaleString('en-IN', { maximumFractionDigits: 3 })} ₹` }
+                { label: `${t('steel.weight.totalPrice')} ${t('steel.weight.formula')}`, value: '((dxd)/162.28)XLxNxR', isHighlight: true },
+                { label: t('steel.weight.totalPrice'), value: `${totalPrice.toLocaleString('en-IN', { maximumFractionDigits: 3 })} ₹` }
             ]
         }
     ];
 
     return (
-        <div className="min-h-screen max-w-4xl mx-auto px-4 sm:px-6 pb-20">
-            <PageHeader
-                title="Reinforcement Weight Detailed Report"
-                showBackButton
-                onBack={() => navigate(-1)}
-            />
+        <div className="min-h-screen max-w-7xl mx-auto px-4 sm:px-6 pb-20">
+            <div className="flex items-center justify-between mb-8 group">
+                <div className="flex items-center gap-3">
+                    <button
+                        onClick={() => navigate(-1)}
+                        className="p-1 cursor-pointer"
+                    >
+                        <ArrowLeft className="w-6 h-6 text-primary" />
+                    </button>
+                    <h1 className="text-xl font-bold text-primary">
+                        {data.history ? t('steel.weight.reinforcement') : t('steel.weight.detailedReport')}
+                    </h1>
+                </div>
+                {data.date && data.time && (
+                    <span className="text-secondary text-sm font-medium">
+                        {data.date} {data.time}
+                    </span>
+                )}
+            </div>
 
             <div className="mt-8">
-                <h2 className="text-2xl font-bold text-primary mb-6">Inputs</h2>
+                <h2 className="text-lg font-medium text-primary mb-4">{t('steel.weight.inputs')}</h2>
                 <InputTable data={inputData} />
 
-                <h2 className="text-2xl font-bold text-primary mb-6 mt-10">Outputs</h2>
+                <h2 className="text-lg font-medium text-primary mb-4 mt-10">{t('steel.weight.outputs')}</h2>
                 <div className="grid grid-cols-1 gap-4">
                     {outputSections.map((section, index) => (
                         <ReportCard
@@ -95,5 +107,6 @@ const ReinforcementDetailedReport = () => {
         </div>
     );
 };
+
 
 export default ReinforcementDetailedReport;
