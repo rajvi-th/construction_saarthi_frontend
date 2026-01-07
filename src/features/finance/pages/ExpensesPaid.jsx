@@ -52,7 +52,7 @@ export default function ExpensesPaid() {
   const [isLoadingEntries, setIsLoadingEntries] = useState(false);
   const [expenseSectionId, setExpenseSectionId] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
-  
+
   // Refs to prevent duplicate API calls
   const isFetchingEntriesRef = useRef(false);
   const isFetchingSectionsRef = useRef(false);
@@ -130,7 +130,7 @@ export default function ExpensesPaid() {
 
     try {
       setIsDeleting(true);
-      
+
       // Call API to delete payment entry
       await deletePayableBill(entryToDelete.id);
 
@@ -183,18 +183,18 @@ export default function ExpensesPaid() {
       // If API call successful, refresh vendors list from API
       try {
         const response = await getVendors(selectedWorkspace, 'vendor');
-        
+
         // Handle response structure: { users: [...] }
         const vendorsList = response?.users || response?.data?.users || response?.data || (Array.isArray(response) ? response : []);
-        
+
         // Store full vendor objects for ID mapping
         setVendorsData(vendorsList);
-        
+
         // Extract vendor names from the response
-        const vendorNames = vendorsList.map((vendor) => 
+        const vendorNames = vendorsList.map((vendor) =>
           vendor.full_name || vendor.name || vendor.fullName || String(vendor)
         ).filter(Boolean);
-        
+
         setVendors(vendorNames);
       } catch (fetchError) {
         // If refresh fails, just add to local state
@@ -202,7 +202,7 @@ export default function ExpensesPaid() {
           setVendors([...vendors, vendorName]);
         }
       }
-      
+
       showSuccess(t("vendorCreated", { defaultValue: "Vendor created successfully" }));
       return Promise.resolve();
     } catch (error) {
@@ -210,15 +210,13 @@ export default function ExpensesPaid() {
       const errorMessage = error?.response?.data?.message || error?.message || t("vendorCreateError", { defaultValue: "Failed to create vendor" });
       showError(errorMessage);
       return Promise.reject(error);
-    if (!vendors.includes(vendorData.name)) {
-      setVendors([...vendors, vendorData.name]);
     }
   };
 
   // Handle add category
   const handleAddCategory = async (categoryData) => {
     const categoryName = categoryData.name || categoryData;
-    
+
     // Check if workspace is available
     if (!selectedWorkspace) {
       showError(t("workspaceRequired", { defaultValue: "Workspace is required to create category" }));
@@ -238,12 +236,12 @@ export default function ExpensesPaid() {
         const categoriesResponse = await getCategories(selectedWorkspace);
         const categoriesList = categoriesResponse?.data || categoriesResponse?.categories || categoriesResponse || [];
         const categoriesArray = Array.isArray(categoriesList) ? categoriesList : [];
-        
+
         // Extract category names from the response
-        const categoryNames = categoriesArray.map((category) => 
+        const categoryNames = categoriesArray.map((category) =>
           category.name || category.category_name || String(category)
         ).filter(Boolean);
-        
+
         setCategories(categoryNames);
       } catch (fetchError) {
         // If refresh fails, just add to local state
@@ -251,7 +249,7 @@ export default function ExpensesPaid() {
           setCategories([...categories, categoryName]);
         }
       }
-      
+
       showSuccess(t("categoryCreated", { defaultValue: "Category created successfully" }));
       return Promise.resolve();
     } catch (error) {
@@ -259,8 +257,6 @@ export default function ExpensesPaid() {
       const errorMessage = error?.response?.data?.message || error?.message || t("categoryCreateError", { defaultValue: "Failed to create category" });
       showError(errorMessage);
       return Promise.reject(error);
-    if (!categories.includes(categoryData.name)) {
-      setCategories([...categories, categoryData.name]);
     }
   };
 
@@ -433,21 +429,21 @@ export default function ExpensesPaid() {
         console.log("ExpensesPaid: Fetching expense sections for projectId:", projectId);
         const sections = await getExpenseSections(projectId);
         console.log("ExpensesPaid: Expense sections response:", sections);
-        
-        const sectionsList = Array.isArray(sections) 
-          ? sections 
+
+        const sectionsList = Array.isArray(sections)
+          ? sections
           : sections?.data || sections?.sections || [];
-        
+
         console.log("ExpensesPaid: Processed sections list:", sectionsList);
-        
+
         // Find "Expenses Paid" section or use first available
         const expensesPaidSection = sectionsList.find(
-          (section) => 
+          (section) =>
             section.name?.toLowerCase().includes('expenses paid') ||
             section.name?.toLowerCase().includes('paid') ||
             section.section_name?.toLowerCase().includes('expenses paid')
         );
-        
+
         if (expensesPaidSection) {
           const sectionId = expensesPaidSection.id || expensesPaidSection.section_id;
           console.log("ExpensesPaid: Found Expenses Paid section, ID:", sectionId);
@@ -485,18 +481,18 @@ export default function ExpensesPaid() {
       try {
         isFetchingVendorsRef.current = true;
         const response = await getVendors(selectedWorkspace, 'vendor');
-        
+
         // Handle response structure: { users: [...] }
         const vendorsList = response?.users || response?.data?.users || response?.data || (Array.isArray(response) ? response : []);
-        
+
         // Store full vendor objects for ID mapping
         setVendorsData(vendorsList);
-        
+
         // Extract vendor names for display
-        const vendorNames = vendorsList.map((vendor) => 
+        const vendorNames = vendorsList.map((vendor) =>
           vendor.full_name || vendor.name || vendor.fullName || String(vendor)
         ).filter(Boolean);
-        
+
         setVendors(vendorNames);
       } catch (error) {
         console.error("Error fetching vendors:", error);
@@ -526,19 +522,19 @@ export default function ExpensesPaid() {
       try {
         isFetchingCategoriesRef.current = true;
         const response = await getCategories(selectedWorkspace);
-        
+
         // Handle different response structures
         const categoriesList = response?.data || response?.categories || response || [];
         const categoriesArray = Array.isArray(categoriesList) ? categoriesList : [];
-        
+
         // Store full category objects with IDs
         setCategoriesData(categoriesArray);
-        
+
         // Extract category names from the response
-        const categoryNames = categoriesArray.map((category) => 
+        const categoryNames = categoriesArray.map((category) =>
           category.name || category.category_name || String(category)
         ).filter(Boolean);
-        
+
         setCategories(categoryNames);
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -578,7 +574,7 @@ export default function ExpensesPaid() {
         isFetchingEntriesRef.current = true;
         // Map filters to API parameters
         const filterParams = mapFiltersToAPIParams(filters);
-        
+
         const apiParams = {
           project_id: projectId,
           workspace_id: selectedWorkspace,
