@@ -83,6 +83,16 @@ export const deleteExpenseSection = async (sectionId) => {
  * @param {string|number} params.workspace_id - Workspace ID
  * @param {string|number} params.expenseSection_id - Expense Section ID
  * @param {string} [params.status] - Status filter (e.g., "Paid", "Pending")
+ * @param {string} [params.startDate] - Start date filter (YYYY-MM-DD)
+ * @param {string} [params.endDate] - End date filter (YYYY-MM-DD)
+ * @param {string} [params.receiver_name] - Receiver name filter
+ * @param {string|number} [params.paidTo] - Paid to vendor ID filter
+ * @param {string} [params.method] - Payment method filter (Cash, Cheque, Bank Transfer, UPI, Other)
+ * @param {number} [params.minAmount] - Minimum amount filter
+ * @param {number} [params.maxAmount] - Maximum amount filter
+ * @param {string} [params.paidDate] - Paid date filter (YYYY-MM-DD)
+ * @param {string} [params.due_date] - Due date filter (YYYY-MM-DD)
+ * @param {string|number} [params.category_id] - Category ID filter
  * @returns {Promise<Array>} List of payable bills
  */
 export const getPayableBills = async (params) => {
@@ -90,13 +100,54 @@ export const getPayableBills = async (params) => {
     throw new Error('project_id, workspace_id, and expenseSection_id are required');
   }
   
+  // Build query parameters object
+  const queryParams = {
+    project_id: params.project_id,
+    workspace_id: params.workspace_id,
+    expenseSection_id: params.expenseSection_id,
+  };
+
+  // Add optional filters (only include if they have a value)
+  if (params.status) {
+    queryParams.status = params.status;
+  }
+  if (params.startDate) {
+    queryParams.startDate = params.startDate;
+  }
+  if (params.endDate) {
+    queryParams.endDate = params.endDate;
+  }
+  if (params.receiver_name) {
+    queryParams.receiver_name = params.receiver_name.trim();
+  }
+  if (params.paidTo) {
+    queryParams.paidTo = params.paidTo;
+  }
+  if (params.method) {
+    queryParams.method = params.method;
+  }
+  if (params.minAmount !== undefined && params.minAmount !== null) {
+    queryParams.minAmount = typeof params.minAmount === 'string' 
+      ? parseFloat(params.minAmount.replace(/[₹,]/g, '')) 
+      : params.minAmount;
+  }
+  if (params.maxAmount !== undefined && params.maxAmount !== null) {
+    queryParams.maxAmount = typeof params.maxAmount === 'string' 
+      ? parseFloat(params.maxAmount.replace(/[₹,]/g, '')) 
+      : params.maxAmount;
+  }
+  if (params.paidDate) {
+    queryParams.paidDate = params.paidDate;
+  }
+  if (params.due_date) {
+    queryParams.due_date = params.due_date;
+  }
+  if (params.category_id) {
+    queryParams.category_id = params.category_id;
+  }
+
   return http.get(FINANCE_ENDPOINTS_FLAT.PAYABLE_BILL_GET, {
-    params: {
-      project_id: params.project_id,
-      workspace_id: params.workspace_id,
-      expenseSection_id: params.expenseSection_id,
-      ...(params.status && { status: params.status }),
-    },
+    params: queryParams,
   });
 };
 
@@ -241,6 +292,19 @@ export const updatePayableBill = async (billId, data) => {
   }
 
   return http.put(`${FINANCE_ENDPOINTS_FLAT.PAYABLE_BILL_UPDATE}/${billId}`, formData);
+};
+
+/**
+ * Delete a payable bill
+ * @param {string|number} billId - Bill ID
+ * @returns {Promise<Object>} Deletion response
+ */
+export const deletePayableBill = async (billId) => {
+  if (!billId) {
+    throw new Error('Bill ID is required');
+  }
+  
+  return http.delete(`${FINANCE_ENDPOINTS_FLAT.PAYABLE_BILL_DELETE}/${billId}`);
 };
 
 /**
@@ -564,5 +628,284 @@ export const updateProjectEstimatedBudget = async (projectId, estimatedBudget) =
       estimatedBudget: budgetValue,
     }
   );
+};
+
+/**
+ * Get banks for a project
+ * @param {string|number} projectId - Project ID
+ * @returns {Promise<Array>} List of banks
+ */
+export const getBanks = async (projectId) => {
+  if (!projectId) {
+    throw new Error('Project ID is required');
+  }
+  
+  return http.get(FINANCE_ENDPOINTS_FLAT.BANK_GET, {
+    params: {
+      projectId: projectId,
+    },
+  });
+};
+
+/**
+ * Create a new bank
+ * @param {Object} data - Bank data
+ * @param {string} data.name - Bank name
+ * @param {string|number} data.projectId - Project ID
+ * @returns {Promise<Object>} Created bank
+ */
+export const createBank = async (data) => {
+  if (!data.name || !data.projectId) {
+    throw new Error('Bank name and projectId are required');
+  }
+  
+  return http.post(FINANCE_ENDPOINTS_FLAT.BANK_CREATE, {
+    name: data.name.trim(),
+    projectId: data.projectId,
+  });
+};
+
+/**
+ * Create a new payment entry (income)
+ * @param {Object} data - Payment entry data
+ * @param {string} data.payment_no - Payment number
+ * @param {string} data.date - Date (YYYY-MM-DD format)
+ * @param {string} data.from - From (sender)
+ * @param {string} data.to - To (recipient)
+ * @param {number} data.amount - Amount
+ * @param {string} data.method - Payment method (Cash, Bank Transfer, etc.)
+ * @param {number} [data.bank_id] - Bank ID (optional, required if method is Bank Transfer)
+ * @param {string} [data.description] - Description
+ * @returns {Promise<Object>} Created payment entry
+ */
+export const createIncome = async (data) => {
+  if (!data.payment_no || !data.date || !data.from || !data.to || !data.amount || !data.method) {
+    throw new Error('payment_no, date, from, to, amount, and method are required');
+  }
+  
+  const payload = {
+    payment_no: data.payment_no.trim(),
+    date: data.date, // Should be YYYY-MM-DD format
+    from: data.from.trim(),
+    to: data.to.trim(),
+    amount: typeof data.amount === 'string' 
+      ? parseFloat(data.amount.replace(/[₹,]/g, '')) 
+      : data.amount,
+    method: data.method.trim(),
+    description: data.description || '',
+  };
+
+  // Add bank_id only if provided
+  if (data.bank_id) {
+    payload.bank_id = typeof data.bank_id === 'string' ? parseInt(data.bank_id) : data.bank_id;
+  }
+
+  return http.post(FINANCE_ENDPOINTS_FLAT.INCOME_CREATE, payload);
+};
+
+/**
+ * Get all payment entries (incomes) with filters
+ * @param {Object} [filters] - Optional filters
+ * @param {string|number} [filters.projectId] - Project ID filter
+ * @param {string} [filters.startDate] - Start date filter (YYYY-MM-DD)
+ * @param {string} [filters.endDate] - End date filter (YYYY-MM-DD)
+ * @param {string} [filters.method] - Payment method filter (Cash, Cheque, Bank Transfer, UPI, Other)
+ * @param {string} [filters.to] - Receiver name filter
+ * @param {number} [filters.minAmount] - Minimum amount filter
+ * @param {number} [filters.maxAmount] - Maximum amount filter
+ * @returns {Promise<Array>} List of payment entries
+ */
+export const getAllIncomes = async (filters = {}) => {
+  const params = {};
+  
+  // Support both projectId and project_id for backward compatibility
+  if (filters.projectId || filters.project_id) {
+    params.project_id = filters.projectId || filters.project_id;
+  }
+  if (filters.startDate) {
+    params.startDate = filters.startDate;
+  }
+  if (filters.endDate) {
+    params.endDate = filters.endDate;
+  }
+  if (filters.method) {
+    params.method = filters.method;
+  }
+  if (filters.to) {
+    params.to = filters.to.trim();
+  }
+  if (filters.minAmount !== undefined && filters.minAmount !== null) {
+    params.minAmount = typeof filters.minAmount === 'string' 
+      ? parseFloat(filters.minAmount.replace(/[₹,]/g, '')) 
+      : filters.minAmount;
+  }
+  if (filters.maxAmount !== undefined && filters.maxAmount !== null) {
+    params.maxAmount = typeof filters.maxAmount === 'string' 
+      ? parseFloat(filters.maxAmount.replace(/[₹,]/g, '')) 
+      : filters.maxAmount;
+  }
+
+  return http.get(FINANCE_ENDPOINTS_FLAT.INCOME_GET_ALL, {
+    params: params,
+  });
+};
+
+/**
+ * Update a payment entry (income)
+ * @param {string|number} incomeId - Income ID
+ * @param {Object} data - Payment entry data
+ * @param {string} data.payment_no - Payment number
+ * @param {string} data.date - Date (YYYY-MM-DD format)
+ * @param {string} data.from - From (sender)
+ * @param {string} data.to - To (recipient)
+ * @param {number} data.amount - Amount
+ * @param {string} data.method - Payment method (Cash, Bank Transfer, etc.)
+ * @param {number} [data.bank_id] - Bank ID (optional, required if method is Bank Transfer)
+ * @param {string} [data.description] - Description
+ * @returns {Promise<Object>} Updated payment entry
+ */
+export const updateIncome = async (incomeId, data) => {
+  if (!incomeId) {
+    throw new Error('Income ID is required');
+  }
+  
+  if (!data.payment_no || !data.date || !data.from || !data.to || !data.amount || !data.method) {
+    throw new Error('payment_no, date, from, to, amount, and method are required');
+  }
+  
+  const payload = {
+    payment_no: data.payment_no.trim(),
+    date: data.date, // Should be YYYY-MM-DD format
+    from: data.from.trim(),
+    to: data.to.trim(),
+    amount: typeof data.amount === 'string' 
+      ? parseFloat(data.amount.replace(/[₹,]/g, '')) 
+      : data.amount,
+    method: data.method.trim(),
+    description: data.description || '',
+  };
+
+  // Add bank_id only if provided
+  if (data.bank_id) {
+    payload.bank_id = typeof data.bank_id === 'string' ? parseInt(data.bank_id) : data.bank_id;
+  }
+
+  return http.put(`${FINANCE_ENDPOINTS_FLAT.INCOME_UPDATE}/${incomeId}`, payload);
+};
+
+/**
+ * Delete a payment entry (income)
+ * @param {string|number} incomeId - Income ID
+ * @returns {Promise<Object>} Deletion response
+ */
+export const deleteIncome = async (incomeId) => {
+  if (!incomeId) {
+    throw new Error('Income ID is required');
+  }
+  
+  return http.delete(`${FINANCE_ENDPOINTS_FLAT.INCOME_DELETE}/${incomeId}`);
+};
+
+/**
+ * Get all categories for a workspace
+ * @param {string|number} workspace_id - Workspace ID
+ * @returns {Promise<Array>} List of categories
+ */
+export const getCategories = async (workspace_id) => {
+  if (!workspace_id) {
+    throw new Error('workspace_id is required');
+  }
+  
+  return http.get(`${FINANCE_ENDPOINTS_FLAT.CATEGORY_GET}/${workspace_id}`);
+};
+
+/**
+ * Create a new category
+ * @param {Object} data - Category data
+ * @param {string} data.name - Category name
+ * @param {string|number} data.workspace_id - Workspace ID
+ * @param {string} [data.categoryId] - Category ID (optional, empty string for new category)
+ * @returns {Promise<Object>} Created category
+ */
+export const createCategory = async (data) => {
+  if (!data.name || !data.workspace_id) {
+    throw new Error('Category name and workspace_id are required');
+  }
+  
+  return http.post(FINANCE_ENDPOINTS_FLAT.CATEGORY_CREATE, {
+    categoryId: data.categoryId || '',
+    name: data.name.trim(),
+    workspace_id: data.workspace_id,
+  });
+};
+
+/**
+ * Get vendors by workspace and role
+ * @param {string|number} workspace_id - Workspace ID
+ * @param {string} [role] - Role filter (default: 'vendor')
+ * @returns {Promise<Array>} List of vendors
+ */
+export const getVendors = async (workspace_id, role = 'vendor') => {
+  if (!workspace_id) {
+    throw new Error('workspace_id is required');
+  }
+  
+  return http.get(FINANCE_ENDPOINTS_FLAT.BUILDER_USER_ROLES, {
+    params: {
+      workspace_id,
+      role,
+    },
+  });
+};
+
+/**
+ * Create a new vendor/builder
+ * @param {Object} data - Vendor data
+ * @param {string} data.full_name - Vendor full name
+ * @param {string} data.phone_number - Phone number (without country code)
+ * @param {string|number} data.workspace_id - Workspace ID
+ * @param {string} [data.role] - Role (default: 'vendor')
+ * @param {File} [data.profile] - Profile picture file (optional)
+ * @returns {Promise<Object>} Created vendor
+ */
+export const createVendor = async (data) => {
+  if (!data.full_name || !data.phone_number || !data.workspace_id) {
+    throw new Error('full_name, phone_number, and workspace_id are required');
+  }
+
+  const formData = new FormData();
+
+  // Required fields
+  formData.append('full_name', data.full_name.trim());
+  formData.append('phone_number', data.phone_number.trim());
+  formData.append('workspace_id', data.workspace_id);
+  formData.append('role', data.role || 'vendor');
+
+  // Optional profile file
+  if (data.profile && data.profile instanceof File) {
+    formData.append('profile', data.profile);
+  }
+
+  return http.post(FINANCE_ENDPOINTS_FLAT.BUILDER_CREATE, formData);
+};
+
+/**
+ * Get financial summary for a project
+ * @param {Object} params - Query parameters
+ * @param {string|number} params.project_id - Project ID
+ * @param {string|number} params.workspace_id - Workspace ID
+ * @returns {Promise<Object>} Financial summary data
+ */
+export const getFinancialSummary = async (params) => {
+  if (!params.project_id || !params.workspace_id) {
+    throw new Error('project_id and workspace_id are required');
+  }
+  
+  return http.get(FINANCE_ENDPOINTS_FLAT.PROJECT_FINANCIAL_SUMMARY, {
+    params: {
+      project_id: params.project_id,
+      workspace_id: params.workspace_id,
+    },
+  });
 };
 

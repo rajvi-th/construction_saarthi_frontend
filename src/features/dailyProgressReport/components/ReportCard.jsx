@@ -24,7 +24,7 @@ export default function ReportCard({ report, onClick }) {
   return (
     <div
       onClick={onClick}
-      className="bg-white rounded-[16px] shadow-[0px_15px_40px_rgba(18,18,18,0.06)] transition-shadow cursor-pointer hover:shadow-[0px_15px_40px_rgba(18,18,18,0.1)] p-4"
+      className="bg-white rounded-[16px] shadow-sm cursor-pointer p-4"
     >
       <div className="flex items-center justify-between gap-4">
         <div className="flex-1 min-w-0">

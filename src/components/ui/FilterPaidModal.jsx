@@ -364,7 +364,7 @@ export default function FilterPaidModal({
                   </div>
 
                   {/* Vendor List */}
-                  <div className="max-h-48 overflow-y-auto">
+                  <div className="max-h-64 overflow-y-auto">
                     {filteredVendors.map((vendor) => (
                       <button
                         key={vendor.value}
@@ -379,23 +379,6 @@ export default function FilterPaidModal({
                         {vendor.label}
                       </button>
                     ))}
-                  </div>
-
-                  {/* ✅ Add New Button (Modal open like Payment Mode) */}
-                  <div className="border-t border-gray-200 p-2 ">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setIsPaidToOpen(false);
-                        setIsAddVendorModalOpen(true);
-                      }}
-                      className="w-full flex items-center gap-2 text-sm text-accent font-medium hover:bg-gray-50 px-3 py-2 rounded-lg transition-colors cursor-pointer"
-                    >
-                      <div className="w-4 h-4 rounded-full bg-accent flex items-center justify-center">
-                        <Plus className="w-3 h-3 text-white" strokeWidth={3} />
-                      </div>
-                      <span>{t("addNew", { defaultValue: "Add New" })}</span>
-                    </button>
                   </div>
                 </div>
               )}
@@ -449,20 +432,6 @@ export default function FilterPaidModal({
                         {category.label}
                       </button>
                     ))}
-                  </div>
-
-                  {/* Add New Button */}
-                  <div className="border-t border-gray-200 p-2">
-                    <button
-                      type="button"
-                      onClick={() => setIsAddCategoryModalOpen(true)}
-                      className="w-full flex items-center gap-2 text-sm text-accent font-medium hover:bg-gray-50 px-3 py-2 rounded-lg transition-colors cursor-pointer"
-                    >
-                      <div className="w-4 h-4 rounded-full bg-accent flex items-center justify-center">
-                        <Plus className="w-3 h-3 text-white" strokeWidth={3} />
-                      </div>
-                      <span>{t("addNew", { defaultValue: "Add New" })}</span>
-                    </button>
                   </div>
                 </div>
               )}
@@ -550,7 +519,7 @@ export default function FilterPaidModal({
               {isPaymentModeOpen && (
                 <div className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-xl shadow-lg max-h-64 overflow-hidden">
                   {/* Mode List */}
-                  <div className="max-h-48 overflow-y-auto">
+                  <div className="max-h-64 overflow-y-auto">
                     {paymentModeOptions.map((mode) => (
                       <button
                         key={mode.value}
@@ -571,23 +540,6 @@ export default function FilterPaidModal({
                         {mode.label}
                       </button>
                     ))}
-                  </div>
-
-                  {/* ✅ Add New Button (same as Create Payment Entry) */}
-                  <div className="border-t border-gray-200 p-2">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setIsPaymentModeOpen(false);
-                        setIsAddPaymentModeModalOpen(true);
-                      }}
-                      className="w-full flex items-center gap-2 text-sm text-accent font-medium hover:bg-gray-50 px-3 py-2 rounded-lg transition-colors cursor-pointer"
-                    >
-                      <div className="w-4 h-4 rounded-full bg-accent flex items-center justify-center">
-                        <Plus className="w-3 h-3 text-white" strokeWidth={3} />
-                      </div>
-                      <span>{t("addNew", { defaultValue: "Add New" })}</span>
-                    </button>
                   </div>
                 </div>
               )}

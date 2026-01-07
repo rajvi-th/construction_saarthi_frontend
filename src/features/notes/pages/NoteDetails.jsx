@@ -3,9 +3,9 @@
  * Shows full details of a note with notes, voice memos, and reminder
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { MoreVertical, X, Play, FileText } from 'lucide-react';
+import { MoreVertical, X, Play, FileText, Pause } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
 import PageHeader from '../../../components/layout/PageHeader';
@@ -31,6 +31,9 @@ export default function NoteDetails() {
   const [isReminderActive, setIsReminderActive] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [playingMemoId, setPlayingMemoId] = useState(null);
+  const [memoDurations, setMemoDurations] = useState({});
+  const audioRefs = useRef({});
   
   // Update reminder active state when note loads
   useEffect(() => {
@@ -50,6 +53,65 @@ export default function NoteDetails() {
   const handleDeleteVoiceMemo = (memoId) => {
     console.log('Delete voice memo:', memoId);
   };
+
+  // Handle play/pause for voice memos
+  const handlePlayPauseVoiceMemo = (memoId, memoUrl) => {
+    const audioElement = audioRefs.current[memoId];
+    
+    if (!audioElement) {
+      // Create audio element if it doesn't exist
+      const audio = new Audio(memoUrl);
+      audioRefs.current[memoId] = audio;
+      
+      // Set up event listeners
+      audio.addEventListener('loadedmetadata', () => {
+        const duration = audio.duration;
+        const minutes = Math.floor(duration / 60);
+        const seconds = Math.floor(duration % 60);
+        const formattedDuration = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        setMemoDurations(prev => ({ ...prev, [memoId]: formattedDuration }));
+      });
+      
+      audio.addEventListener('ended', () => {
+        setPlayingMemoId(null);
+      });
+      
+      audio.addEventListener('timeupdate', () => {
+        // Update duration display if needed
+      });
+      
+      audio.play();
+      setPlayingMemoId(memoId);
+    } else {
+      if (playingMemoId === memoId) {
+        // Pause if currently playing
+        audioElement.pause();
+        setPlayingMemoId(null);
+      } else {
+        // Stop other audio and play this one
+        Object.values(audioRefs.current).forEach(audio => {
+          if (audio && !audio.paused) {
+            audio.pause();
+            audio.currentTime = 0;
+          }
+        });
+        audioElement.play();
+        setPlayingMemoId(memoId);
+      }
+    }
+  };
+
+  // Cleanup audio elements on unmount
+  useEffect(() => {
+    return () => {
+      Object.values(audioRefs.current).forEach(audio => {
+        if (audio) {
+          audio.pause();
+          audio.src = '';
+        }
+      });
+    };
+  }, []);
 
   const handleDownload = () => {
     if (!note) {
@@ -304,31 +366,71 @@ export default function NoteDetails() {
               {/* Voice Memos */}
               {note.voiceMemos && note.voiceMemos.length > 0 && (
                 <div className="space-y-3">
-                  {note.voiceMemos.map((memo) => (
-                    <div key={memo.id} className="flex items-center gap-3">
-                      <button className="w-10 h-10 rounded-full bg-accent flex items-center justify-center flex-shrink-0">
-                        <Play className="w-5 h-5 text-white ml-0.5" />
-                      </button>
-                      <div className="flex-1 flex items-center gap-2">
-                        {[...Array(20)].map((_, i) => (
-                          <div
-                            key={i}
-                            className="w-1 bg-accent rounded"
-                            style={{
-                              height: `${Math.random() * 30 + 10}px`,
-                            }}
-                          />
-                        ))}
+                  {note.voiceMemos.map((memo) => {
+                    const isPlaying = playingMemoId === memo.id;
+                    const displayDuration = memoDurations[memo.id] || memo.duration || '00:00';
+                    
+                    return (
+                      <div key={memo.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                        <button 
+                          onClick={() => handlePlayPauseVoiceMemo(memo.id, memo.url)}
+                          className="w-10 h-10 rounded-full bg-accent flex items-center justify-center flex-shrink-0 hover:bg-[#9F290A] transition-colors"
+                        >
+                          {isPlaying ? (
+                            <Pause className="w-5 h-5 text-white" />
+                          ) : (
+                            <Play className="w-5 h-5 text-white ml-0.5" />
+                          )}
+                        </button>
+                        <div className="flex-1 flex items-center gap-2 min-w-0">
+                          {/* Waveform visualization */}
+                          <div className="flex gap-1 items-center flex-1">
+                            {[...Array(20)].map((_, i) => (
+                              <div
+                                key={i}
+                                className="w-1 bg-accent rounded transition-all"
+                                style={{
+                                  height: isPlaying 
+                                    ? `${Math.random() * 30 + 10}px`
+                                    : `${Math.random() * 20 + 5}px`,
+                                  animation: isPlaying ? 'pulse 0.5s ease-in-out infinite' : 'none',
+                                  animationDelay: `${i * 0.05}s`,
+                                }}
+                              />
+                            ))}
+                          </div>
+                          <span className="text-sm text-secondary whitespace-nowrap ml-2">{displayDuration}</span>
+                        </div>
+                        <button
+                          onClick={() => handleDeleteVoiceMemo(memo.id)}
+                          className="p-2 hover:bg-gray-200 rounded-lg transition-colors flex-shrink-0"
+                        >
+                          <X className="w-4 h-4 text-secondary" />
+                        </button>
+                        {/* Hidden audio element */}
+                        <audio
+                          ref={(el) => {
+                            if (el && memo.url) {
+                              audioRefs.current[memo.id] = el;
+                              // Load duration when audio is ready
+                              el.addEventListener('loadedmetadata', () => {
+                                const duration = el.duration;
+                                if (duration && !isNaN(duration)) {
+                                  const minutes = Math.floor(duration / 60);
+                                  const seconds = Math.floor(duration % 60);
+                                  const formattedDuration = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                                  setMemoDurations(prev => ({ ...prev, [memo.id]: formattedDuration }));
+                                }
+                              });
+                            }
+                          }}
+                          src={memo.url}
+                          preload="metadata"
+                          style={{ display: 'none' }}
+                        />
                       </div>
-                      <span className="text-sm text-secondary w-12">{memo.duration}</span>
-                      <button
-                        onClick={() => handleDeleteVoiceMemo(memo.id)}
-                        className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                      >
-                        <X className="w-4 h-4 text-secondary" />
-                      </button>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
 

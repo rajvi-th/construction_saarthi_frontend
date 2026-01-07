@@ -17,6 +17,7 @@ export default function CreatePaymentEntryModal({
   onCreate,
   banks = [],
   onAddBank,
+  existingEntries = [], // Pass existing payment entries to get next number
 }) {
   const { t } = useTranslation('finance');
 
@@ -41,10 +42,43 @@ export default function CreatePaymentEntryModal({
     { value: 'other', label: t('other', { defaultValue: 'Other' }) },
   ];
 
+  // Generate auto payment number in format RCPT-XXX (sequential, always 3 digits)
+  const generatePaymentNumber = () => {
+    // Extract numbers from existing entries (only 3-digit numbers)
+    const numbers = existingEntries
+      .map((entry) => {
+        const paymentNo = entry.paymentNo || entry.payment_no || '';
+        // Match RCPT-XXX format (only match 1-3 digit numbers)
+        const match = paymentNo.match(/RCPT-(\d{1,3})$/);
+        if (match) {
+          const num = parseInt(match[1], 10);
+          // Only consider numbers that are 3 digits or less (001-999)
+          return num > 0 && num <= 999 ? num : 0;
+        }
+        return 0;
+      })
+      .filter((num) => num > 0);
+
+    // Get the highest number, or start from 22 if no entries (so next is 023)
+    const maxNumber = numbers.length > 0 ? Math.max(...numbers) : 22;
+    
+    // Generate next sequential number (always 3 digits)
+    const nextNumber = maxNumber + 1;
+    
+    // Ensure the number doesn't exceed 999, if it does, wrap around to 001
+    const finalNumber = nextNumber > 999 ? 1 : nextNumber;
+    
+    // Ensure always 3 digits with leading zeros
+    const paddedNumber = String(finalNumber).padStart(3, '0');
+    return `RCPT-${paddedNumber}`;
+  };
+
   useEffect(() => {
     if (isOpen) {
+      // Generate auto payment number when modal opens
+      const autoPaymentNo = generatePaymentNumber();
       setFormData({
-        paymentNo: 'RCPT-023',
+        paymentNo: autoPaymentNo,
         date: new Date(),
         from: 'Shree Builders',
         to: '',
@@ -128,10 +162,17 @@ export default function CreatePaymentEntryModal({
     const bankName = typeof data === 'string' ? data : (data.label || data.name || data);
     
     if (onAddBank && !banks.includes(bankName)) {
-      onAddBank(bankName);
+      try {
+        await onAddBank(bankName);
+        // Use the bank name returned from API or the original name
+        handleChange('bankName', bankName);
+      } catch (error) {
+        // Error is already handled in handleAddBank
+        // Don't update bankName if creation failed
+      }
+    } else {
+      handleChange('bankName', bankName);
     }
-    
-    handleChange('bankName', bankName);
   };
 
   if (!isOpen) return null;

@@ -9,14 +9,21 @@ import FileUpload from '../../../components/ui/FileUpload';
 import { showError, showSuccess, showLoading, dismissToast } from '../../../utils/toast';
 import { uploadMedia } from '../api/projectApi';
 
-function UploadDocumentsSection({ t, onFilesChange, projectKey }) {
+function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles }) {
   const [activeTab, setActiveTab] = useState('photos');
-  const [uploadedFiles, setUploadedFiles] = useState({
+  const [uploadedFiles, setUploadedFiles] = useState(existingFiles || {
     photos: [],
     videos: [],
     documents: [],
   });
   const [uploadingFiles, setUploadingFiles] = useState(new Set());
+
+  // Update uploadedFiles when existingFiles prop changes (for edit mode)
+  useEffect(() => {
+    if (existingFiles) {
+      setUploadedFiles(existingFiles);
+    }
+  }, [existingFiles]);
 
   // Notify parent component of file changes using useEffect to avoid setState during render
   useEffect(() => {
@@ -73,6 +80,8 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey }) {
   };
 
   const handleFileSelect = async (files) => {
+    // In edit mode, projectKey is actually projectId, so it should exist
+    // In create mode, we need projectKey for uploads
     if (!projectKey) {
       showError(t('addNewProject.form.validation.projectKeyRequired') || 'Project key is required. Please wait for project initialization.');
       return;
@@ -226,6 +235,28 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey }) {
   // Upload individual file to API
   const uploadFileToAPI = async (fileData, category) => {
     try {
+      // In edit mode, don't upload immediately - files will be uploaded on form submit
+      // Check if projectKey is a number (projectId in edit mode) vs string (projectKey in create mode)
+      const isEditMode = projectKey && !isNaN(Number(projectKey)) && String(projectKey).length < 10;
+      
+      if (isEditMode) {
+        // In edit mode, just mark as uploaded (will be sent with form submission)
+        setUploadedFiles((prev) => ({
+          ...prev,
+          [category]: prev[category].map((f) =>
+            f.id === fileData.id ? { ...f, isUploading: false, isUploaded: true } : f
+          ),
+        }));
+
+        setUploadingFiles((prev) => {
+          const newSet = new Set(prev);
+          newSet.delete(fileData.id);
+          return newSet;
+        });
+        return;
+      }
+
+      // In create mode, upload immediately using projectKey
       // Prepare files object for API
       const filesToUpload = {
         media: [fileData.file], // All files go under 'media' key as per API
@@ -274,12 +305,20 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey }) {
   const handleRemoveFile = (type, index) => {
     setUploadedFiles((prev) => {
       const fileToRemove = prev[type][index];
-      // Revoke object URL to free memory
-      if (fileToRemove.url) {
-        URL.revokeObjectURL(fileToRemove.url);
+      // Revoke object URL to free memory (only for File objects, not existing URLs)
+      if (fileToRemove.url && !fileToRemove.isExisting) {
+        try {
+          URL.revokeObjectURL(fileToRemove.url);
+        } catch (e) {
+          // Ignore errors if URL is not an object URL
+        }
       }
-      if (fileToRemove.thumbnail) {
-        URL.revokeObjectURL(fileToRemove.thumbnail);
+      if (fileToRemove.thumbnail && !fileToRemove.isExisting) {
+        try {
+          URL.revokeObjectURL(fileToRemove.thumbnail);
+        } catch (e) {
+          // Ignore errors if URL is not an object URL
+        }
       }
       return {
         ...prev,
