@@ -9,7 +9,7 @@ import ProjectStatusPill from './ProjectStatusPill';
  * Kept dumb/presentational so it's easy to reuse and test.
  * Updated for better responsiveness on smaller screens.
  */
-export default function ProjectCard({ project, onOpenDetails, onEdit, onDelete }) {
+export default function ProjectCard({ project, onOpenDetails, onEdit, onDelete, onStatusChange }) {
   const { t } = useTranslation('projects');
   const [imageError, setImageError] = useState(false);
 
@@ -68,7 +68,7 @@ export default function ProjectCard({ project, onOpenDetails, onEdit, onDelete }
 
           {/* Status + menu in flex row */}
           <div className="mt-2 sm:mt-auto pt-1 flex items-center justify-between gap-2">
-            <ProjectStatusPill status={status} />
+            <ProjectStatusPill status={status} onChange={onStatusChange} />
 
             {/* Menu button visible on small screens here */}
             {(onEdit || onDelete) && (

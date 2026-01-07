@@ -1,0 +1,167 @@
+{
+    "projectDetails": {
+        "history": "History",
+        "totalCalculations": "Total Calculations",
+        "usedCalculations": "Used Calculations",
+        "buyCalculations": "Buy Calculations"
+    },
+    "quickActions": {
+        "tabs": {
+            "quantity": "Quantity",
+            "area": "Area",
+            "volume": "Volume",
+            "converter": "Converter",
+            "study": "Study",
+            "quiz": "Quiz"
+        },
+        "items": {
+            "constructionCost": "Construction Cost",
+            "steelQuantities": "Steel Quantities",
+            "concrete": "Concrete",
+            "brickWorkPlaster": "Brick Work & Plaster",
+            "roofAreaPitch": "Roof Area & Pitch",
+            "flooringCalculation": "Flooring Calculation",
+            "waterTankCapacity": "Water Tank Capacity",
+            "excavation": "Excavation",
+            "swimmingPool": "Swimming pool",
+            "waterProofing": "Water proofing",
+            "metalCalculator": "Metal Calculator",
+            "railConstruction": "Rail Construction",
+            "roadCalculation": "Road Calculation",
+            "paint": "Paint",
+            "diagonals": "Diagonals",
+            "antiTermite": "Anti Termite",
+            "acCapacity": "AC Capacity",
+            "solarElectric": "Solar (Electric)",
+            "solarWaterHeater": "Solar Water Heater",
+            "plywoodSheet": "Plywood Sheet",
+            "plum": "Plum",
+            "rainWaterHarvesting": "Rain Water Harvesting",
+            "shuttering": "Shuttering",
+            "baluster": "Baluster",
+            "arcCalculator": "Arc Calculator",
+            "precastBoundaryWall": "Precast Boundary Wall",
+            "damCalculations": "Dam Calculations",
+            "sewageSystem": "Sewage System",
+            "waterSupplySystem": "Water Supply System",
+            "materialWeights": "Material Weights",
+            "billOfQuantity": "Bill of Quantity"
+        }
+    },
+    "comingSoon": {
+        "title": "Coming Soon",
+        "comingSoonText": "Coming Soon...",
+        "launchTextPart1": "We are going to launch a ",
+        "launchTextPart2": " very soon, Stay Tuned.",
+        "backButton": "← Back to Construction Calculator"
+    },
+    "history": {
+        "sharePdf": "Share as PDF",
+        "downloadReport": "Download Report",
+        "calcTitle": "Calculation Title (Optional)",
+        "enterValue": "Enter value",
+        "constructionArea": "Construction Area",
+        "constructionCost": "Construction Cost",
+        "reset": "Reset",
+        "calculate": "Calculate",
+        "materialQuantity": "Material Quantity",
+        "workCost": "Various Work Cost",
+        "headers": {
+            "material": "Material",
+            "quantity": "Quantity",
+            "unit": "Unit"
+        },
+        "materials": {
+            "cement": "Cement",
+            "sand": "Sand",
+            "aggregate": "Aggregate",
+            "steel": "Steel",
+            "paint": "Paint",
+            "bricks": "Bricks",
+            "flooring": "Flooring",
+            "windows": "Windows",
+            "doors": "Doors"
+        },
+        "units": {
+            "bags": "Bags",
+            "ton": "Ton",
+            "kg": "Kg",
+            "liters": "Liters",
+            "sqft": "sq.ft",
+            "nos": "Nos"
+        },
+        "works": {
+            "design": "Design and Engg",
+            "excavation": "Excavation",
+            "foundation": "Foundation",
+            "rcc": "RCC",
+            "brickwork": "Brickwork",
+            "plaster": "Plaster"
+        }
+    },
+    "steel": {
+        "sections": {
+            "weight": "Weight",
+            "footing": "Footing",
+            "column": "Column",
+            "beam": "Beam",
+            "slab": "Slab",
+            "cuttingLength": "Cutting Length"
+        },
+        "weight": {
+            "reinforcement": "Reinforcement Weight"
+        },
+        "footing": {
+            "type1": "Footing Type 1",
+            "type2": "Footing Type 2"
+        },
+        "column": {
+            "type1": "Column Type 1",
+            "type2": "Column Type 2",
+            "type3": "Column Type 3",
+            "type4": "Column Type 4",
+            "type5": "Column Type 5",
+            "type6": "Column Type 6",
+            "type7": "Column Type 7",
+            "type8": "Column Type 8",
+            "type9": "Column Type 9",
+            "type10": "Column Type 10",
+            "type11": "Column Type 11",
+            "type12": "Column Type 12",
+            "vertical": "Column Vertical Steel",
+            "ring1": "Column Ring 1",
+            "ring2": "Column Ring 2"
+        },
+        "beam": {
+            "type1": "Beam Type 1",
+            "type2": "Beam Type 2",
+            "type3": "Beam Type 3",
+            "type4": "Beam Type 4",
+            "type5": "Beam Type 5",
+            "type6": "Beam Type 6",
+            "type7": "Beam Type 7",
+            "type8": "Beam Type 8",
+            "type9": "Beam Type 9",
+            "type10": "Beam Type 10",
+            "horizontal": "Beam Horizontal Bars",
+            "ring1": "Beam Ring 1",
+            "ring2": "Beam Ring 2"
+        },
+        "slab": {
+            "type1": "Slab Type 1",
+            "type2": "Slab Type 2",
+            "type3": "Slab Type 3"
+        },
+        "cutting": {
+            "straight": "Straight Bar",
+            "lShape": "L Shape Bar",
+            "uShape": "U Shape Bar",
+            "stirrups": "Stirrups"
+        },
+        "comingSoon": {
+            "beam": "Beam calculation UI coming soon...",
+            "slab": "Slab calculation UI coming soon...",
+            "cutting": "Cutting length calculation UI coming soon..."
+        }
+    }
+}

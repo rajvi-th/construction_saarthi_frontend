@@ -111,20 +111,20 @@ export const deleteSiteInventory = async (id) => {
 export const getSiteInventoryList = async (params = {}) => {
   // Build query string from params
   const queryParams = new URLSearchParams();
-  
+
   if (params.projectID) {
     queryParams.append('projectID', params.projectID);
   }
-  
+
   if (params.inventoryTypeId) {
     queryParams.append('inventoryTypeId', params.inventoryTypeId);
   }
-  
+
   const queryString = queryParams.toString();
-  const url = queryString 
+  const url = queryString
     ? `${SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_LIST}?${queryString}`
     : SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_LIST;
-  
+
   return http.get(url);
 };
 
@@ -138,19 +138,19 @@ export const getMaterialsList = async (workspaceId, inventoryTypeId) => {
   if (!workspaceId) {
     throw new Error('Workspace ID is required');
   }
-  
+
   if (inventoryTypeId === null || inventoryTypeId === undefined) {
     throw new Error('inventoryTypeId is required');
   }
-  
+
   // Build query string
   const queryParams = new URLSearchParams();
   queryParams.append('WID', workspaceId);
   queryParams.append('inventoryTypeId', inventoryTypeId);
-  
+
   const queryString = queryParams.toString();
   const url = `${SITE_INVENTORY_ENDPOINTS_FLAT.MATERIALS_LIST}?${queryString}`;
-  
+
   return http.get(url);
 };
 
@@ -213,7 +213,7 @@ export const createVendor = async (data) => {
   // Build payload according to API requirements
   // API expects: { full_name, country_code, phone_number, company_Name, address, role: "vendors", workspace_id }
   let payload = {};
-  
+
   if (data instanceof FormData) {
     // If FormData, append role
     const formData = new FormData();
@@ -250,20 +250,20 @@ export const createVendor = async (data) => {
 export const getTransferRequests = async (params = {}) => {
   // Build query string from params
   const queryParams = new URLSearchParams();
-  
+
   if (params.projectID) {
     queryParams.append('projectID', params.projectID);
   }
-  
+
   if (params.inventoryTypeId) {
     queryParams.append('inventoryTypeId', params.inventoryTypeId);
   }
-  
+
   const queryString = queryParams.toString();
-  const url = queryString 
+  const url = queryString
     ? `${SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_TRANSFER_REQUESTS}?${queryString}`
     : SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_TRANSFER_REQUESTS;
-  
+
   return http.get(url);
 };
 
@@ -280,29 +280,29 @@ export const approveTransferRequest = async (transferRequestId, data) => {
   if (!transferRequestId) {
     throw new Error('Transfer Request ID is required');
   }
-  
+
   const payload = {
     costPerUnit: data.costPerUnit,
   };
-  
+
   // Add optional fields if provided
   if (data.quantity !== undefined) {
     payload.quantity = data.quantity;
   }
-  
+
   if (data.totalPrice !== undefined) {
     payload.totalPrice = data.totalPrice;
   }
-  
+
   // Add source inventory ID if provided (required for backend to identify source inventory)
   if (data.inventoryId !== undefined) {
     payload.inventoryId = data.inventoryId;
   }
-  
+
   if (data.sourceInventoryId !== undefined) {
     payload.sourceInventoryId = data.sourceInventoryId;
   }
-  
+
   return http.post(
     `${SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_TRANSFER_APPROVE}/${transferRequestId}`,
     payload
@@ -322,17 +322,17 @@ export const rejectTransferRequest = async (transferRequestId, data) => {
   if (!transferRequestId) {
     throw new Error('Transfer request ID is required');
   }
-  
+
   const formData = new FormData();
-  
+
   formData.append('reason', data.reason || '');
   formData.append('rejectionType', data.rejectionType || 'text');
-  
+
   // Append audio file if provided
   if (data.audioFile && data.audioFile instanceof File) {
     formData.append('audioFile', data.audioFile);
   }
-  
+
   return http.post(
     `${SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_TRANSFER_REJECT}/${transferRequestId}`,
     formData
@@ -349,20 +349,20 @@ export const rejectTransferRequest = async (transferRequestId, data) => {
 export const getAskMaterialRequests = async (params = {}) => {
   // Build query string from params
   const queryParams = new URLSearchParams();
-  
+
   if (params.projectID) {
     queryParams.append('projectID', params.projectID);
   }
-  
+
   if (params.inventoryTypeId) {
     queryParams.append('inventoryTypeId', params.inventoryTypeId);
   }
-  
+
   const queryString = queryParams.toString();
-  const url = queryString 
+  const url = queryString
     ? `${SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_ASK_MATERIAL_REQUESTS}?${queryString}`
     : SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_ASK_MATERIAL_REQUESTS;
-  
+
   return http.get(url);
 };
 
@@ -384,7 +384,7 @@ export const requestMaterial = async (data) => {
     fromProjectId: data.fromProjectId,
     toProjects: Array.isArray(data.toProjects) ? data.toProjects : [],
   };
-  
+
   return http.post(
     SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_REQUEST_MATERIAL,
     payload
@@ -411,7 +411,7 @@ export const restockMaterial = async (data) => {
     price: data.price,
     inventoryTypeId: data.inventoryTypeId,
   };
-  
+
   return http.post(
     SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_RESTOCK_MATERIAL,
     payload
@@ -430,29 +430,29 @@ export const restockMaterial = async (data) => {
 export const getRestockRequests = async (params = {}) => {
   // Build query string from params
   const queryParams = new URLSearchParams();
-  
+
   if (params.projectID) {
     queryParams.append('projectID', params.projectID);
   }
-  
+
   if (params.requestStatus) {
     queryParams.append('requestStatus', params.requestStatus);
   }
-  
+
   if (params.inventoryTypeId) {
     queryParams.append('inventoryTypeId', params.inventoryTypeId);
   }
-  
+
   // Include status parameter if provided (even if empty, as per API example)
   if (params.status !== undefined) {
     queryParams.append('status', params.status || '');
   }
-  
+
   const queryString = queryParams.toString();
-  const url = queryString 
+  const url = queryString
     ? `${SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_RESTOCK_REQUESTS}?${queryString}`
     : SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_RESTOCK_REQUESTS;
-  
+
   return http.get(url);
 };
 
@@ -470,7 +470,7 @@ export const destroyMaterial = async (data) => {
     quantity: data.quantity,
     reason: data.reason || '',
   };
-  
+
   return http.post(
     SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_DESTROY_MATERIAL,
     payload
@@ -486,16 +486,16 @@ export const destroyMaterial = async (data) => {
 export const getDestroyedMaterials = async (params = {}) => {
   // Build query string from params
   const queryParams = new URLSearchParams();
-  
+
   if (params.projectID) {
     queryParams.append('projectID', params.projectID);
   }
-  
+
   const queryString = queryParams.toString();
-  const url = queryString 
+  const url = queryString
     ? `${SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_DESTROYED_MATERIALS}?${queryString}`
     : SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_DESTROYED_MATERIALS;
-  
+
   return http.get(url);
 };
 
@@ -506,7 +506,7 @@ export const getDestroyedMaterials = async (params = {}) => {
 export const getInventoryTypes = async () => {
   try {
     const response = await http.get(SITE_INVENTORY_ENDPOINTS_FLAT.INVENTORY_TYPES_LIST);
-    
+
     // Handle different response structures
     // New structure: { inventoryTypes: [...], pagination: {...} }
     if (Array.isArray(response?.data?.inventoryTypes)) {
@@ -524,7 +524,7 @@ export const getInventoryTypes = async () => {
       const arrayValue = Object.values(response.data).find((v) => Array.isArray(v));
       return arrayValue || [];
     }
-    
+
     return [];
   } catch (error) {
     console.error('Error fetching inventory types:', error);
@@ -532,3 +532,43 @@ export const getInventoryTypes = async () => {
   }
 };
 
+/**
+ * Use material (Log usage for inventory item)
+ * @param {Object} data - Usage data
+ * @param {string|number} data.inventoryId - Inventory item ID
+ * @param {string|number} data.quantity - Quantity used
+ * @param {string} data.reason - Reason for usage
+ * @returns {Promise<Object>} API response
+ */
+export const useMaterial = async (data) => {
+  const payload = {
+    inventoryId: data.inventoryId,
+    quantity: data.quantity,
+    reason: data.reason || '',
+  };
+
+  return http.post(
+    SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_USE_MATERIAL,
+    payload
+  );
+};
+
+/**
+ * Create transfer request
+ * @param {Object} data - Transfer request data
+ * @param {number} data.inventoryTypeId - Inventory type ID
+ * @param {number} data.inventoryId - Inventory ID
+ * @param {number} data.quantity - Quantity
+ * @param {string} data.description - Description
+ * @param {number} data.projectID - Source Project ID
+ * @param {number} data.vendorID - Vendor ID
+ * @param {number} data.costPerUnit - Cost per unit
+ * @param {number} data.to_project - Target Project ID
+ * @returns {Promise<Object>} API response
+ */
+export const createTransferRequest = async (data) => {
+  return http.post(
+    SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_TRANSFER_REQUEST_CREATE,
+    data
+  );
+};

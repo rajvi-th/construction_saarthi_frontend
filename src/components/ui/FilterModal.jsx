@@ -1,7 +1,7 @@
 /**
  * Filter Modal Component
  * Advanced filter drawer that slides in from right to left
- * Includes dropdowns, checkboxes, and radio buttons
+ * Includes dropdowns, checkboxes, radio buttons, and date pickers
  */
 
 import { useState, useEffect } from 'react';
@@ -10,6 +10,7 @@ import Dropdown from './Dropdown';
 import Checkbox from './Checkbox';
 import Radio from './Radio';
 import Button from './Button';
+import DatePicker from './DatePicker';
 import sortVerticalIcon from '../../assets/icons/Sort Vertical.svg';
 
 export default function FilterModal({
@@ -30,12 +31,21 @@ export default function FilterModal({
                 initialValues[filter.id] = filter.defaultValue || [];
             } else if (filter.type === 'radio') {
                 initialValues[filter.id] = filter.defaultValue || null;
+            } else if (filter.type === 'date') {
+                initialValues[filter.id] = filter.defaultValue || null;
             } else {
                 initialValues[filter.id] = filter.defaultValue || '';
             }
         });
         setFilterValues(initialValues);
     }, [filters]);
+
+    const handleDateChange = (filterId, date) => {
+        setFilterValues((prev) => ({
+            ...prev,
+            [filterId]: date,
+        }));
+    };
 
     const handleDropdownChange = (filterId, value) => {
         setFilterValues((prev) => ({
@@ -75,6 +85,8 @@ export default function FilterModal({
             if (filter.type === 'checkbox') {
                 resetValues[filter.id] = [];
             } else if (filter.type === 'radio') {
+                resetValues[filter.id] = null;
+            } else if (filter.type === 'date') {
                 resetValues[filter.id] = null;
             } else {
                 resetValues[filter.id] = '';
@@ -128,14 +140,33 @@ export default function FilterModal({
                 </div>
 
                 {/* Filter Content */}
-                <div className="p-6 pt-0 space-y-6">
+                <div className="p-6 pt-0 space-y-6 pb-24">
                     {filters.map((filter) => (
                         <div key={filter.id}>
+                            {/* Date Filter */}
+                            {filter.type === 'date' && (
+                                <div>
+                                    <label className="block text-sm font-medium text-primary mb-2">
+                                        {filter.label}
+                                        {filter.required && <span className="text-accent ml-1">*</span>}
+                                    </label>
+                                    <DatePicker
+                                        value={filterValues[filter.id] || null}
+                                        onChange={(date) => handleDateChange(filter.id, date)}
+                                        placeholder={filter.placeholder || 'dd/mm/yyyy'}
+                                        error={filter.error}
+                                        className="w-full"
+                                        {...filter.props}
+                                    />
+                                </div>
+                            )}
+
                             {/* Dropdown Filter */}
                             {filter.type === 'dropdown' && (
                                 <div>
                                     <label className="block font-medium text-primary mb-1">
                                         {filter.label}
+                                        {filter.required && <span className="text-accent ml-1">*</span>}
                                     </label>
                                     <Dropdown
                                         options={filter.options || []}
@@ -143,6 +174,14 @@ export default function FilterModal({
                                         onChange={(value) => handleDropdownChange(filter.id, value)}
                                         placeholder={filter.placeholder || 'Select option'}
                                         className="w-full"
+                                        searchable={filter.searchable}
+                                        searchPlaceholder={filter.searchPlaceholder}
+                                        showSeparator={filter.showSeparator}
+                                        addButtonLabel={filter.addButtonLabel}
+                                        onAddNew={filter.onAddNew}
+                                        customModal={filter.customModal}
+                                        customModalProps={filter.customModalProps}
+                                        {...filter.dropdownProps}
                                     />
                                 </div>
                             )}
@@ -191,7 +230,7 @@ export default function FilterModal({
                 </div>
 
                 {/* Footer - Fixed at bottom of screen */}
-                <div className="fixed bottom-0 right-0 w-full max-w-lg bg-white p-4 flex justify-end gap-3 z-[70]">
+                <div className="fixed bottom-0 right-0 w-full max-w-lg bg-white p-4 flex justify-end gap-3 z-[70] border-t border-gray-100">
                     <Button
                         variant="secondary"
                         onClick={handleReset}
@@ -205,8 +244,6 @@ export default function FilterModal({
                         Apply
                     </Button>
                 </div>
-
-
             </div>
         </div>
     );

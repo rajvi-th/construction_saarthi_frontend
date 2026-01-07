@@ -117,6 +117,13 @@ const PayableBills = lazy(() => import('../features/finance/pages/PayableBills')
 const ExpensesPaid = lazy(() => import('../features/finance/pages/ExpensesPaid'));
 const CreatePaymentEntry = lazy(() => import('../features/finance/pages/CreatePaymentEntry'));
 const EditPaymentEntry = lazy(() => import('../features/finance/pages/EditPaymentEntry'));
+const CalculationProjects = lazy(() => import('../calculation/LandingPage/pages/Projects'));
+const ProjectCalDetails = lazy(() => import('../calculation/LandingPage/pages/ProjectCalDetails'));
+const History = lazy(() => import('../calculation/LandingPage/pages/History'));
+const SteelQuantities = lazy(() => import('../calculation/steel/LandingPage/pages/SteelQuantities'));
+const ReinforcementWeight = lazy(() => import('../calculation/steel/weight/pages/ReinforcementWeight'));
+const ReinforcementDetailedReport = lazy(() => import('../calculation/steel/weight/pages/ReinforcementDetailedReport'));
+const ComingSoon = lazy(() => import('../calculation/common/ComingSoon'));
 
 // Loading Component for Suspense fallback
 const LoadingFallback = () => (
@@ -207,6 +214,13 @@ function AppRoutes() {
             <Route path={ROUTES_FLAT.FINANCE_EXPENSES_PAID} element={<ExpensesPaid />} />
             <Route path={ROUTES_FLAT.FINANCE_CREATE_PAYMENT_ENTRY} element={<CreatePaymentEntry />} />
             <Route path={ROUTES_FLAT.FINANCE_EDIT_PAYMENT_ENTRY} element={<EditPaymentEntry />} />
+            <Route path={ROUTES_FLAT.CALCULATION_PROJECTS} element={<CalculationProjects />} />
+            <Route path={ROUTES_FLAT.CALCULATION_PROJECT_DETAILS} element={<ProjectCalDetails />} />
+            <Route path={ROUTES_FLAT.CALCULATION_HISTORY} element={<History />} />
+            <Route path={ROUTES_FLAT.CALCULATION_STEEL_QUANTITIES} element={<SteelQuantities />} />
+            <Route path={ROUTES_FLAT.CALCULATION_REINFORCEMENT_WEIGHT} element={<ReinforcementWeight />} />
+            <Route path={ROUTES_FLAT.CALCULATION_REINFORCEMENT_WEIGHT_DETAILED} element={<ReinforcementDetailedReport />} />
+            <Route path="/calculation/coming-soon" element={<ComingSoon />} />
           </Route>
         </Route>
 

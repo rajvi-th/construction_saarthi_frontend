@@ -6,6 +6,7 @@ import { addLabour, updateLabour } from '../api/labourAttendanceApi';
 import { showError, showSuccess } from '../../../utils/toast';
 import { useTranslation } from 'react-i18next';
 import { useLabourProfile } from '../hooks/useLabourProfile';
+import { useState, useEffect } from 'react';
 
 function formatYYYYMMDD(value) {
   if (!value) return '';
@@ -27,14 +28,50 @@ export default function AddLabour() {
   const editLabour = state?.editLabour || null;
   const isEdit = Boolean(editLabour);
 
-  // Fetch labour data from API when in edit mode
-  const { profile: fetchedProfile, isLoading: isLoadingProfile } = useLabourProfile({
-    workspaceId: selectedWorkspace,
-    labourId: editLabour?.id,
-  });
+  const [fetchedData, setFetchedData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Use fetched profile data if available, otherwise fall back to state data
-  const labourData = fetchedProfile || editLabour;
+  useEffect(() => {
+    if (isEdit && editLabour?.id) {
+      const fetchLabour = async () => {
+        setIsLoading(true);
+        try {
+          const { getLabourById } = await import('../api/labourAttendanceApi');
+          const response = await getLabourById(editLabour.id);
+          const data = response?.data || response;
+
+          if (data) {
+            setFetchedData({
+              id: data.id,
+              labourName: data.full_name,
+              categoryId: data.category_id,
+              assignProject: data.project_id,
+              shiftTypeId: data.shift_type_id,
+              countryCode: data.country_code,
+              contactNumber: data.phone_number,
+              // Convert 7418529635 to just the number if needed, but phone input usually handles it if country code is separate
+              phoneNumber: data.phone_number,
+              defaultDailyWage: data.daily_wage,
+              aadharNumber: data.aadhar_number,
+              joinDate: data.join_date,
+              profilePhoto: data.media?.profilePhoto || data.profilePhoto,
+              aadharCardPhoto: data.media?.aadharCard || data.aadharCardPhoto,
+              insurancePhoto: data.media?.insurancePhoto || data.insurancePhoto,
+            });
+          }
+        } catch (error) {
+          console.error("Failed to fetch labour details", error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+      fetchLabour();
+    }
+  }, [isEdit, editLabour]);
+
+  // Use fetched profile data if available, otherwise fall back to state data (which might be incomplete)
+  const labourData = fetchedData || editLabour;
 
   const handleSubmit = async (payload) => {
     if (isEdit) {
@@ -56,9 +93,16 @@ export default function AddLabour() {
         const insuranceFile = Array.isArray(payload?.insuranceFiles) ? payload.insuranceFiles[0] : null;
         const profileFile = payload?.profilePhotoFile || null;
 
-        if (aadharFile) fd.append('aadharCard', aadharFile);
-        if (insuranceFile) fd.append('insurancePhoto', insuranceFile);
-        if (profileFile) fd.append('profilePhoto', profileFile);
+        // Only append files if they are new File objects
+        if (aadharFile && aadharFile instanceof File) {
+          fd.append('aadharCard', aadharFile);
+        }
+        if (insuranceFile && insuranceFile instanceof File) {
+          fd.append('insurancePhoto', insuranceFile);
+        }
+        if (profileFile && profileFile instanceof File) {
+          fd.append('profilePhoto', profileFile);
+        }
 
         await updateLabour(labourData.id, fd);
         showSuccess(t('addLabourForm.updatedSuccess', { defaultValue: 'Labour updated successfully' }));
@@ -99,9 +143,9 @@ export default function AddLabour() {
       console.error('Error adding labour:', err);
       console.error('Error response:', err?.response?.data);
       console.error('Error status:', err?.response?.status);
-      const errorMessage = err?.response?.data?.message 
-        || err?.response?.data?.error 
-        || err?.message 
+      const errorMessage = err?.response?.data?.message
+        || err?.response?.data?.error
+        || err?.message
         || t('addLabourForm.addFail', { defaultValue: 'Failed to add labour' });
       showError(errorMessage);
     }
@@ -115,7 +159,7 @@ export default function AddLabour() {
         projectName={projectName}
         mode={isEdit ? 'edit' : 'add'}
         initialData={labourData}
-        isLoading={isEdit && isLoadingProfile}
+        isLoading={isEdit && isLoading}
         onCancel={() => navigate(-1)}
         onSubmit={handleSubmit}
       />

@@ -1,0 +1,167 @@
+{
+    "projectDetails": {
+        "history": "इतिहास",
+        "totalCalculations": "कुल गणना",
+        "usedCalculations": "इस्तेमाल करी गणना",
+        "buyCalculations": "गणना खरीदो"
+    },
+    "quickActions": {
+        "tabs": {
+            "quantity": "मात्रा",
+            "area": "इलाका",
+            "volume": "आयतन",
+            "converter": "कनवर्टर",
+            "study": "पढ़ाई",
+            "quiz": "क्विज"
+        },
+        "items": {
+            "constructionCost": "मकान बणान की लागत",
+            "steelQuantities": "स्टील की मात्रा",
+            "concrete": "कंक्रीट",
+            "brickWorkPlaster": "ईंट का काम अर प्लास्टर",
+            "roofAreaPitch": "छत का इलाका अर ढाल",
+            "flooringCalculation": "फर्श की गणना",
+            "waterTankCapacity": "पाणी की टंकी की क्षमता",
+            "excavation": "खुदाई",
+            "swimmingPool": "स्विमिंग पूल",
+            "waterProofing": "वाटर प्रूफिंग",
+            "metalCalculator": "मेटल कैलकुलेटर",
+            "railConstruction": "रेल बणावट",
+            "roadCalculation": "सड़क की गणना",
+            "paint": "रंग",
+            "diagonals": "तिरछा नाप",
+            "antiTermite": "दीमक रोधी",
+            "acCapacity": "एसी क्षमता",
+            "solarElectric": "सौर बिजली",
+            "solarWaterHeater": "सौर पाणी गरम करण आळा",
+            "plywoodSheet": "प्लाईवुड शीट",
+            "plum": "पलम",
+            "rainWaterHarvesting": "मेंह का पाणी सुमेटणा",
+            "shuttering": "शटरिंग",
+            "baluster": "बलस्टर",
+            "arcCalculator": "आर्क कैलकुलेटर",
+            "precastBoundaryWall": "प्रीकाস্ট बाउंड्री वाल",
+            "damCalculations": "बांध की गणना",
+            "sewageSystem": "गंदा पाणी की निकासी",
+            "waterSupplySystem": "पाणी की सप्लाई",
+            "materialWeights": "सामान का वजन",
+            "billOfQuantity": "सामान का बिल (BOQ)"
+        }
+    },
+    "comingSoon": {
+        "title": "जल्दी आवैगा",
+        "comingSoonText": "जल्दी आवैगा...",
+        "launchTextPart1": "हम जल्दी ए एक ",
+        "launchTextPart2": " चालू करण आळे सां, जुड़े रहियो।",
+        "backButton": "← मकान बणान के कैलकुलेटर पै उल्टा चालो"
+    },
+    "history": {
+        "sharePdf": "PDF में साझा करो",
+        "downloadReport": "रिपोर्ट डाउनलोड करो",
+        "calcTitle": "गणना का नाम (जरूरी कोन्या)",
+        "enterValue": "मान भरो",
+        "constructionArea": "बणावट का इलाका",
+        "constructionCost": "लागत",
+        "reset": "रीसेट",
+        "calculate": "गणना करो",
+        "materialQuantity": "सामान की मात्रा",
+        "workCost": "अलग-अलग काम की लागत",
+        "headers": {
+            "material": "सामान",
+            "quantity": "मात्रा",
+            "unit": "यूनिट"
+        },
+        "materials": {
+            "cement": "सीमेंट",
+            "sand": "रेत",
+            "aggregate": "रोड़ी",
+            "steel": "लोहा",
+            "paint": "रंग",
+            "bricks": "ईंट",
+            "flooring": "फर्श",
+            "windows": "खिड़की",
+            "doors": "किवाड़"
+        },
+        "units": {
+            "bags": "कट्टे",
+            "ton": "टन",
+            "kg": "किलो",
+            "liters": "लीटर",
+            "sqft": "वर्ग फुट",
+            "nos": "नग"
+        },
+        "works": {
+            "design": "डिजाइन अर इंजिनीयरिंग",
+            "excavation": "खोदकाम",
+            "foundation": "नींव",
+            "rcc": "लेंटर (RCC)",
+            "brickwork": "ईंट की चुणाई",
+            "plaster": "प्लास्टर"
+        }
+    },
+    "steel": {
+        "sections": {
+            "weight": "वजन",
+            "footing": "फूटिंग",
+            "column": "कॉलम",
+            "beam": "बीम",
+            "slab": "स्लैब",
+            "cuttingLength": "कटिंग लेंथ"
+        },
+        "weight": {
+            "reinforcement": "रिइन्फोर्समेंट वजन"
+        },
+        "footing": {
+            "type1": "फूटिंग टाइप 1",
+            "type2": "फूटिंग टाइप 2"
+        },
+        "column": {
+            "type1": "कॉलम टाइप 1",
+            "type2": "कॉलम टाइप 2",
+            "type3": "कॉलम टाइप 3",
+            "type4": "कॉलम टाइप 4",
+            "type5": "कॉलम टाइप 5",
+            "type6": "कॉलम टाइप 6",
+            "type7": "कॉलम टाइप 7",
+            "type8": "कॉलम टाइप 8",
+            "type9": "कॉलम टाइप 9",
+            "type10": "कॉलम टाइप 10",
+            "type11": "कॉलम टाइप 11",
+            "type12": "कॉलम टाइप 12",
+            "vertical": "कॉलम वर्टिकल लोहो",
+            "ring1": "कॉलम रिंग 1",
+            "ring2": "कॉलम रिंग 2"
+        },
+        "beam": {
+            "type1": "बीम टाइप 1",
+            "type2": "बीम टाइप 2",
+            "type3": "बीम टाइप 3",
+            "type4": "बीम टाइप 4",
+            "type5": "बीम टाइप 5",
+            "type6": "बीम टाइप 6",
+            "type7": "बीम टाइप 7",
+            "type8": "बीम टाइप 8",
+            "type9": "बीम टाइप 9",
+            "type10": "बीम टाइप 10",
+            "horizontal": "बीम हॉरिजॉन्टल बार",
+            "ring1": "बीम रिंग 1",
+            "ring2": "बीम रिंग 2"
+        },
+        "slab": {
+            "type1": "स्लैब टाइप 1",
+            "type2": "स्लैब टाइप 2",
+            "type3": "स्लैब टाइप 3"
+        },
+        "cutting": {
+            "straight": "सीधा बार",
+            "lShape": "L शेप बार",
+            "uShape": "U शेप बार",
+            "stirrups": "स्टिरप्स"
+        },
+        "comingSoon": {
+            "beam": "बीम गणना UI जल्दी आवैगी...",
+            "slab": "स्लैब गणना UI जल्दी आवैगी...",
+            "cutting": "कटिंग लेंथ गणना UI जल्दी आवैगी..."
+        }
+    }
+}

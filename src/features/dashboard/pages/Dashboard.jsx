@@ -25,13 +25,14 @@ import StatisticsCards from "../components/StatisticsCards";
 import ActionCards from "../components/ActionCards";
 import MyProjects from "../components/MyProjects";
 import QuickActions from "../components/QuickActions";
+import BottomBanner from "../components/BottomBanner";
 
 const Dashboard = () => {
   const { t } = useTranslation("dashboard");
   const navigate = useNavigate();
   const { selectedWorkspace } = useAuth();
   const { projects, isLoadingProjects } = useProjects(selectedWorkspace);
-  
+
   // Check if user has restricted role (supervisor, builder, contractor)
   const isRestricted = useRestrictedRole();
   const currentUserRole = useWorkspaceRole();
@@ -82,13 +83,13 @@ const Dashboard = () => {
       badgeIcon: aiIcon,
       title: t("actions.constructionCalculator"),
       description: t("actions.calculatorDescription"),
-      onClick: () => {},
+      onClick: () => navigate(ROUTES_FLAT.CALCULATION_PROJECTS),
     },
     {
       icon: Plus,
       title: t("actions.addUsage"),
       description: t("actions.addUsageDescription"),
-      onClick: () => {},
+      onClick: () => { },
     },
   ];
 
@@ -108,7 +109,7 @@ const Dashboard = () => {
       {
         icon: ClipboardList,
         label: t("quickActions.siteInventory"),
-        onClick: () => {},
+        onClick: () => { },
       },
       {
         icon: FileText,
@@ -127,41 +128,47 @@ const Dashboard = () => {
         onClick: () => navigate(ROUTES_FLAT.NOTES),
       },
     ];
-    
+
     // Filter actions based on role
     let filteredActions = allActions;
-    
+
     // Hide Documents for restricted roles (supervisor, builder, contractor)
     if (isRestricted) {
       filteredActions = filteredActions.filter((action) => action.label !== t("quickActions.documents"));
     }
-    
+
     // Hide Finance for supervisor role
     if (currentUserRole?.toLowerCase() === 'supervisor') {
       filteredActions = filteredActions.filter((action) => action.label !== t("quickActions.finance"));
     }
-    
+
     return filteredActions;
   }, [t, navigate, isRestricted, currentUserRole]);
 
   return (
-    <>
-      <div className="max-w-7xl mx-auto">
-        <DashboardBanner onTryItNow={() => {}} />
+  <>
+    <div className="max-w-7xl mx-auto">
+      <DashboardBanner onTryItNow={() => {}} />
 
-        {!isRestricted && <StatisticsCards statistics={statistics} />}
+      {!isRestricted && <StatisticsCards statistics={statistics} />}
 
-        <ActionCards actionCards={actionCards} />
+      <ActionCards actionCards={actionCards} />
 
-        <MyProjects
-          projects={projects}
-          onCreateProject={() => navigate(PROJECT_ROUTES.ADD_NEW_PROJECT)}
-        />
+      <MyProjects
+        projects={projects}
+        onCreateProject={() => navigate(PROJECT_ROUTES.ADD_NEW_PROJECT)}
+      />
 
-        <QuickActions quickActions={quickActions} />
-      </div>
-    </>
-  );
+      <QuickActions quickActions={quickActions} />
+
+      {/* 🔥 Bottom Finance Banner */}
+      <BottomBanner
+        onManageFinance={() => navigate(ROUTES_FLAT.FINANCE)}
+      />
+    </div>
+  </>
+);
+
 };
 
 export default Dashboard;

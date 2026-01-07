@@ -18,7 +18,7 @@ export default function LogUsageModal({
   subtitle,
 }) {
   const { t } = useTranslation('siteInventory');
-  
+
   const [quantity, setQuantity] = useState('');
   const [description, setDescription] = useState('');
   const [errors, setErrors] = useState({});
@@ -63,7 +63,7 @@ export default function LogUsageModal({
 
   const validate = () => {
     const newErrors = {};
-    
+
     if (!quantity || parseFloat(quantity) <= 0) {
       newErrors.quantity = t('logUsageModal.errors.quantityRequired', { defaultValue: 'Quantity is required' });
     }
@@ -81,8 +81,8 @@ export default function LogUsageModal({
     try {
       await onLogUsage?.({
         ...item,
-        usedQuantity: parseFloat(quantity),
-        description: description,
+        quantity: parseFloat(quantity),
+        reason: description,
       });
       onClose();
       // Reset form
@@ -108,7 +108,7 @@ export default function LogUsageModal({
   if (!isOpen) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 overflow-y-auto"
       onClick={(e) => {
         if (e.target === e.currentTarget && !isLoading) {
@@ -164,19 +164,19 @@ export default function LogUsageModal({
 
         {/* Footer */}
         <div className="flex items-center justify-end gap-3 px-6 pb-6">
-          <Button 
-            variant="secondary" 
+          <Button
+            variant="secondary"
             onClick={handleClose}
             disabled={isLoading}
           >
             {t('logUsageModal.cancel', { defaultValue: 'Cancel' })}
           </Button>
-          <Button 
-            variant="primary" 
+          <Button
+            variant="primary"
             onClick={handleLogUsage}
             disabled={isLoading}
           >
-            {isLoading 
+            {isLoading
               ? t('logUsageModal.adding', { defaultValue: 'Adding...' })
               : t('logUsageModal.addLog', { defaultValue: 'Add Log' })
             }

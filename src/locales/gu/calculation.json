@@ -1,0 +1,167 @@
+{
+    "projectDetails": {
+        "history": "ઇતિહાસ",
+        "totalCalculations": "કુલ ગણતરીઓ",
+        "usedCalculations": "વપરાયેલ ગણતરીઓ",
+        "buyCalculations": "ગણતરીઓ ખરીદો"
+    },
+    "quickActions": {
+        "tabs": {
+            "quantity": "માપ",
+            "area": "વિસ્તાર",
+            "volume": "કદ",
+            "converter": "કન્વર્ટર",
+            "study": "અભ્યાસ",
+            "quiz": "ક્વિઝ"
+        },
+        "items": {
+            "constructionCost": "બાંધકામ ખર્ચ",
+            "steelQuantities": "સ્ટીલનું પ્રમાણ",
+            "concrete": "કોંક્રિટ",
+            "brickWorkPlaster": "ઈંટ કામ અને પ્લાસ્ટર",
+            "roofAreaPitch": "છત વિસ્તાર અને પીચ",
+            "flooringCalculation": "ફ્લોરિંગ ગણતરી",
+            "waterTankCapacity": "પાણીની ટાંકી ક્ષમતા",
+            "excavation": "ખોદકામ",
+            "swimmingPool": "સ્વિમિંગ પૂલ",
+            "waterProofing": "વોટર પ્રૂફિંગ",
+            "metalCalculator": "મેટલ કેલ્ક્યુલેટર",
+            "railConstruction": "રેલ બાંધકામ",
+            "roadCalculation": "રોડની ગણતરી",
+            "paint": "કલર",
+            "diagonals": "વિકર્ણ",
+            "antiTermite": "ઉધઈ વિરોધી",
+            "acCapacity": "AC ક્ષમતા",
+            "solarElectric": "સોલર (ઈલેક્ટ્રિક)",
+            "solarWaterHeater": "સોલર વોટર હીટર",
+            "plywoodSheet": "પ્લાયવુડ શીટ",
+            "plum": "પ્લમ",
+            "rainWaterHarvesting": "વરસાદી પાણીનો સંગ્રહ",
+            "shuttering": "શટરિંગ",
+            "baluster": "બેલેસ્ટર",
+            "arcCalculator": "આર્ક કેલ્ક્યુલેટર",
+            "precastBoundaryWall": "પ્રીકાસ્ટ બાઉન્ડ્રી વોલ",
+            "damCalculations": "ડેમ ગણતરીઓ",
+            "sewageSystem": "ગટર વ્યવસ્થા",
+            "waterSupplySystem": "પાણી પુરવઠા વ્યવસ્થા",
+            "materialWeights": "સામગ્રીનું વજન",
+            "billOfQuantity": "જથ્થાનું બિલ"
+        }
+    },
+    "comingSoon": {
+        "title": "ટૂંક સમયમાં આવી રહ્યું છે",
+        "comingSoonText": "ટૂંક સમયમાં આવી રહ્યું છે...",
+        "launchTextPart1": "અમે ટૂંક સમયમાં ",
+        "launchTextPart2": " લોન્ચ કરવા જઈ રહ્યા છીએ, જોડાયેલા રહો.",
+        "backButton": "← કન્સ્ટ્રક્શન કેલ્ક્યુલેટર પર પાછા જાઓ"
+    },
+    "history": {
+        "sharePdf": "PDF તરીકે શેર કરો",
+        "downloadReport": "રિપોર્ટ ડાઉનલોડ કરો",
+        "calcTitle": "ગણતરી શીર્ષક (વૈકલ્પિક)",
+        "enterValue": "મૂલ્ય દાખલ કરો",
+        "constructionArea": "બાંધકામ વિસ્તાર",
+        "constructionCost": "બાંધકામ ખર્ચ",
+        "reset": "રીસેટ",
+        "calculate": "ગણતરી કરો",
+        "materialQuantity": "સામગ્રીનો જથ્થો",
+        "workCost": "વિવિધ કામની કિંમત",
+        "headers": {
+            "material": "સામગ્રી",
+            "quantity": "જથ્થો",
+            "unit": "એકમ"
+        },
+        "materials": {
+            "cement": "સિમેન્ટ",
+            "sand": "રેતી",
+            "aggregate": "એગ્રીગેટ",
+            "steel": "સ્ટીલ",
+            "paint": "કલર",
+            "bricks": "ઈંટો",
+            "flooring": "ફ્લોરિંગ",
+            "windows": "બારીઓ",
+            "doors": "દરવાજા"
+        },
+        "units": {
+            "bags": "બેગ",
+            "ton": "ટન",
+            "kg": "કિલોગ્રામ",
+            "liters": "લિટર",
+            "sqft": "ચોરસ ફૂટ",
+            "nos": "નંગ"
+        },
+        "works": {
+            "design": "ડિઝાઇન અને એન્જિનિયરિંગ",
+            "excavation": "ખોદકામ",
+            "foundation": "પાયો",
+            "rcc": "RCC",
+            "brickwork": "ઈંટ કામ",
+            "plaster": "પ્લાસ્ટર"
+        }
+    },
+    "steel": {
+        "sections": {
+            "weight": "વજન",
+            "footing": "ફૂટિંગ",
+            "column": "કોલમ",
+            "beam": "બીમ",
+            "slab": "સ્લેબ",
+            "cuttingLength": "કટિંગ લેન્થ"
+        },
+        "weight": {
+            "reinforcement": "રિઇન્ફોર્સમેન્ટ વેઇટ"
+        },
+        "footing": {
+            "type1": "ફૂટિંગ ટાઇપ 1",
+            "type2": "ફૂટિંગ ટાઇપ 2"
+        },
+        "column": {
+            "type1": "કોલમ ટાઇપ 1",
+            "type2": "કોલમ ટાઇપ 2",
+            "type3": "કોલમ ટાઇપ 3",
+            "type4": "કોલમ ટાઇપ 4",
+            "type5": "કોલમ ટાઇપ 5",
+            "type6": "કોલમ ટાઇપ 6",
+            "type7": "કોલમ ટાઇપ 7",
+            "type8": "કોલમ ટાઇપ 8",
+            "type9": "કોલમ ટાઇપ 9",
+            "type10": "કોલમ ટાઇપ 10",
+            "type11": "કોલમ ટાઇપ 11",
+            "type12": "કોલમ ટાઇપ 12",
+            "vertical": "કોલમ વર્ટિકલ સ્ટીલ",
+            "ring1": "કોલમ રિંગ 1",
+            "ring2": "કોલમ રિંગ 2"
+        },
+        "beam": {
+            "type1": "બીમ ટાઇપ 1",
+            "type2": "બીમ ટાઇપ 2",
+            "type3": "બીમ ટાઇપ 3",
+            "type4": "બીમ ટાઇપ 4",
+            "type5": "બીમ ટાઇપ 5",
+            "type6": "બીમ ટાઇપ 6",
+            "type7": "બીમ ટાઇપ 7",
+            "type8": "બીમ ટાઇપ 8",
+            "type9": "બીમ ટાઇપ 9",
+            "type10": "બીમ ટાઇપ 10",
+            "horizontal": "બીમ હોરીઝોન્ટલ બાર",
+            "ring1": "બીમ રિંગ 1",
+            "ring2": "બીમ રિંગ 2"
+        },
+        "slab": {
+            "type1": "સ્લેબ ટાઇપ 1",
+            "type2": "સ્લેબ ટાઇપ 2",
+            "type3": "સ્લેબ ટાઇપ 3"
+        },
+        "cutting": {
+            "straight": "સીધો બાર",
+            "lShape": "L શેપ બાર",
+            "uShape": "U શેપ બાર",
+            "stirrups": "સ્ટિરપ્સ"
+        },
+        "comingSoon": {
+            "beam": "બીમ ગણતરી UI ટૂંક સમયમાં આવી રહ્યું છે...",
+            "slab": "સ્લેબ ગણતરી UI ટૂંક સમયમાં આવી રહ્યું છે...",
+            "cutting": "કટિંગ લેન્થ ગણતરી UI ટૂંક સમયમાં આવી રહ્યું છે..."
+        }
+    }
+}

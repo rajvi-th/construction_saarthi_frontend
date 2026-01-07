@@ -28,27 +28,35 @@ export default function AddNewAsk() {
   const location = useLocation();
   const { selectedWorkspace } = useAuth();
   const currentUserRole = useWorkspaceRole();
-  
-  // Get project context from navigation state (current project - where we're requesting TO)
+
+  // Get project context and item from navigation state
   const currentProjectId = location.state?.projectId;
-  
+  const currentProjectName = location.state?.projectName;
+  const itemContext = location.state?.item;
+
   const { inventoryTypeOptions, isLoading: isLoadingInventoryTypes } = useInventoryTypes();
-  const [materialType, setMaterialType] = useState(null); // Dynamic inventory type ID
-  const [selectedMaterial, setSelectedMaterial] = useState('');
+  const [materialType, setMaterialType] = useState(itemContext?.inventoryTypeId || null);
+  const [selectedMaterial, setSelectedMaterial] = useState(itemContext?.id || itemContext?._id || '');
   const [quantity, setQuantity] = useState('');
   const [selectedProjects, setSelectedProjects] = useState([]);
   const [projectOptions, setProjectOptions] = useState([]);
   const [description, setDescription] = useState('');
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
+  // Material name for title
+  const contextMaterialName = itemContext?.material?.name || itemContext?.materialName || itemContext?.name;
+  const pageTitle = itemContext
+    ? `${t('addNewAsk.askForMaterial', { defaultValue: 'Ask for Material' })} • ${contextMaterialName}`
+    : t('addNewAsk.title', { defaultValue: 'Add New Ask' });
+
   // Set default inventory type when options are loaded
   useEffect(() => {
     if (inventoryTypeOptions.length > 0 && !materialType) {
       setMaterialType(inventoryTypeOptions[0].value);
     }
   }, [inventoryTypeOptions, materialType]);
-  
+
   // Use materialType directly as inventoryTypeId (it's already the ID)
   const inventoryTypeId = materialType;
   const { materials, materialOptions, isLoadingMaterials, createNewMaterial, refetch: refetchMaterials } = useMaterials(inventoryTypeId);
@@ -72,10 +80,10 @@ export default function AddNewAsk() {
         ...materialData,
         type: materialType, // 'reusable' or 'consumable'
       });
-      
+
       // Select the newly created material
       setSelectedMaterial(newOption.value);
-      
+
       return newOption;
     } catch (error) {
       // Error is already handled in the hook
@@ -150,32 +158,32 @@ export default function AddNewAsk() {
 
   const validate = () => {
     const newErrors = {};
-    
+
     if (!selectedMaterial) {
       newErrors.material = t('addNewAsk.errors.materialRequired', { defaultValue: 'Material is required' });
     }
-    
+
     if (!quantity || quantity === '0' || quantity === '00') {
       newErrors.quantity = t('addNewAsk.errors.quantityRequired', { defaultValue: 'Quantity is required' });
     }
-    
+
     if (selectedProjects.length === 0) {
       newErrors.requestFrom = t('addNewAsk.errors.requestFromRequired', { defaultValue: 'Please select at least one project' });
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validate()) {
       return;
     }
 
     setIsSubmitting(true);
-    
+
     try {
       if (!currentProjectId) {
         showError(t('addNewAsk.errors.projectRequired', { defaultValue: 'Project ID is required' }));
@@ -188,7 +196,7 @@ export default function AddNewAsk() {
         setIsSubmitting(false);
         return;
       }
-      
+
       // Create a single API call with all selected projects in toProjects array
       await requestMaterial({
         inventoryId: selectedMaterial,
@@ -197,9 +205,9 @@ export default function AddNewAsk() {
         fromProjectId: currentProjectId,
         toProjects: selectedProjects.map(project => project.value),
       });
-      
+
       showSuccess(t('addNewAsk.success', { defaultValue: 'Material request sent successfully' }));
-      
+
       // Navigate back after success
       navigate(-1);
     } catch (error) {
@@ -213,105 +221,87 @@ export default function AddNewAsk() {
   return (
     <div className="max-w-4xl mx-auto">
       <PageHeader
-        title={t('addNewAsk.title', { defaultValue: 'Add New Ask' })}
+        title={pageTitle}
         showBackButton={true}
         onBack={handleCancel}
       />
 
       <form onSubmit={handleSubmit} className="mt-6">
-        {/* Material Type Radio Buttons */}
-        <div className="mb-6 flex gap-6 flex-wrap">
-          {isLoadingInventoryTypes ? (
-            <div className="text-sm text-secondary">Loading...</div>
-          ) : (
-            inventoryTypeOptions.map((type) => (
-              <Radio
-                key={type.value}
-                name="materialType"
-                value={type.value}
-                checked={materialType?.toString() === type.value?.toString()}
-                onChange={(e) => setMaterialType(e.target.value)}
-                label={type.label}
-              />
-            ))
-          )}
-        </div>
+        {/* Hide material type selection if item context is provided */}
+        {!itemContext && (
+          <div className="mb-6 flex gap-6 flex-wrap">
+            {isLoadingInventoryTypes ? (
+              <div className="text-sm text-secondary">Loading...</div>
+            ) : (
+              inventoryTypeOptions.map((type) => (
+                <Radio
+                  key={type.value}
+                  name="materialType"
+                  value={type.value}
+                  checked={materialType?.toString() === type.value?.toString()}
+                  onChange={(e) => setMaterialType(e.target.value)}
+                  label={type.label}
+                />
+              ))
+            )}
+          </div>
+        )}
 
-        {/* Material Dropdown */}
-        <div className="mb-6">
-          <Dropdown
-            label={t('addNewAsk.material', { defaultValue: 'Material' })}
-            options={materialOptions}
-            value={selectedMaterial}
-            onChange={handleMaterialSelect}
-            placeholder={t('addNewAsk.materialPlaceholder', { defaultValue: 'Select material' })}
-            error={errors.material}
-            className="w-full"
-            showSeparator={currentUserRole?.toLowerCase() !== 'supervisor'}
-            addButtonLabel={currentUserRole?.toLowerCase() !== 'supervisor' ? t('addNewAsk.addNewMaterial', { defaultValue: 'Add New Material' }) : ''}
-            onAddNew={currentUserRole?.toLowerCase() !== 'supervisor' ? handleAddNewMaterial : null}
-            disabled={isLoadingMaterials}
-            customModal={currentUserRole?.toLowerCase() !== 'supervisor' ? AddMaterialModal : null}
-            customModalProps={currentUserRole?.toLowerCase() !== 'supervisor' ? { materialType, t } : {}}
-          />
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Request Material From - Now as tags/dropdown */}
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-primary mb-2">
+              {t('addNewAsk.requestFrom', { defaultValue: 'Request Material From' })}
+              <span className="text-accent ml-1">*</span>
+            </label>
 
-        {/* Quantity Input */}
-        <div className="mb-6">
-          <NumberInput
-            label={t('addNewAsk.quantity', { defaultValue: 'Quantity' })}
-            placeholder="00"
-            value={quantity}
-            onChange={handleQuantityChange}
-            required
-            error={errors.quantity}
-            unit={quantityUnit}
-            className="w-full"
-          />
-        </div>
-
-        {/* Request Material From */}
-        <div className="mb-6">
-          <label className="block text-sm font-medium text-primary mb-2">
-            {t('addNewAsk.requestFrom', { defaultValue: 'Request Material From' })}
-            <span className="text-accent ml-1">*</span>
-          </label>
-          
-          {/* Selected Projects Tags */}
-          {selectedProjects.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-3">
-              {selectedProjects.map((project) => (
-                <div
-                  key={project.value}
-                  className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-lg border border-gray-200"
-                >
-                  <span className="text-sm text-primary">{project.label}</span>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveProject(project.value)}
-                    className="text-gray-500 hover:text-gray-700 transition-colors cursor-pointer"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-          
-          {/* Project Dropdown - shown only when no project is selected */}
-          {selectedProjects.length === 0 && (
             <Dropdown
               options={projectOptions.filter(
                 (project) => project.value?.toString() !== currentProjectId?.toString()
               )}
-              value=""
+              value={selectedProjects.length === 1 ? selectedProjects[0].value : ""}
               onChange={handleProjectSelect}
               placeholder={t('addNewAsk.requestFromPlaceholder', { defaultValue: 'Select project' })}
               error={errors.requestFrom}
               className="w-full"
             />
-          )}
+          </div>
+
+          {/* Quantity Input */}
+          <div className="mb-6">
+            <NumberInput
+              label={t('addNewAsk.quantity', { defaultValue: 'Quantity' })}
+              placeholder="00"
+              value={quantity}
+              onChange={handleQuantityChange}
+              required
+              error={errors.quantity}
+              unit={quantityUnit}
+              className="w-full"
+            />
+          </div>
         </div>
+
+        {/* Material Selection - Only show if not fixed */}
+        {!itemContext && (
+          <div className="mb-6">
+            <Dropdown
+              label={t('addNewAsk.material', { defaultValue: 'Material' })}
+              options={materialOptions}
+              value={selectedMaterial}
+              onChange={handleMaterialSelect}
+              placeholder={t('addNewAsk.materialPlaceholder', { defaultValue: 'Select material' })}
+              error={errors.material}
+              className="w-full"
+              showSeparator={currentUserRole?.toLowerCase() !== 'supervisor'}
+              addButtonLabel={currentUserRole?.toLowerCase() !== 'supervisor' ? t('addNewAsk.addNewMaterial', { defaultValue: 'Add New Material' }) : ''}
+              onAddNew={currentUserRole?.toLowerCase() !== 'supervisor' ? handleAddNewMaterial : null}
+              disabled={isLoadingMaterials}
+              customModal={currentUserRole?.toLowerCase() !== 'supervisor' ? AddMaterialModal : null}
+              customModalProps={currentUserRole?.toLowerCase() !== 'supervisor' ? { materialType, t } : {}}
+            />
+          </div>
+        )}
 
         {/* Description */}
         <div className="mb-6">

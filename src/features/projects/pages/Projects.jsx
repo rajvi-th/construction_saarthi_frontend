@@ -16,6 +16,7 @@ import { ProjectCard } from '../components';
 import { PROJECT_ROUTES } from '../constants';
 import { useAuth } from '../../../hooks/useAuth';
 import { useProjects, useDeleteProject } from '../hooks';
+import { updateProjectStatus } from '../api/projectApi';
 import { useRestrictedRole } from '../../dashboard/hooks';
 import { ChevronDown } from "lucide-react";
 import PageHeader from '../../../components/layout/PageHeader';
@@ -24,11 +25,11 @@ export default function Projects() {
   const { t } = useTranslation('projects');
   const navigate = useNavigate();
   const { selectedWorkspace } = useAuth();
-  
+
   // Check if user has restricted role (supervisor, builder, contractor)
   const isRestricted = useRestrictedRole();
   const [projectToDelete, setProjectToDelete] = useState(null);
-  
+
   const {
     filteredProjects,
     isLoading,
@@ -74,6 +75,16 @@ export default function Projects() {
     navigate(PROJECT_ROUTES.EDIT_PROJECT.replace(':id', project.id));
   };
 
+  const handleStatusChange = async (project, newStatus) => {
+    try {
+      await updateProjectStatus(project.id, newStatus, project);
+      await refetchProjects();
+    } catch (error) {
+      console.error("Failed to update status", error);
+      // Optional: Add toast notification here
+    }
+  };
+
   const handleRequestDelete = (project) => {
     setProjectToDelete(project);
   };
@@ -83,10 +94,10 @@ export default function Projects() {
 
     try {
       await deleteProjectHook(projectToDelete.id);
-      
+
       // Refetch projects list to update UI
       await refetchProjects();
-      
+
       // Close modal
       setProjectToDelete(null);
     } catch (error) {
@@ -105,8 +116,8 @@ export default function Projects() {
         {/* Header Section */}
         <div className="mb-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between md:flex-wrap lg:items-center">
-            <PageHeader title={t('header.title')} 
-            showBackButton={false}
+            <PageHeader title={t('header.title')}
+              showBackButton={false}
             />
 
 
@@ -125,9 +136,9 @@ export default function Projects() {
                 onChange={setStatusFilter}
                 placeholder={t('status.label')}
                 className="w-full sm:w-[140px] sm:flex-shrink-0"
-                showSeparator={false}    
-                onAddNew={null}          
-                addButtonLabel=""         
+                showSeparator={false}
+                onAddNew={null}
+                addButtonLabel=""
 
                 customButton={(isOpen, setIsOpen, selectedOption) => (
                   <button
@@ -187,6 +198,7 @@ export default function Projects() {
                   key={project.id}
                   project={project}
                   onOpenDetails={() => handleProjectClick(project)}
+                  onStatusChange={(status) => handleStatusChange(project, status)}
                   onEdit={!isRestricted ? handleEditProject : null}
                   onDelete={!isRestricted ? handleRequestDelete : null}
                 />

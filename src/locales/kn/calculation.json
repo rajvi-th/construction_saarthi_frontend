@@ -1,0 +1,167 @@
+{
+    "projectDetails": {
+        "history": "ಇತಿಹಾಸ",
+        "totalCalculations": "ಒಟ್ಟು ಲೆಕ್ಕಾಚಾರಗಳು",
+        "usedCalculations": "ಬಳಸಿದ ಲೆಕ್ಕಾಚಾರಗಳು",
+        "buyCalculations": "ಲೆಕ್ಕಾಚಾರಗಳನ್ನು ಖರೀದಿಸಿ"
+    },
+    "quickActions": {
+        "tabs": {
+            "quantity": "ಪ್ರಮಾಣ",
+            "area": "ವಿಸ್ತೀರ್ಣ",
+            "volume": "ಘನಫಲ",
+            "converter": "ಪರಿವರ್ತಕ",
+            "study": "ಅಧ್ಯಯನ",
+            "quiz": "ರಸಪ್ರಶ್ನೆ"
+        },
+        "items": {
+            "constructionCost": "ನಿರ್ಮಾಣ ವೆಚ್ಚ",
+            "steelQuantities": "ಉಕ್ಕಿನ ಪ್ರಮಾಣ",
+            "concrete": "ಕಾಂಕ್ರೀಟ್",
+            "brickWorkPlaster": "ಇಟ್ಟಿಗೆ ಕೆಲಸ ಮತ್ತು ಪ್ಲ್ಯಾಸ್ಟರಿಂಗ್",
+            "roofAreaPitch": "ಛಾವಣಿಯ ವಿಸ್ತೀರ್ಣ ಮತ್ತು ಇಳಿಜಾರು",
+            "flooringCalculation": "ಫ್ಲೋರಿಂಗ್ ಲೆಕ್ಕಾಚಾರ",
+            "waterTankCapacity": "ನೀರಿನ ಟ್ಯಾಂಕ್ ಸಾಮರ್ಥ್ಯ",
+            "excavation": "ಅಗೆಯುವಿಕೆ",
+            "swimmingPool": "ಈಜುಕೊಳ",
+            "waterProofing": "ವಾಟರ್ ಪ್ರೂಫಿಂಗ್",
+            "metalCalculator": "ಲೋಹದ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+            "railConstruction": "ರೈಲು ನಿರ್ಮಾಣ",
+            "roadCalculation": "ರಸ್ತೆ ಲೆಕ್ಕಾಚಾರ",
+            "paint": "ಬಣ್ಣ",
+            "diagonals": "ಕರ್ಣಗಳು",
+            "antiTermite": "ಗೆದ್ದಲು ನಿರೋಧಕ",
+            "acCapacity": "ಎಸಿ ಸಾಮರ್ಥ್ಯ",
+            "solarElectric": "ಸೌರ (ವಿದ್ಯುತ್)",
+            "solarWaterHeater": "ಸೌರ ವಾಟರ್ ಹೀಟರ್",
+            "plywoodSheet": "ಪ್ಲೈವುಡ್ ಶೀಟ್",
+            "plum": "ಪ್ಲಮ್",
+            "rainWaterHarvesting": "ಮಳೆನೀರು ಕೊಯ್ಲು",
+            "shuttering": "ಶಟರಿಂಗ್",
+            "baluster": "ಬ್ಯಾಲಸ್ಟರ್",
+            "arcCalculator": "ಆರ್ಕ್ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+            "precastBoundaryWall": "ಪ್ರಿಕಾಸ್ಟ್ ಬೌಂಡರಿ ಗೋಡೆ",
+            "damCalculations": "ಆಣೆಕಟ್ಟು ಲೆಕ್ಕಾಚಾರಗಳು",
+            "sewageSystem": "ಒಳಚರಂಡಿ ವ್ಯವಸ್ಥೆ",
+            "waterSupplySystem": "ನೀರು ಸರಬರಾಜು ವ್ಯವಸ್ಥೆ",
+            "materialWeights": "ಸಾಮಗ್ರಿಗಳ ತೂಕ",
+            "billOfQuantity": "ಸಾಮಗ್ರಿಗಳ ಮೌಲ್ಯಮಾಪನ (BOQ)"
+        }
+    },
+    "comingSoon": {
+        "title": "ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ",
+        "comingSoonText": "ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ...",
+        "launchTextPart1": "ನಾವು ಶೀಘ್ರದಲ್ಲೇ ",
+        "launchTextPart2": " ಅನ್ನು ಪ್ರಾರಂಭಿಸಲಿದ್ದೇವೆ, ನಮ್ಮೊಂದಿಗೆ ಇರಿ.",
+        "backButton": "← ನಿರ್ಮಾಣ ಕ್ಯಾಲ್ಕುಲೇಟರ್‌ಗೆ ಹಿಂತಿರುಗಿ"
+    },
+    "history": {
+        "sharePdf": "PDF ಆಗಿ ಹಂಚಿಕೊಳ್ಳಿ",
+        "downloadReport": "ವರದಿ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
+        "calcTitle": "ಲೆಕ್ಕಾಚಾರದ ಶೀರ್ಷಿಕೆ (ಐಚ್ಛಿಕ)",
+        "enterValue": "ಮೌಲ್ಯವನ್ನು ನಮೂದಿಸಿ",
+        "constructionArea": "ನಿರ್ಮಾಣ ಪ್ರದೇಶ",
+        "constructionCost": "ನಿರ್ಮಾಣ ವೆಚ್ಚ",
+        "reset": "ರಿಸೆಟ್",
+        "calculate": "ಲೆಕ್ಕಾಚಾರ ಮಾಡಿ",
+        "materialQuantity": "ಸಾಮಗ್ರಿ ಪ್ರಮಾಣ",
+        "workCost": "ವಿವಿಧ ಕೆಲಸಗಳ ವೆಚ್ಚ",
+        "headers": {
+            "material": "ಸಾಮಗ್ರಿ",
+            "quantity": "ಪ್ರಮಾಣ",
+            "unit": "ಘಟಕ"
+        },
+        "materials": {
+            "cement": "ಸಿಮೆಂಟ್",
+            "sand": "ಮರಳು",
+            "aggregate": "ಕಲ್ಲು",
+            "steel": "ಉಕ್ಕು",
+            "paint": "ಬಣ್ಣ",
+            "bricks": "ಇಟ್ಟಿಗೆಗಳು",
+            "flooring": "ಫ್ಲೋರಿಂಗ್",
+            "windows": "ಕಿಟಕಿಗಳು",
+            "doors": "ಬಾಗಿಲುಗಳು"
+        },
+        "units": {
+            "bags": "ಚೀಲಗಳು",
+            "ton": "ಟನ್",
+            "kg": "ಕೆಜಿ",
+            "liters": "ಲೀಟರ್",
+            "sqft": "ಚದರ ಅಡಿ",
+            "nos": "ನಂ"
+        },
+        "works": {
+            "design": "ವಿನ್ಯಾಸ ಮತ್ತು ಎಂಜಿನಿಯರಿಂಗ್",
+            "excavation": "ಅಗೆಯುವಿಕೆ",
+            "foundation": "ಪಾಯ",
+            "rcc": "RCC",
+            "brickwork": "ಇಟ್ಟಿಗೆ ಕೆಲಸ",
+            "plaster": "ಪ್ಲ್ಯಾಸ್ಟರಿಂಗ್"
+        }
+    },
+    "steel": {
+        "sections": {
+            "weight": "ತೂಕ",
+            "footing": "ಫುಟಿಂಗ್",
+            "column": "ಕಾಲಮ್",
+            "beam": "ಬೀಮ್",
+            "slab": "ಸ್ಲ್ಯಾಬ್",
+            "cuttingLength": "ಕಟಿಂಗ್ ಉದ್ದ"
+        },
+        "weight": {
+            "reinforcement": "ಬಲವರ್ಧನೆ ತೂಕ (Reinforcement Weight)"
+        },
+        "footing": {
+            "type1": "ಫುಟಿಂಗ್ ಮಾದರಿ 1",
+            "type2": "ಫುಟಿಂಗ್ ಮಾದರಿ 2"
+        },
+        "column": {
+            "type1": "ಕಾಲಮ್ ಮಾದರಿ 1",
+            "type2": "ಕಾಲಮ್ ಮಾದರಿ 2",
+            "type3": "ಕಾಲಮ್ ಮಾದರಿ 3",
+            "type4": "ಕಾಲಮ್ ಮಾದರಿ 4",
+            "type5": "ಕಾಲಮ್ ಮಾದರಿ 5",
+            "type6": "ಕಾಲಮ್ ಮಾದರಿ 6",
+            "type7": "ಕಾಲಮ್ ಮಾದರಿ 7",
+            "type8": "ಕಾಲಮ್ ಮಾದರಿ 8",
+            "type9": "ಕಾಲಮ್ ಮಾದರಿ 9",
+            "type10": "ಕಾಲಮ್ ಮಾದರಿ 10",
+            "type11": "ಕಾಲಮ್ ಮಾದರಿ 11",
+            "type12": "ಕಾಲಮ್ ಮಾದರಿ 12",
+            "vertical": "ಕಾಲಮ್ ಲಂಬ ಉಕ್ಕು",
+            "ring1": "ಕಾಲಮ್ ರಿಂಗ್ 1",
+            "ring2": "ಕಾಲಮ್ ರಿಂಗ್ 2"
+        },
+        "beam": {
+            "type1": "ಬೀಮ್ ಮಾದರಿ 1",
+            "type2": "ಬೀಮ್ ಮಾದರಿ 2",
+            "type3": "ಬೀಮ್ ಮಾದರಿ 3",
+            "type4": "ಬೀಮ್ ಮಾದರಿ 4",
+            "type5": "ಬೀಮ್ ಮಾದರಿ 5",
+            "type6": "ಬೀಮ್ ಮಾದರಿ 6",
+            "type7": "ಬೀಮ್ ಮಾದರಿ 7",
+            "type8": "ಬೀಮ್ ಮಾದರಿ 8",
+            "type9": "ಬೀಮ್ ಮಾದರಿ 9",
+            "type10": "ಬೀಮ್ ಮಾದರಿ 10",
+            "horizontal": "ಬೀಮ್ ಅಡ್ಡ ಬಾರ್‌ಗಳು",
+            "ring1": "ಬೀಮ್ ರಿಂಗ್ 1",
+            "ring2": "ಬೀಮ್ ರಿಂಗ್ 2"
+        },
+        "slab": {
+            "type1": "ಸ್ಲ್ಯಾಬ್ ಮಾದರಿ 1",
+            "type2": "ಸ್ಲ್ಯಾಬ್ ಮಾದರಿ 2",
+            "type3": "ಸ್ಲ್ಯಾಬ್ ಮಾದರಿ 3"
+        },
+        "cutting": {
+            "straight": "ನೇರ ಬಾರ್",
+            "lShape": "L ಆಕಾರದ ಬಾರ್",
+            "uShape": "U ಆಕಾರದ ಬಾರ್",
+            "stirrups": "ಸ್ಟಿರ್ಅಪ್ಗಳು"
+        },
+        "comingSoon": {
+            "beam": "ಬೀಮ್ ಲೆಕ್ಕಾಚಾರದ ಯುಐ ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ...",
+            "slab": "ಸ್ಲ್ಯಾಬ್ ಲೆಕ್ಕಾಚಾರದ ಯುಐ ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ...",
+            "cutting": "ಕಟಿಂಗ್ ಉದ್ದದ ಲೆಕ್ಕಾಚಾರದ ಯುಐ ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ..."
+        }
+    }
+}

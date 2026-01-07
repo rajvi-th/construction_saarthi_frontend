@@ -3,7 +3,7 @@
  * Shows payment entries with expand/collapse, create, edit, filter, and download functionality
  */
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ROUTES_FLAT, getRoute } from "../../../constants/routes";
@@ -11,7 +11,10 @@ import PageHeader from "../../../components/layout/PageHeader";
 import SearchBar from "../../../components/ui/SearchBar";
 import Button from "../../../components/ui/Button";
 import DropdownMenu from "../../../components/ui/DropdownMenu";
-import FilterPaidModal from "../../../components/ui/FilterPaidModal";
+import FilterModal from "../../../components/ui/FilterModal";
+import AddVendorModal from "../../../components/ui/AddVendorModal";
+import AddCategoryModal from "../../../components/ui/AddCategoryModal";
+import AddPaymentModeModal from "../../../components/ui/AddPaymentModeModal";
 import CustomDateRangeModal from "../../../components/ui/CustomDateRangeModal";
 import ConfirmModal from "../../../components/ui/ConfirmModal";
 import { useAuth } from "../../auth/store";
@@ -27,7 +30,7 @@ import sortVerticalIcon from "../../../assets/icons/Sort Vertical.svg";
 import pdfIcon from "../../../assets/icons/Download Minimalistic.svg";
 import pencilIcon from "../../../assets/icons/Pen.svg";
 import trashIcon from "../../../assets/icons/Trash.svg";
-import { Plus, ChevronDown, ChevronUp, MoreVertical } from "lucide-react";
+import { Plus, ChevronDown, ChevronUp } from "lucide-react";
 
 export default function ExpensesPaid() {
   const { t } = useTranslation("finance");
@@ -35,7 +38,10 @@ export default function ExpensesPaid() {
   const { projectId } = useParams();
   const { selectedWorkspace } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
-  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  //   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false); // FilterModal manages its own open state via the button inside it, but wait, usually we control it?
+  // Checking FilterModal.jsx: It puts the button inside itself! So we don't need isOpen state here for it.
+  // Actually, FilterModal renders the button AND the drawer. So we just render <FilterModal />
+
   const [isCustomDateModalOpen, setIsCustomDateModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [entryToDelete, setEntryToDelete] = useState(null);
@@ -62,7 +68,7 @@ export default function ExpensesPaid() {
 
   const [modules, setModules] = useState(["Module 1", "Module 2", "Module 3"]);
 
-  const paymentModes = [
+  const [paymentModes, setPaymentModes] = useState([
     { value: "cash", label: t("cash", { defaultValue: "Cash" }) },
     { value: "cheque", label: t("cheque", { defaultValue: "Cheque" }) },
     {
@@ -71,9 +77,7 @@ export default function ExpensesPaid() {
     },
     { value: "upi", label: t("upi", { defaultValue: "UPI" }) },
     { value: "other", label: t("other", { defaultValue: "Other" }) },
-  ];
-
-  const paidByOptions = ["Mahesh (Site Manager)", "Anurag Sharma", "Admin"];
+  ]);
 
   // Payment entries data - fetched from API
   const [paymentEntries, setPaymentEntries] = useState([]);
@@ -206,6 +210,8 @@ export default function ExpensesPaid() {
       const errorMessage = error?.response?.data?.message || error?.message || t("vendorCreateError", { defaultValue: "Failed to create vendor" });
       showError(errorMessage);
       return Promise.reject(error);
+    if (!vendors.includes(vendorData.name)) {
+      setVendors([...vendors, vendorData.name]);
     }
   };
 
@@ -253,6 +259,8 @@ export default function ExpensesPaid() {
       const errorMessage = error?.response?.data?.message || error?.message || t("categoryCreateError", { defaultValue: "Failed to create category" });
       showError(errorMessage);
       return Promise.reject(error);
+    if (!categories.includes(categoryData.name)) {
+      setCategories([...categories, categoryData.name]);
     }
   };
 
@@ -319,6 +327,14 @@ export default function ExpensesPaid() {
 
     return params;
   }, [vendorsData, categoriesData, formatDateForAPI]);
+  // Handle add payment mode
+  const handleAddPaymentMode = async (modeData) => {
+    if (modeData?.name) {
+      const modeValue = modeData.name.toLowerCase().replace(/\s+/g, "_");
+      setPaymentModes(prev => [...prev, { value: modeValue, label: modeData.name }]);
+    }
+    return Promise.resolve();
+  }
 
   // Handle filter apply
   const handleFilterApply = (filterData) => {
@@ -686,6 +702,61 @@ export default function ExpensesPaid() {
     setExpandedEntryId(expandedEntryId === entryId ? null : entryId);
   };
 
+  // Configuration for FilterModal
+  const filtersConfig = useMemo(() => [
+    {
+      id: "paidDate",
+      type: "date",
+      label: t("paidDate", { defaultValue: "Paid Date" }),
+      required: true,
+      defaultValue: new Date(),
+    },
+    {
+      id: "paidTo",
+      type: "dropdown",
+      label: t("paidTo", { defaultValue: "Paid To" }),
+      required: true,
+      options: vendors.map((v) => ({ label: v, value: v })),
+      searchable: true,
+      searchPlaceholder: t("searchVendor", { defaultValue: "Search vendor" }),
+      showSeparator: true,
+      addButtonLabel: t("addNew", { defaultValue: "Add New" }),
+      onAddNew: handleAddVendor,
+      customModal: AddVendorModal,
+    },
+    {
+      id: "category",
+      type: "dropdown",
+      label: t("categoriesForPayment", { defaultValue: "Categories for Payment" }),
+      required: true,
+      options: categories.map((c) => ({ label: c, value: c })),
+      showSeparator: true,
+      addButtonLabel: t("addNew", { defaultValue: "Add New" }),
+      onAddNew: handleAddCategory,
+      customModal: AddCategoryModal,
+      placeholder: t("selectCategories", { defaultValue: "Select Categories" }),
+    },
+    {
+      id: "module",
+      type: "dropdown",
+      label: t("selectModule", { defaultValue: "Select Module" }),
+      required: true,
+      options: modules.map((m) => ({ label: m, value: m })),
+    },
+    {
+      id: "paymentMode",
+      type: "dropdown",
+      label: t("paymentMode", { defaultValue: "Payment Mode" }),
+      required: true,
+      options: paymentModes,
+      showSeparator: true,
+      addButtonLabel: t("addNew", { defaultValue: "Add New" }),
+      onAddNew: handleAddPaymentMode,
+      customModal: AddPaymentModeModal,
+      placeholder: t("selectPaymentMode", { defaultValue: "Select Payment Mode" }),
+    },
+  ], [vendors, categories, modules, paymentModes, t]);
+
   return (
     <div className="max-w-7xl mx-auto">
       <PageHeader
@@ -709,15 +780,13 @@ export default function ExpensesPaid() {
 
           {/* Filter */}
           <div className="col-span-2 md:col-span-1 lg:flex-none">
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() => setIsFilterModalOpen(true)}
-              className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 text-sm"
-            >
-              <img src={sortVerticalIcon} alt="Filter" className="w-4 h-4" />
-              {t("filter", { defaultValue: "Filter" })}
-            </Button>
+            <FilterModal
+              filters={filtersConfig}
+              onApply={handleFilterApply}
+              onReset={handleFilterReset}
+              placeholder={t("filter", { defaultValue: "Filter" })}
+              className="w-full flex items-center justify-center gap-1.5 px-3 !py-1.5 text-sm"
+            />
           </div>
 
           {/* Download and Create (only show when data exists) */}
@@ -946,20 +1015,6 @@ export default function ExpensesPaid() {
       )}
 
       {/* Modals */}
-      <FilterPaidModal
-        isOpen={isFilterModalOpen}
-        onClose={() => setIsFilterModalOpen(false)}
-        onApply={handleFilterApply}
-        onReset={handleFilterReset}
-        initialFilters={filters}
-        vendors={vendors}
-        categories={categories}
-        modules={modules}
-        paymentModes={paymentModes}
-        onAddVendor={handleAddVendor}
-        onAddCategory={handleAddCategory}
-      />
-
       <CustomDateRangeModal
         isOpen={isCustomDateModalOpen}
         onClose={() => setIsCustomDateModalOpen(false)}

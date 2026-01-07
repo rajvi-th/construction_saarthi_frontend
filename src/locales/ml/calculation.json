@@ -1,0 +1,167 @@
+{
+    "projectDetails": {
+        "history": "ചരിത്രം",
+        "totalCalculations": "ആകെ കണക്കുകൂട്ടലുകൾ",
+        "usedCalculations": "ഉപയോഗിച്ച കണക്കുകൂട്ടലുകൾ",
+        "buyCalculations": "കണക്കുകൂട്ടലുകൾ വാങ്ങുക"
+    },
+    "quickActions": {
+        "tabs": {
+            "quantity": "അളവ്",
+            "area": "വിസ്തീർണ്ണം",
+            "volume": "വ്യാപ്തം",
+            "converter": "കൺവെർട്ടർ",
+            "study": "പഠനം",
+            "quiz": "ക്വിസ്"
+        },
+        "items": {
+            "constructionCost": "നിർമ്മാണ ചെലവ്",
+            "steelQuantities": "സ്റ്റീൽ അളവ്",
+            "concrete": "കോൺക്രീറ്റ്",
+            "brickWorkPlaster": "ഇഷ്ടിക പണിയും പ്ലാസ്റ്ററിംഗും",
+            "roofAreaPitch": "മേൽക്കൂര വിസ്തീർണ്ണവും ചരിവും",
+            "flooringCalculation": "ഫ്ലോറിംഗ് കണക്കുകൂട്ടൽ",
+            "waterTankCapacity": "വാട്ടർ ടാങ്ക് കപ്പാസിറ്റി",
+            "excavation": "കുഴിക്കൽ",
+            "swimmingPool": "നീന്തൽക്കുളം",
+            "waterProofing": "വാട്ടർ പ്രൂഫിംഗ്",
+            "metalCalculator": "മെറ്റൽ കാൽക്കുലേറ്റർ",
+            "railConstruction": "റെയിൽ നിർമ്മാണം",
+            "roadCalculation": "റോഡ് കണക്കുകൂട്ടൽ",
+            "paint": "പെയിന്റ്",
+            "diagonals": "വികർണ്ണങ്ങൾ",
+            "antiTermite": "ചിതൽ പ്രതിരോധം",
+            "acCapacity": "എസി കപ്പാസിറ്റി",
+            "solarElectric": "സോളാർ (ഇലക്ട്രിക്)",
+            "solarWaterHeater": "സോളാർ വാട്ടർ ഹീറ്റർ",
+            "plywoodSheet": "പ്ലൈവുഡ് ഷീറ്റ്",
+            "plum": "പ്ലം",
+            "rainWaterHarvesting": "മഴവെള്ള സംഭരണം",
+            "shuttering": "ഷട്ടറിംഗ്",
+            "baluster": "ബാലസ്റ്റർ",
+            "arcCalculator": "ആർക്ക് കാൽക്കുലേറ്റർ",
+            "precastBoundaryWall": "പ്രീകാസ്റ്റ് ബൗണ്ടറി വാൾ",
+            "damCalculations": "ഡാം കണക്കുകൂട്ടലുകൾ",
+            "sewageSystem": "മലിനജല സംവിധാനം",
+            "waterSupplySystem": "ജലവിതരണ സംവിധാനം",
+            "materialWeights": "സാമഗ്രികളുടെ ഭാരം",
+            "billOfQuantity": "ബിൽ অফ ക്വാണ്ടിറ്റി (BOQ)"
+        }
+    },
+    "comingSoon": {
+        "title": "ഉടൻ വരുന്നു",
+        "comingSoonText": "ഉടൻ വരുന്നു...",
+        "launchTextPart1": "ഞങ്ങൾ ഉടൻ തന്നെ ഒരു ",
+        "launchTextPart2": " സമാരംഭിക്കാൻ പോകുന്നു, കൂടെ നിൽക്കുക.",
+        "backButton": "← കൺസ്ട്രക്ഷൻ കാൽക്കുലേറ്ററിലേക്ക് തിരികെ പോകുക"
+    },
+    "history": {
+        "sharePdf": "PDF ആയി പങ്കിടുക",
+        "downloadReport": "റിപ്പോർട്ട് ഡൗൺലോഡ് ചെയ്യുക",
+        "calcTitle": "കണക്കുകൂട്ടൽ ശീർഷകം (ഓപ്ഷണൽ)",
+        "enterValue": "മൂല്യം നൽകുക",
+        "constructionArea": "നിർമ്മാണ വിസ്തീർണ്ണം",
+        "constructionCost": "നിർമ്മാണ ചെലവ്",
+        "reset": "റീസെറ്റ്",
+        "calculate": "കണക്കുകൂട്ടുക",
+        "materialQuantity": "സാമഗ്രികളുടെ അളവ്",
+        "workCost": "വിവിധ ജോലികളുടെ ചെലവ്",
+        "headers": {
+            "material": "സാമഗ്രി",
+            "quantity": "അളവ്",
+            "unit": "യൂണിറ്റ്"
+        },
+        "materials": {
+            "cement": "സിമന്റ്",
+            "sand": "മണൽ",
+            "aggregate": "മെറ്റൽ (കല്ല്)",
+            "steel": "സ്റ്റീൽ",
+            "paint": "പെയിന്റ്",
+            "bricks": "ഇഷ്ടികകൾ",
+            "flooring": "ഫ്ലോറിംഗ്",
+            "windows": "ജനലുകൾ",
+            "doors": "വാതിലുകൾ"
+        },
+        "units": {
+            "bags": "ബാഗുകൾ",
+            "ton": "ടൺ",
+            "kg": "കിലോ",
+            "liters": "ലിറ്റർ",
+            "sqft": "ചതുരശ്ര അടി",
+            "nos": "എണ്ണം"
+        },
+        "works": {
+            "design": "ഡിസൈൻ & എഞ്ചിനീയറിംഗ്",
+            "excavation": "കുഴിക്കൽ",
+            "foundation": "അടിത്തറ",
+            "rcc": "RCC",
+            "brickwork": "ഇഷ്ടിക പണി",
+            "plaster": "പ്ലാസ്റ്ററിംഗ്"
+        }
+    },
+    "steel": {
+        "sections": {
+            "weight": "ഭാരം",
+            "footing": "ഫുട്ടിംഗ്",
+            "column": "കോളങ്ങൾ",
+            "beam": "ഭീം",
+            "slab": "സ്ലാബ്",
+            "cuttingLength": "കട്ടിംഗ് ലെങ്ത്"
+        },
+        "weight": {
+            "reinforcement": "റൈൻഫോഴ്സ്മെന്റ് വെയിറ്റ്"
+        },
+        "footing": {
+            "type1": "ഫുട്ടിംഗ് ടൈപ്പ് 1",
+            "type2": "ഫുട്ടിംഗ് ടൈപ്പ് 2"
+        },
+        "column": {
+            "type1": "കോളം ടൈപ്പ് 1",
+            "type2": "കോളം ടൈപ്പ് 2",
+            "type3": "കോളം ടൈപ്പ് 3",
+            "type4": "കോളം ടൈപ്പ് 4",
+            "type5": "കോളം ടൈപ്പ് 5",
+            "type6": "കോളം ടൈപ്പ് 6",
+            "type7": "കോളം ടൈപ്പ് 7",
+            "type8": "കോളം ടൈപ്പ് 8",
+            "type9": "കോളം ടൈപ്പ് 9",
+            "type10": "കോളം ടൈപ്പ് 10",
+            "type11": "കോളം ടൈപ്പ് 11",
+            "type12": "കോളം ടൈപ്പ് 12",
+            "vertical": "കോളം വെർട്ടിക്കൽ സ്റ്റീൽ",
+            "ring1": "കോളം റിംഗ് 1",
+            "ring2": "കോളം റിംഗ് 2"
+        },
+        "beam": {
+            "type1": "ഭീം ടൈപ്പ് 1",
+            "type2": "ഭീം ടൈപ്പ് 2",
+            "type3": "ഭീം ടൈപ്പ് 3",
+            "type4": "ഭീം ടൈപ്പ് 4",
+            "type5": "ഭീം ടൈപ്പ് 5",
+            "type6": "ഭീം ടൈップ 6",
+            "type7": "ഭീം ടൈപ്പ് 7",
+            "type8": "ഭീം ടൈപ്പ് 8",
+            "type9": "ഭീം ടൈപ്പ് 9",
+            "type10": "ഭീം ടൈപ്പ് 10",
+            "horizontal": "ഭീം ഹൊറിസോണ്ടൽ ബാറുകൾ",
+            "ring1": "ഭീം റിംഗ് 1",
+            "ring2": "ഭീം റിംഗ് 2"
+        },
+        "slab": {
+            "type1": "സ്ലാബ് ടൈപ്പ് 1",
+            "type2": "സ്ലാബ് ടൈപ്പ് 2",
+            "type3": "സ്ലാബ് ടൈപ്പ് 3"
+        },
+        "cutting": {
+            "straight": "സ്ട്രെയിറ്റ് ബാർ",
+            "lShape": "L ഷേപ്പ് ബാർ",
+            "uShape": "U ഷേപ്പ് ബാർ",
+            "stirrups": "സ്റ്റിറപ്പുകൾ"
+        },
+        "comingSoon": {
+            "beam": "ഭീം കണക്കുകൂട്ടൽ UI ഉടൻ വരുന്നു...",
+            "slab": "സ്ലാബ് കണക്കുകൂട്ടൽ UI ഉടൻ വരുന്നു...",
+            "cutting": "കട്ടിംഗ് ലെങ്ത് കണക്കുകൂട്ടൽ UI ഉടൻ വരുന്നു..."
+        }
+    }
+}

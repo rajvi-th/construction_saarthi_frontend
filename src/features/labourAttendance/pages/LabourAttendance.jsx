@@ -53,11 +53,11 @@ function LabourAttendance() {
     // State to receive attendanceData and overtimeData from LabourAttendanceCards
     const [attendanceDataFromCards, setAttendanceDataFromCards] = useState({});
     const [overtimeDataFromCards, setOvertimeDataFromCards] = useState({});
-    
+
     // Memoize callback to prevent infinite loops
     const handleAttendanceDataChange = useCallback((attendanceData, overtimeData) => {
-      setAttendanceDataFromCards(attendanceData);
-      setOvertimeDataFromCards(overtimeData);
+        setAttendanceDataFromCards(attendanceData);
+        setOvertimeDataFromCards(overtimeData);
     }, []);
 
     // Apply status filter based on attendance data
@@ -158,61 +158,63 @@ function LabourAttendance() {
 
     // Calculate summary from attendanceData (from API) instead of labour.status
     const calculatedSummary = useMemo(() => {
-      let present = 0;
-      let absent = 0;
-      let halfDay = 0;
-      let overtime = 0;
-      let totalPayable = 0;
+        let present = 0;
+        let absent = 0;
+        let halfDay = 0;
+        let overtime = 0;
+        let totalPayable = 0;
 
-      finalFilteredLabourList.forEach((labour) => {
-        const labourIdNum = Number(labour.id);
-        const labourIdStr = String(labour.id);
-        const attendanceInfo = attendanceDataFromCards[labourIdNum] || attendanceDataFromCards[labourIdStr];
-        const currentStatus = attendanceInfo?.status || labour.status || null;
+        finalFilteredLabourList.forEach((labour) => {
+            const labourIdNum = Number(labour.id);
+            const labourIdStr = String(labour.id);
+            const attendanceInfo = attendanceDataFromCards[labourIdNum] || attendanceDataFromCards[labourIdStr];
+            // Only use status from attendanceData, don't fallback to labour.status
+            const currentStatus = attendanceInfo?.status || null;
 
-        // Count by status
-        if (currentStatus === 'P') {
-          present++;
-        } else if (currentStatus === 'A') {
-          absent++;
-        } else if (currentStatus === 'H') {
-          halfDay++;
-        } else if (currentStatus === 'OT') {
-          overtime++;
-          present++; // OT also counts as Present
-        }
+            // Count by status
+            if (currentStatus === 'P') {
+                present++;
+            } else if (currentStatus === 'H') {
+                halfDay++;
+            } else if (currentStatus === 'OT') {
+                overtime++;
+                present++; // OT also counts as Present
+            } else if (currentStatus === 'A') {
+                absent++;
+            }
 
-        // Calculate payable amount
-        const dailyWage = attendanceInfo?.daily_wage || labour.pay || 0;
-        let payableAmount = 0;
+            // Calculate payable amount
+            const dailyWage = attendanceInfo?.daily_wage || labour.pay || 0;
+            let payableAmount = 0;
 
-        if (currentStatus === 'P') {
-          payableAmount = dailyWage;
-        } else if (currentStatus === 'H') {
-          payableAmount = dailyWage / 2;
-        } else if (currentStatus === 'OT') {
-          const basePay = dailyWage;
-          const otData = overtimeDataFromCards[labour.id];
-          if (otData && otData.ratePerHour && otData.otHours) {
-            const overtimePay = Number(otData.ratePerHour) * Number(otData.otHours);
-            payableAmount = basePay + overtimePay;
-          } else {
-            payableAmount = basePay;
-          }
-        } else if (currentStatus === 'A') {
-          payableAmount = 0;
-        }
+            if (currentStatus === 'P') {
+                payableAmount = dailyWage;
+            } else if (currentStatus === 'H') {
+                payableAmount = dailyWage / 2;
+            } else if (currentStatus === 'OT') {
+                const basePay = dailyWage;
+                const otData = overtimeDataFromCards[labour.id];
+                if (otData && otData.ratePerHour && otData.otHours) {
+                    const overtimePay = Number(otData.ratePerHour) * Number(otData.otHours);
+                    payableAmount = basePay + overtimePay;
+                } else {
+                    payableAmount = basePay;
+                }
+            } else {
+                // Absent or Unmarked
+                payableAmount = 0;
+            }
 
-        // Use API payable_amount if available and > 0, otherwise use calculated
-        const apiPayable = attendanceInfo?.payable_amount;
-        if (apiPayable !== undefined && apiPayable !== null && apiPayable > 0) {
-          totalPayable += apiPayable;
-        } else {
-          totalPayable += payableAmount;
-        }
-      });
+            // Use API payable_amount if available and > 0, otherwise use calculated
+            const apiPayable = attendanceInfo?.payable_amount;
+            if (apiPayable !== undefined && apiPayable !== null && apiPayable > 0) {
+                totalPayable += apiPayable;
+            } else {
+                totalPayable += payableAmount;
+            }
+        });
 
-      return { present, absent, halfDay, overtime, totalPayable };
+        return { present, absent, halfDay, overtime, totalPayable };
     }, [finalFilteredLabourList, attendanceDataFromCards, overtimeDataFromCards]);
 
     const summaryCards = [
@@ -351,6 +353,18 @@ function LabourAttendance() {
 
             {/* Shift Tabs */}
             <div className="flex gap-8 border-b mt-8" style={{ borderColor: 'var(--color-lightGray)' }}>
+                <button
+                    type="button"
+                    onClick={() => setActiveShiftId('')}
+                    className={`pb-3 text-sm px-8 cursor-pointer ${!activeShiftId ? 'font-medium text-accent' : 'text-primary-light'}`}
+                    style={
+                        !activeShiftId
+                            ? { borderBottom: '2px solid var(--color-accent)' }
+                            : { borderBottom: '2px solid transparent' }
+                    }
+                >
+                    {t('common.all', { defaultValue: 'All' })}
+                </button>
                 {sortedShiftTypes.map((shift) => {
                     const isActive = String(activeShiftId) === String(shift.id);
                     return (
@@ -365,7 +379,7 @@ function LabourAttendance() {
                                     : { borderBottom: '2px solid transparent' }
                             }
                         >
-                            {shift.name} shift
+                            {shift.name} {t('common.shift', { defaultValue: 'shift' })}
                         </button>
                     );
                 })}
