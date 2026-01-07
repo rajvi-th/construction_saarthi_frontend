@@ -132,6 +132,32 @@
             "ring1": "Column Ring 1",
             "ring2": "Column Ring 2"
         },
+        "beam": {
+            "type1": "Beam Type 1",
+            "type2": "Beam Type 2",
+            "type3": "Beam Type 3",
+            "type4": "Beam Type 4",
+            "type5": "Beam Type 5",
+            "type6": "Beam Type 6",
+            "type7": "Beam Type 7",
+            "type8": "Beam Type 8",
+            "type9": "Beam Type 9",
+            "type10": "Beam Type 10",
+            "horizontal": "Beam Horizontal Bars",
+            "ring1": "Beam Ring 1",
+            "ring2": "Beam Ring 2"
+        },
+        "slab": {
+            "type1": "Slab Type 1",
+            "type2": "Slab Type 2",
+            "type3": "Slab Type 3"
+        },
+        "cutting": {
+            "straight": "Straight Bar",
+            "lShape": "L Shape Bar",
+            "uShape": "U Shape Bar",
+            "stirrups": "Stirrups"
+        },
         "comingSoon": {
             "beam": "Beam calculation UI coming soon...",
             "slab": "Slab calculation UI coming soon...",

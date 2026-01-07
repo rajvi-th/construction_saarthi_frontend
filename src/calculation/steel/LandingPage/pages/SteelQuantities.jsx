@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import PageHeader from '../../../components/layout/PageHeader';
+import PageHeader from '../../../../components/layout/PageHeader';
 import SteelAccordion from '../components/SteelAccordion';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,9 +16,10 @@ const SteelQuantities = () => {
     const { t } = useTranslation('calculation');
     const navigate = useNavigate();
 
-    const handleItemClick = (item) => {
-        console.log('Clicked:', item);
-        // Navigation logic for sub-items would go here
+    const handleItemClick = (itemTitle) => {
+        if (itemTitle === t('steel.weight.reinforcement')) {
+            navigate('/calculation/steel/weight/reinforcement');
+        }
     };
 
     return (

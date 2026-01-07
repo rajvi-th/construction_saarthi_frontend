@@ -120,7 +120,9 @@ const EditPaymentEntry = lazy(() => import('../features/finance/pages/EditPaymen
 const CalculationProjects = lazy(() => import('../calculation/LandingPage/pages/Projects'));
 const ProjectCalDetails = lazy(() => import('../calculation/LandingPage/pages/ProjectCalDetails'));
 const History = lazy(() => import('../calculation/LandingPage/pages/History'));
-const SteelQuantities = lazy(() => import('../calculation/steel/pages/SteelQuantities'));
+const SteelQuantities = lazy(() => import('../calculation/steel/LandingPage/pages/SteelQuantities'));
+const ReinforcementWeight = lazy(() => import('../calculation/steel/weight/pages/ReinforcementWeight'));
+const ReinforcementDetailedReport = lazy(() => import('../calculation/steel/weight/pages/ReinforcementDetailedReport'));
 const ComingSoon = lazy(() => import('../calculation/common/ComingSoon'));
 
 // Loading Component for Suspense fallback
@@ -216,6 +218,8 @@ function AppRoutes() {
             <Route path={ROUTES_FLAT.CALCULATION_PROJECT_DETAILS} element={<ProjectCalDetails />} />
             <Route path={ROUTES_FLAT.CALCULATION_HISTORY} element={<History />} />
             <Route path={ROUTES_FLAT.CALCULATION_STEEL_QUANTITIES} element={<SteelQuantities />} />
+            <Route path={ROUTES_FLAT.CALCULATION_REINFORCEMENT_WEIGHT} element={<ReinforcementWeight />} />
+            <Route path={ROUTES_FLAT.CALCULATION_REINFORCEMENT_WEIGHT_DETAILED} element={<ReinforcementDetailedReport />} />
             <Route path="/calculation/coming-soon" element={<ComingSoon />} />
           </Route>
         </Route>

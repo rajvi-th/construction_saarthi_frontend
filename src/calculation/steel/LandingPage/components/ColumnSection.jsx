@@ -3,21 +3,21 @@ import { useTranslation } from 'react-i18next';
 import ReinforcementItem from './ReinforcementItem';
 
 // Import icons
-import colType1 from '../../../assets/icons/colType1.svg';
-import colType2 from '../../../assets/icons/colType2.svg';
-import colType3 from '../../../assets/icons/colType3.svg';
-import colType4 from '../../../assets/icons/colType4.svg';
-import colType5 from '../../../assets/icons/colType5.svg';
-import colType6 from '../../../assets/icons/colType6.svg';
-import colType7 from '../../../assets/icons/colType7.svg';
-import colType8 from '../../../assets/icons/colType8.svg';
-import colType9 from '../../../assets/icons/colType9.svg';
-import colType10 from '../../../assets/icons/colType10.svg';
-import colType11 from '../../../assets/icons/colType11.svg';
-import colType12 from '../../../assets/icons/colType12.svg';
-import colVerticalSteel from '../../../assets/icons/colVerticalSteel.svg';
-import colRing1 from '../../../assets/icons/colRing1.svg';
-import colRing2 from '../../../assets/icons/colRing2.svg';
+import colType1 from '../../../../assets/icons/colType1.svg';
+import colType2 from '../../../../assets/icons/colType2.svg';
+import colType3 from '../../../../assets/icons/colType3.svg';
+import colType4 from '../../../../assets/icons/colType4.svg';
+import colType5 from '../../../../assets/icons/colType5.svg';
+import colType6 from '../../../../assets/icons/colType6.svg';
+import colType7 from '../../../../assets/icons/colType7.svg';
+import colType8 from '../../../../assets/icons/colType8.svg';
+import colType9 from '../../../../assets/icons/colType9.svg';
+import colType10 from '../../../../assets/icons/colType10.svg';
+import colType11 from '../../../../assets/icons/colType11.svg';
+import colType12 from '../../../../assets/icons/colType12.svg';
+import colVerticalSteel from '../../../../assets/icons/colVerticalSteel.svg';
+import colRing1 from '../../../../assets/icons/colRing1.svg';
+import colRing2 from '../../../../assets/icons/colRing2.svg';
 
 const ColumnSection = ({ onItemClick }) => {
     const { t } = useTranslation('calculation');
@@ -40,7 +40,7 @@ const ColumnSection = ({ onItemClick }) => {
     ];
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-6">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-4 sm:gap-x-8 gap-y-4 sm:gap-y-6">
             {columnItems.map((item) => (
                 <div key={item.id} className="flex-1">
                     <ReinforcementItem
