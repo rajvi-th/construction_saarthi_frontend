@@ -20,6 +20,7 @@ export default function EditPayableBillModal({
   payableBill,
   vendors = [],
   onAddVendor,
+  isLoading = false,
 }) {
   const { t } = useTranslation('finance');
 
@@ -37,11 +38,14 @@ export default function EditPayableBillModal({
   /* ---------------- Effects ---------------- */
   useEffect(() => {
     if (isOpen && payableBill) {
+      // Use vendorId if available (for dropdown value), otherwise use vendorName
+      const vendorValue = payableBill.vendorId || payableBill.vendorName || '';
+      
       setFormData({
         title: payableBill.title || '',
-        vendorName: payableBill.vendorName || '',
+        vendorName: vendorValue, // Dropdown expects value (ID) or name
         amount: payableBill.amount
-          ? payableBill.amount.replace(/[₹,]/g, '')
+          ? String(payableBill.amount).replace(/[₹,]/g, '')
           : '',
         dueDate: payableBill.dueDate
           ? new Date(payableBill.dueDate)
@@ -100,22 +104,54 @@ export default function EditPayableBillModal({
     onClose();
   };
 
-  const handleVendorAdded = (vendorData) => {
+  const handleVendorAdded = async (vendorData) => {
     const vendorName = vendorData.name;
 
     if (onAddVendor && !vendors.includes(vendorName)) {
-      onAddVendor(vendorName);
+      try {
+        const newVendor = await onAddVendor(vendorData);
+        // If vendor creation succeeded, use the new vendor's ID
+        if (newVendor && newVendor.value) {
+          handleChange('vendorName', newVendor.value);
+        } else {
+          // If creation failed, still use the name as fallback
+          handleChange('vendorName', vendorName);
+        }
+      } catch (error) {
+        // Error is already handled in handleAddVendor
+        // Just use the name as fallback
+        handleChange('vendorName', vendorName);
+      }
+    } else {
+      handleChange('vendorName', vendorName);
     }
-
-    handleChange('vendorName', vendorName);
   };
 
   if (!isOpen || !payableBill) return null;
 
-  const vendorOptions = vendors.map((vendor) => ({
-    value: vendor,
-    label: vendor,
-  }));
+  // Vendors are already in {value, label} format from PayableBills
+  // Just ensure they're properly formatted (values and labels as strings)
+  const vendorOptions = vendors.map((vendor) => {
+    // If vendor is already an object with value/label, use it directly
+    if (vendor && typeof vendor === 'object' && vendor.value !== undefined) {
+      return {
+        value: String(vendor.value || ''),
+        label: String(vendor.label || vendor.name || ''),
+      };
+    }
+    // If vendor is a string, create object
+    if (typeof vendor === 'string') {
+      return {
+        value: vendor,
+        label: vendor,
+      };
+    }
+    // Fallback
+    return {
+      value: String(vendor),
+      label: String(vendor),
+    };
+  }).filter(opt => opt.value && opt.label);
 
   /* ---------------- JSX ---------------- */
   return (
@@ -247,8 +283,12 @@ export default function EditPayableBillModal({
               variant="primary"
               onClick={handleUpdate}
               className="w-full sm:w-auto"
+              disabled={isLoading}
             >
-              {t('update', { defaultValue: 'Update' })}
+              {isLoading 
+                ? t('updating', { defaultValue: 'Updating...' })
+                : t('update', { defaultValue: 'Update' })
+              }
             </Button>
           </div>
         </div>

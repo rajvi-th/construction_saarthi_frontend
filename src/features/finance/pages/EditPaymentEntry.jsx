@@ -17,12 +17,19 @@ import FileUpload from "../../../components/ui/FileUpload";
 import AddVendorModal from "../../../components/ui/AddVendorModal";
 import AddCategoryModal from "../../../components/ui/AddCategoryModal";
 import AddPaymentModeModal from "../../../components/ui/AddPaymentModeModal";
+import AddItemModal from "../../../components/ui/AddItemModal";
+import { useAuth } from "../../auth/store";
+import { getBanks, createBank, getVendors, createVendor, updatePayableBill, getExpenseSections, getCategories, createCategory } from "../api/financeApi";
+import { getWorkspaceMembers } from "../../auth/api/authApi";
+import { showSuccess, showError } from "../../../utils/toast";
+import { X, Play, FileText } from "lucide-react";
 
 export default function EditPaymentEntry() {
   const { t } = useTranslation("finance");
   const navigate = useNavigate();
   const { projectId, entryId } = useParams();
   const location = useLocation();
+  const { selectedWorkspace, user } = useAuth();
 
   // Get entry data from location state (passed from ExpensesPaid page)
   const paymentEntry = location.state?.entry;
@@ -35,29 +42,36 @@ export default function EditPaymentEntry() {
     paidTo: "",
     category: "",
     mode: "",
+    bankName: "",
     paymentProof: null,
   });
 
   const [errors, setErrors] = useState({});
+  const [isLoadingVendors, setIsLoadingVendors] = useState(false);
+  const [isLoadingBanks, setIsLoadingBanks] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [expenseSectionId, setExpenseSectionId] = useState(null);
 
-  // Static data
-  const [vendors, setVendors] = useState([
-    "Arvind Sharma",
-    "Bipin Shah",
-    "Shantilal Patel",
-    "Rohan Sharma",
-    "Anurag Shah",
-    "Ganesh Traders",
-    "Vishal Steel Works",
-  ]);
+  // Vendors list - will be fetched from API
+  const [vendors, setVendors] = useState([]);
+  const [vendorsData, setVendorsData] = useState([]); // Store full vendor objects with IDs
+  
+  // Users list for paidBy field
+  const [usersData, setUsersData] = useState([]);
+  
+  // Banks list - will be fetched from API
+  const [banks, setBanks] = useState([]);
 
-  const [categories, setCategories] = useState([
-    "Labour",
-    "Centring",
-    "Cement",
-    "Steel",
-    "Materials",
-  ]);
+  // Store uploaded files for display
+  const [uploadedFiles, setUploadedFiles] = useState({
+    photos: [],
+    videos: [],
+    documents: [],
+  });
+  const [activeTab, setActiveTab] = useState("photos");
+
+  const [categories, setCategories] = useState([]);
+  const [categoriesData, setCategoriesData] = useState([]); // Store full category objects with IDs
 
   const [paymentModes, setPaymentModes] = useState([
     { value: "cash", label: t("cash", { defaultValue: "Cash" }) },
@@ -71,6 +85,181 @@ export default function EditPaymentEntry() {
   ]);
 
   const paidByOptions = ["Mahesh (Site Manager)", "Anurag Sharma", "Admin"];
+
+  // Fetch vendors on component mount
+  useEffect(() => {
+    const fetchVendors = async () => {
+      if (!selectedWorkspace) {
+        return;
+      }
+
+      try {
+        setIsLoadingVendors(true);
+        const response = await getVendors(selectedWorkspace, 'vendor');
+        
+        // Handle response structure: { users: [...] }
+        const vendorsList = response?.users || response?.data?.users || response?.data || (Array.isArray(response) ? response : []);
+        
+        // Store full vendor objects for ID mapping
+        setVendorsData(vendorsList);
+        
+        // Extract vendor names from the response
+        const vendorNames = vendorsList.map((vendor) => 
+          vendor.full_name || vendor.name || vendor.fullName || String(vendor)
+        ).filter(Boolean);
+        
+        setVendors(vendorNames);
+      } catch (error) {
+        console.error("Error fetching vendors:", error);
+        setVendors([]);
+      } finally {
+        setIsLoadingVendors(false);
+      }
+    };
+
+    fetchVendors();
+  }, [selectedWorkspace]);
+
+  // Fetch banks on component mount
+  useEffect(() => {
+    const fetchBanks = async () => {
+      if (!projectId) {
+        return;
+      }
+
+      try {
+        setIsLoadingBanks(true);
+        const response = await getBanks(projectId);
+        
+        // Handle different response structures
+        // API might return: { data: [...] } or { banks: [...] } or directly [...]
+        let banksList = [];
+        
+        if (Array.isArray(response)) {
+          banksList = response;
+        } else if (Array.isArray(response?.data)) {
+          banksList = response.data;
+        } else if (Array.isArray(response?.banks)) {
+          banksList = response.banks;
+        } else if (response?.data && typeof response.data === 'object') {
+          // If data is an object, try to extract array from it
+          banksList = Array.isArray(response.data.data) 
+            ? response.data.data 
+            : Object.values(response.data).filter(Array.isArray)[0] || [];
+        }
+        
+        // Extract bank names from the response
+        const bankNames = banksList.map((bank) => {
+          if (typeof bank === 'string') return bank;
+          return bank.name || bank.bank_name || bank.bankName || String(bank);
+        }).filter(Boolean);
+        
+        setBanks(bankNames);
+      } catch (error) {
+        console.error("Error fetching banks:", error);
+        setBanks([]);
+      } finally {
+        setIsLoadingBanks(false);
+      }
+    };
+
+    fetchBanks();
+  }, [projectId]);
+
+  // Fetch users/members for paidBy field
+  useEffect(() => {
+    const fetchUsers = async () => {
+      if (!selectedWorkspace) {
+        return;
+      }
+
+      try {
+        const response = await getWorkspaceMembers(selectedWorkspace);
+        const usersList = response?.data || response?.members || response?.users || response || [];
+        const usersArray = Array.isArray(usersList) ? usersList : [];
+        setUsersData(usersArray);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+        try {
+          const vendorResponse = await getVendors(selectedWorkspace, 'user');
+          const usersList = vendorResponse?.users || vendorResponse?.data?.users || vendorResponse?.data || (Array.isArray(vendorResponse) ? vendorResponse : []);
+          setUsersData(usersList);
+        } catch (err) {
+          console.error("Error fetching users with alternative method:", err);
+          setUsersData([]);
+        }
+      }
+    };
+
+    fetchUsers();
+  }, [selectedWorkspace]);
+
+  // Fetch expense sections to get expenseSection_id
+  useEffect(() => {
+    const fetchExpenseSections = async () => {
+      if (!projectId) {
+        return;
+      }
+
+      try {
+        const sections = await getExpenseSections(projectId);
+        const sectionsList = Array.isArray(sections) 
+          ? sections 
+          : sections?.data || sections?.sections || [];
+        
+        const expensesPaidSection = sectionsList.find(
+          (section) => 
+            section.name?.toLowerCase().includes('expenses paid') ||
+            section.name?.toLowerCase().includes('paid') ||
+            section.section_name?.toLowerCase().includes('expenses paid')
+        );
+        
+        if (expensesPaidSection) {
+          setExpenseSectionId(expensesPaidSection.id || expensesPaidSection.section_id);
+        } else if (sectionsList.length > 0) {
+          setExpenseSectionId(sectionsList[0].id || sectionsList[0].section_id);
+        }
+      } catch (error) {
+        console.error("Error fetching expense sections:", error);
+      }
+    };
+
+    fetchExpenseSections();
+  }, [projectId]);
+
+  // Fetch categories on component mount
+  useEffect(() => {
+    const fetchCategories = async () => {
+      if (!selectedWorkspace) {
+        return;
+      }
+
+      try {
+        const response = await getCategories(selectedWorkspace);
+        
+        // Handle different response structures
+        const categoriesList = response?.data || response?.categories || response || [];
+        const categoriesArray = Array.isArray(categoriesList) ? categoriesList : [];
+        
+        // Store full category objects with IDs
+        setCategoriesData(categoriesArray);
+        
+        // Extract category names from the response
+        const categoryNames = categoriesArray.map((category) => 
+          category.name || category.category_name || String(category)
+        ).filter(Boolean);
+        
+        setCategories(categoryNames);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+        // Don't show error toast on initial load, just log it
+        // User can still add new categories manually
+        setCategories([]);
+      }
+    };
+
+    fetchCategories();
+  }, [selectedWorkspace]);
 
   // Populate form data when entry is available
   useEffect(() => {
@@ -124,6 +313,7 @@ export default function EditPaymentEntry() {
           "",
         category: paymentEntry.category || "",
         mode: modeValue,
+        bankName: paymentEntry.bankName || paymentEntry.bank_name || "",
         paymentProof: paymentEntry.paymentProof || null,
       });
     }
@@ -136,10 +326,93 @@ export default function EditPaymentEntry() {
     }
   };
 
+  // Check file type
+  const getFileType = (file) => {
+    const type = file.type || "";
+    if (type.startsWith("image/")) return "photos";
+    if (type.startsWith("video/")) return "videos";
+    return "documents";
+  };
+
+  // Format file size
+  const formatFileSize = (bytes) => {
+    if (bytes === 0) return "0 Bytes";
+    const k = 1024;
+    const sizes = ["Bytes", "KB", "MB", "GB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + " " + sizes[i];
+  };
+
+  // Format date
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+  };
+
+  // Create file object with preview URL
+  const createFileObject = (file) => {
+    const fileType = getFileType(file);
+    const fileObj = {
+      id: Date.now() + Math.random(),
+      file: file,
+      name: file.name,
+      size: formatFileSize(file.size),
+      type: file.type,
+      uploadDate: formatDate(new Date()),
+      url: fileType === "photos" || fileType === "videos" ? URL.createObjectURL(file) : null,
+    };
+    return { fileObj, fileType };
+  };
+
   const handleFileSelect = (files) => {
     if (files && files.length > 0) {
+      // Store first file for API (backward compatibility)
       handleChange("paymentProof", files[0]);
+
+      // Add all files to display
+      const newFiles = { photos: [], videos: [], documents: [] };
+      
+      Array.from(files).forEach((file) => {
+        const { fileObj, fileType } = createFileObject(file);
+        newFiles[fileType].push(fileObj);
+      });
+
+      setUploadedFiles((prev) => ({
+        photos: [...prev.photos, ...newFiles.photos],
+        videos: [...prev.videos, ...newFiles.videos],
+        documents: [...prev.documents, ...newFiles.documents],
+      }));
+
+      // Switch to the tab of the first file type
+      if (newFiles.photos.length > 0) setActiveTab("photos");
+      else if (newFiles.videos.length > 0) setActiveTab("videos");
+      else if (newFiles.documents.length > 0) setActiveTab("documents");
     }
+  };
+
+  const handleRemoveFile = (fileId, fileType) => {
+    setUploadedFiles((prev) => ({
+      ...prev,
+      [fileType]: prev[fileType].filter((f) => f.id !== fileId),
+    }));
+
+    // If removed file was the first one, update paymentProof
+    const remainingFiles = {
+      photos: [...uploadedFiles.photos.filter((f) => f.id !== fileId)],
+      videos: [...uploadedFiles.videos.filter((f) => f.id !== fileId)],
+      documents: [...uploadedFiles.documents.filter((f) => f.id !== fileId)],
+    };
+
+    const allFiles = [
+      ...remainingFiles.photos,
+      ...remainingFiles.videos,
+      ...remainingFiles.documents,
+    ];
+
+    handleChange("paymentProof", allFiles.length > 0 ? allFiles[0].file : null);
   };
 
   const handleUpdate = () => {
@@ -179,34 +452,242 @@ export default function EditPaymentEntry() {
       });
     }
 
+    // Bank name is required for cheque, bank_transfer, and upi
+    if (
+      (formData.mode === "cheque" ||
+        formData.mode === "bank_transfer" ||
+        formData.mode === "upi") &&
+      !formData.bankName
+    ) {
+      newErrors.bankName = t("bankNameRequired", {
+        defaultValue: "Bank name is required",
+      });
+    }
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
 
-    // TODO: Update payment entry via API
-    console.log("Update payment entry:", formData);
+    // Call API to update payment entry
+    handleUpdatePaymentEntry();
+  };
 
-    // Navigate back to expenses paid page
-    navigate(getRoute(ROUTES_FLAT.FINANCE_EXPENSES_PAID, { projectId }));
+  const handleUpdatePaymentEntry = async () => {
+    if (!entryId || !expenseSectionId) {
+      showError(t("missingRequiredFields", { defaultValue: "Missing required fields" }));
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+
+      // Get vendor ID - formData.paidTo should be vendor name, find ID
+      let vendorId = formData.paidTo;
+      if (typeof formData.paidTo === 'string' && !/^\d+$/.test(formData.paidTo)) {
+        const vendor = vendorsData.find(
+          (v) => (v.full_name || v.name || v.fullName) === formData.paidTo
+        );
+        vendorId = vendor?.id || vendor?.user_id || formData.paidTo;
+      }
+      vendorId = vendorId ? String(vendorId) : '';
+
+      // Map paidBy name to user ID
+      let paidById = '';
+      if (formData.paidBy) {
+        const searchName = formData.paidBy.toLowerCase().trim();
+        let foundUser = usersData.find(user => {
+          const userName = user.full_name || user.name || user.fullName || '';
+          return userName.toLowerCase() === searchName;
+        });
+        
+        if (!foundUser) {
+          foundUser = vendorsData.find(vendor => {
+            const vendorName = vendor.full_name || vendor.name || vendor.fullName || '';
+            return vendorName.toLowerCase() === searchName;
+          });
+        }
+        
+        if (foundUser) {
+          paidById = String(foundUser.id || foundUser.user_id || foundUser.userId);
+        } else {
+          const numericId = formData.paidBy.trim();
+          if (/^\d+$/.test(numericId)) {
+            paidById = numericId;
+          } else {
+            paidById = user?.id ? String(user.id) : '';
+          }
+        }
+      } else {
+        paidById = user?.id ? String(user.id) : '';
+      }
+
+      // Calculate due date (3 days after paid date by default)
+      const paidDate = new Date(formData.paidDate);
+      const dueDate = new Date(paidDate);
+      dueDate.setDate(dueDate.getDate() + 3);
+
+      // Format dates for API (YYYY-MM-DD)
+      const formatDateForAPI = (date) => {
+        const d = new Date(date);
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+      };
+
+      // Map payment mode to API format
+      const modeMap = {
+        cash: 'Cash',
+        cheque: 'Cheque',
+        bank_transfer: 'Bank Transfer',
+        upi: 'UPI',
+        other: 'Other',
+      };
+      const method = modeMap[formData.mode] || formData.mode || 'Cash';
+
+      // Prepare API data
+      const amountValue = parseFloat(formData.amount.replace(/[^\d.]/g, ""));
+
+      const apiData = {
+        expenseSection_id: expenseSectionId,
+        workspace_id: selectedWorkspace,
+        project_id: projectId,
+        title: formData.description || formData.category || 'Payment Entry',
+        amount: amountValue,
+        status: 'Paid', // Since this is "Expenses Paid" page
+        defineScript: formData.description || '',
+        method: method,
+        paidTo: vendorId,
+        paidBy: paidById,
+        paidDate: formatDateForAPI(formData.paidDate),
+        due_date: formatDateForAPI(dueDate),
+        PaymentProof: formData.paymentProof, // File object
+        category_id: formData.category_id || null, // Add if available
+      };
+
+      // Call API
+      await updatePayableBill(entryId, apiData);
+
+      // Show success message
+      showSuccess(t("paymentEntryUpdated", { defaultValue: "Payment entry updated successfully" }));
+
+      // Navigate back to expenses paid page
+      navigate(getRoute(ROUTES_FLAT.FINANCE_EXPENSES_PAID, { projectId }));
+    } catch (error) {
+      console.error("Error updating payment entry:", error);
+      const errorMessage = error?.response?.data?.message || error?.message || t("paymentEntryUpdateError", { defaultValue: "Failed to update payment entry" });
+      showError(errorMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleVendorAdd = async (vendorData) => {
     // vendorData comes from AddVendorModal's onSave callback
+    // It contains: { name, countryCode, contactNumber }
     const vendorName = vendorData.name || vendorData;
-    if (!vendors.includes(vendorName)) {
-      setVendors([...vendors, vendorName]);
+    const phoneNumber = vendorData.contactNumber || '';
+
+    // Check if workspace is available
+    if (!selectedWorkspace) {
+      showError(t("workspaceRequired", { defaultValue: "Workspace is required to create vendor" }));
+      return;
     }
-    handleChange("paidTo", vendorName);
+
+    try {
+      // Remove spaces from phone number (API expects just digits)
+      const cleanedPhoneNumber = phoneNumber.replace(/\s/g, '');
+
+      // Call API to create vendor
+      await createVendor({
+        full_name: vendorName,
+        phone_number: cleanedPhoneNumber,
+        workspace_id: selectedWorkspace,
+        role: 'vendor',
+        profile: null,
+      });
+
+      // If API call successful, refresh vendors list
+      try {
+        const response = await getVendors(selectedWorkspace, 'vendor');
+        const vendorsList = response?.users || response?.data?.users || response?.data || (Array.isArray(response) ? response : []);
+        const vendorNames = vendorsList.map((vendor) => 
+          vendor.full_name || vendor.name || vendor.fullName || String(vendor)
+        ).filter(Boolean);
+        setVendors(vendorNames);
+      } catch (fetchError) {
+        if (!vendors.includes(vendorName)) {
+          setVendors([...vendors, vendorName]);
+        }
+      }
+      
+      handleChange("paidTo", vendorName);
+      showSuccess(t("vendorCreated", { defaultValue: "Vendor created successfully" }));
+    } catch (error) {
+      console.error("Error creating vendor:", error);
+      const errorMessage = error?.response?.data?.message || error?.message || t("vendorCreateError", { defaultValue: "Failed to create vendor" });
+      showError(errorMessage);
+    }
   };
 
   const handleCategoryAdd = async (categoryData) => {
     // categoryData comes from AddCategoryModal's onSave callback
     const categoryName = categoryData.name || categoryData;
-    if (!categories.includes(categoryName)) {
-      setCategories([...categories, categoryName]);
+    
+    // Check if workspace is available
+    if (!selectedWorkspace) {
+      showError(t("workspaceRequired", { defaultValue: "Workspace is required to create category" }));
+      return;
     }
-    handleChange("category", categoryName);
+
+    try {
+      // Call API to create category
+      const response = await createCategory({
+        name: categoryName,
+        workspace_id: selectedWorkspace,
+        categoryId: "",
+      });
+
+      // If API call successful, refresh categories list from API
+      try {
+        const categoriesResponse = await getCategories(selectedWorkspace);
+        const categoriesList = categoriesResponse?.data || categoriesResponse?.categories || categoriesResponse || [];
+        const categoriesArray = Array.isArray(categoriesList) ? categoriesList : [];
+        
+        // Store full category objects with IDs
+        setCategoriesData(categoriesArray);
+        
+        // Extract category names from the response
+        const categoryNames = categoriesArray.map((category) => 
+          category.name || category.category_name || String(category)
+        ).filter(Boolean);
+        
+        setCategories(categoryNames);
+        
+        // Find the newly created category and set its name
+        const newCategory = categoriesArray.find(
+          (c) => (c.name || c.category_name) === categoryName
+        );
+        if (newCategory) {
+          handleChange("category", categoryName);
+        } else {
+          handleChange("category", categoryName);
+        }
+      } catch (fetchError) {
+        // If refresh fails, just add to local state
+        if (!categories.includes(categoryName)) {
+          setCategories([...categories, categoryName]);
+        }
+        handleChange("category", categoryName);
+      }
+      
+      showSuccess(t("categoryCreated", { defaultValue: "Category created successfully" }));
+    } catch (error) {
+      console.error("Error creating category:", error);
+      const errorMessage = error?.response?.data?.message || error?.message || t("categoryCreateError", { defaultValue: "Failed to create category" });
+      showError(errorMessage);
+    }
   };
 
   const handlePaymentModeAdd = async (modeData) => {
@@ -225,6 +706,67 @@ export default function EditPaymentEntry() {
       setPaymentModes([...paymentModes, newMode]);
     }
     handleChange("mode", modeValue);
+    // Clear bank name when mode changes
+    handleChange("bankName", "");
+  };
+
+  const handleBankAdd = async (bankData) => {
+    // bankData comes from AddItemModal's onSave callback (just a string)
+    const bankName = typeof bankData === 'string' ? bankData : (bankData?.name || bankData?.label || bankData);
+
+    // Check if projectId is available
+    if (!projectId) {
+      showError(t("projectRequired", { defaultValue: "Project ID is required to create bank" }));
+      return;
+    }
+
+    try {
+      // Call API to create bank
+      await createBank({
+        name: bankName,
+        projectId: projectId,
+      });
+
+      // If API call successful, refresh banks list
+      try {
+        const response = await getBanks(projectId);
+        
+        // Handle different response structures
+        let banksList = [];
+        
+        if (Array.isArray(response)) {
+          banksList = response;
+        } else if (Array.isArray(response?.data)) {
+          banksList = response.data;
+        } else if (Array.isArray(response?.banks)) {
+          banksList = response.banks;
+        } else if (response?.data && typeof response.data === 'object') {
+          banksList = Array.isArray(response.data.data) 
+            ? response.data.data 
+            : Object.values(response.data).filter(Array.isArray)[0] || [];
+        }
+        
+        const bankNames = banksList.map((bank) => {
+          if (typeof bank === 'string') return bank;
+          return bank.name || bank.bank_name || bank.bankName || String(bank);
+        }).filter(Boolean);
+        
+        setBanks(bankNames);
+      } catch (fetchError) {
+        console.error("Error refreshing banks:", fetchError);
+        // If refresh fails, just add to local state
+        if (!banks.includes(bankName)) {
+          setBanks([...banks, bankName]);
+        }
+      }
+      
+      handleChange("bankName", bankName);
+      showSuccess(t("bankCreated", { defaultValue: "Bank created successfully" }));
+    } catch (error) {
+      console.error("Error creating bank:", error);
+      const errorMessage = error?.response?.data?.message || error?.message || t("bankCreateError", { defaultValue: "Failed to create bank" });
+      showError(errorMessage);
+    }
   };
 
   const vendorOptions = vendors.map((v) => ({
@@ -240,6 +782,11 @@ export default function EditPaymentEntry() {
   const paymentModeOptions = paymentModes.map((m) => ({
     value: typeof m === "string" ? m : m.value || m,
     label: typeof m === "object" ? m.label : t(m, { defaultValue: m }),
+  }));
+
+  const bankOptions = banks.map((bank) => ({
+    value: bank,
+    label: bank,
   }));
 
   const entryTitle =
@@ -360,15 +907,46 @@ export default function EditPaymentEntry() {
                 options={paymentModeOptions}
                 placeholder={t("selectMode", { defaultValue: "Select Mode" })}
                 error={errors.mode}
-                onChange={(value) => handleChange("mode", value)}
+                onChange={(value) => {
+                  handleChange("mode", value);
+                  handleChange("bankName", "");
+                }}
                 showSeparator={true}
                 onAddNew={handlePaymentModeAdd}
                 addButtonLabel={t("addNew", { defaultValue: "Add New" })}
                 customModal={AddPaymentModeModal}
               />
             </div>
+
           </div>
         </div>
+
+        {/* Bank Name (Cheque / Bank Transfer / UPI) - Full Width */}
+        {(formData.mode === "cheque" ||
+          formData.mode === "bank_transfer" ||
+          formData.mode === "upi") && (
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-primary mb-2">
+              {t("bankName", { defaultValue: "Bank Name" })}{" "}
+              <span>*</span>
+            </label>
+            <Dropdown
+              value={formData.bankName}
+              options={bankOptions}
+              placeholder={t("selectBank", {
+                defaultValue: "Select Bank",
+              })}
+              error={errors.bankName}
+              onChange={(value) => handleChange("bankName", value)}
+              showSeparator={true}
+              onAddNew={handleBankAdd}
+              addButtonLabel={t("addNewBank", {
+                defaultValue: "Add New Bank",
+              })}
+              customModal={AddItemModal}
+            />
+          </div>
+        )}
 
         {/* Description */}
         <div>
@@ -390,19 +968,209 @@ export default function EditPaymentEntry() {
           <label className="block text-sm font-medium text-primary mb-2">
             {t("paymentProof", { defaultValue: "Payment Proof" })}
           </label>
-          <FileUpload
-            title={t("uploadPaymentProof", {
-              defaultValue: "Upload Payment Proof",
-            })}
-            supportedFormats="PDF, JPG, PNG"
-            maxSize={10}
-            maxSizeUnit="MB"
-            onFileSelect={handleFileSelect}
-            uploadButtonText={t("upload", { defaultValue: "Upload" })}
-            supportedFormatLabel={t("supportedFormat", {
-              defaultValue: "Supported Format:",
-            })}
-          />
+          
+          {/* Upload Area */}
+          <div className="mb-6">
+            <FileUpload
+              title={t("uploadPaymentProof", {
+                defaultValue: "Upload Payment Proof",
+              })}
+              supportedFormats="PDF, JPG, PNG, MP4"
+              maxSize={10}
+              maxSizeUnit="MB"
+              onFileSelect={handleFileSelect}
+              uploadButtonText={t("upload", { defaultValue: "Upload" })}
+              supportedFormatLabel={t("supportedFormat", {
+                defaultValue: "Supported Format:",
+              })}
+              accept=".pdf,.jpg,.jpeg,.png,.mp4,.mov,.avi"
+            />
+          </div>
+
+          {/* Tabs and File Display */}
+          {(uploadedFiles.photos.length > 0 ||
+            uploadedFiles.videos.length > 0 ||
+            uploadedFiles.documents.length > 0) && (
+            <div>
+              {/* Tabs */}
+              <div className="flex gap-6 border-b border-gray-200 mb-4">
+                {[
+                  { id: "photos", label: t("photos", { defaultValue: "Photos" }) },
+                  { id: "videos", label: t("videos", { defaultValue: "Videos" }) },
+                  { id: "documents", label: t("documents", { defaultValue: "Documents" }) },
+                ].map((tab) => {
+                  const fileCount =
+                    uploadedFiles[tab.id]?.length || 0;
+                  if (fileCount === 0) return null;
+                  
+                  return (
+                    <button
+                      key={tab.id}
+                      type="button"
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`pb-3 text-sm font-medium transition-colors cursor-pointer ${
+                        activeTab === tab.id
+                          ? "text-accent border-b-2 border-accent"
+                          : "text-secondary hover:text-primary"
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Files Display */}
+              <div className="mt-4">
+                {/* Photos Tab */}
+                {activeTab === "photos" && uploadedFiles.photos.length > 0 && (
+                  <div>
+                    {/* Group by date */}
+                    {Object.entries(
+                      uploadedFiles.photos.reduce((acc, file) => {
+                        const date = file.uploadDate || "Today";
+                        if (!acc[date]) acc[date] = [];
+                        acc[date].push(file);
+                        return acc;
+                      }, {})
+                    ).map(([date, files]) => (
+                      <div key={date} className="mb-6">
+                        <p className="text-sm font-medium text-secondary mb-3">
+                          {date}
+                        </p>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                          {files.map((file) => (
+                            <div
+                              key={file.id}
+                              className="relative group aspect-square rounded-lg overflow-hidden border border-gray-200"
+                            >
+                              <img
+                                src={file.url}
+                                alt={file.name}
+                                className="w-full h-full object-cover cursor-pointer"
+                                onClick={() => window.open(file.url, "_blank")}
+                              />
+                              <button
+                                type="button"
+                                onClick={() => handleRemoveFile(file.id, "photos")}
+                                className="absolute top-2 right-2 w-6 h-6 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                              >
+                                <X className="w-4 h-4 text-accent" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Videos Tab */}
+                {activeTab === "videos" && uploadedFiles.videos.length > 0 && (
+                  <div>
+                    {Object.entries(
+                      uploadedFiles.videos.reduce((acc, file) => {
+                        const date = file.uploadDate || "Today";
+                        if (!acc[date]) acc[date] = [];
+                        acc[date].push(file);
+                        return acc;
+                      }, {})
+                    ).map(([date, files]) => (
+                      <div key={date} className="mb-6">
+                        <p className="text-sm font-medium text-secondary mb-3">
+                          {date}
+                        </p>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                          {files.map((file) => (
+                            <div
+                              key={file.id}
+                              className="relative group rounded-lg overflow-hidden border border-gray-200 bg-gray-50"
+                            >
+                              <div className="aspect-video relative">
+                                {file.url ? (
+                                  <video
+                                    src={file.url}
+                                    className="w-full h-full object-cover cursor-pointer"
+                                    onClick={() => window.open(file.url, "_blank")}
+                                  />
+                                ) : (
+                                  <div className="w-full h-full flex items-center justify-center">
+                                    <Play className="w-12 h-12 text-gray-400" />
+                                  </div>
+                                )}
+                              </div>
+                              <div className="p-3">
+                                <p className="text-sm font-medium text-primary truncate">
+                                  {file.name}
+                                </p>
+                                <p className="text-xs text-secondary">{file.size}</p>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => handleRemoveFile(file.id, "videos")}
+                                className="absolute top-2 right-2 w-6 h-6 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                              >
+                                <X className="w-4 h-4 text-accent" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Documents Tab */}
+                {activeTab === "documents" && uploadedFiles.documents.length > 0 && (
+                  <div>
+                    {Object.entries(
+                      uploadedFiles.documents.reduce((acc, file) => {
+                        const date = file.uploadDate || "Today";
+                        if (!acc[date]) acc[date] = [];
+                        acc[date].push(file);
+                        return acc;
+                      }, {})
+                    ).map(([date, files]) => (
+                      <div key={date} className="mb-6">
+                        <p className="text-sm font-medium text-secondary mb-3">
+                          {date}
+                        </p>
+                        <div className="space-y-2">
+                          {files.map((file) => (
+                            <div
+                              key={file.id}
+                              className="flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 group cursor-pointer"
+                              onClick={() => file.url && window.open(file.url, "_blank")}
+                            >
+                              <div className="flex-shrink-0">
+                                <FileText className="w-6 h-6 text-accent" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-sm font-medium text-primary truncate">
+                                  {file.name}
+                                </p>
+                                <p className="text-xs text-secondary">{file.size}</p>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleRemoveFile(file.id, "documents");
+                                }}
+                                className="flex-shrink-0 w-6 h-6 rounded-full bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                              >
+                                <X className="w-4 h-4 text-accent" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Footer Buttons */}
@@ -422,8 +1190,16 @@ export default function EditPaymentEntry() {
             variant="primary"
             onClick={handleUpdate}
             className="w-full sm:w-auto"
+            disabled={isSubmitting}
           >
-            {t("update", { defaultValue: "Update" })}
+            {isSubmitting ? (
+              <>
+                <span className="inline-block animate-spin mr-2">⏳</span>
+                {t("updating", { defaultValue: "Updating..." })}
+              </>
+            ) : (
+              t("update", { defaultValue: "Update" })
+            )}
           </Button>
         </div>
       </div>

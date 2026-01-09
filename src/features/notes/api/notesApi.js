@@ -4,6 +4,8 @@
  */
 
 import http from '../../../services/http';
+import axios from 'axios';
+import config from '../../../config';
 
 /**
  * Get all projects for notes
@@ -134,5 +136,58 @@ export const createNote = async (noteData) => {
   };
   
   return http.post('/note/create', requestBody);
+};
+
+/**
+ * Upload note files (voice notes, images, etc.)
+ * @param {string} noteKey - Note key from startNote API
+ * @param {File|File[]} files - File(s) to upload (voice note, images, etc.)
+ * @returns {Promise<Object>} Upload response
+ */
+export const uploadNoteFiles = async (noteKey, files) => {
+  if (!noteKey) {
+    throw new Error('Note key is required');
+  }
+  
+  if (!files) {
+    throw new Error('Files are required');
+  }
+
+  // Create FormData
+  const formData = new FormData();
+  formData.append('noteKey', noteKey);
+  
+  // Handle single file or array of files
+  const filesArray = Array.isArray(files) ? files : [files];
+  filesArray.forEach((file) => {
+    if (file instanceof File) {
+      formData.append('noteFiles', file);
+    } else if (file instanceof Blob) {
+      // Convert Blob to File if needed
+      const fileName = `voice-note-${Date.now()}.${file.type.includes('webm') ? 'webm' : 'mp4'}`;
+      const fileObj = new File([file], fileName, { type: file.type });
+      formData.append('noteFiles', fileObj);
+    }
+  });
+
+  // Use axios directly with FormData (bypass http service to set Content-Type correctly)
+  const token = localStorage.getItem('token');
+  
+  try {
+    const response = await axios.post(
+      `${config.API_BASE_URL}/note/upload`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          ...(token && { Authorization: `Bearer ${token}` }),
+        },
+      }
+    );
+    
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 

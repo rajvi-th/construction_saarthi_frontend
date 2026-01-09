@@ -221,5 +221,94 @@
             "slab": "स्लैब गणना यूआई जल्द ही आ रहा है...",
             "cutting": "कटिंग लेंथ गणना यूआई जल्द ही आ रहा है..."
         }
+    },
+    "concrete": {
+        "sections": {
+            "byVolume": "आयतन से",
+            "column": "कॉलम",
+            "footing": "फुटिंग",
+            "staircase": "सीढ़ी",
+            "wall": "दीवार",
+            "curbedStone": "कर्ब स्टोन",
+            "tube": "ट्यूब",
+            "gutter": "गटर"
+        },
+
+        "column": {
+            "squareColumn": "वर्ग कॉलम का कंक्रीट",
+            "rectangularColumn": "आयताकार कॉलम का कंक्रीट",
+            "roundColumn": "गोल कॉलम का कंक्रीट"
+        },
+        "footing": {
+            "boxFooting": "बॉक्स फुटिंग का कंक्रीट",
+            "trapezoidalFooting": "ट्रैपेज़ॉइडल फुटिंग का कंक्रीट"
+        },
+        "staircase": {
+            "straightStaircase": "सीधी सीढ़ी का कंक्रीट",
+            "dogLeggedStaircase": "डॉग लेग्ड सीढ़ी का कंक्रीट"
+        },
+        "wall": {
+            "wallShape1": "दीवार शेप 1 का कंक्रीट",
+            "wallShape2": "दीवार शेप 2 का कंक्रीट"
+        },
+        "curbedStone": {
+            "curbStone1": "कर्ब स्टोन 1 का कंक्रीट",
+            "curbStone2": "कर्ब स्टोन 2 का कंक्रीट"
+        },
+        "tube": {
+            "simpleTube": "सरल ट्यूब का कंक्रीट",
+            "squareTube": "वर्ग ट्यूब का कंक्रीट"
+        },
+        "gutter": {
+            "gutterShape1": "गटर शेप 1 का कंक्रीट",
+            "gutterShape2": "गटर शेप 2 का कंक्रीट"
+        },
+        "byVolume": {
+            "concreteByVolume": "आयतन से कंक्रीट",
+            "unit": "Unit",
+            "length_L": "Length - L",
+            "width_W": "Width - W",
+            "depth_D": "Depth - D",
+            "thickness_T": "Thickness - T",
+            "height_H": "Height - H",
+            "rise_R": "Rise - R",
+            "tread_T": "Tread - T",
+            "baseDepth_D1": "Base Depth - D1",
+            "midDepth_D2": "Mid Depth - D2",
+            "topDepth_D3": "Top Depth - D3",
+            "length_L1": "Length - L1",
+            "length_L2": "Length - L2",
+            "length_L3": "Length - L3",
+            "totalSteps_N": "Total Steps - N",
+            "depth_D3": "Depth - D3",
+            "metric": "मीट्रिक",
+            "imperial": "इम्पीरियल",
+            "volume": "आयतन",
+            "concreteGrade": "कंक्रीट ग्रेड",
+            "cement": "सीमेंट",
+            "sand": "रेत",
+            "aggregate": "एग्रीगेट",
+            "waterCementRatio": "पानी - सीमेंट अनुपात",
+            "admixture": "एडमिक्सर",
+            "noOfUnits": "इकाइयों की संख्या",
+            "dryVolume": "ड्राई वॉल्यूम",
+            "rateOfConcrete": "कंक्रीट की दर",
+            "result": "परिणाम",
+            "concreteVolume": "कंक्रीट वॉल्यूम",
+            "cementBags": "सीमेंट (50kg)",
+            "coarseAggregate": "मोटा एग्रीगेट",
+            "water": "पानी",
+            "totalCost": "कुल लागत",
+            "reset": "रीसेट",
+            "calculate": "गणना करें"
+        }
+    },
+    "downloadPDF": {
+        "title": "PDF के रूप में डाउनलोड करें",
+        "titleLabel": "शीर्षक",
+        "titlePlaceholder": "शीर्षक दर्ज करें",
+        "cancel": "रद्द करें",
+        "download": "डाउनलोड",
+        "downloading": "डाउनलोड हो रहा है..."
     }
 }

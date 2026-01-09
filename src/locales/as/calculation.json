@@ -1,52 +1,162 @@
 {
-    "projectDetails": {
-        "history": "ইতিহাস",
-        "totalCalculations": "মুঠ গণনা",
-        "usedCalculations": "ব্যৱহৃত গণনা",
-        "buyCalculations": "গণনা কিনক"
+  "projectDetails": {
+    "history": "ইতিহাস",
+    "totalCalculations": "মুঠ গণনা",
+    "usedCalculations": "ব্যৱহৃত গণনা",
+    "buyCalculations": "গণনা কিনক"
+  },
+  "quickActions": {
+    "tabs": {
+      "quantity": "পৰিমাণ",
+      "area": "এলেকা",
+      "volume": "আয়তন",
+      "converter": "কনভাৰ্টাৰ",
+      "study": "অধ্যয়ন",
+      "quiz": "কুইজ"
     },
-    "quickActions": {
-        "tabs": {
-            "quantity": "পৰিমাণ",
-            "area": "এলেকা",
-            "volume": "আয়তন",
-            "converter": "কনভাৰ্টাৰ",
-            "study": "অধ্যয়ন",
-            "quiz": "কুইজ"
-        },
-        "items": {
-            "constructionCost": "নিৰ্মাণ ব্যয়",
-            "steelQuantities": "তীখাৰ পৰিমাণ",
-            "concrete": "কংক্ৰিট",
-            "brickWorkPlaster": "ইটাৰ কাম আৰু প্লাষ্টাৰ",
-            "roofAreaPitch": "চালৰ এলেকা আৰু পিচ",
-            "flooringCalculation": "মজিয়াৰ গণনা",
-            "waterTankCapacity": "পানীৰ টেংকীৰ ক্ষমতা",
-            "excavation": "খনন",
-            "swimmingPool": "চুইমিং পুল",
-            "waterProofing": "ৱাটাৰ প্ৰুফিং",
-            "metalCalculator": "মেটেল কেলকুলেটৰ",
-            "railConstruction": "ৰেল নিৰ্মাণ",
-            "roadCalculation": "পথৰ গণনা",
-            "paint": "ৰং",
-            "diagonals": "ডায়গোনেল",
-            "antiTermite": "উই পৰুৱা প্ৰতিৰোধী",
-            "acCapacity": "এচি ক্ষমতা",
-            "solarElectric": "সৌৰ (বৈদ্যুতিক)",
-            "solarWaterHeater": "সৌৰ পানী গৰম কৰা যন্ত্ৰ",
-            "plywoodSheet": "প্লাইউড শ্বীট",
-            "plum": "প্লাম",
-            "rainWaterHarvesting": "বৰষুণৰ পানী সংৰক্ষণ",
-            "shuttering": "ছাটাৰিং",
-            "baluster": "বেলেষ্টাৰ",
-            "arcCalculator": "আৰ্ক কেলকুলেটৰ",
-            "precastBoundaryWall": "প্ৰিকাষ্ট বাউণ্ডাৰী দেৱাল",
-            "damCalculations": "মথাউৰিৰ গণনা",
-            "sewageSystem": "নৰ্দমা ব্যবস্থা",
-            "waterSupplySystem": "পানী যোগান ব্যৱস্থা",
-            "materialWeights": "সামগ্ৰীৰ ওজন",
-            "billOfQuantity": "বিয় অফ কুৱাণ্টিটি"
-        }
+    "items": {
+      "constructionCost": "নিৰ্মাণ ব্যয়",
+      "steelQuantities": "তীখাৰ পৰিমাণ",
+      "concrete": "কংক্ৰিট",
+      "brickWorkPlaster": "ইটাৰ কাম আৰু প্লাষ্টাৰ",
+      "roofAreaPitch": "চালৰ এলেকা আৰু পিচ",
+      "flooringCalculation": "মজিয়াৰ গণনা",
+      "waterTankCapacity": "পানীৰ টেংকীৰ ক্ষমতা",
+      "excavation": "খনন",
+      "swimmingPool": "চুইমিং পুল",
+      "waterProofing": "ৱাটাৰ প্ৰুফিং",
+      "metalCalculator": "মেটেল কেলকুলেটৰ",
+      "railConstruction": "ৰেল নিৰ্মাণ",
+      "roadCalculation": "পথৰ গণনা",
+      "paint": "ৰং",
+      "diagonals": "ডায়গোনেল",
+      "antiTermite": "উই পৰুৱা প্ৰতিৰোধী",
+      "acCapacity": "এচি ক্ষমতা",
+      "solarElectric": "সৌৰ (বৈদ্যুতিক)",
+      "solarWaterHeater": "সৌৰ পানী গৰম কৰা যন্ত্ৰ",
+      "plywoodSheet": "প্লাইউড শ্বীট",
+      "plum": "প্লাম",
+      "rainWaterHarvesting": "বৰষুণৰ পানী সংৰক্ষণ",
+      "shuttering": "ছাটাৰিং",
+      "baluster": "বেলেষ্টাৰ",
+      "arcCalculator": "আৰ্ক কেলকুলেটৰ",
+      "precastBoundaryWall": "প্ৰিকাষ্ট বাউণ্ডাৰী দেৱাল",
+      "damCalculations": "মথাউৰিৰ গণনা",
+      "sewageSystem": "নৰ্দমা ব্যবস্থা",
+      "waterSupplySystem": "পানী যোগান ব্যৱস্থা",
+      "materialWeights": "সামগ্ৰীৰ ওজন",
+      "billOfQuantity": "বিয় অফ কুৱাণ্টিটি"
+    }
+  },
+  "comingSoon": {
+    "title": "শীঘ্ৰেই আহি আছে",
+    "comingSoonText": "শীঘ্ৰেই আহি আছে...",
+    "launchTextPart1": "আমি অতি সোনকালে এটা ",
+    "launchTextPart2": " মুকলি কৰিবলৈ ওলাইছো, লগতে থাকক।",
+    "backButton": "← কন্সট্ৰাকচন কেলকুলেটৰলৈ ঘূৰি যাওক"
+  },
+  "history": {
+    "sharePdf": "PDF হিচাপে শ্বেয়াৰ কৰক",
+    "downloadReport": "প্ৰতিবেদন ডাউনলোড কৰক",
+    "calcTitle": "গণনাৰ শিৰোনাম (ঐচ্ছিক)",
+    "enterValue": "মান লিখক",
+    "constructionArea": "নিৰ্মাণ এলেকা",
+    "constructionCost": "নিৰ্মাণ ব্যয়",
+    "reset": "ৰিছেট",
+    "calculate": "গণনা কৰক",
+    "materialQuantity": "সামগ্ৰীৰ পৰিমাণ",
+    "workCost": "বিভিন্ন কামৰ খৰচ",
+    "headers": {
+      "material": "সামগ্ৰী",
+      "quantity": "পৰিমাণ",
+      "unit": "একক"
+    },
+    "materials": {
+      "cement": "চিমেন্ট",
+      "sand": "বালি",
+      "aggregate": "পাথৰ",
+      "steel": "তীখা",
+      "paint": "ৰং",
+      "bricks": "ইটা",
+      "flooring": "মজিয়া",
+      "windows": "খিৰিকী",
+      "doors": "দুৱাৰ"
+    },
+    "units": {
+      "bags": "বেগ",
+      "ton": "টন",
+      "kg": "কেজি",
+      "liters": "লিটাৰ",
+      "sqft": "বৰ্গফুট",
+      "nos": "টা"
+    },
+    "works": {
+      "design": "ডিজাইন আৰু ইঞ্জিনিয়াৰিং",
+      "excavation": "খনন",
+      "foundation": "ভিত্তি",
+      "rcc": "RCC",
+      "brickwork": "ইটাৰ কাম",
+      "plaster": "প্লাষ্টাৰ"
+    }
+  },
+  "steel": {
+    "sections": {
+      "weight": "ওজন",
+      "footing": "ফুটিং",
+      "column": "কলাম",
+      "beam": "বিম",
+      "slab": "স্ল্যাব",
+      "cuttingLength": "কাটিং লেংথ"
+    },
+    "weight": {
+      "reinforcement": "ৰইনফৰ্চমেন্ট ওজন"
+    },
+    "footing": {
+      "type1": "ফুটিং টাইপ ১",
+      "type2": "ফুটিং টাইপ ২"
+    },
+    "column": {
+      "type1": "কলাম টাইপ ১",
+      "type2": "কলাম টাইপ ২",
+      "type3": "কলাম টাইপ ৩",
+      "type4": "কলাম টাইপ ৪",
+      "type5": "কলাম টাইপ ৫",
+      "type6": "কলাম টাইপ ৬",
+      "type7": "কলাম টাইপ ৭",
+      "type8": "কলাম টাইপ ৮",
+      "type9": "কলাম টাইপ ৯",
+      "type10": "কলাম টাইপ ১০",
+      "type11": "কলাম টাইপ ১১",
+      "type12": "কলাম টাইপ ১২",
+      "vertical": "কলাম ভাৰ্টিকেল ষ্টিল",
+      "ring1": "কলাম ৰিং ১",
+      "ring2": "কলাম ৰিং ২"
+    },
+    "beam": {
+      "type1": "বিম টাইপ ১",
+      "type2": "বিম টাইপ ২",
+      "type3": "বিম টাইপ ৩",
+      "type4": "বিম টাইপ ৪",
+      "type5": "বিম টাইপ ৫",
+      "type6": "বিম টাইপ ৬",
+      "type7": "বিম টাইপ ৭",
+      "type8": "বিম টাইপ ৮",
+      "type9": "বিম টাইপ ৯",
+      "type10": "বিম টাইপ ১০",
+      "horizontal": "বিম হৰাইজন্টাল বাৰ",
+      "ring1": "বিম ৰিং ১",
+      "ring2": "বিম ৰিং ২"
+    },
+    "slab": {
+      "type1": "স্ল্যাব টাইপ ১",
+      "type2": "স্ল্যাব টাইপ ২",
+      "type3": "স্ল্যাব টাইপ ৩"
+    },
+    "cutting": {
+      "straight": "ষ্ট্ৰেইট বাৰ",
+      "lShape": "L শ্বেইপ বাৰ",
+      "uShape": "U শ্বেইপ বাৰ",
+      "stirrups": "ষ্টিৰাপচ"
     },
     "comingSoon": {
         "title": "শীঘ্ৰেই আহি আছে",
@@ -222,4 +332,86 @@
             "cutting": "কাটিং লেংথ গণনা UI অতি সোনকালে আহিব..."
         }
     }
+  },
+  "concrete": {
+    "sections": {
+      "byVolume": "আয়তন অনুসাৰে",
+      "column": "কলাম",
+      "footing": "ফুটিং",
+      "staircase": "ছিৰি",
+      "wall": "দেৱাল",
+      "curbedStone": "কাৰ্ব ষ্টোন",
+      "tube": "নল",
+      "gutter": "নাল"
+    },
+
+    "column": {
+      "squareColumn": "বৰ্গাকাৰ কলামৰ কংক্ৰিট",
+      "rectangularColumn": "আয়তাকাৰ কলামৰ কংক্ৰিট",
+      "roundColumn": "গোলাকাৰ কলামৰ কংক্ৰিট"
+    },
+    "footing": {
+      "boxFooting": "বক্স ফুটিংৰ কংক্ৰিট",
+      "trapezoidalFooting": "ট্ৰেপিজয়ডেল ফুটিংৰ কংক্ৰিট"
+    },
+    "staircase": {
+      "straightStaircase": "সোজা ছিৰিৰ কংক্ৰিট",
+      "dogLeggedStaircase": "ডগ-লেগড ছিৰিৰ কংক্ৰিট"
+    },
+    "wall": {
+      "wallShape1": "দেৱাল আকাৰ ১ ৰ কংক্ৰিট",
+      "wallShape2": "দেৱাল আকাৰ ২ ৰ কংক্ৰিট"
+    },
+    "curbedStone": {
+      "curbStone1": "কাৰ্ব ষ্টোন আকাৰ ১ ৰ কংক্ৰিট",
+      "curbStone2": "কাৰ্ব ষ্টোন আকাৰ ২ ৰ কংক্ৰিট"
+    },
+    "tube": {
+      "simpleTube": "সাধাৰণ নলৰ কংক্ৰিট",
+      "squareTube": "বৰ্গাকাৰ নলৰ কংক্ৰিট"
+    },
+    "gutter": {
+      "gutterShape1": "নাল আকাৰ ১ ৰ কংক্ৰিট",
+      "gutterShape2": "নাল আকাৰ ২ ৰ কংক্ৰিট"
+    }
+  },
+  "byVolume": {
+    "concreteByVolume": "আয়তন অনুসাৰে কংক্ৰিট",
+    "unit": "Unit",
+    "length_L": "Length - L",
+    "width_W": "Width - W",
+    "depth_D": "Depth - D",
+    "thickness_T": "Thickness - T",
+    "height_H": "Height - H",
+    "rise_R": "Rise - R",
+    "tread_T": "Tread - T",
+    "baseDepth_D1": "Base Depth - D1",
+    "midDepth_D2": "Mid Depth - D2",
+    "topDepth_D3": "Top Depth - D3",
+    "length_L1": "Length - L1",
+    "length_L2": "Length - L2",
+    "length_L3": "Length - L3",
+    "totalSteps_N": "Total Steps - N",
+    "depth_D3": "Depth - D3",
+    "metric": "Metric",
+    "imperial": "Imperial",
+    "volume": "Volume",
+    "concreteGrade": "Concrete Grade",
+    "cement": "Cement",
+    "sand": "Sand",
+    "aggregate": "Aggregate",
+    "waterCementRatio": "Water - cement Ratio",
+    "admixture": "Admixture",
+    "noOfUnits": "No of Units",
+    "dryVolume": "Dry Volume",
+    "rateOfConcrete": "Rate of Concrete",
+    "result": "Result",
+    "concreteVolume": "Concrete Volume",
+    "cementBags": "Cement (50kg)",
+    "coarseAggregate": "Coarse Aggregate",
+    "water": "Water",
+    "totalCost": "Total Cost",
+    "reset": "Reset",
+    "calculate": "Calculate"
+  }
 }

@@ -69,6 +69,7 @@ function AddNewProject() {
   const [completionDate, setCompletionDate] = useState(null);
   const [areaUnit, setAreaUnit] = useState("sqft"); // 'sqft' | 'meter'
   const [profilePhoto, setProfilePhoto] = useState(null);
+  const [profilePhotoUrl, setProfilePhotoUrl] = useState(null); // For existing profile photo URL in edit mode
   const [uploadedFiles, setUploadedFiles] = useState({
     photos: [],
     videos: [],
@@ -318,9 +319,126 @@ function AddNewProject() {
       }
 
       // Set profile photo URL (if exists, it's already uploaded)
-      if (projectData.profile_photo || projectData.image) {
-        // Keep existing photo URL - user can change it by uploading a new file
-        // Don't set profilePhoto state as it expects a File object
+      const existingProfilePhotoUrl = projectData.profilePhoto || projectData.profile_photo || projectData.image;
+      if (existingProfilePhotoUrl) {
+        setProfilePhotoUrl(existingProfilePhotoUrl);
+      }
+
+      // Set existing media files from projectData.media array
+      const mediaArray = projectData.media || [];
+      const existingMedia = {
+        photos: [],
+        videos: [],
+        documents: [],
+      };
+
+      mediaArray.forEach((mediaItem) => {
+        const typeId = String(mediaItem.typeId || mediaItem.type_id || '');
+        const mediaUrl = mediaItem.url || '';
+        
+        // Map typeId to categories based on backend response
+        // typeId "3" = image, "4" = video, "2" = document
+        // typeId "1" might be profile photo, but we'll also check for it
+        if (typeId === '3' || typeId === '1') {
+          // Skip profile photo (typeId 1) - it's handled separately
+          if (typeId !== '1') {
+            existingMedia.photos.push({
+              id: mediaItem.id || `${Date.now()}-${Math.random()}`,
+              url: mediaUrl,
+              name: mediaItem.name || `Photo ${existingMedia.photos.length + 1}`,
+              size: mediaItem.size || 'Unknown',
+              uploadDate: mediaItem.createdAt ? new Date(mediaItem.createdAt).toLocaleDateString('en-GB', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
+              }) : 'Unknown',
+              uploadDateTime: mediaItem.createdAt ? new Date(mediaItem.createdAt).toLocaleString('en-GB', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true,
+              }) : 'Unknown',
+              date: mediaItem.createdAt ? new Date(mediaItem.createdAt).toLocaleString('en-GB', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true,
+              }) : 'Unknown',
+              isUploaded: true,
+              isExisting: true, // Mark as existing file
+            });
+          }
+        } else if (typeId === '4') {
+          existingMedia.videos.push({
+            id: mediaItem.id || `${Date.now()}-${Math.random()}`,
+            url: mediaUrl,
+            thumbnail: mediaUrl, // Use URL as thumbnail for videos
+            name: mediaItem.name || `Video ${existingMedia.videos.length + 1}`,
+            size: mediaItem.size || 'Unknown',
+            uploadDate: mediaItem.createdAt ? new Date(mediaItem.createdAt).toLocaleDateString('en-GB', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+            }) : 'Unknown',
+            uploadDateTime: mediaItem.createdAt ? new Date(mediaItem.createdAt).toLocaleString('en-GB', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+              hour: 'numeric',
+              minute: '2-digit',
+              hour12: true,
+            }) : 'Unknown',
+            date: mediaItem.createdAt ? new Date(mediaItem.createdAt).toLocaleString('en-GB', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+              hour: 'numeric',
+              minute: '2-digit',
+              hour12: true,
+            }) : 'Unknown',
+            isUploaded: true,
+            isExisting: true, // Mark as existing file
+          });
+        } else if (typeId === '2') {
+          existingMedia.documents.push({
+            id: mediaItem.id || `${Date.now()}-${Math.random()}`,
+            url: mediaUrl,
+            name: mediaItem.name || `Document ${existingMedia.documents.length + 1}`,
+            size: mediaItem.size || 'Unknown',
+            uploadDate: mediaItem.createdAt ? new Date(mediaItem.createdAt).toLocaleDateString('en-GB', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+            }) : 'Unknown',
+            uploadDateTime: mediaItem.createdAt ? new Date(mediaItem.createdAt).toLocaleString('en-GB', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+              hour: 'numeric',
+              minute: '2-digit',
+              hour12: true,
+            }) : 'Unknown',
+            date: mediaItem.createdAt ? new Date(mediaItem.createdAt).toLocaleString('en-GB', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+              hour: 'numeric',
+              minute: '2-digit',
+              hour12: true,
+            }) : 'Unknown',
+            isUploaded: true,
+            isExisting: true, // Mark as existing file
+          });
+        }
+      });
+
+      // Set existing media files
+      if (existingMedia.photos.length > 0 || existingMedia.videos.length > 0 || existingMedia.documents.length > 0) {
+        setUploadedFiles(existingMedia);
       }
     }
   }, [isEditMode, projectData, isLoadingProject, setValue]);
@@ -464,7 +582,8 @@ function AddNewProject() {
               onAddNewBuilder={handleAddNewBuilder}
               workspaceId={selectedWorkspace}
               onProfilePhotoChange={setProfilePhoto}
-              projectKey={preProjectKey}
+              projectKey={isEditMode ? projectId : preProjectKey}
+              existingProfilePhotoUrl={profilePhotoUrl}
               onSaveAndContinue={handleNextStep}
               onCancel={() => navigate(-1)}
             />
@@ -495,7 +614,8 @@ function AddNewProject() {
             <UploadDocumentsSection
               t={t}
               onFilesChange={setUploadedFiles}
-              projectKey={preProjectKey}
+              projectKey={isEditMode ? projectId : preProjectKey}
+              existingFiles={uploadedFiles}
             />
           </section>
         </form>

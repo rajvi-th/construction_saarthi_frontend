@@ -242,5 +242,133 @@
             "slab": "Slab calculation UI coming soon...",
             "cutting": "Cutting length calculation UI coming soon..."
         }
+    },
+    "concrete": {
+        "sections": {
+            "byVolume": "By Volume",
+            "column": "Column",
+            "footing": "Footing",
+            "staircase": "Staircase",
+            "wall": "Wall",
+            "curbedStone": "Curbed Stone",
+            "tube": "Tube",
+            "gutter": "Gutter"
+        },
+        "column": {
+            "squareColumn": "Concrete of Square Column",
+            "rectangularColumn": "Concrete of Rectangular Column",
+            "roundColumn": "Concrete of Round Column"
+        },
+        "footing": {
+            "boxFooting": "Concrete of Box Footing",
+            "trapezoidalFooting": "Concrete of Trapezoidal Footing"
+        },
+        "staircase": {
+            "straightStaircase": "Concrete of Straight Staircase",
+            "dogLeggedStaircase": "Concrete of Dog Legged Staircase"
+        },
+        "wall": {
+            "wallShape1": "Concrete of Wall Shape 1",
+            "wallShape2": "Concrete of Wall Shape 2"
+        },
+        "curbedStone": {
+            "curbStone1": "Concrete of Curb Stone 1",
+            "curbStone2": "Concrete of Curb Stone 2"
+        },
+        "tube": {
+            "simpleTube": "Concrete of Simple Tube",
+            "squareTube": "Concrete of Square Tube"
+        },
+        "gutter": {
+            "gutterShape1": "Concrete of Gutter Shape 1",
+            "gutterShape2": "Concrete of Gutter Shape 2"
+        },
+        "byVolume": {
+            "concreteByVolume": "Concrete by Volume",
+            "metric": "Metric",
+            "imperial": "Imperial",
+            "volume": "Volume",
+            "concreteGrade": "Concrete Grade",
+            "cement": "Cement",
+            "sand": "Sand",
+            "aggregate": "Aggr.",
+            "waterCementRatio": "Water - cement Ratio",
+            "admixture": "Admixture",
+            "noOfUnits": "No of Units",
+            "dryVolume": "Dry Volume",
+            "rateOfConcrete": "Rate of Concrete",
+            "result": "Result",
+            "concreteVolume": "Concrete Volume",
+            "cementBags": "Cement (50kg)",
+            "coarseAggregate": "Coarse Aggregate",
+            "water": "Water",
+            "totalCost": "Total Cost",
+            "reset": "Reset",
+            "calculate": "Calculate",
+            "viewDetailedResult": "View Detailed Result",
+            "detailedReport": "Detailed Report",
+            "calculatorCalculations": "Concrete Calculator Calculations",
+            "calculateInstruction": "Calculate Cement, Sand, Coarse Aggregate and admixture.",
+            "selectedMixture": "Selected concrete mixture design is",
+            "mixRatio": "Mix ratio for",
+            "is": "is",
+            "calculatePartsInstruction": "Calculate concrete parts by using the formula",
+            "concreteParts": "Concrete Parts",
+            "cementPart": "Cement Part",
+            "sandPart": "Sand Part",
+            "aggregatePart": "Aggregate Part",
+            "cementQuantity": "Cement Quantity",
+            "calculateCementInstruction": "Calculate cement quantity by using formula",
+            "cementQuantityFormula": "Cement Quantity",
+            "densityOfCement": "Density of Cement",
+            "weightOfCement": "Weight of Cement",
+            "weightOfCementBags": "Weight of Cement Bags",
+            "totalBags": "Total Bags",
+            "cementBagsLabel": "Cement Bags",
+            "sandQuantity": "Sand Quantity",
+            "calculateSandInstruction": "Calculate sand quantity by using formula",
+            "aggregateQuantity": "Aggregate Quantity",
+            "calculateAggregateInstruction": "Calculate aggregate quantity by using formula",
+            "admixtureQuantity": "Admixture Quantity",
+            "calculateAdmixtureInstruction": "Calculate admixture quantity by using formula",
+            "waterQuantity": "Water Quantity",
+            "calculateWaterInstruction": "Calculate water quantity by using formula",
+            "cementVolume": "Cement volume",
+            "unitWeightOfWater": "Unit weight of water",
+            "requiredAmountOfWater": "Required amount of water",
+            "liters": "Liters",
+            "requiredQuantities": "Therefore required quantities are as follows",
+            "material": "Material",
+            "quantity": "Quantity",
+            "unit": "Unit",
+            "length_L": "Length - L",
+            "width_W": "Width - W",
+            "depth_D": "Depth - D",
+            "thickness_T": "Thickness - T",
+            "height_H": "Height - H",
+            "rise_R": "Rise - R",
+            "tread_T": "Tread - T",
+            "baseDepth_D1": "Base Depth - D1",
+            "midDepth_D2": "Mid Depth - D2",
+            "topDepth_D3": "Top Depth - D3",
+            "length_L1": "Length - L1",
+            "length_L2": "Length - L2",
+            "length_L3": "Length - L3",
+            "totalSteps_N": "Total Steps - N",
+            "depth_D3": "Depth - D3",
+            "width": "Width",
+            "height": "Height",
+            "length": "Length",
+            "diameter": "Diameter",
+            "depth": "Depth"
+        }
+    },
+    "downloadPDF": {
+        "title": "Download as PDF",
+        "titleLabel": "Title",
+        "titlePlaceholder": "Enter title",
+        "cancel": "Cancel",
+        "download": "Download",
+        "downloading": "Downloading..."
     }
 }

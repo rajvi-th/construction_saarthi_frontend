@@ -148,6 +148,18 @@ const ColumnType9 = lazy(() => import('../calculation/steel/column/pages/ColumnT
 const ColumnType9Detailed = lazy(() => import('../calculation/steel/column/pages/ColumnType9Detailed'));
 const ColumnType10 = lazy(() => import('../calculation/steel/column/pages/ColumnType10'));
 const ColumnType10Detailed = lazy(() => import('../calculation/steel/column/pages/ColumnType10Detailed'));
+const Concrete = lazy(() => import('../calculation/concrete/LandingPage/pages/Concrete'));
+const ConcreteByVolume = lazy(() => import('../calculation/concrete/volume/pages/ConcreteByVolume'));
+const ConcreteByVolumeDetailedReport = lazy(() => import('../calculation/concrete/volume/pages/ConcreteByVolumeDetailedReport'));
+const ConcreteSquareColumn = lazy(() => import('../calculation/concrete/column/pages/ConcreteSquareColumn'));
+const ConcreteRectangularColumn = lazy(() => import('../calculation/concrete/column/pages/ConcreteRectangularColumn'));
+const ConcreteRoundColumn = lazy(() => import('../calculation/concrete/column/pages/ConcreteRoundColumn'));
+const ConcreteBoxFooting = lazy(() => import('../calculation/concrete/footing/pages/ConcreteBoxFooting'));
+const ConcreteTrapezoidalFooting = lazy(() => import('../calculation/concrete/footing/pages/ConcreteTrapezoidalFooting'));
+const StraightStaircase = lazy(() => import('../calculation/concrete/staircase/pages/StraightStaircase'));
+const DogLeggedStaircase = lazy(() => import('../calculation/concrete/staircase/pages/DogLeggedStaircase'));
+const WallShape1 = lazy(() => import('../calculation/concrete/wall/pages/WallShape1'));
+const WallShape2 = lazy(() => import('../calculation/concrete/wall/pages/WallShape2'));
 const ComingSoon = lazy(() => import('../calculation/common/ComingSoon'));
 
 // Loading Component for Suspense fallback
@@ -270,6 +282,18 @@ function AppRoutes() {
             <Route path={ROUTES_FLAT.CALCULATION_COLUMN_TYPE9_DETAILED} element={<ColumnType9Detailed />} />
             <Route path={ROUTES_FLAT.CALCULATION_COLUMN_TYPE10} element={<ColumnType10 />} />
             <Route path={ROUTES_FLAT.CALCULATION_COLUMN_TYPE10_DETAILED} element={<ColumnType10Detailed />} />
+            <Route path={ROUTES_FLAT.CALCULATION_CONCRETE} element={<Concrete />} />
+            <Route path={ROUTES_FLAT.CALCULATION_CONCRETE_BY_VOLUME} element={<ConcreteByVolume />} />
+            <Route path={ROUTES_FLAT.CALCULATION_CONCRETE_BY_VOLUME_DETAILED} element={<ConcreteByVolumeDetailedReport />} />
+            <Route path={ROUTES_FLAT.CALCULATION_CONCRETE_SQUARE_COLUMN} element={<ConcreteSquareColumn />} />
+            <Route path={ROUTES_FLAT.CALCULATION_CONCRETE_RECTANGULAR_COLUMN} element={<ConcreteRectangularColumn />} />
+            <Route path={ROUTES_FLAT.CALCULATION_CONCRETE_ROUND_COLUMN} element={<ConcreteRoundColumn />} />
+            <Route path={ROUTES_FLAT.CALCULATION_CONCRETE_BOX_FOOTING} element={<ConcreteBoxFooting />} />
+            <Route path={ROUTES_FLAT.CALCULATION_CONCRETE_TRAPEZOIDAL_FOOTING} element={<ConcreteTrapezoidalFooting />} />
+            <Route path={ROUTES_FLAT.STRAIGHT_STAIRCASE} element={<StraightStaircase />} />
+            <Route path={ROUTES_FLAT.DOG_LEGGED_STAIRCASE} element={<DogLeggedStaircase />} />
+            <Route path="/calculation/concrete/wall/shape1" element={<WallShape1 />} />
+            <Route path="/calculation/concrete/wall/shape2" element={<WallShape2 />} />
             <Route path="/calculation/coming-soon" element={<ComingSoon />} />
           </Route>
         </Route>

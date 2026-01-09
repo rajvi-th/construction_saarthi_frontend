@@ -22,7 +22,7 @@ export default function ProjectCard({ project, onClick }) {
   return (
     <div
       onClick={onClick}
-      className="bg-white rounded-[16px] shadow-[0px_15px_40px_rgba(18,18,18,0.06)] transition-shadow cursor-pointer hover:shadow-[0px_15px_40px_rgba(18,18,18,0.1)] p-4"
+      className="bg-white rounded-[16px] shadow-[0px_15px_40px_rgba(18,18,18,0.06)] transition-shadow cursor-pointer p-4"
     >
       <div className="flex items-center gap-4">
         {/* Project Image */}

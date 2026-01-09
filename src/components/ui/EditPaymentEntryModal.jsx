@@ -146,10 +146,17 @@ export default function EditPaymentEntryModal({
     const bankName = typeof data === 'string' ? data : (data.label || data.name || data);
     
     if (onAddBank && !banks.includes(bankName)) {
-      onAddBank(bankName);
+      try {
+        await onAddBank(bankName);
+        // Use the bank name returned from API or the original name
+        handleChange('bankName', bankName);
+      } catch (error) {
+        // Error is already handled in handleAddBank
+        // Don't update bankName if creation failed
+      }
+    } else {
+      handleChange('bankName', bankName);
     }
-    
-    handleChange('bankName', bankName);
   };
 
   if (!isOpen) return null;

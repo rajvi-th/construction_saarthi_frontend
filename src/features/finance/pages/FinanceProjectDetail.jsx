@@ -3,11 +3,14 @@
  * Static page showing finance overview for a project
  */
 
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
 import PageHeader from '../../../components/layout/PageHeader';
+import { useAuth } from '../../auth/store';
+import { getFinancialSummary } from '../api/financeApi';
+import { showError } from '../../../utils/toast';
 import balanceIcon from '../../../assets/icons/balance.svg';
 import siteIcon from '../../../assets/icons/site.svg';
 import pendingIcon from '../../../assets/icons/pending.svg';
@@ -26,16 +29,35 @@ export default function FinanceProjectDetail() {
   const { t } = useTranslation('finance');
   const navigate = useNavigate();
   const { projectId } = useParams();
+  const { selectedWorkspace } = useAuth();
+  const [isLoadingSummary, setIsLoadingSummary] = useState(false);
+  const [financialSummary, setFinancialSummary] = useState({
+    balanceReceivable: 0,
+    siteInventory: 0,
+    pendingExpenses: 0,
+    estimatedProfitLoss: 0,
+    totalBuilderInvoices: 0,
+    totalExpensesPaid: 0,
+  });
+  const [projectOverview, setProjectOverview] = useState({
+    builder: '',
+    contract_type: '',
+    total_est_budget: '₹0',
+    project_duration: '',
+    address: '',
+    status: 'completed',
+  });
   const [status, setStatus] = useState('completed');
 
-  const projectData = {
+  // Project data will be populated from API
+  const projectData = useMemo(() => ({
     name: 'Shivaay Residency ',
-    builder: 'Mr. Anil Shah',
-    contractType: 'Labour + Material',
-    totalBudget: '₹1.2 Cr',
-    duration: 'Mar 2025 - Mar 2026',
-    address: '86, Veer Nariman Road, Churchgate, Mumbai',
-  };
+    builder: projectOverview.builder || 'Mr. Anil Shah',
+    contractType: projectOverview.contract_type || 'Labour + Material',
+    totalBudget: projectOverview.total_est_budget || '₹1.2 Cr',
+    duration: projectOverview.project_duration || 'Mar 2025 - Mar 2026',
+    address: projectOverview.address || '86, Veer Nariman Road, Churchgate, Mumbai',
+  }), [projectOverview]);
 
   const statusOptions = [
     { value: 'completed', label: t('completed', { defaultValue: 'Completed' }) },
@@ -43,39 +65,154 @@ export default function FinanceProjectDetail() {
     { value: 'upcoming', label: t('upcoming', { defaultValue: 'Upcoming' }) },
   ];
 
-  const financeMetrics = [
-    { icon: balanceIcon, label: t('balanceReceivable', { defaultValue: 'Balance Receivable' }), amount: '₹90,00,000' },
-    { icon: siteIcon, label: t('siteInventory', { defaultValue: 'Site Inventory' }), amount: '₹200,00,000' },
-    { icon: pendingIcon, label: t('pendingExpenses', { defaultValue: 'Pending Expenses' }), amount: '₹60,00,000' },
-    { icon: estimatedIcon, label: t('estimatedProfitLoss', { defaultValue: 'Estimated Profit/Loss' }), amount: '₹15,00,000' },
-  ];
+  // Format amount with currency symbol
+  const formatAmount = (amount) => {
+    if (!amount && amount !== 0) return '₹0';
+    const numAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
+    return `₹${numAmount.toLocaleString('en-IN')}`;
+  };
 
-  const financeCards = [
+  // Memoize financeMetrics to recalculate when financialSummary changes
+  const financeMetrics = useMemo(() => [
+    { 
+      icon: balanceIcon, 
+      label: t('balanceReceivable', { defaultValue: 'Balance Receivable' }), 
+      amount: formatAmount(financialSummary.balanceReceivable),
+      key: 'balanceReceivable'
+    },
+    { 
+      icon: siteIcon, 
+      label: t('siteInventory', { defaultValue: 'Site Inventory' }), 
+      amount: formatAmount(financialSummary.siteInventory),
+      key: 'siteInventory'
+    },
+    { 
+      icon: pendingIcon, 
+      label: t('pendingExpenses', { defaultValue: 'Pending Expenses' }), 
+      amount: formatAmount(financialSummary.pendingExpenses),
+      key: 'pendingExpenses'
+    },
+    { 
+      icon: estimatedIcon, 
+      label: t('estimatedProfitLoss', { defaultValue: 'Estimated Profit/Loss' }), 
+      amount: formatAmount(financialSummary.estimatedProfitLoss),
+      key: 'estimatedProfitLoss'
+    },
+  ], [financialSummary, t]);
+
+  // Fetch financial summary from API
+  useEffect(() => {
+    const fetchFinancialSummary = async () => {
+      if (!projectId || !selectedWorkspace) {
+        return;
+      }
+
+      try {
+        setIsLoadingSummary(true);
+        const response = await getFinancialSummary({
+          project_id: projectId,
+          workspace_id: selectedWorkspace,
+        });
+
+        console.log('Financial summary API response:', response);
+
+        // Handle different response structures
+        // Response structure: { data: { financial_summary: { ... }, project_overview: { ... } } }
+        const responseData = response?.data || response || {};
+        const summaryData = responseData.financial_summary || responseData.financialSummary || {};
+        const overviewData = responseData.project_overview || responseData.projectOverview || {};
+        
+        console.log('Extracted summary data:', summaryData);
+        console.log('Extracted overview data:', overviewData);
+        
+        // Set financial summary
+        setFinancialSummary({
+          balanceReceivable: summaryData.balanceReceivable || 0,
+          siteInventory: summaryData.siteInventory || 0,
+          pendingExpenses: summaryData.pendingExpenses || 0,
+          estimatedProfitLoss: summaryData.estimatedProfitLoss || 0,
+          totalBuilderInvoices: summaryData.totalBuilderInvoices || 0,
+          totalExpensesPaid: summaryData.totalExpensesPaid || 0,
+        });
+        
+        // Set project overview
+        setProjectOverview({
+          builder: overviewData.builder || '',
+          contract_type: overviewData.contract_type || '',
+          total_est_budget: overviewData.total_est_budget || '₹0',
+          project_duration: overviewData.project_duration || '',
+          address: overviewData.address || '',
+          status: overviewData.status || 'completed',
+        });
+        
+        // Update status dropdown
+        const statusMap = {
+          'in_progress': 'inProgress',
+          'completed': 'completed',
+          'upcoming': 'upcoming',
+        };
+        setStatus(statusMap[overviewData.status] || overviewData.status || 'completed');
+        
+        console.log('Set financial summary state:', {
+          balanceReceivable: summaryData.balanceReceivable || 0,
+          siteInventory: summaryData.siteInventory || 0,
+          pendingExpenses: summaryData.pendingExpenses || 0,
+          estimatedProfitLoss: summaryData.estimatedProfitLoss || 0,
+          totalBuilderInvoices: summaryData.totalBuilderInvoices || 0,
+          totalExpensesPaid: summaryData.totalExpensesPaid || 0,
+        });
+      } catch (error) {
+        console.error('Error fetching financial summary:', error);
+        const errorMessage = error?.response?.data?.message || error?.message || t('failedToLoadFinancialSummary', { defaultValue: 'Failed to load financial summary' });
+        showError(errorMessage);
+        // Keep default values (0) on error
+      } finally {
+        setIsLoadingSummary(false);
+      }
+    };
+
+    fetchFinancialSummary();
+  }, [projectId, selectedWorkspace, t]);
+
+  // Format amount for cards (convert to Lakhs/Crores if needed)
+  const formatCardAmount = (amount) => {
+    if (!amount && amount !== 0) return '₹0';
+    const numAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
+    
+    // Convert to Lakhs if >= 100000, otherwise show as is
+    if (numAmount >= 100000) {
+      const lakhs = (numAmount / 100000).toFixed(1);
+      return `₹${lakhs}L`;
+    }
+    return `₹${numAmount.toLocaleString('en-IN')}`;
+  };
+
+  const financeCards = useMemo(() => [
     {
       icon: builderIcon,
       label: t('builderInvoices', { defaultValue: 'Builder Invoices' }),
-      amount: '₹60.0L',
+      amount: formatCardAmount(financialSummary.totalBuilderInvoices),
       route: ROUTES_FLAT.FINANCE_BUILDER_INVOICES,
     },
     {
       icon: paymentIcon,
       label: t('paymentsReceived', { defaultValue: 'Payments Received' }),
-      amount: '₹45.0L',
+      amount: formatCardAmount(financialSummary.balanceReceivable),
       route: ROUTES_FLAT.FINANCE_PAYMENT_RECEIVED,
     },
     {
       icon: expensesIcon,
       label: t('expensesToPay', { defaultValue: 'Expenses To Pay' }),
-      amount: '₹35.0L',
+      amount: formatCardAmount(financialSummary.pendingExpenses),
       route: ROUTES_FLAT.FINANCE_EXPENSES_TO_PAY,
     },
     {
       icon: paidIcon,
       label: t('expensesPaid', { defaultValue: 'Expenses Paid' }),
-      amount: '₹30.0L',
+      amount: formatCardAmount(financialSummary.totalExpensesPaid),
       route: ROUTES_FLAT.FINANCE_EXPENSES_PAID,
     },
-  ];
+  ], [financialSummary, t]);
 
   const handleCardClick = (route) => {
     navigate(getRoute(route, { projectId }));

@@ -20,7 +20,7 @@ import ConfirmModal from "../../../components/ui/ConfirmModal";
 import EditSectionModal from "../../../components/ui/EditSectionModal";
 import StatusBadge from "../../../components/ui/StatusBadge";
 import { useExpenseSections } from "../hooks/useExpenseSections";
-import { getPayableBills, createPayableBill, updatePayableBill } from "../api/financeApi";
+import { getPayableBills, createPayableBill, updatePayableBill, deletePayableBill } from "../api/financeApi";
 import { getVendorsList, createVendor } from "../../siteInventory/api/siteInventoryApi";
 import { useAuth } from "../../auth/store";
 import { showSuccess, showError } from "../../../utils/toast";
@@ -182,18 +182,24 @@ export default function PayableBills() {
     const getVendorName = (vendorId) => {
       if (!vendorId) return "";
       
+      // First, check if API response has paidToName (from backend)
+      // This is the most reliable source as it comes directly from the API
+      if (apiBill.paidToName) {
+        return String(apiBill.paidToName);
+      }
+      
       // Try to find vendor in vendors list by ID
       const vendor = vendors.find((v) => String(v.value) === String(vendorId));
       if (vendor) {
         return vendor.label;
       }
       
-      // Fallback to API response fields
+      // Fallback to other API response fields
       return (
+        apiBill.paidTo_name ||
         apiBill.vendor_name ||
         apiBill.vendorName ||
         apiBill.vendor ||
-        apiBill.paidTo_name ||
         ""
       );
     };
@@ -497,36 +503,126 @@ export default function PayableBills() {
   };
 
   // Handle edit payable bill
-  const handleEditPayableBill = (formData) => {
+  const handleEditPayableBill = async (formData) => {
     if (!selectedBill) return;
 
-    const updatedBill = {
-      ...selectedBill,
-      title: formData.title,
-      vendorName: formData.vendorName,
-      amount: `₹${parseFloat(
-        formData.amount.replace(/[^\d.]/g, "")
-      ).toLocaleString("en-IN")}`,
-      dueDate: new Date(formData.dueDate).toLocaleDateString("en-GB", {
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-      }),
-      date: new Date(formData.date).toLocaleDateString("en-GB", {
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-      }),
-      status: formData.status,
-      description: formData.description,
-    };
+    // Prevent duplicate API calls
+    if (isUpdatingBill) {
+      return;
+    }
 
-    setPayableBills(
-      payableBills.map((bill) =>
-        bill.id === selectedBill.id ? updatedBill : bill
-      )
-    );
-    setSelectedBill(null);
+    if (!projectId || !selectedWorkspace || !sectionId) {
+      showError(
+        t("missingRequiredFields", {
+          defaultValue: "Missing required fields. Please refresh the page.",
+        })
+      );
+      return;
+    }
+
+    try {
+      setIsUpdatingBill(true);
+
+      // Format date to YYYY-MM-DD
+      const formatDateToYYYYMMDD = (date) => {
+        if (!date) return "";
+        const d = new Date(date);
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, "0");
+        const day = String(d.getDate()).padStart(2, "0");
+        return `${year}-${month}-${day}`;
+      };
+
+      // Get vendor ID from formData.vendorName
+      // Dropdown returns the value (ID) when a vendor is selected
+      // But if it's a name string (from initial load), find the vendor ID from vendors list
+      let vendorId = formData.vendorName || selectedBill.vendorId || "";
+      
+      // If vendorName is not a number/ID, try to find vendor ID from vendors list
+      if (vendorId && isNaN(Number(vendorId)) && vendors.length > 0) {
+        const vendor = vendors.find(
+          (v) => String(v.label) === String(vendorId) || 
+                 String(v.value) === String(vendorId) ||
+                 String(v.name) === String(vendorId)
+        );
+        if (vendor) {
+          vendorId = String(vendor.value || vendor.id || vendorId);
+        } else {
+          // If vendor not found by name, try to use selectedBill.vendorId as fallback
+          vendorId = selectedBill.vendorId ? String(selectedBill.vendorId) : "";
+        }
+      } else if (vendorId) {
+        // Ensure vendorId is a string (it's already an ID)
+        vendorId = String(vendorId);
+      }
+      
+      // Final fallback: use selectedBill.vendorId if vendorId is still empty
+      if (!vendorId && selectedBill.vendorId) {
+        vendorId = String(selectedBill.vendorId);
+      }
+
+      // Prepare API data matching Postman request structure
+      const apiData = {
+        expenseSection_id: sectionId,
+        workspace_id: selectedWorkspace,
+        project_id: projectId,
+        title: formData.title.trim(),
+        amount: parseFloat(formData.amount.replace(/[^\d.]/g, "")) || 0,
+        status: formData.status === "paid" ? "Paid" : "Pending",
+        defineScript: formData.description || formData.defineScript || "",
+        due_date: formatDateToYYYYMMDD(formData.dueDate),
+        method: selectedBill.method || "Cash", // Use existing method or default
+        paidTo: vendorId, // Vendor ID
+        paidBy: user?.id || user?.uid || selectedBill.paidBy || "", // User ID from auth
+      };
+
+      // Add paidDate only if status is Paid
+      if (formData.status === "paid" || formData.status === "Paid") {
+        // Use existing paidDate if available, otherwise use current date
+        apiData.paidDate = selectedBill.paidDate 
+          ? formatDateToYYYYMMDD(new Date(selectedBill.paidDate))
+          : formatDateToYYYYMMDD(new Date());
+      }
+
+      // Add PaymentProof file if provided (for future file upload support)
+      if (formData.PaymentProof && formData.PaymentProof instanceof File) {
+        apiData.PaymentProof = formData.PaymentProof;
+      }
+
+      // Add category_id if available
+      if (selectedBill.category_id) {
+        apiData.category_id = selectedBill.category_id;
+      }
+
+      // Call API to update payable bill
+      await updatePayableBill(selectedBill.id, apiData);
+
+      // Show success toast
+      showSuccess(
+        t("payableBillUpdated", {
+          defaultValue: "Payable bill updated successfully",
+        })
+      );
+
+      // Close modal
+      setIsEditModalOpen(false);
+      setSelectedBill(null);
+
+      // Refetch bills from API to get the latest data
+      const statusFilter = filters.status || null;
+      await fetchPayableBills(statusFilter);
+    } catch (error) {
+      console.error("Error updating payable bill:", error);
+      const errorMessage =
+        error?.response?.data?.message ||
+        error?.message ||
+        t("failedToUpdatePayableBill", {
+          defaultValue: "Failed to update payable bill",
+        });
+      showError(errorMessage);
+    } finally {
+      setIsUpdatingBill(false);
+    }
   };
 
   // Handle status change
@@ -539,13 +635,36 @@ export default function PayableBills() {
   };
 
   // Handle delete payable bill
-  const handleDeletePayableBill = () => {
-    if (billToDelete) {
-      setPayableBills(
-        payableBills.filter((bill) => bill.id !== billToDelete.id)
+  const handleDeletePayableBill = async () => {
+    if (!billToDelete) return;
+
+    try {
+      // Call API to delete payable bill
+      await deletePayableBill(billToDelete.id);
+
+      // Show success toast
+      showSuccess(
+        t("payableBillDeleted", {
+          defaultValue: "Payable bill deleted successfully",
+        })
       );
-      setBillToDelete(null);
+
+      // Close modal
       setIsDeleteModalOpen(false);
+      setBillToDelete(null);
+
+      // Refetch bills from API to get the latest data
+      const statusFilter = filters.status || null;
+      await fetchPayableBills(statusFilter);
+    } catch (error) {
+      console.error("Error deleting payable bill:", error);
+      const errorMessage =
+        error?.response?.data?.message ||
+        error?.message ||
+        t("failedToDeletePayableBill", {
+          defaultValue: "Failed to delete payable bill",
+        });
+      showError(errorMessage);
     }
   };
 
@@ -562,16 +681,25 @@ export default function PayableBills() {
 
     try {
       // Create vendor via API
+      // Ensure all required fields are present and valid
       const payload = {
-        name: vendorData.name || vendorData.full_name || "",
+        name: (vendorData.name || vendorData.full_name || "").trim(),
         countryCode: vendorData.countryCode || "+91",
-        contactNumber: vendorData.contactNumber || vendorData.phone_number || "",
-        company_Name: vendorData.company_Name || vendorData.companyName || "",
-        address: vendorData.address || "",
+        contactNumber: (vendorData.contactNumber || vendorData.phone_number || "").trim(),
+        company_Name: (vendorData.company_Name || vendorData.companyName || "").trim(),
+        address: (vendorData.address || "").trim(),
         workspace_id: selectedWorkspace,
       };
 
+      // Validate required fields
+      if (!payload.name) {
+        showError(t("vendorNameRequired", { defaultValue: "Vendor name is required" }));
+        return null;
+      }
+
+      console.log("Creating vendor with payload:", payload);
       const response = await createVendor(payload);
+      console.log("Vendor creation response:", response);
 
       // Extract created vendor from response
       const createdVendor =
@@ -592,33 +720,284 @@ export default function PayableBills() {
       return newVendor;
     } catch (error) {
       console.error("Error creating vendor:", error);
+      console.error("Error response:", error?.response?.data);
+      console.error("Payload sent:", payload);
+      
+      // Extract detailed error message
       const errorMessage =
         error?.response?.data?.message ||
+        error?.response?.data?.error ||
         error?.message ||
         t("failedToCreateVendor", {
-          defaultValue: "Failed to create vendor",
+          defaultValue: "Failed to create vendor. Please check all fields are filled correctly.",
         });
       showError(errorMessage);
-      throw error;
+      
+      // Don't throw error to prevent unhandled promise rejection
+      // Return null instead so the UI can handle it gracefully
+      return null;
     }
   };
 
   // Handle filter apply
-  const handleFilterApply = (filterData) => {
-    setFilters(filterData);
-    // Refetch bills with new filters
-    if (projectId && selectedWorkspace && sectionId) {
-      const statusFilter = filterData.status || null;
-      fetchPayableBills(statusFilter);
+  const handleFilterApply = async (filterData) => {
+    if (!projectId || !selectedWorkspace || !sectionId) {
+      showError(
+        t("projectIdRequired", {
+          defaultValue: "Project ID, Workspace ID, and Section ID are required",
+        })
+      );
+      return;
+    }
+
+    try {
+      setIsLoadingBills(true);
+      setFilters(filterData);
+
+      // Format dates to YYYY-MM-DD
+      const formatDateToYYYYMMDD = (date) => {
+        if (!date) return null;
+        const d = new Date(date);
+        if (isNaN(d.getTime())) return null;
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+      };
+
+      // Map status to API format (capitalize first letter)
+      let status = null;
+      if (filterData.status) {
+        status = filterData.status.charAt(0).toUpperCase() + filterData.status.slice(1);
+      }
+
+      // Map payment modes to method
+      // If multiple modes selected, use the first one
+      let method = null;
+      if (filterData.paymentModes && filterData.paymentModes.length > 0) {
+        const modeMap = {
+          'cash': 'Cash',
+          'cheque': 'Cheque',
+          'bank_transfer': 'Bank Transfer',
+          'upi': 'UPI',
+          'other': 'Other',
+        };
+        // Use first selected mode
+        const selectedMode = filterData.paymentModes[0];
+        method = modeMap[selectedMode] || selectedMode
+          .split("_")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ");
+      }
+
+      // Parse amount range
+      let minAmount = null;
+      let maxAmount = null;
+      if (filterData.amount) {
+        const amountValue = typeof filterData.amount === 'string' 
+          ? parseFloat(filterData.amount.replace(/[₹,]/g, '')) 
+          : parseFloat(filterData.amount);
+        if (!isNaN(amountValue) && amountValue > 0) {
+          // Use same amount for min and max
+          minAmount = amountValue;
+          maxAmount = amountValue;
+        }
+      }
+
+      // Get vendor ID from receiver name (if it matches a vendor)
+      let paidTo = null;
+      if (filterData.receiverName) {
+        const vendor = vendors.find(
+          (v) => v.label?.toLowerCase() === filterData.receiverName.toLowerCase() ||
+                 v.name?.toLowerCase() === filterData.receiverName.toLowerCase()
+        );
+        if (vendor) {
+          paidTo = vendor.value || vendor.id;
+        }
+      }
+
+      // Prepare API parameters
+      const apiParams = {
+        project_id: projectId,
+        workspace_id: selectedWorkspace,
+        expenseSection_id: sectionId,
+        status: status,
+        startDate: formatDateToYYYYMMDD(filterData.startDate),
+        endDate: formatDateToYYYYMMDD(filterData.endDate),
+        receiver_name: filterData.receiverName || null,
+        paidTo: paidTo,
+        method: method,
+        minAmount: minAmount,
+        maxAmount: maxAmount,
+        paidDate: null,
+        due_date: null,
+        category_id: null,
+      };
+
+      // Remove null/undefined/empty values
+      Object.keys(apiParams).forEach(key => {
+        if (apiParams[key] === null || apiParams[key] === undefined || apiParams[key] === '') {
+          delete apiParams[key];
+        }
+      });
+
+      // Call API with filters
+      const response = await getPayableBills(apiParams);
+
+      // Handle different response structures
+      let billsData = response?.data || response?.bills || response || [];
+      
+      // If data is an object with nested array, extract it
+      if (billsData && typeof billsData === 'object' && !Array.isArray(billsData)) {
+        // Check if it's a single bill object
+        if (billsData.id || billsData.bill_id) {
+          billsData = [billsData];
+        } else {
+          // Try to find array in nested structure
+          billsData = billsData.data || billsData.bills || [];
+        }
+      }
+
+      // Process bills data
+      const processedBills = billsData.map((bill) => {
+        // Handle nested structures (e.g., builderDetail, invoiceMapping)
+        const mergedBill = {
+          ...bill,
+          ...(bill.builderDetail || {}),
+          ...(bill.invoiceMapping || {}),
+        };
+
+        const dueDate = mergedBill.DueDate || mergedBill.due_date || mergedBill.dueDate;
+        const paidDate = mergedBill.PaidDate || mergedBill.paidDate || mergedBill.paid_date;
+        const amount = parseFloat(mergedBill.amount || 0);
+        const status = mergedBill.status || "Pending";
+
+        return {
+          id: mergedBill.id || mergedBill.bill_id || Date.now().toString(),
+          billNo: mergedBill.billNo || `PYBL-${mergedBill.id || mergedBill.bill_id || ''}`,
+          title: mergedBill.title || "",
+          amount: amount,
+          status: status,
+          dueDate: dueDate ? new Date(dueDate).toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          }) : "N/A",
+          paidDate: paidDate ? new Date(paidDate).toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          }) : null,
+          description: mergedBill.defineScript || mergedBill.description || "",
+          method: mergedBill.method || "N/A",
+          vendorId: mergedBill.paidTo || mergedBill.vendorId || null,
+          vendorName: mergedBill.paidToName || mergedBill.vendorName || "",
+          paidByName: mergedBill.paidByName || "",
+          paymentProof: mergedBill.paymentProof || mergedBill.PaymentProof || null,
+          expenseSection_id: mergedBill.expenseSection_id || mergedBill.expense_section?.id || sectionId,
+          category_id: mergedBill.category_id || null,
+        };
+      });
+
+      setPayableBills(processedBills);
+      setIsFilterModalOpen(false);
+    } catch (error) {
+      console.error("Error applying filters:", error);
+      const errorMessage =
+        error?.response?.data?.message ||
+        error?.message ||
+        t("failedToApplyFilters", {
+          defaultValue: "Failed to apply filters",
+        });
+      showError(errorMessage);
+    } finally {
+      setIsLoadingBills(false);
     }
   };
 
   // Handle filter reset
-  const handleFilterReset = () => {
-    setFilters({});
-    // Refetch bills without filters
-    if (projectId && selectedWorkspace && sectionId) {
-      fetchPayableBills(null);
+  const handleFilterReset = async () => {
+    if (!projectId || !selectedWorkspace || !sectionId) {
+      return;
+    }
+
+    try {
+      setIsLoadingBills(true);
+      setFilters({});
+
+      // Reload bills without filters
+      const response = await getPayableBills({
+        project_id: projectId,
+        workspace_id: selectedWorkspace,
+        expenseSection_id: sectionId,
+      });
+
+      // Handle different response structures
+      let billsData = response?.data || response?.bills || response || [];
+      
+      // If data is an object with nested array, extract it
+      if (billsData && typeof billsData === 'object' && !Array.isArray(billsData)) {
+        // Check if it's a single bill object
+        if (billsData.id || billsData.bill_id) {
+          billsData = [billsData];
+        } else {
+          // Try to find array in nested structure
+          billsData = billsData.data || billsData.bills || [];
+        }
+      }
+
+      // Process bills data (same as in fetchPayableBills)
+      const processedBills = billsData.map((bill) => {
+        // Handle nested structures (e.g., builderDetail, invoiceMapping)
+        const mergedBill = {
+          ...bill,
+          ...(bill.builderDetail || {}),
+          ...(bill.invoiceMapping || {}),
+        };
+
+        const dueDate = mergedBill.DueDate || mergedBill.due_date || mergedBill.dueDate;
+        const paidDate = mergedBill.PaidDate || mergedBill.paidDate || mergedBill.paid_date;
+        const amount = parseFloat(mergedBill.amount || 0);
+        const status = mergedBill.status || "Pending";
+
+        return {
+          id: mergedBill.id || mergedBill.bill_id || Date.now().toString(),
+          billNo: mergedBill.billNo || `PYBL-${mergedBill.id || mergedBill.bill_id || ''}`,
+          title: mergedBill.title || "",
+          amount: amount,
+          status: status,
+          dueDate: dueDate ? new Date(dueDate).toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          }) : "N/A",
+          paidDate: paidDate ? new Date(paidDate).toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          }) : null,
+          description: mergedBill.defineScript || mergedBill.description || "",
+          method: mergedBill.method || "N/A",
+          vendorId: mergedBill.paidTo || mergedBill.vendorId || null,
+          vendorName: mergedBill.paidToName || mergedBill.vendorName || "",
+          paidByName: mergedBill.paidByName || "",
+          paymentProof: mergedBill.paymentProof || mergedBill.PaymentProof || null,
+          expenseSection_id: mergedBill.expenseSection_id || mergedBill.expense_section?.id || sectionId,
+          category_id: mergedBill.category_id || null,
+        };
+      });
+
+      setPayableBills(processedBills);
+      setIsFilterModalOpen(false);
+    } catch (error) {
+      console.error("Error resetting filters:", error);
+      showError(
+        t("failedToResetFilters", {
+          defaultValue: "Failed to reset filters",
+        })
+      );
+    } finally {
+      setIsLoadingBills(false);
     }
   };
 
@@ -1045,6 +1424,7 @@ export default function PayableBills() {
         payableBill={selectedBill}
         vendors={vendors}
         onAddVendor={handleAddVendor}
+        isLoading={isUpdatingBill}
       />
 
       <FilterPayableBillsModal

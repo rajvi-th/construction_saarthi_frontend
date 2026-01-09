@@ -130,7 +130,14 @@ export default function AddVendorModal({
               countryCode={countryCode}
               onCountryCodeChange={setCountryCode}
               value={contactNumber}
-              onChange={setContactNumber}
+              onChange={(e) => {
+                // Extract value from event object (PhoneInput passes event-like object)
+                const value = e?.target?.value || '';
+                setContactNumber(value);
+                if (errors.contactNumber) {
+                  setErrors((prev) => ({ ...prev, contactNumber: '' }));
+                }
+              }}
               placeholder="000 000 0000"
               error={errors.contactNumber}
             />

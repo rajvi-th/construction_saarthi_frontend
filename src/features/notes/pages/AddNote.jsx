@@ -17,7 +17,7 @@ import Button from '../../../components/ui/Button';
 import Dropdown from '../../../components/ui/Dropdown';
 import { useAuth } from '../../../features/auth/store/authStore';
 import { useNotesProjects } from '../hooks/useNotesProjects';
-import { startNote, createNote } from '../api/notesApi';
+import { startNote, createNote, uploadNoteFiles } from '../api/notesApi';
 import { showSuccess, showError } from '../../../utils/toast';
 
 export default function AddNote() {
@@ -29,6 +29,7 @@ export default function AddNote() {
   const [assignTo, setAssignTo] = useState('');
   const [noteType, setNoteType] = useState('voice');
   const [voiceNote, setVoiceNote] = useState(null); // Will store audio blob/URL
+  const [voiceNoteBlob, setVoiceNoteBlob] = useState(null); // Will store audio Blob for upload
   const [textNote, setTextNote] = useState('');
   const [reminderDateTime, setReminderDateTime] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
@@ -37,6 +38,7 @@ export default function AddNote() {
   const [noteKey, setNoteKey] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isInitializing, setIsInitializing] = useState(false);
+  const [isUploadingVoice, setIsUploadingVoice] = useState(false);
   
   const mediaRecorderRef = useRef(null);
   const streamRef = useRef(null);
@@ -203,15 +205,46 @@ export default function AddNote() {
         }
       };
 
-      mediaRecorder.onstop = () => {
+      mediaRecorder.onstop = async () => {
         const audioBlob = new Blob(chunks, { type: 'audio/webm;codecs=opus' });
         const audioUrl = URL.createObjectURL(audioBlob);
         setVoiceNote(audioUrl);
+        setVoiceNoteBlob(audioBlob); // Store blob for upload
         
         // Stop all tracks
         if (streamRef.current) {
           streamRef.current.getTracks().forEach(track => track.stop());
           streamRef.current = null;
+        }
+
+        // Upload voice note immediately after recording stops
+        if (noteKey && audioBlob) {
+          try {
+            setIsUploadingVoice(true);
+            const uploadResponse = await uploadNoteFiles(noteKey, audioBlob);
+            
+            // If API returns uploaded file URL, use it instead of blob URL
+            const uploadedUrl = uploadResponse?.data?.url || 
+                               uploadResponse?.url || 
+                               uploadResponse?.data?.fileUrl ||
+                               uploadResponse?.fileUrl;
+            
+            if (uploadedUrl) {
+              // Revoke old blob URL and use uploaded URL
+              URL.revokeObjectURL(audioUrl);
+              setVoiceNote(uploadedUrl);
+            }
+            
+            showSuccess(t('voiceNoteUploaded', { defaultValue: 'Voice note uploaded successfully' }));
+          } catch (error) {
+            console.error('Error uploading voice note:', error);
+            const errorMessage = error?.response?.data?.message || 
+              error?.message || 
+              t('voiceNoteUploadError', { defaultValue: 'Failed to upload voice note. Please try again.' });
+            showError(errorMessage);
+          } finally {
+            setIsUploadingVoice(false);
+          }
         }
       };
 
@@ -338,25 +371,50 @@ export default function AddNote() {
                   <>
                     <button
                       onClick={handleStartRecording}
-                      className="w-12 h-12 rounded-full bg-accent flex items-center justify-center flex-shrink-0 hover:bg-[#9F290A] transition-colors "
+                      className="w-12 h-12 rounded-full bg-accent flex items-center justify-center flex-shrink-0 hover:bg-[#9F290A] transition-colors"
+                      disabled={isUploadingVoice}
                     >
-                      <Mic className="w-6 h-6 text-white " />
+                      <Mic className="w-6 h-6 text-white" />
                     </button>
                     <div className="flex-1 flex items-center gap-2 min-w-0">
-                      <audio 
-                        src={voiceNote} 
-                        controls 
-                        className="flex-1 h-8 min-w-0 "
-                      />
-                      <button
-                        onClick={() => {
-                          setVoiceNote(null);
-                          setRecordingTime(0);
-                        }}
-                        className="text-sm text-accent hover:underline"
-                      >
-                        {t('rerecord', { defaultValue: 'Re-record' })}
-                      </button>
+                      {isUploadingVoice ? (
+                        <div className="flex-1 flex items-center gap-3">
+                          <div className="flex gap-1 items-center">
+                            {[...Array(3)].map((_, i) => (
+                              <div
+                                key={i}
+                                className="w-1 bg-accent rounded animate-pulse"
+                                style={{
+                                  animationDelay: `${i * 0.2}s`,
+                                  height: '16px',
+                                }}
+                              />
+                            ))}
+                          </div>
+                          <span className="text-sm text-secondary">{t('uploading', { defaultValue: 'Uploading voice note...' })}</span>
+                        </div>
+                      ) : (
+                        <>
+                          <audio 
+                            src={voiceNote} 
+                            controls 
+                            className="flex-1 h-8 min-w-0"
+                          />
+                          <button
+                            onClick={() => {
+                              if (voiceNote && voiceNote.startsWith('blob:')) {
+                                URL.revokeObjectURL(voiceNote);
+                              }
+                              setVoiceNote(null);
+                              setVoiceNoteBlob(null);
+                              setRecordingTime(0);
+                            }}
+                            className="text-sm text-accent hover:underline whitespace-nowrap"
+                          >
+                            {t('rerecord', { defaultValue: 'Re-record' })}
+                          </button>
+                        </>
+                      )}
                     </div>
                   </>
                 ) : (

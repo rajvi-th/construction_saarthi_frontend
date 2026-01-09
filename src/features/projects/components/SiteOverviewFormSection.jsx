@@ -3,7 +3,7 @@
  * Top card for Add New Project - Site Overview + profile photo upload
  */
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Camera } from "lucide-react";
 import Button from "../../../components/ui/Button";
 import DatePicker from "../../../components/ui/DatePicker";
@@ -33,13 +33,21 @@ function SiteOverviewFormSection({
   workspaceId,
   onProfilePhotoChange,
   projectKey,
+  existingProfilePhotoUrl,
   onSaveAndContinue,
   onCancel,
 }) {
   const fileInputRef = useRef(null);
   const [profilePhoto, setProfilePhoto] = useState(null);
-  const [profilePhotoPreview, setProfilePhotoPreview] = useState(null);
+  const [profilePhotoPreview, setProfilePhotoPreview] = useState(existingProfilePhotoUrl || null);
   const [isUploading, setIsUploading] = useState(false);
+
+  // Update preview when existingProfilePhotoUrl changes
+  useEffect(() => {
+    if (existingProfilePhotoUrl && !profilePhoto) {
+      setProfilePhotoPreview(existingProfilePhotoUrl);
+    }
+  }, [existingProfilePhotoUrl, profilePhoto]);
 
   const handlePhotoClick = () => {
     if (fileInputRef.current) {
@@ -75,8 +83,12 @@ function SiteOverviewFormSection({
       onProfilePhotoChange(file);
     }
 
-    // If we already have a projectKey, upload immediately
-    if (projectKey) {
+    // If we already have a projectKey (and it's not a projectId in edit mode), upload immediately
+    // Check if projectKey is a number (projectId in edit mode) vs string (projectKey in create mode)
+    const isEditMode = projectKey && !isNaN(Number(projectKey)) && String(projectKey).length < 10;
+    
+    if (projectKey && !isEditMode) {
+      // In create mode, upload immediately using projectKey
       (async () => {
         try {
           setIsUploading(true);
@@ -90,6 +102,7 @@ function SiteOverviewFormSection({
         }
       })();
     }
+    // In edit mode, profile photo will be uploaded when form is submitted
   };
 
   return (

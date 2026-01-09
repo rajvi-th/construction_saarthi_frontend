@@ -221,5 +221,134 @@
             "slab": "સ્લેબ ગણતરી UI ટૂંક સમયમાં આવી રહ્યું છે...",
             "cutting": "કટિંગ લેન્થ ગણતરી UI ટૂંક સમયમાં આવી રહ્યું છે..."
         }
+    },
+    "concrete": {
+        "sections": {
+            "byVolume": "કદ દ્વારા",
+            "column": "કોલમ",
+            "footing": "ફૂટિંગ",
+            "staircase": "સીડી",
+            "wall": "દિવાલ",
+            "curbedStone": "કર્બ સ્ટોન",
+            "tube": "ટ્યુબ",
+            "gutter": "ગટર"
+        },
+
+        "column": {
+            "squareColumn": "ચોરસ કોલમનું કોંક્રિટ",
+            "rectangularColumn": "લંબચોરસ કોલમનું કોંક્રિટ",
+            "roundColumn": "ગોળ કોલમનું કોંક્રિટ"
+        },
+        "footing": {
+            "boxFooting": "બોક્સ ફૂટિંગનું કોંક્રિટ",
+            "trapezoidalFooting": "ટ્રેપેઝોઇડલ ફૂટિંગનું કોંક્રિટ"
+        },
+        "staircase": {
+            "straightStaircase": "સીધી સીડીનું કોંક્રિટ",
+            "dogLeggedStaircase": "ડોગ લેગ્ડ સીડીનું કોંક્રિટ"
+        },
+        "wall": {
+            "wallShape1": "દિવાલ શેપ 1 નું કોંક્રિટ",
+            "wallShape2": "દિવાલ શેપ 2 નું કોંક્રિટ"
+        },
+        "curbedStone": {
+            "curbStone1": "કર્બ સ્ટોન 1 નું કોંક્રિટ",
+            "curbStone2": "કર્બ સ્ટોન 2 નું કોંક્રિટ"
+        },
+        "tube": {
+            "simpleTube": "સરળ ટ્યુબનું કોંક્રિટ",
+            "squareTube": "ચોરસ ટ્યુબનું કોંક્રિટ"
+        },
+        "gutter": {
+            "gutterShape1": "ગટર શેપ 1 નું કોંક્રિટ",
+            "gutterShape2": "ગટર શેપ 2 નું કોંક્રિટ"
+        },
+        "byVolume": {
+            "concreteByVolume": "કદ દ્વારા કોંક્રિટ",
+            "unit": "એકમ",
+            "length_L": "લંબાઈ - L",
+            "width_W": "પહોળાઈ - W",
+            "depth_D": "ઊંડાઈ - D",
+            "thickness_T": "જાડાઈ - T",
+            "height_H": "ઊંચાઈ - H",
+            "rise_R": "રાઈઝ - R",
+            "tread_T": "ટ્રેડ - T",
+            "baseDepth_D1": "પાયાની ઊંડાઈ - D1",
+            "midDepth_D2": "મધ્ય ઊંડાઈ - D2",
+            "topDepth_D3": "ટોચની ઊંડાઈ - D3",
+            "length_L1": "લંબાઈ - L1",
+            "length_L2": "લંબાઈ - L2",
+            "length_L3": "લંબાઈ - L3",
+            "totalSteps_N": "કુલ પગથિયાં - N",
+            "depth_D3": "ઊંડાઈ - D3",
+            "metric": "મેટ્રિક",
+            "imperial": "ઇમ્પીરિયલ",
+            "volume": "કદ",
+            "concreteGrade": "કોંક્રિટ ગ્રેડ",
+            "cement": "સિમેન્ટ",
+            "sand": "રેતી",
+            "aggregate": "એગ્રીગેટ",
+            "waterCementRatio": "પાણી - સિમેન્ટ ગુણોત્તર",
+            "admixture": "એડમિક્સર",
+            "noOfUnits": "એકમોની સંખ્યા",
+            "dryVolume": "ડ્રાય વોલ્યુમ",
+            "rateOfConcrete": "કોંક્રિટનો દર",
+            "result": "પરિણામ",
+            "concreteVolume": "કોંક્રિટ વોલ્યુમ",
+            "cementBags": "સિમેન્ટ (50kg)",
+            "coarseAggregate": "કઠણ એગ્રીગેટ",
+            "water": "પાણી",
+            "totalCost": "કુલ ખર્ચ",
+            "reset": "રીસેટ",
+            "calculate": "ગણતરી કરો",
+            "width": "પહોળાઈ",
+            "height": "ઊંચાઈ",
+            "length": "લંબાઈ",
+            "diameter": "વ્યાસ",
+            "depth": "ઊંડાઈ",
+            "viewDetailedResult": "વિગતવાર પરિણામ જુઓ",
+            "detailedReport": "વિગતવાર અહેવાલ",
+            "calculatorCalculations": "કોંક્રિટ કેલ્ક્યુલેટર ગણતરીઓ",
+            "calculateInstruction": "સિમેન્ટ, રેતી, કઠણ એગ્રીગેટ અને એડમિક્સરની ગણતરી કરો.",
+            "selectedMixture": "પસંદ કરેલ કોંક્રિટ મિશ્રણ ડિઝાઇન છે",
+            "mixRatio": "માટે મિશ્રણ ગુણોત્તર",
+            "is": "છે",
+            "calculatePartsInstruction": "સૂત્રનો ઉપયોગ કરીને કોંક્રિટ ભાગોની ગણતરી કરો",
+            "concreteParts": "કોંક્રિટ ભાગો",
+            "cementPart": "સિમેન્ટ ભાગ",
+            "sandPart": "રેતી ભાગ",
+            "aggregatePart": "એગ્રીગેટ ભાગ",
+            "cementQuantity": "સિમેન્ટ જથ્થો",
+            "cementQuantityFormula": "સિમેન્ટ જથ્થો",
+            "calculateCementInstruction": "સૂત્રનો ઉપયોગ કરીને સિમેન્ટ જથ્થાની ગણતરી કરો",
+            "densityOfCement": "સિમેન્ટની ઘનતા",
+            "weightOfCement": "સિમેન્ટનું વજન",
+            "weightOfCementBags": "સિમેન્ટ બેગનું વજન",
+            "totalBags": "કુલ બેગ",
+            "cementBagsLabel": "સિમેન્ટ બેગ",
+            "sandQuantity": "રેતી જથ્થો",
+            "calculateSandInstruction": "સૂત્રનો ઉપયોગ કરીને રેતી જથ્થાની ગણતરી કરો",
+            "aggregateQuantity": "એગ્રીગેટ જથ્થો",
+            "calculateAggregateInstruction": "સૂત્રનો ઉપયોગ કરીને એગ્રીગેટ જથ્થાની ગણતરી કરો",
+            "admixtureQuantity": "એડમિક્સર જથ્થો",
+            "calculateAdmixtureInstruction": "સૂત્રનો ઉપયોગ કરીને એડમિક્સર જથ્થાની ગણતરી કરો",
+            "waterQuantity": "પાણી જથ્થો",
+            "calculateWaterInstruction": "સૂત્રનો ઉપયોગ કરીને પાણી જથ્થાની ગણતરી કરો",
+            "cementVolume": "સિમેન્ટ વોલ્યુમ",
+            "unitWeightOfWater": "પાણીનું એકમ વજન",
+            "requiredAmountOfWater": "પાણીની જરૂરી રકમ",
+            "liters": "લિટર",
+            "requiredQuantities": "તેથી જરૂરી જથ્થો નીચે મુજબ છે",
+            "material": "સામગ્રી",
+            "quantity": "જથ્થો"
+        }
+    },
+    "downloadPDF": {
+        "title": "PDF તરીકે ડાઉનલોડ કરો",
+        "titleLabel": "શીર્ષક",
+        "titlePlaceholder": "શીર્ષક દાખલ કરો",
+        "cancel": "રદ કરો",
+        "download": "ડાઉનલોડ",
+        "downloading": "ડાઉનલોડ થઈ રહ્યું છે..."
     }
 }
