@@ -3,11 +3,15 @@ import { useTranslation } from 'react-i18next';
 import ReinforcementItem from './ReinforcementItem';
 import rainForcementWeight from '../../../../assets/icons/rainForcementWeight.svg';
 
-const WeightSection = ({ onItemClick }) => {
+import { useNavigate } from 'react-router-dom';
+import { ROUTES_FLAT } from '../../../../constants/routes';
+
+const WeightSection = () => {
     const { t } = useTranslation('calculation');
+    const navigate = useNavigate();
 
     const weightItems = [
-        { id: 'weight1', title: t('steel.weight.reinforcement'), icon: rainForcementWeight },
+        { id: 'weight1', title: t('steel.weight.reinforcement'), icon: rainForcementWeight, path: ROUTES_FLAT.CALCULATION_REINFORCEMENT_WEIGHT },
     ];
 
     // Dynamic grid columns based on item count
@@ -23,7 +27,7 @@ const WeightSection = ({ onItemClick }) => {
                     <ReinforcementItem
                         title={item.title}
                         icon={item.icon}
-                        onClick={() => onItemClick(item.title)}
+                        onClick={() => navigate(item.path)}
                     />
                 </div>
             ))}

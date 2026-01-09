@@ -4,12 +4,16 @@ import ReinforcementItem from './ReinforcementItem';
 import footingType1 from '../../../../assets/icons/footingType1.svg';
 import footingType2 from '../../../../assets/icons/footingType2.svg';
 
-const FootingSection = ({ onItemClick }) => {
+import { useNavigate } from 'react-router-dom';
+import { ROUTES_FLAT } from '../../../../constants/routes';
+
+const FootingSection = () => {
     const { t } = useTranslation('calculation');
+    const navigate = useNavigate();
 
     const footingItems = [
-        { id: 'foot1', title: t('steel.footing.type1'), icon: footingType1 },
-        { id: 'foot2', title: t('steel.footing.type2'), icon: footingType2 },
+        { id: 'foot1', title: t('steel.footing.type1'), icon: footingType1, path: ROUTES_FLAT.CALCULATION_FOOTING_TYPE1 },
+        { id: 'foot2', title: t('steel.footing.type2'), icon: footingType2, path: ROUTES_FLAT.CALCULATION_FOOTING_TYPE2 },
     ];
 
     // Dynamic grid columns based on item count
@@ -25,7 +29,7 @@ const FootingSection = ({ onItemClick }) => {
                     <ReinforcementItem
                         title={item.title}
                         icon={item.icon}
-                        onClick={() => onItemClick(item.title)}
+                        onClick={() => navigate(item.path)}
                     />
                 </div>
             ))}

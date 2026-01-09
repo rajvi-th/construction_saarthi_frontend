@@ -8,14 +8,18 @@ import lShapeBar from '../../../../assets/icons/lShapeBar.svg';
 import uShapeBar from '../../../../assets/icons/uShapeBar.svg';
 import stirrups from '../../../../assets/icons/stirrups.svg';
 
-const CuttingLengthSection = ({ onItemClick }) => {
+import { useNavigate } from 'react-router-dom';
+
+const CuttingLengthSection = () => {
     const { t } = useTranslation('calculation');
+    const navigate = useNavigate();
+    const comingSoonPath = '/calculation/coming-soon';
 
     const cuttingItems = [
-        { id: 'cut1', title: t('steel.cutting.straight'), icon: straightBar },
-        { id: 'cut2', title: t('steel.cutting.lShape'), icon: lShapeBar },
-        { id: 'cut3', title: t('steel.cutting.uShape'), icon: uShapeBar },
-        { id: 'cut4', title: t('steel.cutting.stirrups'), icon: stirrups },
+        { id: 'cut1', title: t('steel.cutting.straight'), icon: straightBar, path: comingSoonPath },
+        { id: 'cut2', title: t('steel.cutting.lShape'), icon: lShapeBar, path: comingSoonPath },
+        { id: 'cut3', title: t('steel.cutting.uShape'), icon: uShapeBar, path: comingSoonPath },
+        { id: 'cut4', title: t('steel.cutting.stirrups'), icon: stirrups, path: comingSoonPath },
     ];
 
     // Dynamic grid columns based on item count
@@ -31,7 +35,7 @@ const CuttingLengthSection = ({ onItemClick }) => {
                     <ReinforcementItem
                         title={item.title}
                         icon={item.icon}
-                        onClick={() => onItemClick(item.title)}
+                        onClick={() => navigate(item.path)}
                         noBackground={true}
                     />
                 </div>

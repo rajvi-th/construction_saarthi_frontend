@@ -95,8 +95,8 @@ const ColumnType9 = () => {
 
     const calculationData = [
         // Column Diameter D
-        { labelKey: 'steel.column.columnDiameter', name: t('steel.column.columnDiameter') + " - D", symbol: 'D', value: `${diameterD} mm` },
-        { labelKey: 'steel.column.columnHeight', name: t('steel.column.columnHeight') + " H", symbol: 'H', value: `${height} mm` },
+        { labelKey: 'steel.column.columnDiameter', labelSuffix: ' - D', name: t('steel.column.columnDiameter') + " - D", symbol: 'D', value: `${diameterD} mm` },
+        { labelKey: 'steel.column.columnHeight', labelSuffix: ' H', name: t('steel.column.columnHeight') + " H", symbol: 'H', value: `${height} mm` },
         // Bar Diameter D1, symbol d
         { labelKey: 'steel.column.diameter', labelSuffix: ' D1', name: t('steel.column.diameter') + " D1", symbol: 'd', value: `${diameterD1} mm` },
         // Ring Diameter R, symbol R
@@ -365,9 +365,9 @@ const ColumnType9 = () => {
                             <tbody className="divide-y divide-[#060C120A]">
                                 {[
                                     { material: t('steel.column.volume'), quantity: colVolume.toFixed(3), unit: 'm³' },
-                                    { material: t('steel.column.vertical') + '(D1)', quantity: weightD1.toFixed(3), unit: t('history.units.kg') },
-                                    { material: t('steel.column.stirrups') + '(R)', quantity: stirrupWeightR.toFixed(3), unit: t('history.units.kg') },
-                                    { material: t('steel.weight.totalSteel'), quantity: totalSteel.toFixed(3), unit: t('history.units.kg') },
+                                    { material: t('steel.column.vertical') + '(D1)', quantity: weightD1.toFixed(3), unit: 'Kg' },
+                                    { material: t('steel.column.stirrups') + '(R)', quantity: stirrupWeightR.toFixed(3), unit: 'Kg' },
+                                    { material: t('steel.weight.totalSteel'), quantity: totalSteel.toFixed(3), unit: 'Kg' },
                                     { material: t('steel.weight.totalPrice'), quantity: totalPrice.toFixed(3), unit: '₹' },
                                 ].map((row, rowIndex) => (
                                     <tr key={rowIndex} className="hover:bg-[#F9F9F9] transition-colors">

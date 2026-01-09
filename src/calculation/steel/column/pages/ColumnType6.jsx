@@ -427,11 +427,11 @@ const ColumnType6 = () => {
                             <tbody className="divide-y divide-[#060C120A]">
                                 {[
                                     { material: t('steel.column.volume'), quantity: colVolume.toFixed(3), unit: 'm³' },
-                                    { material: t('steel.column.vertical') + '(D)', quantity: weightD.toFixed(3), unit: t('history.units.kg') },
-                                    { material: t('steel.column.stirrups') + '(R1)', quantity: stirrupWeightR1.toFixed(3), unit: t('history.units.kg') },
-                                    { material: t('steel.column.stirrups') + '(R2)', quantity: stirrupWeightR2.toFixed(3), unit: t('history.units.kg') },
-                                    { material: t('steel.column.stirrups') + '(R3)', quantity: stirrupWeightR3.toFixed(3), unit: t('history.units.kg') },
-                                    { material: t('steel.weight.totalSteel'), quantity: totalSteel.toFixed(3), unit: t('history.units.kg') },
+                                    { material: t('steel.column.vertical') + '(D)', quantity: weightD.toFixed(3), unit: 'Kg' },
+                                    { material: t('steel.column.stirrups') + '(R1)', quantity: stirrupWeightR1.toFixed(3), unit: 'Kg' },
+                                    { material: t('steel.column.stirrups') + '(R2)', quantity: stirrupWeightR2.toFixed(3), unit: 'Kg' },
+                                    { material: t('steel.column.stirrups') + '(R3)', quantity: stirrupWeightR3.toFixed(3), unit: 'Kg' },
+                                    { material: t('steel.weight.totalSteel'), quantity: totalSteel.toFixed(3), unit: 'Kg' },
                                     { material: t('steel.weight.totalPrice'), quantity: totalPrice.toFixed(3), unit: '₹' },
                                 ].map((row, rowIndex) => (
                                     <tr key={rowIndex} className="hover:bg-[#F9F9F9] transition-colors">

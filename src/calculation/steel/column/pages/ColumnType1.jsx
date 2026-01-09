@@ -32,6 +32,14 @@ const ColumnType1 = () => {
 
     const [showResult, setShowResult] = useState(false);
 
+    // Helper function to handle positive number input
+    const handlePositiveNumberInput = (setter) => (e) => {
+        const value = e.target.value;
+        if (value === '' || /^\d*\.?\d*$/.test(value)) {
+            setter(value);
+        }
+    };
+
     // Calculation Logic (Simplified formulas)
     const X = parseFloat(sideX) || 0;
     const Y = parseFloat(sideY) || 0;
@@ -155,7 +163,7 @@ const ColumnType1 = () => {
                                 <input
                                     type="text"
                                     value={sideX}
-                                    onChange={(e) => setSideX(e.target.value)}
+                                    onChange={handlePositiveNumberInput(setSideX)}
                                     className="flex-1 px-3 sm:px-6 text-sm sm:text-base text-primary focus:outline-none "
                                     placeholder={t('steel.column.sideX')}
                                 />
@@ -167,7 +175,7 @@ const ColumnType1 = () => {
                                 <input
                                     type="text"
                                     value={sideY}
-                                    onChange={(e) => setSideY(e.target.value)}
+                                    onChange={handlePositiveNumberInput(setSideY)}
                                     className="flex-1 px-3 sm:px-6 text-sm sm:text-base text-primary focus:outline-none "
                                     placeholder={t('steel.column.sideY')}
                                 />
@@ -179,7 +187,7 @@ const ColumnType1 = () => {
                                 <input
                                     type="text"
                                     value={diameterD}
-                                    onChange={(e) => setDiameterD(e.target.value)}
+                                    onChange={handlePositiveNumberInput(setDiameterD)}
                                     className="flex-1 px-3 sm:px-6 text-sm sm:text-base text-primary focus:outline-none"
                                     placeholder={t('steel.column.diameter')}
                                 />
@@ -191,7 +199,7 @@ const ColumnType1 = () => {
                                 <input
                                     type="text"
                                     value={height}
-                                    onChange={(e) => setHeight(e.target.value)}
+                                    onChange={handlePositiveNumberInput(setHeight)}
                                     className="flex-1 px-3 sm:px-6 text-sm sm:text-base text-primary focus:outline-none"
                                     placeholder={t('steel.column.columnHeight')}
                                 />
@@ -209,7 +217,7 @@ const ColumnType1 = () => {
                                 <input
                                     type="text"
                                     value={ringDiameter}
-                                    onChange={(e) => setRingDiameter(e.target.value)}
+                                    onChange={handlePositiveNumberInput(setRingDiameter)}
                                     className="flex-1 px-3 sm:px-6 text-sm sm:text-base text-primary focus:outline-none"
                                     placeholder={t('steel.column.ringDiameter')}
                                 />
@@ -221,7 +229,7 @@ const ColumnType1 = () => {
                                 <input
                                     type="text"
                                     value={spacingS}
-                                    onChange={(e) => setSpacingS(e.target.value)}
+                                    onChange={handlePositiveNumberInput(setSpacingS)}
                                     className="flex-1 px-3 sm:px-6 text-sm sm:text-base text-primary focus:outline-none"
                                     placeholder={t('steel.column.spacing')}
                                 />
@@ -239,7 +247,7 @@ const ColumnType1 = () => {
                                 <input
                                     type="text"
                                     value={noOfColumns}
-                                    onChange={(e) => setNoOfColumns(e.target.value)}
+                                    onChange={handlePositiveNumberInput(setNoOfColumns)}
                                     className="flex-1 text-sm sm:text-base text-primary focus:outline-none h-full"
                                     placeholder={t('steel.weight.wastagePlaceholder')}
                                 />
@@ -258,7 +266,7 @@ const ColumnType1 = () => {
                             <input
                                 type="text"
                                 value={steelRate}
-                                onChange={(e) => setSteelRate(e.target.value)}
+                                onChange={handlePositiveNumberInput(setSteelRate)}
                                 className="w-full h-[50px] sm:h-[58px] bg-white rounded-2xl px-4 sm:px-6 py-2 sm:py-4 text-sm sm:text-base text-primary border border-[#060C121A] focus:outline-none focus:border-accent/40 transition-all"
                                 placeholder={t('steel.column.steelRate')}
                             />
@@ -327,9 +335,9 @@ const ColumnType1 = () => {
                             <tbody className="divide-y divide-[#060C120A]">
                                 {[
                                     { material: t('steel.column.volume'), quantity: colVolume.toFixed(3), unit: 'm³' },
-                                    { material: t('steel.column.vertical'), quantity: verticalWeight.toFixed(3), unit: t('history.units.kg') },
-                                    { material: t('steel.column.stirrups'), quantity: stirrupWeight.toFixed(3), unit: t('history.units.kg') },
-                                    { material: t('steel.weight.totalSteel'), quantity: totalSteel.toFixed(3), unit: t('history.units.kg') },
+                                    { material: t('steel.column.vertical'), quantity: verticalWeight.toFixed(3), unit: 'Kg' },
+                                    { material: t('steel.column.stirrups'), quantity: stirrupWeight.toFixed(3), unit: 'Kg' },
+                                    { material: t('steel.weight.totalSteel'), quantity: totalSteel.toFixed(3), unit: 'Kg' },
                                     { material: t('steel.weight.totalPrice'), quantity: totalPrice.toFixed(3), unit: '₹' },
                                 ].map((row, rowIndex) => (
                                     <tr key={rowIndex} className="hover:bg-[#F9F9F9] transition-colors">
@@ -365,20 +373,20 @@ const ColumnType1 = () => {
                                             titleKey: 'steel.column.vertical',
                                             label: 'D1 =',
                                             formula: '4 * D * D * H * N / 162.28',
-                                            value: `${verticalWeight.toFixed(3)} ${t('history.units.kg')}`
+                                            value: `${verticalWeight.toFixed(3)} Kg`
                                         },
                                         {
                                             titleKey: 'steel.column.stirrups',
                                             label: 'D2 =',
                                             formula: '(((2*(X-80)+2*(Y-80)+20*rd)/1000)*(((1000*H/S)+1)*(rd*rd)/162.28)*N)',
-                                            value: `${stirrupWeight.toFixed(3)} ${t('history.units.kg')}`
+                                            value: `${stirrupWeight.toFixed(3)} Kg`
                                         },
                                         {
                                             titleKey: 'steel.weight.totalSteel',
                                             labelKey: 'steel.weight.totalSteel',
                                             labelSuffix: ' =',
                                             formula: '(4*D*D*H*N/162.28) + ((((2*(X-80)+2*(Y-80)+20*rd)/1000)*(((1000*H/S)+1)*(rd*rd)/162.28)*N))',
-                                            value: `${totalSteel.toFixed(3)} ${t('history.units.kg')}`
+                                            value: `${totalSteel.toFixed(3)} Kg`
                                         },
                                         {
                                             titleKey: 'steel.weight.totalPrice',

@@ -20,7 +20,7 @@ const OutputsTable = ({ outputs, title }) => {
                         <div className="space-y-1">
                             {/* Formula Row */}
                             <div className="flex items-center gap-1">
-                                <span className="text-primary text-sm md:min-w-[100px]">{displayLabel}</span>
+                                {displayLabel && <span className="text-secondary text-sm md:min-w-[100px]">{displayLabel}</span>}
                                 <p className="text-primary md:text-base text-sm font-medium break-all leading-relaxed">
                                     {output.formula}
                                 </p>
@@ -28,7 +28,7 @@ const OutputsTable = ({ outputs, title }) => {
                             {/* Value Row */}
                             <div className="pt-1">
                                 <p className="flex items-baseline gap-2">
-                                    <span className="text-sm text-primary min-w-0 md:min-w-[100px]">{displayLabel}</span>
+                                    {displayLabel && <span className="text-sm text-secondary min-w-0 md:min-w-[100px]">{displayLabel}</span>}
                                     {output.value}
                                 </p>
                             </div>

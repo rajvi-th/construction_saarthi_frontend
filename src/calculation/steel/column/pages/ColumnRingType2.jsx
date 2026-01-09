@@ -1,86 +1,72 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Share2, Download, ChevronDown, History as HistoryIcon } from 'lucide-react';
+import { Download, ChevronDown } from 'lucide-react';
 import PageHeader from '../../../../components/layout/PageHeader';
 import Button from '../../../../components/ui/Button';
 import Radio from '../../../../components/ui/Radio';
 import { ROUTES_FLAT } from '../../../../constants/routes';
 
 // Import icons
-import colsType10 from '../../../../assets/icons/colsType10.svg';
+import colsRingType2 from '../../../../assets/icons/colsRingType2.svg';
 
-const ColumnType10 = () => {
+const ColumnRingType2 = () => {
     const navigate = useNavigate();
     const { t } = useTranslation('calculation');
     const [unitType, setUnitType] = useState('metric'); // metric or imperial
 
-    // Column Size (Circular)
-    const [diameterD, setDiameterD] = useState('');
-    const [height, setHeight] = useState('');
-
-    // Bar Details
-    const [diameterD1, setDiameterD1] = useState(''); // "Bar diameter D1"
-
-    // Ring Details
-    // Per Image 1: "Ring diameter R1"
+    // State for input fields
+    const [columnSizeX, setColumnSizeX] = useState('');
+    const [columnSizeY, setColumnSizeY] = useState('');
+    const [heightH, setHeightH] = useState('');
     const [ringDiameterR, setRingDiameterR] = useState('');
-
-    // Stirrups Details
-    const [spacingS, setSpacingS] = useState('');
-
-    // Additional Details
-    const [noOfColumns, setNoOfColumns] = useState('');
+    const [stirrupsSpacingS, setStirrupsSpacingS] = useState('');
+    const [noOfColumnsN, setNoOfColumnsN] = useState('');
     const [steelRate, setSteelRate] = useState('');
 
     const [showResult, setShowResult] = useState(false);
 
+    // Reusable positive number input handler
+    const handlePositiveNumberInput = (setter) => (e) => {
+        const value = e.target.value;
+        if (value === '' || /^\d*\.?\d*$/.test(value)) {
+            setter(value);
+        }
+    };
+
     // Calculation Logic
-    const D = parseFloat(diameterD) || 0; // Column Diameter
-    const H = parseFloat(height) || 0;
-    const H_mm = H * 1000;
-
-    // Per Image 3: Input Name "Bar Diameter D1", Symbol "d"
-    const d = parseFloat(diameterD1) || 0;
-
-    // Per Image 3: Input Name "Ring Diameter R", Symbol "R"
-    // Per Image 1: Placeholder "Ring diameter R1"
+    const X = parseFloat(columnSizeX) || 0;
+    const Y = parseFloat(columnSizeY) || 0;
+    const H = parseFloat(heightH) || 0;
     const R = parseFloat(ringDiameterR) || 0;
+    const S = parseFloat(stirrupsSpacingS) || 0;
+    const n = parseFloat(noOfColumnsN) || 0;
+    const rate = parseFloat(steelRate) || 0;
 
-    const s = parseFloat(spacingS) || 0;
-    const nColumns = parseFloat(noOfColumns) || 0;
-    const r = parseFloat(steelRate) || 0;
+    // Formula: Stirrups = ((2X(X-80)+2X(Y-80)+20XR)/1000)X((1000XH/S)+1)X(RXR/162.28)Xn
 
-    // Formulas based on Image 4 (Detailed Output)
+    // Cutting Length in meters
+    // (2*(X-80) + 2*(Y-80) + 20*R) / 1000
+    const term1 = ((2 * (X - 80)) + (2 * (Y - 80)) + (20 * R)) / 1000;
 
-    // Volume: (3.14X(0.5XD)X(0.5XD)XHXn)/1000000
-    // r_col = D/2. Area = pi * r_col^2.
-    // D is in mm. 0.5*D is radius in mm.
-    const colVolume = (3.14 * (0.5 * D) * (0.5 * D) * H_mm * nColumns) / 1000000000;
+    // Number of stirrups
+    // ((1000 * H) / S) + 1
+    const term2 = S > 0 ? ((1000 * H) / S) + 1 : 0;
 
-    // Vertical Steel (D1)
-    // Formula: 6XdXdXHXn/162 (6 Bars)
-    const weightD1 = (6 * d * d * H * nColumns) / 162;
+    // Unit Weight (kg/m)
+    // (R * R) / 162.28
+    const term3 = (R * R) / 162.28;
 
-    // Stirrups (R)
-    // Formula: (((3.14X(D-80))+20XR)/1000)X((1000XH/S)+1)X(RXR/162)Xn
-    // Note: Formula text uses capital R for radius variable even though symbol is R.
-    // Let's implement exactly as text implies (function of R=Ring Diameter).
-    const cuttingLengthR = ((3.14 * (D - 80)) + (20 * R)) / 1000;
-    const numStirrups = s > 0 ? (H_mm / s) + 1 : 0;
-    const weightPerR = (R * R) / 162;
-    const stirrupWeightR = cuttingLengthR * numStirrups * weightPerR * nColumns;
-
-    const totalSteel = weightD1 + stirrupWeightR;
-    const totalPrice = totalSteel * r;
+    const stirrupsWeight = term1 * term2 * term3 * n;
+    const totalCost = stirrupsWeight * rate;
 
     const handleReset = () => {
-        setDiameterD('');
-        setHeight('');
-        setDiameterD1('');
+        setColumnSizeX('');
+        setColumnSizeY('');
+        setHeightH('');
         setRingDiameterR('');
-        setSpacingS('');
-        setNoOfColumns('');
+        setStirrupsSpacingS('');
+        setNoOfColumnsN('');
         setSteelRate('');
         setShowResult(false);
     };
@@ -97,58 +83,20 @@ const ColumnType10 = () => {
     );
 
     const calculationData = [
-        // Column Diameter D
-        { labelKey: 'steel.column.columnDiameter', labelSuffix: ' D', name: t('steel.column.columnDiameter') + " D", symbol: 'D', value: `${diameterD} mm` },
-        { labelKey: 'steel.column.columnHeight', name: t('steel.column.columnHeight') + " H", symbol: 'H', value: `${height} mm` },
-        // Bar Diameter D1, symbol d
-        { labelKey: 'steel.column.diameter', labelSuffix: ' D1', name: t('steel.column.diameter') + " D1", symbol: 'd', value: `${diameterD1} mm` },
-        // Ring Diameter R, symbol R
-        // Placeholder says 'Ring diameter R1', Table says 'Ring Diameter R'
-        // Using existing generic 'steel.column.ringDiameterR' for table label if available, or fallback.
-        // Assuming we rely on `t` to fetch "Ring Diameter R"
-        { labelKey: 'steel.column.ringDiameterR', name: t('steel.column.ringDiameterR'), symbol: 'R', value: `${ringDiameterR} mm` },
-        { labelKey: 'steel.column.spacing', name: t('steel.column.spacing') + " S", symbol: 'S', value: `${spacingS} mm` },
-        { labelKey: 'steel.column.noOfColumns', name: t('steel.column.noOfColumns') + " - N", symbol: 'N', value: `${noOfColumns} NOS` },
-        { labelKey: 'steel.column.steelRate', name: t('steel.column.steelRate'), symbol: 'r', value: `${steelRate} currency per kg` },
+        { labelKey: 'steel.column.ringDiameterR', labelSuffix: '', name: t('steel.column.ringDiameterR'), symbol: 'R', value: `${ringDiameterR} mm` },
+        { labelKey: 'steel.column.columnSizeX', labelSuffix: '', name: t('steel.column.columnSizeX'), symbol: 'X', value: `${columnSizeX} mm` },
+        { labelKey: 'steel.column.columnHeightH', labelSuffix: '', name: t('steel.column.columnHeightH'), symbol: 'H', value: `${heightH} m` },
+        { labelKey: 'steel.column.stirrupsSpacingS', labelSuffix: '', name: t('steel.column.stirrupsSpacingS'), symbol: 'S', value: `${stirrupsSpacingS} mm` },
+        { labelKey: 'steel.column.noOfColumn', labelSuffix: ' - n', name: t('steel.column.noOfColumn'), symbol: 'n', value: `${noOfColumnsN} NOS` },
     ];
 
     const calculationOutputs = [
         {
-            titleKey: 'steel.column.volume',
-            labelKey: 'steel.column.volume',
-            labelSuffix: ':',
-            formula: '(3.14X(0.5XD)X(0.5XD)XHXn)/1000000',
-            value: `${colVolume.toFixed(3)} m3`
-        },
-        {
-            titleKey: 'steel.column.vertical',
-            titleSuffix: '(D1)',
-            labelKey: 'steel.column.vertical',
-            labelSuffix: '(D1) =',
-            formula: '6XdXdXHXn/162',
-            value: `${weightD1.toFixed(3)} KG`
-        },
-        {
             titleKey: 'steel.column.stirrups',
-            titleSuffix: '(R)',
             labelKey: 'steel.column.stirrups',
-            labelSuffix: '(R) =',
-            formula: '(((3.14X(D-80))+20XR)/1000)X((1000XH/S)+1)X(RXR/162)Xn',
-            value: `${stirrupWeightR.toFixed(3)} KG`
-        },
-        {
-            titleKey: 'steel.weight.totalSteel',
-            labelKey: 'steel.weight.totalSteel',
             labelSuffix: ' =',
-            formula: '(6XdXdXHXn/162)+((((3.14X(D-80))+20XR)/1000)X((1000XH/S)+1)X(RXR/162)Xn)',
-            value: `${totalSteel.toFixed(3)} KG`
-        },
-        {
-            titleKey: 'steel.weight.totalPrice',
-            labelKey: 'steel.weight.totalPrice',
-            labelSuffix: ' =',
-            formula: '((6XdXdXHXn/162)+((((3.14X(D-80))+20XR)/1000)X((1000XH/S)+1)X(RXR/162)Xn))Xr',
-            value: `${totalPrice.toFixed(3)} Currency`
+            formula: '((2X(X-80)+2X(Y-80)+20XR)/1000)X((1000XH/S)+1)X(RXR/162.28)Xn',
+            value: `${stirrupsWeight.toFixed(3)} KG`
         },
     ];
 
@@ -156,14 +104,13 @@ const ColumnType10 = () => {
         <div className="min-h-screen max-w-7xl mx-auto pb-20">
             <div className="mb-6">
                 <PageHeader
-                    title={t('steel.column.type10')}
+                    title={t('steel.column.ring2')}
                     showBackButton
                     onBack={() => navigate(-1)}
                 >
                     <div className="flex gap-4 items-center">
                         <Button
                             variant="secondary"
-                            onClick={() => console.log('Download')}
                             className="bg-white border-[#E0E0E0] rounded-xl text-secondary !px-2 sm:!px-4 py-2"
                             leftIcon={<Download className="w-4 h-4 text-secondary" />}
                         >
@@ -174,14 +121,12 @@ const ColumnType10 = () => {
             </div>
 
             {/* Content Card */}
-            <div className="bg-[#F9F4EE] rounded-3xl p-4 sm:p-6">
+            <div className="bg-[#F9F4EE] rounded-3xl p-4 sm:p-6 shadow-sm">
                 <div className="flex items-center gap-4 sm:gap-10 pb-6 border-b border-[#060C120A]">
-                    {/* Icon Box */}
-                    <div className="flex items-center justify-center w-24 h-24 sm:w-38 sm:h-38">
-                        <img src={colsType10} alt="Column Type 10 Diagram" className="w-full h-full object-contain" />
+                    <div className="flex items-center justify-center w-24 h-24 sm:w-45 sm:h-38">
+                        <img src={colsRingType2} alt="Column Ring Type 2 Diagram" className="w-full h-full object-contain" />
                     </div>
 
-                    {/* Radio Group */}
                     <div className="flex flex-col gap-4">
                         <Radio
                             label={t('steel.weight.metric')}
@@ -207,84 +152,79 @@ const ColumnType10 = () => {
                     {/* Column Size Section */}
                     <div className="space-y-2">
                         <h3 className="font-medium text-primary ml-1">{t('steel.column.size')}</h3>
-                        <div className="grid grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-6">
                             <div className="flex bg-white rounded-2xl border border-[#060C121A] focus-within:border-accent/40 transition-all overflow-hidden h-[50px] sm:h-[58px]">
                                 <UnitSelector unit="mm" />
                                 <input
                                     type="text"
-                                    value={diameterD}
-                                    onChange={(e) => setDiameterD(e.target.value)}
-                                    className="flex-1 px-3 sm:px-6 text-sm sm:text-base text-primary focus:outline-none "
-                                    placeholder={t('steel.column.columnDiameter') + " - D"}
+                                    value={columnSizeX}
+                                    onChange={handlePositiveNumberInput(setColumnSizeX)}
+                                    className="flex-1 px-3 sm:px-6 text-sm sm:text-base text-primary focus:outline-none"
+                                    placeholder={t('steel.column.columnSizeX')}
+                                />
+                            </div>
+                            <div className="flex bg-white rounded-2xl border border-[#060C121A] focus-within:border-accent/40 transition-all overflow-hidden h-[50px] sm:h-[58px]">
+                                <UnitSelector unit="mm" />
+                                <input
+                                    type="text"
+                                    value={columnSizeY}
+                                    onChange={handlePositiveNumberInput(setColumnSizeY)}
+                                    className="flex-1 px-3 sm:px-6 text-sm sm:text-base text-primary focus:outline-none"
+                                    placeholder={t('steel.column.columnSizeY')}
                                 />
                             </div>
                             <div className="flex bg-white rounded-2xl border border-[#060C121A] focus-within:border-accent/40 transition-all overflow-hidden h-[50px] sm:h-[58px]">
                                 <UnitSelector unit="m" />
                                 <input
                                     type="text"
-                                    value={height}
-                                    onChange={(e) => setHeight(e.target.value)}
+                                    value={heightH}
+                                    onChange={handlePositiveNumberInput(setHeightH)}
                                     className="flex-1 px-3 sm:px-6 text-sm sm:text-base text-primary focus:outline-none"
-                                    placeholder={t('steel.column.columnHeight') + " - H"}
+                                    placeholder={t('steel.column.columnHeightH')}
                                 />
                             </div>
                         </div>
                     </div>
 
-                    {/* Bar Details Section */}
+                    {/* Ring Details */}
                     <div className="space-y-2">
-                        <h3 className="font-medium text-primary ml-1">{t('steel.footing.barDetails')}</h3>
-                        <div className="flex bg-white rounded-2xl border border-[#060C121A] focus-within:border-accent/40 transition-all overflow-hidden h-[50px] sm:h-[58px]">
-                            <UnitSelector unit="mm" />
-                            <input
-                                type="text"
-                                value={diameterD1}
-                                onChange={(e) => setDiameterD1(e.target.value)}
-                                className="flex-1 px-3 sm:px-6 text-sm sm:text-base text-primary focus:outline-none"
-                                placeholder={t('steel.column.diameter') + " D1"}
-                            />
-                        </div>
-                    </div>
-
-                    {/* Ring Details Section */}
-                    <div className="space-y-2">
-                        <h3 className="font-medium text-primary ml-1">{t('steel.column.ringDetails') || 'Ring Details'}</h3>
+                        <h3 className="font-medium text-primary ml-1">{t('steel.column.ringDetails')}</h3>
                         <div className="flex bg-white rounded-2xl border border-[#060C121A] focus-within:border-accent/40 transition-all overflow-hidden h-[50px] sm:h-[58px]">
                             <UnitSelector unit="mm" />
                             <input
                                 type="text"
                                 value={ringDiameterR}
-                                onChange={(e) => setRingDiameterR(e.target.value)}
+                                onChange={handlePositiveNumberInput(setRingDiameterR)}
                                 className="flex-1 px-3 sm:px-6 text-sm sm:text-base text-primary focus:outline-none"
-                                placeholder={t('steel.column.ringDiameterR1')}
+                                placeholder={t('steel.column.ringDiameterR')}
                             />
                         </div>
                     </div>
 
-                    {/* Stirrups Details Section */}
+                    {/* Stirrups Details */}
                     <div className="space-y-2">
                         <h3 className="font-medium text-primary ml-1">{t('steel.column.stirrupsDetails')}</h3>
                         <div className="flex bg-white rounded-2xl border border-[#060C121A] focus-within:border-accent/40 transition-all overflow-hidden h-[50px] sm:h-[58px]">
                             <UnitSelector unit="mm" />
                             <input
                                 type="text"
-                                value={spacingS}
-                                onChange={(e) => setSpacingS(e.target.value)}
+                                value={stirrupsSpacingS}
+                                onChange={handlePositiveNumberInput(setStirrupsSpacingS)}
                                 className="flex-1 px-3 sm:px-6 text-sm sm:text-base text-primary focus:outline-none"
-                                placeholder={t('steel.column.spacing') + " - s"}
+                                placeholder={t('steel.column.stirrupsSpacingS')}
                             />
                         </div>
                     </div>
 
-                    {/* Number of Columns Section */}
+                    {/* Number of Columns */}
                     <div className="space-y-3 pt-2">
-                        <h3 className="font-medium text-primary ml-1">{t('steel.column.noOfColumns') + " - N"}</h3>
+                        <h3 className="font-medium text-primary ml-1">{t('steel.column.noOfColumns')}</h3>
                         <div className="flex bg-white rounded-2xl border border-[#060C121A] focus-within:border-accent/40 transition-all overflow-hidden h-[50px] sm:h-[58px]">
                             <div className="flex-1 px-4 sm:px-6 flex items-center">
                                 <input
                                     type="text"
-                                    value={noOfColumns}
-                                    onChange={(e) => setNoOfColumns(e.target.value)}
+                                    value={noOfColumnsN}
+                                    onChange={handlePositiveNumberInput(setNoOfColumnsN)}
                                     className="flex-1 text-sm sm:text-base text-primary focus:outline-none h-full"
                                     placeholder={t('steel.column.noOfColumn')}
                                 />
@@ -295,20 +235,6 @@ const ColumnType10 = () => {
                         </div>
                     </div>
 
-                    {/* Price Section */}
-                    <div className="space-y-2">
-                        <h3 className="font-medium text-primary ml-1">{t('steel.weight.price')}</h3>
-                        <div className="relative">
-                            <input
-                                type="text"
-                                value={steelRate}
-                                onChange={(e) => setSteelRate(e.target.value)}
-                                className="w-full h-[50px] sm:h-[58px] bg-white rounded-2xl px-4 sm:px-6 py-2 sm:py-4 text-sm sm:text-base text-primary border border-[#060C121A] focus:outline-none focus:border-accent/40 transition-all"
-                                placeholder={t('steel.column.steelRate')}
-                            />
-                            <span className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 text-accent text-sm sm:text-base font-medium">₹/Kg</span>
-                        </div>
-                    </div>
                 </div>
 
                 {/* Footer Buttons */}
@@ -369,19 +295,11 @@ const ColumnType10 = () => {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-[#060C120A]">
-                                {[
-                                    { material: t('steel.column.volume'), quantity: colVolume.toFixed(3), unit: 'm³' },
-                                    { material: t('steel.column.vertical') + '(D1)', quantity: weightD1.toFixed(3), unit: 'kg' },
-                                    { material: t('steel.column.stirrups') + ' (R)', quantity: stirrupWeightR.toFixed(3), unit: 'kg' },
-                                    { material: t('steel.weight.totalSteel'), quantity: totalSteel.toFixed(3), unit: 'kg' },
-                                    { material: t('steel.weight.totalPrice'), quantity: totalPrice.toFixed(3), unit: '₹' },
-                                ].map((row, rowIndex) => (
-                                    <tr key={rowIndex} className="hover:bg-[#F9F9F9] transition-colors">
-                                        <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A]">{row.material}</td>
-                                        <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A]">{row.quantity}</td>
-                                        <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A] last:border-r-0">{row.unit}</td>
-                                    </tr>
-                                ))}
+                                <tr className="hover:bg-[#F9F9F9] transition-colors">
+                                    <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A]">{t('steel.column.stirrups')}</td>
+                                    <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A]">{stirrupsWeight.toFixed(3)}</td>
+                                    <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A] last:border-r-0">Kg</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -390,11 +308,11 @@ const ColumnType10 = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="bg-[#FDF9F4] p-4 rounded-2xl flex items-center justify-between border border-[#F5E6D3] h-[58px]">
                             <span className="font-medium text-primary uppercase text-sm tracking-wider">{t('steel.weight.totalCost')}</span>
-                            <span className="font-bold text-accent text-xl">₹{totalPrice.toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3 })}</span>
+                            <span className="font-bold text-accent text-xl">₹{totalCost.toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3 })}</span>
                         </div>
                         <Button
                             variant="primary"
-                            onClick={() => navigate(ROUTES_FLAT.CALCULATION_COLUMN_TYPE10_DETAILED, {
+                            onClick={() => navigate(ROUTES_FLAT.CALCULATION_COLUMN_RING_TYPE2_DETAILED, {
                                 state: {
                                     calculationData,
                                     outputs: calculationOutputs
@@ -411,4 +329,4 @@ const ColumnType10 = () => {
     );
 };
 
-export default ColumnType10;
+export default ColumnRingType2;

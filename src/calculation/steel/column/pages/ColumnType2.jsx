@@ -34,6 +34,14 @@ const ColumnType2 = () => {
 
     const [showResult, setShowResult] = useState(false);
 
+    // Helper function to handle positive number input
+    const handlePositiveNumberInput = (setter) => (e) => {
+        const value = e.target.value;
+        if (value === '' || /^\d*\.?\d*$/.test(value)) {
+            setter(value);
+        }
+    };
+
     // Calculation Logic
     const X = parseFloat(sideX) || 0;
     const Y = parseFloat(sideY) || 0;
@@ -211,7 +219,7 @@ const ColumnType2 = () => {
                                 <input
                                     type="text"
                                     value={sideX}
-                                    onChange={(e) => setSideX(e.target.value)}
+                                    onChange={handlePositiveNumberInput(setSideX)}
                                     className="flex-1 px-3 sm:px-6 text-sm sm:text-base text-primary focus:outline-none "
                                     placeholder={t('steel.column.sideX')}
                                 />
@@ -221,7 +229,7 @@ const ColumnType2 = () => {
                                 <input
                                     type="text"
                                     value={sideY}
-                                    onChange={(e) => setSideY(e.target.value)}
+                                    onChange={handlePositiveNumberInput(setSideY)}
                                     className="flex-1 px-3 sm:px-6 text-sm sm:text-base text-primary focus:outline-none "
                                     placeholder={t('steel.column.sideY')}
                                 />
@@ -231,7 +239,7 @@ const ColumnType2 = () => {
                                 <input
                                     type="text"
                                     value={height}
-                                    onChange={(e) => setHeight(e.target.value)}
+                                    onChange={handlePositiveNumberInput(setHeight)}
                                     className="flex-1 px-3 sm:px-6 text-sm sm:text-base text-primary focus:outline-none"
                                     placeholder={t('steel.column.columnHeight') + " - H"}
                                 />
@@ -248,7 +256,7 @@ const ColumnType2 = () => {
                                 <input
                                     type="text"
                                     value={diameterD1}
-                                    onChange={(e) => setDiameterD1(e.target.value)}
+                                    onChange={handlePositiveNumberInput(setDiameterD1)}
                                     className="flex-1 px-3 sm:px-6 text-sm sm:text-base text-primary focus:outline-none"
                                     placeholder={t('steel.column.diameter') + " D1"}
                                 />
@@ -258,7 +266,7 @@ const ColumnType2 = () => {
                                 <input
                                     type="text"
                                     value={diameterD2}
-                                    onChange={(e) => setDiameterD2(e.target.value)}
+                                    onChange={handlePositiveNumberInput(setDiameterD2)}
                                     className="flex-1 px-3 sm:px-6 text-sm sm:text-base text-primary focus:outline-none"
                                     placeholder={t('steel.column.diameter') + " D2"}
                                 />
@@ -275,7 +283,7 @@ const ColumnType2 = () => {
                                 <input
                                     type="text"
                                     value={ringDiameter}
-                                    onChange={(e) => setRingDiameter(e.target.value)}
+                                    onChange={handlePositiveNumberInput(setRingDiameter)}
                                     className="flex-1 px-3 sm:px-6 text-sm sm:text-base text-primary focus:outline-none"
                                     placeholder={t('steel.column.ringDiameter')}
                                 />
@@ -285,7 +293,7 @@ const ColumnType2 = () => {
                                 <input
                                     type="text"
                                     value={spacingS}
-                                    onChange={(e) => setSpacingS(e.target.value)}
+                                    onChange={handlePositiveNumberInput(setSpacingS)}
                                     className="flex-1 px-3 sm:px-6 text-sm sm:text-base text-primary focus:outline-none"
                                     placeholder={t('steel.column.spacing') + " - s"}
                                 />
@@ -301,7 +309,7 @@ const ColumnType2 = () => {
                                 <input
                                     type="text"
                                     value={noOfColumns}
-                                    onChange={(e) => setNoOfColumns(e.target.value)}
+                                    onChange={handlePositiveNumberInput(setNoOfColumns)}
                                     className="flex-1 text-sm sm:text-base text-primary focus:outline-none h-full"
                                     placeholder={t('steel.weight.wastagePlaceholder')}
                                 />
@@ -319,7 +327,7 @@ const ColumnType2 = () => {
                             <input
                                 type="text"
                                 value={steelRate}
-                                onChange={(e) => setSteelRate(e.target.value)}
+                                onChange={handlePositiveNumberInput(setSteelRate)}
                                 className="w-full h-[50px] sm:h-[58px] bg-white rounded-2xl px-4 sm:px-6 py-2 sm:py-4 text-sm sm:text-base text-primary border border-[#060C121A] focus:outline-none focus:border-accent/40 transition-all"
                                 placeholder={t('steel.column.steelRate')}
                             />
@@ -388,10 +396,10 @@ const ColumnType2 = () => {
                             <tbody className="divide-y divide-[#060C120A]">
                                 {[
                                     { material: t('steel.column.volume'), quantity: colVolume.toFixed(3), unit: 'm³' },
-                                    { material: t('steel.column.vertical') + '(D1)', quantity: weightD1.toFixed(3), unit: t('history.units.kg') },
-                                    { material: t('steel.column.vertical') + '(D2)', quantity: weightD2.toFixed(3), unit: t('history.units.kg') },
-                                    { material: t('steel.column.stirrups'), quantity: stirrupWeight.toFixed(3), unit: t('history.units.kg') },
-                                    { material: t('steel.weight.totalSteel'), quantity: totalSteel.toFixed(3), unit: t('history.units.kg') },
+                                    { material: t('steel.column.vertical') + '(D1)', quantity: weightD1.toFixed(3), unit: 'Kg' },
+                                    { material: t('steel.column.vertical') + '(D2)', quantity: weightD2.toFixed(3), unit: 'Kg' },
+                                    { material: t('steel.column.stirrups'), quantity: stirrupWeight.toFixed(3), unit: 'Kg' },
+                                    { material: t('steel.weight.totalSteel'), quantity: totalSteel.toFixed(3), unit: 'Kg' },
                                     { material: t('steel.weight.totalPrice'), quantity: totalPrice.toFixed(3), unit: '₹' },
                                 ].map((row, rowIndex) => (
                                     <tr key={rowIndex} className="hover:bg-[#F9F9F9] transition-colors">

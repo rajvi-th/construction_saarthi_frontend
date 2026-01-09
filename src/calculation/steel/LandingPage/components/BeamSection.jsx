@@ -17,23 +17,27 @@ import bmHorizontalBar from '../../../../assets/icons/bmHorizontalBar.svg';
 import bmRing1 from '../../../../assets/icons/bmRing1.svg';
 import bmRing2 from '../../../../assets/icons/bmRing2.svg';
 
-const BeamSection = ({ onItemClick }) => {
+import { useNavigate } from 'react-router-dom';
+
+const BeamSection = () => {
     const { t } = useTranslation('calculation');
+    const navigate = useNavigate();
+    const comingSoonPath = '/calculation/coming-soon';
 
     const beamItems = [
-        { id: 'beam1', title: t('steel.beam.type1'), icon: bmType1 },
-        { id: 'beam2', title: t('steel.beam.type2'), icon: bmType2 },
-        { id: 'beam3', title: t('steel.beam.type3'), icon: bmType3 },
-        { id: 'beam4', title: t('steel.beam.type4'), icon: bmType4 },
-        { id: 'beam5', title: t('steel.beam.type5'), icon: bmType5 },
-        { id: 'beam6', title: t('steel.beam.type6'), icon: bmType6 },
-        { id: 'beam7', title: t('steel.beam.type7'), icon: bmType7 },
-        { id: 'beam8', title: t('steel.beam.type8'), icon: bmType8 },
-        { id: 'beam9', title: t('steel.beam.type9'), icon: bmType9 },
-        { id: 'beam10', title: t('steel.beam.type10'), icon: bmType10 },
-        { id: 'beamHorizontal', title: t('steel.beam.horizontal'), icon: bmHorizontalBar },
-        { id: 'beamRing1', title: t('steel.beam.ring1'), icon: bmRing1 },
-        { id: 'beamRing2', title: t('steel.beam.ring2'), icon: bmRing2 },
+        { id: 'beam1', title: t('steel.beam.type1'), icon: bmType1, path: comingSoonPath },
+        { id: 'beam2', title: t('steel.beam.type2'), icon: bmType2, path: comingSoonPath },
+        { id: 'beam3', title: t('steel.beam.type3'), icon: bmType3, path: comingSoonPath },
+        { id: 'beam4', title: t('steel.beam.type4'), icon: bmType4, path: comingSoonPath },
+        { id: 'beam5', title: t('steel.beam.type5'), icon: bmType5, path: comingSoonPath },
+        { id: 'beam6', title: t('steel.beam.type6'), icon: bmType6, path: comingSoonPath },
+        { id: 'beam7', title: t('steel.beam.type7'), icon: bmType7, path: comingSoonPath },
+        { id: 'beam8', title: t('steel.beam.type8'), icon: bmType8, path: comingSoonPath },
+        { id: 'beam9', title: t('steel.beam.type9'), icon: bmType9, path: comingSoonPath },
+        { id: 'beam10', title: t('steel.beam.type10'), icon: bmType10, path: comingSoonPath },
+        { id: 'beamHorizontal', title: t('steel.beam.horizontal'), icon: bmHorizontalBar, path: comingSoonPath },
+        { id: 'beamRing1', title: t('steel.beam.ring1'), icon: bmRing1, path: comingSoonPath },
+        { id: 'beamRing2', title: t('steel.beam.ring2'), icon: bmRing2, path: comingSoonPath },
     ];
 
     return (
@@ -43,7 +47,7 @@ const BeamSection = ({ onItemClick }) => {
                     <ReinforcementItem
                         title={item.title}
                         icon={item.icon}
-                        onClick={() => onItemClick(item.title)}
+                        onClick={() => navigate(item.path)}
                         noBackground={true}
                     />
                 </div>
