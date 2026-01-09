@@ -66,7 +66,7 @@ export default function NumberInput({
           {...props}
         />
         {unit && (
-          <span className="absolute right-4 text-sm text-secondary whitespace-nowrap pointer-events-none">
+          <span className="absolute right-4 text-sm text-accent whitespace-nowrap pointer-events-none">
             {unit}
           </span>
         )}

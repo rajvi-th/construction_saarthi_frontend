@@ -1,0 +1,349 @@
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import PageHeader from "../../../../components/layout/PageHeader";
+import Input from "../../../../components/ui/Input";
+import NumberInput from "../../../../components/ui/NumberInput";
+import Select from "../../../../components/ui/Select";
+import Button from "../../../../components/ui/Button";
+import Radio from "../../../../components/ui/Radio";
+import DownloadPDFModal from "../../../common/DownloadPDFModal";
+import downloadIcon from "../../../../assets/icons/Download Minimalistic.svg";
+import shareIcon from "../../../../assets/icons/Forward.svg";
+import Wallshape2Icon from "../../../../assets/icons/W2.svg";
+
+const WallShape2 = () => {
+  const { t } = useTranslation("calculation");
+  const navigate = useNavigate();
+
+  const [unit, setUnit] = useState("metric");
+
+  // Form States - Identical to Wall Shape 1
+  const [length, setLength] = useState("");
+  const [width, setWidth] = useState("");
+  const [depth, setDepth] = useState("");
+  const [thickness, setThickness] = useState("");
+  const [height, setHeight] = useState("");
+
+  const [concreteGrade, setConcreteGrade] = useState("");
+  const [waterCementRatio, setWaterCementRatio] = useState("");
+  const [admixture, setAdmixture] = useState("");
+  const [noOfUnits, setNoOfUnits] = useState("");
+  const [dryVolume, setDryVolume] = useState("");
+  const [rateOfConcrete, setRateOfConcrete] = useState("");
+
+  const [showDownloadModal, setShowDownloadModal] = useState(false);
+  const [results, setResults] = useState(null);
+
+  const concreteGrades = [
+    { value: "M10", label: "M10" },
+    { value: "M15", label: "M15" },
+    { value: "M20", label: "M20" },
+    { value: "M25", label: "M25" },
+    { value: "M30", label: "M30" },
+  ];
+
+  const handleCalculate = () => {
+    setResults({
+      concreteVolume: "5.097",
+      cement: "1078.348",
+      cementBags: "21.567",
+      sand: "2.936",
+      aggregate: "4.209",
+      admixture: "10.783",
+      water: "411.669",
+      totalCost: "44,567.33",
+    });
+  };
+
+  const handleReset = () => {
+    setLength("");
+    setWidth("");
+    setDepth("");
+    setThickness("");
+    setHeight("");
+    setConcreteGrade("");
+    setWaterCementRatio("");
+    setAdmixture("");
+    setNoOfUnits("");
+    setDryVolume("");
+    setRateOfConcrete("");
+    setResults(null);
+  };
+
+  return (
+    <div className="max-w-7xl mx-auto pb-8">
+      <div className="mb-6">
+        <PageHeader
+          title={t("concrete.wall.wallShape2", {
+            defaultValue: "Concrete of Wall Shape 2",
+          })}
+          showBackButton
+          onBack={() => navigate(-1)}
+        >
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setShowDownloadModal(true)}
+              className="p-2 cursor-pointer"
+            >
+              <img src={downloadIcon} alt="Download" className="w-5 h-5" />
+            </button>
+            <button className="p-2 cursor-pointer">
+              <img src={shareIcon} alt="Share" className="w-5 h-5" />
+            </button>
+          </div>
+        </PageHeader>
+      </div>
+
+      <div className="space-y-4">
+        <div className="bg-[#F9F4EE] rounded-xl p-4 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <img
+              src={Wallshape2Icon}
+              alt="Wall Shape 2"
+              className="w-32 object-contain"
+            />
+          </div>
+          {/* Unit Selection */}
+          <div className="flex-1 w-full">
+            <div className="flex items-center gap-6 p-4">
+              <Radio
+                label={t("concrete.byVolume.metric", {
+                  defaultValue: "Metric",
+                })}
+                name="unit"
+                value="metric"
+                checked={unit === "metric"}
+                onChange={(e) => setUnit(e.target.value)}
+              />
+              <Radio
+                label={t("concrete.byVolume.imperial", {
+                  defaultValue: "Imperial",
+                })}
+                name="unit"
+                value="imperial"
+                checked={unit === "imperial"}
+                onChange={(e) => setUnit(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <NumberInput
+            placeholder={t("concrete.byVolume.length_L", { defaultValue: "Length - L" })}
+            value={length}
+            onChange={(e) => setLength(e.target.value)}
+            unit={unit === "metric" ? "m" : "ft"}
+          />
+          <NumberInput
+            placeholder={t("concrete.byVolume.width_W", { defaultValue: "Width - W" })}
+            value={width}
+            onChange={(e) => setWidth(e.target.value)}
+            unit={unit === "metric" ? "m" : "ft"}
+          />
+          <NumberInput
+            placeholder={t("concrete.byVolume.depth_D", { defaultValue: "Depth - D" })}
+            value={depth}
+            onChange={(e) => setDepth(e.target.value)}
+            unit={unit === "metric" ? "m" : "ft"}
+          />
+          <NumberInput
+            placeholder={t("concrete.byVolume.thickness_T", { defaultValue: "Thickness - T" })}
+            value={thickness}
+            onChange={(e) => setThickness(e.target.value)}
+            unit={unit === "metric" ? "m" : "ft"}
+          />
+          <div className="md:col-span-2">
+            <NumberInput
+              placeholder={t("concrete.byVolume.height_H", { defaultValue: "Height - H" })}
+              value={height}
+              onChange={(e) => setHeight(e.target.value)}
+              unit={unit === "metric" ? "m" : "ft"}
+            />
+          </div>
+
+          <div className="md:col-span-2">
+            <Select
+              value={concreteGrade}
+              onChange={(e) => setConcreteGrade(e.target.value)}
+              options={concreteGrades}
+              placeholder={t("concrete.byVolume.concreteGrade", { defaultValue: "Concrete Grade" })}
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-4">
+          <div>
+            <Input
+              placeholder={t("concrete.byVolume.cement", { defaultValue: "Cement" })}
+              value=""
+              readOnly
+              className="bg-gray-50 text-center"
+            />
+          </div>
+          <div>
+            <Input
+              placeholder={t("concrete.byVolume.sand", { defaultValue: "Sand" })}
+              value=""
+              readOnly
+              className="bg-gray-50 text-center"
+            />
+          </div>
+          <div>
+            <Input
+              placeholder={t("concrete.byVolume.aggregate", { defaultValue: "Aggr." })}
+              value=""
+              readOnly
+              className="bg-gray-50 text-center"
+            />
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <NumberInput
+            placeholder={t("concrete.byVolume.waterCementRatio", { defaultValue: "Water cement Ratio" })}
+            value={waterCementRatio}
+            onChange={(e) => setWaterCementRatio(e.target.value)}
+          />
+          <NumberInput
+            placeholder={t("concrete.byVolume.admixture", { defaultValue: "Admixture" })}
+            value={admixture}
+            onChange={(e) => setAdmixture(e.target.value)}
+            unit="%"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <NumberInput
+              placeholder={t("concrete.byVolume.noOfUnits", { defaultValue: "No of Units" })}
+              value={noOfUnits}
+              onChange={(e) => setNoOfUnits(e.target.value)}
+            />
+            <NumberInput
+              placeholder={t("concrete.byVolume.dryVolume", { defaultValue: "Dry Volume" })}
+              value={dryVolume}
+              onChange={(e) => setDryVolume(e.target.value)}
+            />
+          </div>
+          <NumberInput
+            placeholder={t("concrete.byVolume.rateOfConcrete", { defaultValue: "Rate of Concrete" })}
+            value={rateOfConcrete}
+            onChange={(e) => setRateOfConcrete(e.target.value)}
+            unit="₹/m³"
+          />
+        </div>
+
+        {results && (
+          <div>
+            <h3 className="text-lg font-bold text-black mb-4">
+              {t("concrete.byVolume.result", { defaultValue: "Result" })}
+            </h3>
+
+            {/* Unit Tabs */}
+            <div className="flex gap-10 mb-4 border-b border-gray-200">
+              <button className="relative px-8 pb-3 text-sm font-medium text-accent">
+                m³
+                <span className="absolute left-0 bottom-0 w-full h-[2px] bg-accent"></span>
+              </button>
+              <button className="pb-3 px-8 text-sm font-medium text-secondary hover:text-primary">
+                ft³
+              </button>
+              <button className="pb-3 text-sm font-medium text-secondary hover:text-primary">
+                brass
+              </button>
+            </div>
+
+            <div className="overflow-x-auto mb-4">
+              <div className="border border-gray-200 rounded-2xl overflow-hidden bg-white">
+                <table className="w-full border-collapse">
+                  <thead className="bg-[#F7F7F7]">
+                    <tr>
+                      <th className="text-left p-3 text-sm font-medium text-primary border-b border-r border-gray-200">
+                        {t("concrete.byVolume.material", {
+                          defaultValue: "Material",
+                        })}
+                      </th>
+                      <th className="text-left p-3 text-sm font-medium text-primary border-b border-r border-gray-200">
+                        {t("concrete.byVolume.quantity", {
+                          defaultValue: "Quantity",
+                        })}
+                      </th>
+                      <th className="text-left p-3 text-sm font-medium text-primary border-b border-gray-200">
+                        {t("concrete.byVolume.unit", { defaultValue: "Unit" })}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      ["Concrete Volume", results.concreteVolume, "m³"],
+                      ["Cement", results.cement, "Kg"],
+                      ["Cement (50kg)", results.cementBags, "bags"],
+                      ["Sand", results.sand, "m³"],
+                      ["Coarse Aggregate", results.aggregate, "m³"],
+                      ["Admixture", results.admixture, "Kg"],
+                      ["Water", results.water, "Litre"],
+                    ].map(([label, value, unit], index) => (
+                      <tr
+                        key={index}
+                        className="border-b last:border-b-0 border-gray-200"
+                      >
+                        <td className="p-3 text-secondary border-r border-gray-200">
+                          {label}
+                        </td>
+                        <td className="p-3 text-secondary border-r border-gray-200">
+                          {value}
+                        </td>
+                        <td className="p-3 text-secondary">{unit}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-[#F9F4EE] px-4 rounded-xl flex items-center justify-between">
+                <span className="text-base font-normal text-primary">
+                  {t("concrete.byVolume.totalCost", {
+                    defaultValue: "Total Cost",
+                  })}
+                </span>
+                <span className="text-xl font-medium text-accent">
+                  ₹{results.totalCost}
+                </span>
+              </div>
+              <Button
+                variant="primary"
+                className="w-full rounded-xl bg-[#B02E0C] text-white "
+              >
+                View Detailed Result
+              </Button>
+            </div>
+          </div>
+        )}
+
+        <div className="flex justify-end gap-4 ">
+          <Button
+            variant="secondary"
+            onClick={handleReset}
+          >
+            {t("concrete.byVolume.reset", { defaultValue: "Reset" })}
+          </Button>
+          <Button
+            variant="primary"
+            onClick={handleCalculate}
+          >
+            {t("concrete.byVolume.calculate", { defaultValue: "Calculate" })}
+          </Button>
+        </div>
+      </div>
+
+      <DownloadPDFModal
+        isOpen={showDownloadModal}
+        onClose={() => setShowDownloadModal(false)}
+        defaultTitle="Concrete of Wall Shape 2"
+      />
+    </div>
+  );
+};
+
+export default WallShape2;
