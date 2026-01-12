@@ -88,51 +88,57 @@ const BeamType10 = () => {
     };
 
     const calculationData = [
-        { labelKey: 'steel.beam.sideX', name: 'Side X', symbol: 'X', value: `${sideX} mm` },
-        { labelKey: 'steel.beam.sideY', name: 'Side Y', symbol: 'Y', value: `${sideY} mm` },
-        { labelKey: 'steel.beam.lengthL', name: 'Length L', symbol: 'L', value: `${lengthL} mm` },
-        { labelKey: 'steel.beam.topSteelD1', name: 'Top Steel D1', symbol: 'D1', value: `${topD1} mm` },
-        { labelKey: 'steel.beam.bottomSteelD2', name: 'Bottom Steel D2', symbol: 'D2', value: `${bottomD2} mm` },
-        { labelKey: 'steel.beam.ringDiameterR', name: 'Ring Diameter R', symbol: 'R', value: `${ringDiameterR} mm` },
-        { labelKey: 'steel.beam.stirrupsSpacingS', name: 'Stirrups Spacing S', symbol: 'S', value: `${stirrupSpacingS} mm` },
-        { labelKey: 'steel.beam.noOfColumns', name: 'Number of Columns - N', symbol: 'n', value: `${noOfColumns} NOS` },
-        { labelKey: 'steel.beam.rateOfSteel', name: 'Rate of Steel', symbol: 'r', value: `${steelRate} currency per kg` },
+        { labelKey: 'steel.beam.sideX', name: t('steel.beam.sideX'), symbol: 'X', value: `${sideX} mm` },
+        { labelKey: 'steel.beam.sideY', name: t('steel.beam.sideY'), symbol: 'Y', value: `${sideY} mm` },
+        { labelKey: 'steel.beam.lengthL', name: t('steel.beam.lengthL'), symbol: 'L', value: `${lengthL} mm` },
+        { labelKey: 'steel.beam.topSteelD1', name: t('steel.beam.topSteelD1'), symbol: 'D1', value: `${topD1} mm` },
+        { labelKey: 'steel.beam.bottomSteelD2', name: t('steel.beam.bottomSteelD2'), symbol: 'D2', value: `${bottomD2} mm` },
+        { labelKey: 'steel.beam.ringDiameterR', name: t('steel.beam.ringDiameterR'), symbol: 'R', value: `${ringDiameterR} mm` },
+        { labelKey: 'steel.beam.stirrupsSpacingS', name: t('steel.beam.stirrupsSpacingS'), symbol: 'S', value: `${stirrupSpacingS} mm` },
+        { labelKey: 'steel.beam.noOfColumns', name: t('steel.beam.noOfColumns'), symbol: 'n', value: `${noOfColumns} NOS` },
+        { labelKey: 'steel.beam.rateOfSteel', name: t('steel.beam.rateOfSteel'), symbol: 'r', value: `₹ ${steelRate} / kg` },
     ];
 
     const detailedOutputs = [
         {
-            title: 'Volume',
-            label: 'Volume:',
+            titleKey: 'steel.beam.volume',
+            labelKey: 'steel.beam.volume',
+            labelSuffix: ':',
             formula: 'XXYXLXn/1000000000',
             value: `${volume.toFixed(3)} m³`
         },
         {
-            title: 'Top Steel(D1)',
-            label: 'Top Steel l(D1) =',
+            titleKey: 'steel.beam.topSteel',
+            labelKey: 'steel.beam.topSteel',
+            labelSuffix: '=',
             formula: '((L+540)X0.002)XD1XD1Xn/162.28',
             value: `${topSteelWeight.toFixed(3)} KG`
         },
         {
-            title: 'Bottom Steel (D2)',
-            label: 'Bottom Steel (D2) =',
+            titleKey: 'steel.beam.bottomSteel',
+            labelKey: 'steel.beam.bottomSteel',
+            labelSuffix: '=',
             formula: '((L+540)X0.002)XD2XD2Xn/162.28',
             value: `${bottomSteelWeightD2.toFixed(3)} KG`
         },
         {
-            title: 'Stirrups (S)',
-            label: 'Stirrups (S) =',
+            titleKey: 'steel.beam.stirrups',
+            labelKey: 'steel.beam.stirrups',
+            labelSuffix: '=',
             formula: '((2X(X-60)+2X(Y-60)+20XR))/1000X((L/S)+1)X(RXR/162.28)Xn',
             value: `${stirrupsWeight.toFixed(3)} KG`
         },
         {
-            title: 'Total Steel',
-            label: 'Total Steel =',
+            titleKey: 'steel.weight.totalSteel',
+            labelKey: 'steel.weight.totalSteel',
+            labelSuffix: '=',
             formula: '(((L+540)X0.002)XD1XD1Xn/162.28)+(((L+540)X0.002)XD2XD2Xn/162.28)+(((2X(X-60)+2X(Y-60)+20XR))/1000X((L/S)+1)X(RXR/162.28)Xn)',
             value: `${totalSteel.toFixed(3)} KG`
         },
         {
-            title: 'Total Price',
-            label: 'Total Price =',
+            titleKey: 'steel.weight.totalPrice',
+            labelKey: 'steel.weight.totalPrice',
+            labelSuffix: '=',
             formula: 'Total Steel * r',
             value: `${totalPrice.toFixed(3)}`
         },
@@ -192,26 +198,26 @@ const BeamType10 = () => {
                 <div className="space-y-4 pt-4">
                     {/* Beam Size Section */}
                     <div className="space-y-2">
-                        <h3 className="font-medium text-primary ml-1">Beam Size</h3>
+                        <h3 className="font-medium text-primary ml-1">{t('steel.beam.size')}</h3>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
                             <InputField
                                 unit="mm"
                                 value={sideX}
                                 onChange={(e) => setSideX(e.target.value)}
-                                placeholder="Side X"
+                                placeholder={t('steel.beam.sideX')}
                             />
                             <InputField
                                 unit="mm"
                                 value={sideY}
                                 onChange={(e) => setSideY(e.target.value)}
-                                placeholder="Side Y"
+                                placeholder={t('steel.beam.sideY')}
                             />
                             <div className="col-span-2 md:col-span-1">
                                 <InputField
                                     unit="mm"
                                     value={lengthL}
                                     onChange={(e) => setLengthL(e.target.value)}
-                                    placeholder="Length L"
+                                    placeholder={t('steel.beam.lengthL')}
                                 />
                             </div>
                         </div>
@@ -219,67 +225,67 @@ const BeamType10 = () => {
 
                     {/* Steel Details Section */}
                     <div className="space-y-2">
-                        <h3 className="font-medium text-primary ml-1">Steel Details</h3>
+                        <h3 className="font-medium text-primary ml-1">{t('steel.beam.steelDetails')}</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
                             <InputField
                                 unit="mm"
                                 value={topD1}
                                 onChange={(e) => setTopD1(e.target.value)}
-                                placeholder="Top steel D1"
+                                placeholder={t('steel.beam.topSteelD1')}
                             />
                             <InputField
                                 unit="mm"
                                 value={bottomD2}
                                 onChange={(e) => setBottomD2(e.target.value)}
-                                placeholder="Bottom steel D2"
+                                placeholder={t('steel.beam.bottomSteelD2')}
                             />
                         </div>
                     </div>
 
                     {/* Ring Details Section */}
                     <div className="space-y-2">
-                        <h3 className="font-medium text-primary ml-1">Ring Details</h3>
+                        <h3 className="font-medium text-primary ml-1">{t('steel.beam.ringDetails')}</h3>
                         <div className="grid gap-2 md:gap-4">
                             <InputField
                                 unit="mm"
                                 value={ringDiameterR}
                                 onChange={(e) => setRingDiameterR(e.target.value)}
-                                placeholder="Ring diameter R"
+                                placeholder={t('steel.beam.ringDiameterR')}
                             />
                         </div>
                     </div>
 
                     {/* Stirrups Details Section */}
                     <div className="space-y-2">
-                        <h3 className="font-medium text-primary ml-1">Stirrups Details</h3>
+                        <h3 className="font-medium text-primary ml-1">{t('steel.beam.stirrupsDetails')}</h3>
                         <div className="grid gap-2 md:gap-4">
                             <InputField
                                 unit="mm"
                                 value={stirrupSpacingS}
                                 onChange={(e) => setStirrupSpacingS(e.target.value)}
-                                placeholder="Stirrups spacing - s"
+                                placeholder={t('steel.beam.stirrupsSpacingS')}
                             />
                         </div>
                     </div>
 
                     {/* No of Columns (Using this title as per user request, though it's Beam) */}
                     <div className="space-y-3 pt-2">
-                        <h3 className="font-medium text-primary ml-1">No of Columns</h3>
+                        <h3 className="font-medium text-primary ml-1">{t('steel.beam.noOfColumns')}</h3>
                         <InputField
                             value={noOfColumns}
                             onChange={(e) => setNoOfColumns(e.target.value)}
-                            placeholder="No of column"
+                            placeholder={t('steel.beam.noOfColumns')}
                             suffix="NOS"
                         />
                     </div>
 
                     {/* Price Section */}
                     <div className="space-y-2">
-                        <h3 className="font-medium text-primary ml-1">Price</h3>
+                        <h3 className="font-medium text-primary ml-1">{t('steel.beam.price')}</h3>
                         <InputField
                             value={steelRate}
                             onChange={(e) => setSteelRate(e.target.value)}
-                            placeholder="Rate of steel"
+                            placeholder={t('steel.beam.rateOfSteel')}
                             suffix="₹/Kg"
                         />
                     </div>
@@ -344,12 +350,12 @@ const BeamType10 = () => {
                             </thead>
                             <tbody className="divide-y divide-[#060C120A]">
                                 {[
-                                    { material: 'Volume', quantity: volume.toFixed(3), unit: 'm³' },
-                                    { material: 'Top Steel (D1)', quantity: topSteelWeight.toFixed(3), unit: 'Kg' },
-                                    { material: 'Bottom Steel (D2)', quantity: bottomSteelWeightD2.toFixed(3), unit: 'Kg' },
-                                    { material: 'Stirrups (S)', quantity: stirrupsWeight.toFixed(3), unit: 'Kg' },
-                                    { material: 'Total Steel', quantity: totalSteel.toFixed(3), unit: 'Kg' },
-                                    { material: 'Total Price', quantity: totalPrice.toFixed(3), unit: '₹' },
+                                    { material: t('steel.beam.volume'), quantity: volume.toFixed(3), unit: 'm³' },
+                                    { material: t('steel.beam.topSteel'), quantity: topSteelWeight.toFixed(3), unit: 'kg' },
+                                    { material: t('steel.beam.bottomSteel'), quantity: bottomSteelWeightD2.toFixed(3), unit: 'kg' },
+                                    { material: t('steel.beam.stirrups'), quantity: stirrupsWeight.toFixed(3), unit: 'kg' },
+                                    { material: t('steel.weight.totalSteel'), quantity: totalSteel.toFixed(3), unit: 'kg' },
+                                    { material: t('steel.weight.totalPrice'), quantity: totalPrice.toFixed(3), unit: '₹' },
                                 ].map((row, rowIndex) => (
                                     <tr key={rowIndex} className="hover:bg-[#F9F9F9] transition-colors">
                                         <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A]">{row.material}</td>

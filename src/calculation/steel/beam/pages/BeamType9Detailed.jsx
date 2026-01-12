@@ -32,7 +32,7 @@ const BeamType9Detailed = () => {
                         <ArrowLeft className="w-6 h-6 text-primary" />
                     </button>
                     <h1 className="text-xl font-bold text-primary">
-                        {t('steel.beam.type9Detailed')}
+                        {history ? t('steel.beam.type9') : t('steel.beam.type9Detailed')}
                     </h1>
                 </div>
                 {date && time && (

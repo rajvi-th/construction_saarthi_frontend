@@ -60,20 +60,28 @@ const BeamRingType2 = () => {
     };
 
     const calculationData = [
-        { labelKey: 'steel.beam.ringDiameterR', name: 'Ring Diameter - R', symbol: 'R', value: `${ringDiameterR} mm` },
-        { labelKey: 'steel.beam.columnSizeX', name: 'Column Size - X', symbol: 'X', value: `${columnSizeX} mm` },
-        { labelKey: 'steel.beam.columnSizeY', name: 'Column Size - Y', symbol: 'Y', value: `${columnSizeY} mm` },
-        { labelKey: 'steel.beam.columnHeightH', name: 'Column Height - H', symbol: 'H', value: `${columnHeightH} m` },
-        { labelKey: 'steel.beam.stirrupsSpacingS', name: 'Stirrups Spacing - S', symbol: 'S', value: `${stirrupSpacingS} mm` },
-        { labelKey: 'steel.beam.numColumnN', name: 'Number of Column - n', symbol: 'n', value: `${noOfColumns} NOS` },
+        { labelKey: 'steel.beam.ringDiameterR', name: t('steel.beam.ringDiameterR'), symbol: 'R', value: `${ringDiameterR} mm` },
+        { labelKey: 'steel.beam.columnSizeX', name: t('steel.beam.columnSizeX'), symbol: 'X', value: `${columnSizeX} mm` },
+        { labelKey: 'steel.beam.columnSizeY', name: t('steel.beam.columnSizeY'), symbol: 'Y', value: `${columnSizeY} mm` },
+        { labelKey: 'steel.beam.columnHeightH', name: t('steel.beam.columnHeightH'), symbol: 'H', value: `${columnHeightH} m` },
+        { labelKey: 'steel.beam.stirrupsSpacingS', name: t('steel.beam.stirrupsSpacingS'), symbol: 'S', value: `${stirrupSpacingS} mm` },
+        { labelKey: 'steel.beam.numColumnN', name: t('steel.beam.numColumnN'), symbol: 'n', value: `${noOfColumns} NOS` },
     ];
 
     const detailedOutputs = [
         {
-            title: 'Stirrups',
-            label: 'Stirrups =',
+            titleKey: 'steel.beam.stirrups',
+            labelKey: 'steel.beam.stirrups',
+            labelSuffix: '=',
             formula: '((2X(X-80)+2X(Y-80)+20XR)/1000)X((1000XH/S)+1)X(RXR/162.28)Xn',
             value: `${stirrupsWeight.toFixed(3)} KG`
+        },
+        {
+            titleKey: 'steel.weight.totalPrice',
+            labelKey: 'steel.weight.totalPrice',
+            labelSuffix: '=',
+            formula: 'Stirrups * r',
+            value: `₹ ${totalPrice.toFixed(3)}`
         },
     ];
 
@@ -129,42 +137,50 @@ const BeamRingType2 = () => {
 
                 {/* Form Sections */}
                 <div className="space-y-4 pt-4">
-                    <div className="space-y-2">
+                    <div className="space-y-4">
                         <InputField
                             unit="mm"
                             value={ringDiameterR}
                             onChange={(e) => setRingDiameterR(e.target.value)}
-                            placeholder="Ring diameter R"
+                            placeholder={t('steel.beam.ringDiameterR')}
                         />
-                        <InputField
-                            unit="mm"
-                            value={columnSizeX}
-                            onChange={(e) => setColumnSizeX(e.target.value)}
-                            placeholder="Column size - x"
-                        />
-                        <InputField
-                            unit="mm"
-                            value={columnSizeY}
-                            onChange={(e) => setColumnSizeY(e.target.value)}
-                            placeholder="Column size - y"
-                        />
-                        <InputField
-                            unit="m"
-                            value={columnHeightH}
-                            onChange={(e) => setColumnHeightH(e.target.value)}
-                            placeholder="Column height - H"
-                        />
+                        <div className='grid md:grid-cols-3 gap-4'>
+                            <InputField
+                                unit="mm"
+                                value={columnSizeX}
+                                onChange={(e) => setColumnSizeX(e.target.value)}
+                                placeholder={t('steel.beam.columnSizeX')}
+                            />
+                            <InputField
+                                unit="mm"
+                                value={columnSizeY}
+                                onChange={(e) => setColumnSizeY(e.target.value)}
+                                placeholder={t('steel.beam.columnSizeY')}
+                            />
+                            <InputField
+                                unit="m"
+                                value={columnHeightH}
+                                onChange={(e) => setColumnHeightH(e.target.value)}
+                                placeholder={t('steel.beam.columnHeightH')}
+                            />
+                        </div>
                         <InputField
                             unit="mm"
                             value={stirrupSpacingS}
                             onChange={(e) => setStirrupSpacingS(e.target.value)}
-                            placeholder="Stirrups spacing - s"
+                            placeholder={t('steel.beam.stirrupsSpacingS')}
                         />
                         <InputField
                             value={noOfColumns}
                             onChange={(e) => setNoOfColumns(e.target.value)}
-                            placeholder="No of column"
+                            placeholder={t('steel.beam.numColumnN')}
                             suffix="NOS"
+                        />
+                        <InputField
+                            value={steelRate}
+                            onChange={(e) => setSteelRate(e.target.value)}
+                            placeholder={t('steel.beam.rateOfSteel')}
+                            suffix="₹/Kg"
                         />
                     </div>
                 </div>
@@ -228,9 +244,14 @@ const BeamRingType2 = () => {
                             </thead>
                             <tbody className="divide-y divide-[#060C120A]">
                                 <tr className="hover:bg-[#F9F9F9] transition-colors">
-                                    <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A]">Stirrups</td>
+                                    <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A]">{t('steel.beam.stirrups')}</td>
                                     <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A]">{stirrupsWeight.toFixed(3)}</td>
-                                    <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A] last:border-r-0">Kg</td>
+                                    <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A] last:border-r-0">kg</td>
+                                </tr>
+                                <tr className="hover:bg-[#F9F9F9] transition-colors">
+                                    <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A]">{t('steel.weight.totalPrice')}</td>
+                                    <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A]">{totalPrice.toFixed(3)}</td>
+                                    <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A] last:border-r-0">₹</td>
                                 </tr>
                             </tbody>
                         </table>

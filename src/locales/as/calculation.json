@@ -236,6 +236,16 @@
       "type6Detailed": "বিম টাইপ ৬ৰ বিতং প্ৰতিবেদন",
       "type7Detailed": "বিম টাইপ ৭ৰ বিতং প্ৰতিবেদন",
       "type8Detailed": "বিম টাইপ ৮ৰ বিতং প্ৰতিবেদন",
+      "type9Detailed": "বিম টাইপ ৯ৰ বিতং প্ৰতিবেদন",
+      "type10Detailed": "বিম টাইপ ১০ৰ বিতং প্ৰতিবেদন",
+      "horizontalDetailed": "বিম হৰিজন্টাল বাৰৰ বিতং প্ৰতিবেদন",
+      "beamSideB1": "বিম চাইড বেণ্ড ১-b1",
+      "beamSideB2": "বিম চাইড বেণ্ড ১-b2",
+      "beamLengthL": "বিম দীঘ - L",
+      "barDiameterD1": "ৰডৰ ব্যাস D1",
+      "numVerticalBarsN1": "বৰ্টিকাল ৰডৰ সংখ্যা - n1",
+      "numBeamsN2": "বিমৰ সংখ্যা - n2",
+      "verticalSteel": "বৰ্টিকাল স্টিল",
       "sideX": "কাষ X",
       "sideY": "কাষ Y",
       "lengthL": "দীঘ L",
@@ -266,6 +276,14 @@
       "type9": "বিম টাইপ ৯",
       "type10": "বিম টাইপ ১০",
       "horizontal": "বিম হৰাইজন্টাল বাৰ",
+      "ringType1": "বিম ৰিং টাইপ ১",
+      "ringType1Detailed": "বিম ৰিং টাইপ ১ৰ বিতং প্ৰতিবেদন",
+      "ringType2": "বিম ৰিং টাইপ ২",
+      "ringType2Detailed": "বিম ৰিং টাইপ ২ৰ বিতং প্ৰতিবেদন",
+      "numColumnN": "কলামৰ সংখ্যা - n",
+      "columnSizeX": "কলামৰ জোখ - X",
+      "columnSizeY": "কলামৰ জোখ - Y",
+      "columnHeightH": "কলামৰ উচ্চতা - H",
       "ring1": "বিম ৰিং ১",
       "ring2": "বিম ৰিং ২"
     },
@@ -424,11 +442,11 @@
     "calculate": "Calculate"
   },
   "downloadPDF": {
-        "title": "PDF ডাউনলোড কৰক",
-        "titleLabel": "শীৰ্ষক",
-        "titlePlaceholder": "শীৰ্ষক লিখক",
-        "cancel": "বাতিল কৰক",
-        "download": "ডাউনলোড",
-        "downloading": "ডাউনলোড হৈছে..."
-    }
+    "title": "PDF ডাউনলোড কৰক",
+    "titleLabel": "শীৰ্ষক",
+    "titlePlaceholder": "শীৰ্ষক লিখক",
+    "cancel": "বাতিল কৰক",
+    "download": "ডাউনলোড",
+    "downloading": "ডাউনলোড হৈছে..."
+  }
 }

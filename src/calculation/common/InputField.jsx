@@ -67,13 +67,13 @@ export default function InputField({
                 onChange={handleChange}
                 placeholder={placeholder}
                 className="
-          flex-1 h-full
-          px-1 md:px-2
-          text-sm sm:text-base
-          text-primary
-          focus:outline-none
-          min-w-0
-        "
+                    flex-1 h-full
+                    px-1 md:px-2
+                    text-sm sm:text-base
+                    text-primary
+                    focus:outline-none
+                    min-w-0
+                "
             />
 
             {/* RIGHT SUFFIX */}

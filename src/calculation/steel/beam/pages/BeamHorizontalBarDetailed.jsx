@@ -32,7 +32,7 @@ const BeamHorizontalBarDetailed = () => {
                         <ArrowLeft className="w-6 h-6 text-primary" />
                     </button>
                     <h1 className="text-xl font-bold text-primary">
-                        {t('steel.beam.horizontalDetailed')}
+                        {history ? t('steel.beam.horizontal') : t('steel.beam.horizontalDetailed')}
                     </h1>
                 </div>
                 {date && time && (

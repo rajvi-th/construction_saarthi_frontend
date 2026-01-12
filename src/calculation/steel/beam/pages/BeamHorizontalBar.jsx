@@ -72,12 +72,12 @@ const BeamHorizontalBar = () => {
     };
 
     const calculationData = [
-        { labelKey: 'steel.beam.barDiameterD1', name: 'Bar Diameter D1', symbol: 'D1', value: `${barDiameterD1} mm` },
-        { labelKey: 'steel.beam.beamSideB1', name: 'Beam side Bend 1-b1', symbol: 'b1', value: `${beamSideB1} mm` },
-        { labelKey: 'steel.beam.beamSideB2', name: 'Beam side Bend 1-b2', symbol: 'b2', value: `${beamSideB2} mm` },
-        { labelKey: 'steel.beam.beamLengthL', name: 'Beam Length - L', symbol: 'L', value: `${beamLengthL} mm` },
-        { labelKey: 'steel.beam.numVerticalBarsN1', name: 'Number of vertical Bars - n1', symbol: 'n1', value: `${numVerticalBarsN1} mm` }, // Keeping "mm" as per image, though likely a count
-        { labelKey: 'steel.beam.numBeamsN2', name: 'Number of Beam - n2', symbol: 'n2', value: `${numBeamsN2} NOS` },
+        { labelKey: 'steel.beam.barDiameterD1', name: t('steel.beam.barDiameterD1'), symbol: 'D1', value: `${barDiameterD1} mm` },
+        { labelKey: 'steel.beam.beamSideB1', name: t('steel.beam.beamSideB1'), symbol: 'b1', value: `${beamSideB1} mm` },
+        { labelKey: 'steel.beam.beamSideB2', name: t('steel.beam.beamSideB2'), symbol: 'b2', value: `${beamSideB2} mm` },
+        { labelKey: 'steel.beam.beamLengthL', name: t('steel.beam.beamLengthL'), symbol: 'L', value: `${beamLengthL} mm` },
+        { labelKey: 'steel.beam.numVerticalBarsN1', name: t('steel.beam.numVerticalBarsN1'), symbol: 'n1', value: `${numVerticalBarsN1}` },
+        { labelKey: 'steel.beam.numBeamsN2', name: t('steel.beam.numBeamsN2'), symbol: 'n2', value: `${numBeamsN2} NOS` },
     ];
 
     // Add Price to calculation data? Usually detailed report shows inputs used for logic. 
@@ -85,8 +85,9 @@ const BeamHorizontalBar = () => {
 
     const detailedOutputs = [
         {
-            title: 'Vertical Steel',
-            label: 'Vertical Steel =', // The image doesn't show "Vertical Steel =" just the title "Vertical Steel"
+            titleKey: 'steel.beam.verticalSteel',
+            labelKey: 'steel.beam.verticalSteel',
+            labelSuffix: '=',
             formula: 'n2XD1XD1X(L+b1+b2) Xn1 /162.28',
             value: `${totalSteelWeight.toFixed(3)} KG`
         },
@@ -146,26 +147,26 @@ const BeamHorizontalBar = () => {
                 <div className="space-y-4 pt-4">
                     {/* Beam Size Section */}
                     <div className="space-y-2">
-                        <h3 className="font-medium text-primary ml-1">Beam Size</h3>
+                        <h3 className="font-medium text-primary ml-1">{t('steel.beam.size')}</h3>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
                             <InputField
                                 unit="mm"
                                 value={beamSideB1}
                                 onChange={(e) => setBeamSideB1(e.target.value)}
-                                placeholder="Beam Side"
+                                placeholder={t('steel.beam.beamSideB1')}
                             />
                             <InputField
                                 unit="mm"
                                 value={beamSideB2}
                                 onChange={(e) => setBeamSideB2(e.target.value)}
-                                placeholder="Beam Side"
+                                placeholder={t('steel.beam.beamSideB2')}
                             />
                             <div className='col-span-2 md:col-span-1'>
                                 <InputField
                                     unit="mm"
                                     value={beamLengthL}
                                     onChange={(e) => setBeamLengthL(e.target.value)}
-                                    placeholder="Beam Length L"
+                                    placeholder={t('steel.beam.beamLengthL')}
                                 />
                             </div>
                         </div>
@@ -173,24 +174,24 @@ const BeamHorizontalBar = () => {
 
                     {/* Bar Details Section */}
                     <div className="space-y-2">
-                        <h3 className="font-medium text-primary ml-1">Bar Details</h3>
+                        <h3 className="font-medium text-primary ml-1">{t('steel.beam.barDetails')}</h3>
                         <div className="space-y-2">
                             <InputField
                                 unit="mm"
                                 value={barDiameterD1}
                                 onChange={(e) => setBarDiameterD1(e.target.value)}
-                                placeholder="Bar diameter D1"
+                                placeholder={t('steel.beam.barDiameterD1')}
                             />
                             <InputField
                                 unit="mm"
                                 value={numVerticalBarsN1}
                                 onChange={(e) => setNumVerticalBarsN1(e.target.value)}
-                                placeholder="Number of vertical bars - n1"
+                                placeholder={t('steel.beam.numVerticalBarsN1')}
                             />
                             <InputField
                                 value={numBeamsN2}
                                 onChange={(e) => setNumBeamsN2(e.target.value)}
-                                placeholder="No of beam - n2"
+                                placeholder={t('steel.beam.numBeamsN2')}
                                 suffix="NOS"
                             />
                         </div>
@@ -256,7 +257,7 @@ const BeamHorizontalBar = () => {
                             </thead>
                             <tbody className="divide-y divide-[#060C120A]">
                                 {[
-                                    { material: 'Vertical Steel', quantity: totalSteelWeight.toFixed(3), unit: 'Kg' },
+                                    { material: t('steel.beam.verticalSteel'), quantity: totalSteelWeight.toFixed(3), unit: 'kg' },
                                 ].map((row, rowIndex) => (
                                     <tr key={rowIndex} className="hover:bg-[#F9F9F9] transition-colors">
                                         <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A]">{row.material}</td>
