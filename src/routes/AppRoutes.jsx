@@ -198,6 +198,28 @@ const ColumnRingType1Detailed = lazy(() => import('../calculation/steel/column/p
 const ColumnRingType2 = lazy(() => import('../calculation/steel/column/pages/ColumnRingType2'));
 const ColumnRingType2Detailed = lazy(() => import('../calculation/steel/column/pages/ColumnRingType2Detailed'));
 
+// Steel - Slab
+const SlabType1 = lazy(() => import('../calculation/steel/slab/pages/SlabType1'));
+const SlabType1Detailed = lazy(() => import('../calculation/steel/slab/pages/SlabType1Detailed'));
+const SlabType2 = lazy(() => import('../calculation/steel/slab/pages/SlabType2'));
+const SlabType2Detailed = lazy(() => import('../calculation/steel/slab/pages/SlabType2Detailed'));
+const SlabType3 = lazy(() => import('../calculation/steel/slab/pages/SlabType3'));
+const SlabType3Detailed = lazy(() => import('../calculation/steel/slab/pages/SlabType3Detailed'));
+
+// Steel - Cutting Length
+const StraightBar = lazy(() => import('../calculation/steel/cutting-length/pages/StraightBar'));
+const StraightBarDetailed = lazy(() => import('../calculation/steel/cutting-length/pages/StraightBarDetailed'));
+const LShapeBar = lazy(() => import('../calculation/steel/cutting-length/pages/LShapeBar'));
+const LShapeBarDetailed = lazy(() => import('../calculation/steel/cutting-length/pages/LShapeBarDetailed'));
+const UShapeBar = lazy(() => import('../calculation/steel/cutting-length/pages/UShapeBar'));
+const UShapeBarDetailed = lazy(() => import('../calculation/steel/cutting-length/pages/UShapeBarDetailed'));
+const Stirrups = lazy(() => import('../calculation/steel/cutting-length/pages/Stirrups'));
+const StirrupsDetailed = lazy(() => import('../calculation/steel/cutting-length/pages/StirrupsDetailed'));
+
+
+
+
+
 // Calculation - Concrete
 // Concrete - LandingPage
 const Concrete = lazy(() => import('../calculation/concrete/LandingPage/pages/Concrete'));
@@ -360,6 +382,28 @@ function AppRoutes() {
             <Route path={ROUTES_FLAT.CALCULATION_BEAM_RING_TYPE1_DETAILED} element={<BeamRingType1Detailed />} />
             <Route path={ROUTES_FLAT.CALCULATION_BEAM_RING_TYPE2} element={<BeamRingType2 />} />
             <Route path={ROUTES_FLAT.CALCULATION_BEAM_RING_TYPE2_DETAILED} element={<BeamRingType2Detailed />} />
+
+            {/* Steel - Slab */}
+            <Route path={ROUTES_FLAT.CALCULATION_SLAB_TYPE1} element={<SlabType1 />} />
+            <Route path={ROUTES_FLAT.CALCULATION_SLAB_TYPE1_DETAILED} element={<SlabType1Detailed />} />
+            <Route path={ROUTES_FLAT.CALCULATION_SLAB_TYPE2} element={<SlabType2 />} />
+            <Route path={ROUTES_FLAT.CALCULATION_SLAB_TYPE2_DETAILED} element={<SlabType2Detailed />} />
+            <Route path={ROUTES_FLAT.CALCULATION_SLAB_TYPE3} element={<SlabType3 />} />
+            <Route path={ROUTES_FLAT.CALCULATION_SLAB_TYPE3_DETAILED} element={<SlabType3Detailed />} />
+
+            {/* Steel - Cutting Length */}
+            <Route path={ROUTES_FLAT.CALCULATION_STRAIGHT_BAR} element={<StraightBar />} />
+            <Route path={ROUTES_FLAT.CALCULATION_STRAIGHT_BAR_DETAILED} element={<StraightBarDetailed />} />
+            <Route path={ROUTES_FLAT.CALCULATION_L_SHAPE_BAR} element={<LShapeBar />} />
+            <Route path={ROUTES_FLAT.CALCULATION_L_SHAPE_BAR_DETAILED} element={<LShapeBarDetailed />} />
+            <Route path={ROUTES_FLAT.CALCULATION_U_SHAPE_BAR} element={<UShapeBar />} />
+            <Route path={ROUTES_FLAT.CALCULATION_U_SHAPE_BAR_DETAILED} element={<UShapeBarDetailed />} />
+            <Route path={ROUTES_FLAT.CALCULATION_STIRRUPS} element={<Stirrups />} />
+            <Route path={ROUTES_FLAT.CALCULATION_STIRRUPS_DETAILED} element={<StirrupsDetailed />} />
+
+
+
+
 
             {/* Steel - Column */}
             <Route path={ROUTES_FLAT.CALCULATION_COLUMN_TYPE1} element={<ColumnType1 />} />

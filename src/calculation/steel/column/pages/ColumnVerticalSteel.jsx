@@ -94,7 +94,7 @@ const ColumnVerticalSteel = () => {
             {/* Content Card */}
             <div className="bg-[#F9F4EE] rounded-3xl p-4 sm:p-6 shadow-sm">
                 <div className="flex items-center gap-4 sm:gap-10 pb-6 border-b border-[#060C120A]">
-                    <div className="flex items-center justify-center w-24 h-24 sm:w-45 sm:h-38">
+                    <div className="flex items-center justify-center">
                         <img src={colsVerticalSteel} alt="Column Vertical Steel Diagram" className="w-full h-full object-contain" />
                     </div>
 

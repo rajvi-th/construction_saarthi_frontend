@@ -8,6 +8,7 @@ import slabType2 from '../../../../assets/icons/slabType2.svg';
 import slabType3 from '../../../../assets/icons/slabType3.svg';
 
 import { useNavigate } from 'react-router-dom';
+import { ROUTES_FLAT } from '../../../../constants/routes';
 
 const SlabSection = () => {
     const { t } = useTranslation('calculation');
@@ -15,9 +16,9 @@ const SlabSection = () => {
     const comingSoonPath = '/calculation/coming-soon';
 
     const slabItems = [
-        { id: 'sl1', title: t('steel.slab.type1'), icon: slabType1, path: comingSoonPath },
-        { id: 'sl2', title: t('steel.slab.type2'), icon: slabType2, path: comingSoonPath },
-        { id: 'sl3', title: t('steel.slab.type3'), icon: slabType3, path: comingSoonPath },
+        { id: 'sl1', title: t('steel.slab.type1'), icon: slabType1, path: ROUTES_FLAT.CALCULATION_SLAB_TYPE1 },
+        { id: 'sl2', title: t('steel.slab.type2'), icon: slabType2, path: ROUTES_FLAT.CALCULATION_SLAB_TYPE2 },
+        { id: 'sl3', title: t('steel.slab.type3'), icon: slabType3, path: ROUTES_FLAT.CALCULATION_SLAB_TYPE3 },
     ];
 
     // Dynamic grid columns based on item count

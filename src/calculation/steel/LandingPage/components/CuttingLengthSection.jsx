@@ -9,6 +9,7 @@ import uShapeBar from '../../../../assets/icons/uShapeBar.svg';
 import stirrups from '../../../../assets/icons/stirrups.svg';
 
 import { useNavigate } from 'react-router-dom';
+import { ROUTES_FLAT } from '../../../../constants/routes';
 
 const CuttingLengthSection = () => {
     const { t } = useTranslation('calculation');
@@ -16,10 +17,10 @@ const CuttingLengthSection = () => {
     const comingSoonPath = '/calculation/coming-soon';
 
     const cuttingItems = [
-        { id: 'cut1', title: t('steel.cutting.straight'), icon: straightBar, path: comingSoonPath },
-        { id: 'cut2', title: t('steel.cutting.lShape'), icon: lShapeBar, path: comingSoonPath },
-        { id: 'cut3', title: t('steel.cutting.uShape'), icon: uShapeBar, path: comingSoonPath },
-        { id: 'cut4', title: t('steel.cutting.stirrups'), icon: stirrups, path: comingSoonPath },
+        { id: 'cut1', title: t('steel.cutting.straight'), icon: straightBar, path: ROUTES_FLAT.CALCULATION_STRAIGHT_BAR },
+        { id: 'cut2', title: t('steel.cutting.lShape'), icon: lShapeBar, path: ROUTES_FLAT.CALCULATION_L_SHAPE_BAR },
+        { id: 'cut3', title: t('steel.cutting.uShape'), icon: uShapeBar, path: ROUTES_FLAT.CALCULATION_U_SHAPE_BAR },
+        { id: 'cut4', title: t('steel.cutting.stirrups'), icon: stirrups, path: ROUTES_FLAT.CALCULATION_STIRRUPS },
     ];
 
     // Dynamic grid columns based on item count

@@ -146,7 +146,7 @@ const FootingType1 = () => {
             <div className="bg-[#F9F4EE] rounded-3xl p-4 sm:p-6">
                 <div className="flex items-center gap-4 sm:gap-10 pb-6 border-b border-[#060C120A]">
                     {/* Icon Box - Responsive size */}
-                    <div className="flex items-center justify-cente w-24 h-24 sm:w-35 sm:h-35">
+                    <div className="flex items-center justify-center ">
                         <img src={footType1} alt="Footing Type 1 Diagram" className="w-full h-full object-contain" />
                     </div>
 

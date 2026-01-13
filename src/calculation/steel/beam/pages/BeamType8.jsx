@@ -187,7 +187,7 @@ const BeamType8 = () => {
             <div className="bg-[#F9F4EE] rounded-3xl p-4 sm:p-6">
                 <div className="flex items-center gap-4 sm:gap-10 pb-6 border-b border-[#060C120A]">
                     {/* Icon Box */}
-                    <div className="flex items-center justify-center w-24 h-24 sm:w-38 sm:h-38">
+                    <div className="flex items-center justify-center">
                         <img src={beamType8} alt="Beam Diagram" className="w-full h-full object-contain" />
                     </div>
 
