@@ -363,11 +363,25 @@
       "englishTitle": "इंग्लिश बॉन्ड",
       "englishDetailedTitle": "इंग्लिश बॉन्ड विस्तृत रिपोर्ट",
       "flemish": "फ्लेमिश बॉन्ड",
-      "flemishTitle": "फ्લેमिश बॉन्ड",
+      "flemishTitle": "फ्लेमिश बॉन्ड",
       "flemishDetailedTitle": "फ्लेमिश बॉन्ड विस्तृत रिपोर्ट",
       "stack": "स्टैक बॉन्ड",
+      "stackTitle": "स्टैक बॉन्ड",
+      "stackDetailedTitle": "स्टैक बॉन्ड विस्तृत रिपोर्ट",
       "dutch": "इंग्लिश क्रॉस या डच बॉन्ड",
+      "dutchTitle": "इंग्लिश क्रॉस या डच बॉन्ड",
+      "dutchDetailedTitle": "इंग्लिश क्रॉस या डच बॉन्ड विस्तृत रिपोर्ट",
       "gardenWall": "गार्डन वॉल बॉन्ड",
+      "gardenWallTitle": "गार्डन वॉल बॉन्ड",
+      "gardenWallDetailedTitle": "गार्डन वॉल बॉन्ड विस्तृत रिपोर्ट",
+      "kingCloserTitle": "किंग क्लोजर",
+      "kingCloserDetailedTitle": "किंग क्लोजर विस्तृत रिपोर्ट",
+      "queenCloserTitle": "क्वीन क्लोजर",
+      "queenCloserDetailedTitle": "क्वीन क्लोजर विस्तृत रिपोर्ट",
+      "halfBatCloserTitle": "हाफ बैट क्लोजर",
+      "halfBatCloserDetailedTitle": "हाफ बैट क्लोजर विस्तृत रिपोर्ट",
+      "quarterBatCloserTitle": "क्वार्टर बैट क्लोजર",
+      "quarterBatCloserDetailedTitle": "क्वार्टर बैट क्लोजर विस्तृत रिपोर्ट",
       "brickToBrickJoint": "ईंट से ईंट का जोड़"
     },
     "closer": {
@@ -386,13 +400,26 @@
       "wallWithDoor": "दरवाजे के साथ दीवार",
       "wallWithArcDoor": "आर्क दरवाजे के साथ दीवार",
       "cavityWall": "कैविटी वॉल",
-      "buttressWall": "बट्रेस वॉल"
+      "buttressWall": "बट्रेस वॉल",
+      "byVolumeDetailedTitle": "आयतन से विस्तृत रिपोर्ट",
+      "byCubeDetailedTitle": "क्यूब से विस्तृत रिपोर्ट",
+      "byWallDetailedTitle": "दीवार से विस्तृत रिपोर्ट",
+      "lWallDetailedTitle": "L दीवार विस्तृत रिपोर्ट",
+      "cWallDetailedTitle": "C दीवार विस्तृत रिपोर्ट",
+      "rectangularChamberDetailedTitle": "आयताकार चैंबर विस्तृत रिपोर्ट",
+      "wallWithDoorDetailedTitle": "दरवाजे के साथ दीवार विस्तृत रिपोर्ट",
+      "wallWithArcDoorDetailedTitle": "आर्क दरवाजे के साथ दीवार विस्तृत रिपोर्ट",
+      "cavityWallDetailedTitle": "कैविटी वॉल विस्तृत रिपोर्ट",
+      "buttressWallDetailedTitle": "बट्रेस वॉल विस्तृत रिपोर्ट"
     },
     "clayBrick": {
       "title": "क्ले ब्रिक / फ्लाई ऐश ब्रिक",
       "detailedTitle": "क्ले ब्रिक / फ्लाई ऐश ब्रिक विस्तृत रिपोर्ट",
       "brickSize": "ईंट का आकार",
       "wallSize": "दीवार का आकार",
+      "doorSize": "दरवाजे का आकार",
+      "doorLength": "दरवाजे की लंबाई",
+      "doorHeight": "दरवाजे की ऊंचाई",
       "mortarRatio": "मोर्टार अनुपात",
       "deductions": "कटौती",
       "price": "कीमत",
@@ -402,6 +429,8 @@
       "wallLength": "लंबाई",
       "wallHeight": "ऊंचाई",
       "wallThickness": "मोटाई",
+      "width1": "चौड़ाई 1",
+      "width2": "चौड़ाई 2",
       "cement": "सीमेंट",
       "sand": "रेत",
       "w1": "W1",
@@ -413,8 +442,16 @@
       "brickPrice": "ईंट",
       "cementPrice": "सीमेंट",
       "sandPrice": "रेत",
+      "volume": "आयतन",
+      "currencyPerUnit": "प्रति यूनिट मुद्रा",
+      "currency": "मुद्रा",
+      "cavity": "कैविटी",
+      "cavityThickness": "कैविटी की मोटाई",
+      "cavityMaterial": "कैविटी सामग्री",
+      "numberOfButtress": "बट्रेस की संख्या",
       "results": {
         "volumeOfWall": "दीवार का आयतन",
+        "volumeOfShape": "आकार का आयतन",
         "noOfBricks": "ईंटों की संख्या",
         "mortarDryVolume": "मोर्टार ड्राई आयतन",
         "cementBags": "सीमेंट बैग (50kg)",
@@ -422,7 +459,13 @@
         "brickCost": "ईंट की लागत",
         "cementCost": "सीमेंट की लागत",
         "sandCost": "रेत की लागत",
-        "totalCost": "कुल लागत"
+        "totalCost": "कुल लागत",
+        "noOfKingCloser": "किंग क्लोजर की संख्या",
+        "noOfQueenCloser": "क्वीन क्लोजर की संख्या",
+        "noOfHalfBatCloser": "हाफ बैट क्लोजર की संख्या",
+        "noOfQuarterBatCloser": "क्वार्टर बैट क्लोजर की संख्या",
+        "volumeOfCavity": "कैविटी का आयतन",
+        "cavityMaterialCost": "कैविटी सामग्री की लागत"
       }
     },
     "aacBlock": {
@@ -573,6 +616,159 @@
       "totalCost": "कुल लागत",
       "reset": "रीसेट",
       "calculate": "गणना करें"
+    }
+  },
+  "roofArea": {
+    "common": {
+      "metric": "मीट्रिक",
+      "imperial": "इंपीरियल",
+      "reset": "रीसेट",
+      "calculate": "गणना करें",
+      "result": "परिणाम",
+      "totalCost": "कुल लागत",
+      "viewDetailed": "विस्तृत परिणाम देखें",
+      "inputs": "इनपुट",
+      "outputs": "परिणाम",
+      "currency": "मुद्रा",
+      "currencyPerSqM": "मुद्रा प्रति वर्ग मीटर"
+    },
+    "flatRoof": {
+      "title": "समतल छत",
+      "detailedTitle": "समतल छत विस्तृत रिपोर्ट",
+      "baseLengthA": "आधार लंबाई A",
+      "baseLengthB": "आधार लंबाई B",
+      "eaveLengthC": "ईव लंबाई C",
+      "roomPrice": "कमरे की कीमत",
+      "results": {
+        "roofArea": "छत का क्षेत्रफल",
+        "roofCost": "छत की लागत"
+      }
+    },
+    "shedRoof": {
+      "title": "शेड रूफ",
+      "detailedTitle": "शेड रूफ विस्तृत रिपोर्ट",
+      "baseLengthA": "आधार लंबाई A",
+      "baseLengthB": "आधार लंबाई B",
+      "eaveLengthC": "ईव लंबाई C",
+      "riseH": "ऊंचाई H",
+      "roomPrice": "कमरे की कीमत",
+      "results": {
+        "roofArea": "छत का क्षेत्रफल",
+        "roofCost": "छत की लागत"
+      }
+    },
+    "gableRoof": {
+      "title": "गेबल रूफ",
+      "detailedTitle": "गेबल रूफ विस्तृत रिपोर्ट",
+      "baseLengthA": "आधार लंबाई A",
+      "baseLengthB": "आधार लंबाई B",
+      "eaveLengthC": "ईव लंबाई C",
+      "riseH": "ऊंचाई H",
+      "roomPrice": "कमरे की कीमत",
+      "results": {
+        "roofArea": "छत का क्षेत्रफल",
+        "roofCost": "छत की लागत"
+      }
+    },
+    "boxGableRoof": {
+      "title": "बॉक्स गेबल रूफ",
+      "detailedTitle": "बॉक्स गेबल रूफ विस्तृत रिपोर्ट",
+      "baseLengthA": "आधार लंबाई A",
+      "baseLengthB": "आधार लंबाई B",
+      "eaveLengthC": "ईव लंबाई C",
+      "eaveLengthD": "ईव लंबाई D",
+      "riseH": "ऊंचाई H",
+      "roomPrice": "कमरे की कीमत",
+      "results": {
+        "roofArea": "छत का क्षेत्रफल",
+        "roofCost": "छत की लागत"
+      }
+    },
+    "mShapedRoof": {
+      "title": "एम शेप्ड रूफ",
+      "detailedTitle": "एम शेप्ड रूफ विस्तृत रिपोर्ट",
+      "baseLengthA": "आधार लंबाई A",
+      "baseLengthB": "आधार लंबाई B",
+      "eaveLengthC": "ईव लंबाई C",
+      "riseH": "ऊंचाई H",
+      "roomPrice": "कमरे की कीमत",
+      "results": {
+        "roofArea": "छत का क्षेत्रफल",
+        "roofCost": "छत की लागत"
+      }
+    },
+    "butterflyRoof": {
+      "title": "बटरफ्लाई रूफ",
+      "detailedTitle": "बटरफ्लाई रूफ विस्तृत रिपोर्ट",
+      "baseLengthA": "आधार लंबाई A",
+      "baseLengthB": "आधार लंबाई B",
+      "eaveLengthC": "ईव लंबाई C",
+      "riseH": "ऊंचाई H",
+      "roomPrice": "कमरे की कीमत",
+      "results": {
+        "roofArea": "छत का क्षेत्रफल",
+        "roofCost": "छत की लागत"
+      }
+    },
+    "saltboxRoof": {
+      "title": "साल्टबॉक्स रूफ",
+      "detailedTitle": "साल्टबॉक्स रूफ विस्तृत रिपोर्ट",
+      "baseLengthA1": "आधार लंबाई A1",
+      "baseLengthA2": "आधार लंबाई A2",
+      "baseLengthB": "आधार लंबाई B",
+      "eaveLengthC": "ईव लंबाई C",
+      "riseH1": "ऊंचाई H1",
+      "riseH2": "ऊंचाई H2",
+      "roomPrice": "कमरे की कीमत",
+      "results": {
+        "roofArea": "छत का क्षेत्रफल",
+        "roofCost": "छत की लागत"
+      }
+    },
+    "hexagonalRoof": {
+      "title": "हेक्सागोनल रूफ",
+      "detailedTitle": "हेक्सागोनल रूफ विस्तृत रिपोर्ट",
+      "baseLengthA": "आधार लंबाई A",
+      "slopS": "ढलान S",
+      "roomPrice": "कमरे की कीमत",
+      "results": {
+        "roofArea": "छत का क्षेत्रफल",
+        "roofCost": "छत की लागत"
+      }
+    },
+    "pyramidHipRoof": {
+      "title": "पिरामिड हिप रूफ",
+      "detailedTitle": "पिरामिड हिप रूफ विस्तृत रिपोर्ट",
+      "baseLengthA": "आधार लंबाई A",
+      "baseLengthB": "आधार लंबाई B",
+      "riseH": "ऊंचाई H",
+      "roomPrice": "कमरे की कीमत",
+      "results": {
+        "roofArea": "छत का क्षेत्रफल",
+        "roofCost": "छत की लागत"
+      }
+    },
+    "flooring": {
+      "title": "फ्लोरिंग",
+      "detailedTitle": "फ्लोरिंग विस्तृत रिपोर्ट",
+      "roomLengthL": "कमरे की लंबाई",
+      "roomWidthW": "कमरे की चौड़ाई",
+      "doorWidthD": "दरवाजे की चौड़ाई",
+      "skirtingHeightH": "स्कर्टिंग ऊंचाई",
+      "tileLengthl": "टाइल्स की लंबाई",
+      "tileWidthw": "टाइल्स की चौड़ाई",
+      "wastageS": "बर्बादी",
+      "headers": {
+        "inputName": "इनपुट का नाम",
+        "symbol": "चिन्ह",
+        "value": "मूल्य"
+      },
+      "results": {
+        "noOfBlocks": "ब्लॉक की संख्या",
+        "cementBags": "सीमेंट बैग",
+        "cement": "सीमेंट",
+        "sand": "रेत"
+      }
     }
   },
   "downloadPDF": {

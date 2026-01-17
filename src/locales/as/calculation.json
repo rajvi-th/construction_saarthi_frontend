@@ -109,22 +109,22 @@
       "cuttingLength": "কাটিং লেংথ"
     },
     "weight": {
-      "reinforcement": "ৰইনফৰ্চমেন্ট ওজন (Reinforcement Weight)",
+      "reinforcement": "ৰইনফৰ্চমেন্ট ওজন",
       "detailedReport": "ৰইনফৰ্চমেন্ট ওজনৰ বিতং ৰিপৰ্ট",
-      "metric": "মেট্ৰিক (Metric)",
-      "imperial": "ইম্পেৰিয়াল (Imperial)",
+      "metric": "মেট্ৰিক",
+      "imperial": "ইম্পেৰিয়াল",
       "wastage": "সামগ্ৰীৰ অপচয়",
       "wastagePlaceholder": "যেনে \"১০\"",
-      "diameter": "ব্যাস (Diameter)",
-      "length": "দৈৰ্ঘ্য (Length)",
+      "diameter": "ব্যাস",
+      "length": "দৈৰ্ঘ্য",
       "noOfBars": "ৰডৰ সংখ্যা",
-      "price": "মূল্য (Price)",
+      "price": "মূল্য",
       "reset": "ৰিছেট",
       "calculate": "গণনা কৰক",
       "result": "ফলাফল",
       "totalCost": "মুঠ খৰচ",
       "viewDetailed": "বিতং ফলাফল চাওক",
-      "totalLength": "মুঠ দৈৰ্ঘ্য",
+      "totalLength": "মুঠ দৈৰ្ঘ্য",
       "singleRodWeight": "এটা ৰডৰ ওজন",
       "totalWeight": "মুঠ ওজন",
       "totalSteel": "মুঠ ষ্টিল",
@@ -132,9 +132,9 @@
       "inputs": "ইনপুটসমূহ",
       "outputs": "আউটপুটসমূহ",
       "inputName": "ইনপুট নাম",
-      "symbol": "চিহ্ন (Symbol)",
+      "symbol": "চিহ্ন",
       "value": "মান",
-      "formula": "সূত্ৰ (Formula)"
+      "formula": "সূত্ৰ"
     },
     "footing": {
       "type1": "ফুটিং টাইপ ১",
@@ -363,8 +363,22 @@
       "flemishTitle": "ফ্লেমিছ বণ্ড",
       "flemishDetailedTitle": "ফ্লেমিছ বণ্ডৰ বিস্তৃত প্ৰতিবেদন",
       "stack": "ষ্টেক বণ্ড",
+      "stackTitle": "ষ্টেক বণ্ড",
+      "stackDetailedTitle": "ষ্টেক বণ্ডৰ বিস্তৃত প্ৰতিবেদন",
       "dutch": "ইংলিছ ক্ৰছ বা ডাচ বণ্ড",
+      "dutchTitle": "ইংলিছ ক্ৰছ বা ডাচ বণ্ড",
+      "dutchDetailedTitle": "ইংলিছ ক্ৰছ বা ডাচ বণ্ডৰ বিস্তৃত প্ৰতিবেদন",
       "gardenWall": "গাৰ্ডেন ৱাল বণ্ড",
+      "gardenWallTitle": "গাৰ্ডেন ৱাল বণ্ড",
+      "gardenWallDetailedTitle": "গাৰ্ডেন ৱাল বণ্ডৰ বিস্তৃত প্ৰতিবেদন",
+      "kingCloserTitle": "কিং ক্লোজাৰ",
+      "kingCloserDetailedTitle": "কিং ক্লোজাৰৰ বিস্তৃত প্ৰতিবেদন",
+      "queenCloserTitle": "কুইন ক্লোজাৰ",
+      "queenCloserDetailedTitle": "কুইন ক্লোজাৰৰ বিস্তৃত প্ৰতিবেদন",
+      "halfBatCloserTitle": "হাফ বেট ক্লোজাৰ",
+      "halfBatCloserDetailedTitle": "হাফ বেট ক্লোজাৰৰ বিস্তৃত প্ৰতিবেদন",
+      "quarterBatCloserTitle": "কোৱাৰ্টাৰ বেট ক্লোজাৰ",
+      "quarterBatCloserDetailedTitle": "কোৱাৰ্টাৰ বেট ক্লোজাৰৰ বিস্তৃত প্ৰতিবেদন",
       "brickToBrickJoint": "ইটাৰ পৰা ইটাৰ জোৰা"
     },
     "closer": {
@@ -383,14 +397,27 @@
       "wallWithDoor": "দুৱাৰ থকা দেৱাল",
       "wallWithArcDoor": "আৰ্ক দুৱাৰ থকা দেৱাল",
       "cavityWall": "কেভিটি ৱাল",
-      "buttressWall": "বাট্ৰেছ ৱাল"
+      "buttressWall": "বাট্ৰেছ ৱাল",
+      "byVolumeDetailedTitle": "আয়তন অনুসৰি বিস্তৃত প্ৰতিবেদন",
+      "byCubeDetailedTitle": "কিউব অনুসৰি বিস্তৃত প্ৰতিবেদন",
+      "byWallDetailedTitle": "দেৱাল অনুসৰি বিস্তৃত প্ৰতিবেদন",
+      "lWallDetailedTitle": "L দেৱাল অনুসৰি বিস্তৃত প্ৰতিবেদন",
+      "cWallDetailedTitle": "C দেৱাল অনুসৰি বিস্তৃত প্ৰতিবেদন",
+      "rectangularChamberDetailedTitle": "আয়তাকাৰ কক্ষৰ বিস্তৃত প্ৰতিবেদন",
+      "wallWithDoorDetailedTitle": "দুৱাৰ থকা দেৱালৰ বিস্তৃত প্ৰতিবেদন",
+      "wallWithArcDoorDetailedTitle": "আৰ্ক দুৱাৰ থকা দেৱালৰ বিস্তৃত প্ৰতিবেদন",
+      "cavityWallDetailedTitle": "কেভিটি ৱালৰ বিস্তৃত প্ৰতিবেদন",
+      "buttressWallDetailedTitle": "বাট্ৰেছ ৱালৰ বিস্তৃত প্ৰতিবেদন"
     },
     "clayBrick": {
       "title": "মৃত্তিকাৰ ইটা / ফ্লাই অছ ইটা",
       "detailedTitle": "মৃত্তিকাৰ ইটা / ফ্লাই অছ ইটাৰ বিস্তৃত প্ৰতিবেদন",
-      "brickSize": "ইটাৰ জোখ",
-      "wallSize": "দেৱালৰ জোখ",
-      "mortarRatio": "মৰ্টাৰৰ অনুপাত",
+      "brickSize": "ইটাৰ আকাৰ",
+      "wallSize": "বেৰৰ আকাৰ",
+      "doorSize": "দুৱাৰৰ আকাৰ",
+      "doorLength": "দুৱাৰৰ দৈৰ্ঘ্য",
+      "doorHeight": "দুৱাৰৰ উচ্চতা",
+      "mortarRatio": "মৰ্টাৰ অনুপাত",
       "deductions": "বাদ দিয়া অংশ",
       "price": "দাম",
       "brickLength": "দৈৰ্ঘ্য",
@@ -399,6 +426,8 @@
       "wallLength": "দৈৰ্ঘ্য",
       "wallHeight": "উচ্চতা",
       "wallThickness": "ডাঠতা",
+      "width1": "প্ৰস্থ ১",
+      "width2": "প্ৰস্থ ২",
       "cement": "চিমেণ্ট",
       "sand": "বালি",
       "w1": "W1",
@@ -410,8 +439,16 @@
       "brickPrice": "ইটা",
       "cementPrice": "চিমেণ্ট",
       "sandPrice": "বালি",
+      "volume": "আয়তন",
+      "cavity": "কেভিটি",
+      "cavityThickness": "কেভিটিৰ ডাঠতা",
+      "cavityMaterial": "কেভিটিৰ সামগ্ৰী",
+      "numberOfButtress": "বাট্ৰেছৰ সংখ্যা",
+      "currencyPerUnit": "প্ৰতি ইউনিটৰ মুদ্ৰা",
+      "currency": "মুদ্ৰা",
       "results": {
         "volumeOfWall": "দেৱালৰ আয়তন",
+        "volumeOfShape": "আকৃতিৰ আয়তন",
         "noOfBricks": "ইটাৰ সংখ্যা",
         "mortarDryVolume": "মৰ্টাৰৰ শুকান আয়তন",
         "cementBags": "চিমেণ্টৰ মোনা (৫০ কেজি)",
@@ -419,7 +456,13 @@
         "brickCost": "ইটাৰ খৰচ",
         "cementCost": "চিমেণ্টৰ খৰচ",
         "sandCost": "বালিৰ খৰচ",
-        "totalCost": "মুঠ খৰচ"
+        "totalCost": "মুঠ খৰচ",
+        "noOfKingCloser": "কিং ক্লোজাৰৰ সংখ্যা",
+        "noOfQueenCloser": "কুইন ক্লোজাৰৰ সংখ্যা",
+        "noOfHalfBatCloser": "হাফ বেট ক্লোজাৰৰ সংখ্যা",
+        "noOfQuarterBatCloser": "কোৱাৰ্টাৰ বেট ক্লোজাৰৰ সংখ্যা",
+        "volumeOfCavity": "কেভিটিৰ আয়তন",
+        "cavityMaterialCost": "কেভিটিৰ সামগ্ৰীৰ খৰচ"
       }
     },
     "aacBlock": {
@@ -628,6 +671,137 @@
     "totalCost": "Total Cost",
     "reset": "Reset",
     "calculate": "Calculate"
+  },
+  "roofArea": {
+    "common": {
+      "metric": "মেট্ৰিক",
+      "imperial": "ইম্পেৰিয়েল",
+      "reset": "ৰিছেট",
+      "calculate": "গণনা কৰক",
+      "result": "ফলাফল",
+      "totalCost": "মুঠ খৰচ",
+      "viewDetailed": "বিতং ফলাফল চাওক",
+      "inputs": "ইনপুট",
+      "outputs": "আউটপুট",
+      "currency": "মুদ্ৰা",
+      "currencyPerSqM": "প্ৰতি বৰ্গ মিটাৰত মুদ্ৰা"
+    },
+    "flatRoof": {
+      "title": "সমতল চাল",
+      "detailedTitle": "সমতল চালৰ বিতং প্ৰতিবেদন",
+      "baseLengthA": "আধাৰ দৈৰ্ঘ্য A",
+      "baseLengthB": "আধাৰ দৈৰ্ঘ্য B",
+      "eaveLengthC": "ইভ দৈৰ্ঘ্য C",
+      "roomPrice": "কোঠাৰ মূল্য",
+      "results": {
+        "roofArea": "চালৰ ক্ষেত্ৰফল",
+        "roofCost": "চালৰ খৰচ"
+      }
+    },
+    "shedRoof": {
+      "title": "শ্বেড চাল",
+      "detailedTitle": "শ্বেড চালৰ বিতং প্ৰতিবেদন",
+      "baseLengthA": "আধাৰ দৈৰ্ঘ্য A",
+      "baseLengthB": "আধাৰ দৈৰ্ঘ্য B",
+      "eaveLengthC": "ইভ দৈৰ্ঘ্য C",
+      "riseH": "উচ্চতা H",
+      "roomPrice": "কোঠাৰ মূল্য",
+      "results": {
+        "roofArea": "চালৰ ক্ষেত্ৰফল",
+        "roofCost": "চালৰ খৰচ"
+      }
+    },
+    "gableRoof": {
+      "title": "গেবল চাল",
+      "detailedTitle": "গেবল চালৰ বিতং প্ৰতিবেদন",
+      "baseLengthA": "আধাৰ দৈৰ্ঘ্য A",
+      "baseLengthB": "আধাৰ দৈৰ্ঘ্য B",
+      "eaveLengthC": "ইভ দৈৰ্ঘ্য C",
+      "riseH": "উচ্চতা H",
+      "roomPrice": "কোঠাৰ মূল্য",
+      "results": {
+        "roofArea": "চালৰ ক্ষেত্ৰফল",
+        "roofCost": "চালৰ খৰচ"
+      }
+    },
+    "boxGableRoof": {
+      "title": "বক্স গেবল চাল",
+      "detailedTitle": "বক্স গেবল চালৰ বিতং প্ৰতিবেদন",
+      "baseLengthA": "আধাৰ দৈৰ্ঘ্য A",
+      "baseLengthB": "আধাৰ দৈৰ্ঘ্য B",
+      "eaveLengthC": "ইভ দৈৰ্ঘ্য C",
+      "eaveLengthD": "ইভ দৈৰ্ঘ্য D",
+      "riseH": "উচ্চতা H",
+      "roomPrice": "কোঠাৰ মূল্য",
+      "results": {
+        "roofArea": "চালৰ ক্ষেত্ৰফল",
+        "roofCost": "চালৰ খৰচ"
+      }
+    },
+    "mShapedRoof": {
+      "title": "এম শ্বেপড চাল",
+      "detailedTitle": "এম শ্বেপড চালৰ বিতং প্ৰতিবেদন",
+      "baseLengthA": "আধাৰ দৈৰ্ঘ্য A",
+      "baseLengthB": "আধাৰ দৈৰ্ঘ্য B",
+      "eaveLengthC": "ইভ দৈৰ্ঘ্য C",
+      "riseH": "উচ্চতা H",
+      "roomPrice": "কোঠাৰ মূল্য",
+      "results": {
+        "roofArea": "চালৰ ক্ষেত্ৰফল",
+        "roofCost": "চালৰ খৰচ"
+      }
+    },
+    "butterflyRoof": {
+      "title": "বাটাৰফ্লাই চাল",
+      "detailedTitle": "বাটাৰফ্লাই চালৰ বিতং প্ৰতিবেদন",
+      "baseLengthA": "আধাৰ দৈৰ্ঘ্য A",
+      "baseLengthB": "আধাৰ দৈৰ্ঘ্য B",
+      "eaveLengthC": "ইভ দৈৰ্ঘ্য C",
+      "riseH": "উচ্চতা H",
+      "roomPrice": "কোঠাৰ মূল্য",
+      "results": {
+        "roofArea": "চালৰ ক্ষেত্ৰফল",
+        "roofCost": "চালৰ খৰচ"
+      }
+    },
+    "saltboxRoof": {
+      "title": "সল্টবক্স চাল",
+      "detailedTitle": "সল্টবক্স চালৰ বিতং প্ৰতিবেদন",
+      "baseLengthA1": "আধাৰ দৈৰ্ঘ্য A1",
+      "baseLengthA2": "আধাৰ দৈৰ্ঘ্য A2",
+      "baseLengthB": "আধাৰ দৈৰ্ঘ্য B",
+      "eaveLengthC": "ইভ দৈৰ্ঘ্য C",
+      "riseH1": "উচ্চতা H1",
+      "riseH2": "উচ্চতা H2",
+      "roomPrice": "কোঠাৰ মূল্য",
+      "results": {
+        "roofArea": "চালৰ ক্ষেত্ৰফল",
+        "roofCost": "চালৰ খৰচ"
+      }
+    },
+    "hexagonalRoof": {
+      "title": "হেক্সাগোনেল চাল",
+      "detailedTitle": "হেক্সাগোনেল চালৰ বিতং প্ৰতিবেদন",
+      "baseLengthA": "আধাৰ দৈৰ্ঘ্য A",
+      "slopS": "ঢাল S",
+      "roomPrice": "কোঠাৰ মূল্য",
+      "results": {
+        "roofArea": "চালৰ ক্ষেত্ৰফল",
+        "roofCost": "চালৰ খৰচ"
+      }
+    },
+    "pyramidHipRoof": {
+      "title": "পিৰামিড হিপ চাল",
+      "detailedTitle": "পিৰামিড হিপ চালৰ বিতং প্ৰতিবেদন",
+      "baseLengthA": "আধাৰ দৈৰ্ঘ্য A",
+      "baseLengthB": "আধাৰ দৈৰ্ঘ্য B",
+      "riseH": "উচ্চতা H",
+      "roomPrice": "কোঠাৰ মূল্য",
+      "results": {
+        "roofArea": "চালৰ ক্ষেত্ৰফল",
+        "roofCost": "চালৰ খৰচ"
+      }
+    }
   },
   "downloadPDF": {
     "title": "PDF ডাউনলোড কৰক",

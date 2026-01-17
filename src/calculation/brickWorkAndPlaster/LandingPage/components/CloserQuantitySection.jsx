@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import BrickWorkItem from './BrickWorkItem';
 import { useNavigate } from 'react-router-dom';
+import { ROUTES_FLAT } from '../../../../constants/routes';
 import kingCloser from '../../../../assets/icons/kingCloser.svg';
 import queenCloser from '../../../../assets/icons/queenCloser.svg';
 import halfBatCloser from '../../../../assets/icons/halfBatCloser.svg';
@@ -12,10 +13,10 @@ const CloserQuantitySection = () => {
     const navigate = useNavigate();
 
     const items = [
-        { id: 'king', title: t('brickWorkAndPlaster.closer.king'), icon: kingCloser, path: '#' },
-        { id: 'queen', title: t('brickWorkAndPlaster.closer.queen'), icon: queenCloser, path: '#' },
-        { id: 'halfBat', title: t('brickWorkAndPlaster.closer.halfBat'), icon: halfBatCloser, path: '#' },
-        { id: 'quarterBat', title: t('brickWorkAndPlaster.closer.quarterBat'), icon: quarterBatCloser, path: '#' },
+        { id: 'king', title: t('brickWorkAndPlaster.closer.king'), icon: kingCloser, path: ROUTES_FLAT.CALCULATION_KING_CLOSER },
+        { id: 'queen', title: t('brickWorkAndPlaster.closer.queen'), icon: queenCloser, path: ROUTES_FLAT.CALCULATION_QUEEN_CLOSER },
+        { id: 'halfBat', title: t('brickWorkAndPlaster.closer.halfBat'), icon: halfBatCloser, path: ROUTES_FLAT.CALCULATION_HALF_BAT_CLOSER },
+        { id: 'quarterBat', title: t('brickWorkAndPlaster.closer.quarterBat'), icon: quarterBatCloser, path: ROUTES_FLAT.CALCULATION_QUARTER_BAT_CLOSER },
     ];
 
     return (

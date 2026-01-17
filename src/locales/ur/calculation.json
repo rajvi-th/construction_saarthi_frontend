@@ -38,14 +38,14 @@
             "plum": "پلم",
             "rainWaterHarvesting": "بارش کے پانی کا ذخیرہ",
             "shuttering": "شٹرنگ",
-            "baluster": "کٹہرا (Baluster)",
+            "baluster": "کٹہرا",
             "arcCalculator": "آرک کیلکولیٹر",
             "precastBoundaryWall": "پری کاسٹ باؤنڈری وال",
             "damCalculations": "ڈیم کا حساب",
             "sewageSystem": "سیوریج سسٹم",
             "waterSupplySystem": "واٹر سپلائی سسٹم",
             "materialWeights": "سامان کا وزن",
-            "billOfQuantity": "سامان کا بل (BOQ)"
+            "billOfQuantity": "سامان کا بل"
         }
     },
     "comingSoon": {
@@ -58,7 +58,7 @@
     "history": {
         "sharePdf": "پی ڈی ایف کے طور پر شیئر کریں",
         "downloadReport": "رپورٹ ڈاؤن لوڈ کریں",
-        "calcTitle": "حساب کا عنوان (آپشنل)",
+        "calcTitle": "حساب کا عنوان (اختیاری)",
         "enterValue": "قیمت درج کریں",
         "constructionArea": "تعمیراتی رقبہ",
         "constructionCost": "تعمیراتی لاگت",
@@ -94,7 +94,7 @@
             "design": "ڈیزائن اور انجینئرنگ",
             "excavation": "کھدائی",
             "foundation": "بنیاد",
-            "rcc": "آر سی سی (RCC)",
+            "rcc": "آر سی سی",
             "brickwork": "اینٹوں کا کام",
             "plaster": "پلستر"
         }
@@ -109,16 +109,16 @@
             "cuttingLength": "کٹنگ کی لمبائی"
         },
         "weight": {
-            "reinforcement": "کمک کا وزن (Reinforcement Weight)",
+            "reinforcement": "کمک کا وزن",
             "detailedReport": "کمک کے وزن کی تفصیلی رپورٹ",
-            "metric": "میٹرک (Metric)",
-            "imperial": "ایمپیریل (Imperial)",
-            "wastage": "مال کا ضیاع (Wastage)",
+            "metric": "میٹرک",
+            "imperial": "ایمپیریل",
+            "wastage": "مال کا ضیاع",
             "wastagePlaceholder": "مثلاً \"10\"",
-            "diameter": "قطر (Diameter)",
-            "length": "لمبائی (Length)",
+            "diameter": "قطر",
+            "length": "لمبائی",
             "noOfBars": "سریوں کی تعداد",
-            "price": "قیمت (Price)",
+            "price": "قیمت",
             "reset": "دوبارہ ترتیب دیں",
             "calculate": "حساب لگائیں",
             "result": "نتیجہ",
@@ -129,12 +129,12 @@
             "totalWeight": "کل وزن",
             "totalSteel": "کل اسٹیل",
             "totalPrice": "کل قیمت",
-            "inputs": "ان پٹس (Inputs)",
-            "outputs": "آؤٹ پٹس (Outputs)",
+            "inputs": "ان پٹس",
+            "outputs": "آؤٹ پٹس",
             "inputName": "ان پٹ کا نام",
-            "symbol": "علامت (Symbol)",
-            "value": "قیمت/قدر (Value)",
-            "formula": "فارمولا (Formula)"
+            "symbol": "علامت",
+            "value": "قیمت/قدر",
+            "formula": "فارمولا"
         },
         "footing": {
             "type1": "فٹنگ ٹائپ 1",
@@ -167,7 +167,7 @@
             "size": "کالم کا سائز",
             "sideX": "سائیڈ X",
             "sideY": "سائیڈ Y",
-            "volume": "حجم (Volume)",
+            "volume": "حجم",
             "diameter": "سریے کا قطر (D)",
             "columnDiameter": "کالم کا قطر",
             "columnHeight": "کالم کی اونچائی",
@@ -178,7 +178,7 @@
             "noOfColumns": "کالم کی تعداد",
             "noOfColumn": "کالم کی تعداد",
             "steelRate": "سریے کا ریٹ",
-            "stirrups": "اسٹیرپس (Stirrups)",
+            "stirrups": "اسٹیرپس",
             "type2": "کالم ٹائپ 2",
             "type3": "کالم ٹائپ 3",
             "type3Detailed": "کالم ٹائپ 3 تفصیلی رپورٹ",
@@ -362,12 +362,26 @@
             "flemishTitle": "فلیمش بانڈ",
             "flemishDetailedTitle": "فلیمش بانڈ کی تفصیلی رپورٹ",
             "stack": "سٹیک بانڈ",
+            "stackTitle": "سٹیک بانڈ",
+            "stackDetailedTitle": "سٹیک بانڈ کی تفصیلی رپورٹ",
             "dutch": "انگلش کراس یا ڈچ بانڈ",
+            "dutchTitle": "انگلش کراس یا ڈچ بانڈ",
+            "dutchDetailedTitle": "انگلش کراس یا ڈچ بانڈ کی تفصیلی رپورٹ",
             "gardenWall": "گارڈن وال بانڈ",
+            "gardenWallTitle": "گارڈن وال بانڈ",
+            "gardenWallDetailedTitle": "گارڈن وال بانڈ کی تفصیلی رپورٹ",
+            "kingCloserTitle": "کنگ کلوزر",
+            "kingCloserDetailedTitle": "کنگ کلوزر کی تفصیلی رپورٹ",
+            "queenCloserTitle": "کوئین کلوزر",
+            "queenCloserDetailedTitle": "کوئین کلوزر کی تفصیلی رپورٹ",
+            "halfBatCloserTitle": "آدھی اینٹ کا کلوزر",
+            "halfBatCloserDetailedTitle": "آدھی اینٹ کے کلوزر کی تفصیلی رپورٹ",
+            "quarterBatCloserTitle": "پونی اینٹ کا کلوزر",
+            "quarterBatCloserDetailedTitle": "پونی اینٹ کے کلوزر کی تفصیلی رپورٹ",
             "brickToBrickJoint": "اینٹ سے اینٹ کا جوڑ"
         },
         "closer": {
-            "king": "キング کلوزر",
+            "king": "کنگ کلوزر",
             "queen": "کوئین کلوزر",
             "halfBat": "آدھی اینٹ کا کلوزر",
             "quarterBat": "پونی اینٹ کا کلوزر"
@@ -382,13 +396,26 @@
             "wallWithDoor": "دروازے والی دیوار",
             "wallWithArcDoor": "مہراب دار دروازے والی دیوار",
             "cavityWall": "کیویٹی وال",
-            "buttressWall": "بٹریس وال"
+            "buttressWall": "بٹریس وال",
+            "byVolumeDetailedTitle": "حجم کے لحاظ سے تفصیلی رپورٹ",
+            "byCubeDetailedTitle": "کیوب کے لحاظ سے تفصیلی رپورٹ",
+            "byWallDetailedTitle": "دیوار کے لحاظ سے تفصیلی رپورٹ",
+            "lWallDetailedTitle": "ایل دیوار کی تفصیلی رپورٹ",
+            "cWallDetailedTitle": "سی دیوار کی تفصیلی رپورٹ",
+            "rectangularChamberDetailedTitle": "مستطیل چیمبر کی تفصیلی رپورٹ",
+            "wallWithDoorDetailedTitle": "دروازے والی دیوار کی تفصیلی رپورٹ",
+            "wallWithArcDoorDetailedTitle": "مہراب دار دروازے والی دیوار کی تفصیلی رپورٹ",
+            "cavityWallDetailedTitle": "کیویٹی وال کی تفصیلی رپورٹ",
+            "buttressWallDetailedTitle": "بٹریس وال کی تفصیلی رپورٹ"
         },
         "clayBrick": {
             "title": "مٹی کی اینٹ / فلائی ایش اینٹ",
             "detailedTitle": "مٹی کی اینٹ / فلائی ایش اینٹ کی تفصیلی رپورٹ",
             "brickSize": "اینٹ کا سائز",
             "wallSize": "دیوار کا سائز",
+            "doorSize": "دروازے کا سائز",
+            "doorLength": "دروازے کی لمبائی",
+            "doorHeight": "دروازے کی اونچائی",
             "mortarRatio": "مسالہ کا تناسب",
             "deductions": "کٹوتی",
             "price": "قیمت",
@@ -398,6 +425,8 @@
             "wallLength": "لمبائی",
             "wallHeight": "اونچائی",
             "wallThickness": "موٹائی",
+            "width1": "چوڑائی 1",
+            "width2": "چوڑائی 2",
             "cement": "سیمنٹ",
             "sand": "ریت",
             "w1": "W1",
@@ -409,8 +438,16 @@
             "brickPrice": "اینٹ",
             "cementPrice": "سیمنٹ",
             "sandPrice": "ریت",
+            "volume": "حجم",
+            "currencyPerUnit": "فی یونٹ کرنسی",
+            "currency": "کرنسی",
+            "cavity": "کیوٹی",
+            "cavityThickness": "کیوٹی کی موٹائی",
+            "cavityMaterial": "کیوٹی کا مواد",
+            "numberOfButtress": "بٹریس کی تعداد",
             "results": {
                 "volumeOfWall": "دیوار کا حجم",
+                "volumeOfShape": "شکل کا حجم",
                 "noOfBricks": "اینٹوں کی تعداد",
                 "mortarDryVolume": "مسالہ کا خشک حجم",
                 "cementBags": "سیمنٹ کی بوریاں (50kg)",
@@ -418,7 +455,13 @@
                 "brickCost": "اینٹوں کی لاگت",
                 "cementCost": "سیمنٹ کی لاگت",
                 "sandCost": "ریت کی لاگت",
-                "totalCost": "کل لاگت"
+                "totalCost": "کل لاگت",
+                "noOfKingCloser": "کنگ کلوزر کی تعداد",
+                "noOfQueenCloser": "کوئین کلوزر کی تعداد",
+                "noOfHalfBatCloser": "آدھی اینٹ کے کلوزر کی تعداد",
+                "noOfQuarterBatCloser": "پونی اینٹ کے کلوزر کی تعداد",
+                "volumeOfCavity": "کیوٹی کا حجم",
+                "cavityMaterialCost": "کیوٹی کے مواد کی لاگت"
             }
         },
         "aacBlock": {
@@ -485,7 +528,7 @@
                 "plasterArea": "پلستر کا رقبہ",
                 "plasterVolume": "پلستر کا حجم",
                 "weightOfMaterial": "مواد کا وزن",
-                "noOfBags": "بوریوں کی تعداد (25 Kg)",
+                "noOfBags": "بوریوں کی تعداد",
                 "materialCost": "مواد کی لاگت",
                 "totalCost": "کل لاگت"
             }
@@ -542,8 +585,8 @@
             "depth_D": "گہرائی - D",
             "thickness_T": "موٹائی - T",
             "height_H": "اونچائی - H",
-            "rise_R": "اونچائی (Rise) - R",
-            "tread_T": "پايدان (Tread) - T",
+            "rise_R": "اونچائی - R",
+            "tread_T": "پايدان - T",
             "height_H1": "اونچائی - H1",
             "height_H2": "اونچائی - H2",
             "width_W1": "چوڑائی - W1",
@@ -569,13 +612,13 @@
             "sand": "ریت",
             "aggregate": "بجری",
             "waterCementRatio": "پانی - سیمنٹ کا تناسب",
-            "admixture": "مرکب (Admixture)",
+            "admixture": "مرکب",
             "noOfUnits": "یونٹس کی تعداد",
             "dryVolume": "خشک حجم",
             "rateOfConcrete": "کنکریٹ کا ریٹ",
             "result": "نتیجہ",
             "concreteVolume": "کنکریٹ کا حجم",
-            "cementBags": "سیمنٹ (50 کلوگرام)",
+            "cementBags": "سیمنٹ",
             "coarseAggregate": "موٹی بجری",
             "water": "پانی",
             "totalCost": "کل لاگت",
@@ -587,6 +630,137 @@
             "ft3Unit": "ft³",
             "brassUnit": "براس",
             "material": "مواد"
+        }
+    },
+    "roofArea": {
+        "common": {
+            "metric": "میٹرک",
+            "imperial": "امپیریل",
+            "reset": "ری سیٹ کریں",
+            "calculate": "حساب کریں",
+            "result": "نتیجہ",
+            "totalCost": "کل لاگت",
+            "viewDetailed": "تفصیلی نتیجہ دیکھیں",
+            "inputs": "ان پٹس",
+            "outputs": "آؤٹ پٹس",
+            "currency": "کرنسی",
+            "currencyPerSqM": "فی مربع میٹر کرنسی"
+        },
+        "flatRoof": {
+            "title": "فلیٹ چھت",
+            "detailedTitle": "فلیٹ چھت تفصیلی رپورٹ",
+            "baseLengthA": "بیس لمبائی A",
+            "baseLengthB": "بیس لمبائی B",
+            "eaveLengthC": "ایو لمبائی C",
+            "roomPrice": "کمرے کی قیمت",
+            "results": {
+                "roofArea": "چھت کا رقبہ",
+                "roofCost": "چھت کی قیمت"
+            }
+        },
+        "shedRoof": {
+            "title": "شیڈ چھت",
+            "detailedTitle": "شیڈ چھت تفصیلی رپورٹ",
+            "baseLengthA": "بیس لمبائی A",
+            "baseLengthB": "بیس لمبائی B",
+            "eaveLengthC": "ایو لمبائی C",
+            "riseH": "اونچائی H",
+            "roomPrice": "کمرے کی قیمت",
+            "results": {
+                "roofArea": "چھت کا رقبہ",
+                "roofCost": "چھت کی قیمت"
+            }
+        },
+        "gableRoof": {
+            "title": "گیبل چھت",
+            "detailedTitle": "گیبل چھت تفصیلی رپورٹ",
+            "baseLengthA": "بیس لمبائی A",
+            "baseLengthB": "بیس لمبائی B",
+            "eaveLengthC": "ایو لمبائی C",
+            "riseH": "اونچائی H",
+            "roomPrice": "کمرے کی قیمت",
+            "results": {
+                "roofArea": "چھت کا رقبہ",
+                "roofCost": "چھت کی قیمت"
+            }
+        },
+        "boxGableRoof": {
+            "title": "باکس گیبل چھت",
+            "detailedTitle": "باکس گیبل چھت تفصیلی رپورٹ",
+            "baseLengthA": "بیس لمبائی A",
+            "baseLengthB": "بیس لمبائی B",
+            "eaveLengthC": "ایو لمبائی C",
+            "eaveLengthD": "ایو لمبائی D",
+            "riseH": "اونچائی H",
+            "roomPrice": "کمرے کی قیمت",
+            "results": {
+                "roofArea": "چھت کا رقبہ",
+                "roofCost": "چھت کی قیمت"
+            }
+        },
+        "mShapedRoof": {
+            "title": "ایم شیپڈ چھت",
+            "detailedTitle": "ایم شیپڈ چھت تفصیلی رپورٹ",
+            "baseLengthA": "بیس لمبائی A",
+            "baseLengthB": "بیس لمبائی B",
+            "eaveLengthC": "ایو لمبائی C",
+            "riseH": "اونچائی H",
+            "roomPrice": "کمرے کی قیمت",
+            "results": {
+                "roofArea": "چھت کا رقبہ",
+                "roofCost": "چھت کی قیمت"
+            }
+        },
+        "butterflyRoof": {
+            "title": "بٹر فلائی چھت",
+            "detailedTitle": "بٹر فلائی چھت تفصیلی رپورٹ",
+            "baseLengthA": "بیس لمبائی A",
+            "baseLengthB": "بیس لمبائی B",
+            "eaveLengthC": "ایو لمبائی C",
+            "riseH": "اونچائی H",
+            "roomPrice": "کمرے کی قیمت",
+            "results": {
+                "roofArea": "چھت کا رقبہ",
+                "roofCost": "چھت کی قیمت"
+            }
+        },
+        "saltboxRoof": {
+            "title": "سالٹ باکس چھت",
+            "detailedTitle": "سالٹ باکس چھت تفصیلی رپورٹ",
+            "baseLengthA1": "بیس لمبائی A1",
+            "baseLengthA2": "بیس لمبائی A2",
+            "baseLengthB": "بیس لمبائی B",
+            "eaveLengthC": "ایو لمبائی C",
+            "riseH1": "اونچائی H1",
+            "riseH2": "اونچائی H2",
+            "roomPrice": "کمرے کی قیمت",
+            "results": {
+                "roofArea": "چھت کا رقبہ",
+                "roofCost": "چھت کی قیمت"
+            }
+        },
+        "hexagonalRoof": {
+            "title": "ہیکساگونل چھت",
+            "detailedTitle": "ہیکساگونل چھت تفصیلی رپورٹ",
+            "baseLengthA": "بیس لمبائی A",
+            "slopS": "ڈھال S",
+            "roomPrice": "کمرے کی قیمت",
+            "results": {
+                "roofArea": "چھت کا رقبہ",
+                "roofCost": "چھت کی قیمت"
+            }
+        },
+        "pyramidHipRoof": {
+            "title": "پیرامڈ ہپ چھت",
+            "detailedTitle": "پیرامڈ ہپ چھت تفصیلی رپورٹ",
+            "baseLengthA": "بیس لمبائی A",
+            "baseLengthB": "بیس لمبائی B",
+            "riseH": "اونچائی H",
+            "roomPrice": "کمرے کی قیمت",
+            "results": {
+                "roofArea": "چھت کا رقبہ",
+                "roofCost": "چھت کی قیمت"
+            }
         }
     },
     "downloadPDF": {

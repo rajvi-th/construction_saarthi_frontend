@@ -20,9 +20,9 @@ const BondsSection = () => {
         { id: 'header', title: t('brickWorkAndPlaster.bonds.header'), icon: headerBond, path: ROUTES_FLAT.CALCULATION_HEADER_BOND },
         { id: 'english', title: t('brickWorkAndPlaster.bonds.english'), icon: englishBond, path: ROUTES_FLAT.CALCULATION_ENGLISH_BOND },
         { id: 'flemish', title: t('brickWorkAndPlaster.bonds.flemish'), icon: flemishBond, path: ROUTES_FLAT.CALCULATION_FLEMISH_BOND },
-        { id: 'stack', title: t('brickWorkAndPlaster.bonds.stack'), icon: stackBond, path: '#' },
-        { id: 'dutch', title: t('brickWorkAndPlaster.bonds.dutch'), icon: englishCrossBond, path: '#' },
-        { id: 'gardenWall', title: t('brickWorkAndPlaster.bonds.gardenWall'), icon: gardenWallBond, path: '#' },
+        { id: 'stack', title: t('brickWorkAndPlaster.bonds.stack'), icon: stackBond, path: ROUTES_FLAT.CALCULATION_STACK_BOND },
+        { id: 'dutch', title: t('brickWorkAndPlaster.bonds.dutch'), icon: englishCrossBond, path: ROUTES_FLAT.CALCULATION_ENGLISH_CROSS_BOND },
+        { id: 'gardenWall', title: t('brickWorkAndPlaster.bonds.gardenWall'), icon: gardenWallBond, path: ROUTES_FLAT.CALCULATION_GARDEN_WALL_BOND },
     ];
 
     return (

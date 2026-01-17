@@ -45,7 +45,7 @@
             "sewageSystem": "మురుగునీటి వ్యవస్థ",
             "waterSupplySystem": "నీటి సరఫరా వ్యవస్థ",
             "materialWeights": "మెటీరియల్ బరువులు",
-            "billOfQuantity": "మెటీరియల్ బిల్లు (BOQ)"
+            "billOfQuantity": "మెటీరియల్ బిల్లు"
         }
     },
     "comingSoon": {
@@ -109,16 +109,16 @@
             "cuttingLength": "కటింగ్ పొడవు"
         },
         "weight": {
-            "reinforcement": "రీఇన్ఫోర్స్మెంట్ బరువు (Reinforcement Weight)",
+            "reinforcement": "రీఇన్ఫోర్స్మెంట్ బరువు",
             "detailedReport": "రీఇన్ఫోర్స్మెంట్ బరువు వివరణాత్మక నివేదిక",
-            "metric": "మెట్రిక్ (Metric)",
-            "imperial": "ఇంపీరియల్ (Imperial)",
+            "metric": "మెట్రిక్",
+            "imperial": "ఇంపీరియల్",
             "wastage": "మెటీరియల్ వేస్టేజ్",
             "wastagePlaceholder": "ఉదా: \"10\"",
-            "diameter": "వ్యాసం (Diameter)",
-            "length": "పొడవు (Length)",
+            "diameter": "వ్యాసం",
+            "length": "పొడవు",
             "noOfBars": "కడ్డీల సంఖ్య",
-            "price": "ధర (Price)",
+            "price": "ధర",
             "reset": "రీసెట్",
             "calculate": "లెక్కించు",
             "result": "ఫలితం",
@@ -134,7 +134,7 @@
             "inputName": "ఇన్‌పుట్ పేరు",
             "symbol": "చిహ్నం",
             "value": "విలువ",
-            "formula": "సూత్రం (Formula)"
+            "formula": "సూత్రం"
         },
         "footing": {
             "type1": "ఫుటింగ్ రకం 1",
@@ -167,7 +167,7 @@
             "size": "కాలమ్ పరిమాణం",
             "sideX": "సైడ్ X",
             "sideY": "సైడ్ Y",
-            "volume": "ఘనపరిమాణం (Volume)",
+            "volume": "ఘనపరిమాణం",
             "diameter": "రాడ్ వ్యాసం (D)",
             "columnDiameter": "కాలమ్ వ్యాసం",
             "columnHeight": "కాలమ్ ఎత్తు",
@@ -178,7 +178,7 @@
             "noOfColumns": "కాలమ్‌ల సంఖ్య",
             "noOfColumn": "కాలమ్‌ల సంఖ్య",
             "steelRate": "కడ్డీ ధర",
-            "stirrups": "స్టిరప్స్ (Stirrups)",
+            "stirrups": "స్టిరప్స్",
             "type2": "కాలమ్ రకం 2",
             "type3": "కాలమ్ రకం 3",
             "type3Detailed": "కాలమ్ రకం 3 వివరణాత్మక నివేదిక",
@@ -364,8 +364,22 @@
             "flemishTitle": "ఫ్లెమిష్ బాండ్",
             "flemishDetailedTitle": "ఫ్లెమిష్ బాండ్ వివరణాత్మక నివేదిక",
             "stack": "స్టాక్ బాండ్",
+            "stackTitle": "స్టాక్ బాండ్",
+            "stackDetailedTitle": "స్టాక్ బాండ్ వివరణాత్మక నివేదిక",
             "dutch": "ఇంగ్లీష్ క్రాస్ లేదా డచ్ బాండ్",
+            "dutchTitle": "ఇంగ్లీష్ క్రాస్ లేదా డచ్ బాండ్",
+            "dutchDetailedTitle": "ఇంగ్లీష్ క్రాస్ లేదా డచ్ బాండ్ వివరణాత్మక నివేదిక",
             "gardenWall": "గార్డెన్ వాల్ బాండ్",
+            "gardenWallTitle": "గార్డెన్ వాల్ బాండ్",
+            "gardenWallDetailedTitle": "గార్డెన్ వాల్ బాండ్ వివరణాత్మక నివేదిక",
+            "kingCloserTitle": "కింగ్ క్లోజర్",
+            "kingCloserDetailedTitle": "కింగ్ క్లోజర్ వివరణాత్మక నివేదిక",
+            "queenCloserTitle": "క్వీన్ క్లోజర్",
+            "queenCloserDetailedTitle": "క్వీన్ క్లోజర్ వివరణాత్మక నివేదిక",
+            "halfBatCloserTitle": "హాఫ్ బాట్ క్లోజర్",
+            "halfBatCloserDetailedTitle": "హాఫ్ బాట్ క్లోజర్ వివరణాత్మక నివేదిక",
+            "quarterBatCloserTitle": "క్వార్టర్ బాట్ క్లోజర్",
+            "quarterBatCloserDetailedTitle": "క్వార్టర్ బాట్ క్లోజర్ వివరణాత్మక నివేదిక",
             "brickToBrickJoint": "ఇటుక నుండి ఇటుక ఉమ్మడి"
         },
         "closer": {
@@ -384,13 +398,26 @@
             "wallWithDoor": "తలుపు ఉన్న గోడ",
             "wallWithArcDoor": "ఆర్క్ తలుపు ఉన్న గోడ",
             "cavityWall": "కావిటీ వాల్",
-            "buttressWall": "బట్రెస్ వాల్"
+            "buttressWall": "బట్రెస్ వాల్",
+            "byVolumeDetailedTitle": "ఘనపరిమాణం ద్వారా వివరణాత్మక నివేదిక",
+            "byCubeDetailedTitle": "క్యూబ్ ద్వారా వివరణాత్మక నివేదిక",
+            "byWallDetailedTitle": "గోడ ద్వారా వివరణాత్మక నివేదిక",
+            "lWallDetailedTitle": "L గోడ ద్వారా వివరణాత్మక నివేదిక",
+            "cWallDetailedTitle": "C గోడ ద్వారా వివరణాత్మక నివేదిక",
+            "rectangularChamberDetailedTitle": "రెక్టాంగ్యులర్ ఛాంబర్ ద్వారా వివరణాత్మక నివేదిక",
+            "wallWithDoorDetailedTitle": "తలుపు ఉన్న గోడ ద్వారా వివరణాత్మక నివేదిక",
+            "wallWithArcDoorDetailedTitle": "ఆర్క్ తలుపు ఉన్న గోడ ద్వారా వివరణాత్మక నివేదిక",
+            "cavityWallDetailedTitle": "కావిటీ వాల్ ద్వారా వివరణాత్మక నివేదిక",
+            "buttressWallDetailedTitle": "బట్రెస్ వాల్ ద్వారా వివరణాత్మక నివేదిక"
         },
         "clayBrick": {
             "title": "క్లే బ్రిక్ / ఫ్లై యాష్ బ్రిక్",
             "detailedTitle": "క్లే బ్రిక్ / ఫ్లై యాష్ బ్రిక్ వివరణాత్మక నివేదిక",
             "brickSize": "ఇటుక పరిమాణం",
             "wallSize": "గోడ పరిమాణం",
+            "doorSize": "తలుపు పరిమాణం",
+            "doorLength": "తలుపు పొడవు",
+            "doorHeight": "తలుపు ఎత్తు",
             "mortarRatio": "మోర్టార్ నిష్పత్తి",
             "deductions": "మినహాయింపులు",
             "price": "ధర",
@@ -400,6 +427,8 @@
             "wallLength": "పొడవు",
             "wallHeight": "ఎత్తు",
             "wallThickness": "మందం",
+            "width1": "వెడల్పు 1",
+            "width2": "వెడల్పు 2",
             "cement": "సిమెంట్",
             "sand": "ఇసుక",
             "w1": "W1",
@@ -411,8 +440,16 @@
             "brickPrice": "ఇటుక",
             "cementPrice": "సిమెంట్",
             "sandPrice": "ఇసుక",
+            "volume": "ఘనపరిమాణం",
+            "currencyPerUnit": "యూనిట్‌కు కరెన్సీ",
+            "currency": "కరెన్సీ",
+            "cavity": "కావిటీ",
+            "cavityThickness": "కావిటీ మందం",
+            "cavityMaterial": "కావిటీ మెటీరియల్",
+            "numberOfButtress": "బట్రెస్ సంఖ్య",
             "results": {
                 "volumeOfWall": "గోడ ఘనపరిమాణం",
+                "volumeOfShape": "ఆకారం యొక్క ఘనపరిమాణం",
                 "noOfBricks": "ఇటుకల సంఖ్య",
                 "mortarDryVolume": "మోర్టార్ పొడి ఘనపరిమాణం",
                 "cementBags": "సిమెంట్ బ్యాగులు (50kg)",
@@ -420,7 +457,13 @@
                 "brickCost": "ఇటుకల ఖర్చు",
                 "cementCost": "సిమెంట్ ఖర్చు",
                 "sandCost": "ఇసుక ఖర్చు",
-                "totalCost": "మొత్తం ఖర్చు"
+                "totalCost": "మొత్తం ఖర్చు",
+                "noOfKingCloser": "కింగ్ క్లోజర్ల సంఖ్య",
+                "noOfQueenCloser": "క్వీన్ క్లోజర్ల సంఖ్య",
+                "noOfHalfBatCloser": "హాఫ్ బాట్ క్లోజర్ల సంఖ్య",
+                "noOfQuarterBatCloser": "క్వార్టర్ బాట్ క్లోజర్ల సంఖ్య",
+                "volumeOfCavity": "కావిటీ ఘనపరిమాణం",
+                "cavityMaterialCost": "కావిటీ మెటీరియల్ ఖర్చు"
             }
         },
         "aacBlock": {
@@ -589,6 +632,137 @@
             "ft3Unit": "ft³",
             "brassUnit": "బ్రాస్",
             "material": "పదార్థం"
+        }
+    },
+    "roofArea": {
+        "common": {
+            "metric": "మెట్రిక్",
+            "imperial": "ఇంపీరియల్",
+            "reset": "రీసెట్",
+            "calculate": "లెక్కించు",
+            "result": "ఫలితం",
+            "totalCost": "మొత్తం ఖర్చు",
+            "viewDetailed": "వివరణాత్మక ఫలితాన్ని చూడండి",
+            "inputs": "ఇన్‌పుట్‌లు",
+            "outputs": "అవుట్‌పుట్‌లు",
+            "currency": "కరెన్సీ",
+            "currencyPerSqM": "చ.మీ.కు కరెన్సీ"
+        },
+        "flatRoof": {
+            "title": "చదును పైకప్పు",
+            "detailedTitle": "చదును పైకప్పు వివరాల నివేదిక",
+            "baseLengthA": "బేస్ పొడవు A",
+            "baseLengthB": "బేస్ పొడవు B",
+            "eaveLengthC": "ఈవ్ పొడవు C",
+            "roomPrice": "గది ధర",
+            "results": {
+                "roofArea": "పైకప్పు విస్తీర్ణం",
+                "roofCost": "పైకప్పు ఖర్చు"
+            }
+        },
+        "shedRoof": {
+            "title": "షెడ్ రూఫ్",
+            "detailedTitle": "షెడ్ రూఫ్ వివరాల నివేదిక",
+            "baseLengthA": "బేస్ పొడవు A",
+            "baseLengthB": "బేస్ పొడవు B",
+            "eaveLengthC": "ఈవ్ పొడవు C",
+            "riseH": "ఎత్తు H",
+            "roomPrice": "గది ధర",
+            "results": {
+                "roofArea": "పైకప్పు విస్తీర్ణం",
+                "roofCost": "పైకప్పు ఖర్చు"
+            }
+        },
+        "gableRoof": {
+            "title": "గేబుల్ రూఫ్",
+            "detailedTitle": "గేబుల్ రూఫ్ వివరాల నివేదిక",
+            "baseLengthA": "బేస్ పొడవు A",
+            "baseLengthB": "బేస్ పొడవు B",
+            "eaveLengthC": "ఈవ్ పొడవు C",
+            "riseH": "ఎత్తు H",
+            "roomPrice": "గది ధర",
+            "results": {
+                "roofArea": "పైకప్పు విస్తీర్ణం",
+                "roofCost": "పైకప్పు ఖర్చు"
+            }
+        },
+        "boxGableRoof": {
+            "title": "బాక్స్ గేబుల్ రూఫ్",
+            "detailedTitle": "బాక్స్ గేబుల్ రూఫ్ వివరాల నివేదిక",
+            "baseLengthA": "బేస్ పొడవు A",
+            "baseLengthB": "బేస్ పొడవు B",
+            "eaveLengthC": "ఈవ్ పొడవు C",
+            "eaveLengthD": "ఈవ్ పొడవు D",
+            "riseH": "ఎత్తు H",
+            "roomPrice": "గది ధర",
+            "results": {
+                "roofArea": "పైకప్పు విస్తీర్ణం",
+                "roofCost": "పైకప్పు ఖర్చు"
+            }
+        },
+        "mShapedRoof": {
+            "title": "ఎం షేప్డ్ రూఫ్",
+            "detailedTitle": "ఎం షేప్డ్ రూఫ్ వివరాల నివేదిక",
+            "baseLengthA": "బేస్ పొడవు A",
+            "baseLengthB": "బేస్ పొడవు B",
+            "eaveLengthC": "ఈవ్ పొడవు C",
+            "riseH": "ఎత్తు H",
+            "roomPrice": "గది ధర",
+            "results": {
+                "roofArea": "పైకప్పు విస్తీర్ణం",
+                "roofCost": "పైకప్పు ఖర్చు"
+            }
+        },
+        "butterflyRoof": {
+            "title": "బటర్ ఫ్లై రూఫ్",
+            "detailedTitle": "బటర్ ఫ్లై రూఫ్ వివరాల నివేదిక",
+            "baseLengthA": "బేస్ పొడవు A",
+            "baseLengthB": "బేస్ పొడవు B",
+            "eaveLengthC": "ఈవ్ పొడవు C",
+            "riseH": "ఎత్తు H",
+            "roomPrice": "గది ధర",
+            "results": {
+                "roofArea": "పైకప్పు విస్తీర్ణం",
+                "roofCost": "పైకప్పు ఖర్చు"
+            }
+        },
+        "saltboxRoof": {
+            "title": "సాల్ట్ బాక్స్ రూఫ్",
+            "detailedTitle": "సాల్ట్ బాక్స్ రూఫ్ వివరాల నివేదిక",
+            "baseLengthA1": "బేస్ పొడవు A1",
+            "baseLengthA2": "బేస్ పొడవు A2",
+            "baseLengthB": "బేస్ పొడవు B",
+            "eaveLengthC": "ఈవ్ పొడవు C",
+            "riseH1": "ఎత్తు H1",
+            "riseH2": "ఎత్తు H2",
+            "roomPrice": "గది ధర",
+            "results": {
+                "roofArea": "పైకప్పు విస్తీర్ణం",
+                "roofCost": "పైకప్పు ఖర్చు"
+            }
+        },
+        "hexagonalRoof": {
+            "title": "షడ్భుజి రూఫ్",
+            "detailedTitle": "షడ్భుజి రూఫ్ వివరాల నివేదిక",
+            "baseLengthA": "బేస్ పొడవు A",
+            "slopS": "స్లోప్ S",
+            "roomPrice": "గది ధర",
+            "results": {
+                "roofArea": "పైకప్పు విస్తీర్ణం",
+                "roofCost": "పైకప్పు ఖర్చు"
+            }
+        },
+        "pyramidHipRoof": {
+            "title": "పిరమిడ్ హిప్ రూఫ్",
+            "detailedTitle": "పిరమిడ్ హిప్ రూఫ్ వివరాల నివేదిక",
+            "baseLengthA": "బేస్ పొడవు A",
+            "baseLengthB": "బేస్ పొడవు B",
+            "riseH": "ఎత్తు H",
+            "roomPrice": "గది ధర",
+            "results": {
+                "roofArea": "పైకప్పు విస్తీర్ణం",
+                "roofCost": "పైకప్పు ఖర్చు"
+            }
         }
     },
     "downloadPDF": {

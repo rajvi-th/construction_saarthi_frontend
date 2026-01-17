@@ -45,7 +45,7 @@
             "sewageSystem": "മലിനജല സംവിധാനം",
             "waterSupplySystem": "ജലവിതരണ സംവിധാനം",
             "materialWeights": "സാമഗ്രികളുടെ ഭാരം",
-            "billOfQuantity": "ബിൽ অফ ക്വാണ്ടിറ്റി (BOQ)"
+            "billOfQuantity": "ബിൽ ഓഫ് ക്വാണ്ടിറ്റി"
         }
     },
     "comingSoon": {
@@ -58,7 +58,7 @@
     "history": {
         "sharePdf": "PDF ആയി പങ്കിടുക",
         "downloadReport": "റിപ്പോർട്ട് ഡൗൺലോഡ് ചെയ്യുക",
-        "calcTitle": "കണക്കുകൂട്ടൽ ശീർഷകം (ഓപ്ഷണൽ)",
+        "calcTitle": "കണക്കുകൂട്ടൽ ശీർഷകം (താൽപ്പര്യമെങ്കിൽ)",
         "enterValue": "മൂല്യം നൽകുക",
         "constructionArea": "നിർമ്മാണ വിസ്തീർണ്ണം",
         "constructionCost": "നിർമ്മാണ ചെലവ്",
@@ -74,7 +74,7 @@
         "materials": {
             "cement": "സിമന്റ്",
             "sand": "മണൽ",
-            "aggregate": "മെറ്റൽ (കല്ല്)",
+            "aggregate": "മെറ്റൽ",
             "steel": "സ്റ്റീൽ",
             "paint": "പെയിന്റ്",
             "bricks": "ഇഷ്ടികകൾ",
@@ -109,16 +109,16 @@
             "cuttingLength": "കട്ടിംഗ് ലെങ്ത്"
         },
         "weight": {
-            "reinforcement": "റൈൻഫോഴ്സ്മെന്റ് വെയിറ്റ് (Reinforcement Weight)",
+            "reinforcement": "റൈൻഫോഴ്സ്മെന്റ് വെയിറ്റ്",
             "detailedReport": "റൈൻഫോഴ്സ്മെന്റ് വെയിറ്റ് വിശദമായ റിപ്പോർട്ട്",
-            "metric": "മെട്രിക് (Metric)",
-            "imperial": "ഇമ്പീരിയൽ (Imperial)",
+            "metric": "മെട്രിക്",
+            "imperial": "ഇമ്പീരിയൽ",
             "wastage": "സാമഗ്രികളുടെ പാഴാക്കൽ",
             "wastagePlaceholder": "ഉദാ: \"10\"",
-            "diameter": "വ്യാസം (Diameter)",
-            "length": "നീളം (Length)",
+            "diameter": "വ്യാസം",
+            "length": "നീളം",
             "noOfBars": "ബാറുകളുടെ എണ്ണം",
-            "price": "വില (Price)",
+            "price": "വില",
             "reset": "റീസെറ്റ്",
             "calculate": "കണക്കുകൂട്ടുക",
             "result": "ഫലം",
@@ -134,7 +134,7 @@
             "inputName": "ഇൻപുട്ട് പേര്",
             "symbol": "ചിഹ്നം",
             "value": "മൂല്യം",
-            "formula": "സൂത്രവാക്യം (Formula)"
+            "formula": "സൂത്രവാക്യം"
         },
         "footing": {
             "type1": "ഫുട്ടിംഗ് ടൈപ്പ് 1",
@@ -366,8 +366,22 @@
             "flemishTitle": "ഫ്ലെമിഷ് ബോണ്ട്",
             "flemishDetailedTitle": "ഫ്ലെമിഷ് ബോണ്ട് വിശദമായ റിപ്പോർട്ട്",
             "stack": "സ്റ്റാക്ക് ബോണ്ട്",
+            "stackTitle": "സ്റ്റാക്ക് ബോണ്ട്",
+            "stackDetailedTitle": "സ്റ്റാക്ക് ബോണ്ട് വിശദമായ റിപ്പോർട്ട്",
             "dutch": "ഇംഗ്ലീഷ് ക്രോസ് അല്ലെങ്കിൽ ഡച്ച് ബോണ്ട്",
+            "dutchTitle": "ഇംഗ്ലീഷ് ക്രോസ് അല്ലെങ്കിൽ ഡച്ച് ബോണ്ട്",
+            "dutchDetailedTitle": "ഇംഗ്ലീഷ് ക്രോസ് അല്ലെങ്കിൽ ഡച്ച് ബോണ്ട് വിശദമായ റിപ്പോർട്ട്",
             "gardenWall": "ഗാർഡൻ വാൾ ബോണ്ട്",
+            "gardenWallTitle": "ഗാർഡൻ വാൾ ബോണ്ട്",
+            "gardenWallDetailedTitle": "ഗാർഡൻ വാൾ ബോണ്ട് വിശദമായ റിപ്പോർട്ട്",
+            "kingCloserTitle": "കിംഗ് ക്ലോസർ",
+            "kingCloserDetailedTitle": "കിംഗ് ക്ലോസർ വിശദമായ റിപ്പോർട്ട്",
+            "queenCloserTitle": "ക്വീൻ ക്ലോസർ",
+            "queenCloserDetailedTitle": "ക്വീൻ ക്ലോസർ വിശദമായ റിപ്പോർട്ട്",
+            "halfBatCloserTitle": "ഹാഫ് ബാറ്റ് ക്ലോസർ",
+            "halfBatCloserDetailedTitle": "ഹാഫ് ബാറ്റ് ക്ലോസർ വിശദമായ റിപ്പോർട്ട്",
+            "quarterBatCloserTitle": "ക്വാർട്ടർ ബാറ്റ് ക്ലോസർ",
+            "quarterBatCloserDetailedTitle": "ക്വാർട്ടർ ബാറ്റ് ക്ലോസർ വിശദമായ റിപ്പോർട്ട്",
             "brickToBrickJoint": "ബ്രിക്ക് ടു ബ്രിക്ക് ജോയിൻ്റ്"
         },
         "closer": {
@@ -386,13 +400,26 @@
             "wallWithDoor": "വാതിലോടു കൂടിയ ഭിത്തി",
             "wallWithArcDoor": "ആർക്ക് വാതിലോടു കൂടിയ ഭിത്തി",
             "cavityWall": "കാവിറ്റി വാൾ",
-            "buttressWall": "ബട്രസ് വാൾ"
+            "buttressWall": "ബട്രസ് വാൾ",
+            "byVolumeDetailedTitle": "വ്യാപ്തത്തിനനുസരിച്ച് വിശദമായ റിപ്പോർട്ട്",
+            "byCubeDetailedTitle": "ക്യൂബ് അനുസരിച്ച് വിശദമായ റിപ്പോർട്ട്",
+            "byWallDetailedTitle": "ഭിത്തി അനുസരിച്ച് വിശദമായ റിപ്പോർട്ട്",
+            "lWallDetailedTitle": "L ഭിത്തി അനുസരിച്ച് വിശദമായ റിപ്പോർട്ട്",
+            "cWallDetailedTitle": "C ഭിത്തി അനുസരിച്ച് വിശദമായ റിപ്പോർട്ട്",
+            "rectangularChamberDetailedTitle": "റെക്റ്റാംഗുലർ ചേംബർ വിശദമായ റിപ്പോർട്ട്",
+            "wallWithDoorDetailedTitle": "വാതിലോടു കൂടിയ ഭിത്തി - വിശദമായ റിപ്പോർട്ട്",
+            "wallWithArcDoorDetailedTitle": "ആർക്ക് വാതിലോടു കൂടിയ ഭിത്തി - വിശദമായ റിപ്പോർട്ട്",
+            "cavityWallDetailedTitle": "കാവിറ്റി വാൾ - വിശദമായ റിപ്പോർട്ട്",
+            "buttressWallDetailedTitle": "ബട്രസ് വാൾ - വിശദമായ റിപ്പോർട്ട്"
         },
         "clayBrick": {
             "title": "ക്ലേ ബ്രിക്ക് / ഫ്ലൈ ആഷ് ബ്രിക്ക്",
             "detailedTitle": "ക്ലേ ബ്രിക്ക് / ഫ്ലൈ ആഷ് ബ്രിക്ക് വിശദമായ റിപ്പോർട്ട്",
             "brickSize": "മൺകട്ടയുടെ വലുപ്പം",
             "wallSize": "ഭിത്തിയുടെ വലുപ്പം",
+            "doorSize": "വാതിലിന്റെ വലിപ്പം",
+            "doorLength": "വാതിലിന്റെ നീളം",
+            "doorHeight": "വാതിലിന്റെ ഉയരം",
             "mortarRatio": "മോർട്ടാർ അനുപാതം",
             "deductions": "കിഴിവുകൾ",
             "price": "വില",
@@ -402,6 +429,8 @@
             "wallLength": "നീളം",
             "wallHeight": "ഉയരം",
             "wallThickness": "കനം",
+            "width1": "വീതി 1",
+            "width2": "വീതി 2",
             "cement": "സിമന്റ്",
             "sand": "മണൽ",
             "w1": "W1",
@@ -413,8 +442,16 @@
             "brickPrice": "മൺകട്ട",
             "cementPrice": "സിമന്റ്",
             "sandPrice": "മണൽ",
+            "volume": "വ്യാപ്തം",
+            "currencyPerUnit": "യൂണിറ്റിന് നാണയം",
+            "currency": "നാണയം",
+            "cavity": "കാവിറ്റി",
+            "cavityThickness": "കാവിറ്റിയുടെ കനം",
+            "cavityMaterial": "കാവിറ്റി മെറ്റീരിയൽ",
+            "numberOfButtress": "ബട്രസ് എണ്ണം",
             "results": {
                 "volumeOfWall": "ഭിത്തിയുടെ വ്യാപ്തം",
+                "volumeOfShape": "ആകൃതിയുടെ വ്യാപ്തം",
                 "noOfBricks": "മൺകട്ടകളുടെ എണ്ണം",
                 "mortarDryVolume": "മോർട്ടാർ ഡ്രൈ വ്യാപ്തം",
                 "cementBags": "സിമന്റ് ചാക്കുകൾ (50kg)",
@@ -422,7 +459,13 @@
                 "brickCost": "മൺകട്ടയുടെ ചിലവ്",
                 "cementCost": "സിമന്റ് ചിലവ്",
                 "sandCost": "മണൽ ചിലവ്",
-                "totalCost": "ആകെ ചിലവ്"
+                "totalCost": "ആകെ ചിലവ്",
+                "noOfKingCloser": "കിംഗ് ക്ലോസറുകളുടെ എണ്ണം",
+                "noOfQueenCloser": "ക്വീൻ ക്ലോസറുകളുടെ എണ്ണം",
+                "noOfHalfBatCloser": "ഹാഫ് ബാറ്റ് ക്ലോസറുകളുടെ ಎണ്ണം",
+                "noOfQuarterBatCloser": "ക്വാർട്ടർ ബാറ്റ് ക്ലോസറുകളുടെ എണ്ണം",
+                "volumeOfCavity": "കാവിറ്റിയുടെ വ്യാപ്തം",
+                "cavityMaterialCost": "കാവിറ്റി മെറ്റീരിയൽ ചിലവ്"
             }
         },
         "aacBlock": {
@@ -591,6 +634,137 @@
             "ft3Unit": "ft³",
             "brassUnit": "ബ്രാസ്",
             "material": "സാമഗ്രി"
+        }
+    },
+    "roofArea": {
+        "common": {
+            "metric": "മെട്രിക്",
+            "imperial": "ഇംപീരിയൽ",
+            "reset": "റീസെറ്റ്",
+            "calculate": "കണക്കാക്കുക",
+            "result": "ഫലം",
+            "totalCost": "ആകെ ചെലവ്",
+            "viewDetailed": "വിശദമായ ഫലം കാണുക",
+            "inputs": "ഇൻപുട്ടുകൾ",
+            "outputs": "ഔട്ട്പുട്ടുകൾ",
+            "currency": "കറൻസി",
+            "currencyPerSqM": "ചതുരശ്ര മീറ്ററിന് കറൻസി"
+        },
+        "flatRoof": {
+            "title": "പരന്ന മേൽക്കൂര",
+            "detailedTitle": "പരന്ന മേൽക്കൂര വിശദമായ റിപ്പോർട്ട്",
+            "baseLengthA": "അടിസ്ഥാന നീളം A",
+            "baseLengthB": "അടിസ്ഥാന നീളം B",
+            "eaveLengthC": "ഈവ് നീളം C",
+            "roomPrice": "മുറി വില",
+            "results": {
+                "roofArea": "മേൽക്കൂര വിസ്തീർണ്ണം",
+                "roofCost": "മേൽക്കൂര ചെലവ്"
+            }
+        },
+        "shedRoof": {
+            "title": "ഷെഡ് റൂഫ്",
+            "detailedTitle": "ഷെഡ് റൂഫ് വിശദമായ റിപ്പോർട്ട്",
+            "baseLengthA": "അടിസ്ഥാന നീളം A",
+            "baseLengthB": "അടിസ്ഥാന നീളം B",
+            "eaveLengthC": "ഈവ് നീളം C",
+            "riseH": "ഉയരം H",
+            "roomPrice": "മുറി വില",
+            "results": {
+                "roofArea": "മേൽക്കൂര വിസ്തീർണ്ണം",
+                "roofCost": "മേൽക്കൂര ചെലവ്"
+            }
+        },
+        "gableRoof": {
+            "title": "ഗേബിൾ റൂഫ്",
+            "detailedTitle": "ഗേബിൾ റൂഫ് വിശദമായ റിപ്പോർട്ട്",
+            "baseLengthA": "അടിസ്ഥാന നീളം A",
+            "baseLengthB": "അടിസ്ഥാന നീളം B",
+            "eaveLengthC": "ഈവ് നീളം C",
+            "riseH": "ഉയരം H",
+            "roomPrice": "മുറി വില",
+            "results": {
+                "roofArea": "മേൽക്കൂര വിസ്തീർണ്ണം",
+                "roofCost": "മേൽക്കൂര ചെലവ്"
+            }
+        },
+        "boxGableRoof": {
+            "title": "ബോക്സ് ഗേബിൾ റൂഫ്",
+            "detailedTitle": "ബോക്സ് ഗേബിൾ റൂഫ് വിശദമായ റിപ്പോർട്ട്",
+            "baseLengthA": "അടിസ്ഥാന നീളം A",
+            "baseLengthB": "അടിസ്ഥാന നീളം B",
+            "eaveLengthC": "ഈവ് നീളം C",
+            "eaveLengthD": "ഈവ് നീളം D",
+            "riseH": "ഉയരം H",
+            "roomPrice": "മുറി വില",
+            "results": {
+                "roofArea": "മേൽക്കൂര വിസ്തീർണ്ണം",
+                "roofCost": "മേൽക്കൂര ചെലവ്"
+            }
+        },
+        "mShapedRoof": {
+            "title": "എം ഷേപ്പ്ഡ് റൂഫ്",
+            "detailedTitle": "എം ഷേപ്പ്ഡ് റൂഫ് വിശദമായ റിപ്പോർട്ട്",
+            "baseLengthA": "അടിസ്ഥാന നീളം A",
+            "baseLengthB": "അടിസ്ഥാന നീളം B",
+            "eaveLengthC": "ഈവ് നീളം C",
+            "riseH": "ഉയരം H",
+            "roomPrice": "മുറി വില",
+            "results": {
+                "roofArea": "മേൽക്കൂര വിസ്തീർണ്ണം",
+                "roofCost": "മേൽക്കൂര ചെലവ്"
+            }
+        },
+        "butterflyRoof": {
+            "title": "ബട്ടർഫ്ലൈ റൂഫ്",
+            "detailedTitle": "ബട്ടർഫ്ലൈ റൂഫ് വിശദമായ റിപ്പോർട്ട്",
+            "baseLengthA": "അടിസ്ഥാന നീളം A",
+            "baseLengthB": "അടിസ്ഥാന നീളം B",
+            "eaveLengthC": "ഈവ് നീളം C",
+            "riseH": "ഉയരം H",
+            "roomPrice": "മുറി വില",
+            "results": {
+                "roofArea": "മേൽക്കൂര വിസ്തീർണ്ണം",
+                "roofCost": "മേൽക്കൂര ചെലവ്"
+            }
+        },
+        "saltboxRoof": {
+            "title": "സോൾട്ട്ബോക്സ് റൂഫ്",
+            "detailedTitle": "സോൾട്ട്ബോക്സ് റൂഫ് വിശദമായ റിപ്പോർട്ട്",
+            "baseLengthA1": "അടിസ്ഥാന നീളം A1",
+            "baseLengthA2": "അടിസ്ഥാന നീളം A2",
+            "baseLengthB": "അടിസ്ഥാന നീളം B",
+            "eaveLengthC": "ഈവ് നീളം C",
+            "riseH1": "ഉയരം H1",
+            "riseH2": "ഉയരം H2",
+            "roomPrice": "മുറി വില",
+            "results": {
+                "roofArea": "മേൽക്കൂര വിസ്തീർണ്ണം",
+                "roofCost": "മേൽക്കൂര ചെലവ്"
+            }
+        },
+        "hexagonalRoof": {
+            "title": "ഹെക്‌സഗോണൽ റൂഫ്",
+            "detailedTitle": "ഹെക്‌സഗോണൽ റൂഫ് വിശദമായ റിപ്പോർട്ട്",
+            "baseLengthA": "അടിസ്ഥാന നീളം A",
+            "slopS": "സ്ലോപ്പ് S",
+            "roomPrice": "മുറി വില",
+            "results": {
+                "roofArea": "മേൽക്കൂര വിസ്തീർണ്ണം",
+                "roofCost": "മേൽക്കൂര ചെലവ്"
+            }
+        },
+        "pyramidHipRoof": {
+            "title": "പിരമിഡ് ഹിപ് റൂഫ്",
+            "detailedTitle": "പിരമിഡ് ഹിപ് റൂഫ് വിശദമായ റിപ്പോർട്ട്",
+            "baseLengthA": "അടിസ്ഥാന നീളം A",
+            "baseLengthB": "അടിസ്ഥാന നീളം B",
+            "riseH": "ഉയരം H",
+            "roomPrice": "മുറി വില",
+            "results": {
+                "roofArea": "മേൽക്കൂര വിസ്തീർണ്ണം",
+                "roofCost": "മേൽക്കൂര ചെലവ്"
+            }
         }
     },
     "downloadPDF": {

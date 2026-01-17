@@ -109,14 +109,14 @@
             "cuttingLength": "কাটিং লেন্থ"
         },
         "weight": {
-            "reinforcement": "রিইনফোর্সমেন্ট ওজন (Reinforcement Weight)",
+            "reinforcement": "রিইনফোর্সমেন্ট ওজন",
             "detailedReport": "রিইনফোর্সমেন্ট ওজনের বিস্তারিত রিপোর্ট",
-            "metric": "মেট্রিক (Metric)",
-            "imperial": "ইম্পেরিয়াল (Imperial)",
+            "metric": "মেট্রিক",
+            "imperial": "ইম্পেরিয়াল",
             "wastage": "উপাদানের অপচয়",
             "wastagePlaceholder": "উদাঃ \"১০\"",
-            "diameter": "ব্যাস (Diameter)",
-            "length": "দৈর্ঘ্য (Length)",
+            "diameter": "ব্যাস",
+            "length": "দৈর্ঘ্য",
             "noOfBars": "রডের সংখ্যা",
             "price": "মূল্য",
             "reset": "পুনরায় সেট করুন",
@@ -367,8 +367,22 @@
             "flemishTitle": "ফ্লেমিশ বন্ড",
             "flemishDetailedTitle": "ফ্লেমিশ বন্ড বিস্তারিত রিপোর্ট",
             "stack": "স্ট্যাক বন্ড",
+            "stackTitle": "স্ট্যাক বন্ড",
+            "stackDetailedTitle": "স্ট্যাক বন্ড বিস্তারিত রিপোর্ট",
             "dutch": "ইংলিশ ক্রস বা ডাচ বন্ড",
+            "dutchTitle": "ইংলিশ ক্রস বা ডাচ বন্ড",
+            "dutchDetailedTitle": "ইংলিশ ক্রস বা ডাচ বন্ড বিস্তারিত রিপোর্ট",
             "gardenWall": "গার্ডেন ওয়াল বন্ড",
+            "gardenWallTitle": "গার্ডেন ওয়াল বন্ড",
+            "gardenWallDetailedTitle": "গার্ডেন ওয়াল বন্ড বিস্তারিত রিপোর্ট",
+            "kingCloserTitle": "কিং ক্লোজার",
+            "kingCloserDetailedTitle": "কিং ক্লোজার বিস্তারিত রিপোর্ট",
+            "queenCloserTitle": "কুইন ক্লোজার",
+            "queenCloserDetailedTitle": "কুইন ক্লোজার বিস্তারিত রিপোর্ট",
+            "halfBatCloserTitle": "হাফ ব্যাট ক্লোজার",
+            "halfBatCloserDetailedTitle": "হাফ ব্যাট ক্লোজার বিস্তারিত রিপোর্ট",
+            "quarterBatCloserTitle": "কোয়ার্টার ব্যাট ক্লোজার",
+            "quarterBatCloserDetailedTitle": "কোয়ার্টার ব্যাট ক্লোজার বিস্তারিত রিপোর্ট",
             "brickToBrickJoint": "ইট থেকে ইটের জয়েন্ট"
         },
         "closer": {
@@ -387,13 +401,26 @@
             "wallWithDoor": "দরজা সহ দেয়াল",
             "wallWithArcDoor": "আর্ক দরজা সহ দেয়াল",
             "cavityWall": "ক্যাভিটি ওয়াল",
-            "buttressWall": "বাট্রেস ওয়াল"
+            "buttressWall": "বাট্রেস ওয়াল",
+            "byVolumeDetailedTitle": "আয়তন অনুযায়ী বিস্তারিত রিপোর্ট",
+            "byCubeDetailedTitle": "কিউব অনুযায়ী বিস্তারিত রিপোর্ট",
+            "byWallDetailedTitle": "দেয়াল অনুযায়ী বিস্তারিত রিপোর্ট",
+            "lWallDetailedTitle": "L দেয়াল বিস্তারিত রিপোর্ট",
+            "cWallDetailedTitle": "C দেয়াল বিস্তারিত রিপোর্ট",
+            "rectangularChamberDetailedTitle": "আয়তাকার চেম্বার বিস্তারিত রিপোর্ট",
+            "wallWithDoorDetailedTitle": "দরজা সহ দেয়াল বিস্তারিত রিপোর্ট",
+            "wallWithArcDoorDetailedTitle": "আর্ক দরজা সহ দেয়াল বিস্তারিত রিপোর্ট",
+            "cavityWallDetailedTitle": "ক্যাভিটি ওয়াল বিস্তারিত রিপোর্ট",
+            "buttressWallDetailedTitle": "বাট্রেস ওয়াল বিস্তারিত রিপোর্ট"
         },
         "clayBrick": {
             "title": "মাটির ইট / ফ্লাই অ্যাশ ইট",
             "detailedTitle": "মাটির ইট / ফ্লাই অ্যাশ ইট বিস্তারিত রিপোর্ট",
             "brickSize": "ইটের মাপ",
             "wallSize": "দেয়ালের মাপ",
+            "doorSize": "দরজার আকার",
+            "doorLength": "দরজার দৈর্ঘ্য",
+            "doorHeight": "দরজার উচ্চতা",
             "mortarRatio": "মশলার অনুপাত",
             "deductions": "বাদ দেওয়া অংশ (Deductions)",
             "price": "দাম",
@@ -403,6 +430,8 @@
             "wallLength": "দৈর্ঘ্য",
             "wallHeight": "উচ্চতা",
             "wallThickness": "বেধ",
+            "width1": "প্রস্থ ১",
+            "width2": "প্রস্থ ২",
             "cement": "সিমেন্ট",
             "sand": "বালি",
             "w1": "W1",
@@ -414,8 +443,16 @@
             "brickPrice": "ইট",
             "cementPrice": "সিমেন্ট",
             "sandPrice": "বালি",
+            "volume": "আয়তন",
+            "currencyPerUnit": "প্রতি ইউনিট মুদ্রা",
+            "currency": "মুদ্রা",
+            "cavity": "ক্যাভিটি",
+            "cavityThickness": "ক্যাভিটির বেধ",
+            "cavityMaterial": "ক্যাভিটি মেটেরিয়াল",
+            "numberOfButtress": "বাট্রেস সংখ্যা",
             "results": {
                 "volumeOfWall": "দেয়ালের আয়তন",
+                "volumeOfShape": "আকৃতির আয়তন",
                 "noOfBricks": "ইটের সংখ্যা",
                 "mortarDryVolume": "মশলার শুকনো আয়তন",
                 "cementBags": "সিমেন্ট ব্যাগ (৫০ কেজি)",
@@ -423,7 +460,13 @@
                 "brickCost": "ইটের খরচ",
                 "cementCost": "সিমেন্টের খরচ",
                 "sandCost": "বালির খরচ",
-                "totalCost": "মোট খরচ"
+                "totalCost": "মোট খরচ",
+                "noOfKingCloser": "কিং ক্লোজারের সংখ্যা",
+                "noOfQueenCloser": "কুইন ক্লোজারের সংখ্যা",
+                "noOfHalfBatCloser": "হাফ ব্যাট ক্লোজারের সংখ্যা",
+                "noOfQuarterBatCloser": "কোয়ার্টার ব্যাট ক্লোজারের সংখ্যা",
+                "volumeOfCavity": "ক্যাভিটির আয়তন",
+                "cavityMaterialCost": "ক্যাভিটি মেটেরিয়াল খরচ"
             }
         },
         "aacBlock": {
@@ -592,6 +635,137 @@
             "ft3Unit": "ft³",
             "brassUnit": "ব্রাস",
             "material": "উপাদান"
+        }
+    },
+    "roofArea": {
+        "common": {
+            "metric": "মেট্রিক",
+            "imperial": "ইম্পেরিয়াল",
+            "reset": "রিসেট",
+            "calculate": "গণনা করুন",
+            "result": "ফলাফল",
+            "totalCost": "মোট খরচ",
+            "viewDetailed": "বিস্তারিত ফলাফল দেখুন",
+            "inputs": "ইনপুট",
+            "outputs": "আউটপুট",
+            "currency": "মুদ্রা",
+            "currencyPerSqM": "প্রতি বর্গমিটারে মুদ্রা"
+        },
+        "flatRoof": {
+            "title": "সমতল ছাদ",
+            "detailedTitle": "সমতল ছাদ বিস্তারিত রিপোর্ট",
+            "baseLengthA": "বেস দৈর্ঘ্য A",
+            "baseLengthB": "বেস দৈর্ঘ্য B",
+            "eaveLengthC": "ইভ দৈর্ঘ্য C",
+            "roomPrice": "রুমের দাম",
+            "results": {
+                "roofArea": "ছাদের ক্ষেত্রফল",
+                "roofCost": "ছাদের খরচ"
+            }
+        },
+        "shedRoof": {
+            "title": "শেড ছাদ",
+            "detailedTitle": "শেড ছাদ বিস্তারিত রিপোর্ট",
+            "baseLengthA": "বেস দৈর্ঘ্য A",
+            "baseLengthB": "বেস দৈর্ঘ্য B",
+            "eaveLengthC": "ইভ দৈর্ঘ্য C",
+            "riseH": "উচ্চতা H",
+            "roomPrice": "রুমের দাম",
+            "results": {
+                "roofArea": "ছাদের ক্ষেত্রফল",
+                "roofCost": "ছাদের খরচ"
+            }
+        },
+        "gableRoof": {
+            "title": "গেবল ছাদ",
+            "detailedTitle": "গেবল ছাদ বিস্তারিত রিপোর্ট",
+            "baseLengthA": "বেস দৈর্ঘ্য A",
+            "baseLengthB": "বেস দৈর্ঘ্য B",
+            "eaveLengthC": "ইভ দৈর্ঘ্য C",
+            "riseH": "উচ্চতা H",
+            "roomPrice": "রুমের দাম",
+            "results": {
+                "roofArea": "ছাদের ক্ষেত্রফল",
+                "roofCost": "ছাদের খরচ"
+            }
+        },
+        "boxGableRoof": {
+            "title": "বক্স গেবল ছাদ",
+            "detailedTitle": "বক্স গেবল ছাদ বিস্তারিত রিপোর্ট",
+            "baseLengthA": "বেস দৈর্ঘ্য A",
+            "baseLengthB": "বেস দৈর্ঘ্য B",
+            "eaveLengthC": "ইভ দৈর্ঘ্য C",
+            "eaveLengthD": "ইভ দৈর্ঘ্য D",
+            "riseH": "উচ্চতা H",
+            "roomPrice": "রুমের দাম",
+            "results": {
+                "roofArea": "ছাদের ক্ষেত্রফল",
+                "roofCost": "ছাদের খরচ"
+            }
+        },
+        "mShapedRoof": {
+            "title": "এম আকৃতির ছাদ",
+            "detailedTitle": "এম আকৃতির ছাদ বিস্তারিত রিপোর্ট",
+            "baseLengthA": "বেস দৈর্ঘ্য A",
+            "baseLengthB": "বেস দৈর্ঘ্য B",
+            "eaveLengthC": "ইভ দৈর্ঘ্য C",
+            "riseH": "উচ্চতা H",
+            "roomPrice": "রুমের দাম",
+            "results": {
+                "roofArea": "ছাদের ক্ষেত্রফল",
+                "roofCost": "ছাদের খরচ"
+            }
+        },
+        "butterflyRoof": {
+            "title": "বাটারফ্লাই আকৃতির ছাদ",
+            "detailedTitle": "বাটারফ্লাই আকৃতির ছাদ বিস্তারিত রিপোর্ট",
+            "baseLengthA": "বেস দৈর্ঘ্য A",
+            "baseLengthB": "বেস দৈর্ঘ্য B",
+            "eaveLengthC": "ইভ দৈর্ঘ্য C",
+            "riseH": "উচ্চতা H",
+            "roomPrice": "রুমের দাম",
+            "results": {
+                "roofArea": "ছাদের ক্ষেত্রফল",
+                "roofCost": "ছাদের খরচ"
+            }
+        },
+        "saltboxRoof": {
+            "title": "সল্টবক্স আকৃতির ছাদ",
+            "detailedTitle": "সল্টবক্স আকৃতির ছাদ বিস্তারিত রিপোর্ট",
+            "baseLengthA1": "বেস দৈর্ঘ্য A1",
+            "baseLengthA2": "বেস দৈর্ঘ্য A2",
+            "baseLengthB": "বেস দৈর্ঘ্য B",
+            "eaveLengthC": "ইভ দৈর্ঘ্য C",
+            "riseH1": "উচ্চতা H1",
+            "riseH2": "উচ্চতা H2",
+            "roomPrice": "রুমের দাম",
+            "results": {
+                "roofArea": "ছাদের ক্ষেত্রফল",
+                "roofCost": "ছাদের খরচ"
+            }
+        },
+        "hexagonalRoof": {
+            "title": "হেক্সাগোনাল ছাদ",
+            "detailedTitle": "হেক্সাগোনাল ছাদ বিস্তারিত রিপোর্ট",
+            "baseLengthA": "বেস দৈর্ঘ্য A",
+            "slopS": "ঢাল S",
+            "roomPrice": "রুমের দাম",
+            "results": {
+                "roofArea": "ছাদের ক্ষেত্রফল",
+                "roofCost": "ছাদের খরচ"
+            }
+        },
+        "pyramidHipRoof": {
+            "title": "পিরামিড হিপ ছাদ",
+            "detailedTitle": "পিরামিড হিপ ছাদ বিস্তারিত রিপোর্ট",
+            "baseLengthA": "বেস দৈর্ঘ্য A",
+            "baseLengthB": "বেস দৈর্ঘ্য B",
+            "riseH": "উচ্চতা H",
+            "roomPrice": "রুমের দাম",
+            "results": {
+                "roofArea": "ছাদের ক্ষেত্রফল",
+                "roofCost": "ছাদের খরচ"
+            }
         }
     },
     "downloadPDF": {

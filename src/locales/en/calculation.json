@@ -376,8 +376,22 @@
             "flemishTitle": "Flemish Bond",
             "flemishDetailedTitle": "Flemish Bond Detailed Report",
             "stack": "Stack Bond",
+            "stackTitle": "Stack Bond",
+            "stackDetailedTitle": "Stack Bond Detailed Report",
             "dutch": "English Cross or Dutch Bond",
+            "dutchTitle": "English Cross or Dutch Bond",
+            "dutchDetailedTitle": "English Cross or Dutch Bond Detailed Report",
             "gardenWall": "Garden Wall Bond",
+            "gardenWallTitle": "Garden Wall Bond",
+            "gardenWallDetailedTitle": "Garden Wall Bond Detailed Report",
+            "kingCloserTitle": "King Closer",
+            "kingCloserDetailedTitle": "King Closer Detailed Report",
+            "queenCloserTitle": "Queen Closer",
+            "queenCloserDetailedTitle": "Queen Closer Detailed Report",
+            "halfBatCloserTitle": "Half Bat Closer",
+            "halfBatCloserDetailedTitle": "Half Bat Closer Detailed Report",
+            "quarterBatCloserTitle": "Quarter Bat Closer",
+            "quarterBatCloserDetailedTitle": "Quarter Bat Closer Detailed Report",
             "brickToBrickJoint": "Brick to Brick Joint"
         },
         "closer": {
@@ -396,13 +410,26 @@
             "wallWithDoor": "Wall With Door",
             "wallWithArcDoor": "Wall With Arc Door",
             "cavityWall": "Cavity Wall",
-            "buttressWall": "Buttress Wall"
+            "buttressWall": "Buttress Wall",
+            "byVolumeDetailedTitle": "By Volume Detailed Report",
+            "byCubeDetailedTitle": "By Cube Detailed Report",
+            "byWallDetailedTitle": "By Wall Detailed Report",
+            "lWallDetailedTitle": "L Wall Detailed Report",
+            "cWallDetailedTitle": "C Wall Detailed Report",
+            "rectangularChamberDetailedTitle": "Rectangular Chamber Detailed Report",
+            "wallWithDoorDetailedTitle": "Wall With Door Detailed Report",
+            "wallWithArcDoorDetailedTitle": "Wall With Arc Door Detailed Report",
+            "cavityWallDetailedTitle": "Cavity Wall Detailed Report",
+            "buttressWallDetailedTitle": "Buttress Wall Detailed Report"
         },
         "clayBrick": {
             "title": "Clay Brick / Fly Ash Brick",
             "detailedTitle": "Clay Brick / Fly Ash Brick Detailed Report",
             "brickSize": "Brick Size",
             "wallSize": "Wall Size",
+            "doorSize": "Door Size",
+            "doorLength": "Door Length",
+            "doorHeight": "Door Height",
             "mortarRatio": "Mortar Ratio",
             "deductions": "Deductions",
             "price": "Price",
@@ -412,8 +439,17 @@
             "wallLength": "Length",
             "wallHeight": "Height",
             "wallThickness": "Thickness",
+            "width1": "Width 1",
+            "width2": "Width 2",
             "cement": "Cement",
             "sand": "Sand",
+            "volume": "Volume",
+            "currencyPerUnit": "currency per Unit",
+            "currency": "Currency",
+            "cavity": "Cavity",
+            "cavityThickness": "Cavity Thickness",
+            "cavityMaterial": "Cavity Material",
+            "numberOfButtress": "Number of Buttress",
             "w1": "W1",
             "h1": "H1",
             "w2": "W2",
@@ -425,6 +461,7 @@
             "sandPrice": "Sand",
             "results": {
                 "volumeOfWall": "Volume of Wall",
+                "volumeOfShape": "Volume Of Shape",
                 "noOfBricks": "No of Bricks",
                 "mortarDryVolume": "Mortar Dry Volume",
                 "cementBags": "Cement Bags (50kg)",
@@ -432,7 +469,13 @@
                 "brickCost": "Brick Cost",
                 "cementCost": "Cement Cost",
                 "sandCost": "Sand Cost",
-                "totalCost": "Total Cost"
+                "totalCost": "Total Cost",
+                "noOfKingCloser": "No of King Closer",
+                "noOfQueenCloser": "No of Queen Closer",
+                "noOfHalfBatCloser": "No of Half Bat Closer",
+                "noOfQuarterBatCloser": "No of Quarter Bat Closer",
+                "volumeOfCavity": "Volume Of Cavity",
+                "cavityMaterialCost": "Cavity Material Cost"
             }
         },
         "aacBlock": {
@@ -635,6 +678,176 @@
             "m3Unit": "m³",
             "ft3Unit": "ft³",
             "brassUnit": "Brass"
+        }
+    },
+    "roofArea": {
+        "common": {
+            "metric": "Metric",
+            "imperial": "Imperial",
+            "reset": "Reset",
+            "calculate": "Calculate",
+            "result": "Result",
+            "totalCost": "Total Cost",
+            "viewDetailed": "View Detailed Result",
+            "inputs": "Inputs",
+            "outputs": "Outputs",
+            "currency": "Currency",
+            "currencyPerSqM": "Currency per sq.m"
+        },
+        "flatRoof": {
+            "title": "Flat Roof",
+            "detailedTitle": "Flat Roof Detailed Report",
+            "baseLengthA": "Base length A",
+            "baseLengthB": "Base length B",
+            "eaveLengthC": "Eave Length C",
+            "roomPrice": "Room Price",
+            "results": {
+                "roofArea": "Roof Area",
+                "roofCost": "Roof Cost"
+            }
+        },
+        "shedRoof": {
+            "title": "Shed Roof",
+            "detailedTitle": "Shed Roof Detailed Report",
+            "baseLengthA": "Base Length A",
+            "baseLengthB": "Base Length B",
+            "eaveLengthC": "Eave Length C",
+            "riseH": "Rise H",
+            "roomPrice": "Room Price",
+            "results": {
+                "roofArea": "Roof Area",
+                "roofCost": "Roof Cost"
+            }
+        },
+        "gableRoof": {
+            "title": "Gable Roof",
+            "detailedTitle": "Gable Roof Detailed Report",
+            "baseLengthA": "Base Length A",
+            "baseLengthB": "Base Length B",
+            "eaveLengthC": "Eave Length C",
+            "riseH": "Rise H",
+            "roomPrice": "Room Price",
+            "results": {
+                "roofArea": "Roof Area",
+                "roofCost": "Roof Cost"
+            }
+        },
+        "boxGableRoof": {
+            "title": "Box Gable Roof",
+            "detailedTitle": "Box Gable Roof Detailed Report",
+            "baseLengthA": "Base Length A",
+            "baseLengthB": "Base Length B",
+            "eaveLengthC": "Eave Length C",
+            "eaveLengthD": "Eave Length D",
+            "riseH": "Rise H",
+            "roomPrice": "Room Price",
+            "results": {
+                "roofArea": "Roof Area",
+                "roofCost": "Roof Cost"
+            }
+        },
+        "mShapedRoof": {
+            "title": "M Shaped Roof",
+            "detailedTitle": "M Shaped Roof Detailed Report",
+            "baseLengthA": "Base Length A",
+            "baseLengthB": "Base Length B",
+            "eaveLengthC": "Eave Length C",
+            "riseH": "Rise H",
+            "roomPrice": "Room Price",
+            "results": {
+                "roofArea": "Roof Area",
+                "roofCost": "Roof Cost"
+            }
+        },
+        "butterflyRoof": {
+            "title": "Butterfly Roof",
+            "detailedTitle": "Butterfly Roof Detailed Report",
+            "baseLengthA": "Base Length A",
+            "baseLengthB": "Base Length B",
+            "eaveLengthC": "Eave Length C",
+            "riseH": "Rise H",
+            "roomPrice": "Room Price",
+            "results": {
+                "roofArea": "Roof Area",
+                "roofCost": "Roof Cost"
+            }
+        },
+        "saltboxRoof": {
+            "title": "Saltbox Roof",
+            "detailedTitle": "Saltbox Roof Detailed Report",
+            "baseLengthA1": "Base Length A1",
+            "baseLengthA2": "Base Length A2",
+            "baseLengthB": "Base Length B",
+            "eaveLengthC": "Eave Length C",
+            "riseH1": "Rise H1",
+            "riseH2": "Rise H2",
+            "roomPrice": "Room Price",
+            "results": {
+                "roofArea": "Roof Area",
+                "roofCost": "Roof Cost"
+            }
+        },
+        "hexagonalRoof": {
+            "title": "Hexagonal Roof",
+            "detailedTitle": "Hexagonal Roof Detailed Report",
+            "baseLengthA": "Base Length A",
+            "slopS": "Slop S",
+            "roomPrice": "Room Price",
+            "results": {
+                "roofArea": "Roof Area",
+                "roofCost": "Roof Cost"
+            }
+        },
+        "pyramidHipRoof": {
+            "title": "Pyramid Hip Roof",
+            "detailedTitle": "Pyramid Hip Roof Detailed Report",
+            "baseLengthA": "Base Length A",
+            "baseLengthB": "Base Length B",
+            "riseH": "Rise H",
+            "roomPrice": "Room Price",
+            "results": {
+                "roofArea": "Roof Area",
+                "roofCost": "Roof Cost"
+            }
+        },
+        "flooring": {
+            "title": "Flooring",
+            "detailedTitle": "Flooring Detailed Report",
+            "roomLengthL": "Room Length",
+            "roomWidthW": "Room Width",
+            "doorWidthD": "Door Width",
+            "skirtingHeightH": "Skirting Height",
+            "tileLengthl": "Tile Length",
+            "tileWidthw": "Tile Width",
+            "wastageS": "Wastage",
+            "headers": {
+                "inputName": "Input Name",
+                "symbol": "Symbol",
+                "value": "Value"
+            },
+            "results": {
+                "noOfBlocks": "No Of Blocks",
+                "cementBags": "Cement Bags",
+                "cement": "Cement",
+                "sand": "Sand"
+            }
+        },
+        "paver": {
+            "title": "Paver Calculation",
+            "detailedTitle": "Paver Calculation Detailed Report",
+            "surfaceLength": "Surface Length",
+            "surfaceWidth": "Surface Width",
+            "paverLength": "Paver Length",
+            "paverWidth": "Paver Width",
+            "paverPrice": "Paver Price",
+            "installationCost": "Installation Cost",
+            "results": {
+                "surfaceArea": "Surface Area",
+                "noOfPavers": "No Of Pavers",
+                "paverCost": "Paver Cost",
+                "totalInstallationCost": "Total Installation Cost",
+                "totalExpenses": "Total Expenses"
+            }
         }
     },
     "downloadPDF": {

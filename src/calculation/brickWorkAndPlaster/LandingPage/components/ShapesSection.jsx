@@ -8,26 +8,27 @@ import byWall from '../../../../assets/icons/byWall.svg';
 import lWall from '../../../../assets/icons/lWall.svg';
 import cWall from '../../../../assets/icons/cWall.svg';
 import rectangularChamber from '../../../../assets/icons/rectangularChamber.svg';
-import wallWithDoor from '../../../../assets/icons/wallWithDoor.svg';
+import WallWithDoor from '../../../../assets/icons/WallWithDoor.svg';
 import wallWithArcDoor from '../../../../assets/icons/wallWithArcDoor.svg';
 import cavityWall from '../../../../assets/icons/cavityWall.svg';
 import buttressWall from '../../../../assets/icons/buttressWall.svg';
+import { ROUTES_FLAT } from '../../../../constants/routes';
 
 const ShapesSection = () => {
     const { t } = useTranslation('calculation');
     const navigate = useNavigate();
 
     const items = [
-        { id: 'byVolume', title: t('brickWorkAndPlaster.shapes.byVolume'), icon: byVolume, path: '#' },
-        { id: 'byCube', title: t('brickWorkAndPlaster.shapes.byCube'), icon: byCube, path: '#' },
-        { id: 'byWall', title: t('brickWorkAndPlaster.shapes.byWall'), icon: byWall, path: '#' },
-        { id: 'lWall', title: t('brickWorkAndPlaster.shapes.lWall'), icon: lWall, path: '#' },
-        { id: 'cWall', title: t('brickWorkAndPlaster.shapes.cWall'), icon: cWall, path: '#' },
-        { id: 'rectangularChamber', title: t('brickWorkAndPlaster.shapes.rectangularChamber'), icon: rectangularChamber, path: '#' },
-        { id: 'wallWithDoor', title: t('brickWorkAndPlaster.shapes.wallWithDoor'), icon: wallWithDoor, path: '#' },
-        { id: 'wallWithArcDoor', title: t('brickWorkAndPlaster.shapes.wallWithArcDoor'), icon: wallWithArcDoor, path: '#' },
-        { id: 'cavityWall', title: t('brickWorkAndPlaster.shapes.cavityWall'), icon: cavityWall, path: '#' },
-        { id: 'buttressWall', title: t('brickWorkAndPlaster.shapes.buttressWall'), icon: buttressWall, path: '#' },
+        { id: 'byVolume', title: t('brickWorkAndPlaster.shapes.byVolume'), icon: byVolume, path: ROUTES_FLAT.CALCULATION_SHAPES_BY_VOLUME },
+        { id: 'byCube', title: t('brickWorkAndPlaster.shapes.byCube'), icon: byCube, path: ROUTES_FLAT.CALCULATION_SHAPES_BY_CUBE },
+        { id: 'byWall', title: t('brickWorkAndPlaster.shapes.byWall'), icon: byWall, path: ROUTES_FLAT.CALCULATION_SHAPES_BY_WALL },
+        { id: 'lWall', title: t('brickWorkAndPlaster.shapes.lWall'), icon: lWall, path: ROUTES_FLAT.CALCULATION_SHAPES_BY_L_WALL },
+        { id: 'cWall', title: t('brickWorkAndPlaster.shapes.cWall'), icon: cWall, path: ROUTES_FLAT.CALCULATION_SHAPES_BY_C_WALL },
+        { id: 'rectangularChamber', title: t('brickWorkAndPlaster.shapes.rectangularChamber'), icon: rectangularChamber, path: ROUTES_FLAT.CALCULATION_SHAPES_BY_RECTANGULAR_CHAMBER },
+        { id: 'wallWithDoor', title: t('brickWorkAndPlaster.shapes.wallWithDoor'), icon: WallWithDoor, path: ROUTES_FLAT.CALCULATION_SHAPES_BY_WALL_WITH_DOOR },
+        { id: 'wallWithArcDoor', title: t('brickWorkAndPlaster.shapes.wallWithArcDoor'), icon: wallWithArcDoor, path: ROUTES_FLAT.CALCULATION_SHAPES_BY_WALL_WITH_ARC_DOOR },
+        { id: 'cavityWall', title: t('brickWorkAndPlaster.shapes.cavityWall'), icon: cavityWall, path: ROUTES_FLAT.CALCULATION_SHAPES_BY_CAVITY_WALL },
+        { id: 'buttressWall', title: t('brickWorkAndPlaster.shapes.buttressWall'), icon: buttressWall, path: ROUTES_FLAT.CALCULATION_SHAPES_BY_BUTTRESS_WALL },
     ];
 
     return (

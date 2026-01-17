@@ -15,6 +15,7 @@ const QuantitySection = () => {
 
     const items = [
         { id: 'clayBrick', title: t('brickWorkAndPlaster.quantity.clayBrick'), icon: claybrick, path: ROUTES_FLAT.CALCULATION_CLAY_BRICK },
+        { id: 'byVolume', title: 'By Volume', icon: claybrick, path: ROUTES_FLAT.CALCULATION_BY_VOLUME },
         { id: 'aacBlock', title: t('brickWorkAndPlaster.quantity.aacBlock'), icon: aac, path: ROUTES_FLAT.CALCULATION_AAC_BLOCK },
         { id: 'sandPlaster', title: t('brickWorkAndPlaster.quantity.sandPlaster'), icon: sandPlaster, path: ROUTES_FLAT.CALCULATION_SAND_PLASTER },
         { id: 'gypsumPlaster', title: t('brickWorkAndPlaster.quantity.gypsumPlaster'), icon: gypsum, path: ROUTES_FLAT.CALCULATION_GYPSUM_PLASTER },

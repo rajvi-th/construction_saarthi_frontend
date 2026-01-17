@@ -79,6 +79,12 @@ const QuickActions = () => {
         brickWorkPlaster: {
             path: '/calculation/brick-work-quantities',
         },
+        roofAreaPitch: {
+            path: '/calculation/roof-area-pitch',
+        },
+        flooringCalculation: {
+            path: '/calculation/flooring',
+        },
     };
 
     const handleActionClick = (action) => {

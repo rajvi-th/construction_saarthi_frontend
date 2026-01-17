@@ -45,7 +45,7 @@
             "sewageSystem": "सांडपाणी व्यवस्था",
             "waterSupplySystem": "पानी पुरवठा व्यवस्था",
             "materialWeights": "साहित्याचे वजन",
-            "billOfQuantity": "साहित्याचे देयक (BOQ)"
+            "billOfQuantity": "साहित्याचे देयक"
         }
     },
     "comingSoon": {
@@ -366,8 +366,22 @@
             "flemishTitle": "फ्लेमिश बाँड",
             "flemishDetailedTitle": "फ्लेमिश बाँड विस्तृत अहवाल",
             "stack": "स्टॅक बाँड",
+            "stackTitle": "स्टॅक बाँड",
+            "stackDetailedTitle": "स्टॅक बाँड विस्तृत अहवाल",
             "dutch": "इंग्रजी क्रॉस किंवा डच बाँड",
+            "dutchTitle": "इंग्रजी क्रॉस किंवा डच बाँड",
+            "dutchDetailedTitle": "इंग्रजी क्रॉस किंवा डच बाँड विस्तृत अहवाल",
             "gardenWall": "गार्डन वॉल बाँड",
+            "gardenWallTitle": "गार्डन वॉल बाँड",
+            "gardenWallDetailedTitle": "गार्डन वॉल बाँड विस्तृत अहवाल",
+            "kingCloserTitle": "किंग क्लोजर",
+            "kingCloserDetailedTitle": "किंग क्लोजर विस्तृत अहवाल",
+            "queenCloserTitle": "क्वीन क्लोजर",
+            "queenCloserDetailedTitle": "क्वीन क्लोजर विस्तृत अहवाल",
+            "halfBatCloserTitle": "हाफ बॅट क्लोजर",
+            "halfBatCloserDetailedTitle": "हाफ बॅट क्लोजर विस्तृत अहवाल",
+            "quarterBatCloserTitle": "क्वार्टर बॅट क्लोजर",
+            "quarterBatCloserDetailedTitle": "क्वार्टर बॅट क्लोजर विस्तृत अहवाल",
             "brickToBrickJoint": "विटांपासून विटांचा सांधा"
         },
         "closer": {
@@ -386,13 +400,26 @@
             "wallWithDoor": "दारासह भिंत",
             "wallWithArcDoor": "आर्क दारासह भिंत",
             "cavityWall": "कॅव्हिटी वॉल",
-            "buttressWall": "बट्रेस वॉल"
+            "buttressWall": "बट्रेस वॉल",
+            "byVolumeDetailedTitle": "आयतनानुसार तपशीलवार अहवाल",
+            "byCubeDetailedTitle": "क्यूबनुसार तपशीलवार अहवाल",
+            "byWallDetailedTitle": "भिंतीनुसार तपशीलवार अहवाल",
+            "lWallDetailedTitle": "L भिंत तपशीलवार अहवाल",
+            "cWallDetailedTitle": "C भिंत तपशीलवार अहवाल",
+            "rectangularChamberDetailedTitle": "आयताकार चेंबर तपशीलवार अहवाल",
+            "wallWithDoorDetailedTitle": "दारासह भिंत तपशीलवार अहवाल",
+            "wallWithArcDoorDetailedTitle": "आर्क दारासह भिंत तपशीलवार अहवाल",
+            "cavityWallDetailedTitle": "कॅव्हिटी वॉल तपशीलवार अहवाल",
+            "buttressWallDetailedTitle": "बट्रेस वॉल तपशीलवार अहवाल"
         },
         "clayBrick": {
             "title": "क्ले ब्रिक / फ्लाय अॅश ब्रिक",
             "detailedTitle": "क्ले ब्रिक / फ्लाय अॅश ब्रिक तपशीलवार अहवाल",
             "brickSize": "विटेचा आकार",
             "wallSize": "भिंतीचा आकार",
+            "doorSize": "दाराचा आकार",
+            "doorLength": "दाराची लांबी",
+            "doorHeight": "दाराची उंची",
             "mortarRatio": "मोर्टार गुणोत्तर",
             "deductions": "वजावट",
             "price": "किंमत",
@@ -402,6 +429,8 @@
             "wallLength": "लांबी",
             "wallHeight": "ऊंची",
             "wallThickness": "जाडी",
+            "width1": "रुंदी 1",
+            "width2": "रुंदी 2",
             "cement": "सिमेंट",
             "sand": "वाळू",
             "w1": "W1",
@@ -413,8 +442,16 @@
             "brickPrice": "वीट",
             "cementPrice": "सिमेंट",
             "sandPrice": "वाळू",
+            "volume": "आयतन",
+            "currencyPerUnit": "प्रति युनिट चलन",
+            "currency": "चलन",
+            "cavity": "कॅविटी",
+            "cavityThickness": "कॅविटीची जाडी",
+            "cavityMaterial": "कॅविटी साहित्य",
+            "numberOfButtress": "बट्रेसची संख्या",
             "results": {
                 "volumeOfWall": "भिंतीचे आकारमान",
+                "volumeOfShape": "आकाराचे आकारमान",
                 "noOfBricks": "विटांची संख्या",
                 "mortarDryVolume": "मोर्टार कोरडे आकारमान",
                 "cementBags": "सिमेंट बॅग (50kg)",
@@ -422,7 +459,13 @@
                 "brickCost": "विटांचा खर्च",
                 "cementCost": "सिमेंटचा खर्च",
                 "sandCost": "वाळूचा खर्च",
-                "totalCost": "एकूण खर्च"
+                "totalCost": "एकूण खर्च",
+                "noOfKingCloser": "किंग क्लोजरची संख्या",
+                "noOfQueenCloser": "क्वीन क्लोजरची संख्या",
+                "noOfHalfBatCloser": "हाफ बॅट क्लोजरची संख्या",
+                "noOfQuarterBatCloser": "क्वार्टर बॅट क्लोजरची संख्या",
+                "volumeOfCavity": "कॅविटीचे आकारमान",
+                "cavityMaterialCost": "कॅविटी साहित्याचा खर्च"
             }
         },
         "aacBlock": {
@@ -591,6 +634,137 @@
             "ft3Unit": "ft³",
             "brassUnit": "ब्रास",
             "material": "साहित्य"
+        }
+    },
+    "roofArea": {
+        "common": {
+            "metric": "मेट्रिक",
+            "imperial": "इम्पीरियल",
+            "reset": "रीसेट",
+            "calculate": "गणना करा",
+            "result": "परिणाम",
+            "totalCost": "एकूण खर्च",
+            "viewDetailed": "तपशीलवार निकाल पहा",
+            "inputs": "इनपुट",
+            "outputs": "आउटपुट",
+            "currency": "चलन",
+            "currencyPerSqM": "चलन प्रति चौ.मी."
+        },
+        "flatRoof": {
+            "title": "सपाट छप्पर",
+            "detailedTitle": "सपाट छप्पर तपशीलवार अहवाल",
+            "baseLengthA": "पाया लांबी A",
+            "baseLengthB": "पाया लांबी B",
+            "eaveLengthC": "इव्ह लांबी C",
+            "roomPrice": "खोलीची किंमत",
+            "results": {
+                "roofArea": "छताचे क्षेत्रफळ",
+                "roofCost": "छताचा खर्च"
+            }
+        },
+        "shedRoof": {
+            "title": "शेड रूफ",
+            "detailedTitle": "शेड रूफ तपशीलवार अहवाल",
+            "baseLengthA": "पाया लांबी A",
+            "baseLengthB": "पाया लांबी B",
+            "eaveLengthC": "इव्ह लांबी C",
+            "riseH": "राईज H",
+            "roomPrice": "खोलीची किंमत",
+            "results": {
+                "roofArea": "छताचे क्षेत्रफळ",
+                "roofCost": "छताचा खर्च"
+            }
+        },
+        "gableRoof": {
+            "title": "गेबल रूफ",
+            "detailedTitle": "गेबल रूफ तपशीलवार अहवाल",
+            "baseLengthA": "पाया लांबी A",
+            "baseLengthB": "पाया लांबी B",
+            "eaveLengthC": "इव्ह लांबी C",
+            "riseH": "राईज H",
+            "roomPrice": "खोलीची किंमत",
+            "results": {
+                "roofArea": "छताचे क्षेत्रफळ",
+                "roofCost": "छताचा खर्च"
+            }
+        },
+        "boxGableRoof": {
+            "title": "बॉक्स गेबल रूफ",
+            "detailedTitle": "बॉक्स गेबल रूफ तपशीलवार अहवाल",
+            "baseLengthA": "पाया लांबी A",
+            "baseLengthB": "पाया लांबी B",
+            "eaveLengthC": "इव्ह लांबी C",
+            "eaveLengthD": "इव्ह लांबी D",
+            "riseH": "राईज H",
+            "roomPrice": "खोलीची किंमत",
+            "results": {
+                "roofArea": "छताचे क्षेत्रफळ",
+                "roofCost": "छताचा खर्च"
+            }
+        },
+        "mShapedRoof": {
+            "title": "एम शेप्ड रूफ",
+            "detailedTitle": "एम शेप्ड रूफ तपशीलवार अहवाल",
+            "baseLengthA": "पाया लांबी A",
+            "baseLengthB": "पाया लांबी B",
+            "eaveLengthC": "इव्ह लांबी C",
+            "riseH": "राईज H",
+            "roomPrice": "खोलीची किंमत",
+            "results": {
+                "roofArea": "छताचे क्षेत्रफळ",
+                "roofCost": "छताचा खर्च"
+            }
+        },
+        "butterflyRoof": {
+            "title": "बटरफ्लाय रूफ",
+            "detailedTitle": "बटरफ्लाय रूफ तपशीलवार अहवाल",
+            "baseLengthA": "पाया लांबी A",
+            "baseLengthB": "पाया लांबी B",
+            "eaveLengthC": "इव्ह लांबी C",
+            "riseH": "राईज H",
+            "roomPrice": "खोलीची किंमत",
+            "results": {
+                "roofArea": "छताचे क्षेत्रफळ",
+                "roofCost": "छताचा खर्च"
+            }
+        },
+        "saltboxRoof": {
+            "title": "साल्टबॉक्स रूफ",
+            "detailedTitle": "साल्टबॉक्स रूफ तपशीलवार अहवाल",
+            "baseLengthA1": "पाया लांबी A1",
+            "baseLengthA2": "पाया लांबी A2",
+            "baseLengthB": "पाया लांबी B",
+            "eaveLengthC": "इव्ह लांबी C",
+            "riseH1": "राईज H1",
+            "riseH2": "राईज H2",
+            "roomPrice": "खोलीची किंमत",
+            "results": {
+                "roofArea": "छताचे क्षेत्रफळ",
+                "roofCost": "छताचा खर्च"
+            }
+        },
+        "hexagonalRoof": {
+            "title": "हेक्सागोनल रूफ",
+            "detailedTitle": "हेक्सागोनल रूफ तपशीलवार अहवाल",
+            "baseLengthA": "पाया लांबी A",
+            "slopS": "स्लोप S",
+            "roomPrice": "खोलीची किंमत",
+            "results": {
+                "roofArea": "छताचे क्षेत्रफळ",
+                "roofCost": "छताचा खर्च"
+            }
+        },
+        "pyramidHipRoof": {
+            "title": "पिरॅमिड हिप रूफ",
+            "detailedTitle": "पिरॅमिड हिप रूफ तपशीलवार अहवाल",
+            "baseLengthA": "पाया लांबी A",
+            "baseLengthB": "पाया लांबी B",
+            "riseH": "राईज H",
+            "roomPrice": "खोलीची किंमत",
+            "results": {
+                "roofArea": "छताचे क्षेत्रफळ",
+                "roofCost": "छताचा खर्च"
+            }
         }
     },
     "downloadPDF": {

@@ -45,7 +45,7 @@
             "sewageSystem": "கழிவுநீர் அமைப்பு",
             "waterSupplySystem": "குடிநீர் விநியோக அமைப்பு",
             "materialWeights": "பொருள் எடைகள்",
-            "billOfQuantity": "பொருள்களின் பட்டியல் (BOQ)"
+            "billOfQuantity": "பொருள்களின் பட்டியல்"
         }
     },
     "comingSoon": {
@@ -109,16 +109,16 @@
             "cuttingLength": "வெட்டு நீளம்"
         },
         "weight": {
-            "reinforcement": "ரீஇன்ஃபோர்ஸ்மென்ட் எடை (Reinforcement Weight)",
+            "reinforcement": "ரீஇன்ஃபோர்ஸ்மென்ட் எடை",
             "detailedReport": "ரீஇன்ஃபோர்ஸ்மென்ட் எடை விரிவான அறிக்கை",
-            "metric": "மெட்ரிக் (Metric)",
-            "imperial": "இம்பீரியல் (Imperial)",
+            "metric": "மெட்ரிக்",
+            "imperial": "இம்பீரியல்",
             "wastage": "மூலப்பொருள் விரயம்",
             "wastagePlaceholder": "எ.கா: \"10\"",
-            "diameter": "விட்டம் (Diameter)",
-            "length": "நீளம் (Length)",
+            "diameter": "விட்டம்",
+            "length": "நீளம்",
             "noOfBars": "கம்பிகளின் எண்ணிக்கை",
-            "price": "விலை (Price)",
+            "price": "விலை",
             "reset": "மீட்டமை",
             "calculate": "கணக்கிடு",
             "result": "முடிவு",
@@ -134,7 +134,7 @@
             "inputName": "உள்ளீட்டு பெயர்",
             "symbol": "குறியீடு",
             "value": "மதிப்பு",
-            "formula": "சூத்திரம் (Formula)"
+            "formula": "சூத்திரம்"
         },
         "footing": {
             "type1": "பூட்டிங் வகை 1",
@@ -167,7 +167,7 @@
             "size": "தூண் அளவு",
             "sideX": "பக்கம் X",
             "sideY": "பக்கம் Y",
-            "volume": "கன அளவு (Volume)",
+            "volume": "கன அளவு",
             "diameter": "கம்பி விட்டம் (D)",
             "columnDiameter": "தூண் விட்டம்",
             "columnHeight": "தூண் உயரம்",
@@ -178,7 +178,7 @@
             "noOfColumns": "தூண்கள் எண்ணிக்கை",
             "noOfColumn": "தூண்கள் எண்ணிக்கை",
             "steelRate": "கம்பி விலை",
-            "stirrups": "வளையம் (Stirrups)",
+            "stirrups": "வளையம்",
             "type2": "தூண் வகை 2",
             "type3": "தூண் வகை 3",
             "type3Detailed": "தூண் வகை 3 விரிவான அறிக்கை",
@@ -366,8 +366,22 @@
             "flemishTitle": "பிளெமிஷ் பிணைப்பு",
             "flemishDetailedTitle": "பிளெமிஷ் பிணைப்பு விரிவான அறிக்கை",
             "stack": "ஸ்டாக் பிணைப்பு",
+            "stackTitle": "ஸ்டாக் பிணைப்பு",
+            "stackDetailedTitle": "ஸ்டாக் பிணைப்பு விரிவான அறிக்கை",
             "dutch": "ஆங்கில கிராஸ் அல்லது டச்சு பிணைப்பு",
+            "dutchTitle": "ஆங்கில கிராஸ் அல்லது டச்சு பிணைப்பு",
+            "dutchDetailedTitle": "ஆங்கில கிராஸ் அல்லது டச்சு பிணைப்பு விரிவான அறிக்கை",
             "gardenWall": "கார்டன் வால் பிணைப்பு",
+            "gardenWallTitle": "கார்டன் வால் பிணைப்பு",
+            "gardenWallDetailedTitle": "கார்டன் வால் பிணைப்பு விரிவான அறிக்கை",
+            "kingCloserTitle": "கிં குளோசர்",
+            "kingCloserDetailedTitle": "கிங் குளோசர் விரிவான அறிக்கை",
+            "queenCloserTitle": "குவீன் குளோசர்",
+            "queenCloserDetailedTitle": "குவீன் குளோசர் விரிவான அறிக்கை",
+            "halfBatCloserTitle": "ஹாஃப் பேட் குளோசர்",
+            "halfBatCloserDetailedTitle": "ஹாஃப் பேட் குளோசர் விரிவான அறிக்கை",
+            "quarterBatCloserTitle": "குவார்ட்டர் பேட் குளோசர்",
+            "quarterBatCloserDetailedTitle": "குவார்ட்டர் பேட் குளோசர் விரிவான அறிக்கை",
             "brickToBrickJoint": "செங்கல் முதல் செங்கல் இணைப்பு"
         },
         "closer": {
@@ -386,14 +400,27 @@
             "wallWithDoor": "கதவுடன் கூடிய சுவர்",
             "wallWithArcDoor": "வளைவு கதவுடன் கூடிய சுவர்",
             "cavityWall": "கேவிட்டி வால்",
-            "buttressWall": "பட்ரஸ் வால்"
+            "buttressWall": "பட்ரஸ் வால்",
+            "byVolumeDetailedTitle": "கன அளவின் அடிப்படையில் விரிவான அறிக்கை",
+            "byCubeDetailedTitle": "கியூப் அடிப்படையில் விரிவான அறிக்கை",
+            "byWallDetailedTitle": "சுவர் அடிப்படையில் விரிவான அறிக்கை",
+            "lWallDetailedTitle": "L சுவர் விரிவான அறிக்கை",
+            "cWallDetailedTitle": "C சுவர் விரிவான அறிக்கை",
+            "rectangularChamberDetailedTitle": "செவ்வக அறை விரிவான அறிக்கை",
+            "wallWithDoorDetailedTitle": "கதவுடன் கூடிய சுவர் விரிவான அறிக்கை",
+            "wallWithArcDoorDetailedTitle": "வளைவு கதவுடன் கூடிய சுவர் விரிவான அறிக்கை",
+            "cavityWallDetailedTitle": "கேவிட்டி வால் விரிவான அறிக்கை",
+            "buttressWallDetailedTitle": "பட்ரஸ் வால் விரிவான அறிக்கை"
         },
         "clayBrick": {
             "title": "களிமண் செங்கல் / ஃபிளை ஆஷ் செங்கல்",
             "detailedTitle": "களிமண் செங்கல் / ஃபிளை ஆஷ் செங்கல் விரிவான அறிக்கை",
             "brickSize": "செங்கல் அளவு",
             "wallSize": "சுவர் அளவு",
-            "mortarRatio": "சாந்து விகிதம்",
+            "doorSize": "கதவு அளவு",
+            "doorLength": "கதவு நீளம்",
+            "doorHeight": "கதவு உயரம்",
+            "mortarRatio": "கலவை விகிதம்",
             "deductions": "கழிவுகள்",
             "price": "விலை",
             "brickLength": "நீளம்",
@@ -402,6 +429,8 @@
             "wallLength": "நீளம்",
             "wallHeight": "உயரம்",
             "wallThickness": "தடிமன்",
+            "width1": "அகலம் 1",
+            "width2": "அகலம் 2",
             "cement": "சிமெண்ட்",
             "sand": "மணல்",
             "w1": "W1",
@@ -413,8 +442,16 @@
             "brickPrice": "செங்கல்",
             "cementPrice": "சிமெண்ட்",
             "sandPrice": "மணல்",
+            "volume": "கன அளவு",
+            "currencyPerUnit": "ஒரு யூனிட்டிற்கு நாணயம்",
+            "currency": "நாணயம்",
+            "cavity": "கேவிட்டி",
+            "cavityThickness": "கேவிட்டி தடிமன்",
+            "cavityMaterial": "கேவிட்டி மெட்டீரியல்",
+            "numberOfButtress": "பட்ரிஸஸ் எண்ணிக்கை",
             "results": {
                 "volumeOfWall": "சுவரின் கன அளவு",
+                "volumeOfShape": "வடிவத்தின் கன அளவு",
                 "noOfBricks": "செங்கற்களின் எண்ணிக்கை",
                 "mortarDryVolume": "சாந்து உலர் கன அளவு",
                 "cementBags": "சிமெண்ட் மூட்டைகள் (50kg)",
@@ -422,7 +459,13 @@
                 "brickCost": "செங்கல் செலவு",
                 "cementCost": "சிமெண்ட் செலவு",
                 "sandCost": "மணல் செலவு",
-                "totalCost": "மொத்த செலவு"
+                "totalCost": "மொத்த செலவு",
+                "noOfKingCloser": "கிங் குளோசர்களின் எண்ணிக்கை",
+                "noOfQueenCloser": "குவீன் குளோசர்களின் எண்ணிக்கை",
+                "noOfHalfBatCloser": "ஹாஃப் பேட் குளோசர்களின் எண்ணிக்கை",
+                "noOfQuarterBatCloser": "குவார்ட்டர் பேட் குளோசர்களின் எண்ணிக்கை",
+                "volumeOfCavity": "கேவிட்டி கன அளவு",
+                "cavityMaterialCost": "கேவிட்டி மெட்டீரியல் செலவு"
             }
         },
         "aacBlock": {
@@ -591,6 +634,137 @@
             "ft3Unit": "ft³",
             "brassUnit": "பிராஸ்",
             "material": "பொருள்"
+        }
+    },
+    "roofArea": {
+        "common": {
+            "metric": "மெட்ரிக்",
+            "imperial": "இம்பீரியல்",
+            "reset": "மீட்டமை",
+            "calculate": "கணக்கிடு",
+            "result": "முடிவு",
+            "totalCost": "மொத்த செலவு",
+            "viewDetailed": "விரிவான முடிவைக் காண்க",
+            "inputs": "உள்ளீடுகள்",
+            "outputs": "வெளியீடுகள்",
+            "currency": "நாணயம்",
+            "currencyPerSqM": "ஒரு சதுர மீட்டருக்கு நாணயம்"
+        },
+        "flatRoof": {
+            "title": "தட்டையான கூரை",
+            "detailedTitle": "தட்டையான கூரை விரிவான அறிக்கை",
+            "baseLengthA": "அடிப்படை நீளம் A",
+            "baseLengthB": "அடிப்படை நீளம் B",
+            "eaveLengthC": "ஈவ் நீளம் C",
+            "roomPrice": "அறை விலை",
+            "results": {
+                "roofArea": "கூரை பரப்பளவு",
+                "roofCost": "கூரை செலவு"
+            }
+        },
+        "shedRoof": {
+            "title": "ஷெட் கூரை",
+            "detailedTitle": "ஷெட் கூரை விரிவான அறிக்கை",
+            "baseLengthA": "அடிப்படை நீளம் A",
+            "baseLengthB": "அடிப்படை நீளம் B",
+            "eaveLengthC": "ஈவ் நீளம் C",
+            "riseH": "உயரம் H",
+            "roomPrice": "அறை விலை",
+            "results": {
+                "roofArea": "கூரை பரப்பளவு",
+                "roofCost": "கூரை செலவு"
+            }
+        },
+        "gableRoof": {
+            "title": "கேபிள் கூரை",
+            "detailedTitle": "கேபிள் கூரை விரிவான அறிக்கை",
+            "baseLengthA": "அடிப்படை நீளம் A",
+            "baseLengthB": "அடிப்படை நீளம் B",
+            "eaveLengthC": "ஈவ் நீளம் C",
+            "riseH": "உயரம் H",
+            "roomPrice": "அறை விலை",
+            "results": {
+                "roofArea": "கூரை பரப்பளவு",
+                "roofCost": "கூரை செலவு"
+            }
+        },
+        "boxGableRoof": {
+            "title": "பாக்ஸ் கேபிள் கூரை",
+            "detailedTitle": "பாக்ஸ் கேபிள் கூரை விரிவான அறிக்கை",
+            "baseLengthA": "அடிப்படை நீளம் A",
+            "baseLengthB": "அடிப்படை நீளம் B",
+            "eaveLengthC": "ஈவ் நீளம் C",
+            "eaveLengthD": "ஈவ் நீளம் D",
+            "riseH": "உயரம் H",
+            "roomPrice": "அறை விலை",
+            "results": {
+                "roofArea": "கூரை பரப்பளவு",
+                "roofCost": "கூரை செலவு"
+            }
+        },
+        "mShapedRoof": {
+            "title": "எம் வடிவ கூரை",
+            "detailedTitle": "எம் வடிவ கூரை விரிவான அறிக்கை",
+            "baseLengthA": "அடிப்படை நீளம் A",
+            "baseLengthB": "அடிப்படை நீளம் B",
+            "eaveLengthC": "ஈவ் நீளம் C",
+            "riseH": "உயரம் H",
+            "roomPrice": "அறை விலை",
+            "results": {
+                "roofArea": "கூரை பரப்பளவு",
+                "roofCost": "கூரை செலவு"
+            }
+        },
+        "butterflyRoof": {
+            "title": "பட்டர்ஃபிளை கூரை",
+            "detailedTitle": "பட்டர்ஃபிளை கூரை விரிவான அறிக்கை",
+            "baseLengthA": "அடிப்படை நீளம் A",
+            "baseLengthB": "அடிப்படை நீளம் B",
+            "eaveLengthC": "ஈவ் நீளம் C",
+            "riseH": "உயரம் H",
+            "roomPrice": "அறை விலை",
+            "results": {
+                "roofArea": "கூரை பரப்பளவு",
+                "roofCost": "கூரை செலவு"
+            }
+        },
+        "saltboxRoof": {
+            "title": "சால்ட்பாக்ஸ் கூரை",
+            "detailedTitle": "சால்ட்பாக்ஸ் கூரை விரிவான அறிக்கை",
+            "baseLengthA1": "அடிப்படை நீளம் A1",
+            "baseLengthA2": "அடிப்படை நீளம் A2",
+            "baseLengthB": "அடிப்படை நீளம் B",
+            "eaveLengthC": "ஈவ் நீளம் C",
+            "riseH1": "உயரம் H1",
+            "riseH2": "உயரம் H2",
+            "roomPrice": "அறை விலை",
+            "results": {
+                "roofArea": "கூரை பரப்பளவு",
+                "roofCost": "கூரை செலவு"
+            }
+        },
+        "hexagonalRoof": {
+            "title": "ஹெக்ஸகோனல் கூரை",
+            "detailedTitle": "ஹெக்ஸகோனல் கூரை விரிவான அறிக்கை",
+            "baseLengthA": "அடிப்படை நீளம் A",
+            "slopS": "சரிவு S",
+            "roomPrice": "அறை விலை",
+            "results": {
+                "roofArea": "கூரை பரப்பளவு",
+                "roofCost": "கூரை செலவு"
+            }
+        },
+        "pyramidHipRoof": {
+            "title": "பிரமிட் ஹிப் கூரை",
+            "detailedTitle": "பிரமிட் ஹிப் கூரை விரிவான அறிக்கை",
+            "baseLengthA": "அடிப்படை நீளம் A",
+            "baseLengthB": "அடிப்படை நீளம் B",
+            "riseH": "உயரம் H",
+            "roomPrice": "அறை விலை",
+            "results": {
+                "roofArea": "கூரை பரப்பளவு",
+                "roofCost": "கூரை செலவு"
+            }
         }
     },
     "downloadPDF": {

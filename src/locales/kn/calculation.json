@@ -45,7 +45,7 @@
             "sewageSystem": "ಒಳಚರಂಡಿ ವ್ಯವಸ್ಥೆ",
             "waterSupplySystem": "ನೀರು ಸರಬರಾಜು ವ್ಯವಸ್ಥೆ",
             "materialWeights": "ಸಾಮಗ್ರಿಗಳ ತೂಕ",
-            "billOfQuantity": "ಸಾಮಗ್ರಿಗಳ ಮೌಲ್ಯಮಾಪನ (BOQ)"
+            "billOfQuantity": "ಸಾಮಗ್ರಿಗಳ ಮೌಲ್ಯಮಾಪನ"
         }
     },
     "comingSoon": {
@@ -109,16 +109,16 @@
             "cuttingLength": "ಕಟಿಂಗ್ ಉದ್ದ"
         },
         "weight": {
-            "reinforcement": "ಬಲವರ್ಧನೆ ತೂಕ (Reinforcement Weight)",
+            "reinforcement": "ಬಲವರ್ಧನೆ ತೂಕ",
             "detailedReport": "ಬಲವರ್ಧನೆ ತೂಕದ ವಿವರವಾದ ವರದಿ",
-            "metric": "ಮೆಟ್ರಿಕ್ (Metric)",
-            "imperial": "ಇಂಪೀರಿಯಲ್ (Imperial)",
+            "metric": "ಮೆಟ್ರಿಕ್",
+            "imperial": "ಇಂಪೀರಿಯಲ್",
             "wastage": "ವಸ್ತು ವ್ಯರ್ಥ",
             "wastagePlaceholder": "ಉದಾ: \"10\"",
-            "diameter": "ವ್ಯಾಸ (Diameter)",
-            "length": "ಉದ್ದ (Length)",
+            "diameter": "ವ್ಯಾಸ",
+            "length": "ಉದ್ದ",
             "noOfBars": "ಬಾರ್‌ಗಳ ಸಂಖ್ಯೆ",
-            "price": "ಬೆಲೆ (Price)",
+            "price": "ಬೆಲೆ",
             "reset": "ರಿಸೆಟ್",
             "calculate": "ಲೆಕ್ಕ ಹಾಕಿ",
             "result": "ಫಲಿತಾಂಶ",
@@ -134,7 +134,7 @@
             "inputName": "ಇನ್‌ಪುಟ್ ಹೆಸರು",
             "symbol": "ಚಿಹ್ನೆ",
             "value": "ಮೌಲ್ಯ",
-            "formula": "ಸೂತ್ರ (Formula)"
+            "formula": "ಸೂತ್ರ"
         },
         "footing": {
             "type1": "ಫುಟಿಂಗ್ ಮಾದರಿ 1",
@@ -360,8 +360,22 @@
             "flemishTitle": "ಫ್ಲೆಮಿಶ್ ಬಾಂಡ್",
             "flemishDetailedTitle": "ಫ್ಲೆಮಿಶ್ ಬಾಂಡ್ ವಿವರವಾದ ವರದಿ",
             "stack": "ಸ್ಟ್ಯಾಕ್ ಬಾಂಡ್",
+            "stackTitle": "ಸ್ಟ್ಯಾಕ್ ಬಾಂಡ್",
+            "stackDetailedTitle": "ಸ್ಟ್ಯಾಕ್ ಬಾಂಡ್ ವಿವರವಾದ ವರದಿ",
             "dutch": "ಇಂಗ್ಲಿಷ್ ಕ್ರಾಸ್ ಅಥವಾ ಡಚ್ ಬಾಂಡ್",
+            "dutchTitle": "ಇಂಗ್ಲಿಷ್ ಕ್ರಾಸ್ ಅಥವಾ ಡಚ್ ಬಾಂಡ್",
+            "dutchDetailedTitle": "ಇಂಗ್ಲಿಷ್ ಕ್ರಾಸ್ ಅಥವಾ ಡಚ್ ಬಾಂಡ್ ವಿವರವಾದ ವರದಿ",
             "gardenWall": "ಗಾರ್ಡನ್ ವಾಲ್ ಬಾಂಡ್",
+            "gardenWallTitle": "ಗಾರ್ಡನ್ ವಾಲ್ ಬಾಂಡ್",
+            "gardenWallDetailedTitle": "ಗಾರ್ಡನ್ ವಾಲ್ ಬಾಂಡ್ ವಿವರವಾದ ವರದಿ",
+            "kingCloserTitle": "ಕಿಂಗ್ ಕ್ಲೋಸರ್",
+            "kingCloserDetailedTitle": "ಕಿಂಗ್ ಕ್ಲೋಸರ್ ವಿವರವಾದ ವರದಿ",
+            "queenCloserTitle": "ಕ್ವೀನ್ ಕ್ಲೋಸರ್",
+            "queenCloserDetailedTitle": "ಕ್ವೀನ್ ಕ್ಲೋಸರ್ ವಿವರವಾದ ವರದಿ",
+            "halfBatCloserTitle": "ಹಾಫ್ ಬ್ಯಾಟ್ ಕ್ಲೋಸರ್",
+            "halfBatCloserDetailedTitle": "ಹಾಫ್ ಬ್ಯಾಟ್ ಕ್ಲೋಸರ್ ವಿವರವಾದ ವರದಿ",
+            "quarterBatCloserTitle": "ಕ್ವಾರ್ಟರ್ ಬ್ಯಾಟ್ ಕ್ಲೋಸರ್",
+            "quarterBatCloserDetailedTitle": "ಕ್ವಾರ್ಟರ್ ಬ್ಯಾಟ್ ಕ್ಲೋಸರ್ ವಿವರವಾದ ವರದಿ",
             "brickToBrickJoint": "ಇಟ್ಟಿಗೆಯಿಂದ ಇಟ್ಟಿಗೆಯ ಜಂಟಿ"
         },
         "closer": {
@@ -380,13 +394,26 @@
             "wallWithDoor": "ಬಾಕಲು ಇರುವ ಗೋಡೆ",
             "wallWithArcDoor": "ಆರ್ಕ್ ಬಾಕಲು ಇರುವ ಗೋಡೆ",
             "cavityWall": "ಕ್ಯಾವಿಟಿ ವಾಲ್",
-            "buttressWall": "ಬಟ್ರೆಸ್ ವಾಲ್"
+            "buttressWall": "ಬಟ್ರೆಸ್ ವಾಲ್",
+            "byVolumeDetailedTitle": "ಘನಫಲದ ಆಧಾರದ ಮೇಲೆ ವಿವರವಾದ ವರದಿ",
+            "byCubeDetailedTitle": "ಕ್ಯೂಬ್ ಆಧಾರದ ಮೇಲೆ ವಿವರವಾದ ವರದಿ",
+            "byWallDetailedTitle": "ಗೋಡೆಯ ಆಧಾರದ ಮೇಲೆ ವಿವರವಾದ ವರದಿ",
+            "lWallDetailedTitle": "L ಗೋಡೆಯ ಆಧಾರದ ಮೇಲೆ ವಿವರವಾದ ವರದಿ",
+            "cWallDetailedTitle": "C ಗೋಡೆಯ ಆಧಾರದ ಮೇಲೆ ವಿವರವಾದ ವರದಿ",
+            "rectangularChamberDetailedTitle": "ಆಯತಾಕಾರದ ಚೇಂಬರ್ ವಿವರವಾದ ವರದಿ",
+            "wallWithDoorDetailedTitle": "ಬಾಗಿಲು ಇರುವ ಗೋಡೆಯ ವಿವರವಾದ ವರದಿ",
+            "wallWithArcDoorDetailedTitle": "ಆರ್ಕ್ ಬಾಗಿಲು ಇರುವ ಗೋಡೆಯ ವಿವರವಾದ ವರದಿ",
+            "cavityWallDetailedTitle": "ಕ್ಯಾವಿಟಿ ವಾಲ್ ವಿವರವಾದ ವರದಿ",
+            "buttressWallDetailedTitle": "ಬಟ್ರೆಸ್ ವಾಲ್ ವಿವರವಾದ ವರದಿ"
         },
         "clayBrick": {
             "title": "ಮಣ್ಣಿನ ಇಟ್ಟಿಗೆ / ಫ್ಲೈ ಆಶ್ ಇಟ್ಟಿಗೆ",
             "detailedTitle": "ಮಣ್ಣಿನ ಇಟ್ಟಿಗೆ / ಫ್ಲೈ ಆಶ್ ಇಟ್ಟಿಗೆ ವಿವರವಾದ ವರದಿ",
             "brickSize": "ಇಟ್ಟಿಗೆಯ ಗಾತ್ರ",
             "wallSize": "ಗೋಡೆಯ ಗಾತ್ರ",
+            "doorSize": "ಬಾಗಿಲಿನ ಅಳತೆ",
+            "doorLength": "ಬಾಗಿಲಿನ ಉದ್ದ",
+            "doorHeight": "ಬಾಗಿಲಿನ ಎತ್ತರ",
             "mortarRatio": "ಗಾರೆ ಅನುಪಾತ",
             "deductions": "ಕಡಿತಗಳು",
             "price": "ಬೆಲೆ",
@@ -396,6 +423,8 @@
             "wallLength": "ಉದ್ದ",
             "wallHeight": "ಎತ್ತರ",
             "wallThickness": "ದಪ್ಪ",
+            "width1": "ಅಗಲ 1",
+            "width2": "ಅಗಲ 2",
             "cement": "ಸಿಮೆಂಟ್",
             "sand": "ಮರಳು",
             "w1": "W1",
@@ -407,8 +436,16 @@
             "brickPrice": "ಇಟ್ಟಿಗೆ",
             "cementPrice": "ಸಿಮೆಂಟ್",
             "sandPrice": "ಮರಳು",
+            "volume": "ಘನಫಲ",
+            "currencyPerUnit": "ಪ್ರತಿ ಯೂನಿಟ್‌ಗೆ ಕರೆನ್ಸಿ",
+            "currency": "ಕರೆನ್ಸಿ",
+            "cavity": "ಕ್ಯಾವಿಟಿ",
+            "cavityThickness": "ಕ್ಯಾವಿಟಿ ದಪ್ಪ",
+            "cavityMaterial": "ಕ್ಯಾವಿಟಿ ಮೆಟೀರಿಯಲ್",
+            "numberOfButtress": "ಬಟ್ರೆಸ್ ಸಂಖ್ಯೆ",
             "results": {
                 "volumeOfWall": "ಗೋಡೆಯ ಗಾತ್ರ",
+                "volumeOfShape": "ಆಕಾರದ ಗಾತ್ರ",
                 "noOfBricks": "ಇಟ್ಟಿಗೆಗಳ ಸಂಖ್ಯೆ",
                 "mortarDryVolume": "ಗಾರೆ ಒಣ ಘನಫಲ",
                 "cementBags": "ಸಿಮೆಂಟ್ ಬಾಕ್ಸ್ (50kg)",
@@ -416,7 +453,13 @@
                 "brickCost": "ಇಟ್ಟಿಗೆಯ ವೆಚ್ಚ",
                 "cementCost": "ಸಿಮೆಂಟ್ ವೆಚ್ಚ",
                 "sandCost": "ಮರಳಿನ ವೆಚ್ಚ",
-                "totalCost": "ಒಟ್ಟು ವೆಚ್ಚ"
+                "totalCost": "ಒಟ್ಟು ವೆಚ್ಚ",
+                "noOfKingCloser": "ಕಿಂಗ್ ಕ್ಲೋಸರ್ಗಳ ಸಂಖ್ಯೆ",
+                "noOfQueenCloser": "ಕ್ವೀನ್ ಕ್ಲೋಸರ್ಗಳ ಸಂಖ್ಯೆ",
+                "noOfHalfBatCloser": "ಹಾಫ್ ಬ್ಯಾಟ್ ಕ್ಲೋಸರ್ಗಳ ಸಂಖ್ಯೆ",
+                "noOfQuarterBatCloser": "ಕ್ವಾರ್ಟರ್ ಬ್ಯಾಟ್ ಕ್ಲೋಸರ್ಗಳ ಸಂಖ್ಯೆ",
+                "volumeOfCavity": "ಕ್ಯಾವಿಟಿ ಗಾತ್ರ",
+                "cavityMaterialCost": "ಕ್ಯಾವಿಟಿ ಮೆಟೀರಿಯಲ್ ವೆಚ್ಚ"
             }
         },
         "aacBlock": {
@@ -585,6 +628,137 @@
             "ft3Unit": "ft³",
             "brassUnit": "ಬ್ರಾಸ್",
             "material": "ಸಾಮಗ್ರಿ"
+        }
+    },
+    "roofArea": {
+        "common": {
+            "metric": "ಮೆಟ್ರಿಕ್",
+            "imperial": "ಇಂಪೀರಿಯಲ್",
+            "reset": "ರಿಸೆಟ್",
+            "calculate": "ಲೆಕ್ಕಾಚಾರ",
+            "result": "ಫಲಿತಾಂಶ",
+            "totalCost": "ಒಟ್ಟು ವೆಚ್ಚ",
+            "viewDetailed": "ವಿವರವಾದ ಫಲಿತಾಂಶ ನೋಡಿ",
+            "inputs": "ಇನ್‌ಪುಟ್‌ಗಳು",
+            "outputs": "ಔಟ್‌ಪುಟ್‌ಗಳು",
+            "currency": "ಕರೆನ್ಸಿ",
+            "currencyPerSqM": "ಪ್ರತಿ ಚದರ ಮೀಟರ್‌ಗೆ ಕರೆನ್ಸಿ"
+        },
+        "flatRoof": {
+            "title": "ಚಪ್ಪಟೆ ಛಾವಣಿ",
+            "detailedTitle": "ಚಪ್ಪಟೆ ಛಾವಣಿ ವಿವರವಾದ ವರದಿ",
+            "baseLengthA": "ಆಧಾರ ಉದ್ದ A",
+            "baseLengthB": "ಆಧಾರ ಉದ್ದ B",
+            "eaveLengthC": "ಈವ್ ಉದ್ದ C",
+            "roomPrice": "ಕೋಣೆ ಬೆಲೆ",
+            "results": {
+                "roofArea": "ಛಾವಣಿಯ ವಿಸ್ತೀರ್ಣ",
+                "roofCost": "ಛಾವಣಿಯ ವೆಚ್ಚ"
+            }
+        },
+        "shedRoof": {
+            "title": "ಶೆಡ್ ಛಾವಣಿ",
+            "detailedTitle": "ಶೆಡ್ ಛಾವಣಿ ವಿವರವಾದ ವರದಿ",
+            "baseLengthA": "ಆಧಾರ ಉದ್ದ A",
+            "baseLengthB": "ಆಧಾರ ಉದ್ದ B",
+            "eaveLengthC": "ಈವ್ ಉದ್ದ C",
+            "riseH": "ಎತ್ತರ H",
+            "roomPrice": "ಕೋಣೆ ಬೆಲೆ",
+            "results": {
+                "roofArea": "ಛಾವಣಿಯ ವಿಸ್ತೀರ್ಣ",
+                "roofCost": "ಛಾವಣಿಯ ವೆಚ್ಚ"
+            }
+        },
+        "gableRoof": {
+            "title": "ಗೇಬಲ್ ಛಾವಣಿ",
+            "detailedTitle": "ಗೇಬಲ್ ಛಾವಣಿ ವಿವರವಾದ ವರದಿ",
+            "baseLengthA": "ಆಧಾರ ಉದ್ದ A",
+            "baseLengthB": "ಆಧಾರ ಉದ್ದ B",
+            "eaveLengthC": "ಈವ್ ಉದ್ದ C",
+            "riseH": "ಎತ್ತರ H",
+            "roomPrice": "ಕೋಣೆ ಬೆಲೆ",
+            "results": {
+                "roofArea": "ಛಾವಣಿಯ ವಿಸ್ತೀರ್ಣ",
+                "roofCost": "ಛಾವಣಿಯ ವೆಚ್ಚ"
+            }
+        },
+        "boxGableRoof": {
+            "title": "ಬಾಕ್ಸ್ ಗೇಬಲ್ ಛಾವಣಿ",
+            "detailedTitle": "ಬಾಕ್ಸ್ ಗೇಬಲ್ ಛಾವಣಿ ವಿವರವಾದ ವರದಿ",
+            "baseLengthA": "ಆಧಾರ ಉದ್ದ A",
+            "baseLengthB": "ಆಧಾರ ಉದ್ದ B",
+            "eaveLengthC": "ಈವ್ ಉದ್ದ C",
+            "eaveLengthD": "ಈವ್ ಉದ್ದ D",
+            "riseH": "ಎತ್ತರ H",
+            "roomPrice": "ಕೋಣೆ ಬೆಲೆ",
+            "results": {
+                "roofArea": "ಛಾವಣಿಯ ವಿಸ್ತೀರ್ಣ",
+                "roofCost": "ಛಾವಣಿಯ ವೆಚ್ಚ"
+            }
+        },
+        "mShapedRoof": {
+            "title": "ಎಂ ಶೇಪ್ಡ್ ರೂಫ್",
+            "detailedTitle": "ಎಂ ಶೇಪ್ಡ್ ರೂಫ್ ವಿವರವಾದ ವರದಿ",
+            "baseLengthA": "ಆಧಾರ ಉದ್ದ A",
+            "baseLengthB": "ಆಧಾರ ಉದ್ದ B",
+            "eaveLengthC": "ಈವ್ ಉದ್ದ C",
+            "riseH": "ಎತ್ತರ H",
+            "roomPrice": "ಕೋಣೆ ಬೆಲೆ",
+            "results": {
+                "roofArea": "ಛಾವಣಿಯ ವಿಸ್ತೀರ್ಣ",
+                "roofCost": "ಛಾವಣಿಯ ವೆಚ್ಚ"
+            }
+        },
+        "butterflyRoof": {
+            "title": "ಬಟರ್‌ಫ್ಲೈ ರೂಫ್",
+            "detailedTitle": "ಬಟರ್‌ಫ್ಲೈ ರೂಫ್ ವಿವರವಾದ ವರದಿ",
+            "baseLengthA": "ಆಧಾರ ಉದ್ದ A",
+            "baseLengthB": "ಆಧಾರ ಉದ್ದ B",
+            "eaveLengthC": "ಈವ್ ಉದ್ದ C",
+            "riseH": "ಎತ್ತರ H",
+            "roomPrice": "ಕೋಣೆ ಬೆಲೆ",
+            "results": {
+                "roofArea": "ಛಾವಣಿಯ ವಿಸ್ತೀರ್ಣ",
+                "roofCost": "ಛಾವಣಿಯ ವೆಚ್ಚ"
+            }
+        },
+        "saltboxRoof": {
+            "title": "ಸಾಲ್ಟ್‌ಬಾಕ್ಸ್ ರೂಫ್",
+            "detailedTitle": "ಸಾಲ್ಟ್‌ಬಾಕ್ಸ್ ರೂಫ್ ವಿವರವಾದ ವರದಿ",
+            "baseLengthA1": "ಆಧಾರ ಉದ್ದ A1",
+            "baseLengthA2": "ಆಧಾರ ಉದ್ದ A2",
+            "baseLengthB": "ಆಧಾರ ಉದ್ದ B",
+            "eaveLengthC": "ಈವ್ ಉದ್ದ C",
+            "riseH1": "ಎತ್ತರ H1",
+            "riseH2": "ಎತ್ತರ H2",
+            "roomPrice": "ಕೋಣೆ ಬೆಲೆ",
+            "results": {
+                "roofArea": "ಛಾವಣಿಯ ವಿಸ್ತೀರ್ಣ",
+                "roofCost": "ಛಾವಣಿಯ ವೆಚ್ಚ"
+            }
+        },
+        "hexagonalRoof": {
+            "title": "ಷಡ್ಭುಜ ರೂಫ್",
+            "detailedTitle": "ಷಡ್ಭುಜ ರೂಫ್ ವಿವರವಾದ ವರದಿ",
+            "baseLengthA": "ಆಧಾರ ಉದ್ದ A",
+            "slopS": "ಸ್ಲೋಪ್ S",
+            "roomPrice": "ಕೋಣೆ ಬೆಲೆ",
+            "results": {
+                "roofArea": "ಛಾವಣಿಯ ವಿಸ್ತೀರ್ಣ",
+                "roofCost": "ಛಾವಣಿಯ ವೆಚ್ಚ"
+            }
+        },
+        "pyramidHipRoof": {
+            "title": "ಪಿರಮಿಡ್ ಹಿಪ್ ರೂಫ್",
+            "detailedTitle": "ಪಿರಮಿಡ್ ಹಿಪ್ ರೂಫ್ ವಿವರವಾದ ವರದಿ",
+            "baseLengthA": "ಆಧಾರ ಉದ್ದ A",
+            "baseLengthB": "ಆಧಾರ ಉದ್ದ B",
+            "riseH": "ಎತ್ತರ H",
+            "roomPrice": "ಕೋಣೆ ಬೆಲೆ",
+            "results": {
+                "roofArea": "ಛಾವಣಿಯ ವಿಸ್ತೀರ್ಣ",
+                "roofCost": "ಛಾವಣಿಯ ವೆಚ್ಚ"
+            }
         }
     },
     "downloadPDF": {

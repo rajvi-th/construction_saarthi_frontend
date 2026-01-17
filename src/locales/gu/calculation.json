@@ -366,8 +366,22 @@
             "flemishTitle": "ફ્લેમિશ બોન્ડ",
             "flemishDetailedTitle": "ફ્લેમિશ બોન્ડ વિગતવાર અહેવાલ",
             "stack": "સ્ટેક બોન્ડ",
+            "stackTitle": "સ્ટેક બોન્ડ",
+            "stackDetailedTitle": "સ્ટેક બોન્ડ વિગતવાર અહેવાલ",
             "dutch": "ઈંગ્લિશ ક્રોસ અથવા ડચ બોન્ડ",
+            "dutchTitle": "ઈંગ્લિશ ક્રોસ અથવા ડચ બોન્ડ",
+            "dutchDetailedTitle": "ઈંગ્લિશ ક્રોસ અથવા ડચ બોન્ડ વિગતવાર અહેવાલ",
             "gardenWall": "ગાર્ડન વોલ બોન્ડ",
+            "gardenWallTitle": "ગાર્ડન વોલ બોન્ડ",
+            "gardenWallDetailedTitle": "ગાર્ડન વોલ બોન્ડ વિગતવાર અહેવાલ",
+            "kingCloserTitle": "કિંગ ક્લોઝર",
+            "kingCloserDetailedTitle": "કિંગ ક્લોઝર વિગતવાર અહેવાલ",
+            "queenCloserTitle": "ક્વીન ક્લોઝર",
+            "queenCloserDetailedTitle": "ક્વીન ક્લોઝર વિગતવાર અહેવાલ",
+            "halfBatCloserTitle": "હાફ બેટ ક્લોઝર",
+            "halfBatCloserDetailedTitle": "હાફ બેટ ક્લોઝર વિગતવાર અહેવાલ",
+            "quarterBatCloserTitle": "ક્વાર્ટર બેટ ક્લોઝર",
+            "quarterBatCloserDetailedTitle": "ક્વાર્ટર બેટ ક્લોઝર વિગતવાર અહેવાલ",
             "brickToBrickJoint": "ઈંટ થી ઈંટનો સાંધો"
         },
         "closer": {
@@ -386,13 +400,26 @@
             "wallWithDoor": "દરવાજા સાથેની દિવાલ",
             "wallWithArcDoor": "આર્ક દરવાજા સાથેની દિવાલ",
             "cavityWall": "કેવિટી વોલ",
-            "buttressWall": "બટ્રેસ વોલ"
+            "buttressWall": "બટ્રેસ વોલ",
+            "byVolumeDetailedTitle": "કદ દ્વારા વિગતવાર અહેવાલ",
+            "byCubeDetailedTitle": "ક્યુબ દ્વારા વિગતવાર અહેવાલ",
+            "byWallDetailedTitle": "દિવાલ દ્વારા વિગતવાર અહેવાલ",
+            "lWallDetailedTitle": "L દિવાલ વિગતવાર અહેવાલ",
+            "cWallDetailedTitle": "C દિવાલ વિગતવાર અહેવાલ",
+            "rectangularChamberDetailedTitle": "લંબચોરસ ચેમ્બર વિગતવાર અહેવાલ",
+            "wallWithDoorDetailedTitle": "દરવાજા સાથેની દિવાલ વિગતવાર અહેવાલ",
+            "wallWithArcDoorDetailedTitle": "આર્ક દરવાજા સાથેની દિવાલ વિગતવાર અહેવાલ",
+            "cavityWallDetailedTitle": "કેવિટી વોલ વિગતવાર અહેવાલ",
+            "buttressWallDetailedTitle": "બટ્રેસ વોલ વિગતવાર અહેવાલ"
         },
         "clayBrick": {
             "title": "ક્લે બ્રિક / ફ્લાય એશ બ્રિક",
             "detailedTitle": "ક્લે બ્રિક / ફ્લાય એશ બ્રિક વિગતવાર અહેવાલ",
             "brickSize": "ઈંટનું માપ",
             "wallSize": "દિવાલનું માપ",
+            "doorSize": "દરવાજાનું માપ",
+            "doorLength": "દરવાજાની લંબાઈ",
+            "doorHeight": "દરવાજાની ઊંચાઈ",
             "mortarRatio": "મોર્ટાર ગુણોત્તર",
             "deductions": "કપાત",
             "price": "કિંમત",
@@ -402,6 +429,8 @@
             "wallLength": "લંબાઈ",
             "wallHeight": "ઊંચાઈ",
             "wallThickness": "જાડાઈ",
+            "width1": "પહોળાઈ 1",
+            "width2": "પહોળાઈ 2",
             "cement": "સિમેન્ટ",
             "sand": "રેતી",
             "w1": "W1",
@@ -413,8 +442,16 @@
             "brickPrice": "ઈંટ",
             "cementPrice": "સિમેન્ટ",
             "sandPrice": "રેતી",
+            "volume": "કદ",
+            "currencyPerUnit": "યુનિટ દીઠ ચલણ",
+            "currency": "ચલણ",
+            "cavity": "કેવિટી",
+            "cavityThickness": "કેવિટીની જાડાઈ",
+            "cavityMaterial": "કેવિટી મટિરિયલ",
+            "numberOfButtress": "બટ્રેસની સંખ્યા",
             "results": {
                 "volumeOfWall": "દિવાલનું કુલ કદ",
+                "volumeOfShape": "આકારનું કદ",
                 "noOfBricks": "ઈંટોની સંખ્યા",
                 "mortarDryVolume": "મોર્ટારનું ડ્રાય વોલ્યુમ",
                 "cementBags": "સિમેન્ટ બેગ (50kg)",
@@ -422,7 +459,13 @@
                 "brickCost": "ઈંટનો ખર્ચ",
                 "cementCost": "સિમેન્ટનો ખર્ચ",
                 "sandCost": "રેતીનો ખર્ચ",
-                "totalCost": "કુલ ખર્ચ"
+                "totalCost": "કુલ ખર્ચ",
+                "noOfKingCloser": "કિંગ ક્લોઝરની સંખ્યા",
+                "noOfQueenCloser": "ક્વીન ક્લોઝરની સંખ્યા",
+                "noOfHalfBatCloser": "હાફ બેટ ક્લોઝરની સંખ્યા",
+                "noOfQuarterBatCloser": "ક્વાર્ટર બેટ ક્લોઝરની સંખ્યા",
+                "volumeOfCavity": "કેવિટીનું કદ",
+                "cavityMaterialCost": "કેવિટી મટિરિયલનો ખર્ચ"
             }
         },
         "aacBlock": {
@@ -625,6 +668,159 @@
             "m3Unit": "m³",
             "ft3Unit": "ft³",
             "brassUnit": "બ્રાસ"
+        }
+    },
+    "roofArea": {
+        "common": {
+            "metric": "મેટ્રિક",
+            "imperial": "ઇમ્પિરિયલ",
+            "reset": "રીસેટ",
+            "calculate": "ગણતરી",
+            "result": "પરિણામ",
+            "totalCost": "કુલ ખર્ચ",
+            "viewDetailed": "વિગતવાર પરિણામ જુઓ",
+            "inputs": "ઇનપુટ્સ",
+            "outputs": "આઉટપુટ",
+            "currency": "ચલણ",
+            "currencyPerSqM": "ચલણ પ્રતિ ચો.મી."
+        },
+        "flatRoof": {
+            "title": "સપાટ છત",
+            "detailedTitle": "સપાટ છત વિગતવાર અહેવાલ",
+            "baseLengthA": "આધાર લંબાઈ A",
+            "baseLengthB": "આધાર લંબાઈ B",
+            "eaveLengthC": "ઈવ લંબાઈ C",
+            "roomPrice": "રૂમ કિંમત",
+            "results": {
+                "roofArea": "છતનો વિસ્તાર",
+                "roofCost": "છત કિંમત"
+            }
+        },
+        "shedRoof": {
+            "title": "શેડ રૂફ",
+            "detailedTitle": "શેડ રૂફ વિગતવાર અહેવાલ",
+            "baseLengthA": "આધાર લંબાઈ A",
+            "baseLengthB": "આધાર લંબાઈ B",
+            "eaveLengthC": "ઈવ લંબાઈ C",
+            "riseH": "ઊંચાઈ H",
+            "roomPrice": "રૂમ કિંમત",
+            "results": {
+                "roofArea": "છતનો વિસ્તાર",
+                "roofCost": "છત કિંમત"
+            }
+        },
+        "gableRoof": {
+            "title": "ગેબલ રૂફ",
+            "detailedTitle": "ગેબલ રૂફ વિગતવાર અહેવાલ",
+            "baseLengthA": "આધાર લંબાઈ A",
+            "baseLengthB": "આધાર લંબાઈ B",
+            "eaveLengthC": "ઈવ લંબાઈ C",
+            "riseH": "ઊંચાઈ H",
+            "roomPrice": "રૂમ કિંમત",
+            "results": {
+                "roofArea": "છતનો વિસ્તાર",
+                "roofCost": "છત કિંમત"
+            }
+        },
+        "boxGableRoof": {
+            "title": "બોક્સ ગેબલ રૂફ",
+            "detailedTitle": "બોક્સ ગેબલ રૂફ વિગતવાર અહેવાલ",
+            "baseLengthA": "આધાર લંબાઈ A",
+            "baseLengthB": "આધાર લંબાઈ B",
+            "eaveLengthC": "ઈવ લંબાઈ C",
+            "eaveLengthD": "ઈવ લંબાઈ D",
+            "riseH": "ઊંચાઈ H",
+            "roomPrice": "રૂમ કિંમત",
+            "results": {
+                "roofArea": "છતનો વિસ્તાર",
+                "roofCost": "છત કિંમત"
+            }
+        },
+        "mShapedRoof": {
+            "title": "એમ શેપ્ડ રૂફ",
+            "detailedTitle": "એમ શેપ્ડ રૂફ વિગતવાર અહેવાલ",
+            "baseLengthA": "આધાર લંબાઈ A",
+            "baseLengthB": "આધાર લંબાઈ B",
+            "eaveLengthC": "ઈવ લંબાઈ C",
+            "riseH": "ઊંચાઈ H",
+            "roomPrice": "રૂમ કિંમત",
+            "results": {
+                "roofArea": "છતનો વિસ્તાર",
+                "roofCost": "છત કિંમત"
+            }
+        },
+        "butterflyRoof": {
+            "title": "બટરફ્લાય રૂફ",
+            "detailedTitle": "બટરફ્લાય રૂફ વિગતવાર અહેવાલ",
+            "baseLengthA": "આધાર લંબાઈ A",
+            "baseLengthB": "આધાર લંબાઈ B",
+            "eaveLengthC": "ઈવ લંબાઈ C",
+            "riseH": "ઊંચાઈ H",
+            "roomPrice": "રૂમ કિંમત",
+            "results": {
+                "roofArea": "છતનો વિસ્તાર",
+                "roofCost": "છત કિંમત"
+            }
+        },
+        "saltboxRoof": {
+            "title": "સોલ્ટબોક્સ રૂફ",
+            "detailedTitle": "સોલ્ટબોક્સ રૂફ વિગતવાર અહેવાલ",
+            "baseLengthA1": "આધાર લંબાઈ A1",
+            "baseLengthA2": "આધાર લંબાઈ A2",
+            "baseLengthB": "આધાર લંબાઈ B",
+            "eaveLengthC": "ઈવ લંબાઈ C",
+            "riseH1": "ઊંચાઈ H1",
+            "riseH2": "ઊંચાઈ H2",
+            "roomPrice": "રૂમ કિંમત",
+            "results": {
+                "roofArea": "છતનો વિસ્તાર",
+                "roofCost": "છત કિંમત"
+            }
+        },
+        "hexagonalRoof": {
+            "title": "હેક્સાગોનલ રૂફ",
+            "detailedTitle": "હેક્સાગોનલ રૂફ વિગતવાર અહેવાલ",
+            "baseLengthA": "આધાર લંબાઈ A",
+            "slopS": "ઢાળ S",
+            "roomPrice": "રૂમ કિંમત",
+            "results": {
+                "roofArea": "છતનો વિસ્તાર",
+                "roofCost": "છત કિંમત"
+            }
+        },
+        "pyramidHipRoof": {
+            "title": "પિરામિડ હિપ રૂફ",
+            "detailedTitle": "પિરામિડ હિપ રૂફ વિગતવાર અહેવાલ",
+            "baseLengthA": "આધાર લંબાઈ A",
+            "baseLengthB": "આધાર લંબાઈ B",
+            "riseH": "ઊંચાઈ H",
+            "roomPrice": "રૂમ કિંમત",
+            "results": {
+                "roofArea": "છતનો વિસ્તાર",
+                "roofCost": "છત કિંમત"
+            }
+        },
+        "flooring": {
+            "title": "ફ્લોરિંગ",
+            "detailedTitle": "ફ્લોરિંગ વિગતવાર અહેવાલ",
+            "roomLengthL": "રૂમની લંબાઈ",
+            "roomWidthW": "રૂમની પહોળાઈ",
+            "doorWidthD": "દરવાજાની પહોળાઈ",
+            "skirtingHeightH": "સ્કર્ટિંગ ઊંચાઈ",
+            "tileLengthl": "ટાઇલ્સની લંબાઈ",
+            "tileWidthw": "ટાઇલ્સની પહોળાઈ",
+            "wastageS": "બગાડ",
+            "headers": {
+                "inputName": "ઇનપુટ નામ",
+                "symbol": "પ્રતીક",
+                "value": "કિંમત"
+            },
+            "results": {
+                "noOfBlocks": "બ્લોક્સની સંખ્યા",
+                "cementBags": "સિમેન્ટ બેગ",
+                "cement": "સિમેન્ટ",
+                "sand": "રેતી"
+            }
         }
     },
     "downloadPDF": {
