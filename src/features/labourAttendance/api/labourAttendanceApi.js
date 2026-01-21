@@ -104,12 +104,12 @@ export const getAttendance = async ({ workspace_id, project_id, date, labour_id 
   return http.get(E.ATTENDANCE.GET, { params });
 };
 
-export const createAttendance = async ({ 
-  workspace_id, 
-  project_id, 
-  shift_type_id, 
-  labour_id, 
-  date, 
+export const createAttendance = async ({
+  workspace_id,
+  project_id,
+  shift_type_id,
+  labour_id,
+  date,
   status,
   ot_rate = null,
   ot_hours = null,
@@ -192,37 +192,14 @@ export const getLabourProfile = async ({ workspaceId, labourId }) => {
   if (!workspaceId) throw new Error('Workspace ID is required');
   if (!labourId) throw new Error('Labour ID is required');
 
-  // Use the new endpoint: /api/labour/{labourId}
-  const response = await http.get(`${E.LABOUR.GET}/${labourId}`);
-  
+  // Use the new endpoint: /api/labour/all?id={labourId}
+  const response = await http.get(`${E.LABOUR.PROFILE_ALL}?id=${labourId}`);
+
   // Transform the response to match expected structure
-  const data = response?.data?.data || response?.data || response;
-  
+  const data = response?.data || response;
+
   if (!data) {
     throw new Error('No data received from API');
-  }
-
-  // Extract media URLs from media object
-  const media = data.media || {};
-  const profilePhoto = media.profilePhoto || data.profile_photo || data.profilePhoto || '';
-  const aadharCardPhoto = media.aadharCard || data.aadhar_card_photo || data.aadharCardPhoto || data.aadhar_card || data.aadharCard || '';
-  const insurancePhoto = media.insurancePhoto || data.insurance_photo || data.insurancePhoto || data.insurance || '';
-
-  // Fetch shift types to get shift name
-  let shiftName = data.shift_name || data.shift_type || data.shiftType || '-';
-  try {
-    const shiftTypesRes = await getShiftTypes();
-    const shiftTypes = shiftTypesRes?.shiftTypes || shiftTypesRes?.data?.shiftTypes || shiftTypesRes?.data || shiftTypesRes || [];
-    const shiftTypeId = data.shift_type_id || data.shiftTypeId;
-    if (shiftTypeId && Array.isArray(shiftTypes)) {
-      const shift = shiftTypes.find((s) => String(s?.id) === String(shiftTypeId));
-      if (shift?.name) {
-        shiftName = shift.name;
-      }
-    }
-  } catch (e) {
-    // If shift types fetch fails, use the shift type from data
-    console.warn('Failed to fetch shift types for name lookup:', e);
   }
 
   // Handle notes - could be string, array, or null
@@ -235,34 +212,31 @@ export const getLabourProfile = async ({ workspaceId, labourId }) => {
     }
   }
 
-  // Map API response to expected format
+  // Map API response to expected format for LabourDetails UI
   return {
     data: {
       id: data.id,
-      name: data.full_name || data.name,
-      role: data.category_name || data.role || data.category,
-      category: data.category_id || data.categoryId,
-      contactNumber: data.phone_number ? `${data.country_code || '+91'} ${data.phone_number}` : data.contactNumber,
+      name: data.full_name,
+      role: data.category_name,
+      category: data.category_id,
+      contactNumber: data.phone_number ? `${data.country_code || '+91'} ${data.phone_number}` : '',
       countryCode: data.country_code,
       phoneNumber: data.phone_number,
-      defaultDailyWage: data.daily_wage || data.dailyWage || data.pay,
-      pay: data.daily_wage || data.dailyWage || data.pay,
-      joinDate: data.join_date || data.joinDate,
-      profilePhoto: profilePhoto,
-      profilePhotoPreview: profilePhoto,
-      aadharCardPhoto: aadharCardPhoto,
-      insurancePhoto: insurancePhoto,
-      aadharNumber: data.aadhar_number || data.aadharNumber,
-      shiftType: shiftName,
-      shiftTypeId: data.shift_type_id || data.shiftTypeId,
-      projectId: data.project_id || data.projectId,
-      projectName: data.project_name || data.projectName,
+      defaultDailyWage: data.daily_wage,
+      pay: data.daily_wage,
+      joinDate: data.join_date,
+      profilePhoto: data.category_image_url || '',
+      profilePhotoPreview: data.category_image_url || '',
+      shiftType: data.shift_name,
+      shiftTypeId: data.shift_type_id,
+      projectId: data.project_id,
+      projectName: data.project_name,
       notes: notesArray,
-      voiceMemoUrl: data.voiceNotes?.[0] || data.voice_memo_url || data.voiceMemo,
+      voiceMemoUrl: data.voiceNotes?.[0] || '',
       voiceNotes: data.voiceNotes || [],
       // Attendance Summary
       attendanceSummary: {
-        shift: shiftName,
+        shift: data.shift_name,
         totalDays: data.attendance?.totalDays || 0,
         presentDays: data.attendance?.present || 0,
         absentDays: data.attendance?.absent || 0,
@@ -274,14 +248,19 @@ export const getLabourProfile = async ({ workspaceId, labourId }) => {
       // Wage Summary
       wageSummary: {
         totalWage: data.totalWage || 0,
-        paidAmount: data.paid_Amount || data.paidAmount || 0,
-        pendingAmount: data.pending_Amount || data.pendingAmount || 0,
+        paidAmount: data.paid_Amount || 0,
+        pendingAmount: data.pending_Amount || 0,
         advances: data.advances || 0,
         bonuses: data.bonuses || 0,
         deductions: data.deductions || 0,
       },
     },
   };
+};
+
+export const getLabourById = async (labourId) => {
+  if (!labourId) throw new Error('Labour ID is required');
+  return http.get(`${E.LABOUR.GET}/${labourId}`);
 };
 
 function formatDate(dateValue) {

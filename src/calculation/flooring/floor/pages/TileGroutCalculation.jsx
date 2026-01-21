@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Download } from 'lucide-react';
 import PageHeader from '../../../../components/layout/PageHeader';
 import Button from '../../../../components/ui/Button';
@@ -13,6 +14,7 @@ import tileGroutIllustration from '../../../../assets/icons/tileGrouts.svg';
 
 const TileGroutCalculation = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation('calculation');
     const [unitType, setUnitType] = useState('metric'); // metric or imperial
 
     // Inputs
@@ -41,8 +43,8 @@ const TileGroutCalculation = () => {
         const W = parseFloat(roomWidth) || 0;
         const l = parseFloat(tileLength) || 0;
         const w = parseFloat(tileWidth) || 0;
-        const t = parseFloat(gapWidth) || 0;
-        const d = parseFloat(gapDepth) || 0;
+        const gapW = parseFloat(gapWidth) || 0;
+        const gapD = parseFloat(gapDepth) || 0;
         const K = parseFloat(weightPerBag) || 0;
 
         // Formula from image
@@ -51,8 +53,8 @@ const TileGroutCalculation = () => {
         const W_m = W / 1000;
         const l_m = l / 1000;
         const w_m = w / 1000;
-        const t_m = t / 1000;
-        const d_m = d / 1000;
+        const t_m = gapW / 1000;
+        const d_m = gapD / 1000;
 
         const area = L_m * W_m;
         const tilesCount = area / ((w_m + t_m) * (l_m + t_m));
@@ -90,43 +92,43 @@ const TileGroutCalculation = () => {
     };
 
     const calculationData = [
-        { name: 'Room Length', symbol: 'L', value: `${(parseFloat(roomLength) / 1000).toFixed(3)} m` },
-        { name: 'Room Width', symbol: 'W', value: `${(parseFloat(roomWidth) / 1000).toFixed(3)} m` },
-        { name: 'Tile Length', symbol: 'l', value: `${(parseFloat(tileLength) / 1000).toFixed(3)} m` },
-        { name: 'Tile Width', symbol: 'w', value: `${(parseFloat(tileWidth) / 1000).toFixed(3)} m` },
-        { name: 'Gap Width', symbol: 't', value: `${gapWidth} mm` },
-        { name: 'Gap Depth', symbol: 'd', value: `${gapDepth} mm` },
-        { name: 'Weight Per Bag', symbol: 'K', value: `${weightPerBag} KG` },
+        { labelKey: 'roofArea.tileGrout.roomLength', symbol: 'L', value: `${((parseFloat(roomLength) || 0) / 1000).toFixed(3)} m` },
+        { labelKey: 'roofArea.tileGrout.roomWidth', symbol: 'W', value: `${((parseFloat(roomWidth) || 0) / 1000).toFixed(3)} m` },
+        { labelKey: 'roofArea.tileGrout.tileLength', symbol: 'l', value: `${((parseFloat(tileLength) || 0) / 1000).toFixed(3)} m` },
+        { labelKey: 'roofArea.tileGrout.tileWidth', symbol: 'w', value: `${((parseFloat(tileWidth) || 0) / 1000).toFixed(3)} m` },
+        { labelKey: 'roofArea.tileGrout.gapWidth', symbol: 't', value: `${gapWidth || 0} mm` },
+        { labelKey: 'roofArea.tileGrout.gapDepth', symbol: 'd', value: `${gapDepth || 0} mm` },
+        { labelKey: 'roofArea.tileGrout.weightPerBag', symbol: 'K', value: `${weightPerBag || 0} KG` },
     ];
 
     const detailedOutputs = [
         {
-            title: 'Total Room Area',
-            label: 'Total Room Area',
+            titleKey: 'roofArea.tileGrout.results.totalRoomArea',
+            labelKey: 'roofArea.tileGrout.results.totalRoomArea',
             labelSuffix: ' =',
             formula: 'LXW',
             value: results.totalRoomArea.toFixed(3),
             unit: 'sq.m.'
         },
         {
-            title: 'No Of Tiles',
-            label: 'No Of Tiles',
+            titleKey: 'roofArea.tileGrout.results.noOfTiles',
+            labelKey: 'roofArea.tileGrout.results.noOfTiles',
             labelSuffix: ' =',
             formula: '(LXW)/((w+t/1000)X(l+t/1000))',
             value: results.noOfTiles.toFixed(3),
             unit: 'NOS'
         },
         {
-            title: 'Grout Volume',
-            label: 'Grout Volume',
+            titleKey: 'roofArea.tileGrout.results.groutVolume',
+            labelKey: 'roofArea.tileGrout.results.groutVolume',
             labelSuffix: ' =',
             formula: '(LXW-(((LXW)/((w+t/1000)X(l+t/1000)))XlXw))Xd/1000',
             value: results.groutVolume.toFixed(3),
             unit: 'm3'
         },
         {
-            title: 'Grout Bags',
-            label: 'Grout Bags',
+            titleKey: 'roofArea.tileGrout.results.groutBags',
+            labelKey: 'roofArea.tileGrout.results.groutBags',
             labelSuffix: ' =',
             formula: '(LXW-(((LXW)/((w+t/1000)X(l+t/1000)))XlXw))Xd/1000X1600',
             value: results.groutBags.toFixed(3),
@@ -138,7 +140,7 @@ const TileGroutCalculation = () => {
         <div className="min-h-screen max-w-7xl mx-auto pb-20">
             <div className="mb-6">
                 <PageHeader
-                    title="Tile Grout Calculation"
+                    title={t('roofArea.tileGrout.title')}
                     showBackButton
                     onBack={() => navigate(-1)}
                 >
@@ -149,7 +151,7 @@ const TileGroutCalculation = () => {
                             className="bg-white border-[#E0E0E0] rounded-xl text-secondary !px-2 sm:!px-4 py-2"
                             leftIcon={<Download className="w-4 h-4 text-secondary" />}
                         >
-                            <span className="text-sm font-medium">Download Report</span>
+                            <span className="text-sm font-medium">{t('history.downloadReport')}</span>
                         </Button>
                     </div>
                 </PageHeader>
@@ -166,7 +168,7 @@ const TileGroutCalculation = () => {
                     {/* Radio Group */}
                     <div className="flex flex-col gap-4">
                         <Radio
-                            label="Metric"
+                            label={t('roofArea.common.metric')}
                             name="unitType"
                             value="metric"
                             checked={unitType === 'metric'}
@@ -174,7 +176,7 @@ const TileGroutCalculation = () => {
                             className="text-base sm:text-lg"
                         />
                         <Radio
-                            label="Imperial"
+                            label={t('roofArea.common.imperial')}
                             name="unitType"
                             value="imperial"
                             checked={unitType === 'imperial'}
@@ -191,44 +193,44 @@ const TileGroutCalculation = () => {
                             unit="mm"
                             value={roomLength}
                             onChange={(e) => setRoomLength(e.target.value)}
-                            placeholder="Room length"
+                            placeholder={t('roofArea.tileGrout.roomLength')}
                         />
                         <InputField
                             unit="mm"
                             value={roomWidth}
                             onChange={(e) => setRoomWidth(e.target.value)}
-                            placeholder="Room width"
+                            placeholder={t('roofArea.tileGrout.roomWidth')}
                         />
                         <InputField
                             unit="mm"
                             value={tileLength}
                             onChange={(e) => setTileLength(e.target.value)}
-                            placeholder="Tile length"
+                            placeholder={t('roofArea.tileGrout.tileLength')}
                         />
                         <InputField
                             unit="mm"
                             value={tileWidth}
                             onChange={(e) => setTileWidth(e.target.value)}
-                            placeholder="Tile width"
+                            placeholder={t('roofArea.tileGrout.tileWidth')}
                         />
                         <InputField
                             unit="mm"
                             value={gapWidth}
                             onChange={(e) => setGapWidth(e.target.value)}
-                            placeholder="Gap width"
+                            placeholder={t('roofArea.tileGrout.gapWidth')}
                         />
                         <InputField
                             unit="mm"
                             value={gapDepth}
                             onChange={(e) => setGapDepth(e.target.value)}
-                            placeholder="Gap depth"
+                            placeholder={t('roofArea.tileGrout.gapDepth')}
                         />
                     </div>
                     <InputField
                         suffix="KG"
                         value={weightPerBag}
                         onChange={(e) => setWeightPerBag(e.target.value)}
-                        placeholder="Weights per bag"
+                        placeholder={t('roofArea.tileGrout.weightPerBag')}
                     />
 
                 </div>
@@ -240,14 +242,14 @@ const TileGroutCalculation = () => {
                         onClick={handleReset}
                         className="h-[50px] flex-1 sm:flex-none px-6 sm:px-12 bg-white border-[#E7D7C1] !rounded-2xl text-primary font-medium text-sm sm:text-base"
                     >
-                        Reset
+                        {t('roofArea.common.reset')}
                     </Button>
                     <Button
                         variant="primary"
                         onClick={handleCalculate}
                         className="h-[50px] flex-1 sm:flex-none px-6 sm:px-12 !bg-[#B02E0C] text-white !rounded-2xl font-medium text-sm sm:text-base"
                     >
-                        Calculate
+                        {t('roofArea.common.calculate')}
                     </Button>
                 </div>
             </div>
@@ -256,7 +258,7 @@ const TileGroutCalculation = () => {
             {showResult && (
                 <div className="mt-10 animate-fade-in pb-10">
                     <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-2xl font-semibold text-primary">Result</h2>
+                        <h2 className="text-2xl font-semibold text-primary">{t('roofArea.common.result')}</h2>
                     </div>
 
                     {/* Tabs */}
@@ -265,13 +267,13 @@ const TileGroutCalculation = () => {
                             onClick={() => setUnitType('metric')}
                             className={`px-12 py-3 border-b-2 transition-all cursor-pointer font-medium ${unitType === 'metric' ? 'border-[#B02E0C] text-[#B02E0C]' : 'border-transparent text-secondary'}`}
                         >
-                            Metric
+                            {t('roofArea.common.metric')}
                         </button>
                         <button
                             onClick={() => setUnitType('imperial')}
                             className={`px-12 py-3 border-b-2 transition-all cursor-pointer font-medium ${unitType === 'imperial' ? 'border-[#B02E0C] text-[#B02E0C]' : 'border-transparent text-secondary'}`}
                         >
-                            Imperial
+                            {t('roofArea.common.imperial')}
                         </button>
                     </div>
 
@@ -280,20 +282,20 @@ const TileGroutCalculation = () => {
                         <table className="w-full text-left border-collapse min-w-[320px]">
                             <thead>
                                 <tr className="bg-[#F7F7F7] border-b border-[#060C120A]">
-                                    <th className="px-6 py-4 text-sm font-medium text-primary border-r border-[#060C120A]">Material</th>
-                                    <th className="px-6 py-4 text-sm font-medium text-primary border-r border-[#060C120A]">Quantity</th>
-                                    <th className="px-6 py-4 text-sm font-medium text-primary">Unit</th>
+                                    <th className="px-6 py-4 text-sm font-medium text-primary border-r border-[#060C120A]">{t('history.headers.material')}</th>
+                                    <th className="px-6 py-4 text-sm font-medium text-primary border-r border-[#060C120A]">{t('history.headers.quantity')}</th>
+                                    <th className="px-6 py-4 text-sm font-medium text-primary">{t('history.headers.unit')}</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-[#060C120A]">
                                 {[
-                                    { material: 'Total Room Area', quantity: results.totalRoomArea.toFixed(3), unit: 'sq.m.' },
-                                    { material: 'No of Tiles', quantity: results.noOfTiles.toFixed(3), unit: 'NOS' },
-                                    { material: 'Grout Volume', quantity: results.groutVolume.toFixed(3), unit: 'm3' },
-                                    { material: 'Grout Bags', quantity: results.groutBags.toFixed(3), unit: 'Bags' },
+                                    { materialKey: 'roofArea.tileGrout.results.totalRoomArea', quantity: (results.totalRoomArea || 0).toFixed(3), unit: 'sq.m.' },
+                                    { materialKey: 'roofArea.tileGrout.results.noOfTiles', quantity: (results.noOfTiles || 0).toFixed(3), unit: 'NOS' },
+                                    { materialKey: 'roofArea.tileGrout.results.groutVolume', quantity: (results.groutVolume || 0).toFixed(3), unit: 'm3' },
+                                    { materialKey: 'roofArea.tileGrout.results.groutBags', quantity: (results.groutBags || 0).toFixed(3), unit: 'Bags' },
                                 ].map((row, index) => (
                                     <tr key={index} className="hover:bg-[#F9F9F9] transition-colors">
-                                        <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A]">{row.material}</td>
+                                        <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A]">{t(row.materialKey)}</td>
                                         <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A]">{row.quantity}</td>
                                         <td className="px-6 py-4 text-sm text-primary">{row.unit}</td>
                                     </tr>
@@ -314,7 +316,7 @@ const TileGroutCalculation = () => {
                             })}
                             className="!rounded-2xl text-lg font-medium hover:bg-[#B02E0C] transition-all h-[50px]"
                         >
-                            View Detailed Result
+                            {t('roofArea.common.viewDetailed')}
                         </Button>
                     </div>
                 </div>
@@ -324,7 +326,7 @@ const TileGroutCalculation = () => {
                 isOpen={isDownloadModalOpen}
                 onClose={() => setIsDownloadModalOpen(false)}
                 onDownload={handleDownload}
-                defaultTitle="Tile Grout Detailed Report"
+                defaultTitle={t('roofArea.tileGrout.detailedTitle')}
                 isLoading={isDownloading}
             />
         </div>

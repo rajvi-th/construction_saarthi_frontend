@@ -4,7 +4,7 @@ const FlooringItem = ({ title, icon, onClick }) => {
     return (
         <div
             onClick={onClick}
-            className="bg-[#060C1203] rounded-2xl p-4 border border-[#F0F0F0] flex items-center gap-4 cursor-pointer h-full"
+            className="bg-[#060C1203] rounded-2xl p-2 md:p-4 border border-[#F0F0F0] flex items-center gap-4 cursor-pointer h-full"
         >
             <div className="flex items-center justify-center flex-shrink-0">
                 {/* Use the provided icon or a placeholder */}
@@ -16,7 +16,7 @@ const FlooringItem = ({ title, icon, onClick }) => {
             </div>
 
             <div className="flex-1">
-                <h3 className="text-primary font-medium">{title}</h3>
+                <h3 className="text-primary font-medium text-sm md:text-base">{title}</h3>
             </div>
         </div>
     );

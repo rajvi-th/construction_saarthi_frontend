@@ -28,7 +28,7 @@ export default function LabourDetails() {
   });
 
   const labour = profile || state?.labour || null;
-  const projectName = state?.projectName || '';
+  const projectName = state?.projectName || labour?.projectName || '';
 
   const {
     activeModal,
@@ -174,7 +174,6 @@ export default function LabourDetails() {
           <div className="flex items-start gap-3">
             <div className="text-primary font-medium w-[120px]">{t('labourDetails.totalDays')}</div>
             <div className="text-primary-light flex flex-wrap items-center gap-3">
-              {/* <span>{attendance.totalDays ?? '-'} Days</span> */}
               <span className="inline-flex items-center gap-2">
                 <span className="inline-flex items-center gap-2">
                   <span className="w-4 h-4 rounded bg-[#34C759] inline-flex items-center justify-center text-white text-[10px]">✓</span>
@@ -187,6 +186,10 @@ export default function LabourDetails() {
                 <span className="inline-flex items-center gap-2">
                   <span className="w-4 h-4 rounded bg-[#FF9500] inline-flex items-center justify-center text-white text-[10px]">✓</span>
                   <span>{attendance.halfDayDays ?? 0} Day</span>
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  <span className="w-4 h-4 rounded bg-accent inline-flex items-center justify-center text-white text-[10px]">OT</span>
+                  <span>{attendance.otDays ?? 0}</span>
                 </span>
               </span>
             </div>
@@ -297,7 +300,7 @@ export default function LabourDetails() {
                       <li key={`note-${idx}`}>{n}</li>
                     ))}
                   </ul>
-                  
+
                   {/* Show voice memos after notes */}
                   {allVoiceMemos.length > 0 && (
                     <div className="space-y-3">

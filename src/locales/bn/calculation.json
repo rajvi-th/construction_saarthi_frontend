@@ -69,7 +69,10 @@
         "headers": {
             "material": "সামগ্রী",
             "quantity": "পরিমাণ",
-            "unit": "ইউনিট"
+            "unit": "ইউনিট",
+            "inputName": "ইনপুট নাম",
+            "symbol": "চিহ্ন",
+            "value": "মূল্য"
         },
         "materials": {
             "cement": "সিমেন্ট",
@@ -88,7 +91,9 @@
             "kg": "কেজি",
             "liters": "লিটার",
             "sqft": "বর্গফুট",
-            "nos": "টি"
+            "nos": "টি",
+            "liter": "লিটার",
+            "gallon": "গ্যালন"
         },
         "works": {
             "design": "ডিজাইন এবং ইঞ্জিনিয়ারিং",
@@ -333,6 +338,23 @@
             "lengthB": "দৈর্ঘ্য B",
             "lengthC": "দৈর্ঘ্য C",
             "lengthEachBar": "প্রতিটি বারের দৈর্ঘ্য"
+        },
+        "waterProofing": {
+            "title": "জলরোধী গণনা",
+            "detailedTitle": "বিস্তারিত জলরোধী রিপোর্ট",
+            "inputs": "ইনপুট",
+            "outputs": "আউটপুট",
+            "brickLength": "ইটের দৈর্ঘ্য",
+            "brickWidth": "ইটের প্রস্থ",
+            "brickDepth": "ইটের গভীরতা",
+            "surfaceLength": "পৃষ্ঠের দৈর্ঘ্য",
+            "surfaceWidth": "পৃষ্ঠের প্রস্থ",
+            "waterProofingDepth": "জলরোধী গভীরতা",
+            "mortarJoint": "মর্টার জয়েন্ট",
+            "results": {
+                "noOfBricks": "মর্টার সহ ইটের সংখ্যা",
+                "volumeOfMortar": "মর্টারের আয়তন"
+            }
         },
         "comingSoon": {
             "beam": "বিম গণনার UI শীঘ্রই আসছে...",
@@ -631,6 +653,8 @@
             "calculate": "গণনা করুন",
             "quantity": "পরিমাণ",
             "viewDetailedResult": "বিস্তারিত ফলাফল দেখুন",
+            "mmUnit": "mm",
+            "mUnit": "m",
             "m3Unit": "m³",
             "ft3Unit": "ft³",
             "brassUnit": "ব্রাস",
@@ -690,7 +714,7 @@
             }
         },
         "boxGableRoof": {
-            "title": "বক্স গেবল ছাদ",
+            "title": "বক্স গেबल ছাদ",
             "detailedTitle": "বক্স গেবল ছাদ বিস্তারিত রিপোর্ট",
             "baseLengthA": "বেস দৈর্ঘ্য A",
             "baseLengthB": "বেস দৈর্ঘ্য B",
@@ -768,6 +792,72 @@
             }
         }
     },
+    "swimmingPool": {
+        "title": "সুইমিং পুল",
+        "rectangular": {
+            "title": "আয়তাকার সুইমিং পুল",
+            "detailedTitle": "আয়তাকার সুইমিং পুল বিস্তারিত রিপোর্ট",
+            "length": "দৈর্ঘ্য",
+            "width": "প্রস্থ",
+            "depth": "গভীরতা",
+            "results": {
+                "volume": "আয়তন"
+            }
+        },
+        "circular": {
+            "title": "গোলাकार সুইমিং পুল",
+            "detailedTitle": "গোলাকার সুইমিং পুল বিস্তারিত রিপোর্ট",
+            "radius": "ব্যাসার্ধ",
+            "depth": "গভীরতা",
+            "results": {
+                "volume": "আয়তন"
+            }
+        },
+        "oval": {
+            "title": "ডিম্বাকৃতি সুইমিং পুল",
+            "detailedTitle": "ডিম্বাকৃতি সুইমিং পুল বিস্তারিত রিপোর্ট",
+            "radiusA": "ব্যাসার্ধ A",
+            "radiusB": "ব্যাসার্ধ B",
+            "depth": "গভীরতা",
+            "results": {
+                "volume": "আয়তন"
+            }
+        },
+        "roman": {
+            "title": "রোমান সুইমিং পুল",
+            "detailedTitle": "রোমান সুইমিং পুল বিস্তারিত রিপোর্ট",
+            "length": "দৈর্ঘ্য",
+            "width": "প্রস্থ",
+            "depth": "গভীরতা",
+            "results": {
+                "volume": "আয়তন"
+            }
+        },
+        "grecian": {
+            "title": "গ্রিসিয়ান সুইমিং পুল",
+            "detailedTitle": "গ্রিসিয়ান সুইমিং পুল বিস্তারিত রিপোর্ট",
+            "lengthA": "দৈর্ঘ্য A",
+            "lengthB": "দৈর্ঘ্য B",
+            "c": "C",
+            "d": "D",
+            "depth": "গভীরতা",
+            "results": {
+                "volume": "আয়তন"
+            }
+        },
+        "lShape": {
+            "title": "এল আকৃতির সুইমিং পুল",
+            "detailedTitle": "এল আকৃতির সুইমিং পুল বিস্তারিত রিপোর্ট",
+            "lengthA": "দৈর্ঘ্য A",
+            "lengthB": "দৈর্ঘ্য B",
+            "c": "C",
+            "d": "D",
+            "depth": "গভীরতা",
+            "results": {
+                "volume": "আয়তন"
+            }
+        }
+    },
     "downloadPDF": {
         "title": "PDF হিসাবে ডাউনলোড করুন",
         "titleLabel": "শীর্ষক",
@@ -775,5 +865,135 @@
         "cancel": "রদ্দ করুন",
         "download": "ডাউনলোড",
         "downloading": "ডাউনলোড হচ্ছে..."
+    },
+    "metal": {
+        "title": "মেটাল ক্যালকুলেটর",
+        "common": {
+            "metric": "মেট্রিক",
+            "imperial": "ইম্পেরিয়াল",
+            "typeOfMetal": "ধাতুর ধরন",
+            "selectMetal": "ধাতু নির্বাচন করুন",
+            "reset": "রিসেট করুন",
+            "calculate": "গণনা করুন",
+            "result": "ফলাফল",
+            "totalCost": "মোট খরচ",
+            "noOfUnits": "ইউনিটের সংখ্যা",
+            "rateOfMetal": "ধাতুর হার",
+            "unitWeight": "একক ওজন",
+            "totalWeight": "মোট ওজন",
+            "totalPrice": "মোট মূল্য",
+            "units": {
+                "mm": "mm",
+                "m": "m",
+                "kg": "kg",
+                "unit": "একক",
+                "perKg": "₹/kg",
+                "kgPerM3": "kg/m³",
+                "currency": "₹"
+            }
+        },
+        "densities": {
+            "steel": "ইস্পাত (Steel)",
+            "aluminum": "অ্যালুমিনিয়াম",
+            "copper": "তামা",
+            "brass": "পিতল",
+            "stainless_steel": "স্টেইনলেস স্টিল"
+        },
+        "pipe": {
+            "d1": "D1",
+            "d2": "D2",
+            "height": "উচ্চতা - H"
+        },
+        "roundBar": {
+            "d": "ব্যাস - d",
+            "length": "দৈর্ঘ্য - L"
+        },
+        "squareBar": {
+            "width": "প্রস্থ - W",
+            "length": "দৈর্ঘ্য - L"
+        },
+        "squareTubing": {
+            "sideA": "পাশ - a",
+            "sideB": "পাশ - b",
+            "lengthL": "দৈর্ঘ্য - L"
+        },
+        "tBar": {
+            "sideA": "পাশ - a",
+            "sideB": "পাশ - b",
+            "thicknessT": "বেধ - T",
+            "lengthL": "দৈর্ঘ্য - L"
+        },
+        "angle": {
+            "sideA": "পাশ - a",
+            "sideB": "পাশ - b",
+            "thicknessT": "বেধ - T",
+            "lengthL": "দৈর্ঘ্য - L"
+        },
+        "channel": {
+            "sideA": "পাশ - a",
+            "sideB": "পাশ - b",
+            "thicknessT": "বেধ - T",
+            "thicknessT1": "বেধ - T1",
+            "lengthL": "দৈর্ঘ্য - L"
+        },
+        "beam": {
+            "sideA": "পাশ - a",
+            "sideB": "পাশ - b",
+            "thicknessT": "বেধ - T",
+            "thicknessT1": "বেধ - T1",
+            "lengthL": "দৈর্ঘ্য - L"
+        },
+        "flatBar": {
+            "sideA": "পাশ - a",
+            "sideB": "পাশ - b",
+            "lengthL": "দৈর্ঘ্য - L"
+        },
+        "hexagonalBar": {
+            "sideA": "পাশ - a",
+            "lengthL": "দৈর্ঘ্য - L"
+        },
+        "triangularBar": {
+            "sideA": "পাশ - a",
+            "lengthL": "দৈর্ঘ্য - L"
+        },
+        "sections": {
+            "quantity": "পরিমাণ",
+            "boltedJoints": "বোল্ট করা জয়েন্টগুলি",
+            "weldedJoints": "ঝালাই করা জয়েন্টগুলি"
+        },
+        "quantity": {
+            "pipe": "পাইপ মেটাল ক্যালকুলেটর",
+            "roundBar": "রাউন্ড বার মেটাল ক্যালকুলেটর",
+            "squareBar": "স্কয়ার বার মেটাল ক্যালকুলেটর",
+            "squareTubing": "স্কয়ার টিউবিং মেটাল ক্যালকুলেটর",
+            "tBar": "টি বার মেটাল ক্যালকুলেটর",
+            "beam": "বিম মেটাল ক্যালকুলেটর",
+            "channel": "চ্যানেল মেটাল ক্যালকুলেটর",
+            "angle": "অ্যাঙ্গেল মেটাল ক্যালকুলেটর",
+            "flatBar": "ফ্ল্যাট বার মেটাল ক্যালকুলেটর",
+            "sheet": "শীট মেটাল ক্যালকুলেটর",
+            "hexagonalBar": "হেক্সাগোনাল বার মেটাল ক্যালকুলেটর",
+            "triangularBar": "ত্রিভুজাকার বার মেটাল ক্যালকুলেটর",
+            "triangularPipe": {
+                "title": "ত্রিভুজাকার পাইপ মেটাল ক্যালকুলেটর",
+                "sideA": "পাশ - a",
+                "thicknessT": "পুরুত্ব - T",
+                "lengthL": "দৈর্ঘ্য - L"
+            }
+        },
+        "bolted": {
+            "clevis": "ক্লেভিস বোল্ট করা জয়েন্টগুলি",
+            "blind": "ব্লাইন্ড বোল্ট করা জয়েন্টগুলি",
+            "flange": "ফ্ল্যাঞ্জ বোল্ট করা জয়েন্টগুলি",
+            "pinned": "পিন করা বোল্ট করা জয়েন্টগুলি",
+            "lap": "ল্যাপ বোল্ট করা জয়েন্টগুলি"
+        },
+        "welded": {
+            "butt": "বাট ঝালাই করা জয়েন্ট",
+            "corner": "কর্নার ঝালাই করা জয়েন্ট",
+            "lap": "ল্যাপ ঝালাই করা জয়েন্ট",
+            "tJoint": "T-জয়েন্ট ঝালাই করা জয়েন্ট",
+            "edge": "এজ ঝালাই করা জয়েন্ট"
+        }
     }
 }

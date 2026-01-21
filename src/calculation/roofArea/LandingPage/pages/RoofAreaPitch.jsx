@@ -22,22 +22,22 @@ const RoofAreaPitch = () => {
     const navigate = useNavigate();
 
     const items = [
-        { id: 'flat', title: 'Flat Roof', icon: flatRoof, path: ROUTES_FLAT.CALCULATION_ROOF_AREA_FLAT_ROOF },
-        { id: 'shed', title: 'Shed Roof', icon: shedRoof, path: ROUTES_FLAT.CALCULATION_ROOF_AREA_SHED_ROOF },
-        { id: 'gable', title: 'Gable Roof', icon: gableRoof, path: ROUTES_FLAT.CALCULATION_ROOF_AREA_GABLE_ROOF },
-        { id: 'boxGable', title: 'Box Gable Roof', icon: boxGableRoof, path: ROUTES_FLAT.CALCULATION_ROOF_AREA_BOX_GABLE_ROOF },
-        { id: 'mShaped', title: 'M shaped Roof', icon: mShapedRoof, path: ROUTES_FLAT.CALCULATION_ROOF_AREA_M_SHAPED_ROOF },
-        { id: 'butterfly', title: 'Butterfly Roof', icon: butterflyRoof, path: ROUTES_FLAT.CALCULATION_ROOF_AREA_BUTTERFLY_ROOF },
-        { id: 'saltbox', title: 'Saltbox Roof', icon: saltboxRoof, path: ROUTES_FLAT.CALCULATION_ROOF_AREA_SALTBOX_ROOF },
-        { id: 'pyramidHip', title: 'Pyramid Hip Roof', icon: pyramidHipRoof, path: ROUTES_FLAT.CALCULATION_ROOF_AREA_PYRAMID_HIP_ROOF },
-        { id: 'hexagonal', title: 'Hexagonal Roof', icon: hexagonalRoof, path: ROUTES_FLAT.CALCULATION_ROOF_AREA_HEXAGONAL_ROOF },
+        { id: 'flat', title: t('roofArea.flatRoof.title'), icon: flatRoof, path: ROUTES_FLAT.CALCULATION_ROOF_AREA_FLAT_ROOF },
+        { id: 'shed', title: t('roofArea.shedRoof.title'), icon: shedRoof, path: ROUTES_FLAT.CALCULATION_ROOF_AREA_SHED_ROOF },
+        { id: 'gable', title: t('roofArea.gableRoof.title'), icon: gableRoof, path: ROUTES_FLAT.CALCULATION_ROOF_AREA_GABLE_ROOF },
+        { id: 'boxGable', title: t('roofArea.boxGableRoof.title'), icon: boxGableRoof, path: ROUTES_FLAT.CALCULATION_ROOF_AREA_BOX_GABLE_ROOF },
+        { id: 'mShaped', title: t('roofArea.mShapedRoof.title'), icon: mShapedRoof, path: ROUTES_FLAT.CALCULATION_ROOF_AREA_M_SHAPED_ROOF },
+        { id: 'butterfly', title: t('roofArea.butterflyRoof.title'), icon: butterflyRoof, path: ROUTES_FLAT.CALCULATION_ROOF_AREA_BUTTERFLY_ROOF },
+        { id: 'saltbox', title: t('roofArea.saltboxRoof.title'), icon: saltboxRoof, path: ROUTES_FLAT.CALCULATION_ROOF_AREA_SALTBOX_ROOF },
+        { id: 'pyramidHip', title: t('roofArea.pyramidHipRoof.title'), icon: pyramidHipRoof, path: ROUTES_FLAT.CALCULATION_ROOF_AREA_PYRAMID_HIP_ROOF },
+        { id: 'hexagonal', title: t('roofArea.hexagonalRoof.title'), icon: hexagonalRoof, path: ROUTES_FLAT.CALCULATION_ROOF_AREA_HEXAGONAL_ROOF },
     ];
 
     return (
         <div className="min-h-screen max-w-7xl mx-auto pb-20">
             <div className="mb-6">
                 <PageHeader
-                    title="Roof Area & Pitch Calculator"
+                    title={t('roofArea.landingPageTitle')}
                     showBackButton
                     onBack={() => navigate(-1)}
                 />

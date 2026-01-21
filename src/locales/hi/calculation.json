@@ -48,6 +48,23 @@
       "billOfQuantity": "मात्रा का बिल"
     }
   },
+  "waterProofing": {
+    "title": "वॉटर प्रूफिंग गणना",
+    "detailedTitle": "विस्तृत वॉटर प्रूफিং रिपोर्ट",
+    "inputs": "इनपुट",
+    "outputs": "परिणाम",
+    "brickLength": "ईंट की लंबाई",
+    "brickWidth": "ईंट की चौड़ाई",
+    "brickDepth": "ईंट की गहराई",
+    "surfaceLength": "सतह की लंबाई",
+    "surfaceWidth": "सतह की चौड़ाई",
+    "waterProofingDepth": "वॉटरप्रूफिंग गहराई",
+    "mortarJoint": "मोर्टार जॉइंट",
+    "results": {
+      "noOfBricks": "मोर्टार के साथ ईंटों की संख्या",
+      "volumeOfMortar": "मोर्टार का आयतन"
+    }
+  },
   "comingSoon": {
     "title": "जल्द आ रहा है",
     "comingSoonText": "जल्द आ रहा है...",
@@ -69,7 +86,10 @@
     "headers": {
       "material": "सामग्री",
       "quantity": "मात्रा",
-      "unit": "यूनिट"
+      "unit": "यूनिट",
+      "inputName": "इनपुट का नाम",
+      "symbol": "चिन्ह",
+      "value": "मूल्य"
     },
     "materials": {
       "cement": "सीमेंट",
@@ -88,7 +108,9 @@
       "kg": "किग्रा",
       "liters": "लीटर",
       "sqft": "वर्ग फुट",
-      "nos": "संख्या"
+      "nos": "संख्या",
+      "liter": "लीटर",
+      "gallon": "गैलन"
     },
     "works": {
       "design": "डिजाइन और इंजीनियरिंग",
@@ -615,7 +637,10 @@
       "water": "पानी",
       "totalCost": "कुल लागत",
       "reset": "रीसेट",
-      "calculate": "गणना करें"
+      "calculate": "गणना करें",
+      "mmUnit": "mm",
+      "mUnit": "m",
+      "m3Unit": "m³"
     }
   },
   "roofArea": {
@@ -771,6 +796,72 @@
       }
     }
   },
+  "swimmingPool": {
+    "title": "स्विमिंग पूल",
+    "rectangular": {
+      "title": "आयताकार स्विमिंग पूल",
+      "detailedTitle": "आयताकार स्विमिंग पूल विस्तृत रिपोर्ट",
+      "length": "लंबाई",
+      "width": "चौड़ाई",
+      "depth": "गहराई",
+      "results": {
+        "volume": "आयतन"
+      }
+    },
+    "circular": {
+      "title": "गोलाकार स्विमिंग पूल",
+      "detailedTitle": "गोलाकार स्विमिंग पूल विस्तृत रिपोर्ट",
+      "radius": "त्रिज्या",
+      "depth": "गहराई",
+      "results": {
+        "volume": "आयतन"
+      }
+    },
+    "oval": {
+      "title": "अंडाकार स्विमिंग पूल",
+      "detailedTitle": "अंडाकार स्विमिंग पूल विस्तृत रिपोर्ट",
+      "radiusA": "त्रिज्या A",
+      "radiusB": "त्रिज्या B",
+      "depth": "गहराई",
+      "results": {
+        "volume": "आयतन"
+      }
+    },
+    "roman": {
+      "title": "रोमन स्विमिंग पूल",
+      "detailedTitle": "रोमन स्विमिंग पूल विस्तृत रिपोर्ट",
+      "length": "लंबाई",
+      "width": "चौड़ाई",
+      "depth": "गहराई",
+      "results": {
+        "volume": "आयतन"
+      }
+    },
+    "grecian": {
+      "title": "ग्रीशियन स्विमिंग पूल",
+      "detailedTitle": "ग्रीशियन स्विमिंग पूल विस्तृत रिपोर्ट",
+      "lengthA": "लंबाई A",
+      "lengthB": "लंबाई B",
+      "c": "C",
+      "d": "D",
+      "depth": "गहराई",
+      "results": {
+        "volume": "आयतन"
+      }
+    },
+    "lShape": {
+      "title": "एल आकार स्विमिंग पूल",
+      "detailedTitle": "एल आकार स्विमिंग पूल विस्तृत रिपोर्ट",
+      "lengthA": "लंबाई A",
+      "lengthB": "लंबाई B",
+      "c": "C",
+      "d": "D",
+      "depth": "गहराई",
+      "results": {
+        "volume": "आयतन"
+      }
+    }
+  },
   "downloadPDF": {
     "title": "PDF के रूप में डाउनलोड करें",
     "titleLabel": "शीर्षक",
@@ -778,5 +869,135 @@
     "cancel": "रद्द करें",
     "download": "डाउनलोड",
     "downloading": "डाउनलोड हो रहा है..."
+  },
+  "metal": {
+    "title": "मेटल कैलकुलेटर",
+    "common": {
+      "metric": "मेट्रिक",
+      "imperial": "इंपीरियल",
+      "typeOfMetal": "धातु का प्रकार",
+      "selectMetal": "धातु चुनें",
+      "reset": "रीसेट",
+      "calculate": "गणना करें",
+      "result": "परिणाम",
+      "totalCost": "कुल लागत",
+      "noOfUnits": "इकाइयों की संख्या",
+      "rateOfMetal": "धातु की दर",
+      "unitWeight": "इकाई वजन",
+      "totalWeight": "कुल वजन",
+      "totalPrice": "कुल मूल्य",
+      "units": {
+        "mm": "mm",
+        "m": "m",
+        "kg": "किग्रा",
+        "unit": "इकाई",
+        "perKg": "₹/किग्रा",
+        "kgPerM3": "किग्रा/मी³",
+        "currency": "₹"
+      }
+    },
+    "densities": {
+      "steel": "स्टील",
+      "aluminum": "एल्युमीनियम",
+      "copper": "तांबा",
+      "brass": "पीतल",
+      "stainless_steel": "स्टेनलेस स्टील"
+    },
+    "pipe": {
+      "d1": "D1",
+      "d2": "D2",
+      "height": "ऊंचाई - H"
+    },
+    "roundBar": {
+      "d": "व्यास - d",
+      "length": "लंबाई - L"
+    },
+    "squareBar": {
+      "width": "चौड़ाई - W",
+      "length": "लंबाई - L"
+    },
+    "squareTubing": {
+      "sideA": "भुजा - a",
+      "sideB": "भुजा - b",
+      "lengthL": "लंबाई - L"
+    },
+    "tBar": {
+      "sideA": "भुजा - a",
+      "sideB": "भुजा - b",
+      "thicknessT": "मोटाई - T",
+      "lengthL": "लंबाई - L"
+    },
+    "angle": {
+      "sideA": "भुजा - a",
+      "sideB": "भुजा - b",
+      "thicknessT": "मोटाई - T",
+      "lengthL": "लंबाई - L"
+    },
+    "channel": {
+      "sideA": "भुजा - a",
+      "sideB": "भुजा - b",
+      "thicknessT": "मोटाई - T",
+      "thicknessT1": "मोटाई - T1",
+      "lengthL": "लंबाई - L"
+    },
+    "beam": {
+      "sideA": "भुजा - a",
+      "sideB": "भुजा - b",
+      "thicknessT": "मोटाई - T",
+      "thicknessT1": "मोटाई - T1",
+      "lengthL": "लंबाई - L"
+    },
+    "flatBar": {
+      "sideA": "भुजा - a",
+      "sideB": "भुजा - b",
+      "lengthL": "लंबाई - L"
+    },
+    "hexagonalBar": {
+      "sideA": "भुजा - a",
+      "lengthL": "लंबाई - L"
+    },
+    "triangularBar": {
+      "sideA": "भुजा - a",
+      "lengthL": "लंबाई - L"
+    }
+  },
+  "sections": {
+    "quantity": "मात्रा",
+    "boltedJoints": "बोल्टेड जोड़",
+    "weldedJoints": "वेल्डेड जोड़"
+  },
+  "quantity": {
+    "pipe": "पाइप मेटल कैलकुलेटर",
+    "roundBar": "राउंड बार मेटल कैलकुलेटर",
+    "squareBar": "स्क्वायर बार मेटल कैलकुलेटर",
+    "squareTubing": "स्क्वायर ट्यूबिंग मेटल कैलकुलेटर",
+    "tBar": "टी बार मेटल कैलकुलेटर",
+    "beam": "बीम मेटल कैलकुलेटर",
+    "channel": "चैनल मेटल कैलकुलेटर",
+    "angle": "एंगल मेटल कैलकुलेटर",
+    "flatBar": "फ्लैट बार मेटल कैलकुलेटर",
+    "sheet": "शीट मेटल कैलकुलेटर",
+    "hexagonalBar": "हेक्सागोनल बार मेटल कैलकुलेटर",
+    "triangularBar": "त्रिकोणीय बार मेटल कैलकुलेटर",
+    "triangularPipe": {
+      "title": "त्रिकोणीय पाइप मेटल कैलकुलेटर",
+      "sideA": "भुजा - a",
+      "thicknessT": "मोटाई - T",
+      "lengthL": "लंबाई - L"
+    }
+  },
+  "bolted": {
+    "clevis": "क्लेविस बोल्टेड जोड़",
+    "blind": "ब्लाइंड बोल्टेड जोड़",
+    "flange": "फ्ंज बोल्टेड जोड़",
+    "pinned": "पिन किए गए बोल्टेड जोड़",
+    "lap": "लैप बोल्टेड जोड़"
+  },
+  "welded": {
+    "butt": "बट वेल्डेड जोड़",
+    "corner": "कॉर्नर वेल्डेड जोड़",
+    "lap": "लैप वेल्डेड जोड़",
+    "tJoint": "टी-ज्वाइंट वेल्डेड जोड़",
+    "edge": "एज वेल्डेड जोड़"
   }
 }

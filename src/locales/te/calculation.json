@@ -48,6 +48,23 @@
             "billOfQuantity": "మెటీరియల్ బిల్లు"
         }
     },
+    "waterProofing": {
+        "title": "వాటర్ ప్రూఫింగ్ గణన",
+        "detailedTitle": "వివరణాత్మక వాటర్ ప్రూఫింగ్ నివేదిక",
+        "inputs": "ఇన్‌పుట్‌లు",
+        "outputs": "ఫలితాలు",
+        "brickLength": "ఇటుక పొడవు",
+        "brickWidth": "ఇటుక వెడల్పు",
+        "brickDepth": "ఇటుక లోతు",
+        "surfaceLength": "ఉపరితల పొడవు",
+        "surfaceWidth": "ఉపరితల వెడల్పు",
+        "waterProofingDepth": "వాటర్ ప్రూఫింగ్ లోతు",
+        "mortarJoint": "మోర్టార్ జాయింట్",
+        "results": {
+            "noOfBricks": "మోర్టార్‌తో సహా ఇటుకల సంఖ్య",
+            "volumeOfMortar": "మోర్టార్ ఘనపరిమాణం"
+        }
+    },
     "comingSoon": {
         "title": "త్వరలో రాబోతోంది",
         "comingSoonText": "త్వరలో రాబోతోంది...",
@@ -69,7 +86,10 @@
         "headers": {
             "material": "మెటీరియల్",
             "quantity": "పరిమాణం",
-            "unit": "యూనిట్"
+            "unit": "యూనిట్",
+            "inputName": "ఇన్‌పుట్ పేరు",
+            "symbol": "గుర్తు",
+            "value": "విలువ"
         },
         "materials": {
             "cement": "సిమెంట్",
@@ -88,7 +108,9 @@
             "kg": "కిలో",
             "liters": "లీటర్లు",
             "sqft": "చదరపు అడుగులు",
-            "nos": "సంఖ్య"
+            "nos": "సంఖ్య",
+            "liter": "లీటరు",
+            "gallon": "గాలన్"
         },
         "works": {
             "design": "డిజైన్ & ఇంజనీరింగ్",
@@ -627,7 +649,8 @@
             "reset": "రీసెట్",
             "calculate": "గణన చేయండి",
             "quantity": "పరిమాణం",
-            "viewDetailedResult": "వివరణాత్మక ఫలితాన్ని వీక్షించండి",
+            "mmUnit": "mm",
+            "mUnit": "m",
             "m3Unit": "m³",
             "ft3Unit": "ft³",
             "brassUnit": "బ్రాస్",
@@ -765,6 +788,72 @@
             }
         }
     },
+    "swimmingPool": {
+        "title": "స్విమ్మింగ్ పూల్",
+        "rectangular": {
+            "title": "దీర్ఘచతురస్రాకార స్విమ్మింగ్ పూల్",
+            "detailedTitle": "దీర్ఘచతురస్రాకార స్విమ్మింగ్ పూల్ వివరణాత్మక నివేదిక",
+            "length": "పొడవు",
+            "width": "వెడల్పు",
+            "depth": "లోతు",
+            "results": {
+                "volume": "ఘనపరిమాణం"
+            }
+        },
+        "circular": {
+            "title": "వృత్తాకార స్విమ్మింగ్ పూల్",
+            "detailedTitle": "వృత్తాకార స్విమ్మింగ్ పూల్ వివరణాత్మక నివేదిక",
+            "radius": "వ్యాసార్థం",
+            "depth": "లోతు",
+            "results": {
+                "volume": "ఘనపరిమాణం"
+            }
+        },
+        "oval": {
+            "title": "అండాకార స్విమ్మింగ్ పూల్",
+            "detailedTitle": "అండాకార స్విమ్మింగ్ పూల్ వివరణాత్మక నివేదిక",
+            "radiusA": "వ్యాసార్థం A",
+            "radiusB": "వ్యాసార్థం B",
+            "depth": "లోతు",
+            "results": {
+                "volume": "ఘనపరిమాణం"
+            }
+        },
+        "roman": {
+            "title": "రోమన్ స్విమ్మింగ్ పూల్",
+            "detailedTitle": "రోమన్ స్విమ్మింగ్ పూల్ వివరణాత్మక నివేదిక",
+            "length": "పొడవు",
+            "width": "వెడల్పు",
+            "depth": "లోతు",
+            "results": {
+                "volume": "ఘనపరిమాణం"
+            }
+        },
+        "grecian": {
+            "title": "గ్రీషియన్ స్విమ్మింగ్ పూల్",
+            "detailedTitle": "గ్రీషియన్ స్విమ్మింగ్ పూల్ వివరణాత్మక నివేదిక",
+            "lengthA": "పొడవు A",
+            "lengthB": "పొడవు B",
+            "c": "C",
+            "d": "D",
+            "depth": "లోతు",
+            "results": {
+                "volume": "ఘనపరిమాణం"
+            }
+        },
+        "lShape": {
+            "title": "ఎల్ ఆకారం స్విమ్మింగ్ పూల్",
+            "detailedTitle": "ఎల్ ఆకారం స్విమ్మింగ్ పూల్ వివరణాత్మక నివేదిక",
+            "lengthA": "పొడవు A",
+            "lengthB": "పొడవు B",
+            "c": "C",
+            "d": "D",
+            "depth": "లోతు",
+            "results": {
+                "volume": "ఘనపరిమాణం"
+            }
+        }
+    },
     "downloadPDF": {
         "title": "PDFగా డౌన్లోడ్ చేయండి",
         "titleLabel": "శీర్షిక",
@@ -772,5 +861,135 @@
         "cancel": "రద్దు చేయండి",
         "download": "డౌన్లోడ్",
         "downloading": "డౌన్లోడ్ అవుతోంది..."
+    },
+    "metal": {
+        "title": "మెటల్ కాలిక్యులేటర్",
+        "common": {
+            "metric": "మెట్రిక్",
+            "imperial": "ఇంపీరియల్",
+            "typeOfMetal": "లోహ రకం",
+            "selectMetal": "లోహాన్ని ఎంచుకోండి",
+            "reset": "రీసెట్",
+            "calculate": "లెక్కించు",
+            "result": "ఫలితం",
+            "totalCost": "మొత్తం ఖర్చు",
+            "noOfUnits": "యూనిట్ల సంఖ్య",
+            "rateOfMetal": "లోహపు ధర",
+            "unitWeight": "యూనిట్ బరువు",
+            "totalWeight": "మొత్తం బరువు",
+            "totalPrice": "మొత్తం ధర",
+            "units": {
+                "mm": "mm",
+                "m": "మీ",
+                "kg": "కిలో",
+                "unit": "యూనిట్",
+                "perKg": "₹/కిలో",
+                "kgPerM3": "కిలో/మీ³",
+                "currency": "₹"
+            }
+        },
+        "densities": {
+            "steel": "స్టీల్",
+            "aluminum": "అల్యూమినియం",
+            "copper": "రాగి",
+            "brass": "ఇత్తడి",
+            "stainless_steel": "స్టెయిన్‌లెస్ స్టీల్"
+        },
+        "pipe": {
+            "d1": "D1",
+            "d2": "D2",
+            "height": "ఎత్తు - H"
+        },
+        "roundBar": {
+            "d": "వ్యాసం - d",
+            "length": "పొడవు - L"
+        },
+        "squareBar": {
+            "width": "వెడల్పు - W",
+            "length": "పొడవు - L"
+        },
+        "squareTubing": {
+            "sideA": "పక్షం - a",
+            "sideB": "పక్షం - b",
+            "lengthL": "పొడవు - L"
+        },
+        "tBar": {
+            "sideA": "పక్షం - a",
+            "sideB": "పక్షం - b",
+            "thicknessT": "మందం - T",
+            "lengthL": "పొడవు - L"
+        },
+        "angle": {
+            "sideA": "పక్షం - a",
+            "sideB": "పక్షం - b",
+            "thicknessT": "మందం - T",
+            "lengthL": "పొడవు - L"
+        },
+        "channel": {
+            "sideA": "పక్షం - a",
+            "sideB": "పక్షం - b",
+            "thicknessT": "మందం - T",
+            "thicknessT1": "మందం - T1",
+            "lengthL": "పొడవు - L"
+        },
+        "beam": {
+            "sideA": "పక్షం - a",
+            "sideB": "పక్షం - b",
+            "thicknessT": "మందం - T",
+            "thicknessT1": "మందం - T1",
+            "lengthL": "పొడవు - L"
+        },
+        "flatBar": {
+            "sideA": "పక్షం - a",
+            "sideB": "పక్షం - b",
+            "lengthL": "పొడవు - L"
+        },
+        "hexagonalBar": {
+            "sideA": "పక్షం - a",
+            "lengthL": "పొడవు - L"
+        },
+        "triangularBar": {
+            "sideA": "పక్షం - a",
+            "lengthL": "పొడవు - L"
+        },
+        "sections": {
+            "quantity": "పరిమాణం",
+            "boltedJoints": "బోల్టెడ్ జాయింట్లు",
+            "weldedJoints": "వెల్డెడ్ జాయింట్లు"
+        },
+        "quantity": {
+            "pipe": "పైపు మెటల్ కాలిక్యులేటర్",
+            "roundBar": "రౌండ్ బార్ మెటల్ కాలిక్యులేటర్",
+            "squareBar": "స్క్వేర్ బార్ మెటల్ కాలిక్యులేటర్",
+            "squareTubing": "స్క్వేర్ ట్యూబింగ్ మెటల్ కాలిక్యులేటర్",
+            "tBar": "T బార్ మెటల్ కాలిక్యులేటర్",
+            "beam": "బీమ్ మెటల్ కాలిక్యులేటర్",
+            "channel": "ఛానల్ మెటల్ కాలిక్యులేటర్",
+            "angle": "యాంగిల్ మెటల్ కాలిక్యులేటర్",
+            "flatBar": "ఫ్లాట్ బార్ మెటల్ కాలిక్యులేటర్",
+            "sheet": "షీట్ మెటల్ కాలిక్యులేటర్",
+            "hexagonalBar": "హెక్సాగోనల్ బార్ మెటల్ కాలిక్యులేటర్",
+            "triangularBar": "త్రికోణ బార్ మెటల్ కాలిక్యులేటర్",
+            "triangularPipe": {
+                "title": "త్రికోణ పైపు మెటల్ కాలిక్యులేటర్",
+                "sideA": "భుజం - a",
+                "thicknessT": "మందం - T",
+                "lengthL": "పొడవు - L"
+            }
+        },
+        "bolted": {
+            "clevis": "క్లెవిస్ బోల్టెడ్ జాయింట్లు",
+            "blind": "బ్లైండ్ బోల్టెడ్ జాయింట్లు",
+            "flange": "ఫ్లేంజ్ బోల్టెడ్ జాయింట్లు",
+            "pinned": "పిన్డ్ బోల్టెడ్ జాయింట్లు",
+            "lap": "ల్యాప్ బోల్టెడ్ జాయింట్లు"
+        },
+        "welded": {
+            "butt": "బట్ వెల్డెడ్ జాయింట్",
+            "corner": "కార్నర్ వెల్డెడ్ జాయింట్",
+            "lap": "ల్యాప్ వెల్డెడ్ జాయింట్",
+            "tJoint": "T-జాయింట్ వెల్డెడ్ జాయింట్",
+            "edge": "ఎడ్జ్ వెల్డెడ్ జాయింట్"
+        }
     }
 }

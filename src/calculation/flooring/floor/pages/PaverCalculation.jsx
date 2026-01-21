@@ -92,50 +92,50 @@ const PaverCalculation = () => {
     };
 
     const calculationData = [
-        { name: 'Surface Length', symbol: 'L', value: `${(parseFloat(surfaceLength) / 1000).toFixed(3)} m` },
-        { name: 'Surface Width', symbol: 'W', value: `${(parseFloat(surfaceWidth) / 1000).toFixed(3)} m` },
-        { name: 'Paver Length', symbol: 'l', value: `${(parseFloat(paverLength) / 1000).toFixed(3)} m` },
-        { name: 'Paver Width', symbol: 'w', value: `${(parseFloat(paverWidth) / 1000).toFixed(3)} m` },
-        { name: 'Paver Price', symbol: 'R', value: `${paverPrice} Currency pr Unit` },
-        { name: 'Installation Cost', symbol: 'I', value: `${installationCost} Currency pr Sq.m.` },
+        { labelKey: 'roofArea.paver.surfaceLength', symbol: 'L', value: `${((parseFloat(surfaceLength) || 0) / 1000).toFixed(3)} m` },
+        { labelKey: 'roofArea.paver.surfaceWidth', symbol: 'W', value: `${((parseFloat(surfaceWidth) || 0) / 1000).toFixed(3)} m` },
+        { labelKey: 'roofArea.paver.paverLength', symbol: 'l', value: `${((parseFloat(paverLength) || 0) / 1000).toFixed(3)} m` },
+        { labelKey: 'roofArea.paver.paverWidth', symbol: 'w', value: `${((parseFloat(paverWidth) || 0) / 1000).toFixed(3)} m` },
+        { labelKey: 'roofArea.paver.paverPrice', symbol: 'R', value: `${paverPrice || 0} Currency pr Unit` },
+        { labelKey: 'roofArea.paver.installationCost', symbol: 'I', value: `${installationCost || 0} Currency pr Sq.m.` },
     ];
 
     const detailedOutputs = [
         {
-            title: 'Surface Area',
-            label: 'Surface Area',
+            titleKey: 'roofArea.paver.results.surfaceArea',
+            labelKey: 'roofArea.paver.results.surfaceArea',
             labelSuffix: ' =',
             formula: 'LXW',
             value: results.surfaceArea.toFixed(3),
             unit: 'sq.m.'
         },
         {
-            title: 'Number of Pavers',
-            label: 'Number of Pavers',
+            titleKey: 'roofArea.paver.results.noOfPavers',
+            labelKey: 'roofArea.paver.results.noOfPavers',
             labelSuffix: ' =',
             formula: '(LXW)/(lXw)',
             value: results.noOfPavers.toFixed(3),
             unit: 'NOS'
         },
         {
-            title: 'Paver Cost',
-            label: 'Paver Cost',
+            titleKey: 'roofArea.paver.results.paverCost',
+            labelKey: 'roofArea.paver.results.paverCost',
             labelSuffix: ' =',
             formula: '((LXW)/(lXw))XR',
             value: results.paverCost.toFixed(3),
             unit: '₹'
         },
         {
-            title: 'Total Installation Cost',
-            label: 'Total Installation Cost',
+            titleKey: 'roofArea.paver.results.totalInstallationCost',
+            labelKey: 'roofArea.paver.results.totalInstallationCost',
             labelSuffix: ' =',
             formula: 'LXWXI',
             value: results.totalInstallationCost.toFixed(3),
             unit: '₹'
         },
         {
-            title: 'Total Expenses',
-            label: 'Total Expenses',
+            titleKey: 'roofArea.paver.results.totalExpenses',
+            labelKey: 'roofArea.paver.results.totalExpenses',
             labelSuffix: ' =',
             formula: '((LXW)/(lXw))XR+LXWXI',
             value: results.totalExpenses.toFixed(3),
@@ -147,7 +147,7 @@ const PaverCalculation = () => {
         <div className="min-h-screen max-w-7xl mx-auto pb-20">
             <div className="mb-6">
                 <PageHeader
-                    title="Paver Calculation"
+                    title={t('roofArea.paver.title')}
                     showBackButton
                     onBack={() => navigate(-1)}
                 >
@@ -158,7 +158,7 @@ const PaverCalculation = () => {
                             className="bg-white border-[#E0E0E0] rounded-xl text-secondary !px-2 sm:!px-4 py-2"
                             leftIcon={<Download className="w-4 h-4 text-secondary" />}
                         >
-                            <span className="text-sm font-medium">Download Report</span>
+                            <span className="text-sm font-medium">{t('history.downloadReport')}</span>
                         </Button>
                     </div>
                 </PageHeader>
@@ -175,7 +175,7 @@ const PaverCalculation = () => {
                     {/* Radio Group */}
                     <div className="flex flex-col gap-4">
                         <Radio
-                            label="Metric"
+                            label={t('roofArea.common.metric')}
                             name="unitType"
                             value="metric"
                             checked={unitType === 'metric'}
@@ -183,7 +183,7 @@ const PaverCalculation = () => {
                             className="text-base sm:text-lg"
                         />
                         <Radio
-                            label="Imperial"
+                            label={t('roofArea.common.imperial')}
                             name="unitType"
                             value="imperial"
                             checked={unitType === 'imperial'}
@@ -200,37 +200,37 @@ const PaverCalculation = () => {
                             unit="mm"
                             value={surfaceLength}
                             onChange={(e) => setSurfaceLength(e.target.value)}
-                            placeholder="Surface Length (L)"
+                            placeholder={t('roofArea.paver.surfaceLength')}
                         />
                         <InputField
                             unit="mm"
                             value={surfaceWidth}
                             onChange={(e) => setSurfaceWidth(e.target.value)}
-                            placeholder="Surface Width (W)"
+                            placeholder={t('roofArea.paver.surfaceWidth')}
                         />
                         <InputField
                             unit="mm"
                             value={paverLength}
                             onChange={(e) => setPaverLength(e.target.value)}
-                            placeholder="Paver Length (l)"
+                            placeholder={t('roofArea.paver.paverLength')}
                         />
                         <InputField
                             unit="mm"
                             value={paverWidth}
                             onChange={(e) => setPaverWidth(e.target.value)}
-                            placeholder="Paver Width (w)"
+                            placeholder={t('roofArea.paver.paverWidth')}
                         />
                         <InputField
                             suffix="₹/Unit"
                             value={paverPrice}
                             onChange={(e) => setPaverPrice(e.target.value)}
-                            placeholder="Paver Price (R)"
+                            placeholder={t('roofArea.paver.paverPrice')}
                         />
                         <InputField
                             suffix="₹/sq.m."
                             value={installationCost}
                             onChange={(e) => setInstallationCost(e.target.value)}
-                            placeholder="Installation Cost (I)"
+                            placeholder={t('roofArea.paver.installationCost')}
                         />
                     </div>
                 </div>
@@ -242,14 +242,14 @@ const PaverCalculation = () => {
                         onClick={handleReset}
                         className="h-[50px] flex-1 sm:flex-none px-6 sm:px-12 bg-white border-[#E7D7C1] !rounded-2xl text-primary font-medium text-sm sm:text-base"
                     >
-                        Reset
+                        {t('roofArea.common.reset')}
                     </Button>
                     <Button
                         variant="primary"
                         onClick={handleCalculate}
                         className="h-[50px] flex-1 sm:flex-none px-6 sm:px-12 !bg-[#B02E0C] text-white !rounded-2xl font-medium text-sm sm:text-base"
                     >
-                        Calculate
+                        {t('roofArea.common.calculate')}
                     </Button>
                 </div>
             </div>
@@ -258,7 +258,7 @@ const PaverCalculation = () => {
             {showResult && (
                 <div className="mt-10 animate-fade-in pb-10">
                     <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-2xl font-semibold text-primary">Result</h2>
+                        <h2 className="text-2xl font-semibold text-primary">{t('roofArea.common.result')}</h2>
                     </div>
 
                     {/* Tabs */}
@@ -267,13 +267,13 @@ const PaverCalculation = () => {
                             onClick={() => setUnitType('metric')}
                             className={`px-12 py-3 border-b-2 transition-all cursor-pointer font-medium ${unitType === 'metric' ? 'border-[#B02E0C] text-[#B02E0C]' : 'border-transparent text-secondary'}`}
                         >
-                            Metric
+                            {t('roofArea.common.metric')}
                         </button>
                         <button
                             onClick={() => setUnitType('imperial')}
                             className={`px-12 py-3 border-b-2 transition-all cursor-pointer font-medium ${unitType === 'imperial' ? 'border-[#B02E0C] text-[#B02E0C]' : 'border-transparent text-secondary'}`}
                         >
-                            Imperial
+                            {t('roofArea.common.imperial')}
                         </button>
                     </div>
 
@@ -282,21 +282,21 @@ const PaverCalculation = () => {
                         <table className="w-full text-left border-collapse min-w-[320px]">
                             <thead>
                                 <tr className="bg-[#F7F7F7] border-b border-[#060C120A]">
-                                    <th className="px-6 py-4 text-sm font-medium text-primary border-r border-[#060C120A]">Material</th>
-                                    <th className="px-6 py-4 text-sm font-medium text-primary border-r border-[#060C120A]">Quantity</th>
-                                    <th className="px-6 py-4 text-sm font-medium text-primary">Unit</th>
+                                    <th className="px-6 py-4 text-sm font-medium text-primary border-r border-[#060C120A]">{t('history.headers.material')}</th>
+                                    <th className="px-6 py-4 text-sm font-medium text-primary border-r border-[#060C120A]">{t('history.headers.quantity')}</th>
+                                    <th className="px-6 py-4 text-sm font-medium text-primary">{t('history.headers.unit')}</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-[#060C120A]">
                                 {[
-                                    { material: 'Surface Area', quantity: results.surfaceArea.toFixed(3), unit: 'sq.m.' },
-                                    { material: 'Number of Pavers', quantity: results.noOfPavers.toFixed(3), unit: 'NOS' },
-                                    { material: 'Paver Cost', quantity: results.paverCost.toFixed(3), unit: '₹' },
-                                    { material: 'Total Installation Cost', quantity: results.totalInstallationCost.toFixed(3), unit: '₹' },
-                                    { material: 'Total Expenses', quantity: results.totalExpenses.toFixed(3), unit: '₹' },
+                                    { materialKey: 'roofArea.paver.results.surfaceArea', quantity: results.surfaceArea.toFixed(3), unit: 'sq.m.' },
+                                    { materialKey: 'roofArea.paver.results.noOfPavers', quantity: results.noOfPavers.toFixed(3), unit: 'NOS' },
+                                    { materialKey: 'roofArea.paver.results.paverCost', quantity: results.paverCost.toFixed(3), unit: '₹' },
+                                    { materialKey: 'roofArea.paver.results.totalInstallationCost', quantity: results.totalInstallationCost.toFixed(3), unit: '₹' },
+                                    { materialKey: 'roofArea.paver.results.totalExpenses', quantity: results.totalExpenses.toFixed(3), unit: '₹' },
                                 ].map((row, index) => (
                                     <tr key={index} className="hover:bg-[#F9F9F9] transition-colors">
-                                        <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A]">{row.material}</td>
+                                        <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A]">{t(row.materialKey)}</td>
                                         <td className="px-6 py-4 text-sm text-primary border-r border-[#060C120A]">{row.quantity}</td>
                                         <td className="px-6 py-4 text-sm text-primary">{row.unit}</td>
                                     </tr>
@@ -317,7 +317,7 @@ const PaverCalculation = () => {
                             })}
                             className="!rounded-2xl text-lg font-medium hover:bg-[#B02E0C] transition-all h-[50px]"
                         >
-                            View Detailed Result
+                            {t('roofArea.common.viewDetailed')}
                         </Button>
                     </div>
                 </div>
@@ -327,7 +327,7 @@ const PaverCalculation = () => {
                 isOpen={isDownloadModalOpen}
                 onClose={() => setIsDownloadModalOpen(false)}
                 onDownload={handleDownload}
-                defaultTitle="Paver Detailed Report"
+                defaultTitle={t('roofArea.paver.detailedTitle')}
                 isLoading={isDownloading}
             />
         </div>

@@ -48,6 +48,23 @@
             "billOfQuantity": "ബിൽ ഓഫ് ക്വാണ്ടിറ്റി"
         }
     },
+    "waterProofing": {
+        "title": "വാട്ടർ പ്രൂഫിംഗ് കണക്കുകൂട്ടൽ",
+        "detailedTitle": "വിശദമായ വാട്ടർ പ്രൂഫിംഗ് റിപ്പോർട്ട്",
+        "inputs": "ഇൻപുട്ടുകൾ",
+        "outputs": "ഫലങ്ങൾ",
+        "brickLength": "ഇഷ്ടിക നീളം",
+        "brickWidth": "ഇഷ്ടിക വീതി",
+        "brickDepth": "ഇഷ്ടിക ആഴം",
+        "surfaceLength": "ഉപരിതല നീളം",
+        "surfaceWidth": "ഉപരിതല വീതി",
+        "waterProofingDepth": "വാട്ടർ പ്രൂഫിംഗ് ആഴം",
+        "mortarJoint": "മോർട്ടാർ ജോയിന്റ്",
+        "results": {
+            "noOfBricks": "മോർട്ടാർ ഉൾപ്പെടെയുള്ള ഇഷ്ടികകളുടെ എണ്ണം",
+            "volumeOfMortar": "മോർട്ടാർ വ്യാപ്തം"
+        }
+    },
     "comingSoon": {
         "title": "ഉടൻ വരുന്നു",
         "comingSoonText": "ഉടൻ വരുന്നു...",
@@ -69,7 +86,10 @@
         "headers": {
             "material": "സാമഗ്രി",
             "quantity": "അളവ്",
-            "unit": "യൂണിറ്റ്"
+            "unit": "യൂണിറ്റ്",
+            "inputName": "ഇൻപുട്ട് പേര്",
+            "symbol": "ചിഹ്നം",
+            "value": "മൂല്യം"
         },
         "materials": {
             "cement": "സിമന്റ്",
@@ -88,7 +108,9 @@
             "kg": "കിലോ",
             "liters": "ലിറ്റർ",
             "sqft": "ചതുരശ്ര അടി",
-            "nos": "എണ്ണം"
+            "nos": "എണ്ണം",
+            "liter": "ലിറ്റർ",
+            "gallon": "ഗാലൻ"
         },
         "works": {
             "design": "ഡിസൈൻ & എഞ്ചിനീയറിംഗ്",
@@ -629,7 +651,8 @@
             "reset": "റീസെറ്റ്",
             "calculate": "കണക്കുകൂട്ടുക",
             "quantity": "അളവ്",
-            "viewDetailedResult": "വിശദമായ ഫലം കാണുക",
+            "mmUnit": "mm",
+            "mUnit": "m",
             "m3Unit": "m³",
             "ft3Unit": "ft³",
             "brassUnit": "ബ്രാസ്",
@@ -767,6 +790,72 @@
             }
         }
     },
+    "swimmingPool": {
+        "title": "നീന്തൽക്കുളം",
+        "rectangular": {
+            "title": "ദീർഘചതുരാകൃതിയിലുള്ള നീന്തൽക്കുളം",
+            "detailedTitle": "ദീർഘചതുരാകൃതിയിലുള്ള നീന്തൽക്കുളം വിശദമായ റിപ്പോർട്ട്",
+            "length": "നീളം",
+            "width": "വീതി",
+            "depth": "ആഴം",
+            "results": {
+                "volume": "വ്യാപ്തം"
+            }
+        },
+        "circular": {
+            "title": "വൃത്താകൃതിയിലുള്ള നീന്തൽക്കുളം",
+            "detailedTitle": "വൃത്താകൃതിയിലുള്ള നീന്തൽക്കുളം വിശദമായ റിപ്പോർട്ട്",
+            "radius": "ആരം",
+            "depth": "ആഴം",
+            "results": {
+                "volume": "വ്യാപ്തം"
+            }
+        },
+        "oval": {
+            "title": "അണ്ഡാകൃതിയിലുള്ള നീന്തൽക്കുളം",
+            "detailedTitle": "അണ്ഡാകൃതിയിലുള്ള നീന്തൽക്കുളം വിശദമായ റിപ്പോർട്ട്",
+            "radiusA": "ആരം A",
+            "radiusB": "ആരം B",
+            "depth": "ആഴം",
+            "results": {
+                "volume": "വ്യാപ്തം"
+            }
+        },
+        "roman": {
+            "title": "റോമൻ നീന്തൽക്കുളം",
+            "detailedTitle": "റോമൻ നീന്തൽക്കുളം വിശദമായ റിപ്പോർട്ട്",
+            "length": "നീളം",
+            "width": "വീതി",
+            "depth": "ആഴം",
+            "results": {
+                "volume": "വ്യാപ്തം"
+            }
+        },
+        "grecian": {
+            "title": "ഗ്രീഷ്യൻ നീന്തൽക്കുളം",
+            "detailedTitle": "ഗ്രീഷ്യൻ നീന്തൽക്കുളം വിശദമായ റിപ്പോർട്ട്",
+            "lengthA": "നീളം A",
+            "lengthB": "നീളം B",
+            "c": "C",
+            "d": "D",
+            "depth": "ആഴം",
+            "results": {
+                "volume": "വ്യാപ്തം"
+            }
+        },
+        "lShape": {
+            "title": "എൽ ആകൃതിയിലുള്ള നീന്തൽക്കുളം",
+            "detailedTitle": "എൽ ആകൃതിയിലുള്ള നീന്തൽക്കുളം വിശദമായ റിപ്പോർട്ട്",
+            "lengthA": "നീളം A",
+            "lengthB": "നീളം B",
+            "c": "C",
+            "d": "D",
+            "depth": "ആഴം",
+            "results": {
+                "volume": "വ്യാപ്തം"
+            }
+        }
+    },
     "downloadPDF": {
         "title": "PDF തരം ഡൌൺലോഡ് ചെയ്യുക",
         "titleLabel": "ശീർഷകം",
@@ -774,5 +863,135 @@
         "cancel": "റദ്ദാക്കുക",
         "download": "ഡൌൺലോഡ്",
         "downloading": "ഡൌൺലോഡ് ചെയ്യുന്നത്..."
+    },
+    "metal": {
+        "title": "മെറ്റൽ കാൽക്കുലേറ്റർ",
+        "common": {
+            "metric": "മെട്രിക്",
+            "imperial": "ഇംപീരിയൽ",
+            "typeOfMetal": "ലോഹത്തിന്റെ തരം",
+            "selectMetal": "ലോഹം തിരഞ്ഞെടുക്കുക",
+            "reset": "റീസെറ്റ്",
+            "calculate": "കണക്കുകൂട്ടുക",
+            "result": "ഫലം",
+            "totalCost": "ആകെ ചെലവ്",
+            "noOfUnits": "യൂണിറ്റുകളുടെ എണ്ണം",
+            "rateOfMetal": "ലോഹത്തിന്റെ നിരക്ക്",
+            "unitWeight": "യൂണിറ്റ് ഭാരം",
+            "totalWeight": "ആകെ ഭാരം",
+            "totalPrice": "ആകെ വില",
+            "units": {
+                "mm": "mm",
+                "m": "മീറ്റർ",
+                "kg": "കിലോ",
+                "unit": "യൂണിറ്റ്",
+                "perKg": "₹/കിലോ",
+                "kgPerM3": "കിലോ/മീ³",
+                "currency": "₹"
+            }
+        },
+        "densities": {
+            "steel": "സ്റ്റീൽ",
+            "aluminum": "അലുമിനിയം",
+            "copper": "ചെമ്പ് (Copper)",
+            "brass": "പിച്ചള (Brass)",
+            "stainless_steel": "സ്റ്റെയിൻലെസ്സ് സ്റ്റീൽ"
+        },
+        "pipe": {
+            "d1": "D1",
+            "d2": "D2",
+            "height": "ഉയരം - H"
+        },
+        "roundBar": {
+            "d": "വ്യാസം - d",
+            "length": "നീളം - L"
+        },
+        "squareBar": {
+            "width": "വീതി - W",
+            "length": "നീളം - L"
+        },
+        "squareTubing": {
+            "sideA": "വശം - a",
+            "sideB": "വശം - b",
+            "lengthL": "നീളം - L"
+        },
+        "tBar": {
+            "sideA": "വശം - a",
+            "sideB": "വശം - b",
+            "thicknessT": "കനം - T",
+            "lengthL": "നീളം - L"
+        },
+        "angle": {
+            "sideA": "വശം - a",
+            "sideB": "വശം - b",
+            "thicknessT": "കനം - T",
+            "lengthL": "നീളം - L"
+        },
+        "channel": {
+            "sideA": "വശം - a",
+            "sideB": "വശം - b",
+            "thicknessT": "കനം - T",
+            "thicknessT1": "കനം - T1",
+            "lengthL": "നീളം - L"
+        },
+        "beam": {
+            "sideA": "വശം - a",
+            "sideB": "വശം - b",
+            "thicknessT": "കനം - T",
+            "thicknessT1": "കനം - T1",
+            "lengthL": "നീളം - L"
+        },
+        "flatBar": {
+            "sideA": "വശം - a",
+            "sideB": "വശം - b",
+            "lengthL": "നീളം - L"
+        },
+        "hexagonalBar": {
+            "sideA": "വശം - a",
+            "lengthL": "നീളം - L"
+        },
+        "triangularBar": {
+            "sideA": "വശം - a",
+            "lengthL": "നീളം - L"
+        },
+        "sections": {
+            "quantity": "അളവ്",
+            "boltedJoints": "ബോൾട്ടഡ് ജോയിന്റുകൾ",
+            "weldedJoints": "വെൽഡഡ് ജോയിന്റുകൾ"
+        },
+        "quantity": {
+            "pipe": "പൈപ്പ് മെറ്റൽ കാൽക്കുലേറ്റർ",
+            "roundBar": "റൗണ്ട് ബാർ മെറ്റൽ കാൽക്കുലേറ്റർ",
+            "squareBar": "സ്ക്വയർ ബാർ മെറ്റൽ കാൽക്കുലേറ്റർ",
+            "squareTubing": "സ്ക്വയർ ട്യൂബിംഗ് മെറ്റൽ കാൽക്കുലേറ്റർ",
+            "tBar": "ടി ബാർ മെറ്റൽ കാൽക്കുലേറ്റർ",
+            "beam": "ബീം മെറ്റൽ കാൽക്കുലേറ്റർ",
+            "channel": "ചാനൽ മെറ്റൽ കാൽക്കുലേറ്റർ",
+            "angle": "ആംഗിൾ മെറ്റல் കാൽക്കുലേറ്റർ",
+            "flatBar": "ഫ്ലാറ്റ് ബാർ മെറ്റൽ കാൽക്കുലേറ്റർ",
+            "sheet": "ഷീറ്റ് മെറ്റൽ കാൽക്കുലേറ്റർ",
+            "hexagonalBar": "ഹെക്സഗണൽ ബാർ മെറ്റൽ കാൽക്കുലേറ്റർ",
+            "triangularBar": "ട്രയാംഗുലർ ബാർ മെറ്റൽ കാൽക്കുലേറ്റർ",
+            "triangularPipe": {
+                "title": "ട്രയാംഗുലർ പൈപ്പ് മെറ്റൽ കാൽക്കുലേറ്റർ",
+                "sideA": "വശം - a",
+                "thicknessT": "കനം - T",
+                "lengthL": "നീളം - L"
+            }
+        },
+        "bolted": {
+            "clevis": "ക്ലെവിസ് ബോൾട്ടഡ് ജോയിന്റുകൾ",
+            "blind": "ബ്ലൈൻഡ് ബോൾട്ടഡ് ജോയിന്റുകൾ",
+            "flange": "ഫ്ലേഞ്ച് ബോൾട്ടഡ് ജോയിന്റുകൾ",
+            "pinned": "പിൻഡ് ബോൾട്ടഡ് ജോയിന്റുകൾ",
+            "lap": "ലാപ് ബോൾട്ടഡ് ജോയിന്റുകൾ"
+        },
+        "welded": {
+            "butt": "ബട്ട് വെൽഡഡ് ജോയിന്റ്",
+            "corner": "കോർണർ വെൽഡഡ് ജോയിന്റ്",
+            "lap": "ലാപ് വെൽഡഡ് ജോയിന്റ്",
+            "tJoint": "ടി-ജോയിന്റ് വെൽഡഡ് ജോയിന്റ്",
+            "edge": "എഡ്ജ് വെൽഡഡ് ജോയിന്റ്"
+        }
     }
 }

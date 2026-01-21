@@ -48,6 +48,23 @@
             "billOfQuantity": "Bill of Quantity"
         }
     },
+    "waterProofing": {
+        "title": "Water Proofing Calculation",
+        "detailedTitle": "Detailed Water Proofing Report",
+        "inputs": "Inputs",
+        "outputs": "Outputs",
+        "brickLength": "Brick Length",
+        "brickWidth": "Brick Width",
+        "brickDepth": "Brick Depth",
+        "surfaceLength": "Surface Length",
+        "surfaceWidth": "Surface Width",
+        "waterProofingDepth": "Waterproofing Depth",
+        "mortarJoint": "Mortar Joint",
+        "results": {
+            "noOfBricks": "No of Bricks With Mortar",
+            "volumeOfMortar": "Volume of Mortar"
+        }
+    },
     "comingSoon": {
         "title": "Coming Soon",
         "comingSoonText": "Coming Soon...",
@@ -69,7 +86,10 @@
         "headers": {
             "material": "Material",
             "quantity": "Quantity",
-            "unit": "Unit"
+            "unit": "Unit",
+            "inputName": "Input Name",
+            "symbol": "Symbol",
+            "value": "Value"
         },
         "materials": {
             "cement": "Cement",
@@ -88,7 +108,9 @@
             "kg": "Kg",
             "liters": "Liters",
             "sqft": "sq.ft",
-            "nos": "Nos"
+            "nos": "Nos",
+            "liter": "Liter",
+            "gallon": "Gallon"
         },
         "works": {
             "design": "Design and Engg",
@@ -675,12 +697,15 @@
             "length": "Length",
             "diameter": "Diameter",
             "depth": "Depth",
+            "mmUnit": "mm",
+            "mUnit": "m",
             "m3Unit": "m³",
             "ft3Unit": "ft³",
             "brassUnit": "Brass"
         }
     },
     "roofArea": {
+        "landingPageTitle": "Roof Area & Pitch Calculator",
         "common": {
             "metric": "Metric",
             "imperial": "Imperial",
@@ -848,6 +873,195 @@
                 "totalInstallationCost": "Total Installation Cost",
                 "totalExpenses": "Total Expenses"
             }
+        },
+        "tileGrout": {
+            "title": "Tile Grout Calculation",
+            "detailedTitle": "Tile Grout Detailed Report",
+            "roomLength": "Room Length",
+            "roomWidth": "Room Width",
+            "tileLength": "Tile Length",
+            "tileWidth": "Tile Width",
+            "gapWidth": "Gap Width",
+            "gapDepth": "Gap Depth",
+            "weightPerBag": "Weight Per Bag",
+            "results": {
+                "totalRoomArea": "Total Room Area",
+                "noOfTiles": "No Of Tiles",
+                "groutVolume": "Grout Volume",
+                "groutBags": "Grout Bags"
+            }
+        }
+    },
+    "excavation": {
+        "vertical": {
+            "title": "Vertical Excavation",
+            "detailedTitle": "Vertical Excavation Detailed Report",
+            "length": "Length",
+            "width": "Width",
+            "depth": "Depth",
+            "tripVolume": "1 Trip Volume",
+            "price": "Price",
+            "results": {
+                "capacity": "Capacity",
+                "numberOfTrips": "Number of Trips",
+                "totalCost": "Total Cost"
+            }
+        },
+        "slop": {
+            "title": "Slop Excavation",
+            "detailedTitle": "Slop Excavation Detailed Report",
+            "length": "Length",
+            "breadth": "Breadth",
+            "depth": "Depth",
+            "height": "Height",
+            "tripVolume": "1 Trip Volume",
+            "price": "Price",
+            "results": {
+                "capacity": "Capacity",
+                "numberOfTrips": "Number of Trips",
+                "totalCost": "Total Cost"
+            }
+        },
+        "slopBackfilling1": {
+            "title": "Slop Backfilling 1",
+            "detailedTitle": "Slop Backfilling 1 Detailed Report",
+            "length": "Length",
+            "base": "Base",
+            "height": "Height",
+            "tripVolume": "1 Trip Volume",
+            "price": "Price",
+            "results": {
+                "materialVolume": "Material Volume",
+                "numberOfTrips": "No of Trips",
+                "totalCost": "Total Cost"
+            }
+        },
+        "slopBackfilling2": {
+            "title": "Slop Backfilling 2",
+            "detailedTitle": "Slop Backfilling 2 Detailed Report",
+            "length": "Length",
+            "base": "Base",
+            "heightH1": "Height H1",
+            "heightH2": "Height H2",
+            "tripVolume": "1 Trip Volume",
+            "price": "Price",
+            "results": {
+                "materialVolume": "Material Volume",
+                "numberOfTrips": "No of Trips",
+                "totalCost": "Total Cost"
+            }
+        }
+    },
+    "swimmingPool": {
+        "title": "Swimming Pool",
+        "rectangular": {
+            "title": "Rectangular Swimming Pool",
+            "detailedTitle": "Rectangular Swimming Pool Detailed Report",
+            "length": "Length",
+            "width": "Width",
+            "depth": "Depth",
+            "results": {
+                "volume": "Volume"
+            }
+        },
+        "circular": {
+            "title": "Circular Swimming Pool",
+            "detailedTitle": "Circular Swimming Pool Detailed Report",
+            "radius": "Radius",
+            "depth": "Depth",
+            "results": {
+                "volume": "Volume"
+            }
+        },
+        "oval": {
+            "title": "Oval Swimming Pool",
+            "detailedTitle": "Oval Swimming Pool Detailed Report",
+            "radiusA": "Radius A",
+            "radiusB": "Radius B",
+            "depth": "Depth",
+            "results": {
+                "volume": "Volume"
+            }
+        },
+        "roman": {
+            "title": "Roman Swimming Pool",
+            "detailedTitle": "Roman Swimming Pool Detailed Report",
+            "length": "Length",
+            "width": "Width",
+            "depth": "Depth",
+            "results": {
+                "volume": "Volume"
+            }
+        },
+        "grecian": {
+            "title": "Grecian Swimming Pool",
+            "detailedTitle": "Grecian Swimming Pool Detailed Report",
+            "lengthA": "Length A",
+            "lengthB": "Length B",
+            "c": "C",
+            "d": "D",
+            "depth": "Depth",
+            "results": {
+                "volume": "Volume"
+            }
+        },
+        "lShape": {
+            "title": "L Shape Swimming Pool",
+            "detailedTitle": "L Shape Swimming Pool Detailed Report",
+            "lengthA": "Length A",
+            "lengthB": "Length B",
+            "c": "C",
+            "d": "D",
+            "depth": "Depth",
+            "results": {
+                "volume": "Volume"
+            }
+        }
+    },
+    "waterTank": {
+        "rectangular": {
+            "title": "Rectangular Water Tank",
+            "detailedTitle": "Rectangular Water Tank Detailed Report",
+            "length": "Length",
+            "width": "Width",
+            "depth": "Depth",
+            "results": {
+                "capacity": "Capacity"
+            }
+        },
+        "cylindrical": {
+            "title": "Cylindrical Water Tank",
+            "detailedTitle": "Cylindrical Water Tank Detailed Report",
+            "radius": "Radius",
+            "height": "Height",
+            "results": {
+                "capacity": "Capacity"
+            }
+        },
+        "partlyFilledCircular": {
+            "title": "Partly Filled Circular Water Tank",
+            "detailedTitle": "Partly Filled Circular Water Tank Detailed Report",
+            "radius": "Radius",
+            "height": "Height",
+            "waterLevel": "Water Level",
+            "results": {
+                "totalCapacity": "Total Capacity",
+                "waterQuantity": "Water Quantity",
+                "filledPercentage": "Filled %"
+            }
+        },
+        "partlyFilledRectangular": {
+            "title": "Partly Filled Rectangular Water Tank",
+            "detailedTitle": "Partly Filled Rectangular Water Tank Detailed Report",
+            "length": "Length",
+            "width": "Width",
+            "height": "Height",
+            "waterLevel": "Water Level",
+            "results": {
+                "totalCapacity": "Total Capacity",
+                "waterQuantity": "Water Quantity",
+                "filledPercentage": "Filled %"
+            }
         }
     },
     "downloadPDF": {
@@ -857,5 +1071,135 @@
         "cancel": "Cancel",
         "download": "Download",
         "downloading": "Downloading..."
+    },
+    "metal": {
+        "title": "Metal Calculator",
+        "common": {
+            "metric": "Metric",
+            "imperial": "Imperial",
+            "typeOfMetal": "Type of Metal",
+            "selectMetal": "Select metal",
+            "reset": "Reset",
+            "calculate": "Calculate",
+            "result": "Result",
+            "totalCost": "Total Cost",
+            "noOfUnits": "No of Units",
+            "rateOfMetal": "Rate of Metal",
+            "unitWeight": "Unit Weight",
+            "totalWeight": "Total Weight",
+            "totalPrice": "Total Price",
+            "units": {
+                "mm": "mm",
+                "m": "m",
+                "kg": "Kg",
+                "unit": "Unit",
+                "perKg": "₹/Kg",
+                "kgPerM3": "Kg/m³",
+                "currency": "₹"
+            }
+        },
+        "densities": {
+            "steel": "Steel",
+            "aluminum": "Aluminum",
+            "copper": "Copper",
+            "brass": "Brass",
+            "stainless_steel": "Stainless Steel"
+        },
+        "pipe": {
+            "d1": "D1",
+            "d2": "D2",
+            "height": "Height - H"
+        },
+        "roundBar": {
+            "d": "Diameter - d",
+            "length": "Length - L"
+        },
+        "squareBar": {
+            "width": "Width - W",
+            "length": "Length - L"
+        },
+        "squareTubing": {
+            "sideA": "Side - a",
+            "sideB": "Side - b",
+            "lengthL": "Length - L"
+        },
+        "tBar": {
+            "sideA": "Side - a",
+            "sideB": "Side - b",
+            "thicknessT": "Thickness - T",
+            "lengthL": "Length - L"
+        },
+        "angle": {
+            "sideA": "Side - a",
+            "sideB": "Side - b",
+            "thicknessT": "Thickness - T",
+            "lengthL": "Length - L"
+        },
+        "channel": {
+            "sideA": "Side - a",
+            "sideB": "Side - b",
+            "thicknessT": "Thickness - T",
+            "thicknessT1": "Thickness - T1",
+            "lengthL": "Length - L"
+        },
+        "beam": {
+            "sideA": "Side - a",
+            "sideB": "Side - b",
+            "thicknessT": "Thickness - T",
+            "thicknessT1": "Thickness - T1",
+            "lengthL": "Length - L"
+        },
+        "flatBar": {
+            "sideA": "Side - a",
+            "sideB": "Side - b",
+            "lengthL": "Length - L"
+        },
+        "hexagonalBar": {
+            "sideA": "Side - a",
+            "lengthL": "Length - L"
+        },
+        "triangularBar": {
+            "sideA": "Side - a",
+            "lengthL": "Length - L"
+        },
+        "sections": {
+            "quantity": "Quantity",
+            "boltedJoints": "Bolted Joints",
+            "weldedJoints": "Welded Joints"
+        },
+        "quantity": {
+            "pipe": "Pipe Metal Calculator",
+            "roundBar": "Round Bar Metal Calculator",
+            "squareBar": "Square Bar Metal Calculator",
+            "squareTubing": "Square Tubing Metal Calculator",
+            "tBar": "T Bar Metal Calculator",
+            "beam": "Beam Metal Calculator",
+            "channel": "Channel Metal Calculator",
+            "angle": "Angle Metal Calculator",
+            "flatBar": "Flat Bar Metal Calculator",
+            "sheet": "Sheet Metal Calculator",
+            "hexagonalBar": "Hexagonal Bar Metal Calculator",
+            "triangularBar": "Triangular Bar Metal Calculator",
+            "triangularPipe": {
+                "title": "Triangular Pipe Metal Calculator",
+                "sideA": "Side - a",
+                "thicknessT": "Thickness - T",
+                "lengthL": "Length - L"
+            }
+        },
+        "bolted": {
+            "clevis": "Clevis Bolted Joints",
+            "blind": "Blind Bolted Joints",
+            "flange": "Flange Bolted Joints",
+            "pinned": "Pinned Bolted Joints",
+            "lap": "Lap Bolted Joints"
+        },
+        "welded": {
+            "butt": "Butt Welded Joint",
+            "corner": "Corner Welded Joint",
+            "lap": "Lap Welded Joint",
+            "tJoint": "T-joint Welded Joint",
+            "edge": "Edge Welded Joint"
+        }
     }
 }

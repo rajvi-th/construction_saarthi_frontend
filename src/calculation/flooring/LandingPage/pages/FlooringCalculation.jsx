@@ -16,16 +16,16 @@ const FlooringCalculation = () => {
     const navigate = useNavigate();
 
     const items = [
-        { id: 'flooring', title: 'Flooring', icon: flooringIcon, path: ROUTES_FLAT.CALCULATION_FLOORING_FLOORING },
-        { id: 'paver', title: 'Paver Calculation', icon: paverCalculationIcon, path: ROUTES_FLAT.CALCULATION_FLOORING_PAVER },
-        { id: 'tileGrout', title: 'Tile Grout', icon: tileGroutIcon, path: ROUTES_FLAT.CALCULATION_FLOORING_TILE_GROUT },
+        { id: 'flooring', title: t('roofArea.flooring.title'), icon: flooringIcon, path: ROUTES_FLAT.CALCULATION_FLOORING_FLOORING },
+        { id: 'paver', title: t('roofArea.paver.title'), icon: paverCalculationIcon, path: ROUTES_FLAT.CALCULATION_FLOORING_PAVER },
+        { id: 'tileGrout', title: t('roofArea.tileGrout.title'), icon: tileGroutIcon, path: ROUTES_FLAT.CALCULATION_FLOORING_TILE_GROUT },
     ];
 
     return (
         <div className="min-h-screen max-w-7xl mx-auto pb-20">
             <div className="mb-6">
                 <PageHeader
-                    title="Flooring Calculation"
+                    title={t('quickActions.items.flooringCalculation')}
                     showBackButton
                     onBack={() => navigate(-1)}
                 />

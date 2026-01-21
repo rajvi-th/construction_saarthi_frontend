@@ -40,46 +40,7 @@ const Flooring = () => {
     const S = parseFloat(wastageS) || 0;
 
     // Logic to replicate Image 0 Results:
-    // Example: L=10, W=8, D=4, H=10, l=304, w=304, S=5
-    // Floor Area = 10 * 8 = 80
-    // Skirting Length = 2*(10+8) - 4 = 32
-    // Skirting Area = 32 * (10/1000) = 0.32
-    // Total Area = 80 + 0.32 = 80.32
-    // Tile Area = (304/1000)*(304/1000) = 0.092416
-    // No of Blocks = (80.32 / 0.092416) * (1 + 5/100) = 869.11 * 1.05 = 912.56
-    // Wait, Image 0 shows "908.168".
-    // Let's re-calculate logic from image 1:
-    // Formula: ((LXW+(2X(L+W)-d/1000)XH/ 1000)/ ((1/1000)X(w/1000)))X(1+S/100)
-    // Wait, "d/1000"? If d = 4000 (mm)? No, if d=4 (m).
-    // Let's try d=4 (m): 2*(10+8) - 4 = 32. 32 * 10/1000 = 0.32. Total Area = 80.32.
-    // Tiles = 80.32 / (0.304 * 0.304) = 869.11. With 5% wastage = 912.56.
-    // If Door Width D was skipped or handled differently?
-    // Maybe (1/1000)X(w/1000) in denominator is tile area.
-    // Let's check Tile length "l" vs "1". Image shows "l" (lowercase L).
-    // Formula in detail: ((LXW+(2X(L+W)-d/1000)XH/ 1000)/ ((1/1000)X(w/1000)))X(1+S/100)
-    // Wait, "(1/1000)"? Not "l/1000"?
-    // Image 1 says: "Tile Length - l - 304 mm".
-    // "Tile Width - w - 304 mm".
-    // Formula says: "((1/1000)X(w/1000))". This is probably a typo for (l/1000).
-    // If I use 1mm? No.
-    // Let's check if 80 / 0.092416 = 865.65. With 5% = 908.9. Close to 908.168.
-    // If Skirting was 0? 80 / 0.092416 * 1.05 = 908.93.
-    // Still not exactly 908.168.
-    // Let's try: 908.168 / 1.05 = 864.92.
-    // 80 / 864.92 = 0.09249?
-    // 304 * 304 = 92416.
-    // 80 / (92416 / 1000000) = 865.65.
-    // Maybe Skirting Length calculation is different. 2*(L+W) - D. 2*(18)-4 = 32.
-    // 32 * 0.01 = 0.32. 80.32 / 0.092416 * 1.05 = 912.56.
-    // What if door width was subtracted from 2*(L+W) but D was mm and should be converted?
-    // Formula says "d/1000". If D=4000? 2*(18) - 4 = 32.
-    // I will stick to the logic provided in the formula string from the image:
-    // Blocks = ((L * W + (2 * (L + W) - D / 1000) * H / 1000) / ((l / 1000) * (w / 1000))) * (1 + S / 100)
-    // For Cementbags: (L * W * 0.07 / 7) / 0.035
-    // L*W * 0.01 / 0.035 = 80 * 0.01 / 0.035 = 0.8 / 0.035 = 22.857.
-    // Value column in Image 0 shows "22" (maybe floored?).
-    // Formula line in Image 1 shows "22.857 Bags(50KG)".
-    // So calculation is correct.
+    // ... (same as before)
 
     const door_m = D / 1000; // Formula says d/1000
     const h_m = H / 1000;

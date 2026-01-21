@@ -48,6 +48,23 @@
             "billOfQuantity": "سامان کا بل"
         }
     },
+    "waterProofing": {
+        "title": "واٹر پروفنگ حساب کتاب",
+        "detailedTitle": "واٹر پروفنگ کی تفصیلی رپورٹ",
+        "inputs": "ان پٹس",
+        "outputs": "نتائج",
+        "brickLength": "اینٹ کی لمبائی",
+        "brickWidth": "اینٹ کی چوڑائی",
+        "brickDepth": "اینٹ کی گہرائی",
+        "surfaceLength": "سطح کی لمبائی",
+        "surfaceWidth": "سطح کی چوڑائی",
+        "waterProofingDepth": "واٹر پروفنگ کی گہرائی",
+        "mortarJoint": "مسالہ کا جوڑ",
+        "results": {
+            "noOfBricks": "مسالے کے ساتھ اینٹوں کی تعداد",
+            "volumeOfMortar": "مسالے کا حجم"
+        }
+    },
     "comingSoon": {
         "title": "جلد آ رہا ہے",
         "comingSoonText": "جلد آ رہا ہے...",
@@ -69,7 +86,10 @@
         "headers": {
             "material": "سامان",
             "quantity": "مقدار",
-            "unit": "یونٹ"
+            "unit": "یونٹ",
+            "inputName": "ان پٹ کا نام",
+            "symbol": "علامت",
+            "value": "قیمت"
         },
         "materials": {
             "cement": "سیمنٹ",
@@ -88,7 +108,9 @@
             "kg": "کلو",
             "liters": "لیٹر",
             "sqft": "مربع فٹ",
-            "nos": "تعدا"
+            "nos": "تعدا",
+            "liter": "لیٹر",
+            "gallon": "گیلن"
         },
         "works": {
             "design": "ڈیزائن اور انجینئرنگ",
@@ -625,7 +647,8 @@
             "reset": "ری سیٹ",
             "calculate": "حساب لگائیں",
             "quantity": "مقدار",
-            "viewDetailedResult": "تفصیلی نتیجہ دیکھیں",
+            "mmUnit": "mm",
+            "mUnit": "m",
             "m3Unit": "m³",
             "ft3Unit": "ft³",
             "brassUnit": "براس",
@@ -763,6 +786,72 @@
             }
         }
     },
+    "swimmingPool": {
+        "title": "سوئمنگ پول",
+        "rectangular": {
+            "title": "مستطیل سوئمنگ پول",
+            "detailedTitle": "مستطیل سوئمنگ پول کی تفصیلی رپورٹ",
+            "length": "لمبائی",
+            "width": "چوڑائی",
+            "depth": "گہرائی",
+            "results": {
+                "volume": "حجم"
+            }
+        },
+        "circular": {
+            "title": "گول سوئمنگ پول",
+            "detailedTitle": "گول سوئمنگ پول کی تفصیلی رپورٹ",
+            "radius": "رداس",
+            "depth": "گہرائی",
+            "results": {
+                "volume": "حجم"
+            }
+        },
+        "oval": {
+            "title": "بیضوی سوئمنگ پول",
+            "detailedTitle": "بیضوی سوئمنگ پول کی تفصیلی رپورٹ",
+            "radiusA": "رداس A",
+            "radiusB": "رداس B",
+            "depth": "گہرائی",
+            "results": {
+                "volume": "حجم"
+            }
+        },
+        "roman": {
+            "title": "رومن سوئمنگ پول",
+            "detailedTitle": "رومن سوئمنگ پول کی تفصیلی رپورٹ",
+            "length": "لمبائی",
+            "width": "چوڑائی",
+            "depth": "گہرائی",
+            "results": {
+                "volume": "حجم"
+            }
+        },
+        "grecian": {
+            "title": "گریشین سوئمنگ پول",
+            "detailedTitle": "گریشین سوئمنگ پول کی تفصیلی رپورٹ",
+            "lengthA": "لمبائی A",
+            "lengthB": "لمبائی B",
+            "c": "C",
+            "d": "D",
+            "depth": "گہرائی",
+            "results": {
+                "volume": "حجم"
+            }
+        },
+        "lShape": {
+            "title": "ایل سائز سوئمنگ پول",
+            "detailedTitle": "ایل سائز سوئمنگ پول کی تفصیلی رپورٹ",
+            "lengthA": "لمبائی A",
+            "lengthB": "لمبائی B",
+            "c": "C",
+            "d": "D",
+            "depth": "گہرائی",
+            "results": {
+                "volume": "حجم"
+            }
+        }
+    },
     "downloadPDF": {
         "title": "PDF کے طور پر ڈاؤن لوڈ کریں",
         "titleLabel": "عنوان",
@@ -770,5 +859,131 @@
         "cancel": "منسوخ کریں",
         "download": "ڈاؤن لوڈ کریں",
         "downloading": "ڈاؤن لوڈ ہو رہا ہے..."
+    },
+    "metal": {
+        "title": "میٹل کیلکولیٹر",
+        "common": {
+            "metric": "میٹرک",
+            "imperial": "امپیریل",
+            "typeOfMetal": "دھات کی قسم",
+            "selectMetal": "دھات منتخب کریں",
+            "reset": "ری سیٹ کریں",
+            "calculate": "حساب لگائیں",
+            "result": "نتیجہ",
+            "totalCost": "کل لاگت",
+            "noOfUnits": "یونٹوں کی تعداد",
+            "rateOfMetal": "دھات کی شرح",
+            "unitWeight": "فی یونٹ وزن",
+            "totalWeight": "کل وزن",
+            "totalPrice": "کل قیمت",
+            "units": {
+                "mm": "mm",
+                "m": "m",
+                "kg": "کلو",
+                "unit": "یونٹ",
+                "perKg": "₹/کلو",
+                "kgPerM3": "کلو/میٹر مکعب",
+                "currency": "₹"
+            }
+        },
+        "densities": {
+            "steel": "سٹیل",
+            "aluminum": "ایلومینیم",
+            "copper": "تانبا",
+            "brass": "پیتل",
+            "stainless_steel": "سٹینلیس سٹیل"
+        },
+        "pipe": {
+            "d1": "D1",
+            "d2": "D2",
+            "height": "اونچائی - H"
+        },
+        "roundBar": {
+            "d": "قطر - d",
+            "length": "لمبائی - L"
+        },
+        "squareBar": {
+            "width": "چوڑائی - W",
+            "length": "لمبائی - L"
+        },
+        "squareTubing": {
+            "sideA": "ضلع - a",
+            "sideB": "ضلع - b",
+            "lengthL": "لمبائی - L"
+        },
+        "tBar": {
+            "sideA": "ضلع - a",
+            "sideB": "ضلع - b",
+            "thicknessT": "موٹائی - T",
+            "lengthL": "لمبائی - L"
+        },
+        "angle": {
+            "sideA": "ضلع - a",
+            "sideB": "ضلع - b",
+            "thicknessT": "موٹائی - T",
+            "lengthL": "لمبائی - L"
+        },
+        "channel": {
+            "sideA": "ضلع - a",
+            "sideB": "ضلع - b",
+            "thicknessT": "موٹائی - T",
+            "thicknessT1": "موٹائی - T1",
+            "lengthL": "لمبائی - L"
+        },
+        "beam": {
+            "sideA": "ضلع - a",
+            "sideB": "ضلع - b",
+            "thicknessT": "موٹائی - T",
+            "thicknessT1": "موٹائی - T1",
+            "lengthL": "لمبائی - L"
+        },
+        "flatBar": {
+            "sideA": "ضلع - a",
+            "sideB": "ضلع - b",
+            "lengthL": "لمبائی - L"
+        },
+        "hexagonalBar": {
+            "sideA": "ضلع - a",
+            "lengthL": "لمبائی - L"
+        },
+        "sections": {
+            "quantity": "مقدار",
+            "boltedJoints": "بولٹڈ جوڑ",
+            "weldedJoints": "ویلڈڈ جوڑ"
+        },
+        "quantity": {
+            "pipe": "پائپ میٹل کیلکولیٹر",
+            "roundBar": "راؤنڈ بار میٹل کیلکولیٹر",
+            "squareBar": "اسکوائر بار میٹل کیلکولیٹر",
+            "squareTubing": "اسکوائر ٹیوبنگ میٹل کیلکولیٹر",
+            "tBar": "ٹی بار میٹل کیلکولیٹر",
+            "beam": "بیم میٹل کیلکولیٹر",
+            "channel": "چینل میٹل کیلکولیٹر",
+            "angle": "اینگل میٹل کیلکولیٹر",
+            "flatBar": "فلیٹ بار میٹل کیلکولیٹر",
+            "sheet": "شیٹ میٹل کیلکولیٹر",
+            "hexagonalBar": "ہیکساگونل بار میٹل کیلکولیٹر",
+            "triangularBar": "تیکون بار میٹل کیلکولیٹر",
+            "triangularPipe": {
+                "title": "تیکون پائپ میٹل کیلکولیٹر",
+                "sideA": "سائیڈ - a",
+                "thicknessT": "موٹائی - T",
+                "lengthL": "لمبائی - L"
+            }
+        },
+        "bolted": {
+            "clevis": "کلیویس بولٹڈ جوڑ",
+            "blind": "بلائنڈ بولٹڈ جوڑ",
+            "flange": "فلینج بولٹڈ جوڑ",
+            "pinned": "پنڈ بولٹڈ جوڑ",
+            "lap": "لیپ بولٹڈ جوڑ"
+        },
+        "welded": {
+            "butt": "بٹ ویلڈڈ جوڑ",
+            "corner": "کارنر ویلڈڈ جوڑ",
+            "lap": "لیپ ویلڈڈ جوڑ",
+            "tJoint": "ٹی-جوائنٹ ویلڈڈ جوڑ",
+            "edge": "ایج ویلڈڈ جوڑ"
+        }
     }
 }

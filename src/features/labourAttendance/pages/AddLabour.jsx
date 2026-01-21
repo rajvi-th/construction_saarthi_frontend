@@ -49,14 +49,13 @@ export default function AddLabour() {
               shiftTypeId: data.shift_type_id,
               countryCode: data.country_code,
               contactNumber: data.phone_number,
-              // Convert 7418529635 to just the number if needed, but phone input usually handles it if country code is separate
               phoneNumber: data.phone_number,
               defaultDailyWage: data.daily_wage,
               aadharNumber: data.aadhar_number,
               joinDate: data.join_date,
-              profilePhoto: data.media?.profilePhoto || data.profilePhoto,
-              aadharCardPhoto: data.media?.aadharCard || data.aadharCardPhoto,
-              insurancePhoto: data.media?.insurancePhoto || data.insurancePhoto,
+              profilePhoto: data.media?.profilePhoto || data.profile_photo || '',
+              aadharCardPhoto: data.media?.aadharCard || data.aadhar_card_photo || '',
+              insurancePhoto: data.media?.insurancePhoto || data.insurance_photo || '',
             });
           }
         } catch (error) {
@@ -76,6 +75,9 @@ export default function AddLabour() {
   const handleSubmit = async (payload) => {
     if (isEdit) {
       try {
+        const idToUpdate = fetchedData?.id || editLabour?.id || labourData?.id;
+        if (!idToUpdate) throw new Error('Labour ID not found for update');
+
         const fd = new FormData();
         fd.append('workspace_id', String(selectedWorkspace || ''));
         fd.append('role', 'labour');
@@ -84,7 +86,11 @@ export default function AddLabour() {
         fd.append('project_id', String(payload?.assignProject || projectId || ''));
         fd.append('shift_type_id', String(payload?.shiftTypeId || ''));
         fd.append('country_code', String(payload?.countryCode || '+91'));
-        fd.append('contact_number', String(payload?.rawContactNumber || ''));
+
+        // Strip any non-numeric characters from contact number to match image
+        const cleanContactNumber = String(payload?.rawContactNumber || '').replace(/\D/g, '');
+        fd.append('contact_number', cleanContactNumber);
+
         fd.append('daily_wage', String(payload?.defaultDailyWage || ''));
         fd.append('join_date', formatYYYYMMDD(payload?.joinDate));
         fd.append('labour_aadhar_number', String(payload?.aadharNumber || ''));
@@ -93,18 +99,18 @@ export default function AddLabour() {
         const insuranceFile = Array.isArray(payload?.insuranceFiles) ? payload.insuranceFiles[0] : null;
         const profileFile = payload?.profilePhotoFile || null;
 
-        // Only append files if they are new File objects
-        if (aadharFile && aadharFile instanceof File) {
+        // Only append files if they are new File objects (selected by user)
+        if (aadharFile instanceof File) {
           fd.append('aadharCard', aadharFile);
         }
-        if (insuranceFile && insuranceFile instanceof File) {
+        if (insuranceFile instanceof File) {
           fd.append('insurancePhoto', insuranceFile);
         }
-        if (profileFile && profileFile instanceof File) {
+        if (profileFile instanceof File) {
           fd.append('profilePhoto', profileFile);
         }
 
-        await updateLabour(labourData.id, fd);
+        await updateLabour(idToUpdate, fd);
         showSuccess(t('addLabourForm.updatedSuccess', { defaultValue: 'Labour updated successfully' }));
         navigate(-1);
       } catch (err) {

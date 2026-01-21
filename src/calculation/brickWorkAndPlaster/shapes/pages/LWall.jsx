@@ -134,7 +134,7 @@ const LWall = () => {
     ];
 
     return (
-        <div className="min-h-screen max-w-7xl mx-auto pb-20 px-4">
+        <div className="min-h-screen max-w-7xl mx-auto pb-20">
             <div className="mb-6">
                 <PageHeader
                     title={t('brickWorkAndPlaster.shapes.lWall')}

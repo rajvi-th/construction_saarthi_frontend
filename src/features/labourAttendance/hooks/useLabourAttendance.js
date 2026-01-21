@@ -36,7 +36,7 @@ export const useLabourAttendance = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [dateRange, setDateRange] = useState(null);
-  
+
   // Filter states
   const [appliedFilters, setAppliedFilters] = useState({
     projects: '',
@@ -139,7 +139,7 @@ export const useLabourAttendance = () => {
     // Apply category filter
     if (appliedFilters.category) {
       const categoryId = String(appliedFilters.category);
-      filtered = filtered.filter((labour) => 
+      filtered = filtered.filter((labour) =>
         String(labour.category || '') === categoryId
       );
     }
@@ -190,7 +190,7 @@ export const useLabourAttendance = () => {
 
     const lid = Number(labourId);
     const toastId = showLoading(t('labourDetails.deletingLabour', { defaultValue: 'Deleting labour…' }));
-    
+
     try {
       await deleteLabour(lid);
       updateToast(toastId, { type: 'success', message: t('attendancePage.labourDeleted') });
@@ -215,9 +215,9 @@ export const useLabourAttendance = () => {
       halfDay: 'H',
       absent: 'A',
     };
-    
+
     const mappedStatus = filterValues.receiverName ? statusMap[filterValues.receiverName] || '' : '';
-    
+
     setAppliedFilters({
       projects: filterValues.projects || '',
       category: filterValues.category || '',
@@ -247,7 +247,7 @@ export const useLabourAttendance = () => {
     summary,
     isLoadingLabours,
     refetchLabours,
-    
+
     // Search/Filter state
     searchQuery,
     setSearchQuery,
@@ -256,7 +256,7 @@ export const useLabourAttendance = () => {
     dateRange,
     setDateRange,
     appliedFilters,
-    
+
     // Handlers
     handleStatusChange,
     handleMarkPaidLeave,

@@ -48,6 +48,23 @@
             "billOfQuantity": "ಸಾಮಗ್ರಿಗಳ ಮೌಲ್ಯಮಾಪನ"
         }
     },
+    "waterProofing": {
+        "title": "ವಾಟರ್ ಪ್ರೂಫಿಂಗ್ ಲೆಕ್ಕಾಚಾರ",
+        "detailedTitle": "ವಿವರವಾದ ವಾಟರ್ ಪ್ರೂಫಿಂಗ್ ವರದಿ",
+        "inputs": "ಇನ್‌ಪುಟ್‌ಗಳು",
+        "outputs": "ಔಟ್‌ಪುಟ್‌ಗಳು",
+        "brickLength": "ಇಟ್ಟಿಗೆ ಉದ್ದ",
+        "brickWidth": "ಇಟ್ಟಿಗೆ ಅಗಲ",
+        "brickDepth": "ಇಟ್ಟಿಗೆ ಆಳ",
+        "surfaceLength": "ಮೇಲ್ಮೈ ಉದ್ದ",
+        "surfaceWidth": "ಮೇಲ್ಮೈ ಅಗಲ",
+        "waterProofingDepth": "ವಾಟರ್ ಪ್ರೂಫಿಂಗ್ ಆಳ",
+        "mortarJoint": "ಗಾರೆ ಜಂಟಿ",
+        "results": {
+            "noOfBricks": "ಗಾರೆಯೊಂದಿಗೆ ಇಟ್ಟಿಗೆಗಳ ಸಂಖ್ಯೆ",
+            "volumeOfMortar": "ಗಾರೆಯ ಪ್ರಮಾಣ"
+        }
+    },
     "comingSoon": {
         "title": "ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ",
         "comingSoonText": "ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ...",
@@ -69,7 +86,10 @@
         "headers": {
             "material": "ಸಾಮಗ್ರಿ",
             "quantity": "ಪ್ರಮಾಣ",
-            "unit": "ಘಟಕ"
+            "unit": "ಘಟಕ",
+            "inputName": "ಇನ್‌ಪುಟ್ ಹೆಸರು",
+            "symbol": "ಚಿಹ್ನೆ",
+            "value": "ಮೌಲ್ಯ"
         },
         "materials": {
             "cement": "ಸಿಮೆಂಟ್",
@@ -88,7 +108,9 @@
             "kg": "ಕೆಜಿ",
             "liters": "ಲೀಟರ್",
             "sqft": "ಚದರ ಅಡಿ",
-            "nos": "ನಂ"
+            "nos": "ನಂ",
+            "liter": "ಲೀಟರ್",
+            "gallon": "ಗ್ಯಾಲನ್"
         },
         "works": {
             "design": "ವಿನ್ಯಾಸ ಮತ್ತು ಎಂಜಿನಿಯರಿಂಗ್",
@@ -623,7 +645,8 @@
             "reset": "ರಿಸೆಟ್",
             "calculate": "ಲೆಕ್ಕಾಚಾರ ಮಾಡಿ",
             "quantity": "ಪ್ರಮಾಣ",
-            "viewDetailedResult": "ವಿವರವಾದ ಫಲಿತಾಂಶವನ್ನು ವೀಕ್ಷಿಸಿ",
+            "mmUnit": "mm",
+            "mUnit": "m",
             "m3Unit": "m³",
             "ft3Unit": "ft³",
             "brassUnit": "ಬ್ರಾಸ್",
@@ -761,6 +784,72 @@
             }
         }
     },
+    "swimmingPool": {
+        "title": "ಈಜುಕೊಳ",
+        "rectangular": {
+            "title": "ಆಯತಾಕಾರದ ಈಜುಕೊಳ",
+            "detailedTitle": "ಆಯತಾಕಾರದ ಈಜುಕೊಳ ವಿವರವಾದ ವರದಿ",
+            "length": "ಉದ್ದ",
+            "width": "ಅಗಲ",
+            "depth": "ಆಳ",
+            "results": {
+                "volume": "ಗಾತ್ರ"
+            }
+        },
+        "circular": {
+            "title": "ವೃತ್ತಾಕಾರದ ಈಜುಕೊಳ",
+            "detailedTitle": "ವೃತ್ತಾಕಾರದ ಈಜುಕೊಳ ವಿವರವಾದ ವರದಿ",
+            "radius": "ತ್ರಿಜ್ಯ",
+            "depth": "ಆಳ",
+            "results": {
+                "volume": "ಗಾತ್ರ"
+            }
+        },
+        "oval": {
+            "title": "ಅಂಡಾಕಾರದ ಈಜುಕೊಳ",
+            "detailedTitle": "ಅಂಡಾಕಾರದ ಈಜುಕೊಳ ವಿವರವಾದ ವರದಿ",
+            "radiusA": "ತ್ರಿಜ್ಯ A",
+            "radiusB": "ತ್ರಿಜ್ಯ B",
+            "depth": "ಆಳ",
+            "results": {
+                "volume": "ಗಾತ್ರ"
+            }
+        },
+        "roman": {
+            "title": "ರೋಮನ್ ಈಜುಕೊಳ",
+            "detailedTitle": "ರೋಮನ್ ಈಜುಕೊಳ ವಿವರವಾದ ವರದಿ",
+            "length": "ಉದ್ದ",
+            "width": "ಅಗಲ",
+            "depth": "ಆಳ",
+            "results": {
+                "volume": "ಗಾತ್ರ"
+            }
+        },
+        "grecian": {
+            "title": "ಗ್ರೀಸಿಯನ್ ಈಜುಕೊಳ",
+            "detailedTitle": "ಗ್ರೀಸಿಯನ್ ಈಜುಕೊಳ ವಿವರವಾದ ವರದಿ",
+            "lengthA": "ಉದ್ದ A",
+            "lengthB": "ಉದ್ದ B",
+            "c": "C",
+            "d": "D",
+            "depth": "ಆಳ",
+            "results": {
+                "volume": "ಗಾತ್ರ"
+            }
+        },
+        "lShape": {
+            "title": "ಎಲ್ ಆಕಾರದ ಈಜುಕೊಳ",
+            "detailedTitle": "ಎಲ್ ಆಕಾರದ ಈಜುಕೊಳ ವಿವರವಾದ ವರದಿ",
+            "lengthA": "ಉದ್ದ A",
+            "lengthB": "ಉದ್ದ B",
+            "c": "C",
+            "d": "D",
+            "depth": "ಆಳ",
+            "results": {
+                "volume": "ಗಾತ್ರ"
+            }
+        }
+    },
     "downloadPDF": {
         "title": "PDF ಆಗಿ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
         "titleLabel": "ಶೀರ್ಷಿಕೆ",
@@ -768,5 +857,135 @@
         "cancel": "ರದ್ದುಮಾಡಿ",
         "download": "ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
         "downloading": "ಡೌನ್‌ಲೋಡ್ ಆಗುತ್ತಿದೆ..."
+    },
+    "metal": {
+        "title": "ಮೆಟಲ್ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+        "common": {
+            "metric": "ಮೆಟ್ರಿಕ್",
+            "imperial": "ಇಂಪೀರಿಯಲ್",
+            "typeOfMetal": "ಲೋಹದ ವಿಧ",
+            "selectMetal": "ಲೋಹವನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+            "reset": "ಮರುಹೊಂದಿಸಿ",
+            "calculate": "ಲೆಕ್ಕಾಚಾರ ಮಾಡಿ",
+            "result": "ಫಲಿತಾಂಶ",
+            "totalCost": "ಒಟ್ಟು ವೆಚ್ಚ",
+            "noOfUnits": "ಘಟಕಗಳ ಸಂಖ್ಯೆ",
+            "rateOfMetal": "ಲೋಹದ ದರ",
+            "unitWeight": "ಘಟಕ ತೂಕ",
+            "totalWeight": "ಒಟ್ಟು ತೂಕ",
+            "totalPrice": "ಒಟ್ಟು ಬೆಲೆ",
+            "units": {
+                "mm": "ಮಿಮೀ",
+                "m": "ಮೀ",
+                "kg": "ಕೆಜಿ",
+                "unit": "ಘಟಕ",
+                "perKg": "₹/ಕೆಜಿ",
+                "kgPerM3": "ಕೆಜಿ/ಮೀ³",
+                "currency": "₹"
+            }
+        },
+        "densities": {
+            "steel": "ಸ್ಟೀಲ್",
+            "aluminum": "ಅಲ್ಯೂಮಿನಿಯಂ",
+            "copper": "ತಾಮ್ರ",
+            "brass": "ಹಿತ್ತಾಳೆ",
+            "stainless_steel": "ಸ್ಟೇನ್‌ಲೆಸ್ ಸ್ಟೀಲ್"
+        },
+        "pipe": {
+            "d1": "D1",
+            "d2": "D2",
+            "height": "ಎತ್ತರ - H"
+        },
+        "roundBar": {
+            "d": "ವ್ಯಾಸ - d",
+            "length": "ಉದ್ದ - L"
+        },
+        "squareBar": {
+            "width": "ಅಗಲ - W",
+            "length": "ಉದ್ದ - L"
+        },
+        "squareTubing": {
+            "sideA": "ಬದಿ - a",
+            "sideB": "ಬದಿ - b",
+            "lengthL": "ಉದ್ದ - L"
+        },
+        "tBar": {
+            "sideA": "ಬದಿ - a",
+            "sideB": "ಬದಿ - b",
+            "thicknessT": "ದಪ್ಪ - T",
+            "lengthL": "ಉದ್ದ - L"
+        },
+        "angle": {
+            "sideA": "ಬದಿ - a",
+            "sideB": "ಬದಿ - b",
+            "thicknessT": "ದಪ್ಪ - T",
+            "lengthL": "ಉದ್ದ - L"
+        },
+        "channel": {
+            "sideA": "ಬದಿ - a",
+            "sideB": "ಬದಿ - b",
+            "thicknessT": "ದಪ್ಪ - T",
+            "thicknessT1": "ದಪ್ಪ - T1",
+            "lengthL": "ಉದ್ದ - L"
+        },
+        "beam": {
+            "sideA": "ಬದಿ - a",
+            "sideB": "ಬದಿ - b",
+            "thicknessT": "ದಪ್ಪ - T",
+            "thicknessT1": "ದಪ್ಪ - T1",
+            "lengthL": "ಉದ್ದ - L"
+        },
+        "flatBar": {
+            "sideA": "ಬದಿ - a",
+            "sideB": "ಬದಿ - b",
+            "lengthL": "ಉದ್ದ - L"
+        },
+        "hexagonalBar": {
+            "sideA": "ಬದಿ - a",
+            "lengthL": "ಉದ್ದ - L"
+        },
+        "triangularBar": {
+            "sideA": "ಬದಿ - a",
+            "lengthL": "ಉದ್ದ - L"
+        },
+        "sections": {
+            "quantity": "ಪರಿಮಾಣ",
+            "boltedJoints": "ಬೋಲ್ಟೆಡ್ ಜೋಯಿಂಟ್ಸ್",
+            "weldedJoints": "ವೆಲ್ಡೆಡ್ ಜೋಯಿಂಟ್ಸ್"
+        },
+        "quantity": {
+            "pipe": "ಪೈಪ್ ಮೆಟಲ್ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+            "roundBar": "ರೌಂಡ್ ಬಾರ್ ಮೆಟಲ್ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+            "squareBar": "ಸ್ಕ್ವೇರ್ ಬಾರ್ ಮೆಟಲ್ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+            "squareTubing": "ಸ್ಕ್ವೇರ್ ಟ್ಯೂಬಂಗ್ ಮೆಟಲ್ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+            "tBar": "T ಬಾರ್ ಮೆಟಲ್ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+            "beam": "ಬೀಮ್ ಮೆಟಲ್ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+            "channel": "ಚಾನಲ್ ಮೆಟಲ್ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+            "angle": "ಆಂಗಲ್ ಮೆಟಲ್ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+            "flatBar": "ಫ್ಲಾಟ್ ಬಾರ್ ಮೆಟಲ್ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+            "sheet": "ಶೀಟ್ ಮೆಟಲ್ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+            "hexagonalBar": "ಹೆಕ್ಸಾಗೋನಲ್ ಬಾರ್ ಮೆಟಲ್ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+            "triangularBar": "ತ್ರಿಕೋನ ಬಾರ್ ಮೆಟಲ್ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+            "triangularPipe": {
+                "title": "ತ್ರಿಕೋನ ಪೈಪ್ ಮೆಟಲ್ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+                "sideA": "ಬದಿ - a",
+                "thicknessT": "ದಪ್ಪ - T",
+                "lengthL": "ಉದ್ದ - L"
+            }
+        },
+        "bolted": {
+            "clevis": "ಕ್ಲೆವಿಸ್ ಬೋಲ್ಟೆಡ್ ಜೋಯಿಂಟ್ಸ್",
+            "blind": "ಬ್ಲೈಂಡ್ ಬೋಲ್ಟೆಡ್ ಜೋಯಿಂಟ್ಸ್",
+            "flange": "ಫ್ಲೇಂಜ್ ಬೋಲ್ಟೆಡ್ ಜೋಯಿಂಟ್ಸ್",
+            "pinned": "ಪಿನ್ಡ್ ಬೋಲ್ಟೆಡ್ ಜೋಯಿಂಟ್ಸ್",
+            "lap": "ಲ್ಯಾಪ್ ಬೋಲ್ಟೆಡ್ ಜೋಯಿಂಟ್ಸ್"
+        },
+        "welded": {
+            "butt": "ಬಟ್ ವೆಲ್ಡೆಡ್ ಜಾಯಿಂಟ್",
+            "corner": "ಕಾರ್ನರ್ ವೆಲ್ಡೆಡ್ ಜಾಯಿಂಟ್",
+            "lap": "ಲ್ಯಾಪ್ ವೆಲ್ಡೆಡ್ ಜಾಯಿಂಟ್",
+            "tJoint": "T-ಜಾಯಿಂಟ್ ವೆಲ್ಡೆಡ್ ಜಾಯಿಂಟ್",
+            "edge": "ಎಡ್ಜ್ ವೆಲ್ಡೆಡ್ ಜಾಯಿಂಟ್"
+        }
     }
 }

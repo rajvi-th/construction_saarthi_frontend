@@ -5,7 +5,7 @@ const OutputsTable = ({ outputs, title }) => {
     const { t } = useTranslation('calculation');
 
     return (
-        <div className="mt-10 space-y-6 px-4 sm:px-0">
+        <div className="mt-10 space-y-6">
             {title && (
                 <h2 className="text-lg font-medium text-primary ml-1 mb-4">{title}</h2>
             )}

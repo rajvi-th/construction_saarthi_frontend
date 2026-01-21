@@ -221,6 +221,47 @@ export default function AddLabourForm({
     color: 'var(--color-primary)',
   };
 
+  const renderFilePreview = (preview, onRemove) => {
+    const isPDF = preview.previewUrl?.toLowerCase().endsWith('.pdf') || (preview.file && preview.file.type === 'application/pdf');
+
+    return (
+      <div className="mt-3 relative inline-block">
+        <div className="relative w-32 h-32 rounded-lg overflow-hidden border border-lightGray flex items-center justify-center bg-gray-50">
+          {isPDF ? (
+            <div className="flex flex-col items-center p-2 text-center">
+              <div className="w-12 h-12 bg-red-100 rounded flex items-center justify-center mb-1">
+                <span className="text-red-600 font-bold text-xs uppercase">PDF</span>
+              </div>
+              <p className="text-[10px] text-primary truncate w-24">{preview.name || 'Document'}</p>
+              <a
+                href={preview.previewUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[10px] text-accent hover:underline mt-1"
+              >
+                {t('common.view', { defaultValue: 'View' })}
+              </a>
+            </div>
+          ) : (
+            <img
+              src={preview.previewUrl}
+              alt={preview.name}
+              className="w-full h-full object-cover"
+            />
+          )}
+          <button
+            type="button"
+            onClick={onRemove}
+            className="absolute top-1 right-1 w-6 h-6 rounded-full bg-white hover:bg-gray-100 flex items-center justify-center shadow-md transition-colors"
+          >
+            <X className="w-4 h-4 text-primary" />
+          </button>
+        </div>
+        {!isPDF && <p className="mt-1 text-xs text-secondary truncate max-w-[128px]">{preview.name}</p>}
+      </div>
+    );
+  };
+
   const validateForm = () => {
     const newErrors = {};
 
@@ -262,6 +303,13 @@ export default function AddLabourForm({
     // Validate join date
     if (!joinDate) {
       newErrors.joinDate = t('addLabourForm.selectDate') || 'Please select join date';
+    }
+
+    // Validate Aadhar number (12 digits)
+    if (!aadharNumber || !aadharNumber.trim()) {
+      newErrors.aadharNumber = 'Please enter Aadhar number';
+    } else if (!/^\d{12}$/.test(aadharNumber.trim())) {
+      newErrors.aadharNumber = 'Aadhar number must be exactly 12 digits';
     }
 
     // Validate files only in add mode
@@ -494,9 +542,11 @@ export default function AddLabourForm({
           />
           <Input
             label={t('addLabourForm.labourAadharNumber')}
+            required
             placeholder={t('addLabourForm.enterNumber')}
             value={aadharNumber}
             onChange={handleAadharNumberChange}
+            error={errors.aadharNumber}
           />
         </div>
 
@@ -529,136 +579,84 @@ export default function AddLabourForm({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm text-primary mb-2">
-                {t('addLabourForm.aadharCardPhoto')}<span className="text-accent ml-1">*</span>
+                {t('addLabourForm.aadharCardPhoto')}
+                <span className="text-accent ml-1">*</span>
               </label>
               <FileUpload
                 title="Upload Photo"
-                supportedFormats="JPG, PNG"
+                supportedFormats="JPG, PNG, PDF"
                 maxSize={10}
                 maxSizeUnit="MB"
                 supportedFormatLabel="Supported Format:"
                 onFileSelect={handleAadharCardFileSelect}
+                accept=".jpg,.jpeg,.png,.pdf"
               />
-              {aadharCardPreviews.length > 0 && (
-                <div className="mt-3 relative inline-block">
-                  <div className="relative w-32 h-32 rounded-lg overflow-hidden border border-lightGray">
-                    <img
-                      src={aadharCardPreviews[0].previewUrl}
-                      alt={aadharCardPreviews[0].name}
-                      className="w-full h-full object-cover"
-                    />
-                    <button
-                      type="button"
-                      onClick={handleRemoveAadharCard}
-                      className="absolute top-1 right-1 w-6 h-6 rounded-full bg-white hover:bg-gray-100 flex items-center justify-center shadow-md transition-colors"
-                    >
-                      <X className="w-4 h-4 text-primary" />
-                    </button>
-                  </div>
-                  <p className="mt-1 text-xs text-secondary truncate max-w-[128px]">{aadharCardPreviews[0].name}</p>
-                </div>
+              {errors.aadharCardPhoto && (
+                <p className="text-sm text-accent mt-1">{errors.aadharCardPhoto}</p>
               )}
+              {aadharCardPreviews.length > 0 && renderFilePreview(aadharCardPreviews[0], handleRemoveAadharCard)}
             </div>
 
             <div>
               <label className="block text-sm font-medium text-primary mb-2">
-                {t('addLabourForm.insurancePhoto')}<span className="text-accent ml-1">*</span>
+                {t('addLabourForm.insurancePhoto')}
+                <span className="text-accent ml-1">*</span>
               </label>
               <FileUpload
                 title="Upload Photo"
-                supportedFormats="JPG, PNG"
+                supportedFormats="JPG, PNG, PDF"
                 maxSize={10}
                 maxSizeUnit="MB"
                 supportedFormatLabel="Supported Format:"
                 onFileSelect={handleInsuranceFileSelect}
+                accept=".jpg,.jpeg,.png,.pdf"
               />
-              {insurancePreviews.length > 0 && (
-                <div className="mt-3 relative inline-block">
-                  <div className="relative w-32 h-32 rounded-lg overflow-hidden border border-lightGray">
-                    <img
-                      src={insurancePreviews[0].previewUrl}
-                      alt={insurancePreviews[0].name}
-                      className="w-full h-full object-cover"
-                    />
-                    <button
-                      type="button"
-                      onClick={handleRemoveInsurance}
-                      className="absolute top-1 right-1 w-6 h-6 rounded-full bg-white hover:bg-gray-100 flex items-center justify-center shadow-md transition-colors"
-                    >
-                      <X className="w-4 h-4 text-primary" />
-                    </button>
-                  </div>
-                  <p className="mt-1 text-xs text-secondary truncate max-w-[128px]">{insurancePreviews[0].name}</p>
-                </div>
+              {errors.insurancePhoto && (
+                <p className="text-sm text-accent mt-1">{errors.insurancePhoto}</p>
               )}
+              {insurancePreviews.length > 0 && renderFilePreview(insurancePreviews[0], handleRemoveInsurance)}
             </div>
           </div>
         ) : (
           <>
             <div>
               <label className="block text-sm font-medium text-primary mb-2">
-                {t('addLabourForm.aadharCardPhoto')}<span className="text-accent ml-1">*</span>
+                {t('addLabourForm.aadharCardPhoto')}
+                <span className="text-accent ml-1">*</span>
               </label>
               <FileUpload
                 title="Upload Photo"
-                supportedFormats="JPG, PNG"
+                supportedFormats="JPG, PNG, PDF"
                 maxSize={10}
                 maxSizeUnit="MB"
                 supportedFormatLabel="Supported Format:"
                 onFileSelect={handleAadharCardFileSelect}
+                accept=".jpg,.jpeg,.png,.pdf"
               />
-              {aadharCardPreviews.length > 0 && (
-                <div className="mt-3 relative inline-block">
-                  <div className="relative w-32 h-32 rounded-lg overflow-hidden border border-lightGray">
-                    <img
-                      src={aadharCardPreviews[0].previewUrl}
-                      alt={aadharCardPreviews[0].name}
-                      className="w-full h-full object-cover"
-                    />
-                    <button
-                      type="button"
-                      onClick={handleRemoveAadharCard}
-                      className="absolute top-1 right-1 w-6 h-6 rounded-full bg-white hover:bg-gray-100 flex items-center justify-center shadow-md transition-colors"
-                    >
-                      <X className="w-4 h-4 text-primary" />
-                    </button>
-                  </div>
-                  <p className="mt-1 text-xs text-secondary truncate max-w-[128px]">{aadharCardPreviews[0].name}</p>
-                </div>
+              {errors.aadharCardPhoto && (
+                <p className="text-sm text-accent mt-1">{errors.aadharCardPhoto}</p>
               )}
+              {aadharCardPreviews.length > 0 && renderFilePreview(aadharCardPreviews[0], handleRemoveAadharCard)}
             </div>
 
             <div>
               <label className="block text-sm font-medium text-primary mb-2">
-                {t('addLabourForm.insurancePhoto')}<span className="text-accent ml-1">*</span>
+                {t('addLabourForm.insurancePhoto')}
+                <span className="text-accent ml-1">*</span>
               </label>
               <FileUpload
                 title="Upload Photo"
-                supportedFormats="JPG, PNG"
+                supportedFormats="JPG, PNG, PDF"
                 maxSize={10}
                 maxSizeUnit="MB"
                 supportedFormatLabel="Supported Format:"
                 onFileSelect={handleInsuranceFileSelect}
+                accept=".jpg,.jpeg,.png,.pdf"
               />
-              {insurancePreviews.length > 0 && (
-                <div className="mt-3 relative inline-block">
-                  <div className="relative w-32 h-32 rounded-lg overflow-hidden border border-lightGray">
-                    <img
-                      src={insurancePreviews[0].previewUrl}
-                      alt={insurancePreviews[0].name}
-                      className="w-full h-full object-cover"
-                    />
-                    <button
-                      type="button"
-                      onClick={handleRemoveInsurance}
-                      className="absolute top-1 right-1 w-6 h-6 rounded-full bg-white hover:bg-gray-100 flex items-center justify-center shadow-md transition-colors"
-                    >
-                      <X className="w-4 h-4 text-primary" />
-                    </button>
-                  </div>
-                  <p className="mt-1 text-xs text-secondary truncate max-w-[128px]">{insurancePreviews[0].name}</p>
-                </div>
+              {errors.insurancePhoto && (
+                <p className="text-sm text-accent mt-1">{errors.insurancePhoto}</p>
               )}
+              {insurancePreviews.length > 0 && renderFilePreview(insurancePreviews[0], handleRemoveInsurance)}
             </div>
           </>
         )}

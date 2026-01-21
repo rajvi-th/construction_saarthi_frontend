@@ -353,18 +353,6 @@ function LabourAttendance() {
 
             {/* Shift Tabs */}
             <div className="flex gap-8 border-b mt-8" style={{ borderColor: 'var(--color-lightGray)' }}>
-                <button
-                    type="button"
-                    onClick={() => setActiveShiftId('')}
-                    className={`pb-3 text-sm px-8 cursor-pointer ${!activeShiftId ? 'font-medium text-accent' : 'text-primary-light'}`}
-                    style={
-                        !activeShiftId
-                            ? { borderBottom: '2px solid var(--color-accent)' }
-                            : { borderBottom: '2px solid transparent' }
-                    }
-                >
-                    {t('common.all', { defaultValue: 'All' })}
-                </button>
                 {sortedShiftTypes.map((shift) => {
                     const isActive = String(activeShiftId) === String(shift.id);
                     return (

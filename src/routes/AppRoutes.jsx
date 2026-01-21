@@ -127,6 +127,20 @@ const ComingSoon = lazy(() => import('../calculation/common/ComingSoon'));
 // Steel - LandingPage
 const SteelQuantities = lazy(() => import('../calculation/steel/LandingPage/pages/SteelQuantities'));
 const BrickWorkQuantities = lazy(() => import('../calculation/brickWorkAndPlaster/LandingPage/pages/BrickWorkQuantities'));
+const MetalQuantities = lazy(() => import('../calculation/metal/LandingPage/pages/MetalQuantities'));
+const PipeMetal = lazy(() => import('../calculation/metal/quantity/pages/PipeMetal'));
+const RoundBarMetal = lazy(() => import('../calculation/metal/quantity/pages/RoundBarMetal'));
+const SquareBarMetal = lazy(() => import('../calculation/metal/quantity/pages/SquareBarMetal'));
+const SquareTubingMetal = lazy(() => import('../calculation/metal/quantity/pages/SquareTubingMetal'));
+const TBarMetal = lazy(() => import('../calculation/metal/quantity/pages/TBarMetal'));
+const BeamMetal = lazy(() => import('../calculation/metal/quantity/pages/BeamMetal'));
+const ChannelMetal = lazy(() => import('../calculation/metal/quantity/pages/ChannelMetal'));
+const AngleMetal = lazy(() => import('../calculation/metal/quantity/pages/AngleMetal'));
+const FlatBarMetal = lazy(() => import('../calculation/metal/quantity/pages/FlatBarMetal'));
+const SheetMetal = lazy(() => import('../calculation/metal/quantity/pages/SheetMetal'));
+const HexagonalBarMetal = lazy(() => import('../calculation/metal/quantity/pages/HexagonalBarMetal'));
+const TriangularBarMetal = lazy(() => import('../calculation/metal/quantity/pages/TriangularBarMetal'));
+const TriangularPipeMetal = lazy(() => import('../calculation/metal/quantity/pages/TriangularPipeMetal'));
 
 // Steel - Weight
 const ReinforcementWeight = lazy(() => import('../calculation/steel/weight/pages/ReinforcementWeight'));
@@ -280,6 +294,45 @@ const PaverCalculationDetailed = lazy(() => import('../calculation/flooring/floo
 const TileGroutCalculation = lazy(() => import('../calculation/flooring/floor/pages/TileGroutCalculation'));
 const TileGroutCalculationDetailed = lazy(() => import('../calculation/flooring/floor/pages/TileGroutCalculationDetailed'));
 
+// Calculation - Water Tank
+const WaterTankCalculation = lazy(() => import('../calculation/waterTank/LandingPage/pages/WaterTankCalculation'));
+const RectangularWaterTank = lazy(() => import('../calculation/waterTank/wTank/pages/RectangularWaterTank'));
+const RectangularWaterTankDetailed = lazy(() => import('../calculation/waterTank/wTank/pages/RectangularWaterTankDetailed'));
+const CylindricalWaterTank = lazy(() => import('../calculation/waterTank/wTank/pages/CylindricalWaterTank'));
+const CylindricalWaterTankDetailed = lazy(() => import('../calculation/waterTank/wTank/pages/CylindricalWaterTankDetailed'));
+const PartlyFilledCircularWaterTank = lazy(() => import('../calculation/waterTank/wTank/pages/PartlyFilledCircularWaterTank'));
+const PartlyFilledCircularWaterTankDetailed = lazy(() => import('../calculation/waterTank/wTank/pages/PartlyFilledCircularWaterTankDetailed'));
+const PartlyFilledRectangularWaterTank = lazy(() => import('../calculation/waterTank/wTank/pages/PartlyFilledRectangularWaterTank'));
+const PartlyFilledRectangularWaterTankDetailed = lazy(() => import('../calculation/waterTank/wTank/pages/PartlyFilledRectangularWaterTankDetailed'));
+
+// Calculation - Excavation
+const ExcavationCalculation = lazy(() => import('../calculation/excavation/LandingPage/pages/ExcavationCalculation'));
+const VerticalExcavation = lazy(() => import('../calculation/excavation/categories/pages/VerticalExcavation'));
+const VerticalExcavationDetailed = lazy(() => import('../calculation/excavation/categories/pages/VerticalExcavationDetailed'));
+const SlopExcavation = lazy(() => import('../calculation/excavation/categories/pages/SlopExcavation'));
+const SlopExcavationDetailed = lazy(() => import('../calculation/excavation/categories/pages/SlopExcavationDetailed'));
+const SlopBackfilling1 = lazy(() => import('../calculation/excavation/categories/pages/SlopBackfilling1'));
+const SlopBackfilling1Detailed = lazy(() => import('../calculation/excavation/categories/pages/SlopBackfilling1Detailed'));
+const SlopBackfilling2 = lazy(() => import('../calculation/excavation/categories/pages/SlopBackfilling2'));
+const SlopBackfilling2Detailed = lazy(() => import('../calculation/excavation/categories/pages/SlopBackfilling2Detailed'));
+const SwimmingPoolCalculation = lazy(() => import('../calculation/swimmingPool/LandingPage/pages/SwimmingPoolCalculation'));
+const RectangularSwimmingPool = lazy(() => import('../calculation/swimmingPool/swimPool/pages/RectangularSwimmingPool'));
+const RectangularSwimmingPoolDetailed = lazy(() => import('../calculation/swimmingPool/swimPool/pages/RectangularSwimmingPoolDetailed'));
+const CircularSwimmingPool = lazy(() => import('../calculation/swimmingPool/swimPool/pages/CircularSwimmingPool'));
+const CircularSwimmingPoolDetailed = lazy(() => import('../calculation/swimmingPool/swimPool/pages/CircularSwimmingPoolDetailed'));
+const OvalSwimmingPool = lazy(() => import('../calculation/swimmingPool/swimPool/pages/OvalSwimmingPool'));
+const OvalSwimmingPoolDetailed = lazy(() => import('../calculation/swimmingPool/swimPool/pages/OvalSwimmingPoolDetailed'));
+const RomanSwimmingPool = lazy(() => import('../calculation/swimmingPool/swimPool/pages/RomanSwimmingPool'));
+const RomanSwimmingPoolDetailed = lazy(() => import('../calculation/swimmingPool/swimPool/pages/RomanSwimmingPoolDetailed'));
+const GrecianSwimmingPool = lazy(() => import('../calculation/swimmingPool/swimPool/pages/GrecianSwimmingPool'));
+const GrecianSwimmingPoolDetailed = lazy(() => import('../calculation/swimmingPool/swimPool/pages/GrecianSwimmingPoolDetailed'));
+const LShapeSwimmingPool = lazy(() => import('../calculation/swimmingPool/swimPool/pages/LShapeSwimmingPool'));
+const LShapeSwimmingPoolDetailed = lazy(() => import('../calculation/swimmingPool/swimPool/pages/LShapeSwimmingPoolDetailed'));
+
+// Calculation - Water Proofing
+const WaterProofingCalculation = lazy(() => import('../calculation/waterProofing/pages/WaterProofingCalculation'));
+const WaterProofingDetailed = lazy(() => import('../calculation/waterProofing/pages/WaterProofingDetailed'));
+
 // Steel - Slab
 const SlabType1 = lazy(() => import('../calculation/steel/slab/pages/SlabType1'));
 const SlabType1Detailed = lazy(() => import('../calculation/steel/slab/pages/SlabType1Detailed'));
@@ -426,6 +479,20 @@ function AppRoutes() {
             {/* Steel - LandingPage */}
             <Route path={ROUTES_FLAT.CALCULATION_STEEL_QUANTITIES} element={<SteelQuantities />} />
             <Route path={ROUTES_FLAT.CALCULATION_BRICK_WORK_QUANTITIES} element={<BrickWorkQuantities />} />
+            <Route path={ROUTES_FLAT.CALCULATION_METAL_QUANTITIES} element={<MetalQuantities />} />
+            <Route path={ROUTES_FLAT.CALCULATION_METAL_PIPE} element={<PipeMetal />} />
+            <Route path={ROUTES_FLAT.CALCULATION_METAL_ROUND_BAR} element={<RoundBarMetal />} />
+            <Route path={ROUTES_FLAT.CALCULATION_METAL_SQUARE_BAR} element={<SquareBarMetal />} />
+            <Route path={ROUTES_FLAT.CALCULATION_METAL_SQUARE_TUBING} element={<SquareTubingMetal />} />
+            <Route path={ROUTES_FLAT.CALCULATION_METAL_T_BAR} element={<TBarMetal />} />
+            <Route path={ROUTES_FLAT.CALCULATION_METAL_BEAM} element={<BeamMetal />} />
+            <Route path={ROUTES_FLAT.CALCULATION_METAL_CHANNEL} element={<ChannelMetal />} />
+            <Route path={ROUTES_FLAT.CALCULATION_METAL_ANGLE} element={<AngleMetal />} />
+            <Route path={ROUTES_FLAT.CALCULATION_METAL_FLAT_BAR} element={<FlatBarMetal />} />
+            <Route path={ROUTES_FLAT.CALCULATION_METAL_SHEET} element={<SheetMetal />} />
+            <Route path={ROUTES_FLAT.CALCULATION_METAL_HEXAGONAL_BAR} element={<HexagonalBarMetal />} />
+            <Route path={ROUTES_FLAT.CALCULATION_METAL_TRIANGULAR_BAR} element={<TriangularBarMetal />} />
+            <Route path={ROUTES_FLAT.CALCULATION_METAL_TRIANGULAR_PIPE} element={<TriangularPipeMetal />} />
 
             {/* Steel - Weight */}
             <Route path={ROUTES_FLAT.CALCULATION_REINFORCEMENT_WEIGHT} element={<ReinforcementWeight />} />
@@ -624,8 +691,46 @@ function AppRoutes() {
             <Route path={ROUTES_FLAT.CALCULATION_FLOORING_PAVER_DETAILED} element={<PaverCalculationDetailed />} />
             <Route path={ROUTES_FLAT.CALCULATION_FLOORING_TILE_GROUT} element={<TileGroutCalculation />} />
             <Route path={ROUTES_FLAT.CALCULATION_FLOORING_TILE_GROUT_DETAILED} element={<TileGroutCalculationDetailed />} />
+
+            {/* Calculation - Water Tank */}
+            <Route path={ROUTES_FLAT.CALCULATION_WATER_TANK} element={<WaterTankCalculation />} />
+            <Route path={ROUTES_FLAT.CALCULATION_WATER_TANK_RECTANGULAR} element={<RectangularWaterTank />} />
+            <Route path="/calculation/water-tank/rectangular/detailed" element={<RectangularWaterTankDetailed />} />
+            <Route path={ROUTES_FLAT.CALCULATION_WATER_TANK_CYLINDRICAL} element={<CylindricalWaterTank />} />
+            <Route path="/calculation/water-tank/cylindrical/detailed" element={<CylindricalWaterTankDetailed />} />
+            <Route path={ROUTES_FLAT.CALCULATION_WATER_TANK_PARTLY_FILLED_CIRCULAR} element={<PartlyFilledCircularWaterTank />} />
+            <Route path="/calculation/water-tank/partly-filled-circular/detailed" element={<PartlyFilledCircularWaterTankDetailed />} />
+            <Route path={ROUTES_FLAT.CALCULATION_WATER_TANK_PARTLY_FILLED_RECTANGULAR} element={<PartlyFilledRectangularWaterTank />} />
+            <Route path="/calculation/water-tank/partly-filled-rectangular/detailed" element={<PartlyFilledRectangularWaterTankDetailed />} />
+
+            <Route path="/calculation/excavation" element={<ExcavationCalculation />} />
+            <Route path="/calculation/excavation/vertical" element={<VerticalExcavation />} />
+            <Route path="/calculation/excavation/vertical/detailed" element={<VerticalExcavationDetailed />} />
+            <Route path="/calculation/excavation/slop" element={<SlopExcavation />} />
+            <Route path="/calculation/excavation/slop/detailed" element={<SlopExcavationDetailed />} />
+            <Route path="/calculation/excavation/slop-backfilling-1" element={<SlopBackfilling1 />} />
+            <Route path="/calculation/excavation/slop-backfilling-1/detailed" element={<SlopBackfilling1Detailed />} />
+            <Route path="/calculation/excavation/slop-backfilling-2" element={<SlopBackfilling2 />} />
+            <Route path="/calculation/excavation/slop-backfilling-2/detailed" element={<SlopBackfilling2Detailed />} />
+            <Route path="/calculation/swimming-pool" element={<SwimmingPoolCalculation />} />
+            <Route path="/calculation/swimming-pool/rectangular" element={<RectangularSwimmingPool />} />
+            <Route path="/calculation/swimming-pool/rectangular/detailed" element={<RectangularSwimmingPoolDetailed />} />
+            <Route path="/calculation/swimming-pool/circular" element={<CircularSwimmingPool />} />
+            <Route path="/calculation/swimming-pool/circular/detailed" element={<CircularSwimmingPoolDetailed />} />
+            <Route path="/calculation/swimming-pool/oval" element={<OvalSwimmingPool />} />
+            <Route path="/calculation/swimming-pool/oval/detailed" element={<OvalSwimmingPoolDetailed />} />
+            <Route path="/calculation/swimming-pool/roman" element={<RomanSwimmingPool />} />
+            <Route path="/calculation/swimming-pool/roman/detailed" element={<RomanSwimmingPoolDetailed />} />
+            <Route path="/calculation/swimming-pool/grecian" element={<GrecianSwimmingPool />} />
+            <Route path="/calculation/swimming-pool/grecian/detailed" element={<GrecianSwimmingPoolDetailed />} />
+            <Route path="/calculation/swimming-pool/l-shape" element={<LShapeSwimmingPool />} />
+            <Route path="/calculation/swimming-pool/l-shape/detailed" element={<LShapeSwimmingPoolDetailed />} />
+            <Route path="/calculation/water-proofing" element={<WaterProofingCalculation />} />
+            <Route path="/calculation/water-proofing/detailed" element={<WaterProofingDetailed />} />
           </Route>
         </Route>
+
+
 
         {/* Default redirect */}
         <Route path="/" element={<Navigate to={ROUTES_FLAT.LOGIN} replace />} />

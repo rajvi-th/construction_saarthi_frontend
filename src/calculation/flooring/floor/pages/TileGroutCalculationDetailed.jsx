@@ -1,11 +1,13 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import PageHeader from '../../../../components/layout/PageHeader';
 import InputsTable from '../components/InputsTable';
 import OutputsTable from '../components/OutputsTable';
 
 const TileGroutCalculationDetailed = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation('calculation');
     const location = useLocation();
 
     // Get data from location state
@@ -15,7 +17,7 @@ const TileGroutCalculationDetailed = () => {
         <div className="min-h-screen max-w-7xl mx-auto pb-20">
             <div className="mb-6">
                 <PageHeader
-                    title="Tile Grout Detailed Report"
+                    title={t('roofArea.tileGrout.detailedTitle')}
                     showBackButton
                     onBack={() => navigate(-1)}
                 />
@@ -25,13 +27,13 @@ const TileGroutCalculationDetailed = () => {
                 {/* Inputs Table */}
                 <InputsTable
                     data={calculationData}
-                    title="Inputs"
+                    title={t('roofArea.common.inputs')}
                 />
 
                 {/* Outputs Table */}
                 <OutputsTable
                     outputs={outputs}
-                    title="Outputs"
+                    title={t('roofArea.common.outputs')}
                 />
             </div>
         </div>

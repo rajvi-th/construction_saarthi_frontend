@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Lock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { ROUTES_FLAT } from '../../../constants/routes';
 import steelIcon from '../../../assets/icons/Steel.svg';
 import concreteIcon from '../../../assets/icons/Concrete.svg';
 import brickIcon from '../../../assets/icons/bticksWorks.svg';
@@ -31,7 +32,7 @@ const QUICK_ACTIONS = [
     { id: 6, key: 'flooringCalculation', icon: flooringIcon },
     { id: 7, key: 'waterTankCapacity', icon: waterTankIcon },
     { id: 8, key: 'excavation', icon: excavationIcon },
-    { id: 9, key: 'swimmingPool', icon: waterTankIcon, isLocked: true },
+    { id: 9, key: 'swimmingPool', icon: waterTankIcon },
     { id: 10, key: 'waterProofing', icon: waterProffingIcon },
     { id: 11, key: 'metalCalculator', icon: metalCalIcon },
     { id: 12, key: 'railConstruction', icon: railIcon },
@@ -84,6 +85,21 @@ const QuickActions = () => {
         },
         flooringCalculation: {
             path: '/calculation/flooring',
+        },
+        waterTankCapacity: {
+            path: '/calculation/water-tank',
+        },
+        excavation: {
+            path: '/calculation/excavation',
+        },
+        swimmingPool: {
+            path: '/calculation/swimming-pool',
+        },
+        waterProofing: {
+            path: '/calculation/water-proofing',
+        },
+        metalCalculator: {
+            path: ROUTES_FLAT.CALCULATION_METAL_QUANTITIES,
         },
     };
 

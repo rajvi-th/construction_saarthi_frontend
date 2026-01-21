@@ -17,7 +17,7 @@ const PaverCalculationDetailed = () => {
         <div className="min-h-screen max-w-7xl mx-auto pb-20">
             <div className="mb-6">
                 <PageHeader
-                    title="Paver Detailed Report"
+                    title={t('roofArea.paver.detailedTitle')}
                     showBackButton
                     onBack={() => navigate(-1)}
                 />
@@ -27,13 +27,13 @@ const PaverCalculationDetailed = () => {
                 {/* Inputs Table */}
                 <InputsTable
                     data={calculationData}
-                    title="Inputs"
+                    title={t('roofArea.common.inputs')}
                 />
 
                 {/* Outputs Table */}
                 <OutputsTable
                     outputs={outputs}
-                    title="Outputs"
+                    title={t('roofArea.common.outputs')}
                 />
             </div>
         </div>

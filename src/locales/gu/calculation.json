@@ -48,6 +48,23 @@
             "billOfQuantity": "જથ્થાનું બિલ"
         }
     },
+    "waterProofing": {
+        "title": "વોટર પ્રૂફિંગની ગણતરી",
+        "detailedTitle": "વોટર પ્રૂફિંગનો વિગતવાર અહેવાલ",
+        "inputs": "ઇનપુટ્સ",
+        "outputs": "આઉટપુટ્સ",
+        "brickLength": "ઈંટની લંબાઈ",
+        "brickWidth": "ઈંટની પહોળાઈ",
+        "brickDepth": "ઈંટની ઊંડાઈ",
+        "surfaceLength": "સપાટીની લંબાઈ",
+        "surfaceWidth": "સપાટીની પહોળાઈ",
+        "waterProofingDepth": "વોટરપ્રૂફિંગની ઊંડાઈ",
+        "mortarJoint": "મોર્ટાર જોઈન્ટ",
+        "results": {
+            "noOfBricks": "મોર્ટાર સાથે ઈંટોની સંખ્યા",
+            "volumeOfMortar": "મોર્ટારનું કદ"
+        }
+    },
     "comingSoon": {
         "title": "ટૂંક સમયમાં આવી રહ્યું છે",
         "comingSoonText": "ટૂંક સમયમાં આવી રહ્યું છે...",
@@ -69,7 +86,10 @@
         "headers": {
             "material": "સામગ્રી",
             "quantity": "જથ્થો",
-            "unit": "એકમ"
+            "unit": "એકમ",
+            "inputName": "ઇનપુટ નામ",
+            "symbol": "પ્રતીક",
+            "value": "કિંમત"
         },
         "materials": {
             "cement": "સિમેન્ટ",
@@ -88,7 +108,9 @@
             "kg": "કિલોગ્રામ",
             "liters": "લિટર",
             "sqft": "ચોરસ ફૂટ",
-            "nos": "નંગ"
+            "nos": "નંગ",
+            "liter": "લિટર",
+            "gallon": "ગેલન"
         },
         "works": {
             "design": "ડિઝાઇન અને એન્જિનિયરિંગ",
@@ -665,6 +687,7 @@
             "requiredQuantities": "તેથી જરૂરી જથ્થો નીચે મુજબ છે",
             "material": "સામગ્રી",
             "quantity": "જથ્થો",
+            "mUnit": "m",
             "m3Unit": "m³",
             "ft3Unit": "ft³",
             "brassUnit": "બ્રાસ"
@@ -823,6 +846,72 @@
             }
         }
     },
+    "swimmingPool": {
+        "title": "સ્વિમિંગ પૂલ",
+        "rectangular": {
+            "title": "લંબચોરસ સ્વિમિંગ પૂલ",
+            "detailedTitle": "લંબચોરસ સ્વિમિંગ પૂલ વિગતવાર અહેવાલ",
+            "length": "લંબાઈ",
+            "width": "પહોળાઈ",
+            "depth": "ઊંડાઈ",
+            "results": {
+                "volume": "કદ"
+            }
+        },
+        "circular": {
+            "title": "ગોળાકાર સ્વિમિંગ પૂલ",
+            "detailedTitle": "ગોળાકાર સ્વિમિંગ પૂલ વિગતવાર અહેવાલ",
+            "radius": "ત્રિજ્યા",
+            "depth": "ઊંડાઈ",
+            "results": {
+                "volume": "કદ"
+            }
+        },
+        "oval": {
+            "title": "લંબગોળ સ્વિમિંગ પૂલ",
+            "detailedTitle": "લંબગોળ સ્વિમિંગ પૂલ વિગતવાર અહેવાલ",
+            "radiusA": "ત્રિજ્યા A",
+            "radiusB": "ત્રિજ્યા B",
+            "depth": "ઊંડાઈ",
+            "results": {
+                "volume": "કદ"
+            }
+        },
+        "roman": {
+            "title": "રોમન સ્વિમિંગ પૂલ",
+            "detailedTitle": "રોમન સ્વિમિંગ પૂલ વિગતવાર અહેવાલ",
+            "length": "લંબાઈ",
+            "width": "પહોળાઈ",
+            "depth": "ઊંડાઈ",
+            "results": {
+                "volume": "કદ"
+            }
+        },
+        "grecian": {
+            "title": "ગ્રેસિયન સ્વિમિંગ પૂલ",
+            "detailedTitle": "ગ્રેસિયન સ્વિમિંગ પૂલ વિગતવાર અહેવાલ",
+            "lengthA": "લંબાઈ A",
+            "lengthB": "લંબાઈ B",
+            "c": "C",
+            "d": "D",
+            "depth": "ઊંડાઈ",
+            "results": {
+                "volume": "કદ"
+            }
+        },
+        "lShape": {
+            "title": "L આકાર સ્વિમિંગ પૂલ",
+            "detailedTitle": "L આકાર સ્વિમિંગ પૂલ વિગતવાર અહેવાલ",
+            "lengthA": "લંબાઈ A",
+            "lengthB": "લંબાઈ B",
+            "c": "C",
+            "d": "D",
+            "depth": "ઊંડાઈ",
+            "results": {
+                "volume": "કદ"
+            }
+        }
+    },
     "downloadPDF": {
         "title": "PDF તરીકે ડાઉનલોડ કરો",
         "titleLabel": "શીર્ષક",
@@ -830,5 +919,135 @@
         "cancel": "રદ કરો",
         "download": "ડાઉનલોડ",
         "downloading": "ડાઉનલોડ થઈ રહ્યું છે..."
+    },
+    "metal": {
+        "title": "મેટલ કેલ્ક્યુલેટર",
+        "common": {
+            "metric": "મેટ્રિક",
+            "imperial": "ઇમ્પિરિયલ",
+            "typeOfMetal": "ધાતુનો પ્રકાર",
+            "selectMetal": "ધાતુ પસંદ કરો",
+            "reset": "રીસેટ",
+            "calculate": "ગણતરી કરો",
+            "result": "પરિણામ",
+            "totalCost": "કુલ ખર્ચ",
+            "noOfUnits": "એકમોની સંખ્યા",
+            "rateOfMetal": "ધાતુનો દર",
+            "unitWeight": "એકમ વજન",
+            "totalWeight": "કુલ વજન",
+            "totalPrice": "કુલ કિંમત",
+            "units": {
+                "mm": "mm",
+                "m": "m",
+                "kg": "કિલો",
+                "unit": "એકમ",
+                "perKg": "₹/કિલો",
+                "kgPerM3": "કિલો/મી³",
+                "currency": "₹"
+            }
+        },
+        "densities": {
+            "steel": "સ્ટીલ",
+            "aluminum": "એલ્યુમિનિયમ",
+            "copper": "તાંબુ",
+            "brass": "પીત્તળ",
+            "stainless_steel": "સ્ટેનલેસ સ્ટીલ"
+        },
+        "pipe": {
+            "d1": "D1",
+            "d2": "D2",
+            "height": "ઊંચાઈ - H"
+        },
+        "roundBar": {
+            "d": "વ્યાસ - d",
+            "length": "લંબાઈ - L"
+        },
+        "squareBar": {
+            "width": "પહોળાઈ - W",
+            "length": "લંબાઈ - L"
+        },
+        "squareTubing": {
+            "sideA": "બાજુ - a",
+            "sideB": "બાજુ - b",
+            "lengthL": "લંબાઈ - L"
+        },
+        "tBar": {
+            "sideA": "બાજુ - a",
+            "sideB": "બાજુ - b",
+            "thicknessT": "જાડાઈ - T",
+            "lengthL": "લંબાઈ - L"
+        },
+        "angle": {
+            "sideA": "બાજુ - a",
+            "sideB": "બાજુ - b",
+            "thicknessT": "જાડાઈ - T",
+            "lengthL": "લંબાઈ - L"
+        },
+        "channel": {
+            "sideA": "બાજુ - a",
+            "sideB": "બાજુ - b",
+            "thicknessT": "જાડાઈ - T",
+            "thicknessT1": "જાડાઈ - T1",
+            "lengthL": "લંબાઈ - L"
+        },
+        "beam": {
+            "sideA": "બાજુ - a",
+            "sideB": "બાજુ - b",
+            "thicknessT": "જાડાઈ - T",
+            "thicknessT1": "જાડાઈ - T1",
+            "lengthL": "લંબાઈ - L"
+        },
+        "flatBar": {
+            "sideA": "બાજુ - a",
+            "sideB": "બાજુ - b",
+            "lengthL": "લંબાઈ - L"
+        },
+        "hexagonalBar": {
+            "sideA": "બાજુ - a",
+            "lengthL": "લંબાઈ - L"
+        },
+        "triangularBar": {
+            "sideA": "બાજુ - a",
+            "lengthL": "લંબાઈ - L"
+        },
+        "sections": {
+            "quantity": "જથ્થો",
+            "boltedJoints": "બોલ્ટેડ સાંધા",
+            "weldedJoints": "વેલ્ડેડ સાંધા"
+        },
+        "quantity": {
+            "pipe": "પાઇપ મેટલ કેલ્ક્યુલેટર",
+            "roundBar": "રાઉન્ડ બાર મેટલ કેલ્ક્યુલેટર",
+            "squareBar": "સ્ક્વેર બાર મેટલ કેલ્ક્યુલેટર",
+            "squareTubing": "ચોરસ ટ્યુબિંગ મેટલ કેલ્ક્યુલેટર",
+            "tBar": "T બાર મેટલ કેલ્ક્યુલેટર",
+            "beam": "બીમ મેટલ કેલ્ક્યુલેટર",
+            "channel": "ચેનલ મેટલ કેલ્ક્યુલેટર",
+            "angle": "એન્ગલ મેટલ કેલ્ક્યુલેટર",
+            "flatBar": "ફ્લેટ બાર મેટલ કેલ્ક્યુલેટર",
+            "sheet": "શીટ મેટલ કેલ્ક્યુલેટર",
+            "hexagonalBar": "ષટ્કોણ બાર મેટલ કેલ્ક્યુલેટર",
+            "triangularBar": "ત્રિકોણાકાર બાર મેટલ કેલ્ક્યુલેટર",
+            "triangularPipe": {
+                "title": "ત્રિકોણાકાર પાઇપ મેટલ કેલ્ક્યુલેટર",
+                "sideA": "બાજુ - a",
+                "thicknessT": "જાડાઈ - T",
+                "lengthL": "લંબાઈ - L"
+            }
+        },
+        "bolted": {
+            "clevis": "ક્લેવિસ બોલ્ટેડ સાંધા",
+            "blind": "બ્લાઇન્ડ બોલ્ટેડ સાંધા",
+            "flange": "ફ્લેંજ બોલ્ટેડ સાંધા",
+            "pinned": "પીન કરેલા બોલ્ટેડ સાંધા",
+            "lap": "લેપ બોલ્ટેડ સાંધા"
+        },
+        "welded": {
+            "butt": "બટ વેલ્ડેડ સાંધા",
+            "corner": "કોર્નર વેલ્ડેડ સાંધા",
+            "lap": "લેપ વેલ્ડેડ સાંધા",
+            "tJoint": "T-સાંધા વેલ્ડેડ સાંધા",
+            "edge": "એજ વેલ્ડેડ સાંધા"
+        }
     }
 }

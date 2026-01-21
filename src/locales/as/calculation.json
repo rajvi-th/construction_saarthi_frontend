@@ -48,6 +48,23 @@
       "billOfQuantity": "বিয় অফ কুৱাণ্টিটি"
     }
   },
+  "waterProofing": {
+    "title": "ৱাটাৰ প্ৰুফিং গণনা",
+    "detailedTitle": "ৱাটাৰ প্ৰুফিংৰ বিতং প্ৰতিবেদন",
+    "inputs": "ইনপুটসমূহ",
+    "outputs": "আউটপুটসমূহ",
+    "brickLength": "ইটাৰ দৈৰ্ঘ্য",
+    "brickWidth": "ইটাৰ প্ৰস্থ",
+    "brickDepth": "ইটাৰ গভীৰতা",
+    "surfaceLength": "পৃষ্ঠৰ দৈৰ্ঘ্য",
+    "surfaceWidth": "পৃষ্ঠৰ প্ৰস্থ",
+    "waterProofingDepth": "ৱাটাৰ প্ৰুফিং গভীৰতা",
+    "mortarJoint": "মৰ্টাৰ জয়েন্ট",
+    "results": {
+      "noOfBricks": "মৰ্টাৰৰ সৈতে ইটাৰ সংখ্যা",
+      "volumeOfMortar": "মৰ্টাৰৰ আয়তন"
+    }
+  },
   "comingSoon": {
     "title": "শীঘ্ৰেই আহি আছে",
     "comingSoonText": "শীঘ্ৰেই আহি আছে...",
@@ -69,7 +86,10 @@
     "headers": {
       "material": "সামগ্ৰী",
       "quantity": "পৰিমাণ",
-      "unit": "একক"
+      "unit": "একক",
+      "inputName": "ইনপুট নাম",
+      "symbol": "চিহ্ন",
+      "value": "মূল্য"
     },
     "materials": {
       "cement": "চিমেন্ট",
@@ -88,7 +108,9 @@
       "kg": "কেজি",
       "liters": "লিটাৰ",
       "sqft": "বৰ্গফুট",
-      "nos": "টা"
+      "nos": "টা",
+      "liter": "লিটাৰ",
+      "gallon": "গেলন"
     },
     "works": {
       "design": "ডিজাইন আৰু ইঞ্জিনিয়াৰিং",
@@ -627,50 +649,13 @@
       "calculate": "হিচাপ কৰক",
       "quantity": "পৰিমাণ",
       "viewDetailedResult": "বিস্তাৰিত ফলাফল চাওক",
+      "mmUnit": "mm",
+      "mUnit": "m",
       "m3Unit": "m³",
       "ft3Unit": "ft³",
       "brassUnit": "ব্ৰাস",
       "material": "সামগ্ৰী"
     }
-  },
-  "byVolume": {
-    "concreteByVolume": "আয়তন অনুসাৰে কংক্ৰিট",
-    "unit": "Unit",
-    "length_L": "Length - L",
-    "width_W": "Width - W",
-    "depth_D": "Depth - D",
-    "thickness_T": "Thickness - T",
-    "height_H": "Height - H",
-    "rise_R": "Rise - R",
-    "tread_T": "Tread - T",
-    "baseDepth_D1": "Base Depth - D1",
-    "midDepth_D2": "Mid Depth - D2",
-    "topDepth_D3": "Top Depth - D3",
-    "length_L1": "Length - L1",
-    "length_L2": "Length - L2",
-    "length_L3": "Length - L3",
-    "totalSteps_N": "Total Steps - N",
-    "depth_D3": "Depth - D3",
-    "metric": "Metric",
-    "imperial": "Imperial",
-    "volume": "Volume",
-    "concreteGrade": "Concrete Grade",
-    "cement": "Cement",
-    "sand": "Sand",
-    "aggregate": "Aggregate",
-    "waterCementRatio": "Water - cement Ratio",
-    "admixture": "Admixture",
-    "noOfUnits": "No of Units",
-    "dryVolume": "Dry Volume",
-    "rateOfConcrete": "Rate of Concrete",
-    "result": "Result",
-    "concreteVolume": "Concrete Volume",
-    "cementBags": "Cement (50kg)",
-    "coarseAggregate": "Coarse Aggregate",
-    "water": "Water",
-    "totalCost": "Total Cost",
-    "reset": "Reset",
-    "calculate": "Calculate"
   },
   "roofArea": {
     "common": {
@@ -803,6 +788,72 @@
       }
     }
   },
+  "swimmingPool": {
+    "title": "চুইমিং পুল",
+    "rectangular": {
+      "title": "আয়তাকাৰ চুইমিং পুল",
+      "detailedTitle": "আয়তাকাৰ চুইমিং পুলৰ বিতং প্ৰতিবেদন",
+      "length": "দৈৰ্ঘ্য",
+      "width": "প্ৰস্থ",
+      "depth": "গভীৰতা",
+      "results": {
+        "volume": "আয়তন"
+      }
+    },
+    "circular": {
+      "title": "গোলাকাৰ চুইমিং পুল",
+      "detailedTitle": "গোলাকাৰ চুইমিং পুলৰ বিতং প্ৰতিবেদন",
+      "radius": "ব্যাসাৰ্ধ",
+      "depth": "গভীৰতা",
+      "results": {
+        "volume": "আয়তন"
+      }
+    },
+    "oval": {
+      "title": "ডিম্বাকৃতি চুইমিং পুল",
+      "detailedTitle": "ডিম্বাকৃতি চুইমিং পুলৰ বিতং প্ৰতিবেদন",
+      "radiusA": "ব্যাসাৰ্ধ A",
+      "radiusB": "ব্যাসাৰ্ধ B",
+      "depth": "গভীৰতা",
+      "results": {
+        "volume": "আয়তন"
+      }
+    },
+    "roman": {
+      "title": "ৰোমান চুইমিং পুল",
+      "detailedTitle": "ৰোমান চুইমিং পুলৰ বিতং প্ৰতিবেদন",
+      "length": "দৈৰ্ঘ্য",
+      "width": "প্ৰস্থ",
+      "depth": "গভীৰতা",
+      "results": {
+        "volume": "আয়তন"
+      }
+    },
+    "grecian": {
+      "title": "গ্ৰেচিয়ান চুইমিং পুল",
+      "detailedTitle": "গ্ৰেচিয়ান চুইমিং পুলৰ বিতং প্ৰতিবেদন",
+      "lengthA": "দৈৰ্ঘ্য A",
+      "lengthB": "দৈৰ্ঘ্য B",
+      "c": "C",
+      "d": "D",
+      "depth": "গভীৰতা",
+      "results": {
+        "volume": "আয়তন"
+      }
+    },
+    "lShape": {
+      "title": "এল আকৃতিৰ চুইমিং পুল",
+      "detailedTitle": "এল আকৃতিৰ চুইমিং পুলৰ বিতং প্ৰতিবেদন",
+      "lengthA": "দৈৰ্ঘ্য A",
+      "lengthB": "দৈৰ্ঘ্য B",
+      "c": "C",
+      "d": "D",
+      "depth": "গভীৰতা",
+      "results": {
+        "volume": "আয়তন"
+      }
+    }
+  },
   "downloadPDF": {
     "title": "PDF ডাউনলোড কৰক",
     "titleLabel": "শীৰ্ষক",
@@ -810,5 +861,135 @@
     "cancel": "বাতিল কৰক",
     "download": "ডাউনলোড",
     "downloading": "ডাউনলোড হৈছে..."
+  },
+  "metal": {
+    "title": "মেটাল কেলকুলেটৰ",
+    "common": {
+      "metric": "মেট্ৰিক",
+      "imperial": "ইম্পেৰিয়েল",
+      "typeOfMetal": "ধাতুৰ প্ৰকাৰ",
+      "selectMetal": "ধাতু বাছনি কৰক",
+      "reset": "ৰিছেট কৰক",
+      "calculate": "গণনা কৰক",
+      "result": "ফলাফল",
+      "totalCost": "মুঠ খৰচ",
+      "noOfUnits": "এককৰ সংখ্যা",
+      "rateOfMetal": "ধাতুৰ দৰ",
+      "unitWeight": "একক ওজন",
+      "totalWeight": "মুঠ ওজন",
+      "totalPrice": "মুঠ মূল্য",
+      "units": {
+        "mm": "mm",
+        "m": "m",
+        "kg": "kg",
+        "unit": "একক",
+        "perKg": "₹/kg",
+        "kgPerM3": "kg/m³",
+        "currency": "₹"
+      }
+    },
+    "densities": {
+      "steel": "ষ্টীল",
+      "aluminum": "এলুমিনিয়াম",
+      "copper": "তাম",
+      "brass": "পিতল",
+      "stainless_steel": "ষ্টেইনলেচ ষ্টীল"
+    },
+    "pipe": {
+      "d1": "D1",
+      "d2": "D2",
+      "height": "উচ্চতা - H"
+    },
+    "roundBar": {
+      "d": "ব্যাসার্ধ - d",
+      "length": "দৈৰ্ঘ্য - L"
+    },
+    "squareBar": {
+      "width": "প্ৰস্থ - W",
+      "length": "দৈৰ্ঘ্য - L"
+    },
+    "squareTubing": {
+      "sideA": "কাষ - a",
+      "sideB": "কাষ - b",
+      "lengthL": "দৈৰ্ঘ্য - L"
+    },
+    "tBar": {
+      "sideA": "কাষ - a",
+      "sideB": "কাষ - b",
+      "thicknessT": "বেধ - T",
+      "lengthL": "দৈৰ্ঘ্য - L"
+    },
+    "angle": {
+      "sideA": "কাষ - a",
+      "sideB": "কাষ - b",
+      "thicknessT": "বেধ - T",
+      "lengthL": "দৈৰ্ঘ্য - L"
+    },
+    "channel": {
+      "sideA": "কাষ - a",
+      "sideB": "কাষ - b",
+      "thicknessT": "বেধ - T",
+      "thicknessT1": "বেধ - T1",
+      "lengthL": "দৈৰ্ঘ্য - L"
+    },
+    "beam": {
+      "sideA": "কাষ - a",
+      "sideB": "কাষ - b",
+      "thicknessT": "বেধ - T",
+      "thicknessT1": "বেধ - T1",
+      "lengthL": "দৈৰ্ঘ্য - L"
+    },
+    "flatBar": {
+      "sideA": "কাষ - a",
+      "sideB": "কাষ - b",
+      "lengthL": "দৈৰ্ঘ্য - L"
+    },
+    "hexagonalBar": {
+      "sideA": "কাষ - a",
+      "lengthL": "দৈৰ্ঘ্য - L"
+    },
+    "triangularBar": {
+      "sideA": "কাষ - a",
+      "lengthL": "দৈৰ্ঘ্য - L"
+    },
+    "sections": {
+      "quantity": "পৰিমাণ",
+      "boltedJoints": "বল্টযুক্ত জোৰা",
+      "weldedJoints": "ৱেল্ডিং কৰা জোৰা"
+    },
+    "quantity": {
+      "pipe": "পাইপ মেটাল কেলকুলেটৰ",
+      "roundBar": "ৰাউণ্ড বাৰ মেটাল কেলকুলেটৰ",
+      "squareBar": "স্কোৱাৰ বাৰ মেটাল কেলকুলেটৰ",
+      "squareTubing": "স্কোৱাৰ টিউবিং মেটাল কেলকুলেটৰ",
+      "tBar": "T বাৰ মেটাল কেলকুলেটৰ",
+      "beam": "বিম মেটাল কেলকুলেটৰ",
+      "channel": "চেনেল মেটাল কেলকুলেটৰ",
+      "angle": "এংগল মেটাল কেলকুলেটৰ",
+      "flatBar": "ফ্লেট বাৰ মেটাল কেলকুলেটৰ",
+      "sheet": "শ্বীট মেটাল কেলকুলেটৰ",
+      "hexagonalBar": "ষড়ভুজাকৃতিৰ বাৰ মেটাল কেলকুলেটৰ",
+      "triangularBar": "ত্ৰিকোণীয়া বাৰ মেটাল কেলকুলেটৰ",
+      "triangularPipe": {
+        "title": "ত্ৰিকোণীয়া পাইপ মেটাল কেলকুলেটৰ",
+        "sideA": "কাষ - a",
+        "thicknessT": "ডাঠ - T",
+        "lengthL": "দৈৰ্ঘ্য - L"
+      }
+    },
+    "bolted": {
+      "clevis": "ক্লেভিচ বল্টযুক্ত জোৰা",
+      "blind": "ব্লাইণ্ড বল্টযুক্ত জোৰা",
+      "flange": "ফ্লেঞ্জ বল্টযুক্ত জোৰা",
+      "pinned": "পিনযুক্ত বল্টযুক্ত জোৰা",
+      "lap": "লেপ বল্টযুক্ত জোৰা"
+    },
+    "welded": {
+      "butt": "বাট ৱেল্ডিং কৰা জোৰা",
+      "corner": "কৰণাৰ ৱেল্ডিং কৰা জোৰা",
+      "lap": "লেপ ৱেল্ডিং কৰা জোৰা",
+      "tJoint": "T-জোইনণ্ট ৱেল্ডিং কৰা জোৰা",
+      "edge": "এজ ৱেল্ডিং কৰা জোৰা"
+    }
   }
 }

@@ -22,6 +22,7 @@ export const LABOUR_ATTENDANCE_ENDPOINTS = {
     PROJECT_LABOURS: '/labour/project-labours',
     ADD_NOTE: '/labour/add-note',
     PROFILE: '/labour/profile',
+    PROFILE_ALL: '/labour/all',
   },
   ATTENDANCE: {
     MOVE: '/attendance/move',
