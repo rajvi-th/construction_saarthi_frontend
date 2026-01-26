@@ -547,10 +547,18 @@ export const updateProjectStatus = async (projectId, status, currentProject = nu
   // We try to fallback to the generic edit project endpoint (PUT) which is allowed.
   // To do this, we need the project name, so we use currentProject if available.
 
+  // Map form status to API status - consistently with hooks
+  const mapStatus = (s) => {
+    if (s === "upcoming") return "pending";
+    return s || "pending";
+  };
+
+  const apiStatus = mapStatus(status);
+
   if (currentProject && currentProject.name) {
     return editProject(projectId, {
       ...currentProject,
-      status: status
+      status: apiStatus
     });
   }
 
@@ -559,14 +567,14 @@ export const updateProjectStatus = async (projectId, status, currentProject = nu
     const project = await getProjectDetails(projectId);
     return editProject(projectId, {
       ...project,
-      status: status
+      status: apiStatus
     });
   } catch (error) {
     console.warn("Fallback to edit failed, attempting PATCH as last resort");
     // Last resort: try the PATCH endpoint even if it might fail CORS or 404
     const response = await http.patch(
       `/project/update-status/${projectId}`,
-      { status }
+      { status: apiStatus }
     );
     return response?.data || response || {};
   }

@@ -49,7 +49,7 @@ export default function Projects() {
     { value: '', label: t('status.all') },
     { value: 'completed', label: t('status.completed') },
     { value: 'in_progress', label: t('status.inProgress') },
-    // { value: 'pending', label: 'Pending' },
+    { value: 'upcoming', label: t('status.upcoming') },
   ];
 
   const handleAddNewProject = () => {

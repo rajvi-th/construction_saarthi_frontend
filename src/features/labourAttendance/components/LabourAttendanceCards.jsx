@@ -698,11 +698,7 @@ export default function LabourAttendanceCards({
 
   return (
     <div className="space-y-4">
-      {isLoading ? (
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-lightGray w-full text-sm text-secondary">
-          Loading...
-        </div>
-      ) : null}
+
       {labourList.map((labour, idx) => {
         const avatarStyle = AVATAR_VARIANTS[idx % AVATAR_VARIANTS.length];
 

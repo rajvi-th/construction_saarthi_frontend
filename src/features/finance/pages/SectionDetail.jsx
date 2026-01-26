@@ -93,17 +93,17 @@ export default function SectionDetail() {
     try {
       isFetchingInvoicesRef.current = true;
       setIsLoadingInvoices(true);
-      
+
       const response = await getBuilderInvoiceSectionInvoices(sectionId);
 
       // Handle different response structures
       let invoicesData = response?.data || response?.invoices || response || [];
-      
+
       // If data is an object with nested array, extract it
       if (invoicesData && typeof invoicesData === 'object' && !Array.isArray(invoicesData)) {
         invoicesData = invoicesData.data || invoicesData.invoices || [];
       }
-      
+
       const invoicesList = Array.isArray(invoicesData) ? invoicesData : [];
 
       // Transform API response to match component structure
@@ -111,11 +111,11 @@ export default function SectionDetail() {
         // Get percentage - handle both string and number
         const percentageValue = invoice.percentage || invoice.percent || invoice.estBudget || invoice.est_budget;
         const percentage = percentageValue !== undefined && percentageValue !== null ? String(percentageValue) : '0';
-        
+
         // Get document/image - handle multiple possible formats
         // Priority: media array (from API) > document fields > files array
         let document = null;
-        
+
         // First check for media array (from API response) - this is the primary source
         if (invoice.media && Array.isArray(invoice.media) && invoice.media.length > 0) {
           // Get the latest media item's URL (sort by id descending to get newest first)
@@ -144,7 +144,7 @@ export default function SectionDetail() {
         } else if (invoice.file_url) {
           document = invoice.file_url;
         }
-        
+
         return {
           id: invoice.id || invoice.invoice_id || invoice.builder_invoice_id || Date.now().toString(),
           milestoneTitle: invoice.milestoneTitle || invoice.milestone_title || invoice.title || invoice.name || 'Untitled Invoice',
@@ -169,9 +169,9 @@ export default function SectionDetail() {
         document: inv.document,
         hasDocument: !!inv.document
       })));
-      
+
       setInvoices(transformedInvoices);
-      
+
       // Only show success toast if invoices were loaded
       if (transformedInvoices.length > 0) {
         showSuccess(
@@ -186,7 +186,7 @@ export default function SectionDetail() {
         setInvoices([]);
         return; // Exit early, don't show any error or log
       }
-      
+
       // Log and show error toast for other errors only
       console.error("Error fetching section invoices:", error);
       const errorMessage =
@@ -219,30 +219,30 @@ export default function SectionDetail() {
     try {
       isFetchingBudgetRef.current = true;
       setIsLoadingBudget(true);
-      
+
       const response = await getProjectEstimatedBudget(projectId);
       console.log("Raw estimated budget from API:", response);
 
       // Handle different response structures
-      let budgetValue = response?.data?.estimatedBudget || 
-                       response?.data?.estimated_budget || 
-                       response?.data?.budget || 
-                       response?.data?.amount ||
-                       response?.estimatedBudget || 
-                       response?.estimated_budget || 
-                       response?.budget || 
-                       response?.amount ||
-                       response?.data || 
-                       response || '0';
-      
+      let budgetValue = response?.data?.estimatedBudget ||
+        response?.data?.estimated_budget ||
+        response?.data?.budget ||
+        response?.data?.amount ||
+        response?.estimatedBudget ||
+        response?.estimated_budget ||
+        response?.budget ||
+        response?.amount ||
+        response?.data ||
+        response || '0';
+
       // Ensure budgetValue is a number or string that can be parsed
       if (typeof budgetValue !== 'string' && typeof budgetValue !== 'number') {
         budgetValue = '0';
       }
-      
+
       const budgetStr = String(budgetValue);
       const numAmount = parseFloat(budgetStr.replace(/,/g, ""));
-      
+
       if (!isNaN(numAmount) && numAmount > 0) {
         // Format budget for display (e.g., "1.2 Cr", "50 Lakh")
         let formattedBudget;
@@ -530,7 +530,7 @@ export default function SectionDetail() {
 
     // Parse amount - remove currency formatting
     const numAmount = parseFloat(amount.replace(/[₹,]/g, ""));
-    
+
     if (isNaN(numAmount) || numAmount < 0) {
       showError(
         t("invalidBudgetAmount", {
@@ -864,278 +864,252 @@ export default function SectionDetail() {
         <>
           {/* Invoices List or Empty State */}
           {filteredInvoices.length > 0 ? (
-        <div className="space-y-3">
-          {filteredInvoices.map((invoice) => (
-            <div
-              key={invoice.id}
-              className="bg-white rounded-2xl  p-4 border border-gray-200 cursor-pointer"
-            >
-              <div className="flex items-start justify-between mb-">
-                <div className="flex-1">
-                  {/* Status badge – width fit to content */}
-                  <div className="inline-flex mb-2">
-                    <StatusBadge
-                      text={formatStatusText(invoice.status)}
-                      color={getStatusColor(invoice.status)}
-                      className="w-auto px-3 py-1 text-sm font-normal"
-                    />
-                  </div>
-
-                  <h3 className="text-base font-medium text-primary mb-2">
-                    {invoice.milestoneTitle}
-                  </h3>
-
-                  <div className="flex items-center text-sm text-secondary mt-1">
-                    <span>
-                      {t("percentage", { defaultValue: "Percentage" })}:{" "}
-                      <span className="font-medium text-primary">
-                        {invoice.percentage}%
-                      </span>
-                    </span>
-
-                    {/* Divider */}
-                    <span className="mx-3 h-4 w-px bg-gray-300" />
-
-                    <span>
-                      {t("amount", { defaultValue: "Amount" })}:{" "}
-                      <span className="font-medium text-primary">
-                        {formatAmount(invoice.amount)}
-                      </span>
-                    </span>
-                  </div>
-
-                  {invoice.document && (
-                    <div className="flex items-center gap-2 mt-3 border-t border-gray-200 pt-3">
-                      {(() => {
-                        const docValue = invoice.document;
-                        const isUrl = typeof docValue === 'string' && (
-                          docValue.startsWith('http') || 
-                          docValue.startsWith('https') || 
-                          docValue.startsWith('/') || 
-                          docValue.startsWith('data:')
-                        );
-                        
-                        if (isUrl) {
-                          // If it's a URL, check if it's an image
-                          const isImage = /\.(jpg|jpeg|png|gif|webp|svg|jpeg)$/i.test(docValue) || 
-                                         docValue.startsWith('data:image') ||
-                                         docValue.toLowerCase().includes('avatar') ||
-                                         docValue.toLowerCase().includes('image');
-                          
-                          const isPdf = /\.pdf$/i.test(docValue);
-                          
-                          if (isImage) {
-                            // Extract filename from URL for image
-                            const getFileName = (url) => {
-                              try {
-                                const urlParts = url.split('/');
-                                const fileName = urlParts[urlParts.length - 1];
-                                return fileName.split('?')[0];
-                              } catch {
-                                return 'Image';
-                              }
-                            };
-                            const fileName = getFileName(docValue);
-                            
-                            // Show as image thumbnail with click to open
-                            return (
-                              <div className="flex items-center gap-2">
-                                <div 
-                                  className="relative cursor-pointer group"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    window.open(docValue, '_blank');
-                                  }}
-                                >
-                                  <img 
-                                    src={docValue} 
-                                    alt={fileName} 
-                                    className="w-20 h-20 object-cover rounded-lg border border-gray-200 hover:opacity-80 transition-opacity"
-                                    onError={(e) => {
-                                      // Fallback to PDF icon if image fails to load
-                                      e.target.style.display = 'none';
-                                      const fallback = e.target.parentElement.parentElement.querySelector('.fallback-icon');
-                                      if (fallback) fallback.style.display = 'flex';
-                                    }}
-                                  />
-                                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 rounded-lg transition-colors" />
-                                </div>
-                                <div className="fallback-icon hidden items-center gap-2">
-                                  <img src={pdfIcon} alt="PDF" className="w-5 h-5" />
-                                  <span className="text-sm text-secondary">{fileName}</span>
-                                </div>
-                              </div>
-                            );
-                          } else if (isPdf) {
-                            // Extract filename from URL
-                            const getFileName = (url) => {
-                              try {
-                                const urlParts = url.split('/');
-                                const fileName = urlParts[urlParts.length - 1];
-                                // Remove query parameters if any
-                                return fileName.split('?')[0];
-                              } catch {
-                                return 'Document';
-                              }
-                            };
-                            const fileName = getFileName(docValue);
-                            
-                            // Show as PDF/document link with filename
-                            return (
-                              <div className="flex items-center gap-2">
-                                <img src={pdfIcon} alt="PDF" className="w-5 h-5" />
-                                <a 
-                                  href={docValue} 
-                                  target="_blank" 
-                                  rel="noopener noreferrer"
-                                  className="text-sm text-black hover:text-accent  truncate max-w-[200px] cursor-pointer"
-                                  title={docValue}
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    window.open(docValue, '_blank');
-                                  }}
-                                >
-                                  {fileName}
-                                </a>
-                              </div>
-                            );
-                          } else {
-                            // Extract filename from URL
-                            const getFileName = (url) => {
-                              try {
-                                const urlParts = url.split('/');
-                                const fileName = urlParts[urlParts.length - 1];
-                                // Remove query parameters if any
-                                return fileName.split('?')[0];
-                              } catch {
-                                return 'File';
-                              }
-                            };
-                            const fileName = getFileName(docValue);
-                            
-                            // Other file types - show as link with filename
-                            return (
-                              <div className="flex items-center gap-2">
-                                <img src={pdfIcon} alt="File" className="w-5 h-5" />
-                                <a 
-                                  href={docValue} 
-                                  target="_blank" 
-                                  rel="noopener noreferrer"
-                                  className="text-sm text-secondary hover:text-accent underline truncate max-w-[200px] cursor-pointer"
-                                  title={docValue}
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    window.open(docValue, '_blank');
-                                  }}
-                                >
-                                  {fileName}
-                                </a>
-                              </div>
-                            );
-                          }
-                        } else {
-                          // If it's a filename, show with PDF icon
-                          return (
-                            <>
-                              <img src={pdfIcon} alt="PDF" className="w-5 h-5" />
-                              <span className="text-sm text-secondary">
-                                {docValue}
-                              </span>
-                            </>
-                          );
-                        }
-                      })()}
-                      {/* Fallback PDF icon (hidden by default) */}
-                      <div className="hidden items-center gap-2">
-                        <img src={pdfIcon} alt="PDF" className="w-5 h-5" />
-                        <span className="text-sm text-secondary">Document</span>
+            <div className="space-y-3">
+              {filteredInvoices.map((invoice) => (
+                <div
+                  key={invoice.id}
+                  className="bg-white rounded-2xl p-4 border border-gray-200 cursor-pointer"
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      {/* Status badge */}
+                      <div className="inline-flex mb-2">
+                        <StatusBadge
+                          text={formatStatusText(invoice.status)}
+                          color={getStatusColor(invoice.status)}
+                          className="w-auto px-3 py-1 text-sm font-normal"
+                        />
                       </div>
-                    </div>
-                  )}
-                </div>
 
-                <div onClick={(e) => e.stopPropagation()}>
-                  <DropdownMenu
-                    items={[
-                      {
-                        label: t("editMilestone", {
-                          defaultValue: "Edit Milestone",
-                        }),
-                        onClick: () => {
-                          setInvoiceToEdit(invoice);
-                          setIsEditInvoiceModalOpen(true);
-                        },
-                        icon: (
-                          <img
-                            src={pencilIcon}
-                            alt="Edit"
-                            className="w-4 h-4"
-                          />
-                        ),
-                      },
-                      {
-                        label: t("downloadAsPDF", {
-                          defaultValue: "Download as PDF",
-                        }),
-                        onClick: () => {
-                          handleDownloadPDF(invoice);
-                        },
-                        icon: (
-                          <img
-                            src={downloadIcon}
-                            alt="Download"
-                            className="w-4 h-4"
-                          />
-                        ),
-                      },
-                      {
-                        label: t("deleteMilestone", {
-                          defaultValue: "Delete Milestone",
-                        }),
-                        onClick: () => {
-                          setInvoiceToDelete(invoice);
-                          setIsDeleteInvoiceModalOpen(true);
-                        },
-                        icon: (
-                          <img
-                            src={trashIcon}
-                            alt="Delete"
-                            className="w-4 h-4"
-                          />
-                        ),
-                        textColor: "text-accent",
-                      },
-                    ]}
-                    position="right"
-                  />
+                      <h3 className="text-base font-medium text-primary mb-2">
+                        {invoice.milestoneTitle}
+                      </h3>
+
+                      <div className="flex items-center text-sm text-secondary mt-1">
+                        <span>
+                          {t("percentage", { defaultValue: "Percentage" })}:{" "}
+                          <span className="font-medium text-primary">
+                            {invoice.percentage}%
+                          </span>
+                        </span>
+
+                        <span className="mx-3 h-4 w-px bg-gray-300" />
+
+                        <span>
+                          {t("amount", { defaultValue: "Amount" })}:{" "}
+                          <span className="font-medium text-primary">
+                            {formatAmount(invoice.amount)}
+                          </span>
+                        </span>
+                      </div>
+
+                      {(invoice.description || invoice.document) && (
+                        <div className="mt-3 border-t border-gray-200 pt-3 flex flex-col gap-3">
+                          {invoice.description && (
+                            <p className="text-sm text-secondary leading-relaxed">
+                              <span className="font-medium text-primary">
+                                {t("description", { defaultValue: "Description" })} :{" "}
+                              </span>
+                              {invoice.description}
+                            </p>
+                          )}
+
+                          {invoice.document && (
+                            <div className="flex items-center gap-2">
+                              {(() => {
+                                const docValue = invoice.document;
+                                const isUrl = typeof docValue === 'string' && (
+                                  docValue.startsWith('http') ||
+                                  docValue.startsWith('https') ||
+                                  docValue.startsWith('/') ||
+                                  docValue.startsWith('data:')
+                                );
+
+                                if (isUrl) {
+                                  const isImage = /\.(jpg|jpeg|png|gif|webp|svg|jpeg)$/i.test(docValue) ||
+                                    docValue.startsWith('data:image') ||
+                                    docValue.toLowerCase().includes('avatar') ||
+                                    docValue.toLowerCase().includes('image');
+
+                                  const isPdf = /\.pdf$/i.test(docValue);
+
+                                  const getFileName = (url) => {
+                                    try {
+                                      const urlParts = url.split('/');
+                                      const fileName = urlParts[urlParts.length - 1];
+                                      return fileName.split('?')[0];
+                                    } catch {
+                                      return 'Document';
+                                    }
+                                  };
+                                  const fileName = getFileName(docValue);
+
+                                  if (isImage) {
+                                    return (
+                                      <div className="flex items-center gap-2">
+                                        <div
+                                          className="relative cursor-pointer group"
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            window.open(docValue, '_blank');
+                                          }}
+                                        >
+                                          <img
+                                            src={docValue}
+                                            alt={fileName}
+                                            className="w-20 h-20 object-cover rounded-lg border border-gray-200 hover:opacity-80 transition-opacity"
+                                            onError={(e) => {
+                                              e.target.style.display = 'none';
+                                              const fallback = e.target.parentElement.parentElement.querySelector('.fallback-icon');
+                                              if (fallback) fallback.style.display = 'flex';
+                                            }}
+                                          />
+                                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 rounded-lg transition-colors" />
+                                        </div>
+                                        <div className="fallback-icon hidden items-center gap-2">
+                                          <img src={pdfIcon} alt="PDF" className="w-5 h-5" />
+                                          <span className="text-sm text-secondary">{fileName}</span>
+                                        </div>
+                                      </div>
+                                    );
+                                  } else if (isPdf) {
+                                    return (
+                                      <div className="flex items-center gap-2">
+                                        <img src={pdfIcon} alt="PDF" className="w-5 h-5" />
+                                        <a
+                                          href={docValue}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="text-sm text-black hover:text-accent truncate max-w-[200px] cursor-pointer"
+                                          title={docValue}
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            window.open(docValue, '_blank');
+                                          }}
+                                        >
+                                          {fileName}
+                                        </a>
+                                      </div>
+                                    );
+                                  } else {
+                                    return (
+                                      <div className="flex items-center gap-2">
+                                        <div className="p-1 px-2 bg-gray-100 rounded text-[10px] text-secondary font-bold uppercase">
+                                          FILE
+                                        </div>
+                                        <a
+                                          href={docValue}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="text-sm text-black hover:text-accent truncate max-w-[200px] cursor-pointer"
+                                          title={docValue}
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            window.open(docValue, '_blank');
+                                          }}
+                                        >
+                                          {fileName}
+                                        </a>
+                                      </div>
+                                    );
+                                  }
+                                } else {
+                                  return (
+                                    <div className="flex items-center gap-2">
+                                      <img src={pdfIcon} alt="PDF" className="w-5 h-5" />
+                                      <span className="text-sm text-secondary">{docValue}</span>
+                                    </div>
+                                  );
+                                }
+                              })()}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+
+                    <div onClick={(e) => e.stopPropagation()}>
+                      <DropdownMenu
+                        items={[
+                          {
+                            label: t("editMilestone", {
+                              defaultValue: "Edit Milestone",
+                            }),
+                            onClick: () => {
+                              setInvoiceToEdit(invoice);
+                              setIsEditInvoiceModalOpen(true);
+                            },
+                            icon: (
+                              <img
+                                src={pencilIcon}
+                                alt="Edit"
+                                className="w-4 h-4"
+                              />
+                            ),
+                          },
+                          {
+                            label: t("downloadAsPDF", {
+                              defaultValue: "Download as PDF",
+                            }),
+                            onClick: () => {
+                              handleDownloadPDF(invoice);
+                            },
+                            icon: (
+                              <img
+                                src={downloadIcon}
+                                alt="Download"
+                                className="w-4 h-4"
+                              />
+                            ),
+                          },
+                          {
+                            label: t("deleteMilestone", {
+                              defaultValue: "Delete Milestone",
+                            }),
+                            onClick: () => {
+                              setInvoiceToDelete(invoice);
+                              setIsDeleteInvoiceModalOpen(true);
+                            },
+                            icon: (
+                              <img
+                                src={trashIcon}
+                                alt="Delete"
+                                className="w-4 h-4"
+                              />
+                            ),
+                            textColor: "text-accent",
+                          },
+                        ]}
+                        position="right"
+                      />
+                    </div>
+                  </div>
                 </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center py-12">
+              <div className="w-full max-w-[430px] mb-6">
+                <img src={emptyStateIcon} alt="Empty State" className="w-full" />
               </div>
+              <h3 className="text-lg sm:text-xl font-medium text-primary mb-2">
+                {t("noInvoiceAdded", { defaultValue: "No Invoice Added" })}
+              </h3>
+              <p className="text-md sm:text-base text-secondary text-center mb-6 max-w-md">
+                {t("createProjectInvoice", {
+                  defaultValue: "Create your project's invoice for easy billing.",
+                })}
+              </p>
+              <Button
+                onClick={() => setIsCreateInvoiceModalOpen(true)}
+                className="flex items-center gap-2"
+              >
+                <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center">
+                  <Plus className="w-3 h-3 text-accent " strokeWidth={3} />
+                </div>
+                {t("createInvoice", { defaultValue: "Create Invoice" })}
+              </Button>
             </div>
-          ))}
-        </div>
-      ) : (
-        <div className="flex flex-col items-center justify-center">
-          <div className="w-full max-w-[430px]">
-            <img src={emptyStateIcon} alt="Empty State" className="w-full" />
-          </div>
-          <h3 className="text-lg sm:text-xl font-medium text-primary">
-            {t("noInvoiceAdded", { defaultValue: "No Invoice Added" })}
-          </h3>
-          <p className="text-md sm:text-base text-secondary text-center mb-6 max-w-md">
-            {t("createProjectInvoice", {
-              defaultValue: "Create your project's invoice for easy billing.",
-            })}
-          </p>
-          <Button
-            onClick={() => setIsCreateInvoiceModalOpen(true)}
-            className="flex items-center gap-2"
-          >
-            <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center">
-              <Plus className="w-3 h-3 text-accent " strokeWidth={3} />
-            </div>
-            {t("createInvoice", { defaultValue: "Create Invoice" })}
-          </Button>
-        </div>
           )}
         </>
       )}
@@ -1207,6 +1181,6 @@ export default function SectionDetail() {
         cancelText={t("cancel", { defaultValue: "Cancel" })}
         confirmVariant="danger"
       />
-    </div>
+    </div >
   );
 }

@@ -10,7 +10,8 @@
     "all": "All",
     "completed": "Completed",
     "inProgress": "In Progress",
-    "pending": "Pending"
+    "pending": "Pending",
+    "upcoming": "Upcoming"
   },
   "actions": {
     "addNewProject": "Add New Project",

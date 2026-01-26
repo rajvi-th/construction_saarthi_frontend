@@ -4,38 +4,59 @@ import { ChevronDown } from "lucide-react";
 import Dropdown from "../../../components/ui/Dropdown";
 import { statusBadgeColors } from "../../../components/ui/StatusBadge";
 
-export default function ProjectStatusPill({ status, onChange }) {
-  const { t } = useTranslation("common");
+export default function ProjectStatusPill({ status: rawStatus, onChange, readOnly = false }) {
+  const { t } = useTranslation("projects");
+
+  // Normalized form for internal logic/matching
+  const normalize = (s) => {
+    if (!s) return "completed";
+    let normalized = s.toLowerCase().replace(/\s+/g, '_');
+    // Map pending to upcoming for display consistency
+    if (normalized === 'pending') return 'upcoming';
+    return normalized;
+  };
+
+  const status = normalize(rawStatus);
 
   const statusOptions = [
-    { value: "completed", label: t("completed", { defaultValue: "Completed" }) },
-    { value: "in_progress", label: t("inProgress", { defaultValue: "In Progress" }) },
-    { value: "upcoming", label: t("upcoming", { defaultValue: "Upcoming" }) },
-    { value: "pending", label: t("pending", { defaultValue: "Pending" }) },
+    { value: "completed", label: t("status.completed", { defaultValue: "Completed" }) },
+    { value: "in_progress", label: t("status.inProgress", { defaultValue: "In Progress" }) },
+    { value: "upcoming", label: t("status.upcoming", { defaultValue: "Upcoming" }) },
+    // Remove pending as it's mapped to upcoming for consistency
   ];
-
-  const normalizedStatus = status?.toLowerCase?.() || "completed";
 
   // Helper to determine colors based on status
   const getStatusColors = (currentStatus) => {
-    const s = currentStatus?.toLowerCase() || "completed";
+    const s = normalize(currentStatus);
     if (s === "completed") {
       return statusBadgeColors.green;
-    } else if (
-      s === "inprogress" ||
-      s === "in_progress" ||
-      s === "in_progress" ||
-      s === "in progress"
-    ) {
+    } else if (s === "in_progress" || s === "inprogress") {
       return statusBadgeColors.yellow;
     } else if (s === "upcoming") {
       return statusBadgeColors.blue;
-    } else if (s === "pending") {
-      return statusBadgeColors.red;
     } else {
       return statusBadgeColors.green;
     }
   };
+
+  const colors = getStatusColors(status);
+  const selectedOption = statusOptions.find(opt => normalize(opt.value) === status)
+    || statusOptions.find(opt => normalize(opt.value) === 'completed');
+
+  if (readOnly) {
+    return (
+      <div
+        className="px-3 py-1.5 rounded-full flex gap-1 items-center font-medium border"
+        style={{
+          borderColor: colors.border,
+          backgroundColor: colors.background,
+          color: colors.text,
+        }}
+      >
+        <span>{selectedOption?.label || "Completed"}</span>
+      </div>
+    );
+  }
 
   return (
     <div onClick={(e) => e.stopPropagation()}>
@@ -45,12 +66,6 @@ export default function ProjectStatusPill({ status, onChange }) {
         onChange={onChange}
         className=""
         customButton={(isOpen, setIsOpen) => {
-          const colors = getStatusColors(normalizedStatus);
-          // Find label based on loose matching or exact match
-          const selectedOption = statusOptions.find(opt => opt.value === status)
-            || statusOptions.find(opt => opt.value === normalizedStatus)
-            || statusOptions.find(opt => opt.value === 'completed'); // fallback
-
           return (
             <button
               type="button"

@@ -29,32 +29,37 @@ export const useProjects = (workspaceId) => {
       const projectsData = response?.data || response?.projects || response || [];
       const projectsList = Array.isArray(projectsData) ? projectsData : [];
 
+      // Helper to extract URL from various media formats
+      const getMediaUrl = (media) => {
+        if (!media) return null;
+        if (typeof media === 'string') return media;
+        if (Array.isArray(media)) return typeof media[0] === 'string' ? media[0] : media[0]?.url;
+        if (typeof media === 'object' && media.url) return media.url;
+        return null;
+      };
+
       // Transform API response to match component structure
-      const transformedProjects = projectsList.map((project) => ({
-        id: project.id || project.project_id,
+      const transformedProjects = projectsList.map((project) => {
+        const p = project.details || project;
 
-        // Use profilePhoto as main image
-        image:project.profilePhoto,
+        // Robustly extract profile photo URL
+        const imageUrl = getMediaUrl(project.profilePhoto) ||
+          getMediaUrl(project.profile_photo) ||
+          getMediaUrl(project.media?.profilePhoto) ||
+          getMediaUrl(p.profilePhoto) ||
+          getMediaUrl(p.profile_photo) ||
+          '';
 
-        title: project.name || project.title || "Untitled Project",
-
-        // Use project.details.address if present
-        address:
-          project.details?.address ||
-          project.address ||
-          project.location ||
-          "",
-
-        // Budget & balance
-        budget:
-          project.details?.estimatedBudget ||
-          project.budget ||
-          "₹0",
-
-        balance: project.balance || "₹0",
-
-        onClick: () => { },
-      }));
+        return {
+          id: project.id || project.project_id,
+          image: imageUrl,
+          title: project.name || project.title || "Untitled Project",
+          address: p.address || project.address || project.location || "",
+          budget: p.estimatedBudget || project.budget || "₹0",
+          balance: project.balance || "₹0",
+          onClick: () => { },
+        };
+      });
 
       setProjects(transformedProjects);
     } catch (err) {

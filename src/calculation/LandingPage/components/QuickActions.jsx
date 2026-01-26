@@ -107,9 +107,18 @@ const QuickActions = () => {
     };
 
     const handleActionClick = (action) => {
-        if (action.isLocked) return;
-
         const title = t(`quickActions.items.${action.key}`);
+
+        if (action.isLocked) {
+            navigate('/calculation/coming-soon', {
+                state: {
+                    title,
+                    pageName: title,
+                },
+            });
+            return;
+        }
+
         const routeInfo = ROUTE_MAP[action.key];
 
         if (routeInfo) {
@@ -166,7 +175,7 @@ const QuickActions = () => {
                             )}
 
                             <div className={`w-10 h-10 sm:w-14 sm:h-14 rounded-full flex items-center justify-center mb-3 sm:mb-4 border border-black-soft relative
-                                ${action.isLocked ? 'bg-[#717171]' : 'bg-[rgba(71,85,105,0.04)]'}
+                                ${action.isLocked ? 'bg-[#71717199]' : 'bg-[rgba(71,85,105,0.04)]'}
                             `}>
                                 {action.isLocked ? (
                                     <>
@@ -174,7 +183,7 @@ const QuickActions = () => {
                                             <img
                                                 src={action.icon}
                                                 alt={title}
-                                                className="w-5 h-5 sm:w-7 sm:h-7 object-contain opacity-30 grayscale blur-[1px]"
+                                                className="w-5 h-5 sm:w-7 sm:h-7 object-contain opacity-40 grayscale"
                                             />
                                         )}
                                         <div className="absolute inset-0 flex items-center justify-center">

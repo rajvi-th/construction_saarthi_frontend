@@ -109,7 +109,7 @@ const Dashboard = () => {
       {
         icon: ClipboardList,
         label: t("quickActions.siteInventory"),
-        onClick: () => { },
+        onClick: () => navigate(ROUTES_FLAT.PROJECTS),
       },
       {
         icon: FileText,
@@ -148,7 +148,7 @@ const Dashboard = () => {
   return (
     <>
       <div className="max-w-7xl mx-auto">
-        <DashboardBanner onTryItNow={() => { }} />
+        <DashboardBanner onTryItNow={() => navigate(ROUTES_FLAT.CALCULATION_PROJECTS)} />
 
         {!isRestricted && <StatisticsCards statistics={statistics} />}
 

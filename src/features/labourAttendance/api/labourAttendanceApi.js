@@ -173,7 +173,30 @@ export const createAttendance = async ({
     payload.daily_wage = Number(daily_wage);
   }
 
-  return http.post(E.ATTENDANCE.CREATE, payload);
+  try {
+    return await http.post(E.ATTENDANCE.CREATE, payload);
+  } catch (error) {
+    // If the error is about missing expense mapping/section, try to create the section and retry
+    const errorMessage = error?.response?.data?.message || '';
+    if (errorMessage.includes('Expense mapping not found') || errorMessage.includes('Expense section not found')) {
+      console.warn('Expense mapping not found, attempting to create "labour" section and retry...');
+      try {
+        // Create the "labour" section
+        await http.post('/expense-section/create', {
+          name: 'labour',
+          workspace_id: Number(workspace_id),
+          project_id: Number(project_id),
+        });
+
+        // Retry the original request
+        return await http.post(E.ATTENDANCE.CREATE, payload);
+      } catch (retryError) {
+        // If retry or section creation fails, throw the original error
+        throw error;
+      }
+    }
+    throw error;
+  }
 };
 
 export const createOTPayableBill = async ({ workspace_id, project_id, title, amount, status, method, labour_id, paidDate }) => {
@@ -182,7 +205,7 @@ export const createOTPayableBill = async ({ workspace_id, project_id, title, amo
   if (!labour_id) throw new Error('Labour ID is required');
   if (!amount || amount <= 0) throw new Error('Valid amount is required');
 
-  return http.post(E.ATTENDANCE.OT_PAYABLE_BILL, {
+  const payload = {
     expenseSections: 'labour',
     workspace_id: Number(workspace_id),
     project_id: Number(project_id),
@@ -192,11 +215,54 @@ export const createOTPayableBill = async ({ workspace_id, project_id, title, amo
     method: String(method || 'Cash'),
     labour_id: Number(labour_id),
     paidDate: String(paidDate || ''), // YYYY-MM-DD format
-  });
+  };
+
+  try {
+    return await http.post(E.ATTENDANCE.OT_PAYABLE_BILL, payload);
+  } catch (error) {
+    const errorMessage = error?.response?.data?.message || '';
+    if (errorMessage.includes('Expense mapping not found') || errorMessage.includes('Expense section not found')) {
+      console.warn('Expense mapping not found in createOTPayableBill, attempting to create "labour" section and retry...');
+      try {
+        await http.post('/expense-section/create', {
+          name: 'labour',
+          workspace_id: Number(workspace_id),
+          project_id: Number(project_id),
+        });
+        return await http.post(E.ATTENDANCE.OT_PAYABLE_BILL, payload);
+      } catch (retryError) {
+        throw error;
+      }
+    }
+    throw error;
+  }
 };
 
 export const createPayLabour = async (payload) => {
-  return http.post(E.PAY_LABOUR.CREATE, payload);
+  try {
+    return await http.post(E.PAY_LABOUR.CREATE, payload);
+  } catch (error) {
+    const errorMessage = error?.response?.data?.message || '';
+    if (errorMessage.includes('Expense mapping not found') || errorMessage.includes('Expense section not found')) {
+      const { workspace_id, projectId, project_id } = payload;
+      const pid = project_id || projectId;
+
+      if (workspace_id && pid) {
+        console.warn('Expense mapping not found in createPayLabour, attempting to create "labour" section and retry...');
+        try {
+          await http.post('/expense-section/create', {
+            name: 'labour',
+            workspace_id: Number(workspace_id),
+            project_id: Number(pid),
+          });
+          return await http.post(E.PAY_LABOUR.CREATE, payload);
+        } catch (retryError) {
+          throw error;
+        }
+      }
+    }
+    throw error;
+  }
 };
 
 export const addLabourNote = async (formData) => {

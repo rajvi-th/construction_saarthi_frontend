@@ -120,7 +120,7 @@ export default function ProjectBanner({ project }) {
               {address}
             </p>
             <div className="flex items-center gap-4">
-              <ProjectStatusPill status={status} />
+              <ProjectStatusPill status={status} readOnly />
             </div>
           </div>
 

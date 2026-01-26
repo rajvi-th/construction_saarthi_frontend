@@ -34,7 +34,8 @@
   },
   "projects": {
     "title": "My Projects (Sites)",
-    "viewAll": "View All Projects"
+    "viewAll": "View All Projects",
+    "noImage": "No image"
   },
   "quickActions": {
     "title": "Quick Actions",

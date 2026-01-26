@@ -25,13 +25,13 @@ export default function ProjectDetails() {
   const location = useLocation();
   const { selectedWorkspace } = useAuth();
   const [showFullDescription, setShowFullDescription] = useState(false);
-  
+
   // Check if user has restricted role (supervisor, builder, contractor)
   const isRestricted = useRestrictedRole();
 
   // Get project ID from navigation state
   const projectIdFromState = location.state?.projectId;
-  
+
   const { project, isLoading } = useProjectDetails(projectIdFromState, selectedWorkspace);
 
   const handleEdit = () => {
@@ -58,6 +58,7 @@ export default function ProjectDetails() {
         }
         break;
       case 'calculator':
+        navigate(ROUTES_FLAT.CALCULATION_PROJECTS);
         break;
       case 'documents':
         if (project?.id) {
