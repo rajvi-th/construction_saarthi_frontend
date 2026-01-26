@@ -1,4 +1,4 @@
-import { ChevronRight } from 'lucide-react';
+import { ChevronDown, ChevronRight } from 'lucide-react';
 import PropTypes from 'prop-types';
 
 const ActionCards = ({ actionCards }) => {
@@ -48,7 +48,8 @@ const ActionCards = ({ actionCards }) => {
                 </p>
               </div>
             </div>
-            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-secondary group-hover:text-accent transition-colors flex-shrink-0 ml-2 sm:ml-4" />
+            {/* <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-secondary group-hover:text-accent transition-colors flex-shrink-0 ml-2 sm:ml-4" /> */}
+            <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-secondary group-hover:text-accent transition-colors flex-shrink-0 ml-2 sm:ml-4" />
           </button>
         );
       })}
