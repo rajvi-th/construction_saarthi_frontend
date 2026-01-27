@@ -3,7 +3,7 @@
  * Bottom card for Add New Project - upload relevant images/documents with tabs
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { X, Play, FileText, Loader2 } from 'lucide-react';
 import FileUpload from '../../../components/ui/FileUpload';
 import { showError, showSuccess, showLoading, dismissToast } from '../../../utils/toast';
@@ -17,17 +17,20 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
     documents: [],
   });
   const [uploadingFiles, setUploadingFiles] = useState(new Set());
+  const lastSyncedRef = useRef(null);
 
   // Update uploadedFiles when existingFiles prop changes (for edit mode)
   useEffect(() => {
-    if (existingFiles) {
+    if (existingFiles && existingFiles !== lastSyncedRef.current) {
+      lastSyncedRef.current = existingFiles;
       setUploadedFiles(existingFiles);
     }
   }, [existingFiles]);
 
-  // Notify parent component of file changes using useEffect to avoid setState during render
+  // Notify parent component of file changes
   useEffect(() => {
-    if (onFilesChange) {
+    if (onFilesChange && uploadedFiles !== lastSyncedRef.current) {
+      lastSyncedRef.current = uploadedFiles;
       onFilesChange(uploadedFiles);
     }
   }, [uploadedFiles, onFilesChange]);
@@ -103,13 +106,13 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
 
     Array.from(files).forEach((file) => {
       const fileType = getFileType(file);
-      
+
       // Check file size
       if (file.size > MAX_FILE_SIZE) {
         oversizedFiles.push(file);
         return;
       }
-      
+
       // Automatically categorize files by type
       if (fileType === 'photo') {
         categorizedFiles.photos.push(file);
@@ -125,7 +128,7 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
     // Show error if oversized files found
     if (oversizedFiles.length > 0) {
       showError(
-        t('addNewProject.form.validation.fileTooLarge', { 
+        t('addNewProject.form.validation.fileTooLarge', {
           count: oversizedFiles.length,
           maxSize: '10MB'
         })
@@ -135,170 +138,150 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
     // Show error if invalid files found
     if (invalidFiles.length > 0) {
       showError(
-        t('addNewProject.form.validation.invalidFileType', { 
-          count: invalidFiles.length 
+        t('addNewProject.form.validation.invalidFileType', {
+          count: invalidFiles.length
         }) || `${invalidFiles.length} file(s) have invalid format`
       );
     }
 
     // Process and upload files by category
-    const uploadPromises = [];
     const newPhotoFiles = [];
     const newVideoFiles = [];
     const newDocumentFiles = [];
+    const allFilesToUpload = [];
 
-    // Process photos
-    if (categorizedFiles.photos.length > 0) {
-      categorizedFiles.photos.forEach((file, index) => {
-        const fileData = {
-          id: `${Date.now()}-${Math.random()}-${index}-photo`,
-          file,
-          name: file.name,
-          size: formatFileSize(file.size),
-          uploadDate,
-          uploadDateTime,
-          date: uploadDateTime,
-          url: createPreviewUrl(file),
-          isUploading: true,
-        };
-        newPhotoFiles.push(fileData);
-        setUploadingFiles((prev) => new Set(prev).add(fileData.id));
-        uploadPromises.push(uploadFileToAPI(fileData, 'photos'));
+    // Categorize for state update
+    categorizedFiles.photos.forEach((file, index) => {
+      const id = `${Date.now()}-${Math.random()}-${index}-photo`;
+      newPhotoFiles.push({
+        id,
+        file,
+        name: file.name,
+        size: formatFileSize(file.size),
+        uploadDate,
+        uploadDateTime,
+        date: uploadDateTime,
+        url: createPreviewUrl(file),
+        isUploading: true,
       });
-    }
+      allFilesToUpload.push(file);
+      setUploadingFiles((prev) => new Set(prev).add(id));
+    });
 
-    // Process videos
-    if (categorizedFiles.videos.length > 0) {
-      categorizedFiles.videos.forEach((file, index) => {
-        const fileData = {
-          id: `${Date.now()}-${Math.random()}-${index}-video`,
-          file,
-          name: file.name,
-          size: formatFileSize(file.size),
-          uploadDate,
-          uploadDateTime,
-          date: uploadDateTime,
-          thumbnail: createPreviewUrl(file),
-          url: createPreviewUrl(file),
-          isUploading: true,
-        };
-        newVideoFiles.push(fileData);
-        setUploadingFiles((prev) => new Set(prev).add(fileData.id));
-        uploadPromises.push(uploadFileToAPI(fileData, 'videos'));
+    categorizedFiles.videos.forEach((file, index) => {
+      const id = `${Date.now()}-${Math.random()}-${index}-video`;
+      newVideoFiles.push({
+        id,
+        file,
+        name: file.name,
+        size: formatFileSize(file.size),
+        uploadDate,
+        uploadDateTime,
+        date: uploadDateTime,
+        thumbnail: createPreviewUrl(file),
+        url: createPreviewUrl(file),
+        isUploading: true,
       });
-    }
+      allFilesToUpload.push(file);
+      setUploadingFiles((prev) => new Set(prev).add(id));
+    });
 
-    // Process documents
-    if (categorizedFiles.documents.length > 0) {
-      categorizedFiles.documents.forEach((file, index) => {
-        const fileData = {
-          id: `${Date.now()}-${Math.random()}-${index}-document`,
-          file,
-          name: file.name,
-          size: formatFileSize(file.size),
-          uploadDate,
-          uploadDateTime,
-          date: uploadDateTime,
-          url: createPreviewUrl(file),
-          isUploading: true,
-        };
-        newDocumentFiles.push(fileData);
-        setUploadingFiles((prev) => new Set(prev).add(fileData.id));
-        uploadPromises.push(uploadFileToAPI(fileData, 'documents'));
+    categorizedFiles.documents.forEach((file, index) => {
+      const id = `${Date.now()}-${Math.random()}-${index}-document`;
+      newDocumentFiles.push({
+        id,
+        file,
+        name: file.name,
+        size: formatFileSize(file.size),
+        uploadDate,
+        uploadDateTime,
+        date: uploadDateTime,
+        url: createPreviewUrl(file),
+        isUploading: true,
       });
-    }
+      allFilesToUpload.push(file);
+      setUploadingFiles((prev) => new Set(prev).add(id));
+    });
+
+    const newFiles = {
+      photos: newPhotoFiles,
+      videos: newVideoFiles,
+      documents: newDocumentFiles,
+    };
 
     // Update state once with all new files
-    if (newPhotoFiles.length > 0 || newVideoFiles.length > 0 || newDocumentFiles.length > 0) {
-      setUploadedFiles((prev) => ({
-        ...prev,
-        photos: [...prev.photos, ...newPhotoFiles],
-        videos: [...prev.videos, ...newVideoFiles],
-        documents: [...prev.documents, ...newDocumentFiles],
-      }));
-    }
+    setUploadedFiles((prev) => ({
+      ...prev,
+      photos: [...prev.photos, ...newPhotoFiles],
+      videos: [...prev.videos, ...newVideoFiles],
+      documents: [...prev.documents, ...newDocumentFiles],
+    }));
 
-    // Wait for all uploads to complete
-    if (uploadPromises.length > 0) {
-      const loadingToast = showLoading(t('addNewProject.form.uploading') || 'Uploading files...');
-      try {
-        await Promise.all(uploadPromises);
-        dismissToast(loadingToast);
-        showSuccess(t('addNewProject.form.uploadSuccess') || 'Files uploaded successfully');
-      } catch (error) {
-        dismissToast(loadingToast);
-        console.error('Error uploading files:', error);
-      }
+    // Start batch upload
+    if (allFilesToUpload.length > 0) {
+      uploadBatchToAPI(allFilesToUpload, newFiles);
     }
   };
 
-  // Upload individual file to API
-  const uploadFileToAPI = async (fileData, category) => {
+  // Upload a batch of files to API
+  const uploadBatchToAPI = async (files, newFilesMapping) => {
+    // Create a flat array of all new file IDs to track progress
+    const allNewIds = [
+      ...newFilesMapping.photos.map(f => ({ id: f.id, category: 'photos' })),
+      ...newFilesMapping.videos.map(f => ({ id: f.id, category: 'videos' })),
+      ...newFilesMapping.documents.map(f => ({ id: f.id, category: 'documents' }))
+    ];
+
+    const loadingToast = showLoading(t('addNewProject.form.uploading') || 'Uploading files...');
+
     try {
-      // In edit mode, don't upload immediately - files will be uploaded on form submit
-      // Check if projectKey is a number (projectId in edit mode) vs string (projectKey in create mode)
-      const isEditMode = projectKey && !isNaN(Number(projectKey)) && String(projectKey).length < 10;
-      
-      if (isEditMode) {
-        // In edit mode, just mark as uploaded (will be sent with form submission)
-        setUploadedFiles((prev) => ({
-          ...prev,
-          [category]: prev[category].map((f) =>
-            f.id === fileData.id ? { ...f, isUploading: false, isUploaded: true } : f
-          ),
-        }));
-
-        setUploadingFiles((prev) => {
-          const newSet = new Set(prev);
-          newSet.delete(fileData.id);
-          return newSet;
-        });
-        return;
-      }
-
-      // In create mode, upload immediately using projectKey
-      // Prepare files object for API
-      const filesToUpload = {
-        media: [fileData.file], // All files go under 'media' key as per API
-      };
-
       // Upload to API
-      await uploadMedia(projectKey, filesToUpload);
+      const response = await uploadMedia(projectKey, { media: files });
 
-      // Mark file as uploaded
-      setUploadedFiles((prev) => ({
-        ...prev,
-        [category]: prev[category].map((f) =>
-          f.id === fileData.id ? { ...f, isUploading: false, isUploaded: true } : f
-        ),
-      }));
+      // Support capturing IDs from server response if available
+      const serverFiles = response?.files || response?.data?.files || [];
 
-      setUploadingFiles((prev) => {
-        const newSet = new Set(prev);
-        newSet.delete(fileData.id);
-        return newSet;
+      // Mark all as uploaded and sync IDs
+      setUploadedFiles((prev) => {
+        const newState = { ...prev };
+        allNewIds.forEach(({ id, category }, index) => {
+          const serverFile = serverFiles[index];
+          newState[category] = newState[category].map(f =>
+            f.id === id ? {
+              ...f,
+              isUploading: false,
+              isUploaded: true,
+              id: serverFile?.id || f.id
+            } : f
+          );
+        });
+        return newState;
       });
+
+      dismissToast(loadingToast);
+      showSuccess(t('addNewProject.form.uploadSuccess') || 'Files uploaded successfully');
     } catch (error) {
-      console.error(`Error uploading file ${fileData.name}:`, error);
-      
-      // Mark file as failed
-      setUploadedFiles((prev) => ({
-        ...prev,
-        [category]: prev[category].map((f) =>
-          f.id === fileData.id ? { ...f, isUploading: false, isUploadFailed: true } : f
-        ),
-      }));
+      console.error('Error uploading batch:', error);
+      dismissToast(loadingToast);
 
-      setUploadingFiles((prev) => {
-        const newSet = new Set(prev);
-        newSet.delete(fileData.id);
-        return newSet;
+      // Mark all as failed
+      setUploadedFiles((prev) => {
+        const newState = { ...prev };
+        allNewIds.forEach(({ id, category }) => {
+          newState[category] = newState[category].map(f =>
+            f.id === id ? { ...f, isUploading: false, isUploadFailed: true } : f
+          );
+        });
+        return newState;
       });
 
-      showError(
-        t('addNewProject.form.uploadError', { fileName: fileData.name }) || 
-        `Failed to upload ${fileData.name}`
-      );
+      showError(t('addNewProject.form.uploadBatchError') || 'Failed to upload some files');
+    } finally {
+      setUploadingFiles((prev) => {
+        const newSet = new Set(prev);
+        allNewIds.forEach(({ id }) => newSet.delete(id));
+        return newSet;
+      });
     }
   };
 
@@ -375,11 +358,10 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
             key={tab.id}
             type="button"
             onClick={() => setActiveTab(tab.id)}
-            className={`pb-3 text-sm font-medium transition-colors md:px-6 ${
-              activeTab === tab.id
-                ? 'text-accent border-b-2 border-accent'
-                : 'text-secondary hover:text-primary'
-            }`}
+            className={`pb-3 text-sm font-medium transition-colors md:px-6 ${activeTab === tab.id
+              ? 'text-accent border-b-2 border-accent'
+              : 'text-secondary hover:text-primary'
+              }`}
           >
             {tab.label}
           </button>
@@ -444,21 +426,36 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
                   {files.map((file, fileIndex) => (
                     <div key={file.id} className="relative group cursor-pointer">
-                      <div className="aspect-video rounded-lg overflow-hidden border border-gray-200 max-w-[200px] mx-auto relative">
-                        <img
-                          src={file.thumbnail || file.url}
-                          alt={file.name || `Video ${fileIndex + 1}`}
-                          className={`w-full h-full object-cover ${file.isUploading ? 'opacity-50' : ''}`}
-                          onClick={() => {
-                            // Open video in new tab for viewing
-                            if (!file.isUploading) {
-                              window.open(file.url, '_blank');
-                            }
-                          }}
-                        />
+                      <div className="aspect-video rounded-lg overflow-hidden border border-gray-200 max-w-[200px] mx-auto relative bg-gray-100">
+                        {file.isExisting ? (
+                          <img
+                            src={file.thumbnail || file.url}
+                            alt={file.name || `Video ${fileIndex + 1}`}
+                            className="w-full h-full object-cover"
+                            onClick={() => window.open(file.url, '_blank')}
+                          />
+                        ) : (
+                          <video
+                            src={file.url}
+                            className={`w-full h-full object-cover ${file.isUploading ? 'opacity-50' : ''}`}
+                            preload="metadata"
+                            muted
+                            playsInline
+                            onClick={() => {
+                              if (!file.isUploading) {
+                                window.open(file.url, '_blank');
+                              }
+                            }}
+                            onError={(e) => {
+                              // If video fail to load first frame, show placeholder
+                              e.target.style.display = 'none';
+                              e.target.parentNode.classList.add('flex', 'items-center', 'justify-center', 'bg-gray-200');
+                            }}
+                          />
+                        )}
                         {!file.isUploading && (
-                          <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                            <div className="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center">
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-all pointer-events-none">
+                            <div className="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center shadow-sm">
                               <Play className="w-5 h-5 text-primary ml-0.5" fill="currentColor" />
                             </div>
                           </div>

@@ -70,7 +70,7 @@ export default function ProjectInfoCard({ project }) {
             <span className="text-primary text-xs sm:text-sm font-medium sm:min-w-[130px]">
               {t('projectDetails.estBudget')}
             </span>
-            <p className="text-primary/50 text-xs sm:text-sm font-normal">₹{project.estimated_budget}</p>
+            <p className="text-primary/50 text-xs sm:text-sm font-normal">{project.estimated_budget}</p>
           </div>
         )}
       </div>

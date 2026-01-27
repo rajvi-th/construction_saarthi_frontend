@@ -419,13 +419,18 @@ export const editProject = async (projectId, data) => {
   // Handle media files - can be single file or array
   if (data.media) {
     if (Array.isArray(data.media)) {
-      data.media.forEach((file) => {
-        if (file instanceof File) {
-          formData.append('media', file);
+      data.media.forEach((item) => {
+        if (item instanceof File) {
+          formData.append('media', item);
+        } else if (item !== null && item !== undefined) {
+          // If it's an ID or other identifier for an existing file
+          formData.append('media', String(item));
         }
       });
     } else if (data.media instanceof File) {
       formData.append('media', data.media);
+    } else if (data.media !== null && data.media !== undefined) {
+      formData.append('media', String(data.media));
     }
   }
 

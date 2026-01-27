@@ -10,4 +10,9 @@ export default defineConfig({
       plugins: [tailwindcss()],
     },
   },
+  server: {
+    host: true,        // 👈 allow network access
+    port: 5173,
+    strictPort: true,
+  },
 })

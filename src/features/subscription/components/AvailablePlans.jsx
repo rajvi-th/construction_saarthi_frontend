@@ -170,16 +170,16 @@ export default function AvailablePlans({ selectedPlanId, onPlanSelect }) {
               key={plan.id}
               onClick={() => handlePlanSelect(plan.id)}
               className={`relative bg-white rounded-2xl border-1 p-4 md:p-5 cursor-pointer transition-all ${plan.isSelected
-                  ? 'border-accent !bg-[#F9F4EE]'
-                  : 'border-lightGray bg-[#F6F6F6CC]'
+                ? 'border-accent !bg-[#F9F4EE]'
+                : 'border-lightGray bg-[#F6F6F6CC]'
                 }`}
             >
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3 flex-1 min-w-0">
                   <div className="flex-shrink-0 mt-1">
                     <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${plan.isSelected
-                        ? 'border-[#B3330E] bg-[#B3330E]'
-                        : 'border-[#9CA3AF] bg-white'
+                      ? 'border-[#B3330E] bg-[#B3330E]'
+                      : 'border-[#9CA3AF] bg-white'
                       }`}>
                       {plan.isSelected && (
                         <div className="w-2 h-2 rounded-full bg-white" />

@@ -7,7 +7,7 @@
 import { useState, useCallback } from "react";
 import {
   startProject,
-  createProject as createProjectApi,
+  editProject as editProjectApi,
 } from "../api";
 import { showError, showSuccess } from "../../../utils/toast";
 import { useTranslation } from "react-i18next";
@@ -42,42 +42,40 @@ export const useCreateProject = (workspaceId) => {
           throw new Error("Failed to get project key");
         }
 
-        // Step 2: Skip media upload
-        // Files are already uploaded individually when selected in UploadDocumentsSection
-        // No need to upload again during project creation
-        // The projectKey links the files to the project
-
-        // Step 3: Create project with all details
-        // Format dates to YYYY-MM-DD
+        // Step 2: Format dates to YYYY-MM-DD
         const formatDate = (date) => {
           if (!date) return null;
           if (date instanceof Date) {
             return date.toISOString().split("T")[0];
           }
           if (typeof date === 'string') {
-            // If already in YYYY-MM-DD format, return as is
-            if (/^\d{4}-\d{2}-\d{2}$/.test(date)) {
-              return date;
-            }
-            // Try to parse and format
+            if (/^\d{4}-\d{2}-\d{2}$/.test(date)) return date;
             const parsed = new Date(date);
-            if (!isNaN(parsed.getTime())) {
-              return parsed.toISOString().split("T")[0];
-            }
+            if (!isNaN(parsed.getTime())) return parsed.toISOString().split("T")[0];
           }
           return null;
         };
 
         // Map form status to API status
-        // Form uses "upcoming" and "in_progress", API uses "pending" and "in_progress"
         const mapStatus = (formStatus) => {
           if (formStatus === "upcoming") return "pending";
           return formStatus || "pending";
         };
 
+        // Step 3: Use the edit API to finalize project details (as requested: Create uses PUT /project/edit)
+        // Combine all media files
+        const mediaFiles = [
+          ...(data.photos || []),
+          ...(data.videos || []),
+          ...(data.documents || []),
+        ].map(item => {
+          if (item.file instanceof File) return item.file; // New file
+          if (item.id && (item.isExisting || item.isUploaded)) return item.id; // Existing/Uploaded ID
+          if (item instanceof File) return item;
+          return null;
+        }).filter(Boolean);
+
         const projectData = {
-          workspaceId: workspaceId,
-          projectKey: projectKey,
           name: data.siteName,
           status: mapStatus(data.projectStatus),
           address: data.address || "",
@@ -85,16 +83,19 @@ export const useCreateProject = (workspaceId) => {
           startDate: formatDate(data.startDate),
           endDate: formatDate(data.endDate),
           totalArea: data.totalArea || null,
-          gaugeTypeId: data.areaUnit === "meter" ? 2 : 1, // 1 = sqft, 2 = meter
+          gaugeTypeId: data.areaUnit === "meter" ? 2 : 1,
           perUnitRate: data.perSqFtRate || null,
           numberOfFloors: data.noOfFloors || null,
           contractTypeId: data.contractType || null,
           constructionTypeId: data.constructionType || null,
           description: data.projectDescription || "",
           estimatedBudget: data.estimatedBudget || null,
+          profilePhoto: data.profilePhoto || null,
+          media: mediaFiles.length > 0 ? mediaFiles : null,
         };
 
-        const response = await createProjectApi(projectData);
+        // Call editProject API with projectKey as the ID (as per requested PUT /project/edit/{id})
+        const response = await editProjectApi(projectKey, projectData);
 
         showSuccess(
           t("addNewProject.form.projectCreated", {

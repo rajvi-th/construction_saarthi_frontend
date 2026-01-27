@@ -8,7 +8,7 @@ import byWall from '../../../../assets/icons/byWall.svg';
 import lWall from '../../../../assets/icons/lWall.svg';
 import cWall from '../../../../assets/icons/cWall.svg';
 import rectangularChamber from '../../../../assets/icons/rectangularChamber.svg';
-import WallWithDoor from '../../../../assets/icons/WallWithDoor.svg';
+import WallWithDoor from '../../../../assets/icons/wallWithDoor.svg';
 import wallWithArcDoor from '../../../../assets/icons/wallWithArcDoor.svg';
 import cavityWall from '../../../../assets/icons/cavityWall.svg';
 import buttressWall from '../../../../assets/icons/buttressWall.svg';

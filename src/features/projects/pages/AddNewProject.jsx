@@ -4,7 +4,7 @@
  * Uses shared UI + form components and translations from `projects` namespace.
  */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -91,6 +91,8 @@ function AddNewProject() {
     videos: [],
     documents: [],
   });
+  const isMediaInitialized = useRef(false);
+  const [uploadingFiles, setUploadingFiles] = useState(new Set());
 
   // Use hooks for data fetching
   const {
@@ -196,14 +198,21 @@ function AddNewProject() {
     }
 
     try {
+      const mediaFiles = [
+        ...(uploadedFiles.videos || []),
+        ...(uploadedFiles.photos || []),
+        ...(uploadedFiles.documents || []),
+      ].map(item => {
+        // If file is already on server (has ID and is marked as existing/uploaded), just send the ID as a string
+        if (item.id && (item.isExisting || item.isUploaded)) return String(item.id);
+        // If it's a new file that has a binary File object
+        if (item.file instanceof File) return item.file;
+        if (item instanceof File) return item;
+        return null;
+      }).filter(Boolean);
+
       if (isEditMode && projectId) {
         // Edit mode: Use editProject hook
-        // Combine videos and photos into media array for the API
-        const mediaFiles = [
-          ...(uploadedFiles.videos || []),
-          ...(uploadedFiles.photos || []),
-        ].filter(file => file instanceof File); // Only include File objects, not URLs
-
         await editProjectHook(projectId, {
           siteName: data.siteName,
           address: data.address || "",
@@ -251,9 +260,8 @@ function AddNewProject() {
         });
 
         // Call background API for construction cost estimation
-        // This is done in the background without blocking navigation
         if (newProject) {
-          const createdId = newProject.id || newProject.projectId || newProject.project_id;
+          const createdId = newProject.id || newProject.projectId || newProject.project_id || preProjectKey;
           if (createdId) {
             getProjectPrompt(createdId).catch(err =>
               console.error("Background prompt call failed:", err)
@@ -297,6 +305,7 @@ function AddNewProject() {
         const start = new Date(startDateStr);
         if (!isNaN(start.getTime())) {
           setStartDate(start);
+          setValue("startDate", start, { shouldValidate: true });
         }
       }
 
@@ -305,6 +314,7 @@ function AddNewProject() {
         const end = new Date(endDateStr);
         if (!isNaN(end.getTime())) {
           setCompletionDate(end);
+          setValue("completionDate", end, { shouldValidate: true });
         }
       }
 
@@ -355,119 +365,67 @@ function AddNewProject() {
 
       mediaArray.forEach((mediaItem) => {
         const typeId = String(mediaItem.typeId || mediaItem.type_id || '');
+        const typeName = String(mediaItem.typeName || mediaItem.type_name || '').toLowerCase();
         const mediaUrl = mediaItem.url || '';
 
-        // Map typeId to categories based on backend response
-        // typeId "3" = image, "4" = video, "2" = document
-        // typeId "1" might be profile photo, but we'll also check for it
-        if (typeId === '3' || typeId === '1') {
-          // Skip profile photo (typeId 1) - it's handled separately
-          if (typeId !== '1') {
-            existingMedia.photos.push({
-              id: mediaItem.id || `${Date.now()}-${Math.random()}`,
-              url: mediaUrl,
-              name: mediaItem.name || `Photo ${existingMedia.photos.length + 1}`,
-              size: mediaItem.size || 'Unknown',
-              uploadDate: mediaItem.createdAt ? new Date(mediaItem.createdAt).toLocaleDateString('en-GB', {
-                day: 'numeric',
-                month: 'short',
-                year: 'numeric',
-              }) : 'Unknown',
-              uploadDateTime: mediaItem.createdAt ? new Date(mediaItem.createdAt).toLocaleString('en-GB', {
-                day: 'numeric',
-                month: 'short',
-                year: 'numeric',
-                hour: 'numeric',
-                minute: '2-digit',
-                hour12: true,
-              }) : 'Unknown',
-              date: mediaItem.createdAt ? new Date(mediaItem.createdAt).toLocaleString('en-GB', {
-                day: 'numeric',
-                month: 'short',
-                year: 'numeric',
-                hour: 'numeric',
-                minute: '2-digit',
-                hour12: true,
-              }) : 'Unknown',
-              isUploaded: true,
-              isExisting: true, // Mark as existing file
-            });
-          }
-        } else if (typeId === '4') {
+        // Category matching by ID or Name
+        // Include profile photo (typeId 1) in gallery as well if it's in the media array
+        const isPhoto = typeId === '3' || typeId === '1' || typeName.includes('photo') || typeName.includes('image');
+        const isVideo = typeId === '4' || typeName.includes('video');
+        const isDocument = typeId === '2' || typeName.includes('document') || typeName.includes('pdf') || typeName.includes('file');
+
+        const fileData = {
+          id: mediaItem.id || String(Date.now() + Math.random()),
+          url: mediaUrl,
+          name: mediaItem.name || mediaItem.fileName || mediaUrl.split('/').pop() || 'File',
+          size: mediaItem.size || 'Unknown',
+          uploadDate: mediaItem.createdAt ? new Date(mediaItem.createdAt).toLocaleDateString('en-GB', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+          }) : 'Unknown',
+          uploadDateTime: mediaItem.createdAt ? new Date(mediaItem.createdAt).toLocaleString('en-GB', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true,
+          }) : 'Unknown',
+          date: mediaItem.createdAt ? new Date(mediaItem.createdAt).toLocaleString('en-GB', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true,
+          }) : 'Unknown',
+          isUploaded: true,
+          isExisting: true,
+        };
+
+        if (isPhoto) {
+          existingMedia.photos.push(fileData);
+        } else if (isVideo) {
           existingMedia.videos.push({
-            id: mediaItem.id || `${Date.now()}-${Math.random()}`,
-            url: mediaUrl,
-            thumbnail: mediaUrl, // Use URL as thumbnail for videos
-            name: mediaItem.name || `Video ${existingMedia.videos.length + 1}`,
-            size: mediaItem.size || 'Unknown',
-            uploadDate: mediaItem.createdAt ? new Date(mediaItem.createdAt).toLocaleDateString('en-GB', {
-              day: 'numeric',
-              month: 'short',
-              year: 'numeric',
-            }) : 'Unknown',
-            uploadDateTime: mediaItem.createdAt ? new Date(mediaItem.createdAt).toLocaleString('en-GB', {
-              day: 'numeric',
-              month: 'short',
-              year: 'numeric',
-              hour: 'numeric',
-              minute: '2-digit',
-              hour12: true,
-            }) : 'Unknown',
-            date: mediaItem.createdAt ? new Date(mediaItem.createdAt).toLocaleString('en-GB', {
-              day: 'numeric',
-              month: 'short',
-              year: 'numeric',
-              hour: 'numeric',
-              minute: '2-digit',
-              hour12: true,
-            }) : 'Unknown',
-            isUploaded: true,
-            isExisting: true, // Mark as existing file
+            ...fileData,
+            thumbnail: fileData.url,
           });
-        } else if (typeId === '2') {
-          existingMedia.documents.push({
-            id: mediaItem.id || `${Date.now()}-${Math.random()}`,
-            url: mediaUrl,
-            name: mediaItem.name || `Document ${existingMedia.documents.length + 1}`,
-            size: mediaItem.size || 'Unknown',
-            uploadDate: mediaItem.createdAt ? new Date(mediaItem.createdAt).toLocaleDateString('en-GB', {
-              day: 'numeric',
-              month: 'short',
-              year: 'numeric',
-            }) : 'Unknown',
-            uploadDateTime: mediaItem.createdAt ? new Date(mediaItem.createdAt).toLocaleString('en-GB', {
-              day: 'numeric',
-              month: 'short',
-              year: 'numeric',
-              hour: 'numeric',
-              minute: '2-digit',
-              hour12: true,
-            }) : 'Unknown',
-            date: mediaItem.createdAt ? new Date(mediaItem.createdAt).toLocaleString('en-GB', {
-              day: 'numeric',
-              month: 'short',
-              year: 'numeric',
-              hour: 'numeric',
-              minute: '2-digit',
-              hour12: true,
-            }) : 'Unknown',
-            isUploaded: true,
-            isExisting: true, // Mark as existing file
-          });
+        } else if (isDocument) {
+          existingMedia.documents.push(fileData);
         }
       });
 
-      // Set existing media files
-      if (existingMedia.photos.length > 0 || existingMedia.videos.length > 0 || existingMedia.documents.length > 0) {
+      // Set existing media files - ONLY DO THIS ONCE
+      if (!isMediaInitialized.current) {
         setUploadedFiles(existingMedia);
+        isMediaInitialized.current = true;
       }
     }
   }, [isEditMode, projectData, isLoadingProject, setValue]);
 
-  // Start a project immediately when the form/page opens (pre-allocate projectKey) - only in create mode
+  // Start a project immediately when the form/page opens (pre-allocate projectKey)
   useEffect(() => {
-    if (isEditMode) return; // Skip in edit mode
-
     let mounted = true;
     const doStart = async () => {
       if (!selectedWorkspace) return;
@@ -620,7 +578,7 @@ function AddNewProject() {
                 onAddNewBuilder={handleAddNewBuilder}
                 workspaceId={selectedWorkspace}
                 onProfilePhotoChange={setProfilePhoto}
-                projectKey={isEditMode ? projectId : preProjectKey}
+                projectKey={preProjectKey || (isEditMode ? projectId : null)}
                 existingProfilePhotoUrl={profilePhotoUrl}
                 onSaveAndContinue={handleNextStep}
                 onCancel={() => navigate(-1)}
@@ -657,7 +615,7 @@ function AddNewProject() {
                 <UploadDocumentsSection
                   t={t}
                   onFilesChange={setUploadedFiles}
-                  projectKey={isEditMode ? projectId : preProjectKey}
+                  projectKey={preProjectKey || (isEditMode ? projectId : null)}
                   existingFiles={uploadedFiles}
                 />
 

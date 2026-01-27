@@ -5,16 +5,17 @@ import { Plus } from 'lucide-react';
 import PropTypes from 'prop-types';
 import Button from '../../../components/ui/Button';
 import { ROUTES_FLAT } from '../../../constants/routes';
+import { PROJECT_ROUTES } from '../../projects/constants';
 import { useRestrictedRole } from '../hooks';
 
-const ProjectItem = ({ project, t }) => {
+const ProjectItem = ({ project, t, onClick }) => {
   const [imageError, setImageError] = useState(false);
   const showImage = Boolean(project.image) && !imageError;
 
   return (
     <div
       className="bg-white rounded-xl sm:rounded-2xl shadow-sm overflow-hidden transition-shadow cursor-pointer hover:shadow-md h-full flex flex-col"
-      onClick={project.onClick || (() => { })}
+      onClick={onClick || project.onClick || (() => { })}
     >
       <div className="relative h-40 sm:h-48 bg-[#F3F4F6] flex-shrink-0">
         {showImage ? (
@@ -64,6 +65,23 @@ const MyProjects = ({ projects, onCreateProject }) => {
   // Check if user has restricted role (supervisor, builder, contractor)
   const isRestricted = useRestrictedRole();
 
+  const handleProjectClick = (project) => {
+    const projectName = project.title || '';
+    const slug = projectName
+      .toString()
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)+/g, "");
+
+    navigate(PROJECT_ROUTES.PROJECT_DETAILS.replace(':slug', slug || project.id), {
+      state: {
+        projectId: project.id,
+        projectName: project.title,
+      },
+    });
+  };
+
   return (
     <div className="mb-6 sm:mb-8">
       <div className="flex items-center justify-between mb-4 sm:mb-6">
@@ -80,7 +98,12 @@ const MyProjects = ({ projects, onCreateProject }) => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
         {projects.slice(0, 3).map((project) => (
-          <ProjectItem key={project.id} project={project} t={t} />
+          <ProjectItem
+            key={project.id}
+            project={project}
+            t={t}
+            onClick={() => handleProjectClick(project)}
+          />
         ))}
 
         {/* Create New Project Card - Hide for restricted roles */}

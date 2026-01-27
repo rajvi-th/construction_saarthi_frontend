@@ -89,47 +89,47 @@ export default function ExpensesToPay() {
         <>
           {/* Sections List or Empty State */}
           {filteredSections.length > 0 ? (
-        <div className="space-y-3">
-          {filteredSections.map((section) => (
-            <div
-              key={section.id}
-              className="bg-white rounded-xl shadow-sm p-4 cursor-pointer border border-gray-50"
-              onClick={() => handleSectionClick(section)}
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-base font-medium text-primary">
-                  {section.name}
-                </span>
-                <ChevronRight className="w-5 h-5 text-secondary" />
+            <div className="space-y-3">
+              {filteredSections.map((section) => (
+                <div
+                  key={section.id}
+                  className="bg-white rounded-xl shadow-sm p-4 cursor-pointer border border-gray-50"
+                  onClick={() => handleSectionClick(section)}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-base font-medium text-primary">
+                      {section.name}
+                    </span>
+                    <ChevronRight className="w-5 h-5 text-secondary" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center py-12">
+              <div className="w-full max-w-[430px] mb-6">
+                <img src={emptyStateIcon} alt="Empty State" className="w-full" />
               </div>
+              <h3 className="text-lg sm:text-xl font-medium text-primary mb-2">
+                {t('noSectionsCreated', { defaultValue: 'No Sections Created' })}
+              </h3>
+              <p className="text-md sm:text-base text-secondary text-center mb-6 max-w-md">
+                {t('createProjectSectionsPayables', {
+                  defaultValue:
+                    'Create your project sections to manage payables more efficiently.',
+                })}
+              </p>
+              <Button
+                onClick={() => setIsCreateSectionModalOpen(true)}
+                disabled={isCreating}
+                className="flex items-center gap-2"
+              >
+                <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center">
+                  <Plus className="w-3 h-3 text-accent" strokeWidth={3} />
+                </div>
+                {t('createSection', { defaultValue: 'Create Section' })}
+              </Button>
             </div>
-          ))}
-        </div>
-      ) : (
-        <div className="flex flex-col items-center justify-center py-12">
-          <div className="w-full max-w-[430px] mb-6">
-            <img src={emptyStateIcon} alt="Empty State" className="w-full" />
-          </div>
-          <h3 className="text-lg sm:text-xl font-medium text-primary mb-2">
-            {t('noSectionsCreated', { defaultValue: 'No Sections Created' })}
-          </h3>
-          <p className="text-md sm:text-base text-secondary text-center mb-6 max-w-md">
-            {t('createProjectSectionsPayables', {
-              defaultValue:
-                'Create your project sections to manage payables more efficiently.',
-            })}
-          </p>
-          <Button
-            onClick={() => setIsCreateSectionModalOpen(true)}
-            disabled={isCreating}
-            className="flex items-center gap-2"
-          >
-            <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center">
-              <Plus className="w-3 h-3 text-accent" strokeWidth={3} />
-            </div>
-            {t('createSection', { defaultValue: 'Create Section' })}
-          </Button>
-        </div>
           )}
         </>
       )}

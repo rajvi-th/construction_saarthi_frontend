@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { PlusCircle, Plus, Minus, ChevronRight } from 'lucide-react';
@@ -116,8 +116,13 @@ export default function AddOns({ onCalculationChange, onUsersChange }) {
     navigate(ROUTES_FLAT.SUBSCRIPTION_ADDED_MEMBERS);
   };
 
+  const hasInitializedRef = useRef(false);
+
   // Sync internal counters with backend data to match the price in the bottom bar
   useEffect(() => {
+    // Only initialize once to prevent UI flickering/resets when planSummary is refetched after manual updates
+    if (hasInitializedRef.current) return;
+
     if (planSummary) {
       const purchasedMembers = planSummary?.members?.purchased ?? 0;
       const purchasedCalcs = planSummary?.calculations?.purchased ?? 0;
@@ -127,15 +132,22 @@ export default function AddOns({ onCalculationChange, onUsersChange }) {
 
       setMemberQuantity(purchasedMembers);
       setCalculationQuantity(packs);
-    } else if (purchasedPlan) {
+      hasInitializedRef.current = true;
+    } else if (purchasedPlan && !isLoadingSummary) {
       const purchasedMembers = purchasedPlan?.total_members_purchased ?? 0;
       const purchasedCalcs = purchasedPlan?.total_calculations_purchased ?? 0;
       const packs = calculationMinPack > 0 ? Math.floor(purchasedCalcs / calculationMinPack) : purchasedCalcs;
 
       setMemberQuantity(purchasedMembers);
       setCalculationQuantity(packs);
+      hasInitializedRef.current = true;
     }
-  }, [planSummary, purchasedPlan, calculationMinPack]);
+  }, [planSummary, purchasedPlan, calculationMinPack, isLoadingSummary]);
+
+  // Reset initialization when workspace changes to fetch fresh data for the new context
+  useEffect(() => {
+    hasInitializedRef.current = false;
+  }, [selectedWorkspace]);
 
   // Toggle Calculation Edit
   const handleToggleCalcEdit = () => {

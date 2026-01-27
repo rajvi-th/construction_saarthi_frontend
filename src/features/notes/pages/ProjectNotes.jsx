@@ -28,7 +28,7 @@ export default function ProjectNotes() {
 
   // Fetch notes for this project from API
   const { notes, isLoading } = useNotes(projectId);
-  
+
   // Fetch projects to get project name
   const { projects } = useNotesProjects(selectedWorkspace);
   const currentProject = projects.find(p => p.id === projectId || p.id?.toString() === projectId);
@@ -48,17 +48,17 @@ export default function ProjectNotes() {
       // Call startNote API before opening the form
       const response = await startNote(selectedWorkspace);
       const noteKey = response?.noteKey || response?.note_key || response?.key || response?.data?.noteKey || response?.data?.note_key || response?.data?.key;
-      
+
       if (!noteKey) {
         throw new Error('Failed to get note key from server');
       }
-      
+
       // Navigate to add note form with noteKey in state
       navigate(ROUTES_FLAT.NOTES_ADD, { state: { noteKey } });
     } catch (error) {
       console.error('Error starting note:', error);
-      const errorMessage = error?.response?.data?.message || 
-        error?.message || 
+      const errorMessage = error?.response?.data?.message ||
+        error?.message ||
         'Failed to initialize note. Please try again.';
       showError(errorMessage);
     }
