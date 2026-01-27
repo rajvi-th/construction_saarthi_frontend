@@ -8,7 +8,7 @@ import Radio from '../../../../components/ui/Radio';
 import { ROUTES_FLAT } from '../../../../constants/routes';
 import InputField from '../../../common/InputField';
 import DownloadPDFModal from '../../../common/DownloadPDFModal';
-import slopBackfilling1Icon from '../../../../assets/icons/slopBackfilling1st.svg';
+import slopBackfilling1Icon from '../../../../assets/icons/SlopBackfilling1st.svg';
 
 const SlopBackfilling1 = () => {
     const navigate = useNavigate();
