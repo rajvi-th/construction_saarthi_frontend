@@ -81,11 +81,21 @@ export default function ProjectDetails() {
         }
         break;
       case 'calculator':
-        navigate(ROUTES_FLAT.CALCULATION_PROJECTS);
+        if (project?.id) {
+          navigate(getRoute(ROUTES_FLAT.CALCULATION_PROJECT_DETAILS, { projectId: project.id }), {
+            state: {
+              projectName: project?.site_name || project?.name,
+            },
+          });
+        }
         break;
       case 'documents':
         if (project?.id) {
-          navigate(getRoute(ROUTES_FLAT.DOCUMENTS_PROJECT_DOCUMENTS, { projectId: project.id }));
+          navigate(getRoute(ROUTES_FLAT.DOCUMENTS_PROJECT_DOCUMENTS, { projectId: project.id }), {
+            state: {
+              projectName: project?.site_name || project?.name,
+            },
+          });
         }
         break;
       case 'labour':

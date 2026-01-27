@@ -1,14 +1,14 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { History, Plus } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
 import PageHeader from '../../../components/layout/PageHeader';
 import Loader from '../../../components/ui/Loader';
 
 import calculatorIcon from '../../../assets/icons/CalculatorMinimalistic.svg';
 import QuickActions from '../components/QuickActions';
 import CalculationSummary from '../components/CalculationSummary';
-import { ROUTES_FLAT } from '../../../constants/routes';
 
 /* ---------------- MOCK DATA ---------------- */
 
@@ -20,7 +20,19 @@ const MOCK_PROJECT = {
 export default function ProjectCalDetails() {
     const { t } = useTranslation('calculation');
     const navigate = useNavigate();
+    const { projectId } = useParams();
+    const { state } = useLocation();
     const isLoading = false;
+
+    const projectName = state?.projectName || t('projectDetails.name', { defaultValue: 'Construction Calculation' });
+
+    const handleBack = () => {
+        if (projectId) {
+            navigate(getRoute(ROUTES_FLAT.PROJECT_DETAILS, { id: projectId }));
+        } else {
+            navigate(ROUTES_FLAT.DASHBOARD);
+        }
+    };
 
     if (isLoading) {
         return (
@@ -35,9 +47,9 @@ export default function ProjectCalDetails() {
             <div className="max-w-7xl mx-auto px-0">
                 <div className="mb-6">
                     <PageHeader
-                        title={MOCK_PROJECT.name}
+                        title={projectName}
                         showBackButton
-                        backTo="/dashboard"
+                        onBack={handleBack}
                     >
                         <div
                             className=""

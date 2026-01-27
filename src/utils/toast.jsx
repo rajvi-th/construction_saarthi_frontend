@@ -105,9 +105,9 @@ export const showLoading = (msg = "Loading…", position = DEFAULT_POSITION) =>
   toast.custom(
     () => (
       <ToastBox
-        icon={<Loader2 className="animate-spin w-5 h-5 text-white" />}
+        icon={<Loader2 className="animate-spin w-5 h-5 text-green-700" />}
         message={msg}
-        classes="bg-gray-900 border-gray-700 text-white"
+        classes="bg-white border-green-300 text-green-700"
       />
     ),
     { 

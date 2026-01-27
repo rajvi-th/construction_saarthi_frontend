@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
 import { Share2, Download, FileText, TrendingUp, Activity, AlertTriangle, Lightbulb, ChevronDown } from 'lucide-react';
 import PageHeader from '../../../components/layout/PageHeader';
 import Button from '../../../components/ui/Button';
@@ -13,6 +15,10 @@ import InputField from '../../common/InputField';
 
 const ConstructionCost = () => {
     const { t } = useTranslation('calculation');
+    const navigate = useNavigate();
+    const location = useLocation();
+    const projectId = location.state?.projectId;
+
     const [title, setTitle] = useState('');
     const [area, setArea] = useState('');
     const [cost, setCost] = useState('');
@@ -23,6 +29,14 @@ const ConstructionCost = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [calculationResult, setCalculationResult] = useState(null);
+
+    const handleBack = () => {
+        if (projectId) {
+            navigate(getRoute(ROUTES_FLAT.PROJECT_DETAILS, { id: projectId }));
+        } else {
+            window.history.back();
+        }
+    };
 
     const handleReset = () => {
         setTitle('');
@@ -37,7 +51,7 @@ const ConstructionCost = () => {
 
     const handleCalculate = async () => {
         if (!area || !cost) {
-            showError("Please enter area and cost");
+            showError(t('history.inputErrorMessage'));
             return;
         }
 
@@ -65,16 +79,16 @@ const ConstructionCost = () => {
                     setError(promptResult);
                 } else if (promptResult?.calculation) {
                     setCalculationResult(promptResult);
-                    showSuccess("Calculation completed successfully");
+                    showSuccess(t('history.successMessage'));
                 } else {
-                    setError("Failed to get calculation results. Please check your inputs and try again.");
+                    setError(t('history.resultErrorMessage'));
                 }
             } else {
-                setError("Failed to connect to calculation service. Please try again.");
+                setError(t('history.connectErrorMessage'));
             }
         } catch (error) {
             console.error("Calculation error:", error);
-            setError("A system error occurred. Please try again later.");
+            setError(t('history.systemErrorMessage'));
         } finally {
             setIsLoading(false);
         }
@@ -82,12 +96,12 @@ const ConstructionCost = () => {
 
     // Helper to format raw error messages into user-friendly text
     const formatErrorMessage = (msg) => {
-        if (typeof msg !== 'string') return "An unknown error occurred";
+        if (typeof msg !== 'string') return t('history.unknownError');
 
         if (msg.includes('Quota exceeded')) {
             const retryMatch = msg.match(/Please retry in ([\d.]+)s/);
             const seconds = retryMatch ? Math.ceil(parseFloat(retryMatch[1])) : null;
-            return `AI Usage limit reached. ${seconds ? `Please wait about ${seconds} seconds before trying again.` : 'Please try again in a moment.'} This is usually due to high traffic on the free tier.`;
+            return t('history.quotaErrorMessage');
         }
 
         if (msg.startsWith('Error:')) {
@@ -127,7 +141,7 @@ const ConstructionCost = () => {
                 <PageHeader
                     title={t('history.constructionCost')}
                     showBackButton
-                    onBack={() => window.history.back()}
+                    onBack={handleBack}
                 >
                     <div className="flex gap-3">
                         {/* <Button
@@ -161,7 +175,7 @@ const ConstructionCost = () => {
                         <InputField
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            placeholder={t('history.enterValue')}
+                            placeholder={t('history.enterTitle')}
                         />
                     </div>
 
@@ -201,7 +215,7 @@ const ConstructionCost = () => {
                         <InputField
                             value={city}
                             onChange={(e) => setCity(e.target.value)}
-                            placeholder={t('history.enterValue')}
+                            placeholder={t('history.enterCity')}
                         />
                     </div>
 
@@ -213,7 +227,7 @@ const ConstructionCost = () => {
                         <InputField
                             value={language}
                             onChange={(e) => setLanguage(e.target.value)}
-                            placeholder={t('history.enterValue')}
+                            placeholder={t('history.enterLanguage')}
                         />
                     </div>
 
@@ -225,7 +239,7 @@ const ConstructionCost = () => {
                         <InputField
                             value={note}
                             onChange={(e) => setNote(e.target.value)}
-                            placeholder={t('history.enterValue')}
+                            placeholder={t('history.enterNote')}
                         />
                     </div>
                 </div>

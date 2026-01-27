@@ -715,11 +715,19 @@ export default function LabourAttendanceCards({
                   className="w-10 h-10 rounded-full flex items-center justify-center font-medium text-sm flex-shrink-0"
                   style={{
                     border: `1px solid ${avatarStyle.border}`,
-                    backgroundColor: avatarStyle.bg,
+                    backgroundColor: labour.profilePhoto ? '#FFFFFF' : avatarStyle.bg,
                     color: avatarStyle.text,
                   }}
                 >
-                  {labour.avatar || getInitials(labour.name)}
+                  {labour.profilePhoto ? (
+                    <img
+                      src={labour.profilePhoto}
+                      alt={labour.name}
+                      className="w-full h-full rounded-full object-cover"
+                    />
+                  ) : (
+                    labour.avatar || getInitials(labour.name)
+                  )}
                 </div>
 
                 <div className="min-w-0">

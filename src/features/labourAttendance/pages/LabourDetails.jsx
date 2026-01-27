@@ -114,12 +114,15 @@ export default function LabourDetails() {
             <div className="flex justify-center md:justify-start w-full md:w-auto">
               <div
                 className="w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center font-semibold text-2xl border-2 flex-shrink-0 overflow-hidden"
-                style={avatarStyle}
+                style={{
+                  ...avatarStyle,
+                  backgroundColor: labour.profilePhoto ? '#FFFFFF' : avatarStyle.backgroundColor
+                }}
               >
                 {labour.profilePhoto ? (
                   <img src={labour.profilePhoto} alt={labour.name} className="w-full h-full rounded-full object-cover " />
                 ) : (
-                  getInitials(labour.name)
+                  labour.avatar || getInitials(labour.name)
                 )}
               </div>
             </div>

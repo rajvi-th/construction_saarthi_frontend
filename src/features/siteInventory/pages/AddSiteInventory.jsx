@@ -361,7 +361,7 @@ export default function AddSiteInventory() {
         {/* Form Fields - Layout following image */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
           {/* Item Name */}
-          <Input
+          {/* <Input
             label={t('addInventory.itemName', { defaultValue: 'Item Name' })}
             placeholder={t('addInventory.itemNamePlaceholder', { defaultValue: 'Eg. "Bamboo"' })}
             value={itemName}
@@ -373,10 +373,10 @@ export default function AddSiteInventory() {
             }}
             required
             error={errors.itemName}
-          />
+          /> */}
 
           {/* Unit Dropdown */}
-          <Dropdown
+          {/* <Dropdown
             label={t('addInventory.unit', { defaultValue: 'Unit' })}
             options={unitOptions}
             value={selectedUnit}
@@ -389,7 +389,7 @@ export default function AddSiteInventory() {
             placeholder={t('addInventory.unitPlaceholder', { defaultValue: 'Select Unit' })}
             error={errors.unit}
             required
-          />
+          /> */}
 
           {/* Category (Material) - Full Width on mobile, spans 2 cols if needed but image shows it full width below item/brand */}
           <div className="lg:col-span-2">

@@ -77,7 +77,13 @@ export default function ProjectDocuments() {
     <div className="max-w-7xl mx-auto relative">
       <PageHeader
         title={projectName}
-        onBack={() => navigate(ROUTES_FLAT.DOCUMENTS)}
+        onBack={() => {
+          if (state?.projectName && projectId) {
+            navigate(getRoute(ROUTES_FLAT.PROJECT_DETAILS, { id: projectId }));
+          } else {
+            navigate(ROUTES_FLAT.DOCUMENTS);
+          }
+        }}
       />
 
       {/* AI Powered Badge - Fixed on right side */}
@@ -96,8 +102,8 @@ export default function ProjectDocuments() {
             image={emptyStateIcon}
             title={t('noDocumentsFound', { defaultValue: 'No documents found' })}
             message={t('noDocumentsFoundMessage', { defaultValue: 'You haven\'t generated any documents for this project yet.' })}
-            // actionLabel={t('generateDocuments')}
-            // onAction={() => navigate(ROUTES_FLAT.DOCUMENTS)}
+          // actionLabel={t('generateDocuments')}
+          // onAction={() => navigate(ROUTES_FLAT.DOCUMENTS)}
           />
         ) : (
           documents.map((document) => (

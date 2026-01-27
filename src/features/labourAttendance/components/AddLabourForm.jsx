@@ -15,6 +15,13 @@ import { useProjectsAll } from '../hooks/useProjectsAll';
 import { useShiftTypes } from '../hooks/useShiftTypes';
 import { showError } from '../../../utils/toast';
 
+function getInitials(name = '') {
+  const parts = String(name).trim().split(/\s+/).filter(Boolean);
+  const a = parts[0]?.[0] || '';
+  const b = parts[1]?.[0] || '';
+  return (a + b).toUpperCase();
+}
+
 export default function AddLabourForm({
   projectId,
   projectName,
@@ -446,7 +453,7 @@ export default function AddLabourForm({
                 className="w-full h-full rounded-full object-cover"
               />
             ) : (
-              <span className="text-secondary"> </span>
+              <span className="text-primary font-bold">{getInitials(labourName)}</span>
             )}
           </div>
           <button

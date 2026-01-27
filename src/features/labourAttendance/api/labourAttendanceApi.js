@@ -329,10 +329,10 @@ export const getLabourProfile = async ({ workspaceId, labourId }) => {
       defaultDailyWage: data.daily_wage,
       pay: data.daily_wage,
       joinDate: data.join_date,
-      profilePhoto: data.category_image_url || '',
-      profilePhotoPreview: data.category_image_url || '',
+      profilePhoto: data.media?.profilePhoto || data.profile_photo || data.profile_photo_url || (data.category_image_url && String(data.category_image_url).includes('labour-uploads') ? data.category_image_url : '') || '',
+      profilePhotoPreview: data.media?.profilePhoto || data.profile_photo || data.profile_photo_url || (data.category_image_url && String(data.category_image_url).includes('labour-uploads') ? data.category_image_url : '') || '',
       profile_photo: data.profile_photo || '', // Ensure this is also available
-      profile_photo_url: data.category_image_url || '',
+      profile_photo_url: data.media?.profilePhoto || data.profile_photo || data.profile_photo_url || (data.category_image_url && String(data.category_image_url).includes('labour-uploads') ? data.category_image_url : '') || '',
       shiftType: data.shift_name,
       shiftTypeId: data.shift_type_id,
       projectId: data.project_id,
