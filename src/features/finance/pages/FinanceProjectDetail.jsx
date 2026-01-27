@@ -4,7 +4,7 @@
  */
 
 import { useState, useEffect, useMemo } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
 import PageHeader from '../../../components/layout/PageHeader';
@@ -28,6 +28,7 @@ import { statusBadgeColors } from '../../../components/ui/StatusBadge';
 export default function FinanceProjectDetail() {
   const { t } = useTranslation('finance');
   const navigate = useNavigate();
+  const location = useLocation();
   const { projectId } = useParams();
   const { selectedWorkspace } = useAuth();
   const [isLoadingSummary, setIsLoadingSummary] = useState(false);
@@ -40,6 +41,7 @@ export default function FinanceProjectDetail() {
     totalExpensesPaid: 0,
   });
   const [projectOverview, setProjectOverview] = useState({
+    name: '',
     builder: '',
     contract_type: '',
     total_est_budget: '₹0',
@@ -51,13 +53,13 @@ export default function FinanceProjectDetail() {
 
   // Project data will be populated from API
   const projectData = useMemo(() => ({
-    name: 'Shivaay Residency ',
-    builder: projectOverview.builder || 'Mr. Anil Shah',
-    contractType: projectOverview.contract_type || 'Labour + Material',
-    totalBudget: projectOverview.total_est_budget || '₹1.2 Cr',
-    duration: projectOverview.project_duration || 'Mar 2025 - Mar 2026',
-    address: projectOverview.address || '86, Veer Nariman Road, Churchgate, Mumbai',
-  }), [projectOverview]);
+    name: location.state?.projectName || projectOverview.name || t('projectOverview', { defaultValue: 'Project Overview' }),
+    builder: projectOverview.builder || '',
+    contractType: projectOverview.contract_type || '',
+    totalBudget: projectOverview.total_est_budget || '₹0',
+    duration: projectOverview.project_duration || '',
+    address: projectOverview.address || '',
+  }), [projectOverview, location.state, t]);
 
   const statusOptions = [
     { value: 'completed', label: t('completed', { defaultValue: 'Completed' }) },
@@ -74,27 +76,27 @@ export default function FinanceProjectDetail() {
 
   // Memoize financeMetrics to recalculate when financialSummary changes
   const financeMetrics = useMemo(() => [
-    { 
-      icon: balanceIcon, 
-      label: t('balanceReceivable', { defaultValue: 'Balance Receivable' }), 
+    {
+      icon: balanceIcon,
+      label: t('balanceReceivable', { defaultValue: 'Balance Receivable' }),
       amount: formatAmount(financialSummary.balanceReceivable),
       key: 'balanceReceivable'
     },
-    { 
-      icon: siteIcon, 
-      label: t('siteInventory', { defaultValue: 'Site Inventory' }), 
+    {
+      icon: siteIcon,
+      label: t('siteInventory', { defaultValue: 'Site Inventory' }),
       amount: formatAmount(financialSummary.siteInventory),
       key: 'siteInventory'
     },
-    { 
-      icon: pendingIcon, 
-      label: t('pendingExpenses', { defaultValue: 'Pending Expenses' }), 
+    {
+      icon: pendingIcon,
+      label: t('pendingExpenses', { defaultValue: 'Pending Expenses' }),
       amount: formatAmount(financialSummary.pendingExpenses),
       key: 'pendingExpenses'
     },
-    { 
-      icon: estimatedIcon, 
-      label: t('estimatedProfitLoss', { defaultValue: 'Estimated Profit/Loss' }), 
+    {
+      icon: estimatedIcon,
+      label: t('estimatedProfitLoss', { defaultValue: 'Estimated Profit/Loss' }),
       amount: formatAmount(financialSummary.estimatedProfitLoss),
       key: 'estimatedProfitLoss'
     },
@@ -121,10 +123,10 @@ export default function FinanceProjectDetail() {
         const responseData = response?.data || response || {};
         const summaryData = responseData.financial_summary || responseData.financialSummary || {};
         const overviewData = responseData.project_overview || responseData.projectOverview || {};
-        
+
         console.log('Extracted summary data:', summaryData);
         console.log('Extracted overview data:', overviewData);
-        
+
         // Set financial summary
         setFinancialSummary({
           balanceReceivable: summaryData.balanceReceivable || 0,
@@ -134,9 +136,10 @@ export default function FinanceProjectDetail() {
           totalBuilderInvoices: summaryData.totalBuilderInvoices || 0,
           totalExpensesPaid: summaryData.totalExpensesPaid || 0,
         });
-        
+
         // Set project overview
         setProjectOverview({
+          name: overviewData.name || overviewData.site_name || '',
           builder: overviewData.builder || '',
           contract_type: overviewData.contract_type || '',
           total_est_budget: overviewData.total_est_budget || '₹0',
@@ -144,7 +147,7 @@ export default function FinanceProjectDetail() {
           address: overviewData.address || '',
           status: overviewData.status || 'completed',
         });
-        
+
         // Update status dropdown
         const statusMap = {
           'in_progress': 'inProgress',
@@ -152,7 +155,7 @@ export default function FinanceProjectDetail() {
           'upcoming': 'upcoming',
         };
         setStatus(statusMap[overviewData.status] || overviewData.status || 'completed');
-        
+
         console.log('Set financial summary state:', {
           balanceReceivable: summaryData.balanceReceivable || 0,
           siteInventory: summaryData.siteInventory || 0,
@@ -178,7 +181,7 @@ export default function FinanceProjectDetail() {
   const formatCardAmount = (amount) => {
     if (!amount && amount !== 0) return '₹0';
     const numAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
-    
+
     // Convert to Lakhs if >= 100000, otherwise show as is
     if (numAmount >= 100000) {
       const lakhs = (numAmount / 100000).toFixed(1);
@@ -215,14 +218,18 @@ export default function FinanceProjectDetail() {
   ], [financialSummary, t]);
 
   const handleCardClick = (route) => {
-    navigate(getRoute(route, { projectId }));
+    navigate(getRoute(route, { projectId }), {
+      state: { projectName: projectData.name }
+    });
   };
 
   return (
     <div className="max-w-7xl mx-auto">
       <PageHeader
         title={`${t('finance', { defaultValue: 'Finance' })} • ${projectData.name}`}
-        onBack={() => navigate(-1)}
+        onBack={() => navigate(getRoute(ROUTES_FLAT.PROJECT_DETAILS, { id: projectId }), {
+          state: { projectName: projectData.name }
+        })}
       >
         <button
           onClick={() => {

@@ -114,15 +114,15 @@ export default function MyAccount() {
         navigate(ROUTES_FLAT.MY_PROFILE);
       },
     },
-    {
-      id: 'notifications',
-      label: t('settings.manageNotifications', { defaultValue: 'Manage Notifications' }),
-      icon: <Bell className="w-5 h-5" />,
-      onClick: () => {
-        // TODO: Navigate to notifications page
-        showError('Feature coming soon');
-      },
-    },
+    // {
+    //   id: 'notifications',
+    //   label: t('settings.manageNotifications', { defaultValue: 'Manage Notifications' }),
+    //   icon: <Bell className="w-5 h-5" />,
+    //   onClick: () => {
+    //     // TODO: Navigate to notifications page
+    //     showError('Feature coming soon');
+    //   },
+    // },
     {
       id: 'language',
       label: t('settings.changeLanguage', { defaultValue: 'Change Language' }),

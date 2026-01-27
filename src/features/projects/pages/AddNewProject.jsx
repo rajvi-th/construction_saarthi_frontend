@@ -30,6 +30,7 @@ import { showError, showSuccess } from "../../../utils/toast";
 import { PROJECT_ROUTES } from "../constants";
 import PageHeader from "../../../components/layout/PageHeader";
 import Loader from "../../../components/ui/Loader";
+import { getRoute } from "../../../constants/routes";
 
 function AddNewProject() {
   const { t } = useTranslation("projects");
@@ -255,8 +256,13 @@ function AddNewProject() {
           media: validMediaFiles.length > 0 ? validMediaFiles : null,
         });
 
-        // Navigate to projects list
-        navigate(PROJECT_ROUTES.PROJECTS);
+        // Navigate to project details
+        navigate(getRoute(PROJECT_ROUTES.PROJECT_DETAILS, { slug: projectId }), {
+          state: {
+            projectName: data.siteName,
+            refresh: true // Optional: trigger a refresh if needed
+          }
+        });
       } else {
         // Create mode: Use createProject hook
         const newProject = await createProjectHook({
@@ -541,11 +547,28 @@ function AddNewProject() {
     }
   };
 
-  // Show loader while loading project data in edit mode
-  if (isEditMode && isLoadingProject) {
+  // Effect to update location state with project name for breadcrumbs in Edit Mode
+  useEffect(() => {
+    if (isEditMode && projectData && (projectData.site_name || projectData.name)) {
+      const name = projectData.site_name || projectData.name;
+      // Only update if the name in state is missing or different to avoid infinite loops
+      if (location.state?.projectName !== name) {
+        navigate(location.pathname, {
+          replace: true,
+          state: {
+            ...location.state,
+            projectName: name
+          }
+        });
+      }
+    }
+  }, [isEditMode, projectData, location.state, location.pathname, navigate]);
+
+  // Handle Loading & Error States
+  if (isLoadingProject || isLoadingBuilders || isLoadingConstructionTypes) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader size="lg" />
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader />
       </div>
     );
   }
@@ -558,7 +581,16 @@ function AddNewProject() {
           title={
             isEditMode ? t("actions.editProject") : t("addNewProject.title")
           }
-          backTo={PROJECT_ROUTES.PROJECTS}
+          onBack={() => {
+            if (isEditMode && projectId) {
+              const name = projectData?.site_name || projectData?.name || location.state?.projectName;
+              navigate(getRoute(PROJECT_ROUTES.PROJECT_DETAILS, { slug: projectId }), {
+                state: { projectName: name }
+              });
+            } else {
+              navigate(PROJECT_ROUTES.PROJECTS);
+            }
+          }}
           className="py-4 mb-2"
         />
 

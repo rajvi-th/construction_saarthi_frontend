@@ -25,7 +25,7 @@ export default function AddOns({ onCalculationChange, onUsersChange }) {
     fetchPlanSummary
   } = useSubscriptions();
 
-  const [calculationQuantity, setCalculationQuantity] = useState(25); // Default increment unit
+  const [calculationQuantity, setCalculationQuantity] = useState(0); // Default increment unit
   const [isCalcEditEnabled, setIsCalcEditEnabled] = useState(false);
   const [memberQuantity, setMemberQuantity] = useState(0);
   const [isAddMemberModalOpen, setIsAddMemberModalOpen] = useState(false);
@@ -121,27 +121,27 @@ export default function AddOns({ onCalculationChange, onUsersChange }) {
   // Sync internal counters with backend data to match the price in the bottom bar
   useEffect(() => {
     // Only initialize once to prevent UI flickering/resets when planSummary is refetched after manual updates
-    if (hasInitializedRef.current) return;
+    // if (hasInitializedRef.current) return;
 
-    if (planSummary) {
-      const purchasedMembers = planSummary?.members?.purchased ?? 0;
-      const purchasedCalcs = planSummary?.calculations?.purchased ?? 0;
+    // if (planSummary) {
+    //   const purchasedMembers = planSummary?.members?.purchased ?? 0;
+    //   const purchasedCalcs = planSummary?.calculations?.purchased ?? 0;
 
-      // Calculate number of packs (e.g., 25 calculations = 1 pack)
-      const packs = calculationMinPack > 0 ? Math.floor(purchasedCalcs / calculationMinPack) : purchasedCalcs;
+    //   // Calculate number of packs (e.g., 25 calculations = 1 pack)
+    //   const packs = calculationMinPack > 0 ? Math.floor(purchasedCalcs / calculationMinPack) : purchasedCalcs;
 
-      setMemberQuantity(purchasedMembers);
-      setCalculationQuantity(packs);
-      hasInitializedRef.current = true;
-    } else if (purchasedPlan && !isLoadingSummary) {
-      const purchasedMembers = purchasedPlan?.total_members_purchased ?? 0;
-      const purchasedCalcs = purchasedPlan?.total_calculations_purchased ?? 0;
-      const packs = calculationMinPack > 0 ? Math.floor(purchasedCalcs / calculationMinPack) : purchasedCalcs;
+    //   setMemberQuantity(purchasedMembers);
+    //   setCalculationQuantity(packs);
+    //   hasInitializedRef.current = true;
+    // } else if (purchasedPlan && !isLoadingSummary) {
+    //   const purchasedMembers = purchasedPlan?.total_members_purchased ?? 0;
+    //   const purchasedCalcs = purchasedPlan?.total_calculations_purchased ?? 0;
+    //   const packs = calculationMinPack > 0 ? Math.floor(purchasedCalcs / calculationMinPack) : purchasedCalcs;
 
-      setMemberQuantity(purchasedMembers);
-      setCalculationQuantity(packs);
-      hasInitializedRef.current = true;
-    }
+    //   setMemberQuantity(purchasedMembers);
+    //   setCalculationQuantity(packs);
+    //   hasInitializedRef.current = true;
+    // }
   }, [planSummary, purchasedPlan, calculationMinPack, isLoadingSummary]);
 
   // Reset initialization when workspace changes to fetch fresh data for the new context

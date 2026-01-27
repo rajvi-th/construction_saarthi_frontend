@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import PageHeader from '../../../components/layout/PageHeader';
 import Loader from '../../../components/ui/Loader';
 import walletIcon from '../../../assets/icons/Wallet.svg';
@@ -47,6 +48,7 @@ const getActivityInfo = (activity, t) => {
 
 export default function Wallet() {
   const { t } = useTranslation('referEarn');
+  const navigate = useNavigate();
   const { data: walletData, isLoading } = useWallet();
 
   if (isLoading) {
@@ -150,7 +152,10 @@ export default function Wallet() {
           <h2 className="text-sm sm:text-base font-semibold text-primary mb-3">
             {t('wallet.useWallet')}
           </h2>
-          <div className="bg-white rounded-2xl cursor-pointer border border-[#ECEFF3] shadow-[0_1px_3px_rgba(15,23,42,0.06)] px-4 sm:px-5 md:px-6 py-3.5 sm:py-4 flex items-center justify-between gap-3">
+          <div
+            onClick={() => navigate(ROUTES_FLAT.SUBSCRIPTION)}
+            className="bg-white rounded-2xl cursor-pointer border border-[#ECEFF3] shadow-[0_1px_3px_rgba(15,23,42,0.06)] px-4 sm:px-5 md:px-6 py-3.5 sm:py-4 flex items-center justify-between gap-3 transition-colors hover:bg-gray-50"
+          >
             <div className="flex items-center gap-3 sm:gap-4">
               <div className="flex items-center justify-center text-[#FF9500]">
                 <Crown className="w-6 h-6" strokeWidth={2.4} />

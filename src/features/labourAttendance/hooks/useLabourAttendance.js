@@ -73,9 +73,14 @@ export const useLabourAttendance = () => {
         const id = Number(l?.id || l?.labourId || l?.labour_id);
         const categoryName =
           l?.category?.name ||
+          l?.category_details?.name ||
           l?.category_name ||
           l?.categoryName ||
-          l?.category ||
+          l?.role ||
+          l?.designation ||
+          l?.occupation ||
+          l?.labour_category_name ||
+          (typeof l?.category === 'string' ? l?.category : '') ||
           '';
         const name = l?.full_name || l?.labour_name || l?.name || '';
         const shiftTypeId = String(l?.shift_type_id || l?.shiftTypeId || l?.shift_type || l?.shiftType || '');

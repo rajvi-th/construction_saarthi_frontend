@@ -16,8 +16,10 @@ import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
 import EmptyState from '../../../components/shared/EmptyState';
 import EmptyStateSvg from '../../../assets/icons/EmptyState.svg';
 
+import { ChevronDown } from 'lucide-react';
+
 export default function ProjectList() {
-    const { t } = useTranslation('labourAttendance');
+    const { t } = useTranslation(['labourAttendance', 'projects']);
     const navigate = useNavigate();
     const { selectedWorkspace } = useAuth();
 
@@ -29,8 +31,10 @@ export default function ProjectList() {
     const { projects, isLoading } = useLabourAttendanceProjects(selectedWorkspace);
 
     const statusOptions = [
-        { value: 'completed', label: t('projectList.completed', { defaultValue: 'Completed' }) },
-        { value: 'inProgress', label: t('projectList.inProgress', { defaultValue: 'In progress' }) },
+        { value: '', label: t('status.all', { ns: 'projects' }) },
+        { value: 'completed', label: t('status.completed', { ns: 'projects' }) },
+        { value: 'in_progress', label: t('status.inProgress', { ns: 'projects' }) },
+        { value: 'upcoming', label: t('status.upcoming', { ns: 'projects' }) },
     ];
 
     const handleImageError = (projectId) => {
@@ -51,16 +55,33 @@ export default function ProjectList() {
         });
     };
 
-
-
-
-    // Filter projects based on search query
+    // Filter projects based on search query and status
     const filteredProjects = useMemo(() => {
+        const status = statusFilter ? statusFilter.toLowerCase() : '';
+        const search = searchQuery.toLowerCase();
+
         return projects.filter((project) => {
-            const matchesSearch = project.name.toLowerCase().includes(searchQuery.toLowerCase());
-            return matchesSearch;
+            // Search filter: match name or address
+            const target = `${project.name} ${project.address}`.toLowerCase();
+            if (!target.includes(search)) return false;
+
+            // Status filter: handle variations consistently with useProjects hook
+            if (status) {
+                const projectStatus = (project.status || '').toLowerCase();
+                if (status === 'in_progress') {
+                    return projectStatus === 'in_progress' || projectStatus === 'in process' || projectStatus === 'inprocess';
+                } else if (status === 'completed') {
+                    return projectStatus === 'completed' || projectStatus === 'complete';
+                } else if (status === 'upcoming') {
+                    return projectStatus === 'upcoming' || projectStatus === 'pending' || projectStatus === 'not_started';
+                } else {
+                    return projectStatus === status;
+                }
+            }
+
+            return true;
         });
-    }, [projects, searchQuery]);
+    }, [projects, searchQuery, statusFilter]);
 
     return (
         <div className="max-w-7xl mx-auto">
@@ -76,8 +97,23 @@ export default function ProjectList() {
                         options={statusOptions}
                         value={statusFilter}
                         onChange={setStatusFilter}
-                        placeholder={t('projectList.status')}
-                        className="w-full sm:w-36 md:w-40 flex-shrink-0"
+                        placeholder={t('status.label', { ns: 'projects' })}
+                        className="w-full sm:w-[140px] sm:flex-shrink-0"
+                        showSeparator={false}
+                        onAddNew={null}
+                        addButtonLabel=""
+                        customButton={(isOpen, setIsOpen, selectedOption) => (
+                            <button
+                                type="button"
+                                onClick={() => setIsOpen(!isOpen)}
+                                className="w-full sm:w-[140px] py-3 px-4 rounded-xl border border-[#E5E7EB] bg-white text-sm flex items-center justify-between cursor-pointer"
+                            >
+                                <span className="text-primary">{selectedOption?.label || t('status.label', { ns: 'projects' })}</span>
+                                <ChevronDown
+                                    className={`w-4 h-4 text-primary transition-transform ${isOpen ? "rotate-180" : ""}`}
+                                />
+                            </button>
+                        )}
                     />
                 </div>
             </PageHeader>

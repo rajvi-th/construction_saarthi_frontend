@@ -63,7 +63,24 @@ export default function PastProjectDetail() {
           setIsLoading(false);
         });
     }
-  }, [id, selectedWorkspace, t, location.state?.refresh]);
+  }, [id, selectedWorkspace, t, location.state?.refresh, project]);
+
+  // Effect to update location state with project name for breadcrumbs
+  useEffect(() => {
+    if (project && (project.site_name || project.name)) {
+      const name = project.site_name || project.name;
+      // Only update if the name in state is missing or different to avoid infinite loops
+      if (location.state?.projectName !== name) {
+        navigate(location.pathname, {
+          replace: true,
+          state: {
+            ...location.state,
+            projectName: name
+          }
+        });
+      }
+    }
+  }, [project, location.state, location.pathname, navigate]);
 
   const handleBack = () => {
     navigate(PAST_PROJECT_ROUTES.LIST);
@@ -82,7 +99,10 @@ export default function PastProjectDetail() {
 
     // Navigate to edit page
     navigate(getRoute(PAST_PROJECT_ROUTES.EDIT, { id: projectId }), {
-      state: { project },
+      state: {
+        project,
+        projectName: project.site_name || project.name
+      },
     });
   };
 

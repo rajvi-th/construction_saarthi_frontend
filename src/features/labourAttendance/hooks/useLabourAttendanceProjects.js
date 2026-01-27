@@ -131,6 +131,7 @@ export const useLabourAttendanceProjects = (workspaceId) => {
           budget: budgetFormatted,
           balance: balanceFormatted,
           image: getImageUrl(),
+          status: project.status || details.status || 'upcoming',
         };
       });
 

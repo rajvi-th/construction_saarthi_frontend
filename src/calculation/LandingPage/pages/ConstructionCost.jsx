@@ -125,7 +125,7 @@ const ConstructionCost = () => {
             {/* Header */}
             <div className="mb-6 ">
                 <PageHeader
-                    title="Construction Cost"
+                    title={t('history.constructionCost')}
                     showBackButton
                     onBack={() => window.history.back()}
                 >
@@ -175,7 +175,7 @@ const ConstructionCost = () => {
                             value={area}
                             onChange={(e) => setArea(e.target.value)}
                             placeholder="0"
-                            suffix={t('history.units.sqft')}
+                            suffix="Sq. Ft."
                         />
                     </div>
 
@@ -189,7 +189,7 @@ const ConstructionCost = () => {
                             value={cost}
                             onChange={(e) => setCost(e.target.value)}
                             placeholder="0"
-                            suffix="₹/sqft"
+                            suffix="₹/Sq. Ft."
                         />
                     </div>
 
@@ -248,7 +248,7 @@ const ConstructionCost = () => {
                         {isLoading ? (
                             <div className="flex items-center gap-2">
                                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                Calculating...
+                                {t('history.calculating')}
                             </div>
                         ) : t('history.calculate')}
                     </Button>
@@ -259,7 +259,7 @@ const ConstructionCost = () => {
             {isLoading && (
                 <div className="flex flex-col items-center justify-center py-20 gap-4">
                     <Loader size="lg" />
-                    <p className="text-secondary font-medium animate-pulse">Our AI is analyzing your construction needs...</p>
+                    <p className="text-secondary font-medium animate-pulse">{t('history.analyzing')}</p>
                 </div>
             )}
 
@@ -270,7 +270,7 @@ const ConstructionCost = () => {
                         <AlertTriangle className="w-5 h-5" />
                     </div>
                     <div className="flex-1">
-                        <h4 className="font-bold text-red-900 mb-1">Calculation Alert</h4>
+                        <h4 className="font-bold text-red-900 mb-1">{t('history.calculationAlert')}</h4>
                         <p className="text-red-800/80 text-sm leading-relaxed whitespace-pre-line">
                             {formatErrorMessage(error)}
                         </p>
@@ -292,7 +292,7 @@ const ConstructionCost = () => {
                                         <div className="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center text-accent">
                                             <FileText className="w-5 h-5" />
                                         </div>
-                                        <h4 className="font-bold text-primary">Engineer Summary</h4>
+                                        <h4 className="font-bold text-primary">{t('history.engineerSummary')}</h4>
                                     </div>
                                     <p className="text-secondary text-sm leading-relaxed whitespace-pre-line">
                                         {calculationResult.ai_insights.engineer_summary}
@@ -305,7 +305,7 @@ const ConstructionCost = () => {
                                         <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center text-green-600">
                                             <Activity className="w-5 h-5" />
                                         </div>
-                                        <h4 className="font-bold text-primary">Budget Health</h4>
+                                        <h4 className="font-bold text-primary">{t('history.budgetHealth')}</h4>
                                     </div>
                                     <p className="text-secondary text-sm leading-relaxed">
                                         {calculationResult.ai_insights.budget_health}
@@ -318,7 +318,7 @@ const ConstructionCost = () => {
                                         <div className="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center text-red-600">
                                             <AlertTriangle className="w-5 h-5" />
                                         </div>
-                                        <h4 className="font-bold text-red-900">Risk Observations</h4>
+                                        <h4 className="font-bold text-red-900">{t('history.riskObservations')}</h4>
                                     </div>
                                     <ul className="space-y-3">
                                         {calculationResult.ai_insights.risk_observations?.map((item, idx) => (
@@ -339,7 +339,7 @@ const ConstructionCost = () => {
                                         <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600">
                                             <TrendingUp className="w-5 h-5" />
                                         </div>
-                                        <h4 className="font-bold text-primary">Major Cost Drivers</h4>
+                                        <h4 className="font-bold text-primary">{t('history.majorCostDrivers')}</h4>
                                     </div>
                                     <ul className="space-y-3">
                                         {calculationResult.ai_insights.major_cost_drivers?.map((item, idx) => (
@@ -357,7 +357,7 @@ const ConstructionCost = () => {
                                         <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600">
                                             <Lightbulb className="w-5 h-5" />
                                         </div>
-                                        <h4 className="font-bold text-blue-900">Practical Suggestions</h4>
+                                        <h4 className="font-bold text-blue-900">{t('history.practicalSuggestions')}</h4>
                                     </div>
                                     <ul className="space-y-3">
                                         {calculationResult.ai_insights.practical_suggestions?.map((item, idx) => (

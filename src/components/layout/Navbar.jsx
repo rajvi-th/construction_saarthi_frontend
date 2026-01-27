@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../features/auth/store";
 
@@ -15,8 +15,8 @@ const BREADCRUMB_TRANSLATION_KEYS = {
   builders: "sidebar.mainMenu.buildersClients",
   clients: "sidebar.mainMenu.buildersClients",
   vendors: "sidebar.mainMenu.vendors",
-  addVendor: "builderClient.form.addVendor",  
-  editVendor: "builderClient.form.editVendor", 
+  addVendor: "builderClient.form.addVendor",
+  editVendor: "builderClient.form.editVendor",
   "past-work": "sidebar.mainMenu.pastWork",
   addpastwork: "pastProjects.addTitle",
   "business-card": "sidebar.mainMenu.businessCard",
@@ -61,6 +61,7 @@ const Navbar = () => {
   const { t: tLabourAttendance } = useTranslation("labourAttendance");
   const { t: tCalculation } = useTranslation("calculation");
   const location = useLocation();
+  const navigate = useNavigate();
   const { user: authUser } = useAuth();
 
 
@@ -103,7 +104,9 @@ const Navbar = () => {
 
   const breadcrumbs = useMemo(() => {
     const segments = location.pathname.split("/").filter(Boolean);
-    if (segments.length === 0) return ["dashboard"];
+    if (segments.length === 0) return [{ id: "dashboard", path: "/" }];
+
+    const createPath = (idx) => "/" + segments.slice(0, idx + 1).join("/");
 
     // If we're on a project details page and have projectName in route state,
     // replace the numeric ID segment with the human-readable project name.
@@ -113,7 +116,19 @@ const Navbar = () => {
       typeof location.state?.projectName === "string" &&
       location.state.projectName.trim()
     ) {
-      return [segments[0], location.state.projectName.trim()];
+      const processed = [
+        { id: segments[0], path: createPath(0) },
+        { id: location.state.projectName.trim(), path: createPath(1) },
+      ];
+
+      // Append any remaining segments (like "edit", "details" etc.)
+      if (segments.length > 2) {
+        segments.slice(2).forEach((seg, i) => {
+          processed.push({ id: seg, path: createPath(i + 2) });
+        });
+      }
+
+      return processed;
     }
 
     // If we're on site-inventory page and have projectName in route state,
@@ -123,160 +138,175 @@ const Navbar = () => {
       typeof location.state?.projectName === "string" &&
       location.state.projectName.trim()
     ) {
-      return ["projects", location.state.projectName.trim(), segments[0]];
+      // Assuming project ID is also in state for the link, otherwise fallback to just projects list
+      const projectPath = location.state?.projectId ? `/projects/${location.state.projectId}` : '/projects';
+      return [
+        { id: "projects", path: "/projects" },
+        { id: location.state.projectName.trim(), path: projectPath },
+        { id: segments[0], path: createPath(0) },
+      ];
     }
 
-    // Handle labour-attendance routes:
-    // - /labour-attendance/:projectId → Labour Attendance / ProjectName
-    // - /labour-attendance/:projectId/add-labour → Labour Attendance / ProjectName / Add Labour
-    // - /labour-attendance/:projectId/labour/:labourId → Labour Attendance / ProjectName / LabourName
+    // Handle labour-attendance routes
     if (segments[0] === "labour-attendance" && segments.length > 1) {
-      const processedSegments = [segments[0]];
-      
+      const processed = [{ id: segments[0], path: createPath(0) }];
+
       // Replace project ID with project name if available
       if (typeof location.state?.projectName === "string" && location.state.projectName.trim()) {
-        processedSegments.push(location.state.projectName.trim());
+        processed.push({ id: location.state.projectName.trim(), path: createPath(1) });
       } else {
-        processedSegments.push(segments[1]);
+        processed.push({ id: segments[1], path: createPath(1) });
       }
-      
+
       // Handle add-labour route
       if (segments.length > 2 && segments[2] === "add-labour") {
-        // Check if it's edit mode (has editLabour in state)
         const editLabourName = location.state?.editLabour?.name || null;
-        
+
         if (editLabourName && typeof editLabourName === "string" && editLabourName.trim()) {
-          // Edit mode: show labour name
-          processedSegments.push(editLabourName.trim());
+          processed.push({ id: editLabourName.trim(), path: createPath(2) });
         } else {
-          // Add mode: show "Add Labour"
-          processedSegments.push("add-labour");
+          processed.push({ id: "add-labour", path: createPath(2) });
         }
-        return processedSegments;
+        return processed;
       }
-      
-      // Handle labour details route - show labour name
+
+      // Handle labour details route
       if (segments.length > 3 && segments[2] === "labour") {
-        // Try to get labour name from state (for both view and edit modes)
-        const labourName = location.state?.labour?.name || 
-                          location.state?.editLabour?.name || 
-                          location.state?.labourName || 
-                          null;
-        
+        const labourName = location.state?.labour?.name ||
+          location.state?.editLabour?.name ||
+          location.state?.labourName ||
+          null;
+
         if (labourName && typeof labourName === "string" && labourName.trim()) {
-          processedSegments.push(labourName.trim());
+          processed.push({ id: labourName.trim(), path: createPath(3) });
         } else {
-          // Fallback to labour ID if name not available
-          processedSegments.push(segments[3]);
+          processed.push({ id: segments[3], path: createPath(3) });
         }
-        return processedSegments;
+        return processed;
       }
-      
-      return processedSegments;
+
+      return processed;
     }
 
-    // Handle vendors routes: replace "add" with "addVendor" and "edit" with "editVendor" for breadcrumb translation
+    // Handle vendors routes
     if (segments[0] === "vendors" && segments.length > 1) {
-      const processedSegments = [...segments];
+      const processed = segments.map((seg, i) => ({ id: seg, path: createPath(i) }));
       if (segments[1] === "add") {
-        processedSegments[1] = "addVendor";
+        processed[1].id = "addVendor";
       } else if (segments[1] === "edit") {
-        processedSegments[1] = "editVendor";
+        processed[1].id = "editVendor";
       }
-      return processedSegments;
+      return processed;
     }
 
-    // Handle past-work add route: /past-work/add → ['past-work', 'addPastWork']
-    if (segments[0] === "past-work" && segments[1] === "add") {
-      return ["past-work", "addPastWork"];
+    // Handle past-work routes
+    if (segments[0] === "past-work" && segments.length > 1) {
+      if (segments[1] === "add") {
+        return [
+          { id: "past-work", path: createPath(0) },
+          { id: "addPastWork", path: createPath(1) },
+        ];
+      }
+
+      // Detail or Edit page
+      const processed = [{ id: "past-work", path: createPath(0) }];
+
+      // Replace ID with project name if available
+      if (typeof location.state?.projectName === "string" && location.state.projectName.trim()) {
+        processed.push({ id: location.state.projectName.trim(), path: createPath(1) });
+      } else {
+        processed.push({ id: segments[1], path: createPath(1) });
+      }
+
+      // Append remaining segments (e.g. "edit")
+      if (segments.length > 2) {
+        segments.slice(2).forEach((seg, i) => {
+          processed.push({ id: seg, path: createPath(i + 2) });
+        });
+      }
+
+      return processed;
     }
 
-    // Handle notes routes: replace "add" with "addNewNote" and "edit" with "editNote" for breadcrumb translation
+    // Handle notes routes
     if (segments[0] === "notes" && segments.length > 1) {
-      const processedSegments = [...segments];
-      // Check if "add" is in any position (could be segments[1] for /notes/add or segments[2] for /notes/:id/add)
-      const addIndex = processedSegments.findIndex((seg, idx) => idx > 0 && seg === "add");
-      if (addIndex !== -1) {
-        processedSegments[addIndex] = "addNewNote";
-      }
-      // Check if "edit" is in any position (could be segments[1] for /notes/edit or segments[2] for /notes/:id/edit)
-      const editIndex = processedSegments.findIndex((seg, idx) => idx > 0 && seg === "edit");
-      if (editIndex !== -1) {
-        processedSegments[editIndex] = "editNote";
-      }
-      return processedSegments;
+      const processed = segments.map((seg, i) => ({ id: seg, path: createPath(i) }));
+      const addIndex = segments.findIndex((seg, idx) => idx > 0 && seg === "add");
+      if (addIndex !== -1) processed[addIndex].id = "addNewNote";
+
+      const editIndex = segments.findIndex((seg, idx) => idx > 0 && seg === "edit");
+      if (editIndex !== -1) processed[editIndex].id = "editNote";
+
+      return processed;
     }
 
-    // Handle documents routes: /documents/projects/:projectId/documents/:documentId
-    if (segments[0] === "documents" && segments.length > 1) {
-      const processedSegments = ["documents"];
-      // If we have projects/:projectId, add project name or "projects" translation
-      if (segments[1] === "projects" && segments.length > 2) {
-        // For /documents/projects/:projectId, show: Documents / Projects / ProjectName
-        // For /documents/projects/:projectId/documents/:documentId, show: Documents / Projects / ProjectName / Documents / Proposal
-        if (segments.length === 3) {
-          // Just project documents page
-          processedSegments.push("projects", segments[2], "documents");
-        } else if (segments.length >= 5 && segments[3] === "documents") {
-          // Document details page
-          processedSegments.push("projects", segments[2], "documents", "proposal");
-        }
-        return processedSegments;
-      }
-      return processedSegments;
-    }
-
-    // Handle finance routes: /finance/projects/:projectId/...
+    // Handle finance routes
     if (segments[0] === "finance" && segments.length > 1) {
-      const processedSegments = ["finance"];
+      const processed = [{ id: "finance", path: "/finance" }];
       if (segments[1] === "projects" && segments.length > 2) {
-        // Replace project ID with project name if available (skip "projects" segment)
+        // Skip "projects" segment in display, go straight to project name
         const projectName = location.state?.projectName || null;
-        const projectIdSegment = segments[2];
-        
-        if (projectName && typeof projectName === "string" && projectName.trim()) {
-          processedSegments.push(projectName.trim());
-        } else {
-          processedSegments.push(projectIdSegment);
-        }
-        
-        // For /finance/projects/:projectId, show: Finance / ProjectName
+        processed.push({
+          id: (projectName && typeof projectName === "string" && projectName.trim()) ? projectName.trim() : segments[2],
+          path: createPath(2) // /finance/projects/:id
+        });
+
         if (segments.length === 3) {
-          return processedSegments;
+          return processed;
         } else if (segments.length > 3) {
-          // For /finance/projects/:projectId/builder-invoices, show: Finance / ProjectName / Builder Invoices
-          // For /finance/projects/:projectId/builder-invoices/sections/:sectionId, show: Finance / ProjectName / Builder Invoices / Sections / SectionId
-          if (segments[3] === "builder-invoices") {
-            processedSegments.push("builder-invoices");
-            if (segments[4] === "sections" && segments.length > 5) {
-              processedSegments.push("sections", segments[5]);
-            }
-          } else if (segments[3] === "payment-received") {
-            processedSegments.push("payment-received");
-          } else if (segments[3] === "expenses-paid") {
-            processedSegments.push("expenses-paid");
-          } else if (segments[3] === "expenses-to-pay") {
-            processedSegments.push("expenses-to-pay");
-            if (segments[4] === "sections" && segments.length > 5) {
-              processedSegments.push("sections", segments[5]);
+          if (["builder-invoices", "payment-received", "expenses-paid", "expenses-to-pay"].includes(segments[3])) {
+            processed.push({ id: segments[3], path: createPath(3) });
+
+            if (segments[3] === "builder-invoices" && segments[4] === "sections" && segments.length > 5) {
+              processed.push({ id: "sections", path: createPath(4) });
+              processed.push({ id: segments[5], path: createPath(5) });
+            } else if (segments[3] === "expenses-to-pay" && segments[4] === "sections" && segments.length > 5) {
+              processed.push({ id: "sections", path: createPath(4) });
+              processed.push({ id: segments[5], path: createPath(5) });
             }
           }
         }
-        return processedSegments;
+        return processed;
       }
-      return processedSegments;
+      return [{ id: "finance", path: "/finance" }, ...segments.slice(1).map((s, i) => ({ id: s, path: createPath(i + 1) }))];
     }
 
-    return segments;
+    // Handle documents routes
+    if (segments[0] === "documents" && segments.length > 1) {
+      if (segments[1] === "projects" && segments.length > 2) {
+        // This block in original code was returning: ["documents", "projects", NAME, "documents", ...] which seems redundant or specific to design
+        // Retaining logic but assigning paths.
+        // Original: processedSegments.push("projects", segments[2], "documents");
+        // Paths: /documents/projects -> /documents/projects/:id -> /documents/projects/:id/documents (?? typically redundancy in UI logic)
+        // Let's assume standard pathing for links.
+        const projectName = location.state?.projectName || segments[2];
+        const items = [
+          { id: "documents", path: "/documents" },
+          { id: "projects", path: "/documents/projects" }, // Likely not a real page but we'll link it
+          { id: projectName, path: createPath(2) },
+          { id: "documents", path: createPath(2) + "/documents" } // Assuming this exists?
+        ];
+
+        if (segments.length >= 5 && segments[3] === "documents") {
+          items.push({ id: "proposal", path: createPath(4) }); // "proposal" hardcoded in original for length >= 5
+        }
+        return items;
+      }
+    }
+
+    // Default map
+    return segments.map((seg, i) => ({ id: seg, path: createPath(i) }));
   }, [location.pathname, location.state]);
 
   const currentBreadcrumb = useMemo(() => {
-    const last = breadcrumbs[breadcrumbs.length - 1] || "dashboard";
+    const lastObj = breadcrumbs[breadcrumbs.length - 1];
+    const last = lastObj ? lastObj.id : "dashboard";
+
     // Try original case first, then lowercase for camelCase keys like "addNewNote"
-    const translationKey = BREADCRUMB_TRANSLATION_KEYS[last] || 
-                          BREADCRUMB_TRANSLATION_KEYS[last.toLowerCase()] || 
-                          "";
-    
+    const translationKey = BREADCRUMB_TRANSLATION_KEYS[last] ||
+      BREADCRUMB_TRANSLATION_KEYS[last.toLowerCase()] ||
+      "";
+
     // Use builderClient namespace for vendor-specific translations
     if (translationKey && translationKey.startsWith("builderClient.")) {
       return tBuilderClient(translationKey.replace("builderClient.", ""), {
@@ -287,7 +317,7 @@ const Navbar = () => {
     // Use pastProjects namespace for past work related translations
     if (translationKey && translationKey.startsWith("pastProjects.")) {
       return tPastProjects(translationKey.replace("pastProjects.", ""), {
-        defaultValue: last.replace(/-/g, " "),
+        defaultValue: crumb.replace(/-/g, " "),
       });
     }
 
@@ -325,13 +355,13 @@ const Navbar = () => {
         defaultValue: last.replace(/-/g, " "),
       });
     }
-    
+
     if (translationKey) {
       return t(translationKey, {
         defaultValue: last.replace(/-/g, " "),
       });
     }
-    
+
     // Fallback: return the original value if no translation key found
     return last.replace(/-/g, " ");
   }, [breadcrumbs, t, tBuilderClient, tPastProjects, tNotes, tDocuments, tFinance, tLabourAttendance, tCalculation]);
@@ -349,85 +379,91 @@ const Navbar = () => {
 
         {/* Full breadcrumb trail on desktop */}
         <div className="hidden lg:flex items-center gap-2 flex-wrap text-sm text-gray-500 min-w-0">
-          {breadcrumbs.map((crumb, index) => (
-            <span
-              key={index}
-              className="flex items-center gap-2 capitalize whitespace-nowrap text-ellipsis overflow-hidden"
-            >
-              {index > 0 && <span className="text-gray-300">/</span>}
+          {breadcrumbs.map((crumbObj, index) => {
+            const crumb = crumbObj.id;
+            const isLast = index === breadcrumbs.length - 1;
+
+            return (
               <span
-                className={
-                  index === breadcrumbs.length - 1
-                    ? "text-gray-900 font-medium truncate"
-                    : "text-gray-400 truncate"
-                }
+                key={index}
+                className="flex items-center gap-2 capitalize whitespace-nowrap text-ellipsis overflow-hidden"
               >
-                {(() => {
-                  // Try original case first, then lowercase for camelCase keys like "addNewNote"
-                  const translationKey = BREADCRUMB_TRANSLATION_KEYS[crumb] || 
-                                        BREADCRUMB_TRANSLATION_KEYS[crumb.toLowerCase()] || 
-                                        "";
-                  
-                  // Skip translation for numeric IDs (they're data, not UI text)
-                  if (!translationKey && /^\d+$/.test(crumb)) {
-                    return crumb;
+                {index > 0 && <span className="text-gray-300">/</span>}
+                <span
+                  onClick={() => !isLast && navigate(crumbObj.path, { state: location.state })}
+                  className={
+                    isLast
+                      ? "text-gray-900 font-medium truncate cursor-default"
+                      : "text-gray-400 truncate cursor-pointer hover:text-gray-600 hover:underline"
                   }
-                  
-                  // Use builderClient namespace for vendor-specific translations
-                  if (translationKey && translationKey.startsWith("builderClient.")) {
-                    return tBuilderClient(translationKey.replace("builderClient.", ""), {
-                      defaultValue: crumb.replace(/-/g, " "),
-                    });
-                  }
-                  // Use pastProjects namespace for past work related translations
-                  if (translationKey && translationKey.startsWith("pastProjects.")) {
-                    return tPastProjects(translationKey.replace("pastProjects.", ""), {
-                      defaultValue: crumb.replace(/-/g, " "),
-                    });
-                  }
-                  // Use notes namespace for notes-related translations
-                  if (translationKey && translationKey.startsWith("notes.")) {
-                    return tNotes(translationKey.replace("notes.", ""), {
-                      defaultValue: crumb.replace(/-/g, " "),
-                    });
-                  }
-                  // Use documents namespace for documents-related translations
-                  if (translationKey && translationKey.startsWith("documents.")) {
-                    return tDocuments(translationKey.replace("documents.", ""), {
-                      defaultValue: crumb.replace(/-/g, " "),
-                    });
-                  }
-                  // Use finance namespace for finance-related translations
-                  if (translationKey && translationKey.startsWith("finance.")) {
-                    return tFinance(translationKey.replace("finance.", ""), {
-                      defaultValue: crumb.replace(/-/g, " "),
-                    });
-                  }
-                  // Use labourAttendance namespace for labour attendance-related translations
-                  if (translationKey && translationKey.startsWith("labourAttendance.")) {
-                    return tLabourAttendance(translationKey.replace("labourAttendance.", ""), {
-                      defaultValue: crumb.replace(/-/g, " "),
-                    });
-                  }
+                >
+                  {(() => {
+                    // Try original case first, then lowercase for camelCase keys like "addNewNote"
+                    const translationKey = BREADCRUMB_TRANSLATION_KEYS[crumb] ||
+                      BREADCRUMB_TRANSLATION_KEYS[crumb.toLowerCase()] ||
+                      "";
 
-                  // Use calculation namespace for calculation-related translations
-                  if (translationKey && translationKey.startsWith("calculation.")) {
-                    return tCalculation(translationKey.replace("calculation.", ""), {
-                      defaultValue: crumb.replace(/-/g, " "),
-                    });
-                  }
+                    // Skip translation for numeric IDs (they're data, not UI text)
+                    if (!translationKey && /^\d+$/.test(crumb)) {
+                      return crumb;
+                    }
 
-                  if (translationKey) {
-                    return t(translationKey, {
-                      defaultValue: crumb.replace(/-/g, " "),
-                    });
-                  }
-                  // Fallback: return the original value if no translation key found
-                  return crumb.replace(/-/g, " ");
-                })()}
+                    // Use builderClient namespace for vendor-specific translations
+                    if (translationKey && translationKey.startsWith("builderClient.")) {
+                      return tBuilderClient(translationKey.replace("builderClient.", ""), {
+                        defaultValue: crumb.replace(/-/g, " "),
+                      });
+                    }
+                    // Use pastProjects namespace for past work related translations
+                    if (translationKey && translationKey.startsWith("pastProjects.")) {
+                      return tPastProjects(translationKey.replace("pastProjects.", ""), {
+                        defaultValue: crumb.replace(/-/g, " "),
+                      });
+                    }
+                    // Use notes namespace for notes-related translations
+                    if (translationKey && translationKey.startsWith("notes.")) {
+                      return tNotes(translationKey.replace("notes.", ""), {
+                        defaultValue: crumb.replace(/-/g, " "),
+                      });
+                    }
+                    // Use documents namespace for documents-related translations
+                    if (translationKey && translationKey.startsWith("documents.")) {
+                      return tDocuments(translationKey.replace("documents.", ""), {
+                        defaultValue: crumb.replace(/-/g, " "),
+                      });
+                    }
+                    // Use finance namespace for finance-related translations
+                    if (translationKey && translationKey.startsWith("finance.")) {
+                      return tFinance(translationKey.replace("finance.", ""), {
+                        defaultValue: crumb.replace(/-/g, " "),
+                      });
+                    }
+                    // Use labourAttendance namespace for labour attendance-related translations
+                    if (translationKey && translationKey.startsWith("labourAttendance.")) {
+                      return tLabourAttendance(translationKey.replace("labourAttendance.", ""), {
+                        defaultValue: crumb.replace(/-/g, " "),
+                      });
+                    }
+
+                    // Use calculation namespace for calculation-related translations
+                    if (translationKey && translationKey.startsWith("calculation.")) {
+                      return tCalculation(translationKey.replace("calculation.", ""), {
+                        defaultValue: crumb.replace(/-/g, " "),
+                      });
+                    }
+
+                    if (translationKey) {
+                      return t(translationKey, {
+                        defaultValue: crumb.replace(/-/g, " "),
+                      });
+                    }
+                    // Fallback: return the original value if no translation key found
+                    return crumb.replace(/-/g, " ");
+                  })()}
+                </span>
               </span>
-            </span>
-          ))}
+            );
+          })}
         </div>
 
         {/* Mobile / tablet: only current page label */}

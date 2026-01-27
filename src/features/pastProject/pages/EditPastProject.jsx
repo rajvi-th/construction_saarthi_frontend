@@ -235,6 +235,22 @@ export default function EditPastProject() {
     }
   }, [project]);
 
+  // Effect to update location state with project name for breadcrumbs
+  useEffect(() => {
+    const name = projectName || project?.site_name || project?.name;
+    if (name && typeof name === 'string' && name.trim()) {
+      if (location.state?.projectName !== name.trim()) {
+        navigate(location.pathname, {
+          replace: true,
+          state: {
+            ...location.state,
+            projectName: name.trim()
+          }
+        });
+      }
+    }
+  }, [projectName, project, location.state, location.pathname, navigate]);
+
   const handleSave = async () => {
     if (!projectName.trim()) {
       showError(t('validation.projectNameRequired', { defaultValue: 'Project name is required' }));
@@ -326,7 +342,11 @@ export default function EditPastProject() {
       setNewDocumentFiles([]);
 
       navigate(getRoute(PAST_PROJECT_ROUTES.DETAILS, { id }), {
-        state: { project: updatedProject, refresh: true },
+        state: {
+          project: updatedProject,
+          refresh: true,
+          projectName: updatedProject.site_name || updatedProject.name
+        },
       });
     } catch (error) {
       console.error('Error updating project:', error);
@@ -508,7 +528,19 @@ export default function EditPastProject() {
             : projectName || project?.site_name || project?.name || t('editTitle', { ns: 'pastProjects', defaultValue: 'Edit Project' })
         }
         showBackButton={true}
-        backTo={PAST_PROJECT_ROUTES.LIST}
+        onBack={() => {
+          if (!isAddMode && id) {
+            const name = projectName || project?.site_name || project?.name;
+            navigate(getRoute(PAST_PROJECT_ROUTES.DETAILS, { id }), {
+              state: {
+                project: project,
+                projectName: name
+              }
+            });
+          } else {
+            navigate(PAST_PROJECT_ROUTES.LIST);
+          }
+        }}
       />
 
       {/* Basic details */}
@@ -800,7 +832,19 @@ export default function EditPastProject() {
           variant="secondary"
           size="sm"
           className="w-full sm:w-auto px-6"
-          onClick={() => navigate(PAST_PROJECT_ROUTES.LIST)}
+          onClick={() => {
+            if (!isAddMode && id) {
+              const name = projectName || project?.site_name || project?.name;
+              navigate(getRoute(PAST_PROJECT_ROUTES.DETAILS, { id }), {
+                state: {
+                  project: project,
+                  projectName: name
+                }
+              });
+            } else {
+              navigate(PAST_PROJECT_ROUTES.LIST);
+            }
+          }}
           disabled={isSaving}
         >
           {t('cancel', { ns: 'common', defaultValue: 'Cancel' })}

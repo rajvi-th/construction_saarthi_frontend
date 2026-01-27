@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Trash } from 'lucide-react';
 import Button from '../../../components/ui/Button';
@@ -23,20 +23,41 @@ export default function ProjectDetails() {
   const { t } = useTranslation('projects');
   const navigate = useNavigate();
   const location = useLocation();
+  const { id } = useParams();
   const { selectedWorkspace } = useAuth();
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   // Check if user has restricted role (supervisor, builder, contractor)
   const isRestricted = useRestrictedRole();
 
-  // Get project ID from navigation state
-  const projectIdFromState = location.state?.projectId;
+  // Get project ID from navigation state or URL params
+  const projectIdFromState = location.state?.projectId || id;
 
   const { project, isLoading } = useProjectDetails(projectIdFromState, selectedWorkspace);
 
+  // Sync project name to location state for breadcrumbs
+  useEffect(() => {
+    if (project && (project.site_name || project.name)) {
+      const name = project.site_name || project.name;
+      if (location.state?.projectName !== name) {
+        navigate(location.pathname, {
+          replace: true,
+          state: {
+            ...location.state,
+            projectName: name,
+          },
+        });
+      }
+    }
+  }, [project, location.state, location.pathname, navigate]);
+
   const handleEdit = () => {
     if (!project) return;
-    navigate(PROJECT_ROUTES.EDIT_PROJECT.replace(':id', project.id));
+    navigate(PROJECT_ROUTES.EDIT_PROJECT.replace(':id', project.id), {
+      state: {
+        projectName: project.site_name || project.name
+      }
+    });
   };
 
   const handleToolClick = (toolId) => {
@@ -54,7 +75,9 @@ export default function ProjectDetails() {
       case 'finance':
         // Navigate to finance project detail page
         if (project?.id) {
-          navigate(getRoute(ROUTES_FLAT.FINANCE_PROJECT_DETAILS, { projectId: project.id }));
+          navigate(getRoute(ROUTES_FLAT.FINANCE_PROJECT_DETAILS, { projectId: project.id }), {
+            state: { projectName: project.site_name || project.name }
+          });
         }
         break;
       case 'calculator':

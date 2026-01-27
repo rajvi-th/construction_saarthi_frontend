@@ -705,7 +705,8 @@ export default function LabourAttendanceCards({
         return (
           <div
             key={labour.id}
-            className="bg-white rounded-xl p-4 shadow-sm border border-lightGray w-full"
+            className="bg-white rounded-xl p-4 shadow-sm border border-lightGray w-full cursor-pointer hover:bg-gray-50 transition-colors"
+            onClick={() => handleViewEditLabour(labour)}
           >
             {/* Top row */}
             <div className="flex items-start justify-between gap-4 pb-3 border-b border-lightGray">
@@ -727,19 +728,20 @@ export default function LabourAttendanceCards({
                 </div>
               </div>
 
-              <DropdownMenu
-                openDirection="up"
-                items={[
-                  { label: t('cards.menu.markPaidLeave'), onClick: () => handleMarkPaidLeave(labour.id) },
-                  { label: t('cards.menu.viewEditLabour'), onClick: () => handleViewEditLabour(labour), highlight: true },
-                  { label: t('cards.menu.moveToAnotherProject'), onClick: () => handleMoveToProject(labour) },
-                  { label: t('cards.menu.payAdvance'), onClick: () => handlePayAdvance(labour) },
-                  { label: t('cards.menu.addBonus'), onClick: () => handleAddBonus(labour) },
-                  { label: t('cards.menu.addDeduction'), onClick: () => handleAddDeduction(labour) },
-                  { label: t('cards.menu.deleteLabour'), textColor: 'text-accent', onClick: () => handleDeleteLabour(labour.id) },
-                ]}
-
-              />
+              <div onClick={(e) => e.stopPropagation()}>
+                <DropdownMenu
+                  openDirection="up"
+                  items={[
+                    { label: t('cards.menu.markPaidLeave'), onClick: () => handleMarkPaidLeave(labour.id) },
+                    { label: t('cards.menu.viewEditLabour'), onClick: () => handleViewEditLabour(labour), highlight: true },
+                    { label: t('cards.menu.moveToAnotherProject'), onClick: () => handleMoveToProject(labour) },
+                    { label: t('cards.menu.payAdvance'), onClick: () => handlePayAdvance(labour) },
+                    { label: t('cards.menu.addBonus'), onClick: () => handleAddBonus(labour) },
+                    { label: t('cards.menu.addDeduction'), onClick: () => handleAddDeduction(labour) },
+                    { label: t('cards.menu.deleteLabour'), textColor: 'text-accent', onClick: () => handleDeleteLabour(labour.id) },
+                  ]}
+                />
+              </div>
             </div>
 
             {/* Bottom row */}
@@ -828,7 +830,7 @@ export default function LabourAttendanceCards({
 
               {/* Overtime inputs - show only when showOvertimeInputs is true for this labour */}
               {showOvertimeInputs[labour.id] && (
-                <div className="pt-3 border-t border-lightGray max-w-[450px]">
+                <div className="pt-3 border-t border-lightGray max-w-[450px]" onClick={(e) => e.stopPropagation()}>
                   <div className="flex items-end gap-3 mb-3">
                     <div className="flex-1">
                       <Input
@@ -1083,7 +1085,10 @@ function StatusButton({ label, active, onClick }) {
   return (
     <button
       type="button"
-      onClick={onClick}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick(e);
+      }}
       className="w-10 h-10 rounded-lg text-sm font-medium border cursor-pointer transition-colors"
       style={{
         backgroundColor: s.bg,
