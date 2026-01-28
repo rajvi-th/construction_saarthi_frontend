@@ -10,13 +10,13 @@ import { useWorkspaceRole } from '../../dashboard/hooks';
 // lucide-react icons (matching your original features)
 import {
   Wallet,           // finance
-  Calculator,       // construction calculator
-  Boxes,            // site inventory
-  FileText,         // generate documents
+  Calculator,       // construction calculator  FileText,         // generate documents
   Users,            // labour sheet
   Image,            // gallery
   ClipboardList,    // dpr
-  Mic               // notes (audio)
+  Mic,               // notes (audio)
+  Warehouse,
+  FileText,     // site inventory
 } from "lucide-react";
 
 // Badge icon
@@ -43,7 +43,7 @@ export default function SiteManagementTools({ tools, onToolClick }) {
     {
       id: 'inventory',
       label: t('projectDetails.tools.siteInventory'),
-      icon: Boxes,
+      icon: Warehouse ,
     },
     {
       id: 'documents',

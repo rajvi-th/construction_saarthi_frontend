@@ -41,6 +41,7 @@ export const createSiteInventory = async (data) => {
   if (data.inventoryTypeId) formData.append('inventoryTypeId', data.inventoryTypeId);
   if (data.checkInDate) formData.append('checkInDate', data.checkInDate);
   if (data.lowStockAlert) formData.append('lowStockAlert', data.lowStockAlert);
+  if (data.brand) formData.append('brand', data.brand);
 
   // Append files array
   if (data.files && Array.isArray(data.files) && data.files.length > 0) {

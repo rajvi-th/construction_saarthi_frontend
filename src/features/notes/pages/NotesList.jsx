@@ -85,11 +85,11 @@ export default function NotesList() {
               const imageSrc = project.image;
               // Only show image if API provides valid, non-empty image URL and no error occurred
               // No default image - only show what API provides
-              const isValidImage = imageSrc !== null && 
-                                  imageSrc !== undefined &&
-                                  typeof imageSrc === 'string' && 
-                                  imageSrc.trim() !== '' && 
-                                  !hasImageError;
+              const isValidImage = imageSrc !== null &&
+                imageSrc !== undefined &&
+                typeof imageSrc === 'string' &&
+                imageSrc.trim() !== '' &&
+                !hasImageError;
               const showImage = isValidImage;
 
               return (

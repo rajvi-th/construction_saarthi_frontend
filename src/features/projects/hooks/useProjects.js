@@ -36,8 +36,11 @@ export const useProjects = (workspaceId) => {
       progress: p.progress ? Number(p.progress) : 0,
       profile_photo:
         getMediaUrl(project.profilePhoto) ||
+        getMediaUrl(project.profile_photo) ||
         getMediaUrl(project.media?.profilePhoto) ||
+        getMediaUrl(project.media?.profile_photo) ||
         getMediaUrl(p.profilePhoto) ||
+        getMediaUrl(p.profile_photo) ||
         null,
       startDate: p.startDate || p.start_date || project.startDate || project.start_date,
       endDate: p.endDate || p.completion_date || p.end_date || project.endDate || project.completion_date || project.end_date,

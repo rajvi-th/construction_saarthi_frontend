@@ -50,7 +50,7 @@ export const useFinanceProjects = (workspaceId) => {
       // Transform API response to match component structure
       const transformedProjects = projectsList.map((project) => {
         const details = project.details || {};
-        
+
         // Format budget
         let budgetFormatted = '₹0';
         const budgetValue = details.estimatedBudget || project.estimatedBudget || project.budget;
@@ -67,7 +67,7 @@ export const useFinanceProjects = (workspaceId) => {
             }
           }
         }
-        
+
         // Format balance
         let balanceFormatted = '₹0';
         const balanceValue = project.balance || details.balance;
@@ -82,39 +82,29 @@ export const useFinanceProjects = (workspaceId) => {
             }
           }
         }
-        
+
         // Get image URL - only return if API provides valid image
         const getImageUrl = () => {
-          if (project.profilePhoto) {
-            const url = typeof project.profilePhoto === 'string' 
-              ? project.profilePhoto 
-              : project.profilePhoto?.url;
-            if (url && typeof url === 'string' && url.trim() !== '') {
-              return url;
-            }
-          }
-          if (project.media?.profilePhoto) {
-            let url = null;
-            if (Array.isArray(project.media.profilePhoto)) {
-              url = project.media.profilePhoto[0]?.url || project.media.profilePhoto[0];
-            } else {
-              url = typeof project.media.profilePhoto === 'string'
-                ? project.media.profilePhoto
-                : project.media.profilePhoto?.url;
-            }
-            if (url && typeof url === 'string' && url.trim() !== '') {
-              return url;
-            }
-          }
-          if (project.image) {
-            const url = project.image;
-            if (url && typeof url === 'string' && url.trim() !== '') {
-              return url;
-            }
-          }
-          return null; // No default image - return null if API doesn't provide image
+          const getMediaUrl = (media) => {
+            if (!media) return null;
+            if (typeof media === 'string') return media;
+            if (Array.isArray(media)) return typeof media[0] === 'string' ? media[0] : media[0]?.url;
+            if (typeof media === 'object' && media.url) return media.url;
+            return null;
+          };
+
+          return (
+            getMediaUrl(project.profilePhoto) ||
+            getMediaUrl(project.profile_photo) ||
+            getMediaUrl(project.media?.profilePhoto) ||
+            getMediaUrl(project.media?.profile_photo) ||
+            getMediaUrl(details.profilePhoto) ||
+            getMediaUrl(details.profile_photo) ||
+            getMediaUrl(project.image) ||
+            null
+          );
         };
-        
+
         return {
           id: project.id || project.project_id,
           name: project.name || details.name || 'Untitled Project',

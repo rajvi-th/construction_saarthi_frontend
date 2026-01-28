@@ -27,16 +27,18 @@ export default function SiteInventory() {
   const location = useLocation();
   const { user, selectedWorkspace } = useAuth();
   const currentUserRole = useWorkspaceRole();
-  const { getItems, deleteItem, isLoading } = useSiteInventory();
+  const { getItems, deleteItem, isLoading, isDeleting } = useSiteInventory();
   const { inventoryTypes, inventoryTypeOptions, isLoading: isLoadingInventoryTypes } = useInventoryTypes();
-  
+
+  const [pageInitialLoading, setPageInitialLoading] = useState(true);
+
   // Check if user can add/edit/delete/restock (supervisor role cannot)
   const canModifyInventory = currentUserRole?.toLowerCase() !== 'supervisor';
   const [inventoryItems, setInventoryItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [materialType, setMaterialType] = useState(null); 
-  const [activeTab, setActiveTab] = useState('inventory');  
+  const [materialType, setMaterialType] = useState(null);
+  const [activeTab, setActiveTab] = useState('inventory');
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [transferRequests, setTransferRequests] = useState([]);
@@ -53,11 +55,11 @@ export default function SiteInventory() {
   const [destroyModalOpen, setDestroyModalOpen] = useState(false);
   const [destroyItem, setDestroyItem] = useState(null);
   const [addDestroyMaterialModalOpen, setAddDestroyMaterialModalOpen] = useState(false);
-  
+
   // Get project context from navigation state (if navigated from project details)
   const projectId = location.state?.projectId;
   const projectName = location.state?.projectName;
-  
+
   const debouncedSearch = useDebounce(searchQuery, 300);
 
   // Update materialType when inventory types are loaded
@@ -78,7 +80,7 @@ export default function SiteInventory() {
   // Filter items based on search and material type
   useEffect(() => {
     let filtered = [...inventoryItems];
-    
+
     // Filter by material type (inventoryTypeId)
     if (materialType) {
       filtered = filtered.filter((item) => {
@@ -86,7 +88,7 @@ export default function SiteInventory() {
         return itemInventoryTypeId === materialType.toString();
       });
     }
-    
+
     // Filter by search query
     if (debouncedSearch.trim()) {
       const search = debouncedSearch.toLowerCase();
@@ -102,7 +104,7 @@ export default function SiteInventory() {
         return itemName.includes(search) || specification.includes(search);
       });
     }
-    
+
     setFilteredItems(filtered);
   }, [inventoryItems, materialType, debouncedSearch]);
 
@@ -111,20 +113,24 @@ export default function SiteInventory() {
       const params = {};
       if (projectId) params.projectID = projectId;
       if (materialType) params.inventoryTypeId = materialType;
-  
+
       // Fetch items
       const itemsArray = await getItems(params);
-  
+
       // Direct set — no user filtering, no bad project filtering
       setInventoryItems(itemsArray || []);
-  
+
     } catch (error) {
       console.error('Error loading inventory items:', error);
       showError("Failed to load inventory items");
       setInventoryItems([]);
+    } finally {
+      // Once we have finished the first fetch of inventory items, 
+      // we consider the page partially ready and hide the main loader
+      setPageInitialLoading(false);
     }
   };
-  
+
 
   const handleCreateSiteInventory = () => {
     navigate(ROUTES_FLAT.ADD_SITE_INVENTORY, {
@@ -152,7 +158,7 @@ export default function SiteInventory() {
 
   const handleDeleteConfirm = async () => {
     if (!itemToDelete) return;
-    
+
     try {
       await deleteItem(itemToDelete.id);
       await loadInventoryItems();
@@ -174,7 +180,7 @@ export default function SiteInventory() {
       showError(t('errors.inventoryIdRequired', { defaultValue: 'Inventory ID is required' }));
       return;
     }
-    
+
     navigate(getRoute(ROUTES_FLAT.TRANSFER_MATERIAL, { inventoryId: itemId }), {
       state: {
         projectId,
@@ -192,7 +198,7 @@ export default function SiteInventory() {
 
   const handleViewDetails = (item) => {
     const itemId = item.id || item._id;
-    
+
     // Determine if item is consumable based on inventoryTypeId
     const inventoryTypeId = item.inventoryTypeId?.toString();
     // Find inventory type from API to check if it's consumable
@@ -202,12 +208,12 @@ export default function SiteInventory() {
     // Check if the inventory type name contains 'consumable' (case-insensitive)
     const typeName = itemInventoryType?.name || itemInventoryType?.typeName || '';
     const isConsumable = typeName.toLowerCase().includes('consumable');
-    
+
     // Navigate to appropriate details page
-    const route = isConsumable 
-      ? ROUTES_FLAT.CONSUMABLE_ITEM_DETAILS 
+    const route = isConsumable
+      ? ROUTES_FLAT.CONSUMABLE_ITEM_DETAILS
       : ROUTES_FLAT.INVENTORY_ITEM_DETAILS;
-    
+
     navigate(route.replace(':id', itemId), {
       state: projectId ? { projectId, projectName } : undefined,
     });
@@ -216,7 +222,7 @@ export default function SiteInventory() {
   const handleRestock = (item) => {
     navigate(ROUTES_FLAT.ADD_STOCK, {
       state: {
-        item, 
+        item,
         projectId,
         projectName,
       },
@@ -250,7 +256,7 @@ export default function SiteInventory() {
         quantity: destroyData.quantity,
         reason: destroyData.reason || '',
       });
-      
+
       // After successful API call, reload destroy materials list
       await loadDestroyMaterials();
       showSuccess(t('destroyMaterials.success', { defaultValue: 'Material destroyed successfully' }));
@@ -295,21 +301,21 @@ export default function SiteInventory() {
     setIsLoadingTransferRequests(true);
     try {
       const params = {};
-      
+
       if (projectId) {
         params.projectID = projectId;
       }
-      
+
       // Add inventoryTypeId if materialType is selected
       if (materialType) {
         params.inventoryTypeId = materialType;
       }
-      
+
       const response = await getTransferRequests(params);
-      
+
       // Handle different response structures
       let requestsArray = [];
-      
+
       // Most common: axios response { data: { requests: [...] } }
       if (Array.isArray(response?.data?.requests)) {
         requestsArray = response.data.requests;
@@ -332,7 +338,7 @@ export default function SiteInventory() {
           Object.values(response.data).find((v) => Array.isArray(v)) ||
           [];
       }
-      
+
       setTransferRequests(Array.isArray(requestsArray) ? requestsArray : []);
     } catch (error) {
       console.error('Error loading transfer requests:', error);
@@ -347,21 +353,21 @@ export default function SiteInventory() {
   const loadAskMaterialRequests = useCallback(async () => {
     try {
       const params = {};
-      
+
       if (projectId) {
         params.projectID = projectId;
       }
-      
+
       // Add inventoryTypeId if materialType is selected
       if (materialType) {
         params.inventoryTypeId = materialType;
       }
-      
+
       const response = await getAskMaterialRequests(params);
-      
+
       // Handle different response structures
       let requestsArray = [];
-      
+
       // Most common: axios response { data: { requests: [...] } }
       if (Array.isArray(response?.data?.requests)) {
         requestsArray = response.data.requests;
@@ -407,10 +413,10 @@ export default function SiteInventory() {
       }
 
       const response = await getRestockRequests(params);
-      
+
       // Handle different response structures
       let requestsArray = [];
-      
+
       // Most common: axios response { data: { requests: [...] } }
       if (Array.isArray(response?.data?.requests)) {
         requestsArray = response.data.requests;
@@ -444,16 +450,16 @@ export default function SiteInventory() {
     setIsLoadingDestroyMaterials(true);
     try {
       const params = {};
-      
+
       if (projectId) {
         params.projectID = projectId;
       }
-      
+
       const response = await getDestroyedMaterials(params);
-      
+
       // Handle different response structures
       let materialsArray = [];
-      
+
       // Most common: axios response { data: { materials: [...] } }
       if (Array.isArray(response?.data?.materials)) {
         materialsArray = response.data.materials;
@@ -474,7 +480,7 @@ export default function SiteInventory() {
           Object.values(response.data).find((v) => Array.isArray(v)) ||
           [];
       }
-      
+
       setDestroyMaterials(Array.isArray(materialsArray) ? materialsArray : []);
     } catch (error) {
       console.error('Error loading destroy materials:', error);
@@ -489,7 +495,7 @@ export default function SiteInventory() {
   // Load data when tab changes or projectId changes
   useEffect(() => {
     if (!user) return;
-    
+
     if (activeTab === 'transfer') {
       loadTransferRequests();
     } else if (activeTab === 'ask') {
@@ -504,20 +510,20 @@ export default function SiteInventory() {
   const handleApproveRequest = async (approvedData) => {
     try {
       const requestId = approvedData.id || approvedData._id;
-      
+
       if (!requestId) {
         showError(t('errors.requestIdRequired', { defaultValue: 'Transfer request ID is required' }));
         return;
       }
-      
+
       // Get source inventory ID from the request (required for backend)
       const sourceInventoryId = approvedData.inventory_From_ID || approvedData.inventoryFromId || approvedData.inventoryFrom_ID;
-      
+
       if (!sourceInventoryId) {
         showError(t('errors.sourceInventoryRequired', { defaultValue: 'Source inventory ID is required' }));
         return;
       }
-      
+
       // Call approve API with transfer request ID in URL path
       await approveTransferRequest(requestId, {
         costPerUnit: approvedData.approvedCostPerUnit || approvedData.costPerUnit,
@@ -526,18 +532,18 @@ export default function SiteInventory() {
         inventoryId: sourceInventoryId,
         sourceInventoryId: sourceInventoryId,
       });
-      
+
       // Update local state
       setTransferRequests((prev) =>
         prev.map((req) =>
           req.id === requestId ? { ...req, status: 'approved' } : req
         )
       );
-      
+
       showSuccess(t('transferRequest.approved', { defaultValue: 'Transfer request approved successfully' }));
       setApproveModalOpen(false);
       setSelectedRequest(null);
-      
+
       // Reload transfer requests to get updated data
       await loadTransferRequests();
     } catch (error) {
@@ -550,38 +556,38 @@ export default function SiteInventory() {
   const handleRejectRequest = async (rejectedData) => {
     try {
       const requestId = rejectedData.id || rejectedData._id;
-      
+
       if (!requestId) {
         showError(t('errors.requestIdRequired', { defaultValue: 'Transfer request ID is required' }));
         return;
       }
-      
+
       // API expects 'voice', 'text', or 'both' (not 'audio')
       const rejectionType = rejectedData.rejectionType || 'text';
-      
+
       // Call reject API with transferRequestId
       await rejectTransferRequest(requestId, {
         reason: rejectedData.textReason || 'Rejected',
         rejectionType: rejectionType,
-        audioFile: rejectedData.voiceNote, 
+        audioFile: rejectedData.voiceNote,
       });
-      
+
       // Update local state
       setTransferRequests((prev) =>
         prev.map((req) =>
-          req.id === requestId ? { 
-            ...req, 
-            status: 'rejected', 
+          req.id === requestId ? {
+            ...req,
+            status: 'rejected',
             rejectionReason: rejectedData.textReason || 'Rejected',
             rejectionAudio: rejectedData.voiceNote ? true : false
           } : req
         )
       );
-      
+
       showSuccess(t('transferRequest.rejected', { defaultValue: 'Transfer request rejected successfully' }));
       setRejectModalOpen(false);
       setSelectedRequest(null);
-      
+
       // Reload transfer requests to get updated data
       await loadTransferRequests();
     } catch (error) {
@@ -624,9 +630,9 @@ export default function SiteInventory() {
     // TODO: Implement reject restock request API call with rejection reason
     setRestockRequests((prev) =>
       prev.map((req) =>
-        req.id === requestId ? { 
-          ...req, 
-          status: 'rejected', 
+        req.id === requestId ? {
+          ...req,
+          status: 'rejected',
           rejectionReason: rejectedData.textReason || 'Rejected',
           rejectionAudio: rejectedData.voiceNote ? true : false
         } : req
@@ -655,8 +661,8 @@ export default function SiteInventory() {
     { id: 'destroy', label: t('tabs.destroy', { defaultValue: 'Destroy Materials' }) },
   ];
 
-  // If loading, show loader
-  if (isLoading && inventoryItems.length === 0) {
+  // If loading, show loader - now only shows during initial load
+  if (pageInitialLoading && isLoading && inventoryItems.length === 0) {
     return (
       <div className="max-w-7xl mx-auto">
         <PageHeader
@@ -796,7 +802,7 @@ export default function SiteInventory() {
           </div>
 
           {/* Transfer Requests List */}
-          {isLoadingTransferRequests ? (
+          {isLoadingTransferRequests && transferRequests.length === 0 ? (
             <div className="flex items-center justify-center min-h-[400px]">
               <Loader size="lg" />
             </div>
@@ -939,7 +945,7 @@ export default function SiteInventory() {
                 className="flex items-center gap-2 text-accent transition-colors cursor-pointer whitespace-nowrap"
               >
                 <span className="w-4.5 h-4.5 rounded-full bg-accent flex items-center justify-center">
-                  <Plus className="w-3.5 h-3.5 text-white stroke-3"/>
+                  <Plus className="w-3.5 h-3.5 text-white stroke-3" />
                 </span>
                 <span className="font-medium text-sm sm:text-base">
                   {t('destroyMaterials.addDestroyMaterial', { defaultValue: 'Add Destroy Material' })}
@@ -949,7 +955,7 @@ export default function SiteInventory() {
           </div>
 
           {/* Destroy Materials List */}
-          {isLoadingDestroyMaterials ? (
+          {isLoadingDestroyMaterials && destroyMaterials.length === 0 ? (
             <div className="flex items-center justify-center min-h-[400px]">
               <Loader size="lg" />
             </div>
@@ -1061,37 +1067,37 @@ export default function SiteInventory() {
         title={
           itemToDelete?.item
             ? t('deleteModal.title', {
-                defaultValue: 'Delete {{itemName}}',
-                itemName:
-                  itemToDelete.item?.material?.name ||
-                  itemToDelete.item.materialName ||
-                  itemToDelete.item.name ||
-                  itemToDelete.item.itemName ||
-                  'Item',
-              })
+              defaultValue: 'Delete {{itemName}}',
+              itemName:
+                itemToDelete.item?.material?.name ||
+                itemToDelete.item.materialName ||
+                itemToDelete.item.name ||
+                itemToDelete.item.itemName ||
+                'Item',
+            })
             : t('deleteModal.title', { defaultValue: 'Delete Item', itemName: 'Item' })
         }
         message={
           itemToDelete?.item
             ? t('deleteModal.message', {
-                defaultValue: 'Are you sure you want to delete {{itemName}} from inventory? This action is irreversible, and your data cannot be recovered.',
-                itemName: (
-                  itemToDelete.item?.material?.name ||
-                  itemToDelete.item.materialName ||
-                  itemToDelete.item.name ||
-                  itemToDelete.item.itemName ||
-                  'this item'
-                ).toLowerCase(),
-              })
+              defaultValue: 'Are you sure you want to delete {{itemName}} from inventory? This action is irreversible, and your data cannot be recovered.',
+              itemName: (
+                itemToDelete.item?.material?.name ||
+                itemToDelete.item.materialName ||
+                itemToDelete.item.name ||
+                itemToDelete.item.itemName ||
+                'this item'
+              ).toLowerCase(),
+            })
             : t('deleteModal.message', {
-                defaultValue: 'Are you sure you want to delete this item? This action is irreversible.',
-                itemName: 'this item',
-              })
+              defaultValue: 'Are you sure you want to delete this item? This action is irreversible.',
+              itemName: 'this item',
+            })
         }
         confirmText={t('deleteConfirm', { defaultValue: 'Yes, Delete' })}
         cancelText={t('cancel', { defaultValue: 'Cancel' })}
         confirmVariant="danger"
-        isLoading={isLoading}
+        isLoading={isDeleting}
       />
     </div>
   );

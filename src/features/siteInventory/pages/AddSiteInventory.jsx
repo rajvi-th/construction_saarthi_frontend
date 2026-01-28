@@ -47,6 +47,7 @@ export default function AddSiteInventory() {
   const [totalPrice, setTotalPrice] = useState('');
   const [checkInDate, setCheckInDate] = useState(null);
   const [selectedVendor, setSelectedVendor] = useState('');
+  const [selectedProject, setSelectedProject] = useState(projectContextId);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [conditionDescription, setConditionDescription] = useState('');
 
@@ -245,8 +246,9 @@ export default function AddSiteInventory() {
 
   const validate = () => {
     const newErrors = {};
-    if (!itemName) {
-      newErrors.itemName = t('addInventory.errors.itemNameRequired', { defaultValue: 'Item name is required' });
+
+    if (!selectedProject) {
+      newErrors.project = t('addInventory.errors.projectRequired', { defaultValue: 'Project is required' });
     }
 
     if (!selectedMaterial) {
@@ -255,10 +257,6 @@ export default function AddSiteInventory() {
 
     if (!quantity || parseFloat(quantity) <= 0) {
       newErrors.quantity = t('addInventory.errors.quantityRequired', { defaultValue: 'Quantity is required' });
-    }
-
-    if (!selectedUnit) {
-      newErrors.unit = t('addInventory.errors.unitRequired', { defaultValue: 'Unit is required' });
     }
 
     if (!checkInDate) {
@@ -290,24 +288,18 @@ export default function AddSiteInventory() {
       // Use inventoryType directly as inventoryTypeId (it's already the ID)
       const inventoryTypeId = inventoryType;
 
-      // Use project ID from navigation context (if available)
-      const projectID = projectContextId || '';
-
       const formData = {
-        name: itemName,
-        brand: brand,
         materialsId: selectedMaterial,
         quantity: quantity,
-        unitId: selectedUnit,
         costPerUnit: costPerUnit || '0',
         totalPrice: totalPrice || '0',
-        projectID: projectID,
+        projectID: selectedProject,
         vendorID: selectedVendor,
         Description: conditionDescription || '',
         inventoryTypeId: inventoryTypeId,
         files: uploadedFiles, // Array of files
-        // Optional fields
         checkInDate: checkInDate ? checkInDate.toISOString().split('T')[0] : '',
+        brand: brand,
       };
 
       await createSiteInventory(formData);
@@ -360,38 +352,26 @@ export default function AddSiteInventory() {
 
         {/* Form Fields - Layout following image */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
-          {/* Item Name */}
-          {/* <Input
-            label={t('addInventory.itemName', { defaultValue: 'Item Name' })}
-            placeholder={t('addInventory.itemNamePlaceholder', { defaultValue: 'Eg. "Bamboo"' })}
-            value={itemName}
-            onChange={(e) => {
-              setItemName(e.target.value);
-              if (errors.itemName) {
-                setErrors((prev) => ({ ...prev, itemName: '' }));
-              }
-            }}
-            required
-            error={errors.itemName}
-          /> */}
+          {/* Project Selection */}
+          <div className="lg:col-span-2">
+            <Dropdown
+              label={t('addInventory.project', { defaultValue: 'Project' })}
+              options={projectOptions}
+              value={selectedProject}
+              onChange={(value) => {
+                setSelectedProject(value);
+                if (errors.project) {
+                  setErrors((prev) => ({ ...prev, project: '' }));
+                }
+              }}
+              placeholder={t('addInventory.projectPlaceholder', { defaultValue: 'Select Project' })}
+              error={errors.project}
+              required
+              disabled={isLoadingProjects}
+            />
+          </div>
 
-          {/* Unit Dropdown */}
-          {/* <Dropdown
-            label={t('addInventory.unit', { defaultValue: 'Unit' })}
-            options={unitOptions}
-            value={selectedUnit}
-            onChange={(value) => {
-              setSelectedUnit(value);
-              if (errors.unit) {
-                setErrors((prev) => ({ ...prev, unit: '' }));
-              }
-            }}
-            placeholder={t('addInventory.unitPlaceholder', { defaultValue: 'Select Unit' })}
-            error={errors.unit}
-            required
-          /> */}
-
-          {/* Category (Material) - Full Width on mobile, spans 2 cols if needed but image shows it full width below item/brand */}
+          {/* Category (Material) */}
           <div className="lg:col-span-2">
             <Dropdown
               label={t('addInventory.category', { defaultValue: 'Category' })}

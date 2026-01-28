@@ -18,6 +18,7 @@ export const useSiteInventory = () => {
   const { t } = useTranslation('siteInventory');
   const [isCreating, setIsCreating] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -169,7 +170,7 @@ export const useSiteInventory = () => {
         err?.response?.data?.message ||
         err?.message ||
         t('errors.fetchFailed', { defaultValue: 'Failed to load site inventory items. Please try again.' });
-  
+
       setError(errorMessage);
       showError(errorMessage);
       throw err;
@@ -177,7 +178,7 @@ export const useSiteInventory = () => {
       setIsLoading(false);
     }
   }, [t]);
-  
+
 
   /**
    * Delete site inventory item
@@ -186,7 +187,7 @@ export const useSiteInventory = () => {
    */
   const deleteItem = useCallback(async (id) => {
     try {
-      setIsLoading(true);
+      setIsDeleting(true);
       setError(null);
       const response = await deleteSiteInventory(id);
 
@@ -206,7 +207,7 @@ export const useSiteInventory = () => {
       showError(errorMessage);
       throw err;
     } finally {
-      setIsLoading(false);
+      setIsDeleting(false);
     }
   }, [tCommon]);
 
@@ -218,6 +219,7 @@ export const useSiteInventory = () => {
     deleteItem,
     isCreating,
     isUpdating,
+    isDeleting,
     isLoading,
     error,
   };
