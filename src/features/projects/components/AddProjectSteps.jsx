@@ -5,7 +5,7 @@
 
 import CircularProgress from '../../../components/ui/CircularProgress';
 
-function AddProjectSteps({ steps, currentStep, onStepClick }) {
+function AddProjectSteps({ steps, currentStep, onStepClick, isEditMode }) {
   const optionalText = '(Optional)';
 
   const renderTitle = (title) => {
@@ -57,12 +57,12 @@ function AddProjectSteps({ steps, currentStep, onStepClick }) {
         {steps.map((step, index) => {
           const isActive = currentStep === step.id;
           const isCompleted = currentStep > step.id;
-          const isFuture = step.id > currentStep;
+          const isFuture = !isEditMode && step.id > currentStep;
 
           return (
             <div
               key={step.id}
-              onClick={() => !isFuture && onStepClick?.(step.id)}
+              onClick={() => (isEditMode || !isFuture) && onStepClick?.(step.id)}
               className={`flex items-center gap-3 rounded-2xl px-3 py-3 transition-colors ${isActive ? 'bg-soft' : 'bg-white hover:bg-soft/20'
                 } ${isFuture ? 'opacity-50 pointer-events-none cursor-not-allowed' : 'cursor-pointer'}`}
             >

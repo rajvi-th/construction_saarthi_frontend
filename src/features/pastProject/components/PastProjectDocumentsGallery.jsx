@@ -366,16 +366,7 @@ export default function PastProjectDocumentsGallery({
                         />
                       </div>
 
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setPhotoItems((prev) => prev.filter((item) => item.id !== file.id));
-                        }}
-                        className="absolute top-2 right-2 w-5 h-5 rounded-full bg-white/90 hover:bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10"
-                      >
-                        <X className="w-3 h-3 text-primary" />
-                      </button>
+
                     </div>
                   ))}
                 </div>
@@ -470,20 +461,7 @@ export default function PastProjectDocumentsGallery({
                         {/* Note: This is a view-only gallery usually, but we implement delete if needed here.
                             However, the original code had a remove button which seems surprising for a 'Detail' view unless it's editable.
                             Keeping it consistent with the original code provided. */}
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setVideoItems((prev) =>
-                              prev.filter(
-                                (item) => item.id !== file.id
-                              )
-                            );
-                          }}
-                          className="absolute top-2 right-2 w-5 h-5 rounded-full bg-white/90 hover:bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20"
-                        >
-                          <X className="w-3 h-3 text-primary" />
-                        </button>
+
                       </div>
                     );
                   })}

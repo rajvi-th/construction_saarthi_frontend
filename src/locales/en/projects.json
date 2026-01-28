@@ -57,6 +57,13 @@
       "saveAndContinue": "Save & Continue",
       "createProject": "Create Project",
       "creating": "Creating...",
+      "updateProject": "Update Project",
+      "updating": "Updating...",
+      "uploading": "Uploading files...",
+      "uploadSuccess": "Files uploaded successfully",
+      "uploadBatchError": "Failed to upload some files",
+      "projectInitialized": "Project initialized",
+      "failedToInitialize": "Failed to initialize project",
       "tabs": {
         "photos": "Photos",
         "videos": "Videos",
@@ -71,8 +78,9 @@
       },
       "noFilesUploaded": "No files uploaded yet",
       "validation": {
-        "invalidFileType": "Please upload only {{tab}} files. {{count}} file(s) skipped.",
-        "fileTooLarge": "File size exceeds {{maxSize}} limit. {{count}} file(s) skipped."
+        "invalidFileType": "{{count}} file(s) have invalid format",
+        "fileTooLarge": "File size exceeds {{maxSize}} limit. {{count}} file(s) skipped.",
+        "projectKeyRequired": "Project key is required. Please wait for project initialization."
       },
       "totalArea": "Total Area",
       "enterValue": "Enter value",
@@ -99,7 +107,9 @@
       "constructionTypeRequired": "Please select a construction type",
       "contractTypeRequired": "Please select a contract type",
       "estimatedBudgetRequired": "Estimated budget is required",
-      "positiveNumberOnly": "Please enter a positive number"
+      "positiveNumberOnly": "Please enter a positive number",
+      "fillSiteOverview": "Please fill all required fields in Site Overview section",
+      "fillProjectSpecifications": "Please fill all required fields in Project Specifications section"
     }
   },
   "projectDetails": {
