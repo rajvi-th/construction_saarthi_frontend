@@ -183,7 +183,7 @@ function AddNewProject() {
     const step1Valid = await trigger(step1Fields);
 
     if (!step1Valid) {
-      showError(t('addNewProject.validation.fillSiteOverview') || "Please fill all required fields in Site Overview section");
+      showError(t('addNewProject.validation.fillSiteOverview'));
       setCurrentStep(1);
       return;
     }
@@ -193,7 +193,7 @@ function AddNewProject() {
     const step2Valid = await trigger(step2Fields);
 
     if (!step2Valid) {
-      showError(t('addNewProject.validation.fillProjectSpecifications') || "Please fill all required fields in Project Specifications section");
+      showError(t('addNewProject.validation.fillProjectSpecifications'));
       setCurrentStep(2);
       return;
     }
@@ -463,11 +463,11 @@ function AddNewProject() {
         const key = resp?.projectKey || resp?.project_key || resp?.key;
         if (key && mounted) {
           setPreProjectKey(key);
-          showSuccess("Project initialized");
+          showSuccess(t("addNewProject.form.projectInitialized"));
         }
       } catch (err) {
         console.error("Failed to start project on mount", err);
-        showError("Failed to initialize project");
+        showError(t("addNewProject.form.failedToInitialize"));
       }
     };
 
@@ -602,12 +602,17 @@ function AddNewProject() {
           <AddProjectSteps
             steps={steps}
             currentStep={currentStep}
+            isEditMode={isEditMode}
             onStepClick={(stepId) => {
-              // Only allow jumping to previous steps or next step if valid
-              if (stepId < currentStep) {
+              if (isEditMode) {
                 setCurrentStep(stepId);
-              } else if (stepId === currentStep + 1) {
-                handleNextStep();
+              } else {
+                // Only allow jumping to previous steps or next step if valid
+                if (stepId < currentStep) {
+                  setCurrentStep(stepId);
+                } else if (stepId === currentStep + 1) {
+                  handleNextStep();
+                }
               }
             }}
           />

@@ -102,27 +102,27 @@ export default function AskForMaterialCard({ request, t, formatTime }) {
       <div className="flex flex-col sm:flex-row items-start sm:justify-between gap-3">
         <div className="flex-1">
           <div className="flex flex-col justify-start items-start">
-            <h3 className="text-base sm:text-lg text-primary font-medium">
+            <h3 className="text-base text-primary font-medium">
               {quantity}{' '}
               {materialName ||
                 t('askForMaterials.items', { defaultValue: 'items' })}
             </h3>
             {hasFromProject && (
-              <span className="text-base sm:text-lg capitalize text-secondary">
+              <span className="text-sm capitalize text-secondary">
                 {t('askForMaterials.from', { defaultValue: 'From' })}:&nbsp;
                 {fromProjectName}
               </span>
             )}
           </div>
           {askingDescription && (
-            <p className="text-base text-secondary">{askingDescription}</p>
+            <p className="text-sm text-secondary">{askingDescription}</p>
           )}
         </div>
 
         {/* Status Badge and Timestamp */}
         <div className="flex items-center gap-2 sm:gap-3">
           {getStatusBadge()}
-          <span className="text-xs sm:text-sm text-secondary whitespace-nowrap">
+          <span className="text-xs text-secondary whitespace-nowrap">
             {formatTime(timestamp)}
           </span>
         </div>

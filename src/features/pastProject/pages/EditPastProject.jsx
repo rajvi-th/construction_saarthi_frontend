@@ -249,7 +249,7 @@ export default function EditPastProject() {
         });
       }
     }
-  }, [projectName, project, location.state, location.pathname, navigate]);
+  }, [projectName, project, location.state?.projectName, location.pathname, navigate]);
 
   const handleSave = async () => {
     if (!projectName.trim()) {

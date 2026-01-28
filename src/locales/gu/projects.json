@@ -55,6 +55,13 @@
       "saveAndContinue": "સાચવો અને ચાલુ રાખો",
       "createProject": "પ્રોજેક્ટ બનાવો",
       "creating": "બનાવી રહ્યું છે...",
+      "updateProject": "પ્રોજેક્ટ અપડેટ કરો",
+      "updating": "અપડેટ થઈ રહ્યું છે...",
+      "uploading": "ફાઇલો અપલોડ થઈ રહી છે...",
+      "uploadSuccess": "ફાઇલો સફળતાપૂર્વક અપલોડ થઈ",
+      "uploadBatchError": "કેટલીક ફાઇલો અપલોડ કરવામાં નિષ્ફળ",
+      "projectInitialized": "પ્રોજેક્ટ શરૂ કરવામાં આવ્યો",
+      "failedToInitialize": "પ્રોજેક્ટ શરૂ કરવામાં નિષ્ફળ",
       "totalArea": "કુલ વિસ્તાર",
       "enterValue": "મૂલ્ય દાખલ કરો",
       "perSqFtRate": "પ્રતિ ચોરસ ફૂટ દર",
@@ -83,13 +90,22 @@
         "videos": "MP4, MOV, AVI",
         "documents": "PDF"
       },
-      "noFilesUploaded": "હજી સુધી કોઈ ફાઇલ અપલોડ કરવામાં આવી નથી"
+      "noFilesUploaded": "હજી સુધી કોઈ ફાઇલ અપલોડ કરવામાં આવી નથી",
+      "validation": {
+        "invalidFileType": "{{count}} ફાઇલ(ઓ) અમાન્ય ફોર્મેટ ધરાવે છે",
+        "fileTooLarge": "ફાઇલનું કદ {{maxSize}} મર્યાદાથી વધુ છે. {{count}} ફાઇલ(ઓ) અવગણવામાં આવી.",
+        "projectKeyRequired": "પ્રોજેક્ટ કી આવશ્યક છે. કૃપા કરીને પ્રોજેક્ટ શરૂ થાય ત્યાં સુધી રાહ જુઓ."
+      }
     },
     "validation": {
       "siteNameRequired": "સાઇટનું નામ આવશ્યક છે",
       "addressRequired": "સરનામું આવશ્યક છે",
       "selectBuilder": "કૃપા કરીને એક બિલ્ડર પસંદ કરો",
-      "selectStartDate": "કૃપા કરીને એક અંદાજિત પ્રારંભ તારીખ પસંદ કરો"
+      "selectStartDate": "કૃપા કરીને એક અંદાજિત પ્રારંભ તારીખ પસંદ કરો",
+      "constructionTypeRequired": "કૃપા કરીને બાંધકામનો પ્રકાર પસંદ કરો",
+      "contractTypeRequired": "કૃપા કરીને કોન્ટ્રાક્ટનો પ્રકાર પસંદ કરો",
+      "fillSiteOverview": "કૃપા કરીને સાઇટ અવલોકન વિભાગમાં બધી આવશ્યક વિગતો ભરો",
+      "fillProjectSpecifications": "કૃપા કરીને પ્રોજેક્ટ વિશિષ્ટતા વિભાગમાં બધી આવશ્યક વિગતો ભરો"
     }
   },
   "projectDetails": {
@@ -127,4 +143,3 @@
     "deleteProject": "પ્રોજેક્ટ કાઢી નાખો"
   }
 }
-

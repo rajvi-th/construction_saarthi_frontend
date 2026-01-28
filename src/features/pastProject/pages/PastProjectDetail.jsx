@@ -63,7 +63,7 @@ export default function PastProjectDetail() {
           setIsLoading(false);
         });
     }
-  }, [id, selectedWorkspace, t, location.state?.refresh, project]);
+  }, [id, selectedWorkspace, t, location.state?.refresh]);
 
   // Effect to update location state with project name for breadcrumbs
   useEffect(() => {
@@ -80,7 +80,7 @@ export default function PastProjectDetail() {
         });
       }
     }
-  }, [project, location.state, location.pathname, navigate]);
+  }, [project, location.state?.projectName, location.pathname, navigate]);
 
   const handleBack = () => {
     navigate(PAST_PROJECT_ROUTES.LIST);

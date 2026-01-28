@@ -86,7 +86,7 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
     // In edit mode, projectKey is actually projectId, so it should exist
     // In create mode, we need projectKey for uploads
     if (!projectKey) {
-      showError(t('addNewProject.form.validation.projectKeyRequired') || 'Project key is required. Please wait for project initialization.');
+      showError(t('addNewProject.form.validation.projectKeyRequired'));
       return;
     }
 
@@ -140,7 +140,7 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
       showError(
         t('addNewProject.form.validation.invalidFileType', {
           count: invalidFiles.length
-        }) || `${invalidFiles.length} file(s) have invalid format`
+        })
       );
     }
 
@@ -232,7 +232,7 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
       ...newFilesMapping.documents.map(f => ({ id: f.id, category: 'documents' }))
     ];
 
-    const loadingToast = showLoading(t('addNewProject.form.uploading') || 'Uploading files...');
+    const loadingToast = showLoading(t('addNewProject.form.uploading'));
 
     try {
       // Upload to API
@@ -259,7 +259,7 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
       });
 
       dismissToast(loadingToast);
-      showSuccess(t('addNewProject.form.uploadSuccess') || 'Files uploaded successfully');
+      showSuccess(t('addNewProject.form.uploadSuccess'));
     } catch (error) {
       console.error('Error uploading batch:', error);
       dismissToast(loadingToast);
@@ -275,7 +275,7 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
         return newState;
       });
 
-      showError(t('addNewProject.form.uploadBatchError') || 'Failed to upload some files');
+      showError(t('addNewProject.form.uploadBatchError'));
     } finally {
       setUploadingFiles((prev) => {
         const newSet = new Set(prev);
@@ -400,7 +400,7 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
                         )}
                         {file.isUploadFailed && (
                           <div className="absolute inset-0 flex items-center justify-center bg-red-500/30">
-                            <span className="text-xs text-white font-medium">Upload Failed</span>
+                            <span className="text-xs text-white font-medium">{t('addNewProject.form.uploadFailed', { defaultValue: 'Upload Failed' })}</span>
                           </div>
                         )}
                       </div>
@@ -477,7 +477,7 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
                         )}
                         {file.isUploadFailed && (
                           <div className="absolute inset-0 flex items-center justify-center bg-red-500/30">
-                            <span className="text-xs text-white font-medium">Upload Failed</span>
+                            <span className="text-xs text-white font-medium">{t('addNewProject.form.uploadFailed', { defaultValue: 'Upload Failed' })}</span>
                           </div>
                         )}
                       </div>
@@ -525,8 +525,8 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
                         </p>
                         <p className="text-xs text-secondary">
                           {file.size} • {file.uploadDateTime || file.date}
-                          {file.isUploading && ' • Uploading...'}
-                          {file.isUploadFailed && ' • Upload Failed'}
+                          {file.isUploading && ` • ${t('addNewProject.form.uploadingStatus', { defaultValue: 'Uploading...' })}`}
+                          {file.isUploadFailed && ` • ${t('addNewProject.form.uploadFailed', { defaultValue: 'Upload Failed' })}`}
                         </p>
                       </div>
                       <button
