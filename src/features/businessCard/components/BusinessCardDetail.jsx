@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Edit, MoreVertical, ArrowLeftRight, User, Phone, Mail, MapPin, Share2, Download, Trash2     } from 'lucide-react';
+import { Edit, MoreVertical, ArrowLeftRight, User, Phone, Mail, MapPin, Share2, Download, Trash2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../../components/ui/Button';
 import DropdownMenu from '../../../components/ui/DropdownMenu';
@@ -92,7 +92,7 @@ export default function BusinessCardDetail({ businessCard, onDelete }) {
 
   const companyName = businessCard?.companyName || businessCard?.company_name || '';
   const tagline = getTaglineText(businessCard?.companyTagline || businessCard?.company_tagline || '');
-  const logo =  businessCard?.logoUrl || '';
+  const logo = businessCard?.logoUrl || '';
   const firstName = businessCard?.firstName || businessCard?.first_name || '';
   const lastName = businessCard?.lastName || businessCard?.last_name || '';
   const fullName = businessCard?.full_name || `${firstName} ${lastName}`.trim() || '';
@@ -134,7 +134,7 @@ export default function BusinessCardDetail({ businessCard, onDelete }) {
               {
                 label: tCommon('delete', { defaultValue: 'Delete' }),
                 onClick: handleDelete,
-                icon: <Trash2 className="w-4 h-4 text-accent" />, 
+                icon: <Trash2 className="w-4 h-4 text-accent" />,
                 textColor: 'text-accent',
               },
             ]}
@@ -216,9 +216,9 @@ export default function BusinessCardDetail({ businessCard, onDelete }) {
                   - Mobile: full-width contact block, vertically centered with no extra top/bottom padding
                   - Desktop: logo/brand left, contact details right
                 */}
-                <div className="flex flex-col sm:flex-row h-full px-3 sm:px-6 py-6 sm:py-0">
+                <div className="flex flex-col sm:flex-row h-full px-3 sm:px-6 py-6 sm:py-0 overflow-hidden">
                   {/* Left Side - Logo and Company Name (Hidden on mobile) */}
-                  <div className="hidden sm:flex flex-col justify-center w-1/2 pr-4 border-r-[3px] border-[#B02E0C14]">
+                  <div className="hidden sm:flex flex-col justify-center w-1/2 pr-4 border-r-[3px] border-[#B02E0C14] overflow-hidden">
                     {/* Logo */}
                     {logo && (
                       <div className="mb-6 sm:mb-0 flex justify-center">
@@ -233,7 +233,7 @@ export default function BusinessCardDetail({ businessCard, onDelete }) {
                     {/* Company Name - Single line */}
                     {companyName && (
                       <div className="text-left sm:text-center">
-                        <h3 className="text-sm sm:text-base md:text-lg font-bold text-primary leading-tight">
+                        <h3 className="text-sm sm:text-base md:text-lg font-bold text-primary leading-tight break-words">
                           {companyName}
                         </h3>
                       </div>
@@ -241,7 +241,7 @@ export default function BusinessCardDetail({ businessCard, onDelete }) {
                   </div>
 
                   {/* Right Side - Contact Information with Icons */}
-                  <div className="flex flex-col items-center justify-center w-full sm:w-1/2 sm:items-start sm:pl-4 space-y-2 sm:space-y-3">
+                  <div className="flex flex-col items-start justify-center w-full sm:w-1/2 sm:pl-4 space-y-2 sm:space-y-3 overflow-hidden">
                     {[
                       { icon: User, value: fullName, key: 'name' },
                       { icon: Phone, value: phone, key: 'phone' },
@@ -254,10 +254,10 @@ export default function BusinessCardDetail({ businessCard, onDelete }) {
                         return (
                           <div
                             key={item.key}
-                            className="flex items-center justify-center sm:justify-start gap-2 sm:pl-4"
+                            className="flex items-start justify-start gap-2 sm:pl-4 w-full max-w-full"
                           >
-                            <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 text-accent flex-shrink-0" />
-                            <p className="text-sm sm:text-base md:text-lg text-primary break-words text-center sm:text-left">
+                            <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 text-accent flex-shrink-0 mt-0.5" />
+                            <p className="text-xs sm:text-sm md:text-base text-primary break-words text-left overflow-wrap-anywhere flex-1 min-w-0">
                               {item.value}
                             </p>
                           </div>
