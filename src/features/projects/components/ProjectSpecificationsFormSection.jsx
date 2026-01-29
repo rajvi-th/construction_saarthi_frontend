@@ -208,40 +208,43 @@ function ProjectSpecificationsFormSection({
       </div>
 
       {/* Actions */}
-      <div className="mt-6 flex justify-end gap-3">
-        {/* {onBack && (
-          <Button
-            type="button"
-            variant="secondary"
-            size="sm"
-            className="px-6"
-            onClick={onBack}
-          >
-            {t('common.back', { defaultValue: 'Back' })}
-          </Button>
-        )} */}
+      <div className="mt-6 flex flex-row justify-between md:justify-end gap-3">
         {onCancel && (
           <Button
             type="button"
             variant="secondary"
             size="sm"
-            className="px-6"
+            className="hidden md:flex px-6"
             onClick={onCancel}
           >
             {t('cancel', { ns: 'common' })}
           </Button>
         )}
-        {onSaveAndContinue && (
-          <Button
-            type="button"
-            variant="primary"
-            size="sm"
-            className="px-6"
-            onClick={onSaveAndContinue}
-          >
-            {t('addNewProject.form.saveAndContinue')}
-          </Button>
-        )}
+
+        <div className="flex flex-row gap-3 w-full md:w-auto">
+          {onBack && (
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              className="md:hidden flex-1 px-6"
+              onClick={onBack}
+            >
+              {t('common:back', { defaultValue: 'Back' })}
+            </Button>
+          )}
+          {onSaveAndContinue && (
+            <Button
+              type="button"
+              variant="primary"
+              size="sm"
+              className="flex-1 md:w-auto px-6"
+              onClick={onSaveAndContinue}
+            >
+              {t('addNewProject.form.saveAndContinue', { defaultValue: 'Next' })}
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );

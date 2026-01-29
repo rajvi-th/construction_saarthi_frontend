@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
 import { showError, showSuccess } from '../../../utils/toast';
 import { formatCurrencyINR } from '../utils/formatting';
@@ -27,62 +28,107 @@ export const useLabourAttendanceActions = ({
     try {
       const doc = new jsPDF();
       const pageWidth = doc.internal.pageSize.getWidth();
-      const pageHeight = doc.internal.pageSize.getHeight();
-      const margin = 16;
-      const maxWidth = pageWidth - 2 * margin;
-      let y = margin;
+      const margin = 15;
+      const accentColor = [176, 46, 12]; // #B02E0C
+      let currentY = 0;
 
-      const addText = (text, fontSize = 12, isBold = false, color = [0, 0, 0]) => {
-        doc.setFontSize(fontSize);
-        doc.setTextColor(color[0], color[1], color[2]);
-        doc.setFont(undefined, isBold ? 'bold' : 'normal');
-        const lines = doc.splitTextToSize(String(text ?? ''), maxWidth);
-        lines.forEach((line) => {
-          if (y > pageHeight - margin) {
-            doc.addPage();
-            y = margin;
-          }
-          doc.text(line, margin, y);
-          y += fontSize * 0.55;
-        });
-        y += 4;
-      };
+      // --- Modern Sleek Header ---
+      doc.setFillColor(accentColor[0], accentColor[1], accentColor[2]);
+      doc.rect(0, 0, pageWidth, 35, 'F');
 
-      const shiftLabel =
-        sortedShiftTypes.find((s) => String(s.id) === String(activeShiftId))?.name ||
-        activeShiftId;
-      addText(projectName, 18, true);
-      addText(`Shift: ${shiftLabel}`, 11, false, [90, 90, 90]);
-      if (dateRange) {
-        addText(`Date: ${String(dateRange)}`, 11, false, [90, 90, 90]);
-      }
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(20);
+      doc.setFont('helvetica', 'bold');
+      doc.text('ATTENDANCE REPORT', margin, 22);
 
-      doc.setDrawColor(220, 220, 220);
-      doc.line(margin, y, pageWidth - margin, y);
-      y += 8;
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'normal');
+      doc.text(`${projectName}   •   ${String(dateRange || '')}`, margin, 28);
 
-      addText('Summary', 14, true);
-      addText(`Present: ${summary.present}  |  Absent: ${summary.absent}  |  Half Day: ${summary.halfDay}`, 11);
-      addText(`Total Pay: ${formatCurrencyINR(summary.totalPay)}`, 11, true);
+      currentY = 45;
 
-      doc.setDrawColor(220, 220, 220);
-      doc.line(margin, y, pageWidth - margin, y);
-      y += 8;
+      // --- Info Grid (Compact) ---
+      const shiftLabel = sortedShiftTypes.find((s) => String(s.id) === String(activeShiftId))?.name || activeShiftId;
 
-      addText('Labour List', 14, true);
+      autoTable(doc, {
+        startY: currentY,
+        body: [
+          [
+            { content: 'PROJECT NAME', styles: { fontStyle: 'bold', textColor: [100, 100, 100], fontSize: 7 } },
+            { content: 'SHIFT / TIMING', styles: { fontStyle: 'bold', textColor: [100, 100, 100], fontSize: 7 } }
+          ],
+          [
+            { content: projectName, styles: { fontSize: 9, textColor: [40, 40, 40] } },
+            { content: shiftLabel, styles: { fontSize: 9, textColor: [40, 40, 40] } }
+          ],
+          [
+            { content: 'DATE RANGE', styles: { fontStyle: 'bold', textColor: [100, 100, 100], fontSize: 7, cellPadding: { top: 4 } } },
+            { content: 'TOTAL PAYOUT', styles: { fontStyle: 'bold', textColor: [100, 100, 100], fontSize: 7, cellPadding: { top: 4 } } }
+          ],
+          [
+            { content: String(dateRange || '-'), styles: { fontSize: 9, textColor: [40, 40, 40] } },
+            { content: formatCurrencyINR(summary.totalPay).replace(' ', ''), styles: { fontSize: 10, fontStyle: 'bold', textColor: accentColor } }
+          ]
+        ],
+        theme: 'plain',
+        styles: { cellPadding: 1 },
+        margin: { left: margin },
+        columnStyles: { 0: { cellWidth: 80 }, 1: { cellWidth: 80 } }
+      });
+
+      currentY = doc.lastAutoTable.finalY + 12;
+
+      // --- Summary Pills (Compact) ---
+      doc.setFillColor(248, 249, 250);
+      doc.rect(margin, currentY, pageWidth - (margin * 2), 10, 'F');
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(60, 60, 60);
+      const summaryText = `PRESENT: ${summary.present}   |   ABSENT: ${summary.absent}   |   HALF DAY: ${summary.halfDay}`;
+      doc.text(summaryText, margin + 4, currentY + 6.5);
+
+      currentY += 18;
+
+      // --- Labour List (Ultra-Compact) ---
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(accentColor[0], accentColor[1], accentColor[2]);
+      doc.text('DETAILED LABOUR LIST', margin, currentY);
+      currentY += 4;
+
       const list = filteredLabourList || [];
-      if (!list.length) {
-        addText('No labour found', 11, false, [120, 120, 120]);
-      } else {
-        list.forEach((l, i) => {
-          addText(
-            `${i + 1}. ${l.name || ''} • ${l.role || ''} • Status: ${l.status || ''} • Pay: ${formatCurrencyINR(l.pay)}`,
-            11
-          );
-        });
+      const tableData = list.map((l, i) => [
+        i + 1,
+        l.name || '-',
+        l.role || '-',
+        l.status || '-',
+        formatCurrencyINR(l.pay).replace(' ', '')
+      ]);
+
+      autoTable(doc, {
+        startY: currentY,
+        head: [['#', 'NAME', 'ROLE', 'STATUS', 'PAYOUT']],
+        body: tableData,
+        theme: 'striped',
+        styles: { fontSize: 8, cellPadding: 2, lineWidth: 0.1, lineColor: [240, 240, 240] },
+        headStyles: { fillColor: [60, 60, 60], textColor: [255, 255, 255], fontStyle: 'bold' },
+        columnStyles: {
+          0: { cellWidth: 10 },
+          4: { halign: 'right', fontStyle: 'bold' }
+        },
+        margin: { left: margin },
+      });
+
+      // --- Footer ---
+      const pageCount = doc.internal.getNumberOfPages();
+      for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.setFontSize(7);
+        doc.setTextColor(180, 180, 180);
+        doc.text(`Generated: ${new Date().toLocaleString()}  |  Construction Saarthi   |   Page ${i} of ${pageCount}`, pageWidth / 2, doc.internal.pageSize.getHeight() - 10, { align: 'center' });
       }
 
-      const fileName = `${projectName}_attendance_${activeShiftId}_${new Date().toISOString().split('T')[0]}.pdf`;
+      const fileName = `${projectName?.replace(/\s+/g, '_')}_Attendance_Summary.pdf`;
       doc.save(fileName);
       showSuccess(t('attendancePage.downloadSuccess'));
     } catch (e) {

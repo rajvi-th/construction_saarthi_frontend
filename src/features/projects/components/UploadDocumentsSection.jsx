@@ -371,25 +371,31 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
       {/* Uploaded Files Display */}
       {Object.keys(groupedFiles).length > 0 ? (
         <div className="space-y-6">
-          {Object.entries(groupedFiles).map(([date, files]) => (
+          {Object.entries(groupedFiles).sort((a, b) => {
+            if (a[0] === 'Unknown') return 1;
+            if (b[0] === 'Unknown') return -1;
+            return new Date(b[0]) - new Date(a[0]);
+          }).map(([date, files]) => (
             <div key={date} className="space-y-4">
               {/* Date Header */}
               <p className="text-sm font-medium text-secondary">{date}</p>
 
               {/* Files Grid */}
               {activeTab === 'photos' && (
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                <div className="grid grid-cols-2 grid-cols-4 md:grid-cols-6 gap-2 md:gap-3">
                   {files.map((file, fileIndex) => (
                     <div key={file.id} className="relative group cursor-pointer">
-                      <div className="aspect-square rounded-lg overflow-hidden border border-gray-200 max-w-[200px] mx-auto relative">
+                      <div className="aspect-square rounded-lg overflow-hidden border border-gray-200  mx-auto relative">
                         <img
                           src={file.url}
                           alt={file.name || `Photo ${fileIndex + 1}`}
                           className={`w-full h-full object-cover ${file.isUploading ? 'opacity-50' : ''}`}
-                          onClick={() => {
+                          onClick={(e) => {
+                            e.stopPropagation();
                             // Open image in new tab for viewing
                             if (!file.isUploading) {
-                              window.open(file.url, '_blank');
+                              const newWindow = window.open(file.url, '_blank', 'noopener,noreferrer');
+                              if (newWindow) newWindow.focus();
                             }
                           }}
                         />
@@ -435,9 +441,11 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
                             preload="metadata"
                             muted
                             playsInline
-                            onClick={() => {
+                            onClick={(e) => {
+                              e.stopPropagation();
                               if (!file.isUploading) {
-                                window.open(file.url, '_blank');
+                                const newWindow = window.open(file.url, '_blank', 'noopener,noreferrer');
+                                if (newWindow) newWindow.focus();
                               }
                             }}
                             onError={(e) => {
@@ -451,7 +459,11 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
                             src={file.thumbnail || file.url}
                             alt={file.name || `Video ${fileIndex + 1}`}
                             className={`w-full h-full object-cover ${file.isUploading ? 'opacity-50' : ''}`}
-                            onClick={() => window.open(file.url, '_blank')}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              const newWindow = window.open(file.url, '_blank', 'noopener,noreferrer');
+                              if (newWindow) newWindow.focus();
+                            }}
                           />
                         )}
 
@@ -505,10 +517,12 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
                     <div
                       key={file.id}
                       className={`flex items-center gap-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors group cursor-pointer ${file.isUploading ? 'opacity-50' : ''}`}
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         // Open document in new tab for viewing
                         if (file.url && !file.isUploading) {
-                          window.open(file.url, '_blank');
+                          const newWindow = window.open(file.url, '_blank', 'noopener,noreferrer');
+                          if (newWindow) newWindow.focus();
                         }
                       }}
                     >

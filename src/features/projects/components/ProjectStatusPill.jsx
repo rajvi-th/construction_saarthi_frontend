@@ -5,8 +5,6 @@ import Dropdown from "../../../components/ui/Dropdown";
 import { statusBadgeColors } from "../../../components/ui/StatusBadge";
 
 export default function ProjectStatusPill({ status: rawStatus, onChange, readOnly = false }) {
-  const { t } = useTranslation("projects");
-
   // Normalized form for internal logic/matching
   const normalize = (s) => {
     if (!s) return "completed";
@@ -19,10 +17,9 @@ export default function ProjectStatusPill({ status: rawStatus, onChange, readOnl
   const status = normalize(rawStatus);
 
   const statusOptions = [
-    { value: "completed", label: t("status.completed", { defaultValue: "Completed" }) },
-    { value: "in_progress", label: t("status.inProgress", { defaultValue: "In Progress" }) },
-    { value: "upcoming", label: t("status.upcoming", { defaultValue: "Upcoming" }) },
-    // Remove pending as it's mapped to upcoming for consistency
+    { value: "completed", label: "Completed" },
+    { value: "in_progress", label: "In Progress" },
+    { value: "upcoming", label: "Upcoming" },
   ];
 
   // Helper to determine colors based on status

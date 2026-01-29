@@ -177,25 +177,48 @@ export default function ProjectDetails() {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <div className="py-6">
-        <div className="max-w-7xl mx-auto flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          {/* Left: Back button + title */}
-          <PageHeader
-            title={project.site_name || project.name}
-            className="flex-1 min-w-0"
-            showBackButton={true}
-            backTo={PROJECT_ROUTES.PROJECTS}
-          />
-          {/* Right: Actions - Hide for restricted roles */}
+      <div className="max-w-7xl mx-auto px-0 md:py-7">
+        <PageHeader
+          title={project.site_name || project.name}
+          showBackButton={true}
+          backTo={PROJECT_ROUTES.PROJECTS}
+          className='capitalize'
+          titleActions={
+            !isRestricted && (
+              <div className="flex items-center gap-1">
+                <Button
+                  onClick={handleEdit}
+                  className="!bg-transparent !border-none !text-accent !p-0.5 !shadow-none flex items-center justify-center"
+                >
+                  <img src={pencilIcon} alt="Edit" className="w-5 h-5 object-contain" />
+                </Button>
+                <div onClick={(e) => e.stopPropagation()} className="flex items-center justify-center">
+                  <DropdownMenu
+                    items={[
+                      {
+                        label: t('projectDetails.deleteProject'),
+                        onClick: () => {
+                          setProjectToDelete(project);
+                        },
+                        icon: <Trash className="w-4 h-4 text-accent" />,
+                        textColor: 'text-accent',
+                      },
+                    ]}
+                  />
+                </div>
+              </div>
+            )
+          }
+        >
+          {/* Actions - Desktop only */}
           {!isRestricted && (
-            <div className="flex items-center gap-2 justify-between flex-wrap sm:flex-nowrap sm:justify-end">
+            <div className="hidden md:flex items-center gap-3">
               <Button
-                size="xs"
                 onClick={handleEdit}
                 className="!border-accent font-medium !text-accent text-xs sm:!text-sm !bg-[#B02E0C0F] !rounded-full px-3 py-1.5 sm:px-5 sm:py-2.5"
               >
                 <img src={pencilIcon} alt="Edit project" className="w-4 h-4 object-contain" />
-                {t('projectDetails.editProject')}
+                <span className="ml-2">{t('projectDetails.editProject')}</span>
               </Button>
               <div onClick={(e) => e.stopPropagation()}>
                 <DropdownMenu
@@ -213,7 +236,7 @@ export default function ProjectDetails() {
               </div>
             </div>
           )}
-        </div>
+        </PageHeader>
       </div>
 
       <div className="max-w-7xl mx-auto ">

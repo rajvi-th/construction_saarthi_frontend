@@ -740,7 +740,7 @@ export default function LabourAttendanceCards({
                 <DropdownMenu
                   openDirection="up"
                   items={[
-                    { label: t('cards.menu.markPaidLeave'), onClick: () => handleMarkPaidLeave(labour.id) },
+                    // { label: t('cards.menu.markPaidLeave'), onClick: () => handleMarkPaidLeave(labour.id) },
                     { label: t('cards.menu.viewEditLabour'), onClick: () => handleViewEditLabour(labour), highlight: true },
                     { label: t('cards.menu.moveToAnotherProject'), onClick: () => handleMoveToProject(labour) },
                     { label: t('cards.menu.payAdvance'), onClick: () => handlePayAdvance(labour) },

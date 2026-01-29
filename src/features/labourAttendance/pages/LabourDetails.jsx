@@ -85,11 +85,27 @@ export default function LabourDetails() {
       <PageHeader
         title={labour.name}
         onBack={() => navigate(-1)}
+        titleActions={
+          <div className="flex items-center gap-1">
+            <Button
+              onClick={handleEdit}
+              className="!bg-transparent !border-none !text-accent !p-0.5 !shadow-none flex items-center justify-center"
+            >
+              <img src={pencilIcon} alt="Edit" className="w-5 h-5 object-contain" />
+            </Button>
+            <Button
+              onClick={handleDownload}
+              className="!bg-transparent !border-none !text-primary !p-0.5 !shadow-none flex items-center justify-center"
+            >
+              <Download className="w-5 h-5" />
+            </Button>
+          </div>
+        }
       >
-        <div className="flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-end">
+        <div className="hidden md:flex items-center gap-3">
           <button
             onClick={handleEdit}
-            className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-3xl bg-[#B02E0C0F] text-[#B02E0C] hover:bg-[#B02E0C1A] transition-colors cursor-pointer"
+            className="flex items-center justify-center gap-2 px-4 py-2 rounded-3xl bg-[#B02E0C0F] text-[#B02E0C] hover:bg-[#B02E0C1A] transition-colors cursor-pointer whitespace-nowrap"
           >
             <img src={pencilIcon} alt={t('common.edit', { ns: 'common' })} className="w-4 h-4" />
             <span className="font-medium text-sm">{t('common.editLabour')}</span>
@@ -100,7 +116,7 @@ export default function LabourDetails() {
             variant="secondary"
             onClick={handleDownload}
             leftIcon={<Download className="text-primary-light w-5 h-5" />}
-            className="h-10 px-4 whitespace-nowrap bg-white w-full sm:w-auto !rounded-full"
+            className="h-10 px-4 whitespace-nowrap bg-white !rounded-full"
           >
             {t('common.downloadReport')}
           </Button>
@@ -169,16 +185,19 @@ export default function LabourDetails() {
       <div className="pt-6 border-t border-gray-200">
         <h3 className="text-[18px] font-semibold text-primary mb-4">{t('labourDetails.attendanceSummary')}</h3>
 
-        <div className="space-y-3 text-sm">
-          <div className="flex items-start gap-3">
-            <div className="text-primary font-medium w-[120px]">{t('labourDetails.shift')}</div>
-            <div className="text-primary-light">{attendance.shift || labour.shiftType || '-'}</div>
-          </div>
+        {/* Attendance Summary */}
+        <div className="pt-6 border-t border-gray-200">
+          <h3 className="text-[18px] font-semibold text-primary mb-4">{t('labourDetails.attendanceSummary')}</h3>
 
-          <div className="flex items-start gap-3">
-            <div className="text-primary font-medium w-[120px]">{t('labourDetails.totalDays')}</div>
-            <div className="text-primary-light flex flex-wrap items-center gap-3">
-              <span className="inline-flex items-center gap-2">
+          <div className="space-y-3 text-sm">
+            <div className="flex items-start gap-3">
+              <div className="text-primary font-medium w-1/3 sm:w-[120px] shrink-0">{t('labourDetails.shift')}</div>
+              <div className="text-primary-light">{attendance.shift || labour.shiftType || '-'}</div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <div className="text-primary font-medium w-1/3 sm:w-[120px] shrink-0">{t('labourDetails.totalDays')}</div>
+              <div className="text-primary-light flex flex-wrap items-center gap-x-4 gap-y-2">
                 <span className="inline-flex items-center gap-2">
                   <span className="w-4 h-4 rounded bg-[#34C759] inline-flex items-center justify-center text-white text-[10px]">✓</span>
                   <span>{attendance.presentDays ?? 0} Days</span>
@@ -195,18 +214,18 @@ export default function LabourDetails() {
                   <span className="w-4 h-4 rounded bg-accent inline-flex items-center justify-center text-white text-[10px]">OT</span>
                   <span>{attendance.otDays ?? 0}</span>
                 </span>
-              </span>
+              </div>
             </div>
-          </div>
 
-          <div className="flex items-start gap-3">
-            <div className="text-primary font-medium w-[120px]">{t('labourDetails.attendance')}</div>
-            <div className="text-primary-light">{attendance.attendancePercent ?? '-'}%</div>
-          </div>
+            <div className="flex items-start gap-3">
+              <div className="text-primary font-medium w-1/3 sm:w-[120px] shrink-0">{t('labourDetails.attendance')}</div>
+              <div className="text-primary-light">{attendance.attendancePercent ?? '-'}%</div>
+            </div>
 
-          <div className="flex items-start gap-3">
-            <div className="text-primary font-medium w-[120px]">{t('labourDetails.lastMark')}</div>
-            <div className="text-primary-light">{attendance.lastMark ?? '-'}</div>
+            <div className="flex items-start gap-3">
+              <div className="text-primary font-medium w-1/3 sm:w-[120px] shrink-0">{t('labourDetails.lastMark')}</div>
+              <div className="text-primary-light">{attendance.lastMark ?? '-'}</div>
+            </div>
           </div>
         </div>
       </div>

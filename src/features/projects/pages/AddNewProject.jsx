@@ -129,6 +129,14 @@ function AddNewProject() {
   const isSubmitting = isCreating || isEditing;
 
   const [preProjectKey, setPreProjectKey] = useState(null);
+  const [maxStepAccessed, setMaxStepAccessed] = useState(1);
+
+  // Update maxStepAccessed whenever currentStep increases
+  useEffect(() => {
+    if (currentStep > maxStepAccessed) {
+      setMaxStepAccessed(currentStep);
+    }
+  }, [currentStep, maxStepAccessed]);
 
   const projectStatus = watch("projectStatus", "upcoming");
   const builderName = watch("builderName", "");
@@ -384,8 +392,12 @@ function AddNewProject() {
         setProfilePhotoUrl(existingProfilePhotoUrl);
       }
 
-      // Set existing media files from projectData.media array
-      const mediaArray = projectData.media || [];
+      // Set existing media files from projectData.media array - Sort by newest first
+      const mediaArray = [...(projectData.media || [])].sort((a, b) => {
+        const dateA = new Date(a.createdAt || 0);
+        const dateB = new Date(b.createdAt || 0);
+        return dateB - dateA;
+      });
       const existingMedia = {
         photos: [],
         videos: [],
@@ -596,19 +608,20 @@ function AddNewProject() {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col lg:flex-row gap-6"
+          className="flex flex-col 2xl:flex-row gap-6"
         >
           {/* Left: Steps Sidebar */}
           <AddProjectSteps
             steps={steps}
             currentStep={currentStep}
+            maxStepAccessed={maxStepAccessed}
             isEditMode={isEditMode}
             onStepClick={(stepId) => {
               if (isEditMode) {
                 setCurrentStep(stepId);
               } else {
-                // Only allow jumping to previous steps or next step if valid
-                if (stepId < currentStep) {
+                // Allow jumping to any step already unlocked (<= maxStepAccessed)
+                if (stepId <= maxStepAccessed) {
                   setCurrentStep(stepId);
                 } else if (stepId === currentStep + 1) {
                   handleNextStep();
@@ -680,32 +693,44 @@ function AddNewProject() {
                 />
 
                 {/* Actions - Show Create Project button at bottom */}
-                <div className="mt-6 flex justify-end gap-3">
+                <div className="mt-6 flex flex-row justify-between md:justify-end gap-3">
                   <Button
                     type="button"
                     variant="secondary"
                     size="sm"
-                    className="px-6"
+                    className="hidden md:flex px-6"
                     onClick={() => navigate(-1)}
                   >
                     {t("cancel", { ns: "common" })}
                   </Button>
-                  <Button
-                    type="button"
-                    variant="primary"
-                    size="sm"
-                    className="px-6"
-                    onClick={handleSubmit(onSubmit)}
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting
-                      ? (isEditMode
-                        ? t("addNewProject.form.updating", { defaultValue: "Updating..." })
-                        : t("addNewProject.form.creating"))
-                      : (isEditMode
-                        ? t("addNewProject.form.updateProject", { defaultValue: "Update Project" })
-                        : t("addNewProject.form.createProject"))}
-                  </Button>
+
+                  <div className="flex flex-row gap-3 w-full md:w-auto">
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      size="sm"
+                      className="flex-1 md:hidden px-6"
+                      onClick={handlePreviousStep}
+                    >
+                      {t("common:back", { defaultValue: "Back" })}
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="primary"
+                      size="sm"
+                      className="flex-1 md:w-auto px-6"
+                      onClick={handleSubmit(onSubmit)}
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting
+                        ? (isEditMode
+                          ? t("addNewProject.form.updating", { defaultValue: "Updating..." })
+                          : t("addNewProject.form.creating"))
+                        : (isEditMode
+                          ? t("addNewProject.form.updateProject", { defaultValue: "Update Project" })
+                          : t("addNewProject.form.createProject"))}
+                    </Button>
+                  </div>
                 </div>
               </div>
             )}

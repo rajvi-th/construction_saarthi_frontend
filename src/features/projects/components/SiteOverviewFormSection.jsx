@@ -266,13 +266,13 @@ function SiteOverviewFormSection({
       </div>
 
       {/* Actions */}
-      <div className="mt-6 flex justify-end gap-3">
+      <div className="mt-6 flex flex-col md:flex-row justify-end gap-3">
         {onCancel && (
           <Button
             type="button"
             variant="secondary"
             size="sm"
-            className="px-6"
+            className="hidden md:flex px-6"
             onClick={onCancel}
           >
             {t("cancel", { ns: "common" })}
@@ -283,10 +283,10 @@ function SiteOverviewFormSection({
             type="button"
             variant="primary"
             size="sm"
-            className="px-6"
+            className="w-full md:w-auto px-6"
             onClick={onSaveAndContinue}
           >
-            {t("addNewProject.form.saveAndContinue")}
+            {t("addNewProject.form.saveAndContinue", { defaultValue: 'Next' })}
           </Button>
         )}
       </div>

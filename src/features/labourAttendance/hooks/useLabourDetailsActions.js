@@ -1,12 +1,13 @@
 import { useState, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 import { useTranslation } from 'react-i18next';
 import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
 import { showError, showLoading, showSuccess, updateToast } from '../../../utils/toast';
 import { useAuth } from '../../auth/store';
 import { addLabourNote, createPayLabour, deleteLabour } from '../api/labourAttendanceApi';
-import { formatCurrencyINR } from '../utils/formatting';
+import { formatCurrencyINR, formatDate } from '../utils/formatting';
 import { toNumber } from '../utils/formatting';
 
 /**
@@ -64,57 +65,120 @@ export const useLabourDetailsActions = ({ labour, labourId, projectId, projectNa
     if (!labour) return;
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.getWidth();
-    const pageHeight = doc.internal.pageSize.getHeight();
-    const margin = 16;
-    const maxWidth = pageWidth - 2 * margin;
-    let y = margin;
+    const margin = 15;
+    const accentColor = [176, 46, 12]; // #B02E0C
+    let currentY = 0;
 
-    const addText = (text, fontSize = 12, isBold = false, color = [0, 0, 0]) => {
-      doc.setFontSize(fontSize);
-      doc.setTextColor(color[0], color[1], color[2]);
-      doc.setFont(undefined, isBold ? 'bold' : 'normal');
-      const lines = doc.splitTextToSize(String(text ?? ''), maxWidth);
-      lines.forEach((line) => {
-        if (y > pageHeight - margin) {
-          doc.addPage();
-          y = margin;
-        }
-        doc.text(line, margin, y);
-        y += fontSize * 0.55;
-      });
-      y += 4;
+    // --- Modern Sleek Header ---
+    doc.setFillColor(accentColor[0], accentColor[1], accentColor[2]);
+    doc.rect(0, 0, pageWidth, 35, 'F');
+
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(20);
+    doc.setFont('helvetica', 'bold');
+    doc.text(labour.name?.toUpperCase() || 'LABOUR PROFILE', margin, 22);
+
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`${labour.role || ''}   •   ${projectName || ''}`, margin, 28);
+
+    currentY = 45;
+
+    // --- Info Grid (Compact) ---
+    autoTable(doc, {
+      startY: currentY,
+      body: [
+        [
+          { content: t('labourDetails.contact').toUpperCase(), styles: { fontStyle: 'bold', textColor: [100, 100, 100], fontSize: 7 } },
+          { content: t('labourDetails.baseDailyWage').toUpperCase(), styles: { fontStyle: 'bold', textColor: [100, 100, 100], fontSize: 7 } }
+        ],
+        [
+          { content: labour.contactNumber || '-', styles: { fontSize: 10, textColor: [40, 40, 40] } },
+          { content: formatCurrencyINR(labour.defaultDailyWage ?? labour.pay).replace(' ', ''), styles: { fontSize: 10, textColor: [40, 40, 40] } }
+        ],
+        [
+          { content: t('labourDetails.joinDate').toUpperCase(), styles: { fontStyle: 'bold', textColor: [100, 100, 100], fontSize: 7, cellPadding: { top: 4 } } },
+          { content: t('labourDetails.assignProject').toUpperCase(), styles: { fontStyle: 'bold', textColor: [100, 100, 100], fontSize: 7, cellPadding: { top: 4 } } }
+        ],
+        [
+          { content: formatDate(labour.joinDate), styles: { fontSize: 10, textColor: [40, 40, 40] } },
+          { content: projectName || '-', styles: { fontSize: 10, textColor: [40, 40, 40] } }
+        ]
+      ],
+      theme: 'plain',
+      styles: { cellPadding: 1 },
+      margin: { left: margin },
+      columnStyles: { 0: { cellWidth: 80 }, 1: { cellWidth: 80 } }
+    });
+
+    currentY = doc.lastAutoTable.finalY + 12;
+
+    // --- Sections with Compact Styling ---
+    const renderSectionHeader = (title, y) => {
+      doc.setFillColor(248, 249, 250);
+      doc.rect(margin, y - 5, pageWidth - (margin * 2), 7, 'F');
+      doc.setFontSize(9);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(accentColor[0], accentColor[1], accentColor[2]);
+      doc.text(title.toUpperCase(), margin + 2, y);
+      return y + 6;
     };
 
+    // --- Attendance Summary ---
+    currentY = renderSectionHeader(t('labourDetails.attendanceSummary'), currentY);
     const attendance = labour?.attendanceSummary || {};
+
+    autoTable(doc, {
+      startY: currentY,
+      head: [['SHIFT', 'TOTAL', 'PRESENT', 'ABSENT', 'HALF DAY', 'OT']],
+      body: [[
+        attendance.shift || labour.shiftType || '-',
+        attendance.totalDays ?? 0,
+        attendance.presentDays ?? 0,
+        attendance.absentDays ?? 0,
+        attendance.halfDayDays ?? 0,
+        attendance.otDays ?? 0
+      ]],
+      theme: 'grid',
+      styles: { fontSize: 8, cellPadding: 3, halign: 'center' },
+      headStyles: { fillColor: [60, 60, 60], textColor: [255, 255, 255], fontStyle: 'bold' },
+      margin: { left: margin },
+    });
+
+    currentY = doc.lastAutoTable.finalY + 12;
+
+    // --- Wage Highlights (Modern Cards Look) ---
+    currentY = renderSectionHeader(t('labourDetails.wageSummary'), currentY);
     const wage = labour?.wageSummary || {};
 
-    addText(labour.name || t('labourDetails.title'), 18, true);
-    if (labour.role) addText(labour.role, 11, false, [90, 90, 90]);
-    if (projectName) addText(`Project: ${projectName}`, 11, false, [90, 90, 90]);
+    autoTable(doc, {
+      startY: currentY,
+      head: [['CATEGORY', 'AMOUNT']],
+      body: [
+        [t('labourDetails.totalWage'), { content: formatCurrencyINR(wage.totalWage).replace(' ', ''), styles: { fontStyle: 'bold', textColor: accentColor } }],
+        [t('labourDetails.paidAmount'), { content: formatCurrencyINR(wage.paidAmount).replace(' ', ''), styles: { textColor: [21, 128, 61] } }],
+        [t('labourDetails.pendingAmount'), { content: formatCurrencyINR(wage.pendingAmount).replace(' ', ''), styles: { textColor: [194, 65, 12] } }],
+        [t('labourDetails.advances'), formatCurrencyINR(wage.advances).replace(' ', '')],
+        [t('labourDetails.bonuses'), formatCurrencyINR(wage.bonuses).replace(' ', '')],
+        [t('labourDetails.deductions'), formatCurrencyINR(wage.deductions).replace(' ', '')]
+      ],
+      theme: 'striped',
+      styles: { fontSize: 8, cellPadding: 2.5 },
+      headStyles: { fillColor: [240, 240, 240], textColor: [50, 50, 50], fontStyle: 'bold' },
+      columnStyles: { 1: { halign: 'right' } },
+      margin: { left: margin },
+    });
 
-    doc.setDrawColor(220, 220, 220);
-    doc.line(margin, y, pageWidth - margin, y);
-    y += 8;
+    // --- Footer ---
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.setFontSize(7);
+      doc.setTextColor(180, 180, 180);
+      doc.text(`Generated: ${new Date().toLocaleString()}  |  Construction Saarthi   |   Page ${i} of ${pageCount}`, pageWidth / 2, doc.internal.pageSize.getHeight() - 10, { align: 'center' });
+    }
 
-    addText(t('labourDetails.attendanceSummary'), 14, true);
-    addText(`Shift: ${attendance.shift || labour.shiftType || '-'}`, 11);
-    addText(`Total Days: ${attendance.totalDays ?? '-'}`, 11);
-    addText(`Attendance: ${attendance.attendancePercent ?? '-'}%`, 11);
-    addText(`Last Mark: ${attendance.lastMark ?? '-'}`, 11);
-
-    doc.setDrawColor(220, 220, 220);
-    doc.line(margin, y, pageWidth - margin, y);
-    y += 8;
-
-    addText(t('labourDetails.wageSummary'), 14, true);
-    addText(`Total Wage: ${formatCurrencyINR(wage.totalWage)}`, 11);
-    addText(`Paid Amount: ${formatCurrencyINR(wage.paidAmount)}`, 11);
-    addText(`Pending Amount: ${formatCurrencyINR(wage.pendingAmount)}`, 11);
-    addText(`Advances: ${formatCurrencyINR(wage.advances)}`, 11);
-    addText(`Bonuses: ${formatCurrencyINR(wage.bonuses)}`, 11);
-    addText(`Deductions: ${formatCurrencyINR(wage.deductions)}`, 11);
-
-    const fileName = `${labour.name || 'Labour'}_${new Date().toISOString().split('T')[0]}.pdf`;
+    const fileName = `${labour.name?.replace(/\s+/g, '_')}_Detailed_Report.pdf`;
     doc.save(fileName);
     showSuccess(t('attendancePage.downloadSuccess'));
   }, [labour, projectName, t]);
