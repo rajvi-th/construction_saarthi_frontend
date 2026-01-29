@@ -72,18 +72,18 @@ export default function InventoryItemHeader({
           <Button
             variant="secondary"
             size="sm"
-            leftIcon={<Plus className="w-4 h-4 text-primary" />}
-            className="whitespace-nowrap"
+            // leftIcon={<Plus className="w-4 h-4 text-primary" />}
+            className="whitespace-nowrap !text-primary font-medium !bg-[#060C120A]"
             onClick={onAskForMaterial}
           >
             {t('itemDetails.askForMaterial', { defaultValue: 'Ask for Material' })}
           </Button>
 
           <Button
-            variant="primary"
+            variant="secondary"
             size="sm"
-            leftIcon={<ArrowLeftRight className="w-4 h-4" />}
-            className="whitespace-nowrap"
+            // leftIcon={<ArrowLeftRight className="w-4 h-4" />}
+            className="whitespace-nowrap !text-primary font-medium !bg-[#060C120A]"
             onClick={onTransferMaterial}
           >
             {t('itemDetails.transferMaterial', { defaultValue: 'Transfer Material' })}

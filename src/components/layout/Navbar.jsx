@@ -317,7 +317,7 @@ const Navbar = () => {
     // Use pastProjects namespace for past work related translations
     if (translationKey && translationKey.startsWith("pastProjects.")) {
       return tPastProjects(translationKey.replace("pastProjects.", ""), {
-        defaultValue: crumb.replace(/-/g, " "),
+        defaultValue: last.replace(/-/g, " "),
       });
     }
 

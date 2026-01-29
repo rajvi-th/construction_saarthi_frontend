@@ -167,20 +167,20 @@ export default function PastProjects() {
       const imageMedia = activeMedia.find(
         (media) => {
           const typeId = String(media.typeId || '');
-          return typeId === '1' || typeId === '3' || typeId === '12' || 
-                 media.typeId === 1 || media.typeId === 3 || media.typeId === 12;
+          return typeId === '1' || typeId === '3' || typeId === '12' ||
+            media.typeId === 1 || media.typeId === 3 || media.typeId === 12;
         }
       );
 
       if (imageMedia?.url) return imageMedia.url;
-      
+
       // Fallback: find first image by file extension
       const imageByExtension = activeMedia.find((media) => {
         const url = (media.url || '').toLowerCase();
         return url.match(/\.(jpg|jpeg|png|gif|webp|bmp|svg)$/i);
       });
       if (imageByExtension?.url) return imageByExtension.url;
-      
+
       // Last fallback: any media
       if (activeMedia[0]?.url) return activeMedia[0].url;
     }
@@ -229,26 +229,28 @@ export default function PastProjects() {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
-          <Button
-            variant="primary"
-            size="sm"
-            onClick={handleAddProject}
-            leftIconName="Plus"
-            className="whitespace-nowrap flex-shrink-0"
-            disabled={isLoadingProjectKey}
-          >
-            {isLoadingProjectKey ? (
-              <div className="flex items-center gap-2">
-                <Loader size="sm" />
-                <span>{t('loading', { defaultValue: 'Loading...' })}</span>
-              </div>
-            ) : (
-              t('addButton', {
-                ns: 'pastProjects',
-                defaultValue: 'Add Project (Site)',
-              })
-            )}
-          </Button>
+          {filteredItems && filteredItems.length > 0 && (
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={handleAddProject}
+              leftIconName="Plus"
+              className="whitespace-nowrap flex-shrink-0"
+              disabled={isLoadingProjectKey}
+            >
+              {isLoadingProjectKey ? (
+                <div className="flex items-center gap-2">
+                  <Loader size="sm" />
+                  <span>{t('loading', { defaultValue: 'Loading...' })}</span>
+                </div>
+              ) : (
+                t('addButton', {
+                  ns: 'pastProjects',
+                  defaultValue: 'Add Project (Site)',
+                })
+              )}
+            </Button>
+          )}
         </div>
       </PageHeader>
 

@@ -103,7 +103,7 @@ export default function GalleryProjectCard({ project }) {
 
         {/* Project Info */}
         <div className="flex-1 min-w-0">
-          <h3 className="text-base sm:text-lg font-semibold text-primary mb-1 line-clamp-1 capitalize ">
+          <h3 className="text-base sm:text-lg font-medium text-primary mb-1 line-clamp-1 capitalize ">
             {projectName}
             {location && (
               <span className="text-secondary font-normal">, {location}</span>

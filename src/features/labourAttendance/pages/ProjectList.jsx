@@ -197,6 +197,7 @@ export default function ProjectList() {
                                             <span className="text-secondary">
                                                 {t('projectList.budget')}: <span className="font-medium text-primary">{project.budget}</span>
                                             </span>
+                                            <div className="hidden sm:block w-[1px] h-3 bg-secondary/30" />
                                             <span className="text-secondary">
                                                 {t('projectList.balance')}: <span className="font-medium text-primary">{project.balance}</span>
                                             </span>

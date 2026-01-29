@@ -18,6 +18,9 @@ import pencilIcon from '../../../assets/icons/pencil.svg';
 import PageHeader from '../../../components/layout/PageHeader';
 import { useProjectDetails } from '../hooks';
 import { useRestrictedRole } from '../../dashboard/hooks';
+import RemoveMemberModal from '../../../components/ui/RemoveMemberModal';
+import { deleteProject } from '../api';
+import { showSuccess, showError } from '../../../utils/toast';
 
 export default function ProjectDetails() {
   const { t } = useTranslation('projects');
@@ -29,6 +32,8 @@ export default function ProjectDetails() {
 
   // Check if user has restricted role (supervisor, builder, contractor)
   const isRestricted = useRestrictedRole();
+  const [projectToDelete, setProjectToDelete] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   // Get project ID from navigation state or URL params
   const projectIdFromState = location.state?.projectId || id;
@@ -123,6 +128,28 @@ export default function ProjectDetails() {
         break;
       default:
         break;
+    }
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!projectToDelete) return;
+
+    setIsDeleting(true);
+    try {
+      await deleteProject(projectToDelete.id);
+      showSuccess(t('deleteModal.success', { defaultValue: 'Project deleted successfully' }));
+      setProjectToDelete(null);
+      // Navigate back to projects list
+      navigate(PROJECT_ROUTES.PROJECTS);
+    } catch (error) {
+      console.error('Error deleting project:', error);
+      const errorMessage =
+        error?.response?.data?.message ||
+        error?.message ||
+        t('deleteModal.errors.deleteFailed', { defaultValue: 'Failed to delete project' });
+      showError(errorMessage);
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -224,6 +251,21 @@ export default function ProjectDetails() {
           </div>
         )}
       </div>
+
+      {/* Delete Confirmation Modal */}
+      <RemoveMemberModal
+        isOpen={!!projectToDelete}
+        onClose={() => setProjectToDelete(null)}
+        onConfirm={handleDeleteConfirm}
+        isLoading={isDeleting}
+        title={t('deleteModal.title', { defaultValue: 'Delete Project' })}
+        description={t('deleteModal.message', {
+          name: projectToDelete?.site_name || projectToDelete?.name,
+          defaultValue: `Are you sure you want to delete ${projectToDelete?.site_name || projectToDelete?.name}? This action is irreversible, and your data cannot be recovered.`
+        })}
+        confirmText={t('deleteModal.confirm', { defaultValue: 'Yes, Delete' })}
+        cancelText={t('common:cancel', { defaultValue: 'Cancel' })}
+      />
     </div>
   );
 }
