@@ -88,6 +88,8 @@ function LabourAttendance() {
         summary,
         filteredLabourList,
         projectId,
+        fromProjects: state?.fromProjects,
+        fromDashboard: state?.fromDashboard,
     });
 
     // Handle navigation when labour is deleted

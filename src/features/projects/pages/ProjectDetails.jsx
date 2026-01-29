@@ -67,63 +67,61 @@ export default function ProjectDetails() {
 
   const handleToolClick = (toolId) => {
     // Navigate to specific tool pages based on toolId
+    const navigationState = {
+      projectName: project?.site_name || project?.name,
+      projectId: project?.id,
+      fromProjects: true
+    };
+
     switch (toolId) {
       case 'inventory':
         // Navigate to site inventory with project context
-        navigate(ROUTES_FLAT.SITE_INVENTORY, {
-          state: {
-            projectId: project?.id,
-            projectName: project?.site_name || project?.name,
-          },
-        });
+        navigate(ROUTES_FLAT.SITE_INVENTORY, { state: navigationState });
         break;
       case 'finance':
         // Navigate to finance project detail page
         if (project?.id) {
           navigate(getRoute(ROUTES_FLAT.FINANCE_PROJECT_DETAILS, { projectId: project.id }), {
-            state: { projectName: project.site_name || project.name }
+            state: navigationState
           });
         }
         break;
       case 'calculator':
         if (project?.id) {
           navigate(getRoute(ROUTES_FLAT.CALCULATION_PROJECT_DETAILS, { projectId: project.id }), {
-            state: {
-              projectName: project?.site_name || project?.name,
-            },
+            state: navigationState
           });
         }
         break;
       case 'documents':
         if (project?.id) {
           navigate(getRoute(ROUTES_FLAT.DOCUMENTS_PROJECT_DOCUMENTS, { projectId: project.id }), {
-            state: {
-              projectName: project?.site_name || project?.name,
-            },
+            state: navigationState
           });
         }
         break;
       case 'labour':
         if (project?.id) {
-          navigate(getRoute(ROUTES_FLAT.LABOUR_ATTENDANCE_PROJECT, { projectId: project.id }));
+          navigate(getRoute(ROUTES_FLAT.LABOUR_ATTENDANCE_PROJECT, { projectId: project.id }), {
+            state: navigationState
+          });
         }
         break;
       case 'gallery':
         if (project?.id) {
-          navigate(getRoute(ROUTES_FLAT.PROJECT_GALLERY_DETAILS, { projectId: project.id }));
+          navigate(getRoute(ROUTES_FLAT.PROJECT_GALLERY_DETAILS, { projectId: project.id }), {
+            state: navigationState
+          });
         }
         break;
       case 'dpr':
-        navigate(ROUTES_FLAT.DPR, {
-          state: {
-            projectId: project?.id,
-            projectName: project?.site_name || project?.name,
-          },
-        });
+        navigate(ROUTES_FLAT.DPR, { state: navigationState });
         break;
       case 'notes':
         if (project?.id) {
-          navigate(getRoute(ROUTES_FLAT.NOTES_PROJECT_NOTES, { projectId: project.id }));
+          navigate(getRoute(ROUTES_FLAT.NOTES_PROJECT_NOTES, { projectId: project.id }), {
+            state: navigationState
+          });
         }
         break;
       default:

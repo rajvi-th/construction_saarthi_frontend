@@ -70,7 +70,7 @@ export default function ProjectCalDetails() {
 
                 {/* Quick Actions Section */}
                 <div className=" p-1 mb-8">
-                    <QuickActions />
+                    <QuickActions fromDashboard={state?.fromDashboard} fromProjects={state?.fromProjects} />
                 </div>
             </div>
         </div>

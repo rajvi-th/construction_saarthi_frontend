@@ -18,7 +18,7 @@ import { toNumber } from '../utils/formatting';
  * - PDF export
  * - Edit navigation
  */
-export const useLabourDetailsActions = ({ labour, labourId, projectId, projectName, refetch }) => {
+export const useLabourDetailsActions = ({ labour, labourId, projectId, projectName, fromProjects, fromDashboard, refetch }) => {
   const { t } = useTranslation('labourAttendance');
   const navigate = useNavigate();
   const { user, selectedWorkspace } = useAuth();
@@ -36,6 +36,8 @@ export const useLabourDetailsActions = ({ labour, labourId, projectId, projectNa
     navigate(getRoute(ROUTES_FLAT.LABOUR_ATTENDANCE_ADD_LABOUR, { projectId }), {
       state: {
         projectName,
+        fromProjects,
+        fromDashboard,
         editLabour: {
           id: labour.id,
           name: labour.name,
@@ -340,7 +342,7 @@ export const useLabourDetailsActions = ({ labour, labourId, projectId, projectNa
       setDeleteOpen(false);
       navigate(
         getRoute(ROUTES_FLAT.LABOUR_ATTENDANCE_PROJECT, { projectId }),
-        { replace: true, state: { projectName, deletedLabourId: labour.id } }
+        { replace: true, state: { projectName, fromProjects, fromDashboard, deletedLabourId: labour.id } }
       );
     } catch (e) {
       console.error(e);

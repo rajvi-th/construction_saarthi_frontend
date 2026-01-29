@@ -85,7 +85,7 @@ const Dashboard = () => {
       badgeIcon: aiIcon,
       title: t("actions.constructionCalculator"),
       description: t("actions.calculatorDescription"),
-      onClick: () => navigate(ROUTES_FLAT.CALCULATION_PROJECTS),
+      onClick: () => navigate(ROUTES_FLAT.CALCULATION_PROJECTS, { state: { fromDashboard: true } }),
     },
     {
       icon: Plus,
@@ -101,33 +101,33 @@ const Dashboard = () => {
       {
         icon: Building2,
         label: t("quickActions.myProjects"),
-        onClick: () => navigate(ROUTES_FLAT.PROJECTS),
+        onClick: () => navigate(ROUTES_FLAT.PROJECTS, { state: { fromDashboard: true } }),
       },
       {
         icon: IndianRupee,
         label: t("quickActions.finance"),
-        onClick: () => navigate(ROUTES_FLAT.FINANCE),
+        onClick: () => navigate(ROUTES_FLAT.FINANCE, { state: { fromDashboard: true } }),
       },
       {
         icon: ClipboardList,
         label: t("quickActions.siteInventory"),
-        onClick: () => navigate(ROUTES_FLAT.PROJECTS),
+        onClick: () => navigate(ROUTES_FLAT.PROJECTS, { state: { fromDashboard: true } }),
       },
       {
         icon: FileText,
         label: t("quickActions.documents"),
         badgeIcon: aiIcon,
-        onClick: () => navigate(ROUTES_FLAT.DOCUMENTS),
+        onClick: () => navigate(ROUTES_FLAT.DOCUMENTS, { state: { fromDashboard: true } }),
       },
       {
         icon: Users,
         label: t("quickActions.labourSheet"),
-        onClick: () => navigate(ROUTES_FLAT.LABOUR_ATTENDANCE),
+        onClick: () => navigate(ROUTES_FLAT.LABOUR_ATTENDANCE, { state: { fromDashboard: true } }),
       },
       {
         icon: Mic,
         label: t("quickActions.notes"),
-        onClick: () => navigate(ROUTES_FLAT.NOTES),
+        onClick: () => navigate(ROUTES_FLAT.NOTES, { state: { fromDashboard: true } }),
       },
     ];
 
@@ -150,7 +150,7 @@ const Dashboard = () => {
   return (
     <>
       <div className="max-w-7xl mx-auto">
-        <DashboardBanner onTryItNow={() => navigate(ROUTES_FLAT.CALCULATION_PROJECTS)} />
+        <DashboardBanner onTryItNow={() => navigate(ROUTES_FLAT.CALCULATION_PROJECTS, { state: { fromDashboard: true } })} />
 
         {!isRestricted && <StatisticsCards statistics={statistics} />}
 
@@ -165,7 +165,7 @@ const Dashboard = () => {
 
         {/* 🔥 Bottom Finance Banner */}
         <BottomBanner
-          onManageFinance={() => navigate(ROUTES_FLAT.FINANCE)}
+          onManageFinance={() => navigate(ROUTES_FLAT.FINANCE, { state: { fromDashboard: true } })}
         />
       </div>
     </>

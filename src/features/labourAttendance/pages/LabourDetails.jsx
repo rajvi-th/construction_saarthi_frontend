@@ -53,6 +53,8 @@ export default function LabourDetails() {
     labourId,
     projectId,
     projectName,
+    fromProjects: state?.fromProjects,
+    fromDashboard: state?.fromDashboard,
     refetch,
   });
 

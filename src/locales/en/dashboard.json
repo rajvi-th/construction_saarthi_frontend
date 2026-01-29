@@ -13,7 +13,7 @@
   },
   "actions": {
     "aiPowered": "AI Powered",
-    "constructionCalculator": "Construction Calculation",
+    "constructionCalculator": "Construction Cost",
     "calculatorDescription": "Get accurate material & cost estimates",
     "addUsage": "Add Usage",
     "addUsageDescription": "Add daily material usage logs"
