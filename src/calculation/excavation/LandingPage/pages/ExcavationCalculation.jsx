@@ -8,7 +8,7 @@ import { ROUTES_FLAT } from '../../../../constants/routes';
 // Import icons
 import verticalExcavationIcon from '../../../../assets/icons/verticalExcavations.svg';
 import slopExcavationIcon from '../../../../assets/icons/slopExcavations.svg';
-import slopBackfilling1Icon from '../../../../assets/icons/SlopBackfilling1st.svg';
+import slopBackfilling1Icon from '../../../../assets/icons/slopBackfilling1st.svg';
 import slopBackfilling2Icon from '../../../../assets/icons/slopBackfilling2nd.svg';
 
 const ExcavationCalculation = () => {

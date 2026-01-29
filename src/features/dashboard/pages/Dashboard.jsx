@@ -17,7 +17,7 @@ import {
 import { ROUTES_FLAT } from "../../../constants/routes";
 import { PROJECT_ROUTES } from "../../projects/constants";
 import { useAuth } from "../../auth/store";
-import { useProjects, useRestrictedRole, useWorkspaceRole } from "../hooks";
+import { useProjects, useRestrictedRole, useWorkspaceRole, useDashboardStats } from "../hooks";
 import calculatorIcon from "../../../assets/icons/CalculatorMinimalistic.svg";
 import aiIcon from "../../../assets/icons/AI.svg";
 import DashboardBanner from "../components/DashboardBanner";
@@ -32,47 +32,49 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const { selectedWorkspace } = useAuth();
   const { projects, isLoadingProjects } = useProjects(selectedWorkspace);
+  const { stats, isLoading: isLoadingStats } = useDashboardStats();
 
   // Check if user has restricted role (supervisor, builder, contractor)
   const isRestricted = useRestrictedRole();
   const currentUserRole = useWorkspaceRole();
 
-  // Statistics data - dynamic based on projects
-  const statistics = useMemo(
-    () => [
+  // Statistics data - dynamic based on API stats
+  const statistics = useMemo(() => {
+    if (!stats) return [];
+
+    return [
       {
         icon: Building2,
-        value: projects.length.toString(),
+        value: stats.totalProjects?.value?.toString() || "0",
         label: t("stats.totalProjects"),
         color: "blue",
       },
       {
         icon: Building,
-        value: "12",
+        value: stats.runningProjects?.value?.toString() || "0",
         label: t("stats.runningProjects"),
         color: "yellow",
       },
       {
         icon: Crown,
-        value: "1,890",
+        value: stats.activeSubscriptions?.value?.toString() || "0",
         label: t("stats.activeSubscriptions"),
         color: "orange",
       },
       {
         icon: ChartLine,
-        value: "105 Cr",
+        value: `${stats.totalRevenue?.totalRevenueInCr || stats.totalRevenue?.value || "0"} ${stats.totalRevenue?.unit || "Cr"}`,
         label: t("stats.totalRevenue"),
         color: "purple",
       },
       {
         icon: BanknoteArrowDown,
-        value: "50 Lakhs",
+        value: `${stats.totalExpensesToPay?.value || "0"} ${stats.totalExpensesToPay?.unit || "Lakhs"}`,
         label: t("stats.totalExpenses"),
         color: "orange",
       },
-    ],
-    [projects.length, t]
-  );
+    ];
+  }, [stats, t]);
 
   // Action cards data
   const actionCards = [

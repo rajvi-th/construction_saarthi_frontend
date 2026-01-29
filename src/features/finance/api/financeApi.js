@@ -15,7 +15,7 @@ export const getExpenseSections = async (projectId) => {
   if (!projectId) {
     throw new Error('Project ID is required');
   }
-  
+
   return http.get(FINANCE_ENDPOINTS_FLAT.EXPENSE_SECTION_LIST, {
     params: {
       project_id: projectId,
@@ -35,7 +35,7 @@ export const createExpenseSection = async (data) => {
   if (!data.name || !data.workspace_id || !data.project_id) {
     throw new Error('Name, workspace_id, and project_id are required');
   }
-  
+
   return http.post(FINANCE_ENDPOINTS_FLAT.EXPENSE_SECTION_CREATE, {
     name: data.name,
     workspace_id: data.workspace_id,
@@ -57,7 +57,7 @@ export const updateExpenseSection = async (sectionId, data) => {
   if (!data.name) {
     throw new Error('Name is required');
   }
-  
+
   return http.put(`${FINANCE_ENDPOINTS_FLAT.EXPENSE_SECTION_UPDATE}/${sectionId}`, {
     name: data.name,
   });
@@ -72,7 +72,7 @@ export const deleteExpenseSection = async (sectionId) => {
   if (!sectionId) {
     throw new Error('Section ID is required');
   }
-  
+
   return http.delete(`${FINANCE_ENDPOINTS_FLAT.EXPENSE_SECTION_DELETE}/${sectionId}`);
 };
 
@@ -99,7 +99,7 @@ export const getPayableBills = async (params) => {
   if (!params.project_id || !params.workspace_id || !params.expenseSection_id) {
     throw new Error('project_id, workspace_id, and expenseSection_id are required');
   }
-  
+
   // Build query parameters object
   const queryParams = {
     project_id: params.project_id,
@@ -127,13 +127,13 @@ export const getPayableBills = async (params) => {
     queryParams.method = params.method;
   }
   if (params.minAmount !== undefined && params.minAmount !== null) {
-    queryParams.minAmount = typeof params.minAmount === 'string' 
-      ? parseFloat(params.minAmount.replace(/[₹,]/g, '')) 
+    queryParams.minAmount = typeof params.minAmount === 'string'
+      ? parseFloat(params.minAmount.replace(/[₹,]/g, ''))
       : params.minAmount;
   }
   if (params.maxAmount !== undefined && params.maxAmount !== null) {
-    queryParams.maxAmount = typeof params.maxAmount === 'string' 
-      ? parseFloat(params.maxAmount.replace(/[₹,]/g, '')) 
+    queryParams.maxAmount = typeof params.maxAmount === 'string'
+      ? parseFloat(params.maxAmount.replace(/[₹,]/g, ''))
       : params.maxAmount;
   }
   if (params.paidDate) {
@@ -188,7 +188,7 @@ export const createPayableBill = async (data) => {
 
   // Optional fields with defaults
   formData.append('method', data.method || 'Cash');
-  
+
   // paidTo - vendor ID or name
   if (data.paidTo) {
     formData.append('paidTo', data.paidTo);
@@ -238,7 +238,7 @@ export const updatePayableBill = async (billId, data) => {
   if (!billId) {
     throw new Error('Bill ID is required');
   }
-  
+
   if (!data.expenseSection_id || !data.workspace_id || !data.project_id || !data.title || !data.amount || !data.status || !data.due_date) {
     throw new Error('expenseSection_id, workspace_id, project_id, title, amount, status, and due_date are required');
   }
@@ -250,20 +250,20 @@ export const updatePayableBill = async (billId, data) => {
   formData.append('workspace_id', data.workspace_id);
   formData.append('project_id', data.project_id);
   formData.append('title', data.title.trim());
-  
+
   // Convert amount to number if it's a string (remove currency formatting)
-  const amountValue = typeof data.amount === 'string' 
-    ? parseFloat(data.amount.toString().replace(/[₹,]/g, '')) 
+  const amountValue = typeof data.amount === 'string'
+    ? parseFloat(data.amount.toString().replace(/[₹,]/g, ''))
     : data.amount;
   formData.append('amount', amountValue);
-  
+
   formData.append('status', data.status);
   formData.append('defineScript', data.defineScript || data.description || '');
   formData.append('due_date', data.due_date);
 
   // Optional fields with defaults
   formData.append('method', data.method || 'Cash');
-  
+
   // paidTo - vendor ID
   if (data.paidTo) {
     formData.append('paidTo', data.paidTo);
@@ -303,7 +303,7 @@ export const deletePayableBill = async (billId) => {
   if (!billId) {
     throw new Error('Bill ID is required');
   }
-  
+
   return http.delete(`${FINANCE_ENDPOINTS_FLAT.PAYABLE_BILL_DELETE}/${billId}`);
 };
 
@@ -351,7 +351,7 @@ export const getBuilderInvoiceSectionInvoices = async (sectionId) => {
   if (!sectionId) {
     throw new Error('Section ID is required');
   }
-  
+
   try {
     // Try GET request first
     return await http.get(FINANCE_ENDPOINTS_FLAT.BUILDER_INVOICES_SECTION_INVOICES, {
@@ -400,7 +400,7 @@ export const createBuilderInvoice = async (data) => {
   // Convert amount to number if it's a string (remove currency formatting first)
   const amountValue = typeof data.amount === 'string' ? parseFloat(data.amount.toString().replace(/[₹,]/g, '')) || 0 : data.amount;
   formData.append('amount', amountValue);
-  
+
   // Map status: "pending" -> "Pending", "completed" -> "Completed", "paid" -> "Completed" (backend uses Completed, not Paid), etc.
   const statusMap = {
     'pending': 'Pending',
@@ -411,7 +411,7 @@ export const createBuilderInvoice = async (data) => {
   };
   const mappedStatus = statusMap[data.status?.toLowerCase()] || data.status;
   formData.append('status', mappedStatus);
-  
+
   formData.append('builderInvoicesSection_id', data.builderInvoicesSection_id);
   formData.append('workspace_id', data.workspace_id);
   formData.append('project_id', data.project_id);
@@ -468,7 +468,7 @@ export const updateBuilderInvoice = async (invoiceId, data) => {
   if (!invoiceId) {
     throw new Error('Invoice ID is required');
   }
-  
+
   if (!data.title || !data.estBudget || !data.amount || !data.status || !data.builderInvoicesSection_id || !data.workspace_id || !data.project_id) {
     throw new Error('title, estBudget, amount, status, builderInvoicesSection_id, workspace_id, and project_id are required');
   }
@@ -479,7 +479,7 @@ export const updateBuilderInvoice = async (invoiceId, data) => {
   formData.append('title', data.title.trim());
   formData.append('estBudget', data.estBudget);
   formData.append('amount', data.amount);
-  
+
   // Map status: "pending" -> "Pending", "completed" -> "Completed", "paid" -> "Completed" (backend uses Completed, not Paid), etc.
   const statusMap = {
     'pending': 'Pending',
@@ -490,7 +490,7 @@ export const updateBuilderInvoice = async (invoiceId, data) => {
   };
   const mappedStatus = statusMap[data.status?.toLowerCase()] || data.status;
   formData.append('status', mappedStatus);
-  
+
   formData.append('builderInvoicesSection_id', data.builderInvoicesSection_id);
   formData.append('workspace_id', data.workspace_id);
   formData.append('project_id', data.project_id);
@@ -535,7 +535,7 @@ export const deleteBuilderInvoice = async (invoiceId) => {
   if (!invoiceId) {
     throw new Error('Invoice ID is required');
   }
-  
+
   return http.delete(`${FINANCE_ENDPOINTS_FLAT.BUILDER_INVOICES_SECTION_DELETE_INVOICE}/${invoiceId}`);
 };
 
@@ -551,11 +551,11 @@ export const createBuilderInvoiceSection = async (data) => {
   if (!data.name || !data.name.trim()) {
     throw new Error('Section name is required');
   }
-  
+
   if (!data.workspace_id || !data.project_id) {
     throw new Error('workspace_id and project_id are required');
   }
-  
+
   return http.post(FINANCE_ENDPOINTS_FLAT.BUILDER_INVOICES_SECTION_CREATE, {
     name: data.name.trim(),
     workspace_id: data.workspace_id,
@@ -574,11 +574,11 @@ export const updateBuilderInvoiceSection = async (sectionId, data) => {
   if (!sectionId) {
     throw new Error('Section ID is required');
   }
-  
+
   if (!data.name || !data.name.trim()) {
     throw new Error('Section name is required');
   }
-  
+
   return http.put(`${FINANCE_ENDPOINTS_FLAT.BUILDER_INVOICES_SECTION_UPDATE_SECTION}/${sectionId}`, {
     name: data.name.trim(),
   });
@@ -593,7 +593,7 @@ export const deleteBuilderInvoiceSection = async (sectionId) => {
   if (!sectionId) {
     throw new Error('Section ID is required');
   }
-  
+
   return http.delete(`${FINANCE_ENDPOINTS_FLAT.BUILDER_INVOICES_SECTION_DELETE_SECTION}/${sectionId}`);
 };
 
@@ -607,7 +607,7 @@ export const getProjectEstimatedBudget = async (projectId) => {
   if (!projectId) {
     throw new Error('Project ID is required');
   }
-  
+
   try {
     // Try GET request first
     return await http.get(`${FINANCE_ENDPOINTS_FLAT.BUILDER_INVOICES_SECTION_GET_ESTIMATED_BUDGET}/${projectId}`);
@@ -631,20 +631,20 @@ export const updateProjectEstimatedBudget = async (projectId, estimatedBudget) =
   if (!projectId) {
     throw new Error('Project ID is required');
   }
-  
+
   if (estimatedBudget === undefined || estimatedBudget === null) {
     throw new Error('Estimated budget is required');
   }
-  
+
   // Convert to number if it's a string (remove currency formatting)
-  const budgetValue = typeof estimatedBudget === 'string' 
-    ? parseFloat(estimatedBudget.toString().replace(/[₹,]/g, '')) 
+  const budgetValue = typeof estimatedBudget === 'string'
+    ? parseFloat(estimatedBudget.toString().replace(/[₹,]/g, ''))
     : estimatedBudget;
-  
+
   if (isNaN(budgetValue) || budgetValue < 0) {
     throw new Error('Invalid estimated budget value');
   }
-  
+
   return http.put(
     `${FINANCE_ENDPOINTS_FLAT.BUILDER_INVOICES_SECTION_UPDATE_ESTIMATED_BUDGET}/${projectId}`,
     {
@@ -662,7 +662,7 @@ export const getBanks = async (projectId) => {
   if (!projectId) {
     throw new Error('Project ID is required');
   }
-  
+
   return http.get(FINANCE_ENDPOINTS_FLAT.BANK_GET, {
     params: {
       projectId: projectId,
@@ -681,7 +681,7 @@ export const createBank = async (data) => {
   if (!data.name || !data.projectId) {
     throw new Error('Bank name and projectId are required');
   }
-  
+
   return http.post(FINANCE_ENDPOINTS_FLAT.BANK_CREATE, {
     name: data.name.trim(),
     projectId: data.projectId,
@@ -707,18 +707,18 @@ export const createIncome = async (data) => {
   if (!data.payment_no || !data.date || !data.from || !data.to || !data.amount || !data.method) {
     throw new Error('payment_no, date, from, to, amount, and method are required');
   }
-  
+
   if (!data.project_id || !data.workspace_id) {
     throw new Error('project_id and workspace_id are required');
   }
-  
+
   const payload = {
     payment_no: data.payment_no.trim(),
     date: data.date, // Should be YYYY-MM-DD format
     from: data.from.trim(),
     to: data.to.trim(),
-    amount: typeof data.amount === 'string' 
-      ? parseFloat(data.amount.replace(/[₹,]/g, '')) 
+    amount: typeof data.amount === 'string'
+      ? parseFloat(data.amount.replace(/[₹,]/g, ''))
       : data.amount,
     method: data.method.trim(),
     description: data.description || '',
@@ -748,7 +748,7 @@ export const createIncome = async (data) => {
  */
 export const getAllIncomes = async (filters = {}) => {
   const params = {};
-  
+
   // Support both projectId and project_id for backward compatibility
   if (filters.projectId || filters.project_id) {
     params.project_id = filters.projectId || filters.project_id;
@@ -766,13 +766,13 @@ export const getAllIncomes = async (filters = {}) => {
     params.to = filters.to.trim();
   }
   if (filters.minAmount !== undefined && filters.minAmount !== null) {
-    params.minAmount = typeof filters.minAmount === 'string' 
-      ? parseFloat(filters.minAmount.replace(/[₹,]/g, '')) 
+    params.minAmount = typeof filters.minAmount === 'string'
+      ? parseFloat(filters.minAmount.replace(/[₹,]/g, ''))
       : filters.minAmount;
   }
   if (filters.maxAmount !== undefined && filters.maxAmount !== null) {
-    params.maxAmount = typeof filters.maxAmount === 'string' 
-      ? parseFloat(filters.maxAmount.replace(/[₹,]/g, '')) 
+    params.maxAmount = typeof filters.maxAmount === 'string'
+      ? parseFloat(filters.maxAmount.replace(/[₹,]/g, ''))
       : filters.maxAmount;
   }
 
@@ -799,18 +799,18 @@ export const updateIncome = async (incomeId, data) => {
   if (!incomeId) {
     throw new Error('Income ID is required');
   }
-  
+
   if (!data.payment_no || !data.date || !data.from || !data.to || !data.amount || !data.method) {
     throw new Error('payment_no, date, from, to, amount, and method are required');
   }
-  
+
   const payload = {
     payment_no: data.payment_no.trim(),
     date: data.date, // Should be YYYY-MM-DD format
     from: data.from.trim(),
     to: data.to.trim(),
-    amount: typeof data.amount === 'string' 
-      ? parseFloat(data.amount.replace(/[₹,]/g, '')) 
+    amount: typeof data.amount === 'string'
+      ? parseFloat(data.amount.replace(/[₹,]/g, ''))
       : data.amount,
     method: data.method.trim(),
     description: data.description || '',
@@ -833,7 +833,7 @@ export const deleteIncome = async (incomeId) => {
   if (!incomeId) {
     throw new Error('Income ID is required');
   }
-  
+
   return http.delete(`${FINANCE_ENDPOINTS_FLAT.INCOME_DELETE}/${incomeId}`);
 };
 
@@ -846,7 +846,7 @@ export const getCategories = async (workspace_id) => {
   if (!workspace_id) {
     throw new Error('workspace_id is required');
   }
-  
+
   return http.get(`${FINANCE_ENDPOINTS_FLAT.CATEGORY_GET}/${workspace_id}`);
 };
 
@@ -862,7 +862,7 @@ export const createCategory = async (data) => {
   if (!data.name || !data.workspace_id) {
     throw new Error('Category name and workspace_id are required');
   }
-  
+
   return http.post(FINANCE_ENDPOINTS_FLAT.CATEGORY_CREATE, {
     categoryId: data.categoryId || '',
     name: data.name.trim(),
@@ -880,7 +880,7 @@ export const getVendors = async (workspace_id, role = 'vendor') => {
   if (!workspace_id) {
     throw new Error('workspace_id is required');
   }
-  
+
   return http.get(FINANCE_ENDPOINTS_FLAT.BUILDER_USER_ROLES, {
     params: {
       workspace_id,
@@ -931,7 +931,7 @@ export const getFinancialSummary = async (params) => {
   if (!params.project_id || !params.workspace_id) {
     throw new Error('project_id and workspace_id are required');
   }
-  
+
   return http.get(FINANCE_ENDPOINTS_FLAT.PROJECT_FINANCIAL_SUMMARY, {
     params: {
       project_id: params.project_id,

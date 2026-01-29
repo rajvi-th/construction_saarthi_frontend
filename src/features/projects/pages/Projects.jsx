@@ -116,65 +116,57 @@ export default function Projects() {
     <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-0 md:py-7">
         {/* Header Section */}
-        <div className="mb-6">
-          <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between md:flex-wrap lg:items-center">
-            <PageHeader title={t('header.title')}
-              showBackButton={false}
-            />
-
-
-            {/* Actions: search, filter, button */}
-            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3 w-full md:max-w-3xl lg:w-auto">
+        <PageHeader
+          title={t('header.title')}
+          showBackButton={false}
+          className='capitalize'
+        >
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center w-full lg:w-auto">
+            <div className="flex-1 w-full sm:w-auto sm:flex-none">
               <SearchBar
                 placeholder={t('search.placeholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full sm:flex-1 lg:max-w-[260px]"
+                className="w-full sm:w-[260px]"
               />
-
-              <Dropdown
-                options={STATUS_OPTIONS}
-                value={statusFilter}
-                onChange={setStatusFilter}
-                placeholder={t('status.label')}
-                className="w-full sm:w-[140px] sm:flex-shrink-0"
-                showSeparator={false}
-                onAddNew={null}
-                addButtonLabel=""
-
-                customButton={(isOpen, setIsOpen, selectedOption) => (
-                  <button
-                    type="button"
-                    onClick={() => setIsOpen(!isOpen)}
-                    className="w-full sm:w-[140px] py-3 px-4 rounded-xl border border-[#E5E7EB] bg-white text-sm flex items-center justify-between cursor-pointer"
-                  >
-                    {/* Title */}
-                    <span className="text-primary">{selectedOption?.label || t('status.label')}</span>
-
-                    {/* Chevron Down */}
-                    <ChevronDown
-                      className={`w-4 h-4 text-primary transition-transform ${isOpen ? "rotate-180" : ""
-                        }`}
-                    />
-                  </button>
-                )}
-              />
-
-              {!isRestricted && (
-                <Button
-                  variant="primary"
-                  size="md"
-                  onClick={handleAddNewProject}
-                  leftIconName="Plus"
-                  iconSize="w-3 h-3 text-accent"
-                  className="w-full sm:w-auto whitespace-nowrap rounded-lg py-2.5"
-                >
-                  {t('actions.addNewProject')}
-                </Button>
-              )}
             </div>
+
+            <Dropdown
+              options={STATUS_OPTIONS}
+              value={statusFilter}
+              onChange={setStatusFilter}
+              placeholder={t('status.label')}
+              className="w-full sm:w-[140px] sm:flex-shrink-0"
+              showSeparator={false}
+              onAddNew={null}
+              addButtonLabel=""
+              customButton={(isOpen, setIsOpen, selectedOption) => (
+                <button
+                  type="button"
+                  onClick={() => setIsOpen(!isOpen)}
+                  className="w-full sm:w-[140px] py-3 px-4 rounded-xl border border-[#E5E7EB] bg-white text-sm flex items-center justify-between cursor-pointer"
+                >
+                  <span className="text-primary">{selectedOption?.label || t('status.label')}</span>
+                  <ChevronDown
+                    className={`w-4 h-4 text-primary transition-transform ${isOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
+              )}
+            />
+
+            {!isRestricted && (
+              <Button
+                variant="primary"
+                onClick={handleAddNewProject}
+                leftIconName="Plus"
+                iconSize="w-4 h-4"
+                className="w-full sm:w-auto whitespace-nowrap"
+              >
+                {t('actions.addNewProject')}
+              </Button>
+            )}
           </div>
-        </div>
+        </PageHeader>
 
         {/* Projects List */}
         {isFetchingProjects || isLoading ? (

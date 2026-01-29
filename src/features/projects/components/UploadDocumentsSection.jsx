@@ -9,7 +9,7 @@ import FileUpload from '../../../components/ui/FileUpload';
 import { showError, showSuccess, showLoading, dismissToast } from '../../../utils/toast';
 import { uploadMedia } from '../api/projectApi';
 
-function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles }) {
+function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles, isEditMode }) {
   const [activeTab, setActiveTab] = useState('photos');
   const [uploadedFiles, setUploadedFiles] = useState(existingFiles || {
     photos: [],
@@ -162,10 +162,13 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
         uploadDateTime,
         date: uploadDateTime,
         url: createPreviewUrl(file),
-        isUploading: true,
+        isUploading: !isEditMode,
+        needsUpload: isEditMode,
       });
       allFilesToUpload.push(file);
-      setUploadingFiles((prev) => new Set(prev).add(id));
+      if (!isEditMode) {
+        setUploadingFiles((prev) => new Set(prev).add(id));
+      }
     });
 
     categorizedFiles.videos.forEach((file, index) => {
@@ -180,10 +183,13 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
         date: uploadDateTime,
         thumbnail: createPreviewUrl(file),
         url: createPreviewUrl(file),
-        isUploading: true,
+        isUploading: !isEditMode,
+        needsUpload: isEditMode,
       });
       allFilesToUpload.push(file);
-      setUploadingFiles((prev) => new Set(prev).add(id));
+      if (!isEditMode) {
+        setUploadingFiles((prev) => new Set(prev).add(id));
+      }
     });
 
     categorizedFiles.documents.forEach((file, index) => {
@@ -197,10 +203,13 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
         uploadDateTime,
         date: uploadDateTime,
         url: createPreviewUrl(file),
-        isUploading: true,
+        isUploading: !isEditMode,
+        needsUpload: isEditMode,
       });
       allFilesToUpload.push(file);
-      setUploadingFiles((prev) => new Set(prev).add(id));
+      if (!isEditMode) {
+        setUploadingFiles((prev) => new Set(prev).add(id));
+      }
     });
 
     const newFiles = {
@@ -217,8 +226,8 @@ function UploadDocumentsSection({ t, onFilesChange, projectKey, existingFiles })
       documents: [...prev.documents, ...newDocumentFiles],
     }));
 
-    // Start batch upload
-    if (allFilesToUpload.length > 0) {
+    // Start batch upload if not in edit mode (Instant upload for new projects)
+    if (allFilesToUpload.length > 0 && !isEditMode) {
       uploadBatchToAPI(allFilesToUpload, newFiles);
     }
   };

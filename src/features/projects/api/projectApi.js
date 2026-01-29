@@ -416,21 +416,22 @@ export const editProject = async (projectId, data) => {
     formData.append('profilePhoto', data.profilePhoto);
   }
 
-  // Handle media files - can be single file or array
+  // Handle media files
+  // keepMediaIds: Existing file IDs to keep (JSON array)
+  // media: New File objects to upload
+  if (data.keepMediaIds && Array.isArray(data.keepMediaIds)) {
+    formData.append('keepMediaIds', JSON.stringify(data.keepMediaIds));
+  }
+
   if (data.media) {
     if (Array.isArray(data.media)) {
       data.media.forEach((item) => {
         if (item instanceof File) {
           formData.append('media', item);
-        } else if (item !== null && item !== undefined) {
-          // If it's an ID or other identifier for an existing file
-          formData.append('media', String(item));
         }
       });
     } else if (data.media instanceof File) {
       formData.append('media', data.media);
-    } else if (data.media !== null && data.media !== undefined) {
-      formData.append('media', String(data.media));
     }
   }
 

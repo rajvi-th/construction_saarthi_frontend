@@ -15,7 +15,15 @@ export const getProjects = async (workspaceId) => {
   if (!workspaceId) {
     throw new Error('Workspace ID is required');
   }
-  
+
   return http.get(`${DASHBOARD_ENDPOINTS_FLAT.PROJECT_LIST}/${workspaceId}`);
+};
+
+/**
+ * Get dashboard statistics
+ * @returns {Promise<Object>} Dashboard statistics
+ */
+export const getDashboardStats = async () => {
+  return http.get(DASHBOARD_ENDPOINTS_FLAT.STATISTICS);
 };
 

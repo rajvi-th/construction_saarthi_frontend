@@ -207,41 +207,28 @@ function AddNewProject() {
     }
 
     try {
-      // Convert all media to File objects (re-upload approach required by backend)
+      // Process media: Separate new files and existing IDs
       const allMediaItems = [
         ...(uploadedFiles.videos || []),
         ...(uploadedFiles.photos || []),
         ...(uploadedFiles.documents || []),
       ];
 
-      const mediaFiles = await Promise.all(allMediaItems.map(async (item) => {
-        // If it's a new file that has a binary File object
-        if (item.file instanceof File) return item.file;
-        if (item instanceof File) return item;
+      const newMedia = [];
+      const keepMediaIds = [];
 
-        // If file is already on server (has URL), fetch and convert to File to re-upload
-        // This is necessary because the backend replaces the entire media list
-        if (item.url && (item.isExisting || item.isUploaded)) {
-          try {
-            const response = await fetch(item.url);
-            const blob = await response.blob();
-            // Create a File object from the blob
-            const filename = item.name || item.fileName || item.url.split('/').pop() || 'existing_file';
-            const file = new File([blob], filename, { type: blob.type || item.type || 'application/octet-stream' });
-            return file;
-          } catch (error) {
-            console.error("Failed to convert existing file to blob used for re-upload:", item.url, error);
-            // If we can't convert it, we can try sending the ID as a fallback, 
-            // but likely the backend will delete it if it expects Files.
-            // Returning the string ID as a last resort.
-            return String(item.id);
+      allMediaItems.forEach((item) => {
+        if (item.file instanceof File) {
+          newMedia.push(item.file);
+        } else if (item instanceof File) {
+          newMedia.push(item);
+        } else if (item.id && (item.isExisting || item.isUploaded)) {
+          const numericId = Number(item.id);
+          if (!isNaN(numericId)) {
+            keepMediaIds.push(numericId);
           }
         }
-
-        return null;
-      }));
-
-      const validMediaFiles = mediaFiles.filter(Boolean);
+      });
 
       if (isEditMode && projectId) {
         // Edit mode: Use editProject hook
@@ -261,7 +248,8 @@ function AddNewProject() {
           projectDescription: data.projectDescription || "",
           projectStatus: data.projectStatus || "pending",
           profilePhoto: profilePhoto,
-          media: validMediaFiles.length > 0 ? validMediaFiles : null,
+          keepMediaIds: keepMediaIds,
+          media: newMedia.length > 0 ? newMedia : null,
         });
 
         // Navigate to project details
@@ -690,6 +678,7 @@ function AddNewProject() {
                   onFilesChange={setUploadedFiles}
                   projectKey={preProjectKey || (isEditMode ? projectId : null)}
                   existingFiles={uploadedFiles}
+                  isEditMode={isEditMode}
                 />
 
                 {/* Actions - Show Create Project button at bottom */}

@@ -73,6 +73,7 @@ export const useEditProject = (workspaceId) => {
           description: data.projectDescription || "",
           estimatedBudget: data.estimatedBudget || null,
           profilePhoto: data.profilePhoto || null,
+          keepMediaIds: data.keepMediaIds || null,
           media: data.media || null,
         };
 

@@ -10,4 +10,5 @@ export { default as useMembersDefault } from './useMembers';
 export { useWorkspaceRole } from './useWorkspaceRole';
 export { useRestrictedRole } from './useRestrictedRole';
 export { useAddRestrictedRole } from './useAddRestrictedRole';
+export { useDashboardStats } from './useDashboardStats';
 

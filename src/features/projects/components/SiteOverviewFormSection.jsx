@@ -102,7 +102,6 @@ function SiteOverviewFormSection({
         }
       })();
     }
-    // In edit mode, profile photo will be uploaded when form is submitted
   };
 
   return (

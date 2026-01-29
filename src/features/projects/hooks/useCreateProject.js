@@ -7,7 +7,8 @@
 import { useState, useCallback } from "react";
 import {
   startProject,
-  editProject as editProjectApi,
+  uploadMedia,
+  createProject as createProjectApi,
 } from "../api";
 import { showError, showSuccess } from "../../../utils/toast";
 import { useTranslation } from "react-i18next";
@@ -28,7 +29,7 @@ export const useCreateProject = (workspaceId) => {
         setIsSubmitting(true);
         setError(null);
 
-        // Step 1: Start project to get projectKey (unless provided from pre-init)
+        // Step 1: Start project to get projectKey
         let projectKey = data?.projectKey;
         if (!projectKey) {
           const startResponse = await startProject(workspaceId);
@@ -62,20 +63,10 @@ export const useCreateProject = (workspaceId) => {
           return formStatus || "pending";
         };
 
-        // Step 3: Use the edit API to finalize project details (as requested: Create uses PUT /project/edit)
-        // Combine all media files
-        const mediaFiles = [
-          ...(data.photos || []),
-          ...(data.videos || []),
-          ...(data.documents || []),
-        ].map(item => {
-          if (item.file instanceof File) return item.file; // New file
-          if (item.id && (item.isExisting || item.isUploaded)) return item.id; // Existing/Uploaded ID
-          if (item instanceof File) return item;
-          return null;
-        }).filter(Boolean);
-
+        // Step 3: Finalize creation (POST /api/project/create/{workspaceId})
         const projectData = {
+          workspaceId: workspaceId,
+          projectKey: projectKey,
           name: data.siteName,
           status: mapStatus(data.projectStatus),
           address: data.address || "",
@@ -90,12 +81,9 @@ export const useCreateProject = (workspaceId) => {
           constructionTypeId: data.constructionType || null,
           description: data.projectDescription || "",
           estimatedBudget: data.estimatedBudget || null,
-          profilePhoto: data.profilePhoto || null,
-          media: mediaFiles.length > 0 ? mediaFiles : null,
         };
 
-        // Call editProject API with projectKey as the ID (as per requested PUT /project/edit/{id})
-        const response = await editProjectApi(projectKey, projectData);
+        const response = await createProjectApi(projectData);
 
         showSuccess(
           t("addNewProject.form.projectCreated", {
