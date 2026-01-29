@@ -10,20 +10,20 @@ import { ROUTES_FLAT } from '../../../constants/routes';
 export default function GalleryProjectCard({ project }) {
   const navigate = useNavigate();
   const [imageError, setImageError] = useState(false);
-  
+
   // Get image from various possible fields
   const getImageUrl = () => {
     if (imageError) return null;
-    
+
     // Check transformed project data (from useProjects hook)
     if (project.profile_photo) return project.profile_photo;
-    
+
     // Check original data
     const originalData = project.originalData || project;
-    
+
     // Check direct profilePhoto field (from API response)
     if (originalData.profilePhoto) return originalData.profilePhoto;
-    
+
     // Check media array for profilePhoto
     if (originalData.media && Array.isArray(originalData.media)) {
       const profilePhoto = originalData.media.find(
@@ -31,7 +31,7 @@ export default function GalleryProjectCard({ project }) {
       );
       if (profilePhoto?.url) return profilePhoto.url;
     }
-    
+
     // Check media object (if media is an object with profilePhoto key)
     if (originalData.media && typeof originalData.media === 'object' && !Array.isArray(originalData.media)) {
       const profilePhoto = originalData.media.profilePhoto;
@@ -43,7 +43,7 @@ export default function GalleryProjectCard({ project }) {
         if (profilePhoto.url) return profilePhoto.url;
       }
     }
-    
+
     // Check other image fields
     return (
       originalData.profile_photo ||
@@ -54,19 +54,19 @@ export default function GalleryProjectCard({ project }) {
   };
 
   const imageSrc = getImageUrl();
-  
+
   // Get project name - from transformed data or original
   const projectName = project.site_name || project.name || 'Untitled Project';
-  
+
   // Get original data for details
   const originalData = project.originalData || project;
   const details = originalData.details || {};
-  
+
   // Extract location from address (first part before comma) or use city if available
   const fullAddress = project.address || details.address || '';
   const addressParts = fullAddress.split(',').map(part => part.trim());
   const location = addressParts.length > 1 ? addressParts[addressParts.length - 1] : ''; // Last part is usually city/location
-  
+
   // Get full address
   const address = project.address || details.address || 'No address provided';
 

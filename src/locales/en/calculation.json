@@ -5,7 +5,11 @@
         "usedCalculations": "Used Calculations",
         "availableCalculations": "Available",
         "totalOrders": "Total Orders",
-        "buyCalculations": "Buy Calculations"
+        "buyCalculations": "Buy Calculations",
+        "calculationDetails": "Calculation Details"
+    },
+    "breadcrumbs": {
+        "calculation": "Construction Calculation"
     },
     "quickActions": {
         "tabs": {
@@ -17,7 +21,7 @@
             "quiz": "Quiz"
         },
         "items": {
-            "constructionCost": "Construction Calculation",
+            "constructionCost": "Construction Cost",
             "steelQuantities": "Steel Quantities",
             "concrete": "Concrete",
             "brickWorkPlaster": "Brick Work & Plaster",

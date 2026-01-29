@@ -5,7 +5,7 @@
  */
 
 import { useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import PageHeader from '../../../components/layout/PageHeader';
 import SearchBar from '../../../components/ui/SearchBar';
@@ -21,6 +21,7 @@ import { ChevronDown } from 'lucide-react';
 export default function ProjectList() {
     const { t } = useTranslation(['labourAttendance', 'projects']);
     const navigate = useNavigate();
+    const location = useLocation();
     const { selectedWorkspace } = useAuth();
 
     const [searchQuery, setSearchQuery] = useState('');
@@ -51,6 +52,7 @@ export default function ProjectList() {
         navigate(path, {
             state: {
                 projectName: project.name,
+                fromDashboard: location.state?.fromDashboard,
             },
         });
     };

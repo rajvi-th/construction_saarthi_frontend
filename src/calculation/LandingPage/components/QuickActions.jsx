@@ -57,7 +57,7 @@ const QUICK_ACTIONS = [
     { id: 31, key: 'billOfQuantity', isLocked: true },
 ];
 
-const QuickActions = () => {
+const QuickActions = ({ fromDashboard, fromProjects }) => {
     const { t } = useTranslation('calculation');
     const [activeTab, setActiveTab] = useState('quantity');
     const navigate = useNavigate();
@@ -72,6 +72,8 @@ const QuickActions = () => {
                 title: 'Rail Construction',
                 pageName: 'Rail Construction',
                 pageColor: 'text-accent',
+                fromDashboard,
+                fromProjects,
             },
         },
         steelQuantities: {
@@ -114,6 +116,8 @@ const QuickActions = () => {
                 state: {
                     title,
                     pageName: title,
+                    fromDashboard,
+                    fromProjects,
                 },
             });
             return;
@@ -122,7 +126,13 @@ const QuickActions = () => {
         const routeInfo = ROUTE_MAP[action.key];
 
         if (routeInfo) {
-            navigate(routeInfo.path, { state: routeInfo.state });
+            navigate(routeInfo.path, {
+                state: {
+                    ...routeInfo.state,
+                    fromDashboard,
+                    fromProjects
+                }
+            });
             return;
         }
 
@@ -131,6 +141,8 @@ const QuickActions = () => {
             state: {
                 title,
                 pageName: title,
+                fromDashboard,
+                fromProjects,
             },
         });
     };

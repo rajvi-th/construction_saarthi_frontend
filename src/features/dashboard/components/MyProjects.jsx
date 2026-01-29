@@ -78,6 +78,8 @@ const MyProjects = ({ projects, onCreateProject }) => {
       state: {
         projectId: project.id,
         projectName: project.title,
+        fromDashboard: true,
+        fromProjects: true,
       },
     });
   };
@@ -89,7 +91,7 @@ const MyProjects = ({ projects, onCreateProject }) => {
           {t('projects.title')}
         </h2>
         <button
-          onClick={() => navigate(ROUTES_FLAT.PROJECTS)}
+          onClick={() => navigate(ROUTES_FLAT.PROJECTS, { state: { fromDashboard: true } })}
           className="text-sm sm:text-base text-accent font-medium hover:underline cursor-pointer"
         >
           {t('projects.viewAll')}

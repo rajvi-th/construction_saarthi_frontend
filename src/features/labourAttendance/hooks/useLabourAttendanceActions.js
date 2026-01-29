@@ -20,6 +20,8 @@ export const useLabourAttendanceActions = ({
   summary,
   filteredLabourList,
   projectId,
+  fromProjects,
+  fromDashboard,
 }) => {
   const { t } = useTranslation('labourAttendance');
   const navigate = useNavigate();
@@ -140,7 +142,7 @@ export const useLabourAttendanceActions = ({
   const handleAddReport = useCallback(() => {
     navigate(
       getRoute(ROUTES_FLAT.LABOUR_ATTENDANCE_ADD_LABOUR, { projectId }),
-      { state: { projectName } }
+      { state: { projectName, fromProjects, fromDashboard } }
     );
   }, [navigate, projectId, projectName]);
 
