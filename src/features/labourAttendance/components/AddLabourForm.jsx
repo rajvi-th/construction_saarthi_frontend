@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Camera, X } from 'lucide-react';
+import labourProfile from '../../../assets/icons/labourProfile.svg';
 import { useTranslation } from 'react-i18next';
 import Input from '../../../components/ui/Input';
 import Dropdown from '../../../components/ui/Dropdown';
@@ -453,7 +454,11 @@ export default function AddLabourForm({
                 className="w-full h-full rounded-full object-cover"
               />
             ) : (
-              <span className="text-primary font-bold">{getInitials(labourName)}</span>
+              <img
+                src={labourProfile}
+                alt="Labour Placeholder"
+                className=" h-15 object-cover"
+              />
             )}
           </div>
           <button

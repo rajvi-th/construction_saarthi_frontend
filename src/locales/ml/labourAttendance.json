@@ -47,7 +47,8 @@
       "markPaidLeave": "പണമടച്ച അവധി അടയാളപ്പെടുത്തുക",
       "viewEditLabour": "തൊഴിലാളിയെ കാണുക/എഡിറ്റ് ചെയ്യുക",
       "moveToAnotherProject": "മറ്റൊരു പ്രോജക്റ്റിലേക്ക് നീക്കുക",
-      "payAdvance": "അഡ്വാന്\u200d\u200cസ് നല്\u200d\u200cകുക",
+      "payAdvance": "അഡ്വാൻസ് നൽകുക",
+      "payBonus": "ബോണസ് നൽകുക",
       "addBonus": "ബോണസ് ചേര്\u200d\u200cക്കുക",
       "addDeduction": "കിഴിവ് ചേര്\u200d\u200cക്കുക",
       "deleteLabour": "തൊഴിലാളിയെ ഇല്ലാതാക്കുക"

@@ -185,10 +185,10 @@ export default function LabourDetails() {
 
       {/* Attendance Summary */}
       <div className="pt-6 border-t border-gray-200">
-        <h3 className="text-[18px] font-semibold text-primary mb-4">{t('labourDetails.attendanceSummary')}</h3>
+        {/* <h3 className="text-[18px] font-semibold text-primary mb-4">{t('labourDetails.attendanceSummary')}</h3> */}
 
         {/* Attendance Summary */}
-        <div className="pt-6 border-t border-gray-200">
+        <div className="">
           <h3 className="text-[18px] font-semibold text-primary mb-4">{t('labourDetails.attendanceSummary')}</h3>
 
           <div className="space-y-3 text-sm">
@@ -250,7 +250,7 @@ export default function LabourDetails() {
           <WageCard
             title={t('labourDetails.bonuses')}
             value={`₹ ${Number(wage.bonuses || 0) > 0 ? `+${Number(wage.bonuses || 0).toLocaleString('en-IN')}` : '0'}`}
-            actionLabel={t('cards.menu.payAdvance')}
+            actionLabel={t('cards.menu.payBonus')}
             onAction={() => setActiveModal('bonus')}
           />
           <WageCard
