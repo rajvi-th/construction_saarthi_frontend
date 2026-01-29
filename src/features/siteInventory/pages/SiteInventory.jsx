@@ -803,7 +803,7 @@ export default function SiteInventory() {
         onBack={projectId ? handleBack : undefined}
         className='capitalize'
       >
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-start sm:items-center w-full lg:w-auto">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center w-full lg:w-auto">
           {activeTab === 'inventory' && (
             <>
               <div className="flex-1 w-full sm:w-auto sm:flex-none">

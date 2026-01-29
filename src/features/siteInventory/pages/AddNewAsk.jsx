@@ -219,7 +219,7 @@ export default function AddNewAsk() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-7xl mx-auto">
       <PageHeader
         title={pageTitle}
         showBackButton={true}
