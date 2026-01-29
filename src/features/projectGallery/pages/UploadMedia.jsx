@@ -34,7 +34,7 @@ export default function UploadMedia() {
   const projectIdFromState = location.state?.projectId;
   const finalProjectId = projectId || projectIdFromState;
 
-  const { project, isLoading: isLoadingProject } = useProjectDetails(finalProjectId, selectedWorkspace);
+  const { project, isLoading: isLoadingProject, refetch: refetchProject } = useProjectDetails(finalProjectId, selectedWorkspace);
 
   const handleBack = () => {
     navigate(ROUTES_FLAT.PROJECT_GALLERY_DETAILS.replace(':projectId', finalProjectId), {
@@ -109,16 +109,30 @@ export default function UploadMedia() {
     try {
       setIsUploading(true);
       
-      // Extract File instances from selectedFiles (which have .file property)
-      const fileInstances = selectedFiles.map(f => f.file || f).filter(f => f instanceof File);
+      // 1. Get IDs of existing media to preserve them
+      const existingMedia = project?.media || [];
+      const keepMediaIds = existingMedia
+        .filter(item => {
+          const typeId = String(item.typeId || item.type_id || '');
+          return typeId !== '1';
+        })
+        .map(item => item.id || item._id)
+        .filter(Boolean);
+
+      // 2. Extract new File instances from selectedFiles
+      const newFileInstances = selectedFiles.map(f => f.file || f).filter(f => f instanceof File);
       
-      if (fileInstances.length === 0) {
+      if (newFileInstances.length === 0) {
         throw new Error('No valid file instances found');
       }
       
-      await uploadProjectMedia(finalProjectId, fileInstances);
+      // 3. Call API with new files and existing IDs to keep
+      await uploadProjectMedia(finalProjectId, newFileInstances, keepMediaIds);
       
       showSuccess(t('upload.success', { defaultValue: 'Files uploaded successfully' }));
+
+      // Refresh project details immediately in case of another upload before navigation
+      if (typeof refetchProject === 'function') await refetchProject();
       
       // Wait a bit before navigating to ensure backend has processed
       setTimeout(() => {

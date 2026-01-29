@@ -26,7 +26,7 @@
     "noImage": "কোন ছবি নেই"
   },
   "attendancePage": {
-    "searchPlaceholder": "নাম বা ভূমিকা অনুসারে খুঁজুন",
+    "searchPlaceholder": "শ্রমিক খুঁজুন",
     "datePlaceholder": "DD/MM/YYYY",
     "downloadSuccess": "রিপোর্ট সফলভাবে ডাউনলোড করা হয়েছে",
     "downloadFail": "রিপোর্ট ডাউনলোড করতে ব্যর্থ",

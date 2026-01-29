@@ -26,7 +26,7 @@
     "noImage": "प्रतिमा नाही"
   },
   "attendancePage": {
-    "searchPlaceholder": "नाव किंवा भूमिकेनुसार शोधा",
+    "searchPlaceholder": "कामगार शोधा",
     "datePlaceholder": "DD/MM/YYYY",
     "downloadSuccess": "अहवाल यशस्वीरित्या डाउनलोड केला",
     "downloadFail": "अहवाल डाउनलोड करण्यात अयशस्वी",

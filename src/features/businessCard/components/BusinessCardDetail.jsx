@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import html2canvas from 'html2canvas';
 import { useTranslation } from 'react-i18next';
 import { Edit, MoreVertical, ArrowLeftRight, User, Phone, Mail, MapPin, Share2, Download, Trash2     } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -14,54 +15,116 @@ export default function BusinessCardDetail({ businessCard, onDelete }) {
   const navigate = useNavigate();
   const [isFlipped, setIsFlipped] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [logoBase64, setLogoBase64] = useState(null);
+
+  const logoUrl = businessCard?.logoUrl || businessCard?.logo_url || businessCard?.logo || businessCard?.company_logo || businessCard?.companyLogo || '';
+
+  useEffect(() => {
+    const convertLogoToBase64 = async () => {
+      if (!logoUrl) {
+        setLogoBase64(null);
+        return;
+      }
+
+      try {
+        setLogoBase64(null);
+        if (logoUrl.startsWith('data:')) {
+          setLogoBase64(logoUrl);
+          return;
+        }
+
+        const response = await fetch(logoUrl, { mode: 'cors' });
+        const blob = await response.blob();
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setLogoBase64(reader.result);
+        };
+        reader.readAsDataURL(blob);
+      } catch (error) {
+        console.warn('Could not convert logo to base64 due to CORS restrictions:', error);
+        setLogoBase64(null); // Fallback to raw URL
+      }
+    };
+
+    convertLogoToBase64();
+  }, [logoUrl]);
 
   const handleEdit = () => {
     navigate(ROUTES_FLAT.EDIT_BUSINESS_CARD.replace(':id', businessCard.id || businessCard._id));
   };
 
-  const handleShare = async () => {
-    try {
-      // Create shareable data
-      const cardData = {
-        companyName: companyName,
-        fullName: fullName,
-        email: email,
-        phone: phone,
-        address: address,
-        tagline: tagline,
-      };
-
-      // Check if Web Share API is available
-      if (navigator.share) {
-        await navigator.share({
-          title: `${companyName} - Business Card`,
-          text: `Contact: ${fullName}\nPhone: ${phone}\nEmail: ${email}${address ? `\nAddress: ${address}` : ''}`,
-          url: window.location.href,
-        });
-        showSuccess(t('shareSuccess', { defaultValue: 'Business card shared successfully!' }));
-      } else {
-        // Fallback: Copy to clipboard
-        const shareText = `${companyName}\n${fullName}\nPhone: ${phone}\nEmail: ${email}${address ? `\nAddress: ${address}` : ''}`;
-        await navigator.clipboard.writeText(shareText);
-        showSuccess(t('shareCopied', { defaultValue: 'Business card details copied to clipboard!' }));
-      }
-    } catch (error) {
-      if (error.name !== 'AbortError') {
-        showError(t('shareError', { defaultValue: 'Failed to share business card.' }));
-      }
-    }
-  };
 
   const handleDownload = async () => {
     try {
-      // Get the card element
-      const cardElement = document.querySelector('[data-business-card]');
-      if (!cardElement) {
-        showError(t('downloadError', { defaultValue: 'Failed to find business card element.' }));
+      const frontElement = document.querySelector('[data-card-front]');
+      const backElement = document.querySelector('[data-card-back]');
+
+      if (!frontElement || !backElement) {
+        showError(t('downloadError', { defaultValue: 'Failed to find business card elements.' }));
         return;
       }
-      showSuccess(t('downloadSuccess', { defaultValue: 'Business card download started!' }));
+
+      showSuccess(t('downloadProgress', { defaultValue: 'Preparing download...' }));
+
+      // Helper function to capture a "clean" clone of a card side
+      const captureSide = async (element, sideName) => {
+        // Create a temporary container for the clone
+        const container = document.createElement('div');
+        container.style.position = 'fixed';
+        container.style.left = '-9999px';
+        container.style.top = '-9999px';
+        container.style.width = element.offsetWidth + 'px';
+        container.style.height = element.offsetHeight + 'px';
+        
+        // Clone the element
+        const clone = element.cloneNode(true);
+        
+        // Force reset any 3D transforms or visibility properties that cause issues in capture
+        clone.style.transform = 'none';
+        clone.style.backfaceVisibility = 'visible';
+        clone.style.webkitBackfaceVisibility = 'visible';
+        clone.style.position = 'relative';
+        clone.style.width = '100%';
+        clone.style.height = '100%';
+        
+        // Add relevant background/border styles from parent if necessary
+        const parent = element.closest('[data-business-card]');
+        if (parent) {
+          container.style.backgroundColor = getComputedStyle(parent).backgroundColor;
+          container.style.borderRadius = getComputedStyle(parent).borderRadius;
+          container.style.border = getComputedStyle(parent).border;
+          container.style.padding = getComputedStyle(parent).padding;
+        }
+
+        container.appendChild(clone);
+        document.body.appendChild(container);
+
+        try {
+          const canvas = await html2canvas(container, {
+            scale: 4,
+            useCORS: true,
+            backgroundColor: null,
+            logging: false,
+          });
+
+          const dataUrl = canvas.toDataURL('image/png', 1.0);
+          const link = document.createElement('a');
+          const fileName = `${fullName.replace(/\s+/g, '_') || 'business_card'}_${sideName}.png`;
+          link.download = fileName;
+          link.href = dataUrl;
+          link.click();
+        } finally {
+          document.body.removeChild(container);
+        }
+      };
+
+      // Download both sides
+      await captureSide(frontElement, 'front');
+      await captureSide(backElement, 'back');
+
+      showSuccess(t('downloadSuccess', { defaultValue: 'Business card downloaded!' }));
     } catch (error) {
+      console.error('Download error:', error);
       showError(t('downloadError', { defaultValue: 'Failed to download business card.' }));
     }
   };
@@ -92,7 +155,7 @@ export default function BusinessCardDetail({ businessCard, onDelete }) {
 
   const companyName = businessCard?.companyName || businessCard?.company_name || '';
   const tagline = getTaglineText(businessCard?.companyTagline || businessCard?.company_tagline || '');
-  const logo =  businessCard?.logoUrl || '';
+  const logo =  businessCard?.logoUrl || businessCard?.logo_url || businessCard?.logo || businessCard?.company_logo || businessCard?.companyLogo || '';
   const firstName = businessCard?.firstName || businessCard?.first_name || '';
   const lastName = businessCard?.lastName || businessCard?.last_name || '';
   const fullName = businessCard?.full_name || `${firstName} ${lastName}`.trim() || '';
@@ -119,12 +182,7 @@ export default function BusinessCardDetail({ businessCard, onDelete }) {
           </Button>
           <DropdownMenu
             items={[
-              {
-                label: t('shareCard', { defaultValue: 'Share Card' }),
-                onClick: handleShare,
-                icon: <Share2 className="w-4 h-4" />,
-                iconClassName: 'text-primary',
-              },
+              
               {
                 label: t('downloadCard', { defaultValue: 'Download Card' }),
                 onClick: handleDownload,
@@ -169,6 +227,7 @@ export default function BusinessCardDetail({ businessCard, onDelete }) {
             >
               {/* Front View */}
               <div
+                data-card-front
                 className="absolute inset-0 w-full h-full"
                 style={{
                   backfaceVisibility: 'hidden',
@@ -180,8 +239,9 @@ export default function BusinessCardDetail({ businessCard, onDelete }) {
                   {logo && (
                     <div className="mb-3 sm:mb-4">
                       <img
-                        src={logo}
+                        src={logoBase64 || logo}
                         alt="Company Logo"
+                        referrerPolicy="no-referrer"
                         className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain"
                       />
                     </div>
@@ -205,6 +265,7 @@ export default function BusinessCardDetail({ businessCard, onDelete }) {
 
               {/* Back View */}
               <div
+                data-card-back
                 className="absolute inset-0 w-full h-full"
                 style={{
                   backfaceVisibility: 'hidden',
@@ -223,8 +284,9 @@ export default function BusinessCardDetail({ businessCard, onDelete }) {
                     {logo && (
                       <div className="mb-6 sm:mb-0 flex justify-center">
                         <img
-                          src={logo}
+                          src={logoBase64 || logo}
                           alt="Company Logo"
+                          referrerPolicy="no-referrer"
                           className="w-12 h-12 sm:w-20 sm:h-20 md:w-40 md:h-30 object-contain"
                         />
                       </div>
@@ -257,7 +319,7 @@ export default function BusinessCardDetail({ businessCard, onDelete }) {
                             className="flex items-center justify-center sm:justify-start gap-2 sm:pl-4"
                           >
                             <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 text-accent flex-shrink-0" />
-                            <p className="text-sm sm:text-base md:text-lg text-primary break-words text-center sm:text-left">
+                            <p className="text-sm sm:text-base md:text-lg text-primary break-all text-center sm:text-left">
                               {item.value}
                             </p>
                           </div>

@@ -74,14 +74,14 @@ export default function Wallet() {
         {/* Current balance card */}
         <section className="mb-8">
           <div
-            className="rounded-3xl px-4 sm:px-8 py-6 sm:py-7 bg-[#F9F4EE] border"
+            className="rounded-3xl px-4 sm:px-8 py-3 sm:py-5 bg-[#F9F4EE] border"
             style={{ borderColor: '#060C120F' }}
           >
-            <div className="flex flex-col items-center text-center gap-3">
-              <p className="text-xs sm:text-sm font-medium text-primary-light tracking-wide">
+            <div className="flex flex-col items-center text-center">
+              <p className="text-xs sm:text-lg font-medium text-primary tracking-wide">
                 {t('wallet.currentBalance')}
               </p>
-              <p className="text-[11px] sm:text-xs text-primary-light">
+              <p className="text-[11px] sm:text-xs text-primary-light mb-2">
                 {t('wallet.balanceDescription')}
               </p>
               <button
@@ -91,7 +91,7 @@ export default function Wallet() {
                 <span className="flex items-center justify-center">
                   <img src={walletIcon} alt="Wallet" className="w-6 h-6" />
                 </span>
-                <span className="text-base sm:text-lg font-semibold text-primary">
+                <span className="text-base sm:text-lg font-semibold text-[#B02E0C]">
                   {formatCurrencyINR(currentBalance)}
                 </span>
               </button>

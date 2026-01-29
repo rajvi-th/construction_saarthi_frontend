@@ -26,7 +26,7 @@
     "noImage": "કોઈ છબી નથી"
   },
   "attendancePage": {
-    "searchPlaceholder": "નામ અથવા ભૂમિકા દ્વારા શોધો",
+    "searchPlaceholder": "મજૂરો શોધો",
     "datePlaceholder": "DD/MM/YYYY",
     "downloadSuccess": "રિપોર્ટ સફળતાપૂર્વક ડાઉનલોડ થયો",
     "downloadFail": "રિપોર્ટ ડાઉનલોડ કરવામાં નિષ્ફળ",

@@ -6,7 +6,7 @@
     "createButton": "Create Business Card"
   },
   "add": {
-    "title": "Add Business Card",
+    "title": "Add New Business Card",
     "saveCard": "Save Card"
   },
   "edit": {
@@ -18,10 +18,8 @@
   "flipToFront": "Flip to Front",
   "shareCard": "Share Card",
   "downloadCard": "Download Card",
-  "shareSuccess": "Business card shared successfully!",
-  "shareCopied": "Business card details copied to clipboard!",
-  "shareError": "Failed to share business card.",
-  "downloadSuccess": "Business card download started!",
+  "downloadProgress": "Preparing download...",
+  "downloadSuccess": "Business card downloaded!",
   "downloadError": "Failed to download business card.",
   "deleteConfirmation": {
     "title": "Delete Business Card",

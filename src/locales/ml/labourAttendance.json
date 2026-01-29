@@ -26,7 +26,7 @@
     "noImage": "ചിത്രം ഇല്ല"
   },
   "attendancePage": {
-    "searchPlaceholder": "പേര് അല്ലെങ്കില്\u200d\u200c പങ്ക് അനുസരിച്ച് തിരയുക",
+    "searchPlaceholder": "തൊഴിലാളി തിരയുക",
     "datePlaceholder": "DD/MM/YYYY",
     "downloadSuccess": "റിപ്പോര്\u200d\u200cട്ട് വിജയകരമായി ഡൗണ്\u200d\u200cലോഡ് ചെയ്തു",
     "downloadFail": "റിപ്പോര്\u200d\u200cട്ട് ഡൗണ്\u200d\u200cലോഡ് ചെയ്യുന്നതില്\u200d\u200c പരാജയപ്പെട്ടു",

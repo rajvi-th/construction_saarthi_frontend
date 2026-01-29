@@ -26,7 +26,7 @@
     "noImage": "ছবি নাই"
   },
   "attendancePage": {
-    "searchPlaceholder": "নাম বা ভূমিকা অনুসৰি বিচাৰক",
+    "searchPlaceholder": "শ্ৰমিক বিচাৰক",
     "datePlaceholder": "DD/MM/YYYY",
     "downloadSuccess": "ৰিপোৰ্ট সফলতাৰে ডাউনলোড কৰা হ'ল",
     "downloadFail": "ৰিপোৰ্ট ডাউনলোড কৰাত ব্যৰ্থ",

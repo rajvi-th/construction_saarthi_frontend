@@ -26,7 +26,7 @@
     "noImage": "कोई फोटो ना"
   },
   "attendancePage": {
-    "searchPlaceholder": "नाम या भूमिका से खोजीं",
+    "searchPlaceholder": "मजदूर खोजीं",
     "datePlaceholder": "DD/MM/YYYY",
     "downloadSuccess": "रिपोर्ट सफलतापूर्वक डाउनलोड हो गईल",
     "downloadFail": "रिपोर्ट डाउनलोड करे में असफल",

@@ -26,7 +26,7 @@
     "noImage": "No image"
   },
   "attendancePage": {
-    "searchPlaceholder": "Search by name or role",
+    "searchPlaceholder": "Search labours",
     "datePlaceholder": "DD/MM/YYYY",
     "downloadSuccess": "Report downloaded successfully",
     "downloadFail": "Failed to download report",

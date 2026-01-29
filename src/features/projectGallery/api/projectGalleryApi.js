@@ -75,30 +75,36 @@ export const deleteMedia = async (mediaId) => {
  * Upload media files to project
  * @param {string|number} projectId - Project ID
  * @param {File[]} files - Array of File objects to upload
+ * @param {Array<string|number>} keepMediaIds - Array of existing media IDs to preserve
  * @returns {Promise} API response
  */
-export const uploadProjectMedia = async (projectId, files) => {
+export const uploadProjectMedia = async (projectId, files, keepMediaIds = []) => {
   try {
     if (!projectId) {
       throw new Error('Project ID is required');
     }
 
-    if (!files || !Array.isArray(files) || files.length === 0) {
-      throw new Error('At least one file is required');
+    if (!files || !Array.isArray(files)) {
+      throw new Error('Files must be an array');
     }
 
     const formData = new FormData();
     
-    // Append each file with the same "media" key (as per API requirement)
+    // Append each file with the same "media" key
     files.forEach((file) => {
       if (file instanceof File) {
         formData.append('media', file);
       }
     });
 
+    // Append existing media IDs to keep (as JSON string)
+    if (keepMediaIds && Array.isArray(keepMediaIds) && keepMediaIds.length > 0) {
+      formData.append('keepMediaIds', JSON.stringify(keepMediaIds.map(id => String(id))));
+    }
+
     const url = PROJECT_GALLERY_ENDPOINTS_FLAT.UPLOAD_MEDIA.replace(':projectId', String(projectId));
     
-    // Don't set Content-Type header - let axios/http service handle it for FormData
+    // http service handles FormData
     const response = await http.put(url, formData);
     
     return response;

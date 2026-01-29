@@ -41,7 +41,7 @@ export default function ProjectGalleryDetails() {
   const projectIdFromState = location.state?.projectId;
   const finalProjectId = projectId || projectIdFromState;
 
-  const { project, isLoading: isLoadingProject } = useProjectDetails(finalProjectId, selectedWorkspace);
+  const { project, isLoading: isLoadingProject, refetch: refetchProject } = useProjectDetails(finalProjectId, selectedWorkspace);
 
   // Map activeTab to API type parameter
   const getTypeFromTab = (tab) => {
@@ -80,13 +80,13 @@ export default function ProjectGalleryDetails() {
     apiDateFilter
   );
 
-  // Refetch gallery items when coming back from upload
   useEffect(() => {
     if (finalProjectId && location.state?.fromUpload) {
       refetch();
+      if (typeof refetchProject === 'function') refetchProject();
       window.history.replaceState({ ...location.state, fromUpload: false }, '');
     }
-  }, [finalProjectId, location.state?.fromUpload]);
+  }, [finalProjectId, location.state?.fromUpload, refetch, refetchProject]);
 
   // Group items by date for documents
   const groupItemsByDate = (items) => {
@@ -219,55 +219,33 @@ export default function ProjectGalleryDetails() {
     try {
       setIsUploading(true);
 
-      // 1. Get existing media from the project object
+      // 1. Get IDs of existing media from the project object
+      // This tells the server which files to PRESERVE
       const existingMedia = project?.media || [];
+      const keepMediaIds = existingMedia
+        .filter(item => {
+          // Keep all gallery items. Filter out profile photos (typeId 1) if necessary.
+          const typeId = String(item.typeId || item.type_id || '');
+          return typeId !== '1';
+        })
+        .map(item => item.id || item._id)
+        .filter(Boolean);
 
-      // Filter out profile photos (typeId 1) to prevent them from being duplicated as gallery images
-      const galleryMediaOnly = existingMedia.filter(item => {
-        const typeId = String(item.typeId || item.type_id || '');
-        return typeId !== '1';
-      });
-
-      // 2. Convert existing media URLs to File objects for re-upload
-      // This is required because the backend replaces the entire media list on update
-      const existingFilesConverted = await Promise.all(galleryMediaOnly.map(async (item) => {
-        if (!item.url) return null;
-
-        try {
-          const response = await fetch(item.url);
-          const blob = await response.blob();
-
-          // Determine filename
-          const filename = item.name || item.fileName || item.url.split('/').pop() || `existing_file_${item.id}`;
-
-          // Determine MIME type
-          const type = blob.type || item.type || 'application/octet-stream';
-
-          return new File([blob], filename, { type });
-        } catch (error) {
-          console.error("Failed to convert existing file for re-upload:", item.url, error);
-          return null;
-        }
-      }));
-
-      // 3. Extract new File instances from selectedFiles
+      // 2. Extract new File instances from selectedFiles
       const newFileInstances = selectedFiles.map(f => f.file || f).filter(f => f instanceof File);
 
-      // 4. Combine existing files (that were successfully converted) and new files
-      const allFilesToUpload = [...existingFilesConverted.filter(Boolean), ...newFileInstances];
-
-      if (allFilesToUpload.length === 0) {
-        throw new Error('No valid files to upload');
-      }
-
-      await uploadProjectMedia(finalProjectId, allFilesToUpload);
+      // 3. Call API with new files and the list of IDs to keep
+      await uploadProjectMedia(finalProjectId, newFileInstances, keepMediaIds);
 
       showSuccess(t('upload.success', { defaultValue: 'Files uploaded successfully' }));
       setSelectedFiles([]);
 
-      // Reload the page to ensure project details (project.media) are fresh for any subsequent uploads
-      // This prevents overwriting recent uploads if the user uploads again immediately
-      window.location.reload();
+      // Refresh both gallery items and project details to ensure the next upload has fresh IDs
+      refetch();
+      if (typeof refetchProject === 'function') await refetchProject();
+      
+      // Optional: replace state to show we came from upload
+      window.history.replaceState({ ...location.state, fromUpload: true }, '');
 
     } catch (error) {
       const errorMessage = error?.response?.data?.message || error?.message || t('upload.error', { defaultValue: 'Failed to upload files' });

@@ -20,6 +20,7 @@ const BREADCRUMB_TRANSLATION_KEYS = {
   "past-work": "sidebar.mainMenu.pastWork",
   addpastwork: "pastProjects.addTitle",
   "business-card": "sidebar.mainMenu.businessCard",
+  addBusinessCard: "businessCard.add.title",
   "site-inventory": "sidebar.mainMenu.siteInventory",
   notes: "notes.title",
   addNewNote: "notes.addNewNote",
@@ -60,6 +61,7 @@ const Navbar = () => {
   const { t: tFinance } = useTranslation("finance");
   const { t: tLabourAttendance } = useTranslation("labourAttendance");
   const { t: tCalculation } = useTranslation("calculation");
+  const { t: tBusinessCard } = useTranslation("businessCard");
   const location = useLocation();
   const navigate = useNavigate();
   const { user: authUser } = useAuth();
@@ -145,6 +147,17 @@ const Navbar = () => {
         { id: location.state.projectName.trim(), path: projectPath },
         { id: segments[0], path: createPath(0) },
       ];
+    }
+
+    // Handle business-card routes
+    if (segments[0] === "business-card" && segments.length > 1) {
+      if (segments[1] === "add") {
+        return [
+          { id: "business-card", path: createPath(0) },
+          { id: "addBusinessCard", path: createPath(1) },
+        ];
+      }
+      return segments.map((seg, i) => ({ id: seg, path: createPath(i) }));
     }
 
     // Handle labour-attendance routes
@@ -356,6 +369,13 @@ const Navbar = () => {
       });
     }
 
+    // Use businessCard namespace for business card-related translations
+    if (translationKey && translationKey.startsWith("businessCard.")) {
+      return tBusinessCard(translationKey.replace("businessCard.", ""), {
+        defaultValue: last.replace(/-/g, " "),
+      });
+    }
+
     if (translationKey) {
       return t(translationKey, {
         defaultValue: last.replace(/-/g, " "),
@@ -448,6 +468,13 @@ const Navbar = () => {
                     // Use calculation namespace for calculation-related translations
                     if (translationKey && translationKey.startsWith("calculation.")) {
                       return tCalculation(translationKey.replace("calculation.", ""), {
+                        defaultValue: crumb.replace(/-/g, " "),
+                      });
+                    }
+
+                    // Use businessCard namespace for business card-related translations
+                    if (translationKey && translationKey.startsWith("businessCard.")) {
+                      return tBusinessCard(translationKey.replace("businessCard.", ""), {
                         defaultValue: crumb.replace(/-/g, " "),
                       });
                     }

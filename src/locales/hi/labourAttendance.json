@@ -26,7 +26,7 @@
     "noImage": "कोई छवि नहीं"
   },
   "attendancePage": {
-    "searchPlaceholder": "नाम या भूमिका से खोजें",
+    "searchPlaceholder": "श्रमिक खोजें",
     "datePlaceholder": "DD/MM/YYYY",
     "downloadSuccess": "रिपोर्ट सफलतापूर्वक डाउनलोड की गई",
     "downloadFail": "रिपोर्ट डाउनलोड करने में विफल",
