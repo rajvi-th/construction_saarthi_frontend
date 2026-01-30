@@ -12,6 +12,8 @@ import PageHeader from '../../../components/layout/PageHeader';
 import SearchBar from '../../../components/ui/SearchBar';
 import DatePicker from '../../../components/ui/DatePicker';
 import Toggle from '../../../components/ui/Toggle';
+import Button from '../../../components/ui/Button';
+import emptyStateIcon from '../../../assets/icons/EmptyState.svg';
 import { useNotes } from '../hooks/useNotes';
 import { useNotesProjects } from '../hooks/useNotesProjects';
 import { useAuth } from '../../../features/auth/store/authStore';
@@ -34,8 +36,10 @@ export default function ProjectNotes() {
   const currentProject = projects.find(p => p.id === projectId || p.id?.toString() === projectId);
   const projectName = currentProject?.name || 'Project';
 
-  const handleNoteClick = (noteId) => {
-    navigate(getRoute(ROUTES_FLAT.NOTES_DETAILS, { id: noteId }));
+  const handleNoteClick = (note) => {
+    navigate(getRoute(ROUTES_FLAT.NOTES_DETAILS, { id: note.id }), {
+      state: { noteTitle: note.title }
+    });
   };
 
   const handleAddNote = async () => {
@@ -81,7 +85,7 @@ export default function ProjectNotes() {
     <div className="max-w-7xl mx-auto">
       <PageHeader
         title={projectName}
-        onBack={() => navigate(ROUTES_FLAT.NOTES)}
+        onBack={() => navigate(-1)}
       >
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 md:gap-4">
           <SearchBar
@@ -98,15 +102,17 @@ export default function ProjectNotes() {
               className="w-full sm:w-auto sm:min-w-[180px]"
             />
           </div>
-          <button
-            onClick={handleAddNote}
-            className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg bg-transparent hover:bg-gray-50 transition-colors cursor-pointer whitespace-nowrap flex-shrink-0 w-full sm:w-auto"
-          >
-            <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-accent flex items-center justify-center flex-shrink-0">
-              <Plus className="w-3 h-3 sm:w-4 sm:h-4 text-white" strokeWidth={3} />
-            </span>
-            <span className="text-accent font-medium text-sm sm:text-base">{t('addNote')}</span>
-          </button>
+          {notes.length > 0 && (
+            <button
+              onClick={handleAddNote}
+              className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg bg-transparent hover:bg-gray-50 transition-colors cursor-pointer whitespace-nowrap flex-shrink-0 w-full sm:w-auto"
+            >
+              <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-accent flex items-center justify-center flex-shrink-0">
+                <Plus className="w-3 h-3 sm:w-4 sm:h-4 text-white" strokeWidth={3} />
+              </span>
+              <span className="text-accent font-medium text-sm sm:text-base">{t('addNote')}</span>
+            </button>
+          )}
         </div>
       </PageHeader>
 
@@ -117,15 +123,38 @@ export default function ProjectNotes() {
             <div className="text-secondary">{t('loading', { defaultValue: 'Loading...' })}</div>
           </div>
         ) : filteredReminders.length === 0 ? (
-          <div className="flex items-center justify-center py-12">
-            <div className="text-secondary">{t('noNotes', { defaultValue: 'No notes found' })}</div>
+          <div className="flex flex-col items-center justify-center py-12">
+            <div className="w-full max-w-[430px] mb-6">
+              <img
+                src={emptyStateIcon}
+                alt="Empty State"
+                className="w-full h-auto"
+              />
+            </div>
+            <h3 className="text-lg font-medium text-primary mb-2">
+              {t('noNotesFound', { defaultValue: 'No Notes Found' })}
+            </h3>
+            <p className="text-sm text-secondary text-center mb-6 max-w-md">
+              {t('noNotesFoundMessage', { 
+                defaultValue: "You haven't added any notes for this project yet. Start adding notes to keep track of important reminders." 
+              })}
+            </p>
+            <Button
+              onClick={handleAddNote}
+              className="flex items-center gap-2"
+            >
+              <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center">
+                <Plus className="w-3 h-3 text-accent" strokeWidth={3} />
+              </div>
+              {t('addNote', { defaultValue: 'Add Note' })}
+            </Button>
           </div>
         ) : (
           <div className="space-y-4">
             {filteredReminders.map((reminder) => (
               <div
                 key={reminder.id}
-                onClick={() => handleNoteClick(reminder.id)}
+                onClick={() => handleNoteClick(reminder)}
                 className="bg-white rounded-xl p-4 cursor-pointer shadow-md transition-shadow"
               >
                 <div className="flex items-center justify-between">

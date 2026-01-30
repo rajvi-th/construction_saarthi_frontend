@@ -18,6 +18,7 @@ export default function FileUpload({
   accept = '.pdf,.jpg,.jpeg,.png',
   uploadButtonText = 'Upload',
   supportedFormatLabel = 'Supported Format:',
+  disabled = false,
 }) {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
@@ -60,6 +61,7 @@ export default function FileUpload({
   };
 
   const handleButtonClick = () => {
+    if (disabled) return;
     fileInputRef.current?.click();
   };
 
@@ -67,13 +69,15 @@ export default function FileUpload({
     <div className={`${className}`}>
       <div
         className={`
-          border-2 border-dotted rounded-xl p-4 sm:p-6 md:p-8 text-center transition-colors cursor-pointer
-          ${isDragging ? 'border-accent bg-accent' : 'border-[rgba(176,46,12,0.22)]'}
+          border-2 border-dotted rounded-xl p-4 sm:p-6 md:p-8 text-center transition-colors
+          ${disabled ? 'opacity-50 cursor-not-allowed grayscale-[0.5]' : 'cursor-pointer'}
+          ${isDragging && !disabled ? 'border-accent bg-accent' : 'border-[rgba(176,46,12,0.22)]'}
         `}
-        onDragEnter={handleDragEnter}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
+        onDragEnter={!disabled ? handleDragEnter : undefined}
+        onDragOver={!disabled ? handleDragOver : undefined}
+        onDragLeave={!disabled ? handleDragLeave : undefined}
+        onDrop={!disabled ? handleDrop : undefined}
+        onClick={handleButtonClick}
       >
         {/* Upload Icon */}
         <div className="flex justify-center mb-3 sm:mb-4">
@@ -102,7 +106,11 @@ export default function FileUpload({
         <div className="flex justify-center">
           <Button
             variant="primary"
-            onClick={handleButtonClick}
+            disabled={disabled}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleButtonClick();
+            }}
           >
             {uploadButtonText}
           </Button>

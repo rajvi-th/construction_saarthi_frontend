@@ -29,8 +29,10 @@ export default function NotesList() {
     { value: 'inProgress', label: t('inProgress') },
   ];
 
-  const handleProjectClick = (projectId) => {
-    navigate(getRoute(ROUTES_FLAT.NOTES_PROJECT_NOTES, { projectId }));
+  const handleProjectClick = (project) => {
+    navigate(getRoute(ROUTES_FLAT.NOTES_PROJECT_NOTES, { projectId: project.id }), {
+      state: { projectName: project.name }
+    });
   };
 
   const handleImageError = (projectId) => {
@@ -95,7 +97,7 @@ export default function NotesList() {
               return (
                 <div
                   key={project.id}
-                  onClick={() => handleProjectClick(project.id)}
+                  onClick={() => handleProjectClick(project)}
                   className="bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 flex items-center gap-3 sm:gap-4 cursor-pointer shadow-md transition-shadow"
                 >
                   {/* Project Image */}

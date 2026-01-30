@@ -236,32 +236,115 @@ const Navbar = () => {
       return wrapWithContext(items);
     }
 
-    // 5. DPR / DOCUMENTS / NOTES / GALLERY
-    if (["dpr", "documents", "notes", "gallery"].includes(rootSegment)) {
-      const items = getProjectPrefix(rootSegment, `/${rootSegment}`);
-      const pidIdx = segments.indexOf("projects");
-      const projectId = pidIdx !== -1 ? segments[pidIdx + 1] : (rootSegment === "gallery" ? segments[1] : null);
-      if (projectId && !fromProjects) items.push({ id: projectName || projectId, path: `/${rootSegment}/${pidIdx !== -1 ? "projects/" : ""}${projectId}` });
-      const startIdx = pidIdx !== -1 ? pidIdx + 2 : (rootSegment === "gallery" ? 2 : 1);
-      if (segments.length > startIdx) {
-        segments.slice(startIdx).forEach((seg, i) => {
-          if (seg === "documents" && rootSegment === "documents") return;
-          items.push({ id: seg, path: createPath(i + startIdx) });
-        });
-      }
-      return wrapWithContext(items);
-    }
+// 5. DPR / DOCUMENTS / NOTES / GALLERY
+if (["dpr", "documents", "notes", "gallery"].includes(rootSegment)) {
+  const items = getProjectPrefix(rootSegment, `/${rootSegment}`);
+  const pidIdx = segments.indexOf("projects");
+  const projectId =
+    pidIdx !== -1
+      ? segments[pidIdx + 1]
+      : rootSegment === "gallery"
+      ? segments[1]
+      : null;
 
-    // 6. PAST WORK
-    if (rootSegment === "past-work") {
-      const items = [{ id: "past-work", path: "/past-work" }];
-      if (segments.length > 1) {
-        if (segments[1] === "add") items.push({ id: "addpastwork", path: "/past-work/add" });
-        else items.push({ id: projectName || segments[1], path: `/past-work/${segments[1]}` });
+  if (projectId && !fromProjects) {
+    items.push({
+      id: projectName || projectId,
+      path: `/${rootSegment}/${pidIdx !== -1 ? "projects/" : ""}${projectId}`
+    });
+  }
+
+  const startIdx = pidIdx !== -1 ? pidIdx + 2 : rootSegment === "gallery" ? 2 : 1;
+
+  if (segments.length > startIdx) {
+    segments.slice(startIdx).forEach((seg, i) => {
+      let id = seg;
+
+      // NOTES-specific naming
+      if (rootSegment === "notes") {
+        if (seg === "add") id = "addNewNote";
+        if (seg === "edit") id = "editNote";
+
+        // /notes/:id → note title
+        if (
+          segments.length === startIdx + 1 &&
+          seg !== "add" &&
+          typeof location.state?.noteTitle === "string"
+        ) {
+          id = location.state.noteTitle.trim();
+        }
       }
-      if (segments.length > 2) segments.slice(2).forEach((seg, i) => items.push({ id: seg, path: createPath(i + 2) }));
-      return wrapWithContext(items);
+
+      if (seg === "documents" && rootSegment === "documents") return;
+      items.push({ id, path: createPath(i + startIdx) });
+    });
+  }
+
+  return wrapWithContext(items);
+}
+
+
+// 6. PAST WORK
+if (rootSegment === "past-work") {
+  const items = [{ id: "past-work", path: "/past-work" }];
+
+  if (segments.length > 1) {
+    if (segments[1] === "add") {
+      items.push({ id: "addpastwork", path: "/past-work/add" });
+    } else {
+      items.push({
+        id: projectName || segments[1],
+        path: `/past-work/${segments[1]}`
+      });
     }
+  }
+
+  if (segments.length > 2) {
+    segments.slice(2).forEach((seg, i) =>
+      items.push({ id: seg, path: createPath(i + 2) })
+    );
+  }
+
+  return wrapWithContext(items);
+}
+
+
+// Handle finance routes
+if (segments[0] === "finance" && segments.length > 1) {
+  const processed = [{ id: "finance", path: "/finance" }];
+
+  if (segments[1] === "projects" && segments.length > 2) {
+    const projectName = location.state?.projectName || null;
+
+    processed.push({
+      id:
+        projectName && typeof projectName === "string" && projectName.trim()
+          ? projectName.trim()
+          : segments[2],
+      path: createPath(2)
+    });
+
+    if (segments.length === 3) return processed;
+
+    if (
+      ["builder-invoices", "payment-received", "expenses-paid", "expenses-to-pay"]
+        .includes(segments[3])
+    ) {
+      processed.push({ id: segments[3], path: createPath(3) });
+
+      if (
+        ["builder-invoices", "expenses-to-pay"].includes(segments[3]) &&
+        segments[4] === "sections" &&
+        segments.length > 5
+      ) {
+        processed.push({ id: "sections", path: createPath(4) });
+        processed.push({ id: segments[5], path: createPath(5) });
+      }
+    }
+  }
+
+  return processed;
+}
 
     // 7. CALCULATION
     if (rootSegment === "construction-calculation") {

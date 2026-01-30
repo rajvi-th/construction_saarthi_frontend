@@ -191,60 +191,56 @@ export default function ProjectGalleryDetails() {
       });
 
       if (validFiles.length > 0) {
-        // Store File objects with metadata and preview URLs
-        const filesWithPreview = validFiles.map((file) => {
-          const fileType = getFileType(file);
-          return {
-            file, // Store the actual File instance
-            id: Date.now() + Math.random(),
-            fileType,
-            name: file.name,
-            size: file.size,
-            type: file.type,
-            previewUrl: fileType === 'photo' || fileType === 'video' ? createPreviewUrl(file) : null,
-          };
-        });
-
-        setSelectedFiles((prev) => [...prev, ...filesWithPreview]);
+        // Trigger upload immediately with valid files
+        const newFileInstances = validFiles.map(file => file);
+        handleUpload(newFileInstances);
       }
     }
   };
 
-  const handleUpload = async () => {
-    if (selectedFiles.length === 0 || !finalProjectId) {
-      showError(t('upload.error', { defaultValue: 'Please select at least one file to upload.' }));
+  const handleUpload = async (filesToUpload) => {
+    if (!filesToUpload || filesToUpload.length === 0 || !finalProjectId) {
       return;
     }
 
     try {
       setIsUploading(true);
 
+      // Store uploading files in state for preview during upload
+      const filesWithPreview = filesToUpload.map((file) => {
+        const fileType = getFileType(file);
+        return {
+          file,
+          id: Date.now() + Math.random(),
+          fileType,
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          previewUrl: fileType === 'photo' || fileType === 'video' ? createPreviewUrl(file) : null,
+        };
+      });
+      setSelectedFiles(filesWithPreview);
+
       // 1. Get IDs of existing media from the project object
-      // This tells the server which files to PRESERVE
       const existingMedia = project?.media || [];
       const keepMediaIds = existingMedia
         .filter(item => {
-          // Keep all gallery items. Filter out profile photos (typeId 1) if necessary.
           const typeId = String(item.typeId || item.type_id || '');
           return typeId !== '1';
         })
         .map(item => item.id || item._id)
         .filter(Boolean);
 
-      // 2. Extract new File instances from selectedFiles
-      const newFileInstances = selectedFiles.map(f => f.file || f).filter(f => f instanceof File);
-
-      // 3. Call API with new files and the list of IDs to keep
-      await uploadProjectMedia(finalProjectId, newFileInstances, keepMediaIds);
+      // 2. Call API with new files and the list of IDs to keep
+      await uploadProjectMedia(finalProjectId, filesToUpload, keepMediaIds);
 
       showSuccess(t('upload.success', { defaultValue: 'Files uploaded successfully' }));
       setSelectedFiles([]);
 
-      // Refresh both gallery items and project details to ensure the next upload has fresh IDs
+      // Refresh both gallery items and project details
       refetch();
       if (typeof refetchProject === 'function') await refetchProject();
-      
-      // Optional: replace state to show we came from upload
+
       window.history.replaceState({ ...location.state, fromUpload: true }, '');
 
     } catch (error) {
@@ -252,6 +248,7 @@ export default function ProjectGalleryDetails() {
       showError(errorMessage);
     } finally {
       setIsUploading(false);
+      setSelectedFiles([]);
     }
   };
 
@@ -264,19 +261,6 @@ export default function ProjectGalleryDetails() {
       }
       return prev.filter((_, i) => i !== index);
     });
-  };
-
-  const handleClearAll = () => {
-    // Revoke all object URLs to free memory
-    selectedFiles.forEach((file) => {
-      if (file?.previewUrl) {
-        URL.revokeObjectURL(file.previewUrl);
-      }
-    });
-    setSelectedFiles([]);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
   };
 
   // Group files by type
@@ -322,7 +306,7 @@ export default function ProjectGalleryDetails() {
     }
   };
 
-  if (isLoading) {
+  if (isLoadingProject) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
         <div className="flex items-center justify-center py-20">
@@ -388,27 +372,19 @@ export default function ProjectGalleryDetails() {
           accept=".jpg,.jpeg,.png,.mp4,.pdf"
           uploadButtonText={t('upload.button', { defaultValue: 'Upload' })}
           supportedFormatLabel={t('upload.supportedFormatLabel', { defaultValue: 'Supported Format:' })}
+          disabled={isUploading}
         />
       </div>
 
       {/* Selected Files Preview */}
-      {selectedFiles.length > 0 && (
+      {/* {selectedFiles.length > 0 && (
         <div className="mt-4 bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-100">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-base font-semibold text-primary">
-              {selectedFiles.length} file(s) selected
+              {isUploading ? t('upload.uploading', { defaultValue: 'Uploading...' }) : t('upload.filesSelected', { count: selectedFiles.length, defaultValue: `${selectedFiles.length} file(s) selected` })}
             </h3>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={handleClearAll}
-              disabled={isUploading}
-            >
-              Clear All
-            </Button>
           </div>
 
-          {/* Files Preview Grid */}
           <div className="grid md:grid-cols-6 grid-cols-4 gap-4 mb-4">
             {selectedFiles.map((file, index) => {
               if (file.fileType === 'photo') {
@@ -427,13 +403,6 @@ export default function ProjectGalleryDetails() {
                         </div>
                       )}
                     </div>
-                    <button
-                      onClick={() => handleRemoveFile(index)}
-                      disabled={isUploading}
-                      className="absolute top-1 right-1 w-5 h-5 rounded-full bg-accent flex items-center justify-center text-white  cursor-pointer"
-                    >
-                      <X className="w-3 h-3" />
-                    </button>
                     <p className="text-xs text-secondary mt-1 truncate" title={file.name}>
                       {file.name}
                     </p>
@@ -462,13 +431,6 @@ export default function ProjectGalleryDetails() {
                         </div>
                       )}
                     </div>
-                    <button
-                      onClick={() => handleRemoveFile(index)}
-                      disabled={isUploading}
-                      className="absolute top-1 right-1 w-5 h-5 rounded-full bg-accent flex items-center justify-center text-white  cursor-pointer"
-                    >
-                      <X className="w-3 h-3" />
-                    </button>
                     <p className="text-xs text-secondary mt-1 truncate" title={file.name}>
                       {file.name}
                     </p>
@@ -481,13 +443,6 @@ export default function ProjectGalleryDetails() {
                     <div className="w-full h-48 rounded-xl overflow-hidden bg-gray-50 border border-gray-200 flex items-center justify-center">
                       <FileText className="w-12 h-12 text-red-600" />
                     </div>
-                    <button
-                      onClick={() => handleRemoveFile(index)}
-                      disabled={isUploading}
-                      className="absolute top-1 right-1 w-5 h-5 rounded-full bg-accent flex items-center justify-center text-white  cursor-pointer"
-                    >
-                      <X className="w-3 h-3" />
-                    </button>
                     <p className="text-xs text-secondary mt-1 truncate" title={file.name}>
                       {file.name}
                     </p>
@@ -497,20 +452,8 @@ export default function ProjectGalleryDetails() {
             })}
           </div>
 
-          <div className="flex justify-end">
-            <Button
-              variant="primary"
-              onClick={handleUpload}
-              disabled={isUploading || selectedFiles.length === 0}
-            >
-              {isUploading
-                ? t('upload.uploading', { defaultValue: 'Uploading...' })
-                : t('upload.button', { defaultValue: 'Upload' })
-              }
-            </Button>
-          </div>
         </div>
-      )}
+      )} */}
 
       {/* Tabs */}
       <div className="mt-6">
@@ -524,11 +467,7 @@ export default function ProjectGalleryDetails() {
       </div>
 
       {/* Content */}
-      {isLoadingGallery ? (
-        <div className="flex items-center justify-center py-20">
-          <Loader size="lg" />
-        </div>
-      ) : filteredItems.length === 0 ? (
+      {isLoadingGallery ? null : filteredItems.length === 0 ? (
         <EmptyState
           image={EmptyStateSvg}
           title={emptyStateConfig.title}

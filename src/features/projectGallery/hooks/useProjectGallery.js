@@ -24,23 +24,24 @@ export const useProjectGallery = (projectId, type, dateFilter) => {
     try {
       setIsLoading(true);
       setError(null);
-      
+      setGalleryItems([]);
+
       const params = {
         projectId,
         ...(type && { type }),
         ...(dateFilter && { dateFilter }),
       };
-      
+
       const data = await getProjectGallery(params);
-      
+
       const responseData = data?.data || data;
-      
+
       if (responseData?.gallery && Array.isArray(responseData.gallery)) {
         const flattenedItems = responseData.gallery.flatMap((group) => {
           const items = group.items || [];
           return items.map((item) => ({
             ...item,
-            date: group.date, 
+            date: group.date,
           }));
         });
         setGalleryItems(flattenedItems);
