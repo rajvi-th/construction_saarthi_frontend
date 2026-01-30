@@ -139,6 +139,20 @@ export const getSiteInventoryList = async (params = {}) => {
 };
 
 /**
+ * Get inventory items by project and type
+ * @param {string|number} projectID - Project ID
+ * @param {string|number} inventoryTypeId - Inventory type ID (1=Reusable, 2=Consumable)
+ * @returns {Promise<Object>} List of inventory items
+ */
+export const getInventoryItemsByProjectAndType = async (projectID, inventoryTypeId) => {
+  if (!projectID || !inventoryTypeId) {
+    throw new Error('Project ID and Inventory Type ID are required');
+  }
+  return http.get(`${SITE_INVENTORY_ENDPOINTS_FLAT.SITE_INVENTORY_BY_PROJECT_AND_TYPE}?projectID=${projectID}&inventoryTypeId=${inventoryTypeId}`);
+};
+
+
+/**
  * Get available quantity for a specific material in a project
  * @param {Object} params
  * @param {string|number} params.projectID
