@@ -1,28 +1,44 @@
-import { useState, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Pencil, Trash2 } from 'lucide-react';
-import { useAuth } from '../../auth/store';
-import { useMembers } from '../hooks';
-import { statusBadgeColors } from '../../../components/ui/StatusBadge';
-import DropdownMenu from '../../../components/ui/DropdownMenu';
-import ConfirmModal from '../../../components/ui/ConfirmModal';
-import Loader from '../../../components/ui/Loader';
-import PageHeader from '../../../components/layout/PageHeader';
-import ActionBar from '../../../components/layout/ActionBar';
-import MemberModal from '../components/MemberModal';
+import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { Pencil, Trash2 } from "lucide-react";
+import { useAuth } from "../../auth/store";
+import { useMembers } from "../hooks";
+import { statusBadgeColors } from "../../../components/ui/StatusBadge";
+import DropdownMenu from "../../../components/ui/DropdownMenu";
+import ConfirmModal from "../../../components/ui/ConfirmModal";
+import Loader from "../../../components/ui/Loader";
+import PageHeader from "../../../components/layout/PageHeader";
+import ActionBar from "../../../components/layout/ActionBar";
+import MemberModal from "../components/MemberModal";
 
 const Members = () => {
-  const { t } = useTranslation('dashboard');
-  const { t: tAuth } = useTranslation('auth');
-  const { t: tCommon } = useTranslation('common');
+  const { t } = useTranslation("dashboard");
+  const { t: tAuth } = useTranslation("auth");
+  const { t: tCommon } = useTranslation("common");
   const { selectedWorkspace, user: currentUser } = useAuth();
-  const { members, isLoadingMembers, isDeletingMember, refetch, deleteMember: deleteMemberAPI } = useMembers(selectedWorkspace);
+  const {
+    members,
+    isLoadingMembers,
+    isDeletingMember,
+    refetch,
+    deleteMember: deleteMemberAPI,
+  } = useMembers(selectedWorkspace);
 
   // Workspace colors for avatar (same as SidebarHeader)
-  const WORKSPACE_COLORS = ["red", "green", "yellow", "blue", "purple", "pink", "darkblue"];
+  const WORKSPACE_COLORS = [
+    "red",
+    "green",
+    "yellow",
+    "blue",
+    "purple",
+    "pink",
+    "darkblue",
+  ];
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState('name'); // 'name' | 'role'
+  const [searchQuery, setSearchQuery] = useState("");
+  // Sorting: fixed to 'name' only. Use `sortOrder` for ascending/descending.
+  const sortBy = "name";
+  const [sortOrder, setSortOrder] = useState("asc"); // 'asc' | 'desc'
   const [memberToDelete, setMemberToDelete] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isMemberModalOpen, setIsMemberModalOpen] = useState(false);
@@ -42,7 +58,7 @@ const Members = () => {
 
   // Get avatar style
   const getAvatarStyle = (color) => {
-    const colorKey = color || 'red';
+    const colorKey = color || "red";
     const colors = statusBadgeColors[colorKey] || statusBadgeColors.red;
     return {
       backgroundColor: colors.background,
@@ -53,7 +69,7 @@ const Members = () => {
 
   // Get initials from name
   const getInitials = (name) => {
-    if (!name) return 'U';
+    if (!name) return "U";
     const words = name.trim().split(/\s+/);
     if (words.length >= 2) {
       return (words[0].charAt(0) + words[1].charAt(0)).toUpperCase();
@@ -71,9 +87,12 @@ const Members = () => {
   // Filter and sort members
   const filteredAndSortedMembers = useMemo(() => {
     let filtered = members.filter((member) => {
-      const name = member.name || member.full_name || '';
-      const phone = member.phone || member.phone_number || '';
-      const role = typeof member.role === 'string' ? member.role : (member.role?.name || member.role_name || '');
+      const name = member.name || member.full_name || "";
+      const phone = member.phone || member.phone_number || "";
+      const role =
+        typeof member.role === "string"
+          ? member.role
+          : member.role?.name || member.role_name || "";
       const searchLower = searchQuery.toLowerCase();
 
       return (
@@ -83,18 +102,12 @@ const Members = () => {
       );
     });
 
-    // Sort members
+    // Sort members by name only, respecting sortOrder
     filtered.sort((a, b) => {
-      if (sortBy === 'name') {
-        const nameA = (a.name || a.full_name || '').toLowerCase();
-        const nameB = (b.name || b.full_name || '').toLowerCase();
-        return nameA.localeCompare(nameB);
-      } else if (sortBy === 'role') {
-        const roleA = (a.role?.name || a.role_name || a.role || '').toLowerCase();
-        const roleB = (b.role?.name || b.role_name || b.role || '').toLowerCase();
-        return roleA.localeCompare(roleB);
-      }
-      return 0;
+      const nameA = (a.name || a.full_name || "").toLowerCase();
+      const nameB = (b.name || b.full_name || "").toLowerCase();
+      const cmp = nameA.localeCompare(nameB);
+      return sortOrder === "asc" ? cmp : -cmp;
     });
 
     // Move current user to top
@@ -107,7 +120,7 @@ const Members = () => {
     });
 
     return filtered;
-  }, [members, searchQuery, sortBy, currentUser]);
+  }, [members, searchQuery, sortBy, sortOrder, currentUser]);
 
   // Handle edit member
   const handleEditMember = (member) => {
@@ -128,9 +141,10 @@ const Members = () => {
       return;
     }
 
-    const memberId = memberToDelete.id || memberToDelete.member_id || memberToDelete.user_id;
+    const memberId =
+      memberToDelete.id || memberToDelete.member_id || memberToDelete.user_id;
     const success = await deleteMemberAPI(memberId);
-    
+
     if (success) {
       setIsDeleteModalOpen(false);
       setMemberToDelete(null);
@@ -157,32 +171,35 @@ const Members = () => {
   // Get role name
   const getRoleName = (member) => {
     // Handle role as string or object
-    if (typeof member.role === 'string') {
+    if (typeof member.role === "string") {
       return member.role.charAt(0).toUpperCase() + member.role.slice(1);
     }
-    return member.role?.name || member.role_name || member.role || 'Member';
+    return member.role?.name || member.role_name || member.role || "Member";
   };
 
   // Format phone number
   const formatPhone = (member) => {
-    const countryCode = member.country_code || '+91';
-    const phone = member.phone || member.phone_number || '';
-    return phone ? `${countryCode} ${phone}` : 'N/A';
+    const countryCode = member.country_code || "+91";
+    const phone = member.phone || member.phone_number || "";
+    return phone ? `${countryCode} ${phone}` : "N/A";
   };
 
   return (
     <>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <PageHeader
-          title={t('members.title', { defaultValue: 'Members' })}
-        >
+        <PageHeader title={t("members.title", { defaultValue: "Members" })}>
           <ActionBar
             searchValue={searchQuery}
             onSearchChange={(e) => setSearchQuery(e.target.value)}
             sortBy={sortBy}
-            onSortChange={() => setSortBy(sortBy === 'name' ? 'role' : 'name')}
-            actionButtonLabel={tAuth('createWorkspace.addNewMember.addMember', { defaultValue: 'Add Member' })}
+            sortOrder={sortOrder}
+            onSortChange={() =>
+              setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"))
+            }
+            actionButtonLabel={tAuth("createWorkspace.addNewMember.addMember", {
+              defaultValue: "Add Member",
+            })}
             onActionClick={handleAddMember}
             actionButtonIcon="Plus"
           />
@@ -197,24 +214,26 @@ const Members = () => {
           <div className="text-center py-12">
             <p className="text-secondary text-sm sm:text-base">
               {searchQuery
-                ? t('members.noResults', { defaultValue: 'No members found' })
-                : t('members.noMembers', { defaultValue: 'No members yet' })}
+                ? t("members.noResults", { defaultValue: "No members found" })
+                : t("members.noMembers", { defaultValue: "No members yet" })}
             </p>
           </div>
         ) : (
           <div>
             <div>
               {filteredAndSortedMembers.map((member, index) => {
-                const memberId = member.id || member.member_id || member.user_id;
-                const name = member.name || member.full_name || 'Unknown';
+                const memberId =
+                  member.id || member.member_id || member.user_id;
+                const name = member.name || member.full_name || "Unknown";
                 const avatarColor = getAvatarColor(name, member.color, index);
                 const isYou = isCurrentUser(member);
-                const isLastItem = index === filteredAndSortedMembers.length - 1;
+                const isLastItem =
+                  index === filteredAndSortedMembers.length - 1;
 
                 return (
                   <div
                     key={memberId}
-                    className={`flex items-center gap-3 sm:gap-4 p-3 sm:p-4 hover:bg-gray-50 transition-colors ${!isLastItem ? 'border-b border-gray-200' : ''}`}
+                    className={`flex items-center gap-3 sm:gap-4 p-3 sm:p-4 hover:bg-gray-50 transition-colors ${!isLastItem ? "border-b border-gray-200" : ""}`}
                   >
                     {/* Avatar */}
                     <div
@@ -232,7 +251,7 @@ const Members = () => {
                         </h3>
                         {isYou && (
                           <span className="text-xs sm:text-sm text-secondary">
-                            {t('members.you', { defaultValue: '(You)' })}
+                            {t("members.you", { defaultValue: "(You)" })}
                           </span>
                         )}
                       </div>
@@ -252,15 +271,17 @@ const Members = () => {
                         <DropdownMenu
                           items={[
                             {
-                              label: tCommon('edit', { defaultValue: 'Edit' }),
+                              label: tCommon("edit", { defaultValue: "Edit" }),
                               icon: <Pencil className="w-4 h-4" />,
                               onClick: () => handleEditMember(member),
                             },
                             {
-                              label: tCommon('delete', { defaultValue: 'Delete' }),
+                              label: tCommon("delete", {
+                                defaultValue: "Delete",
+                              }),
                               icon: <Trash2 className="w-4 h-4 text-accent" />,
                               onClick: () => handleDeleteClick(member),
-                              textColor: 'text-accent',
+                              textColor: "text-accent",
                             },
                           ]}
                           openUpward={isLastItem}
@@ -284,20 +305,22 @@ const Members = () => {
             setMemberToDelete(null);
           }}
           onConfirm={handleConfirmDelete}
-          title={t('members.deleteConfirmTitle', { defaultValue: 'Delete Member' })}
+          title={t("members.deleteConfirmTitle", {
+            defaultValue: "Delete Member",
+          })}
           message={
             <p>
-              {t('members.deleteConfirmMessage', {
-                defaultValue: 'Are you sure you want to delete',
-              })}{' '}
+              {t("members.deleteConfirmMessage", {
+                defaultValue: "Are you sure you want to delete",
+              })}{" "}
               <span className="font-medium text-primary">
                 {memberToDelete.name || memberToDelete.full_name}
               </span>
               ?
             </p>
           }
-          confirmText={tCommon('delete', { defaultValue: 'Delete' })}
-          cancelText={tCommon('cancel', { defaultValue: 'Cancel' })}
+          confirmText={tCommon("delete", { defaultValue: "Delete" })}
+          cancelText={tCommon("cancel", { defaultValue: "Cancel" })}
           variant="danger"
           isLoading={isDeletingMember}
         />
@@ -312,6 +335,6 @@ const Members = () => {
       />
     </>
   );
-}
+};
 
 export default Members;

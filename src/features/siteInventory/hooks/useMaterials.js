@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { getMaterialsList, createMaterial, updateMaterial } from '../api/siteInventoryApi';
+import { getMaterialsList, createMaterial, updateMaterial, getInventoryItemsByProjectAndType } from '../api/siteInventoryApi';
 import { showError, showSuccess } from '../../../utils/toast';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../../hooks/useAuth';
@@ -7,9 +7,10 @@ import { useAuth } from '../../../hooks/useAuth';
 /**
  * Custom hook for fetching and managing materials
  * @param {string|number} inventoryTypeId - Inventory type ID (required: 1=Reusable, 2=Consumable)
+ * @param {string|number} [projectId] - Project ID (optional: if provided, fetches materials for specific project)
  * @returns {Object} { materials, materialOptions, isLoadingMaterials, isCreatingMaterial, error, refetch, createNewMaterial }
  */
-export const useMaterials = (inventoryTypeId) => {
+export const useMaterials = (inventoryTypeId, projectId = null) => {
   const { t } = useTranslation('siteInventory');
   const { selectedWorkspace } = useAuth();
   const [materials, setMaterials] = useState([]);
@@ -22,7 +23,18 @@ export const useMaterials = (inventoryTypeId) => {
    * Fetch materials list
    */
   const fetchMaterials = useCallback(async () => {
-    if (!selectedWorkspace || !inventoryTypeId) {
+    // If projectId is provided, we don't necessarily need selectedWorkspace for the API call (as per my new API func),
+    // but usually workspace is context.
+    // If projectId is NOT provided, we definitely need selectedWorkspace.
+    
+    if (!inventoryTypeId) {
+        setMaterials([]);
+        setMaterialOptions([]);
+        setIsLoadingMaterials(false);
+        return;
+    }
+    
+    if (!projectId && !selectedWorkspace) {
       setMaterials([]);
       setMaterialOptions([]);
       setIsLoadingMaterials(false);
@@ -32,7 +44,13 @@ export const useMaterials = (inventoryTypeId) => {
     try {
       setIsLoadingMaterials(true);
       setError(null);
-      const response = await getMaterialsList(selectedWorkspace, inventoryTypeId);
+      
+      let response;
+      if (projectId) {
+         response = await getInventoryItemsByProjectAndType(projectId, inventoryTypeId);
+      } else {
+         response = await getMaterialsList(selectedWorkspace, inventoryTypeId);
+      }
 
       // API response structure: { materials: [...] } or direct array
       let materialsArray = [];
@@ -45,19 +63,22 @@ export const useMaterials = (inventoryTypeId) => {
         materialsArray = response.data;
       } else if (Array.isArray(response)) {
         materialsArray = response;
+      } else if (Array.isArray(response?.data?.data)) {
+         // Added this check loosely based on siteInventoryApi structures
+         materialsArray = response.data.data;
       }
 
       setMaterials(materialsArray);
 
       // Transform materials to dropdown options format
       const options = materialsArray.map((material) => ({
-        value: (material.id || material._id || material.materialId)?.toString() || '',
+        value: (material.id || material._id || material.materialId || material.materialsId)?.toString() || '',
         label: material.unit_name
           ? `${material.name || material.materialName || material.label} • ${material.unit_name}`
           : material.name || material.materialName || material.label,
         // Preserve original data for use in renderOption or other logic
         name: material.name || material.materialName || material.label,
-        unitName: material.unit_name || '',
+        unitName: material.unit_name || material.unitName || '',
         ...material
       }));
 
@@ -74,7 +95,7 @@ export const useMaterials = (inventoryTypeId) => {
     } finally {
       setIsLoadingMaterials(false);
     }
-  }, [selectedWorkspace, inventoryTypeId, t]);
+  }, [selectedWorkspace, inventoryTypeId, projectId, t]);
 
   /**
    * Create a new material

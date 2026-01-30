@@ -22,6 +22,7 @@ export const SITE_INVENTORY_ENDPOINTS = {
     DESTROYED_MATERIALS: '/inventoryItem/destroyedMaterials', // GET /inventoryItem/destroyedMaterials?projectID=23
     USE_MATERIAL: '/inventoryItem/useMaterial', // POST /inventoryItem/useMaterial
     TRANSFER_REQUEST_CREATE: '/inventoryItem/transferRequest', // POST /inventoryItem/transferRequest
+    BY_PROJECT_AND_TYPE: '/inventoryItem/byProjectAndType', // GET /inventoryItem/byProjectAndType?projectID=12&inventoryTypeId=2
   },
   // Materials Endpoints
   MATERIALS: {
@@ -64,6 +65,7 @@ export const SITE_INVENTORY_ENDPOINTS_FLAT = {
   SITE_INVENTORY_DESTROYED_MATERIALS: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.DESTROYED_MATERIALS, // GET /inventoryItem/destroyedMaterials
   SITE_INVENTORY_USE_MATERIAL: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.USE_MATERIAL, // POST /inventoryItem/useMaterial
   SITE_INVENTORY_TRANSFER_REQUEST_CREATE: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.TRANSFER_REQUEST_CREATE, // POST /inventoryItem/transferRequest
+  SITE_INVENTORY_BY_PROJECT_AND_TYPE: SITE_INVENTORY_ENDPOINTS.SITE_INVENTORY.BY_PROJECT_AND_TYPE, // GET /inventoryItem/byProjectAndType
   // Materials resources
   MATERIALS_LIST: SITE_INVENTORY_ENDPOINTS.MATERIALS.LIST, // GET /materials
   MATERIALS_CREATE: SITE_INVENTORY_ENDPOINTS.MATERIALS.CREATE, // POST /materials/create
