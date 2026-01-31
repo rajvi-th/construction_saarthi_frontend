@@ -218,28 +218,10 @@ const Navbar = () => {
         if (state.item?.name || state.consumable?.name) {
           items.push({ id: state.item?.name || state.consumable?.name, path: createPath(segments.length - 1) });
         } else {
-<<<<<<< HEAD
-          processed.push({ id: "add-labour", path: createPath(2) });
+          items.push({ id: segments[segments.length - 1], path: createPath(segments.length - 1) });
         }
-        return processed;
       }
-
-      // Handle labour details route
-      if (segments.length > 3 && segments[2] === "labour") {
-        const labourName = location.state?.labour?.name ||
-          location.state?.editLabour?.name ||
-          location.state?.labourName ||
-          null;
-
-        if (labourName && typeof labourName === "string" && labourName.trim()) {
-          processed.push({ id: labourName.trim(), path: createPath(3) });
-        } else {
-          processed.push({ id: segments[3], path: createPath(3) });
-        }
-        return processed;
-      }
-
-      return processed;
+      return wrapWithContext(items);
     }
 
     // Handle vendors routes
@@ -367,12 +349,7 @@ const Navbar = () => {
       }
 
       return processed;
-=======
-          segments.slice(1).forEach((seg, i) => items.push({ id: seg, path: createPath(i + 1) }));
-        }
-      }
-      return wrapWithContext(items);
->>>>>>> origin/main
+      return processed;
     }
 
     // 4. FINANCE
