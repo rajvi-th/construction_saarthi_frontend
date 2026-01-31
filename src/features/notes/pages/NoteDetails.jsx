@@ -287,6 +287,7 @@ export default function NoteDetails() {
       >
         {/* Tablet & Desktop: Show Edit button and menu in header (1 line) */}
         <div className="hidden md:flex items-center gap-3 flex-shrink-0">
+          
           <button
             onClick={handleEdit}
             className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-3xl bg-[#B02E0C0F] text-[#B02E0C] hover:bg-[#B02E0C1A] transition-colors cursor-pointer"
