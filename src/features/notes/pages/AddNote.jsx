@@ -109,6 +109,23 @@ export default function AddNote() {
     }
   }, [location.state, selectedWorkspace, navigate]);
 
+  // Sync project name to location state for breadcrumbs
+  useEffect(() => {
+    if (assignTo && projects.length > 0) {
+      const project = projects.find(p => String(p.id) === assignTo);
+      if (project && project.name && location.state?.projectName !== project.name) {
+        navigate(location.pathname, {
+          replace: true,
+          state: {
+            ...location.state,
+            projectName: project.name,
+            projectId: assignTo
+          },
+        });
+      }
+    }
+  }, [assignTo, projects, location.state, location.pathname, navigate]);
+
   const handleAddNote = async () => {
     // Validation
     if (!title.trim()) {

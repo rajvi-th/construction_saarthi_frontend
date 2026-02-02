@@ -30,8 +30,7 @@ export default function AddNewAsk() {
   const currentUserRole = useWorkspaceRole();
 
   // Get project context and item from navigation state
-  const currentProjectId = location.state?.projectId;
-  const currentProjectName = location.state?.projectName;
+  const { projectId: currentProjectId, projectName: currentProjectName, fromProjects, fromDashboard, itemName, fromDetails } = location.state || {};
   const itemContext = location.state?.item;
 
   const { inventoryTypeOptions, isLoading: isLoadingInventoryTypes } = useInventoryTypes();
@@ -120,7 +119,29 @@ export default function AddNewAsk() {
   }, [selectedWorkspace]);
 
   const handleCancel = () => {
-    navigate(-1);
+    if (fromDetails && itemContext) {
+      const isConsumable = itemContext.inventoryTypeId === 2 || itemContext.material?.typeName?.toLowerCase().includes('consumable');
+      const detailRoute = isConsumable ? ROUTES_FLAT.CONSUMABLE_ITEM_DETAILS : ROUTES_FLAT.INVENTORY_ITEM_DETAILS;
+      const itemId = itemContext.id || itemContext._id;
+      navigate(detailRoute.replace(':id', itemId), {
+        state: { 
+          projectId: currentProjectId, 
+          projectName: currentProjectName, 
+          fromProjects, 
+          fromDashboard,
+          itemName
+        } 
+      });
+    } else {
+      navigate(ROUTES_FLAT.SITE_INVENTORY, { 
+        state: { 
+          projectId: currentProjectId, 
+          projectName: currentProjectName, 
+          fromProjects, 
+          fromDashboard 
+        } 
+      });
+    }
   };
 
   const handleMaterialSelect = (value) => {
@@ -208,8 +229,29 @@ export default function AddNewAsk() {
 
       showSuccess(t('addNewAsk.success', { defaultValue: 'Material request sent successfully' }));
 
-      // Navigate back after success
-      navigate(-1);
+      if (fromDetails && itemContext) {
+        const isConsumable = itemContext.inventoryTypeId === 2 || itemContext.material?.typeName?.toLowerCase().includes('consumable');
+        const detailRoute = isConsumable ? ROUTES_FLAT.CONSUMABLE_ITEM_DETAILS : ROUTES_FLAT.INVENTORY_ITEM_DETAILS;
+        const itemId = itemContext.id || itemContext._id;
+        navigate(detailRoute.replace(':id', itemId), {
+          state: { 
+            projectId: currentProjectId, 
+            projectName: currentProjectName, 
+            fromProjects, 
+            fromDashboard,
+            itemName
+          } 
+        });
+      } else {
+        navigate(ROUTES_FLAT.SITE_INVENTORY, {
+          state: { 
+            projectId: currentProjectId, 
+            projectName: currentProjectName,
+            fromProjects,
+            fromDashboard
+          },
+        });
+      }
     } catch (error) {
       const errorMessage = error?.response?.data?.message || error?.message || t('addNewAsk.errors.submitFailed', { defaultValue: 'Failed to send material request' });
       showError(errorMessage);

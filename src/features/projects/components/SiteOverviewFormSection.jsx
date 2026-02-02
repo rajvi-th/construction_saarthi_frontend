@@ -32,22 +32,27 @@ function SiteOverviewFormSection({
   onAddNewBuilder,
   workspaceId,
   onProfilePhotoChange,
+  profilePhoto: profilePhotoProp,
   projectKey,
   existingProfilePhotoUrl,
   onSaveAndContinue,
   onCancel,
 }) {
   const fileInputRef = useRef(null);
-  const [profilePhoto, setProfilePhoto] = useState(null);
-  const [profilePhotoPreview, setProfilePhotoPreview] = useState(existingProfilePhotoUrl || null);
+  const [profilePhoto, setProfilePhoto] = useState(profilePhotoProp || null);
+  const [profilePhotoPreview, setProfilePhotoPreview] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
-  // Update preview when existingProfilePhotoUrl changes
+  // Update preview when existingProfilePhotoUrl or profilePhoto prop changes
   useEffect(() => {
-    if (existingProfilePhotoUrl && !profilePhoto) {
+    if (profilePhotoProp instanceof File) {
+      const previewUrl = URL.createObjectURL(profilePhotoProp);
+      setProfilePhotoPreview(previewUrl);
+      setProfilePhoto(profilePhotoProp);
+    } else if (existingProfilePhotoUrl && !profilePhoto) {
       setProfilePhotoPreview(existingProfilePhotoUrl);
     }
-  }, [existingProfilePhotoUrl, profilePhoto]);
+  }, [existingProfilePhotoUrl, profilePhotoProp, profilePhoto]);
 
   const handlePhotoClick = () => {
     if (fileInputRef.current) {

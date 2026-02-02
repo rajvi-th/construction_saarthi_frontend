@@ -4,7 +4,7 @@
  */
 
 import { useState, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ROUTES_FLAT, getRoute } from "../../../constants/routes";
 import PageHeader from "../../../components/layout/PageHeader";
@@ -16,6 +16,9 @@ import { useFinanceProjects } from "../hooks/useFinanceProjects";
 export default function FinanceList() {
   const { t } = useTranslation("finance");
   const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state || {};
+  const fromDashboard = !!state.fromDashboard;
   const { selectedWorkspace } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
@@ -39,6 +42,7 @@ export default function FinanceList() {
     navigate(getRoute(ROUTES_FLAT.FINANCE_PROJECT_DETAILS, { projectId: project.id }), {
       state: {
         projectName: project.name,
+        fromDashboard: fromDashboard,
       },
     });
   };

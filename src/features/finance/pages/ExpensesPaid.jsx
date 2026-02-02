@@ -4,7 +4,7 @@
  */
 
 import { useState, useRef, useEffect, useMemo, useCallback } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ROUTES_FLAT, getRoute } from "../../../constants/routes";
 import PageHeader from "../../../components/layout/PageHeader";
@@ -25,9 +25,9 @@ import paidViaBankIcon from "../../../assets/icons/Paidviabank.svg";
 import paidViaCashIcon from "../../../assets/icons/paidviacash.svg";
 import pendingRedIcon from "../../../assets/icons/Pendingred.svg";
 import emptyStateIcon from "../../../assets/icons/EmptyState.svg";
-import downloadIcon from "../../../assets/icons/Download Minimalistic.svg";
+import downloadIcon from "../../../assets/icons/DownloadMinimalistic.svg";
 import sortVerticalIcon from "../../../assets/icons/Sort Vertical.svg";
-import pdfIcon from "../../../assets/icons/Download Minimalistic.svg";
+import pdfIcon from "../../../assets/icons/DownloadMinimalistic.svg";
 import pencilIcon from "../../../assets/icons/Pen.svg";
 import trashIcon from "../../../assets/icons/Trash.svg";
 import { Plus, ChevronDown, ChevronUp } from "lucide-react";
@@ -36,6 +36,11 @@ export default function ExpensesPaid() {
   const { t } = useTranslation("finance");
   const navigate = useNavigate();
   const { projectId } = useParams();
+  const location = useLocation();
+  const state = location.state || {};
+  const projectName = state.projectName || "";
+  const fromProjects = !!state.fromProjects;
+  const fromDashboard = !!state.fromDashboard;
   const { selectedWorkspace } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   //   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false); // FilterModal manages its own open state via the button inside it, but wait, usually we control it?
@@ -758,7 +763,9 @@ export default function ExpensesPaid() {
       <PageHeader
         title={t("expensesPaid", { defaultValue: "Expenses Paid" })}
         onBack={() =>
-          navigate(getRoute(ROUTES_FLAT.FINANCE_PROJECT_DETAILS, { projectId }))
+          navigate(getRoute(ROUTES_FLAT.FINANCE_PROJECT_DETAILS, { projectId }), {
+            state: { projectName, fromProjects, fromDashboard, projectId }
+          })
         }
       >
         <div className="w-full grid grid-cols-2 gap-2 md:gap-2.5 lg:flex lg:flex-row lg:items-center lg:gap-3 lg:w-auto">

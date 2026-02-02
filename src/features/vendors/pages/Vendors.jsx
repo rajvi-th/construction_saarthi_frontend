@@ -86,7 +86,9 @@ export default function Vendors() {
   const handleEdit = (item) => {
     const itemId = item.id || item._id;
     if (itemId) {
-      navigate(ROUTES_FLAT.EDIT_VENDOR.replace(":id", itemId));
+      navigate(ROUTES_FLAT.EDIT_VENDOR.replace(":id", itemId), {
+        state: { vendorName: item.name || item.full_name }
+      });
     }
   };
 

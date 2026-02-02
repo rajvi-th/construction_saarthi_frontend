@@ -26,8 +26,7 @@ export default function InventoryItemDetails() {
   // Check if user can add/edit/delete (supervisor role cannot)
   const canModifyInventory = currentUserRole?.toLowerCase() !== 'supervisor';
 
-  const projectId = location.state?.projectId;
-  const projectName = location.state?.projectName;
+  const { projectId, projectName, fromProjects, fromDashboard } = location.state || {};
 
   const [item, setItem] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -77,7 +76,14 @@ export default function InventoryItemDetails() {
   const formatCurrency = (amount) => `₹${Number(amount || 0).toLocaleString('en-IN')}`;
 
   const handleBack = () => {
-    navigate(ROUTES_FLAT.SITE_INVENTORY, { state: projectId ? { projectId, projectName } : undefined });
+    navigate(ROUTES_FLAT.SITE_INVENTORY, { 
+      state: { 
+        projectId, 
+        projectName, 
+        fromProjects, 
+        fromDashboard 
+      } 
+    });
   };
 
   if (isLoading) {
@@ -231,7 +237,11 @@ export default function InventoryItemDetails() {
       state: {
         projectId,
         projectName,
+        fromProjects,
+        fromDashboard,
+        itemName,
         item,
+        fromDetails: true,
       },
     });
   };
@@ -241,14 +251,25 @@ export default function InventoryItemDetails() {
       state: {
         projectId,
         projectName,
+        fromProjects,
+        fromDashboard,
+        itemName,
         item,
+        fromDetails: true,
       },
     });
   };
 
   const handleEdit = () => {
     navigate(ROUTES_FLAT.EDIT_SITE_INVENTORY.replace(':id', id), {
-      state: projectId ? { projectId, projectName } : undefined,
+      state: { 
+        projectId, 
+        projectName, 
+        fromProjects, 
+        fromDashboard,
+        itemName,
+        fromDetails: true
+      },
     });
   };
 

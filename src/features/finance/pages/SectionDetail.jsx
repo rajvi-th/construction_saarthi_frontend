@@ -25,7 +25,7 @@ import builderIcon from "../../../assets/icons/buider.svg";
 import blackPencilIcon from "../../../assets/icons/Blackpencil.svg";
 import emptyStateIcon from "../../../assets/icons/EmptyState.svg";
 import pdfIcon from "../../../assets/icons/Pdf.svg";
-import downloadIcon from "../../../assets/icons/Download Minimalistic.svg";
+import downloadIcon from "../../../assets/icons/DownloadMinimalistic.svg";
 import pencilIcon from "../../../assets/icons/Pen.svg";
 import trashIcon from "../../../assets/icons/Trash.svg";
 import { Plus } from "lucide-react";
@@ -42,7 +42,20 @@ export default function SectionDetail() {
 
   // Get section name from API or navigation state or default
   const section = sections.find((s) => s.id === sectionId || s.id?.toString() === sectionId);
-  const sectionName = section?.name || location.state?.sectionName || "Section";
+  
+  const state = location.state || {};
+  const projectName = state.projectName || "";
+  const fromProjects = !!state.fromProjects;
+  const fromDashboard = !!state.fromDashboard;
+
+  const sectionName = section?.name || state.sectionName || "Section";
+
+  // Sync section name when it becomes available from API
+  useEffect(() => {
+    if (section?.name) {
+      setCurrentSectionName(section.name);
+    }
+  }, [section?.name]);
 
   // State management
   const [budget, setBudget] = useState("1.2 Cr");
@@ -772,7 +785,8 @@ export default function SectionDetail() {
         title={currentSectionName}
         onBack={() =>
           navigate(
-            getRoute(ROUTES_FLAT.FINANCE_BUILDER_INVOICES, { projectId })
+            getRoute(ROUTES_FLAT.FINANCE_BUILDER_INVOICES, { projectId }),
+            { state: { projectName, fromProjects, fromDashboard, projectId } }
           )
         }
       >

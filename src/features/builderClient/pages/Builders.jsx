@@ -87,7 +87,9 @@ export default function Builders() {
   const handleEdit = (item) => {
     const itemId = item.id || item._id;
     if (itemId) {
-      navigate(ROUTES_FLAT.EDIT_BUILDER.replace(":id", itemId));
+      navigate(ROUTES_FLAT.EDIT_BUILDER.replace(":id", itemId), {
+        state: { builderName: item.name || item.full_name }
+      });
     }
   };
 

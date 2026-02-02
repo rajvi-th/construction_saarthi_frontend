@@ -544,16 +544,12 @@ export const createContractType = async (data) => {
  * @param {Object} [currentProject] - Current project object (required for fallback to edit endpoint)
  * @returns {Promise<Object>} Update response
  */
-export const updateProjectStatus = async (projectId, status, currentProject = null) => {
+export const updateProjectStatus = async (projectId, status) => {
   if (!projectId) {
     throw new Error('Project ID is required');
   }
 
-  // PATCH /api/project/update-status/{id} is getting blocked by CORS.
-  // We try to fallback to the generic edit project endpoint (PUT) which is allowed.
-  // To do this, we need the project name, so we use currentProject if available.
-
-  // Map form status to API status - consistently with hooks
+  // Map form status to API status
   const mapStatus = (s) => {
     if (s === "upcoming") return "pending";
     return s || "pending";
@@ -561,29 +557,12 @@ export const updateProjectStatus = async (projectId, status, currentProject = nu
 
   const apiStatus = mapStatus(status);
 
-  if (currentProject && currentProject.name) {
-    return editProject(projectId, {
-      ...currentProject,
-      status: apiStatus
-    });
-  }
+  const response = await http.patch(
+    `${PROJECT_ENDPOINTS_FLAT.PROJECT_UPDATE_STATUS}/${projectId}`,
+    { status: apiStatus }
+  );
 
-  // If we don't have project data, we force a fetch first
-  try {
-    const project = await getProjectDetails(projectId);
-    return editProject(projectId, {
-      ...project,
-      status: apiStatus
-    });
-  } catch (error) {
-    console.warn("Fallback to edit failed, attempting PATCH as last resort");
-    // Last resort: try the PATCH endpoint even if it might fail CORS or 404
-    const response = await http.patch(
-      `/project/update-status/${projectId}`,
-      { status: apiStatus }
-    );
-    return response?.data || response || {};
-  }
+  return response || {};
 };
 
 /**

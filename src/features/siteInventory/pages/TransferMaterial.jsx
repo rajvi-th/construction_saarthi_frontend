@@ -26,8 +26,7 @@ export default function TransferMaterial() {
   const { selectedWorkspace } = useAuth();
 
   // Get project context from navigation state (current project - where we're transferring FROM)
-  const currentProjectId = location.state?.projectId;
-  const currentProjectName = location.state?.projectName;
+  const { projectId: currentProjectId, projectName: currentProjectName, fromProjects, fromDashboard, itemName, fromDetails } = location.state || {};
   const item = location.state?.item; // Inventory item being transferred
 
   const [selectedProjects, setSelectedProjects] = useState([]);
@@ -95,7 +94,28 @@ export default function TransferMaterial() {
   }, [selectedWorkspace, currentProjectId]);
 
   const handleCancel = () => {
-    navigate(-1);
+    if (fromDetails) {
+      const isConsumable = item?.inventoryTypeId === 2 || item?.material?.typeName?.toLowerCase().includes('consumable');
+      const detailRoute = isConsumable ? ROUTES_FLAT.CONSUMABLE_ITEM_DETAILS : ROUTES_FLAT.INVENTORY_ITEM_DETAILS;
+      navigate(detailRoute.replace(':id', inventoryId), {
+        state: { 
+          projectId: currentProjectId, 
+          projectName: currentProjectName, 
+          fromProjects, 
+          fromDashboard,
+          itemName
+        } 
+      });
+    } else {
+      navigate(ROUTES_FLAT.SITE_INVENTORY, { 
+        state: { 
+          projectId: currentProjectId, 
+          projectName: currentProjectName, 
+          fromProjects, 
+          fromDashboard 
+        } 
+      });
+    }
   };
 
   const handleProjectSelect = (value) => {
@@ -194,8 +214,28 @@ export default function TransferMaterial() {
 
       showSuccess(t('transferMaterial.success', { defaultValue: 'Transfer request sent successfully' }));
 
-      // Navigate back after success
-      navigate(-1);
+      if (fromDetails) {
+        const isConsumable = item?.inventoryTypeId === 2 || item?.material?.typeName?.toLowerCase().includes('consumable');
+        const detailRoute = isConsumable ? ROUTES_FLAT.CONSUMABLE_ITEM_DETAILS : ROUTES_FLAT.INVENTORY_ITEM_DETAILS;
+        navigate(detailRoute.replace(':id', inventoryId), {
+          state: {
+            projectId: currentProjectId,
+            projectName: currentProjectName,
+            fromProjects,
+            fromDashboard,
+            itemName
+          }
+        });
+      } else {
+        navigate(ROUTES_FLAT.SITE_INVENTORY, {
+          state: {
+            projectId: currentProjectId,
+            projectName: currentProjectName,
+            fromProjects,
+            fromDashboard
+          },
+        });
+      }
     } catch (error) {
       const errorMessage = error?.response?.data?.message || error?.message || t('transferMaterial.errors.submitFailed', { defaultValue: 'Failed to send transfer request' });
       showError(errorMessage);
@@ -205,7 +245,7 @@ export default function TransferMaterial() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-7xl mx-auto">
       <PageHeader
         title={`${t('transferMaterial.title', { defaultValue: 'Transfer Material' })} • ${materialName}`}
         showBackButton={true}

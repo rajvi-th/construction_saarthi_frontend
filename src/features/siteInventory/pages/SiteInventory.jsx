@@ -58,8 +58,7 @@ export default function SiteInventory() {
   const [addDestroyMaterialModalOpen, setAddDestroyMaterialModalOpen] = useState(false);
 
   // Get project context from navigation state (if navigated from project details)
-  const projectId = location.state?.projectId;
-  const projectName = location.state?.projectName;
+  const { projectId, projectName, fromProjects, fromDashboard } = location.state || {};
 
   const debouncedSearch = useDebounce(searchQuery, 300);
 
@@ -135,15 +134,22 @@ export default function SiteInventory() {
 
   const handleCreateSiteInventory = () => {
     navigate(ROUTES_FLAT.ADD_SITE_INVENTORY, {
-      state: projectId ? { projectId, projectName } : undefined,
+      state: { 
+        projectId, 
+        projectName, 
+        fromProjects, 
+        fromDashboard 
+      },
     });
   };
 
   const handleBack = () => {
-    if (projectId) {
+    if (fromDashboard) {
+      navigate(ROUTES_FLAT.DASHBOARD);
+    } else if (projectId) {
       // Navigate back to project details if came from there
-      navigate(PROJECT_ROUTES.PROJECT_DETAILS.replace(':slug', projectName?.toLowerCase().replace(/[^a-z0-9]+/g, '-') || projectId), {
-        state: { projectId, projectName },
+      navigate(PROJECT_ROUTES.PROJECT_DETAILS.replace(':slug', projectName?.toLowerCase()?.replace(/[^a-z0-9]+/g, '-') || projectId), {
+        state: { projectId, projectName, fromDashboard },
       });
     } else {
       // Navigate to projects list or dashboard
@@ -186,6 +192,9 @@ export default function SiteInventory() {
       state: {
         projectId,
         projectName,
+        fromProjects,
+        fromDashboard,
+        itemName: item?.material?.name || item?.name || item?.materialName,
         item,
       },
     });
@@ -193,7 +202,13 @@ export default function SiteInventory() {
 
   const handleEdit = (item) => {
     navigate(ROUTES_FLAT.EDIT_SITE_INVENTORY.replace(':id', item.id || item._id), {
-      state: projectId ? { projectId, projectName } : undefined,
+      state: { 
+        projectId, 
+        projectName, 
+        fromProjects, 
+        fromDashboard,
+        itemName: item?.material?.name || item?.name || item?.materialName
+      },
     });
   };
 
@@ -216,7 +231,13 @@ export default function SiteInventory() {
       : ROUTES_FLAT.INVENTORY_ITEM_DETAILS;
 
     navigate(route.replace(':id', itemId), {
-      state: projectId ? { projectId, projectName } : undefined,
+      state: { 
+        projectId, 
+        projectName, 
+        fromProjects, 
+        fromDashboard,
+        itemName: item?.material?.name || item?.name || item?.materialName
+      },
     });
   };
 
@@ -226,6 +247,9 @@ export default function SiteInventory() {
         item,
         projectId,
         projectName,
+        fromProjects,
+        fromDashboard,
+        itemName: item?.material?.name || item?.name || item?.materialName
       },
     });
   };
@@ -723,7 +747,7 @@ export default function SiteInventory() {
 
   // Handle Add New Ask button
   const handleAddNewAsk = () => {
-    navigate(ROUTES_FLAT.ADD_NEW_ASK, { state: { projectId, projectName } });
+    navigate(ROUTES_FLAT.ADD_NEW_ASK, { state: { projectId, projectName, fromProjects, fromDashboard } });
   };
 
   // Handle Restock Request Actions
@@ -765,6 +789,9 @@ export default function SiteInventory() {
         request,
         projectId,
         projectName,
+        fromProjects,
+        fromDashboard,
+        itemName: request?.materialName || request?.itemName || request?.name
       },
     });
   };

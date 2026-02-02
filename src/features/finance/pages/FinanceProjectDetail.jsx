@@ -21,7 +21,7 @@ import expensesIcon from '../../../assets/icons/expencis.svg';
 import paidIcon from '../../../assets/icons/paid.svg';
 
 import { ChevronRight, ChevronDown } from 'lucide-react';
-import downloadIcon from '../../../assets/icons/Download Minimalistic.svg';
+import downloadIcon from '../../../assets/icons/DownloadMinimalistic.svg';
 import Dropdown from '../../../components/ui/Dropdown';
 import { statusBadgeColors } from '../../../components/ui/StatusBadge';
 
@@ -52,14 +52,20 @@ export default function FinanceProjectDetail() {
   const [status, setStatus] = useState('completed');
 
   // Project data will be populated from API
-  const projectData = useMemo(() => ({
-    name: location.state?.projectName || projectOverview.name || t('projectOverview', { defaultValue: 'Project Overview' }),
-    builder: projectOverview.builder || '',
-    contractType: projectOverview.contract_type || '',
-    totalBudget: projectOverview.total_est_budget || '₹0',
-    duration: projectOverview.project_duration || '',
-    address: projectOverview.address || '',
-  }), [projectOverview, location.state, t]);
+  const projectData = useMemo(() => {
+    const state = location.state || {};
+    return {
+      name: state.projectName || projectOverview.name || '',
+      builder: projectOverview.builder || '',
+      contractType: projectOverview.contract_type || '',
+      totalBudget: projectOverview.total_est_budget || '₹0',
+      duration: projectOverview.project_duration || '',
+      address: projectOverview.address || '',
+      fromProjects: !!state.fromProjects,
+      fromDashboard: !!state.fromDashboard,
+      projectId: projectId,
+    };
+  }, [projectOverview, location.state, projectId]);
 
   const statusOptions = [
     { value: 'completed', label: t('completed', { defaultValue: 'Completed' }) },
@@ -219,16 +225,25 @@ export default function FinanceProjectDetail() {
 
   const handleCardClick = (route) => {
     navigate(getRoute(route, { projectId }), {
-      state: { projectName: projectData.name }
+      state: { 
+        projectName: projectData.name,
+        fromProjects: projectData.fromProjects,
+        fromDashboard: projectData.fromDashboard,
+        projectId: projectId
+      }
     });
   };
 
   return (
     <div className="max-w-7xl mx-auto">
       <PageHeader
-        title={`${t('finance', { defaultValue: 'Finance' })} • ${projectData.name}`}
+        title={`${t('finance', { defaultValue: 'Finance' })}${projectData.name ? ` • ${projectData.name}` : ''}`}
         onBack={() => navigate(getRoute(ROUTES_FLAT.PROJECT_DETAILS, { id: projectId }), {
-          state: { projectName: projectData.name }
+          state: { 
+            projectName: projectData.name,
+            fromProjects: projectData.fromProjects,
+            fromDashboard: projectData.fromDashboard
+          }
         })}
       >
         <button

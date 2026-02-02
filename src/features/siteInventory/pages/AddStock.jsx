@@ -22,7 +22,7 @@ export default function AddStock() {
   const location = useLocation();
   const { selectedWorkspace } = useAuth();
 
-  const { request, item, projectId, projectName } = location.state || {};
+  const { request, item, projectId, projectName, fromProjects, fromDashboard, itemName, fromDetails } = location.state || {};
 
   // Use item if available (from InventoryItemCard restock), otherwise use request (from RestockRequestCard)
   const restockData = item || request;
@@ -229,10 +229,23 @@ export default function AddStock() {
 
       showSuccess(t('addStock.success', { defaultValue: 'Stock added successfully' }));
 
-      // Navigate back after success
-      navigate(ROUTES_FLAT.SITE_INVENTORY, {
-        state: projectId ? { projectId, projectName } : undefined,
-      });
+      if (fromDetails) {
+        const isConsumable = inventoryTypeId === 2 || item?.material?.typeName?.toLowerCase().includes('consumable');
+        const detailRoute = isConsumable ? ROUTES_FLAT.CONSUMABLE_ITEM_DETAILS : ROUTES_FLAT.INVENTORY_ITEM_DETAILS;
+        const itemId = item?.id || item?._id || request?.inventoryId || request?.id;
+        navigate(detailRoute.replace(':id', itemId), {
+          state: { projectId, projectName, fromProjects, fromDashboard, itemName }
+        });
+      } else {
+        navigate(ROUTES_FLAT.SITE_INVENTORY, {
+          state: { 
+            projectId, 
+            projectName, 
+            fromProjects, 
+            fromDashboard 
+          },
+        });
+      }
     } catch (error) {
       const errorMessage = error?.response?.data?.message ||
         error?.message ||
@@ -244,11 +257,43 @@ export default function AddStock() {
   };
 
   const handleCancel = () => {
-    navigate(-1);
+    if (fromDetails) {
+      const isConsumable = item?.inventoryTypeId === 2 || request?.inventoryTypeId === 2 || item?.material?.typeName?.toLowerCase().includes('consumable');
+      const detailRoute = isConsumable ? ROUTES_FLAT.CONSUMABLE_ITEM_DETAILS : ROUTES_FLAT.INVENTORY_ITEM_DETAILS;
+      const itemId = item?.id || item?._id || request?.inventoryId || request?.id;
+      navigate(detailRoute.replace(':id', itemId), {
+        state: { projectId, projectName, fromProjects, fromDashboard, itemName }
+      });
+    } else {
+      navigate(ROUTES_FLAT.SITE_INVENTORY, { 
+        state: { 
+          projectId, 
+          projectName, 
+          fromProjects, 
+          fromDashboard 
+        } 
+      });
+    }
   };
 
   const handleBack = () => {
-    navigate(-1);
+    if (fromDetails) {
+      const isConsumable = item?.inventoryTypeId === 2 || request?.inventoryTypeId === 2 || item?.material?.typeName?.toLowerCase().includes('consumable');
+      const detailRoute = isConsumable ? ROUTES_FLAT.CONSUMABLE_ITEM_DETAILS : ROUTES_FLAT.INVENTORY_ITEM_DETAILS;
+      const itemId = item?.id || item?._id || request?.inventoryId || request?.id;
+      navigate(detailRoute.replace(':id', itemId), {
+        state: { projectId, projectName, fromProjects, fromDashboard, itemName }
+      });
+    } else {
+      navigate(ROUTES_FLAT.SITE_INVENTORY, { 
+        state: { 
+          projectId, 
+          projectName, 
+          fromProjects, 
+          fromDashboard 
+        } 
+      });
+    }
   };
 
   if (!restockData) {

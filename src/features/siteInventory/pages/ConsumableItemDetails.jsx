@@ -14,8 +14,7 @@ export default function ConsumableItemDetails() {
   const { id } = useParams();
   const location = useLocation();
 
-  const projectId = location.state?.projectId;
-  const projectName = location.state?.projectName;
+  const { projectId, projectName, fromProjects, fromDashboard } = location.state || {};
 
   const [item, setItem] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -114,7 +113,71 @@ export default function ConsumableItemDetails() {
 
   const handleBack = () => {
     navigate(ROUTES_FLAT.SITE_INVENTORY, { 
-      state: projectId ? { projectId, projectName } : undefined 
+      state: { 
+        projectId, 
+        projectName, 
+        fromProjects, 
+        fromDashboard 
+      } 
+    });
+  };
+
+  const handleEdit = () => {
+    navigate(ROUTES_FLAT.EDIT_SITE_INVENTORY.replace(':id', id), {
+      state: { 
+        projectId, 
+        projectName, 
+        fromProjects, 
+        fromDashboard,
+        itemName,
+        fromDetails: true
+      },
+    });
+  };
+
+  const handleTransferMaterial = () => {
+    navigate(getRoute(ROUTES_FLAT.TRANSFER_MATERIAL, { inventoryId: id }), {
+      state: {
+        projectId,
+        projectName,
+        fromProjects,
+        fromDashboard,
+        itemName,
+        item,
+        fromDetails: true
+      },
+    });
+  };
+
+  const handleAskForMaterial = () => {
+    navigate(ROUTES_FLAT.ADD_NEW_ASK, {
+      state: {
+        projectId,
+        projectName,
+        fromProjects,
+        fromDashboard,
+        itemName,
+        item,
+        fromDetails: true
+      },
+    });
+  };
+
+  const handleRestock = () => {
+    navigate(ROUTES_FLAT.ADD_STOCK, {
+      state: {
+        request: {
+          ...item,
+          materialName: itemName,
+          id: id
+        },
+        projectId,
+        projectName,
+        fromProjects,
+        fromDashboard,
+        itemName,
+        fromDetails: true
+      },
     });
   };
 
@@ -205,6 +268,11 @@ export default function ConsumableItemDetails() {
       <InventoryItemHeader
         itemName={itemName}
         onBack={handleBack}
+        onEdit={handleEdit}
+        onAskForMaterial={handleAskForMaterial}
+        onTransferMaterial={handleTransferMaterial}
+        onRestock={handleRestock}
+        onDestroy={() => setDestroyModalOpen(true)}
         onDelete={() => {}}
         isConsumable={true}
       />

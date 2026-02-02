@@ -27,9 +27,9 @@ import { showSuccess, showError } from "../../../utils/toast";
 import totalPayablesIcon from "../../../assets/icons/pendingg.svg";
 import paidAmountIcon from "../../../assets/icons/paidred.svg";
 import pendingAmountIcon from "../../../assets/icons/Pendingred.svg";
-import downloadIcon from "../../../assets/icons/Download Minimalistic.svg";
+import downloadIcon from "../../../assets/icons/DownloadMinimalistic.svg";
 import sortVerticalIcon from "../../../assets/icons/Sort Vertical.svg";
-import pdfIcon from "../../../assets/icons/Download Minimalistic.svg";
+import pdfIcon from "../../../assets/icons/DownloadMinimalistic.svg";
 import pencilIcon from "../../../assets/icons/Pen.svg";
 import trashIcon from "../../../assets/icons/Trash.svg";
 import emptyStateIcon from "../../../assets/icons/EmptyState.svg";
@@ -42,11 +42,23 @@ export default function PayableBills() {
   const location = useLocation();
   const { selectedWorkspace, user } = useAuth();
 
-  // Get section name from navigation state or default
-  const [sectionName, setSectionName] = useState(location.state?.sectionName || "Section");
+  const state = location.state || {};
+  const projectName = state.projectName || "";
+  const fromProjects = !!state.fromProjects;
+  const fromDashboard = !!state.fromDashboard;
+
+  const [sectionName, setSectionName] = useState(state.sectionName || "Section");
 
   // Use API hook for expense sections
-  const { isUpdating, isDeleting, updateSection, deleteSection } = useExpenseSections(projectId);
+  const { sections, isUpdating, isDeleting, updateSection, deleteSection } = useExpenseSections(projectId);
+
+  // Sync section name when it becomes available from API
+  useEffect(() => {
+    const section = sections?.find((s) => s.id === sectionId || s.id?.toString() === sectionId);
+    if (section?.name) {
+      setSectionName(section.name);
+    }
+  }, [sections, sectionId]);
 
   // State management
   const [searchQuery, setSearchQuery] = useState("");
@@ -406,7 +418,8 @@ export default function PayableBills() {
       setIsDeleteSectionModalOpen(false);
       // Navigate back to expenses to pay page after successful delete
       navigate(
-        getRoute(ROUTES_FLAT.FINANCE_EXPENSES_TO_PAY, { projectId })
+        getRoute(ROUTES_FLAT.FINANCE_EXPENSES_TO_PAY, { projectId }),
+        { state: { projectName, fromProjects, fromDashboard, projectId } }
       );
     } else {
       showError(t('failedToDeleteSection', { defaultValue: 'Failed to delete section' }));
@@ -1134,7 +1147,8 @@ export default function PayableBills() {
         title={sectionName}
         onBack={() =>
           navigate(
-            getRoute(ROUTES_FLAT.FINANCE_EXPENSES_TO_PAY, { projectId })
+            getRoute(ROUTES_FLAT.FINANCE_EXPENSES_TO_PAY, { projectId }),
+            { state: { projectName, fromProjects, fromDashboard, projectId } }
           )
         }
         titleActions={

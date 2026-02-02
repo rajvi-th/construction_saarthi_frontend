@@ -4,7 +4,7 @@
  */
 
 import { useState, useRef, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ROUTES_FLAT, getRoute } from "../../../constants/routes";
 import PageHeader from "../../../components/layout/PageHeader";
@@ -20,8 +20,8 @@ import ConfirmModal from "../../../components/ui/ConfirmModal";
 import paymentIcon from "../../../assets/icons/paymentred.svg";
 import pendingIcon from "../../../assets/icons/Pendingred.svg";
 import amountReceivableIcon from "../../../assets/icons/Amountrecevaible.svg";
-import downloadIcon from "../../../assets/icons/Download Minimalistic.svg";
-import pdfIcon from "../../../assets/icons/Download Minimalistic.svg";
+import downloadIcon from "../../../assets/icons/DownloadMinimalistic.svg";
+import pdfIcon from "../../../assets/icons/DownloadMinimalistic.svg";
 import pencilIcon from "../../../assets/icons/Pen.svg";
 import trashIcon from "../../../assets/icons/Trash.svg";
 import sortVerticalIcon from "../../../assets/icons/Sort Vertical.svg";
@@ -34,6 +34,11 @@ export default function PaymentReceived() {
   const { t } = useTranslation("finance");
   const navigate = useNavigate();
   const { projectId } = useParams();
+  const location = useLocation();
+  const state = location.state || {};
+  const projectName = state.projectName || "";
+  const fromProjects = !!state.fromProjects;
+  const fromDashboard = !!state.fromDashboard;
   const { selectedWorkspace } = useAuth();
 
   // State management
@@ -1106,7 +1111,9 @@ export default function PaymentReceived() {
       <PageHeader
         title={t("paymentReceived", { defaultValue: "Payment Received" })}
         onBack={() =>
-          navigate(getRoute(ROUTES_FLAT.FINANCE_PROJECT_DETAILS, { projectId }))
+          navigate(getRoute(ROUTES_FLAT.FINANCE_PROJECT_DETAILS, { projectId }), {
+            state: { projectName, fromProjects, fromDashboard, projectId }
+          })
         }
       >
         <div className="w-full grid grid-cols-2 gap-2 md:gap-2.5 lg:flex lg:flex-row lg:items-center lg:gap-3 lg:w-auto">

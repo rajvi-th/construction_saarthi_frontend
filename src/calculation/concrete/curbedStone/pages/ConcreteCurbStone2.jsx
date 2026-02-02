@@ -7,7 +7,7 @@ import Select from "../../../../components/ui/Select";
 import Button from "../../../../components/ui/Button";
 import Radio from "../../../../components/ui/Radio";
 import DownloadPDFModal from "../../../common/DownloadPDFModal";
-import downloadIcon from "../../../../assets/icons/Download Minimalistic.svg";
+import downloadIcon from "../../../../assets/icons/DownloadMinimalistic.svg";
 import Cstone2Icon from "../../../../assets/icons/Cs2.svg";
 import { ROUTES_FLAT } from "../../../../constants/routes";
 

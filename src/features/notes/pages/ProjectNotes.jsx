@@ -4,7 +4,7 @@
  */
 
 import { useState, useMemo } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { Plus } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
@@ -23,6 +23,7 @@ export default function ProjectNotes() {
   const { t } = useTranslation('notes');
   const navigate = useNavigate();
   const { projectId } = useParams();
+  const location = useLocation();
   const { selectedWorkspace } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [dateRange, setDateRange] = useState(null);
@@ -40,7 +41,8 @@ export default function ProjectNotes() {
       state: { 
         noteTitle: note.title,
         projectName: projectName,
-        projectId: projectId
+        projectId: projectId,
+        fromProjects: location.state?.fromProjects || false
       }
     });
   };
@@ -65,7 +67,8 @@ export default function ProjectNotes() {
         state: { 
           noteKey,
           projectName: projectName,
-          projectId: projectId
+          projectId: projectId,
+          fromProjects: location.state?.fromProjects || false
         } 
       });
     } catch (error) {

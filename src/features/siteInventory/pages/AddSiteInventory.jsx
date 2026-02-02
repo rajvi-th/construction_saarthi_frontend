@@ -34,8 +34,7 @@ export default function AddSiteInventory() {
   const location = useLocation();
   const { selectedWorkspace } = useAuth();
   const workspaceId = selectedWorkspace;
-  const projectContextId = location.state?.projectId || '';
-  const projectContextName = location.state?.projectName || '';
+  const { projectId: projectContextId, projectName: projectContextName, fromProjects, fromDashboard } = location.state || {};
 
   const { inventoryTypeOptions, isLoading: isLoadingInventoryTypes } = useInventoryTypes();
   const [inventoryType, setInventoryType] = useState(null); // Dynamic inventory type ID
@@ -286,7 +285,12 @@ export default function AddSiteInventory() {
 
       showSuccess(t('addInventory.success', { defaultValue: 'Inventory item added successfully' }));
       navigate(ROUTES_FLAT.SITE_INVENTORY, {
-        state: projectContextId ? { projectId: projectContextId, projectName: projectContextName } : undefined,
+        state: { 
+          projectId: projectContextId, 
+          projectName: projectContextName,
+          fromProjects,
+          fromDashboard
+        },
       });
     } catch (error) {
       console.error('Error creating inventory:', error);
@@ -299,7 +303,12 @@ export default function AddSiteInventory() {
 
   const handleCancel = () => {
     navigate(ROUTES_FLAT.SITE_INVENTORY, {
-      state: projectContextId ? { projectId: projectContextId, projectName: projectContextName } : undefined,
+      state: { 
+        projectId: projectContextId, 
+        projectName: projectContextName,
+        fromProjects,
+        fromDashboard
+      },
     });
   };
 

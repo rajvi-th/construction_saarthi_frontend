@@ -12,7 +12,7 @@ import PageHeader from '../../../components/layout/PageHeader';
 import DropdownMenu from '../../../components/ui/DropdownMenu';
 import Toggle from '../../../components/ui/Toggle';
 import ConfirmModal from '../../../components/ui/ConfirmModal';
-import downloadIcon from '../../../assets/icons/Download Minimalistic.svg';
+import downloadIcon from '../../../assets/icons/DownloadMinimalistic.svg';
 import trashIcon from '../../../assets/icons/Trash.svg';
 import pencilIcon from '../../../assets/icons/pencil.svg';
 import { useNoteDetails } from '../hooks/useNoteDetails';
@@ -408,12 +408,12 @@ export default function NoteDetails() {
                           </div>
                           <span className="text-sm text-secondary whitespace-nowrap ml-2">{displayDuration}</span>
                         </div>
-                        <button
+                        {/* <button
                           onClick={() => handleDeleteVoiceMemo(memo.id)}
                           className="p-2 hover:bg-gray-200 rounded-lg transition-colors flex-shrink-0"
                         >
                           <X className="w-4 h-4 text-secondary" />
-                        </button>
+                        </button> */}
                         {/* Hidden audio element */}
                         <audio
                           ref={(el) => {

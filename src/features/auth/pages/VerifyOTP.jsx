@@ -227,7 +227,7 @@ export default function VerifyOTPPage() {
               <input
                 key={index}
                 id={`otp-${index}`}
-                type="text"
+                type="number"
                 inputMode="numeric"
                 maxLength={1}
                 value={digit}

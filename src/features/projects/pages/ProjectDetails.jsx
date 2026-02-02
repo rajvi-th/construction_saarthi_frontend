@@ -19,8 +19,9 @@ import PageHeader from '../../../components/layout/PageHeader';
 import { useProjectDetails } from '../hooks';
 import { useRestrictedRole } from '../../dashboard/hooks';
 import ConfirmModal from '../../../components/ui/ConfirmModal';
-import { deleteProject } from '../api';
+import { deleteProject, updateProjectStatus } from '../api';
 import { showSuccess, showError } from '../../../utils/toast';
+import Checkbox from '../../../components/ui/Checkbox';
 
 export default function ProjectDetails() {
   const { t } = useTranslation('projects');
@@ -38,7 +39,7 @@ export default function ProjectDetails() {
   // Get project ID from navigation state or URL params
   const projectIdFromState = location.state?.projectId || id;
 
-  const { project, isLoading } = useProjectDetails(projectIdFromState, selectedWorkspace);
+  const { project, isLoading, refetch } = useProjectDetails(projectIdFromState, selectedWorkspace);
 
   // Sync project name to location state for breadcrumbs
   useEffect(() => {
@@ -148,6 +149,20 @@ export default function ProjectDetails() {
       showError(errorMessage);
     } finally {
       setIsDeleting(false);
+    }
+  };
+
+  const handleToggleComplete = async (e) => {
+    const isChecked = e.target.checked;
+    const newStatus = isChecked ? 'completed' : 'in_progress';
+
+    try {
+      await updateProjectStatus(project.id, newStatus);
+      showSuccess(t('addNewProject.form.projectUpdated', { defaultValue: 'Project status updated' }));
+      refetch();
+    } catch (error) {
+      console.error('Error updating project status:', error);
+      showError(error?.message || 'Failed to update status');
     }
   };
 
@@ -271,6 +286,16 @@ export default function ProjectDetails() {
             )}
           </div>
         )}
+
+        {/* Mark as Completed Checkbox */}
+        <div className="mt-5 mb-5 rounded-2xl border border-[#f8f3ec] bg-[#F9F5EF] px-6 py-4 shadow-sm flex items-center">
+          <Checkbox
+            label="Mark this project as completed"
+            checked={project.status === 'completed' || project.status === 'complete'}
+            onChange={handleToggleComplete}
+            labelClassName="text-[14px] md:text-[18px] font-medium text-black ml-1"
+          />
+        </div>
       </div>
 
       {/* Delete Confirmation Modal */}

@@ -4,7 +4,7 @@
  */
 
 import { useState, useRef, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ROUTES_FLAT, getRoute } from "../../../constants/routes";
 import PageHeader from "../../../components/layout/PageHeader";
@@ -29,6 +29,11 @@ export default function BuilderInvoices() {
   const { t } = useTranslation("finance");
   const navigate = useNavigate();
   const { projectId } = useParams();
+  const location = useLocation();
+  const state = location.state || {};
+  const projectName = state.projectName || "";
+  const fromProjects = !!state.fromProjects;
+  const fromDashboard = !!state.fromDashboard;
   const { selectedWorkspace } = useAuth();
 
   // State management
@@ -476,7 +481,13 @@ export default function BuilderInvoices() {
     navigate(
       `/finance/projects/${projectId}/builder-invoices/sections/${section.id}`,
       {
-        state: { sectionName: section.name },
+        state: { 
+          sectionName: section.name,
+          projectName,
+          fromProjects,
+          fromDashboard,
+          projectId
+        },
       }
     );
   };
@@ -512,7 +523,9 @@ export default function BuilderInvoices() {
       <PageHeader
         title={t("builderInvoices", { defaultValue: "Builder Invoices" })}
         onBack={() =>
-          navigate(getRoute(ROUTES_FLAT.FINANCE_PROJECT_DETAILS, { projectId }))
+          navigate(getRoute(ROUTES_FLAT.FINANCE_PROJECT_DETAILS, { projectId }), {
+            state: { projectName, fromProjects, fromDashboard, projectId }
+          })
         }
       >
         <div className="flex flex-row gap-2 lg:gap-3 w-full lg:w-auto items-center">

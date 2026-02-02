@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
 import PageHeader from '../../../components/layout/PageHeader';
 import Loader from '../../../components/ui/Loader';
-import downloadIcon from '../../../assets/icons/Download Minimalistic.svg';
+import downloadIcon from '../../../assets/icons/DownloadMinimalistic.svg';
 import aiPoweredIcon from '../../../assets/icons/aipowered.svg';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -216,7 +216,7 @@ export default function DocumentDetails() {
     <div className="max-w-7xl mx-auto relative px-4 sm:px-0">
       <PageHeader
         title={t('details.materialQuotation', { defaultValue: 'Material Quotation' })}
-        onBack={() => navigate(getRoute(ROUTES_FLAT.DOCUMENTS_PROJECT_DOCUMENTS, { projectId }))}
+        onBack={() => navigate(-1)}
       >
         <div className="w-full flex justify-center md:w-auto md:justify-start">
           <button

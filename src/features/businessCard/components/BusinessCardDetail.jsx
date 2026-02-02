@@ -50,7 +50,9 @@ export default function BusinessCardDetail({ businessCard, onDelete }) {
   }, [logoUrl]);
 
   const handleEdit = () => {
-    navigate(ROUTES_FLAT.EDIT_BUSINESS_CARD.replace(':id', businessCard.id || businessCard._id));
+    navigate(ROUTES_FLAT.EDIT_BUSINESS_CARD.replace(':id', businessCard.id || businessCard._id), {
+      state: { businessCardName: fullName }
+    });
   };
 
 

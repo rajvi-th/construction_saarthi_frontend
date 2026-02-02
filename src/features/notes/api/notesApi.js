@@ -54,6 +54,21 @@ export const updateNote = async (noteId, noteData) => {
     throw new Error('Note ID is required');
   }
   
+  // If noteData is FormData, use axios directly to handle multipart correctly
+  if (noteData instanceof FormData) {
+    const token = localStorage.getItem('token');
+    return axios.put(
+      `${config.API_BASE_URL}/note/update/${noteId}`, 
+      noteData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          ...(token && { Authorization: `Bearer ${token}` }),
+        },
+      }
+    );
+  }
+  
   return http.put(`/note/update/${noteId}`, noteData);
 };
 

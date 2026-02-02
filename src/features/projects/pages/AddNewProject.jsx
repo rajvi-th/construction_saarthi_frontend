@@ -639,6 +639,7 @@ function AddNewProject() {
                 onAddNewBuilder={handleAddNewBuilder}
                 workspaceId={selectedWorkspace}
                 onProfilePhotoChange={setProfilePhoto}
+                profilePhoto={profilePhoto}
                 projectKey={preProjectKey || (isEditMode ? projectId : null)}
                 existingProfilePhotoUrl={profilePhotoUrl}
                 onSaveAndContinue={handleNextStep}

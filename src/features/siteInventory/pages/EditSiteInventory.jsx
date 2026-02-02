@@ -32,6 +32,7 @@ export default function EditSiteInventory() {
   const { id } = useParams();
   const location = useLocation();
   const { selectedWorkspace } = useAuth();
+  const { projectId, projectName, fromProjects, fromDashboard, fromDetails, itemName } = location.state || {};
   const workspaceId = selectedWorkspace;
 
   const { getItem, updateItem, isUpdating, isLoading: isFetchingItem } = useSiteInventory();
@@ -201,7 +202,23 @@ export default function EditSiteInventory() {
 
       await updateItem(id, formData);
       showSuccess(t('editInventory.success', { defaultValue: 'Inventory item updated successfully' }));
-      navigate(-1);
+      if (fromDetails) {
+        // Navigate back to details page (Inventory or Consumable)
+        const isConsumable = inventoryType === '2';
+        const detailRoute = isConsumable ? ROUTES_FLAT.CONSUMABLE_ITEM_DETAILS : ROUTES_FLAT.INVENTORY_ITEM_DETAILS;
+        navigate(detailRoute.replace(':id', id), {
+          state: { projectId, projectName, fromProjects, fromDashboard, itemName }
+        });
+      } else {
+        navigate(ROUTES_FLAT.SITE_INVENTORY, { 
+          state: { 
+            projectId, 
+            projectName, 
+            fromProjects, 
+            fromDashboard 
+          } 
+        });
+      }
     } catch (error) {
       console.error('Error updating inventory:', error);
     }
@@ -220,6 +237,24 @@ export default function EditSiteInventory() {
       <PageHeader
         title={t('editInventory.title', { defaultValue: 'Edit Inventory' })}
         showBackButton
+        onBack={() => {
+          if (fromDetails) {
+            const isConsumable = inventoryType === '2';
+            const detailRoute = isConsumable ? ROUTES_FLAT.CONSUMABLE_ITEM_DETAILS : ROUTES_FLAT.INVENTORY_ITEM_DETAILS;
+            navigate(detailRoute.replace(':id', id), {
+              state: { projectId, projectName, fromProjects, fromDashboard, itemName }
+            });
+          } else {
+            navigate(ROUTES_FLAT.SITE_INVENTORY, { 
+              state: { 
+                projectId, 
+                projectName, 
+                fromProjects, 
+                fromDashboard 
+              } 
+            });
+          }
+        }}
       />
 
       <form onSubmit={handleSubmit} className="mt-6">
@@ -382,7 +417,24 @@ export default function EditSiteInventory() {
         </div>
 
         <div className="flex justify-end gap-3 pt-6">
-          <Button variant="secondary" onClick={() => navigate(-1)}>
+          <Button variant="secondary" onClick={() => {
+            if (fromDetails) {
+              const isConsumable = inventoryType === '2';
+              const detailRoute = isConsumable ? ROUTES_FLAT.CONSUMABLE_ITEM_DETAILS : ROUTES_FLAT.INVENTORY_ITEM_DETAILS;
+              navigate(detailRoute.replace(':id', id), {
+                state: { projectId, projectName, fromProjects, fromDashboard, itemName }
+              });
+            } else {
+              navigate(ROUTES_FLAT.SITE_INVENTORY, { 
+                state: { 
+                  projectId, 
+                  projectName, 
+                  fromProjects, 
+                  fromDashboard 
+                } 
+              });
+            }
+          }}>
             {t('addInventory.cancel')}
           </Button>
           <Button type="submit" variant="primary" disabled={isUpdating}>

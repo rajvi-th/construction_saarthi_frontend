@@ -4,7 +4,7 @@
  */
 
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
 import { useAuth } from '../../../features/auth/store/authStore';
@@ -20,6 +20,11 @@ export default function ExpensesToPay() {
   const { t } = useTranslation('finance');
   const navigate = useNavigate();
   const { projectId } = useParams();
+  const location = useLocation();
+  const state = location.state || {};
+  const projectName = state.projectName || "";
+  const fromProjects = !!state.fromProjects;
+  const fromDashboard = !!state.fromDashboard;
   const { selectedWorkspace } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [isCreateSectionModalOpen, setIsCreateSectionModalOpen] = useState(false);
@@ -44,7 +49,13 @@ export default function ExpensesToPay() {
     navigate(
       `/finance/projects/${projectId}/expenses-to-pay/sections/${section.id}`,
       {
-        state: { sectionName: section.name },
+        state: { 
+          sectionName: section.name,
+          projectName,
+          fromProjects,
+          fromDashboard,
+          projectId
+        },
       }
     );
   };
@@ -58,7 +69,9 @@ export default function ExpensesToPay() {
     <div className="max-w-7xl mx-auto">
       <PageHeader
         title={t('expensesToPay', { defaultValue: 'Expenses To Pay' })}
-        onBack={() => navigate(getRoute(ROUTES_FLAT.FINANCE_PROJECT_DETAILS, { projectId }))}
+        onBack={() => navigate(getRoute(ROUTES_FLAT.FINANCE_PROJECT_DETAILS, { projectId }), {
+          state: { projectName, fromProjects, fromDashboard, projectId }
+        })}
       >
         {!isLoading && sections.length > 0 ? (
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 w-full sm:w-auto">

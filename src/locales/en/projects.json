@@ -25,7 +25,8 @@
   },
   "deleteModal": {
     "title": "Delete Project",
-    "message": "Are you sure you want to delete {{name}}? This action is irreversible, and your data cannot be recovered.",
+    "message": "Are you sure you want to delete",
+    "messageSuffix": " project from this workspace? This action is irreversible, and your data cannot be recovered.",
     "confirm": "Yes, Delete",
     "success": "Project deleted successfully",
     "errors": {

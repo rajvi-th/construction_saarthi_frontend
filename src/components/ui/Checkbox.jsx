@@ -11,6 +11,7 @@ export default function Checkbox({
   onChange,
   disabled = false,
   className = '',
+  labelClassName = '',
   name,
   id,
   ...props
@@ -61,6 +62,7 @@ export default function Checkbox({
             text-sm font-medium cursor-pointer select-none
             ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
             ${checked ? 'text-primary' : 'text-secondary'}
+            ${labelClassName}
           `}
         >
           {label}

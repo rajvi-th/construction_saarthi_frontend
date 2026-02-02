@@ -34,9 +34,9 @@ export default function ProjectDocuments() {
 
   const projectName = state?.projectName || project?.name || project?.details?.name || staticProjectNames[projectId] || t('project');
 
-  const handleDocumentClick = (documentId) => {
+  const handleDocumentClick = (documentId, documentTitle) => {
     navigate(getRoute(ROUTES_FLAT.DOCUMENTS_DOCUMENT_DETAILS, { projectId, documentId }), {
-      state: { projectName }
+      state: { projectName, documentTitle }
     });
   };
 
@@ -109,7 +109,7 @@ export default function ProjectDocuments() {
           documents.map((document) => (
             <div
               key={document.id}
-              onClick={() => handleDocumentClick(document.id)}
+              onClick={() => handleDocumentClick(document.id, document.title)}
               className="bg-white rounded-xl p-4 border border-gray-100 flex items-start gap-3 relative cursor-pointer shadow-sm"
             >
               {/* Red vertical bar - Vector element */}

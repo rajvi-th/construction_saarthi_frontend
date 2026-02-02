@@ -4,8 +4,9 @@
  */
 
 import { useState, useEffect, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Mic, Plus } from "lucide-react";
 import { ROUTES_FLAT } from "../../../constants/routes";
 import PageHeader from "../../../components/layout/PageHeader";
 import Input from "../../../components/ui/Input";
@@ -24,6 +25,7 @@ export default function EditNote() {
   const { t } = useTranslation("notes");
   const navigate = useNavigate();
   const { id } = useParams();
+  const location = useLocation();
   const { selectedWorkspace } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -43,14 +45,17 @@ export default function EditNote() {
   const [noteType, setNoteType] = useState("Text");
   const [textNote, setTextNote] = useState("");
   const [reminderDateTime, setReminderDateTime] = useState(null);
-  // Voice playback state
-  const [voiceUrl, setVoiceUrl] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const audioRef = useRef(null);
-  const [volume, setVolume] = useState(1);
-  const [isMuted, setIsMuted] = useState(false);
+  
+  // Voice memos state
+  const [voiceMemos, setVoiceMemos] = useState([]); // Existing from backend
+  const [newVoiceMemos, setNewVoiceMemos] = useState([]); // Newly recorded files
+  const [isRecording, setIsRecording] = useState(false);
+  const [recordingTime, setRecordingTime] = useState(0);
+  const [audioChunks, setAudioChunks] = useState([]);
+  
+  const mediaRecorderRef = useRef(null);
+  const streamRef = useRef(null);
+  const timerRef = useRef(null);
 
   // Load note data when fetched
   useEffect(() => {
@@ -84,24 +89,54 @@ export default function EditNote() {
       setTextNote(textNotes[0].text || "");
     }
 
-    // Set voice URL (use first voice memo if available)
-    if (voiceMemos.length > 0) {
-      setVoiceUrl(voiceMemos[0].url || null);
-      // set duration if provided
-      if (voiceMemos[0].duration) setDuration(voiceMemos[0].duration);
-    } else {
-      setVoiceUrl(null);
-      setDuration(0);
-    }
-    // reset volume/mute when loading
-    setVolume(1);
-    setIsMuted(false);
+    // Set all voice memos
+    setVoiceMemos(voiceMemos);
 
     // Set reminder date
     if (note.reminderDate) {
       setReminderDateTime(new Date(note.reminderDate));
     }
   }, [note]);
+  
+  // Sync project/note names to location state for breadcrumbs
+  useEffect(() => {
+    if (note) {
+      const noteTitle = note.title || "";
+      let projectName = location.state?.projectName;
+      let projectId = location.state?.projectId;
+
+      // If no project name in state, try to get it from note details
+      if (!projectName && note.originalData?.projects?.length > 0) {
+        const firstProject = note.originalData.projects[0];
+        projectName = firstProject.project_name || firstProject.site_name || firstProject.name;
+        projectId = firstProject.projectId?.toString();
+      }
+
+      if ((noteTitle && location.state?.noteTitle !== noteTitle) || (projectName && location.state?.projectName !== projectName)) {
+        navigate(location.pathname, {
+          replace: true,
+          state: {
+            ...location.state,
+            noteTitle,
+            projectName,
+            projectId
+          },
+        });
+      }
+    }
+  }, [note, location.state, location.pathname, navigate]);
+
+  // Cleanup recording on unmount
+  useEffect(() => {
+    return () => {
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(track => track.stop());
+      }
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
+  }, []);
 
   const noteTypeOptions = [
     { value: "Text", label: t("form.text") },
@@ -109,22 +144,138 @@ export default function EditNote() {
     { value: "Both", label: t("form.both") },
   ];
 
-  const formatTimeDisplay = (current, total) => {
-    const secs = Math.floor(current || 0);
-    const mins = Math.floor(secs / 60);
-    const s = secs % 60;
-    return `${String(mins).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+  const formatTimeDisplay = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  // Keep audio element in sync with volume/mute state
-  useEffect(() => {
-    if (!audioRef.current) return;
-    audioRef.current.volume = volume;
-    audioRef.current.muted = isMuted;
-  }, [volume, isMuted]);
+  const handleStartRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      streamRef.current = stream;
+
+      const mediaRecorder = new MediaRecorder(stream, {
+        mimeType: 'audio/webm;codecs=opus'
+      });
+      mediaRecorderRef.current = mediaRecorder;
+
+      const chunks = [];
+      setAudioChunks(chunks);
+
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          chunks.push(event.data);
+        }
+      };
+
+      mediaRecorder.onstop = () => {
+        const audioBlob = new Blob(chunks, { type: 'audio/webm;codecs=opus' });
+        const audioUrl = URL.createObjectURL(audioBlob);
+        
+        // Add to new voice memos list
+        setNewVoiceMemos(prev => [...prev, {
+          url: audioUrl,
+          blob: audioBlob,
+          name: `recording-${Date.now()}.webm`
+        }]);
+
+        if (streamRef.current) {
+          streamRef.current.getTracks().forEach(track => track.stop());
+          streamRef.current = null;
+        }
+      };
+
+      mediaRecorder.start();
+      setIsRecording(true);
+      setRecordingTime(0);
+
+      timerRef.current = setInterval(() => {
+        setRecordingTime(prev => prev + 1);
+      }, 1000);
+
+    } catch (error) {
+      console.error('Error accessing microphone:', error);
+      alert('Microphone access denied. Please allow microphone access to record voice notes.');
+    }
+  };
+
+  const handleStopRecording = () => {
+    if (mediaRecorderRef.current && isRecording) {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+      
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    }
+  };
 
   const handleCancel = () => {
     navigate(-1);
+  };
+
+  const VoiceMemoPlayer = ({ memo }) => {
+    const playerAudioRef = useRef(null);
+    const [playing, setPlaying] = useState(false);
+    const [currTime, setCurrTime] = useState(0);
+    const [dur, setDur] = useState(0);
+
+    return (
+      <div className="flex items-center gap-3 bg-gray-50 rounded-lg p-3 mb-2">
+        <button
+          type="button"
+          onClick={() => {
+            if (playing) playerAudioRef.current.pause();
+            else playerAudioRef.current.play();
+          }}
+          className="w-8 h-8 rounded-full bg-accent flex items-center justify-center flex-shrink-0 cursor-pointer"
+        >
+          {playing ? (
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none">
+              <rect x="6" y="4" width="4" height="16" fill="white" />
+              <rect x="14" y="4" width="4" height="16" fill="white" />
+            </svg>
+          ) : (
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+              <path d="M8 5v14l11-7L8 5z" fill="white" />
+            </svg>
+          )}
+        </button>
+        
+        <div className="flex-1 flex flex-col gap-1">
+          <div 
+            className="h-1.5 bg-gray-200 rounded-full cursor-pointer relative"
+            onClick={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              const pct = (e.clientX - rect.left) / rect.width;
+              playerAudioRef.current.currentTime = pct * (dur || 0);
+            }}
+          >
+            <div 
+              className="absolute left-0 top-0 h-full bg-accent rounded-full" 
+              style={{ width: `${(currTime / (dur || 1)) * 100}%` }}
+            />
+          </div>
+          <div className="flex justify-between items-center">
+            <span className="text-[10px] text-secondary">{formatTimeDisplay(currTime)}</span>
+            <span className="text-[10px] text-secondary">{formatTimeDisplay(dur)}</span>
+          </div>
+        </div>
+
+        <audio
+          ref={playerAudioRef}
+          src={memo.url}
+          onPlay={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
+          onTimeUpdate={(e) => setCurrTime(e.target.currentTime)}
+          onLoadedMetadata={(e) => setDur(e.target.duration)}
+          onEnded={() => setPlaying(false)}
+          className="hidden"
+        />
+      </div>
+    );
   };
 
   const handleSave = async () => {
@@ -142,15 +293,6 @@ export default function EditNote() {
       return;
     }
 
-    // if (!reminderDateTime) {
-    //   showError(
-    //     t("form.reminderRequired", {
-    //       defaultValue: "Reminder date is required",
-    //     }),
-    //   );
-    //   return;
-    // }
-
     if ((noteType === "Text" || noteType === "Both") && !textNote.trim()) {
       showError(
         t("form.textRequired", { defaultValue: "Text note is required" }),
@@ -161,32 +303,31 @@ export default function EditNote() {
     try {
       setIsSubmitting(true);
 
-      // Format reminder date (YYYY-MM-DD)
-      // Format reminder date (YYYY-MM-DD)
-      // const reminderDate = reminderDateTime?.toISOString().split("T")[0];
-
-      // Prepare update data
-      const updateData = {
-        title: title.trim(),
-        workspaceId: parseInt(selectedWorkspace) || 0,
-        workspaceId: parseInt(selectedWorkspace) || 0,
-        // reminderDate: reminderDate,
-        projectIds: assignTo.map((id) => parseInt(id)),
-        file_type: noteType,
-        text: textNote.trim(),
-        url: null, // Will be set if there's a voice memo or attachment
-      };
-
-      // If note type is Voice or Both, keep existing voice memo URL if present
-      if (noteType === "Voice" || noteType === "Both") {
-        const existingVoiceUrl =
-          note?.originalData?.notes?.voiceMemos?.[0]?.url;
-        if (existingVoiceUrl) {
-          updateData.url = existingVoiceUrl;
-        }
+      // Create FormData as seen in the request
+      const formData = new FormData();
+      formData.append('title', title.trim());
+      formData.append('text', textNote.trim());
+      formData.append('workspaceId', selectedWorkspace);
+      
+      // Append project ids
+      assignTo.forEach(id => {
+        formData.append('projectIds', id);
+      });
+      
+      // Append reminder date if exists
+      if (reminderDateTime) {
+        formData.append('reminderDate', reminderDateTime.toISOString().split('T')[0]);
       }
 
-      await updateNote(id, updateData);
+      // Append new voice memos
+      newVoiceMemos.forEach(memo => {
+        if (memo.blob) {
+          const file = new File([memo.blob], memo.name || `recording-${Date.now()}.webm`, { type: memo.blob.type });
+          formData.append('noteFiles', file);
+        }
+      });
+
+      await updateNote(id, formData);
 
       showSuccess(
         t("noteUpdated", { defaultValue: "Note updated successfully" }),
@@ -284,192 +425,80 @@ export default function EditNote() {
             </div>
           </div>
 
-          {/* Voice Note Player (if voice or both) */}
+          {/* Voice Note Section */}
           {(noteType === "Voice" || noteType === "Both") && (
             <div>
-              <label className="block text-sm font-normal text-black mb-2">
-                {t("form.voiceNote")}
-              </label>
-              {voiceUrl ? (
-                <div className="bg-gray-100 rounded-lg p-4">
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={() => {
-                        if (!audioRef.current) return;
-                        if (isPlaying) {
-                          audioRef.current.pause();
-                        } else {
-                          audioRef.current.play();
-                        }
-                      }}
-                      className="w-10 h-10 rounded-full bg-accent flex items-center justify-center cursor-pointer"
-                    >
-                      {/* simple play/pause triangle/square */}
-                      {!isPlaying ? (
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M5 3v18l15-9L5 3z" fill="white" />
-                        </svg>
-                      ) : (
-                        <svg
-                          width="12"
-                          height="12"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect
-                            x="4"
-                            y="5"
-                            width="4"
-                            height="14"
-                            fill="white"
-                          />
-                          <rect
-                            x="12"
-                            y="5"
-                            width="4"
-                            height="14"
-                            fill="white"
-                          />
-                        </svg>
-                      )}
-                    </button>
+              <div className="flex items-center justify-between mb-2">
+                <label className="block text-sm font-normal text-black font-semibold">
+                  {t("form.voiceNote")}
+                </label>
+                {!isRecording && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (!isRecording) handleStartRecording();
+                    }}
+                    className="flex items-center gap-1 text-accent text-sm font-medium hover:underline cursor-pointer"
+                  >
+                    <Plus className="w-4 h-4" />
+                    {t("form.addVoice", { defaultValue: "Add Voice" })}
+                  </button>
+                )}
+              </div>
 
-                    <div className="flex-1 flex items-center gap-3">
-                      <div className="flex-1 flex items-center gap-3">
-                        <div
-                          className="flex-1 h-3 bg-[#e9ecef] rounded-full overflow-hidden relative"
-                          onClick={(e) => {
-                            if (!audioRef.current) return;
-                            const rect =
-                              e.currentTarget.getBoundingClientRect();
-                            const clickX = e.clientX - rect.left;
-                            const pct = Math.max(
-                              0,
-                              Math.min(1, clickX / rect.width),
-                            );
-                            const seekTime =
-                              pct *
-                              (duration || audioRef.current.duration || 0);
-                            audioRef.current.currentTime = seekTime;
-                          }}
-                        >
-                          <div
-                            className="absolute left-0 top-0 h-full bg-accent"
-                            style={{
-                              width: `${(duration ? currentTime / duration : 0) * 100}%`,
-                            }}
-                          />
-                        </div>
-
-                        <div className="w-12 text-right text-xs text-secondary">
-                          {formatTimeDisplay(currentTime || 0, duration)}
-                        </div>
-                      </div>
-
-                      {/* volume controls */}
-                      <div className="flex items-center gap-2 ml-3">
-                        <button
-                          onClick={() => {
-                            const muted = !isMuted;
-                            setIsMuted(muted);
-                            if (audioRef.current)
-                              audioRef.current.muted = muted;
-                          }}
-                          className="w-8 h-8 rounded-full bg-transparent flex items-center justify-center"
-                        >
-                          {!isMuted ? (
-                            <svg
-                              width="16"
-                              height="16"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M3 10v4h4l5 5V5L7 10H3z"
-                                fill="#A04124"
-                              />
-                              <path
-                                d="M16 8.82a4 4 0 010 6.36"
-                                stroke="#A04124"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          ) : (
-                            <svg
-                              width="16"
-                              height="16"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M3 10v4h4l5 5V5L7 10H3z"
-                                fill="#A04124"
-                              />
-                              <path
-                                d="M19 5l-6 6m0 0l6 6m-6-6h8"
-                                stroke="#A04124"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          )}
-                        </button>
-                        <input
-                          type="range"
-                          min="0"
-                          max="1"
-                          step="0.01"
-                          value={isMuted ? 0 : volume}
-                          onChange={(e) => {
-                            const v = Number(e.target.value);
-                            setVolume(v);
-                            if (audioRef.current) {
-                              audioRef.current.volume = v;
-                              audioRef.current.muted = false;
-                              setIsMuted(false);
-                            }
-                          }}
-                          className="h-2 w-28"
-                        />
-                      </div>
-                    </div>
+              {/* Existing and New Voice Memos List */}
+              <div className="space-y-2 mb-4">
+                {/* Existing memos */}
+                {voiceMemos.map((memo, idx) => (
+                  <VoiceMemoPlayer key={`existing-${idx}`} memo={memo} />
+                ))}
+                
+                {/* New memos */}
+                {newVoiceMemos.map((memo, idx) => (
+                  <VoiceMemoPlayer key={`new-${idx}`} memo={memo} />
+                ))}
+                
+                {voiceMemos.length === 0 && newVoiceMemos.length === 0 && !isRecording && (
+                  <div className="bg-gray-100 rounded-lg p-4 text-center">
+                    <p className="text-sm text-secondary">
+                      {t("noVoiceNote", { defaultValue: "No voice notes attached" })}
+                    </p>
                   </div>
-                  {/* hidden audio element controlled by UI */}
-                  <audio
-                    ref={audioRef}
-                    src={voiceUrl}
-                    onPlay={() => setIsPlaying(true)}
-                    onPause={() => setIsPlaying(false)}
-                    onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)}
-                    onLoadedMetadata={(e) => setDuration(e.target.duration)}
-                    className="hidden"
-                  />
-                </div>
-              ) : (
-                <div className="bg-gray-100 rounded-lg p-4">
-                  <p className="text-sm text-secondary">
-                    {t("noVoiceNote", {
-                      defaultValue: "No voice note attached",
-                    })}
-                  </p>
+                )}
+              </div>
+
+              {/* Recording Interface */}
+              {isRecording && (
+                <div className="bg-gray-100 rounded-lg p-4 flex items-center gap-3 mb-4">
+                  <button
+                    type="button"
+                    onClick={handleStopRecording}
+                    className="w-10 h-10 rounded-full bg-accent flex items-center justify-center flex-shrink-0 hover:bg-[#9F290A] transition-colors cursor-pointer"
+                  >
+                    <div className="w-3 h-3 bg-white rounded-sm"></div>
+                  </button>
+                  <div className="flex-1 flex items-center gap-2">
+                    <div className="flex gap-1 items-center">
+                      {[...Array(5)].map((_, i) => (
+                        <div
+                          key={i}
+                          className="w-0.5 bg-accent rounded animate-pulse"
+                          style={{
+                            animationDelay: `${i * 0.1}s`,
+                            height: `${Math.random() * 10 + 10}px`,
+                          }}
+                        />
+                      ))}
+                    </div>
+                    <span className="text-sm text-secondary">{t('form.recording', { defaultValue: 'Recording' })}</span>
+                    <span className="text-sm font-medium text-accent">{formatTimeDisplay(recordingTime)}</span>
+                  </div>
                 </div>
               )}
+
               <p className="text-xs text-secondary mt-2">
                 {t("voiceNoteInfo", {
-                  defaultValue:
-                    "Voice note cannot be edited. Upload a new one if needed.",
+                  defaultValue: "You can add multiple voice notes. Existing voice notes cannot be removed.",
                 })}
               </p>
             </div>

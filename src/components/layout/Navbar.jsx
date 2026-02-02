@@ -1,7 +1,9 @@
-import { useEffect, useMemo } from "react";
+import { createContext, useContext, useState, useEffect, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../features/auth/store";
+
+import { getProjectDetails } from "../../features/projects/api/projectApi";
 
 import Breadcrumbs from "../../assets/icons/breadcrumbs.svg";
 import LanguageSwitcher from "../ui/LanguageSwitcher";
@@ -22,6 +24,12 @@ const BREADCRUMB_TRANSLATION_KEYS = {
   "business-card": "sidebar.mainMenu.businessCard",
   addBusinessCard: "businessCard.add.title",
   "site-inventory": "sidebar.mainMenu.siteInventory",
+  consumable: "siteInventory.materialType.consumable",
+  "add-new-ask": "siteInventory.addNewAsk.title",
+  restock: "siteInventory.tabs.restock",
+  "transfer-material": "siteInventory.itemDetails.transferMaterial",
+  "add-stock": "siteInventory.addStock.title",
+  editMaterial: "siteInventory.actions.edit",
   notes: "notes.title",
   addNewNote: "notes.addNewNote",
   editNote: "notes.editNote",
@@ -69,7 +77,55 @@ const Navbar = () => {
   const { t: tBusinessCard } = useTranslation("businessCard");
   const location = useLocation();
   const navigate = useNavigate();
-  const { user: authUser } = useAuth();
+
+  const { user: authUser, selectedWorkspace } = useAuth();
+  
+  // Cache for project names to persist across navigation
+  const [projectNames, setProjectNames] = useState({});
+
+  // Fetch project name if missing from state
+  useEffect(() => {
+    const segments = location.pathname.split("/").filter(Boolean);
+    let projectId = null;
+
+    // Pattern 1: .../projects/:id...
+    const projectsIndex = segments.indexOf("projects");
+    if (projectsIndex !== -1 && segments.length > projectsIndex + 1) {
+      projectId = segments[projectsIndex + 1];
+    }
+    
+    // Pattern 2: /labour-attendance/:id
+    if (!projectId && segments[0] === "labour-attendance" && segments.length > 1) {
+      // Check if second segment is numeric (project ID) vs "add-labour" etc
+      if (/^\d+$/.test(segments[1])) {
+        projectId = segments[1];
+      }
+    }
+
+    // Pattern 3: /finance/projects/:id (covered by pattern 1)
+    
+    // If we found a project ID and don't have its name
+    if (projectId && /^\d+$/.test(projectId)) {
+      // If not in cache AND not in current location state (or even if in state, cache it for later)
+      if (!projectNames[projectId]) {
+        // If it's in state, use that to populate cache immediately
+        if (location.state?.projectName) {
+           setProjectNames(prev => ({ ...prev, [projectId]: location.state.projectName }));
+        } else {
+           // Otherwise fetch it
+           getProjectDetails(projectId, selectedWorkspace)
+             .then(data => {
+               if (data && data.name) {
+                 setProjectNames(prev => ({ ...prev, [projectId]: data.name }));
+               }
+             })
+             .catch(err => {
+               console.error("Failed to fetch project name for breadcrumb:", err);
+             });
+        }
+      }
+    }
+  }, [location.pathname, location.state, selectedWorkspace, projectNames]);
 
 
   // Compute user display data dynamically from AuthContext
@@ -142,9 +198,11 @@ const Navbar = () => {
             ? `${featurePath}/${projectId}`
             : featurePath;
 
+          const pName = projectName || projectNames[projectId] || projectId;
+
           return [
             { id: "projects", path: "/projects" },
-            { id: projectName, path: `/projects/${projectId}` },
+            { id: pName, path: `/projects/${projectId}` },
             { id: featureId, path: projectFeaturePath },
           ];
         }
@@ -157,7 +215,11 @@ const Navbar = () => {
     // 1. PROJECTS
     if (rootSegment === "projects") {
       const items = [{ id: "projects", path: "/projects" }];
-      if (segments.length > 1) items.push({ id: projectName || segments[1], path: createPath(1) });
+      if (segments.length > 1) {
+         const pid = segments[1];
+         const pName = projectName || projectNames[pid] || pid;
+         items.push({ id: pName, path: createPath(1) });
+      }
       if (segments.length > 2) segments.slice(2).forEach((seg, i) => items.push({ id: seg, path: createPath(i + 2) }));
       return wrapWithContext(items);
     }
@@ -173,7 +235,7 @@ const Navbar = () => {
         if (typeof state.projectName === "string" && state.projectName.trim()) {
           items.push({ id: state.projectName.trim(), path: projectPath });
         } else {
-          items.push({ id: projectId, path: projectPath });
+          items.push({ id: projectNames[projectId] || projectId, path: projectPath });
         }
       }
 
@@ -201,163 +263,153 @@ const Navbar = () => {
     }
 
     // Handle business-card routes
-    if (rootSegment === "business-card" && segments.length > 1) {
-      if (segments[1] === "add") {
-        return wrapWithContext([
-          { id: "business-card", path: createPath(0) },
-          { id: "addBusinessCard", path: createPath(1) },
-        ]);
+    if (rootSegment === "business-card") {
+      const items = [{ id: "business-card", path: "/business-card" }];
+      if (segments.length > 1) {
+        if (segments[1] === "add") {
+          items.push({ id: "addBusinessCard", path: "/business-card/add" });
+        } else {
+          // It's an ID
+          const name = state.businessCardName || state.itemName || segments[1];
+          items.push({ id: name, path: createPath(1) });
+          
+          if (segments.length > 2) {
+             segments.slice(2).forEach((seg, i) => items.push({ id: seg, path: createPath(i + 2) }));
+          }
+        }
       }
-      return wrapWithContext(segments.map((seg, i) => ({ id: seg, path: createPath(i) })));
+      return wrapWithContext(items);
     }
 
     // 3. SITE INVENTORY
     if (rootSegment === "site-inventory") {
       const items = getProjectPrefix("site-inventory", "/site-inventory");
-      if (segments.length > 1) {
-        if (state.item?.name || state.consumable?.name) {
-          items.push({ id: state.item?.name || state.consumable?.name, path: createPath(segments.length - 1) });
+      
+      const startIdx = 1;
+      if (segments.length > startIdx) {
+        const seg1 = segments[startIdx];
+        
+        if (seg1 === "consumable") {
+           items.push({ id: "consumable", path: createPath(startIdx) });
+           if (segments.length > startIdx + 1) {
+              const name = state.itemName || state.consumable?.name || segments[startIdx + 1];
+              items.push({ id: name, path: createPath(startIdx + 1) });
+              if (segments.length > startIdx + 2) {
+                segments.slice(startIdx + 2).forEach((seg, i) => items.push({ id: seg, path: createPath(i + startIdx + 2) }));
+              }
+           }
+        } else if (seg1 === "add") {
+           items.push({ id: "add", path: createPath(startIdx) });
+        } else if (seg1 === "add-new-ask") {
+           // If we have an item name, show it as part of the trail
+           if (state.itemName) {
+              items.push({ id: state.itemName, path: createPath(startIdx) });
+              items.push({ id: "add-new-ask", path: createPath(startIdx) });
+           } else {
+              items.push({ id: "add-new-ask", path: createPath(startIdx) });
+           }
+        } else if (seg1 === "restock") {
+           // Handle /site-inventory/restock/add-stock
+           const name = state.itemName || state.item?.name || "restock";
+           items.push({ id: name, path: createPath(startIdx) });
+           if (segments[startIdx + 1] === "add-stock") {
+              items.push({ id: "restock", path: createPath(startIdx + 1) });
+           }
+        } else if (seg1 === "transfer-material") {
+           // Handle /site-inventory/transfer-material/:id
+           const name = state.itemName || state.item?.name || "Material";
+           items.push({ id: name, path: createPath(startIdx) });
+           if (segments.length > startIdx + 1) {
+              items.push({ id: "transfer-material", path: createPath(startIdx + 1) });
+           }
         } else {
-          items.push({ id: segments[segments.length - 1], path: createPath(segments.length - 1) });
+           // Default: seg1 is likely an ID (e.g., /site-inventory/:id)
+           const name = state.itemName || state.item?.name || seg1;
+           items.push({ id: name, path: createPath(startIdx) });
+           if (segments.length > startIdx + 1) {
+              segments.slice(startIdx + 1).forEach((seg, i) => {
+                let id = seg;
+                if (seg === "edit") id = "editMaterial";
+                items.push({ id: id, path: createPath(i + startIdx + 1) });
+              });
+           }
+        }
+      }
+      return wrapWithContext(items);
+    }
+
+    // Handle builders and clients
+    if (rootSegment === "builders" || rootSegment === "clients") {
+      const items = [{ id: rootSegment, path: `/${rootSegment}` }];
+      if (segments.length > 1) {
+        if (segments[1] === "add") {
+          items.push({ id: "add", path: createPath(1) });
+        } else {
+          // It's an ID
+          const name = state.builderName || state.clientName || state.itemName || segments[1];
+          items.push({ id: name, path: createPath(1) });
+          if (segments.length > 2) {
+            segments.slice(2).forEach((seg, i) => items.push({ id: seg, path: createPath(i + 2) }));
+          }
         }
       }
       return wrapWithContext(items);
     }
 
     // Handle vendors routes
-    if (segments[0] === "vendors" && segments.length > 1) {
-      const processed = segments.map((seg, i) => ({ id: seg, path: createPath(i) }));
-      if (segments[1] === "add") {
-        processed[1].id = "addVendor";
-      } else if (segments[1] === "edit") {
-        processed[1].id = "editVendor";
-      }
-      return processed;
-    }
-
-    // Handle past-work routes
-    if (segments[0] === "past-work" && segments.length > 1) {
-      if (segments[1] === "add") {
-        return [
-          { id: "past-work", path: createPath(0) },
-          { id: "addPastWork", path: createPath(1) },
-        ];
-      }
-
-      // Detail or Edit page
-      const processed = [{ id: "past-work", path: createPath(0) }];
-
-      // Replace ID with project name if available
-      if (typeof location.state?.projectName === "string" && location.state.projectName.trim()) {
-        processed.push({ id: location.state.projectName.trim(), path: createPath(1) });
-      } else {
-        processed.push({ id: segments[1], path: createPath(1) });
-      }
-
-      // Append remaining segments (e.g. "edit")
-      if (segments.length > 2) {
-        segments.slice(2).forEach((seg, i) => {
-          processed.push({ id: seg, path: createPath(i + 2) });
-        });
-      }
-
-      return processed;
-    }
-
-    // Handle notes routes
-    if (segments[0] === "notes" && segments.length > 1) {
-      const processed = segments.map((seg, i) => ({ id: seg, path: createPath(i) }));
-      const addIndex = segments.findIndex((seg, idx) => idx > 0 && seg === "add");
-      if (addIndex !== -1) processed[addIndex].id = "addNewNote";
-
-      const editIndex = segments.findIndex((seg, idx) => idx > 0 && seg === "edit");
-      if (editIndex !== -1) processed[editIndex].id = "editNote";
-
-       // Handle Project Notes: /notes/projects/:projectId
-       if (segments[1] === "projects" && segments.length > 2) {
-        if (typeof location.state?.projectName === "string" && location.state.projectName.trim()) {
-          processed[2].id = location.state.projectName.trim();
+    if (rootSegment === "vendors") {
+      const items = [{ id: "vendors", path: "/vendors" }];
+      if (segments.length > 1) {
+        if (segments[1] === "add") {
+          items.push({ id: "addVendor", path: "/vendors/add" });
+        } else {
+          // It's an ID
+          const name = state.vendorName || state.itemName || segments[1];
+          items.push({ id: name, path: createPath(1) });
+          if (segments.length > 2) {
+            segments.slice(2).forEach((seg, i) => items.push({ id: seg, path: createPath(i + 2) }));
+          }
         }
       }
-
-      // Handle Add Note, Note Details, Edit Note
-      // Check if we have project info in state to inject intermediate breadcrumb
-      if (
-        typeof location.state?.projectName === "string" && 
-        location.state.projectName.trim() &&
-        location.state.projectId &&
-        segments[1] !== "projects"
-      ) {
-        // We want: Notes > Project Name > [Add/Details/Edit]
-        const projectCrumb = { 
-          id: location.state.projectName.trim(), 
-          path: `/notes/projects/${location.state.projectId}`,
-          
-        };
-        
-        // Insert after 'notes' (index 0)
-        processed.splice(1, 0, projectCrumb);
-        
-        // If it was /notes/add, processed was [notes, add]. Now [notes, project, add].
-        // If it was /notes/:id, processed was [notes, :id]. Now [notes, project, :id].
-        
-        // Fix up paths for subsequent segments? 
-        // No, `createPath` works on url segments index. Inserting a virtual crumb breaks the index mapping if we rely on loop index.
-        // But `processed` objects already have their paths computed from `createPath`.
-        // The projectCrumb has a custom path.
-        // For subsequent items (like "add" or ":id"), their path is `/notes/add` or `/notes/:id`. 
-        // This is chemically correct (navigate to that URL). 
-        // Visually: Notes > Project > Add.
-        // Clicking Add -> /notes/add. Correct.
-        // Clicking Project -> /notes/projects/:id. Correct.
-        // Clicking Notes -> /notes. Correct.
-      }
-
-      // Handle Note Details Title Override
-      // If we inserted project crumb, the note ID is now at index 2 (length 3) or later?
-      // No, `processed` array length changed.
-      // Search for the ID segment. It is the one that is NOT 'notes', 'add', 'edit', 'projects', or the project crumb.
-      const lastCrumb = processed[processed.length - 1];
-      if (
-        segments.length === 2 && 
-        segments[1] !== "add" && 
-        segments[1] !== "projects"
-      ) {
-         if (typeof location.state?.noteTitle === "string" && location.state.noteTitle.trim()) {
-            // Find the last crumb and update it
-            if (lastCrumb) lastCrumb.id = location.state.noteTitle.trim();
-         }
-      }
-      
-      // Handle Edit Note Title Override
-      // Path: /notes/:id/edit
-      if (
-        segments.length === 3 && 
-        segments[2] === "edit"
-      ) {
-         // Maybe show [Note Title] > Edit Note ?
-         // Currently: Notes > [Project?] > [ID] > Edit Note
-         // Users might prefer: Notes > [Project?] > [Note Title] > Edit Note
-         // We can update the ID segment if title is available.
-         // ID segment is at index 1 (original).
-         // In `processed`, finding it is tricky if we spliced.
-         // Let's find by path.
-         const idSegmentIndex = processed.findIndex(p => p.path === `/notes/${segments[1]}`);
-         if (idSegmentIndex !== -1 && typeof location.state?.noteTitle === "string" && location.state.noteTitle.trim()) {
-            processed[idSegmentIndex].id = location.state.noteTitle.trim();
-         }
-      }
-
-      return processed;
-      return processed;
+      return wrapWithContext(items);
     }
+
+
 
     // 4. FINANCE
     if (rootSegment === "finance") {
       const items = getProjectPrefix("finance", "/finance");
+      
       if (segments[1] === "projects" && segments.length > 2) {
-        if (!fromProjects) items.push({ id: projectName || segments[2], path: `/finance/projects/${segments[2]}` });
-        if (segments.length > 3) segments.slice(3).forEach((seg, i) => items.push({ id: seg, path: createPath(i + 3) }));
+        const pid = segments[2];
+        const pName = projectName || projectNames[pid] || pid;
+        
+        // Only push project name if we didn't already get it from getProjectPrefix (which happens if fromProjects is true)
+        if (!fromProjects) {
+            items.push({ id: pName, path: `/finance/projects/${pid}` });
+        }
+        
+        if (segments.length > 3) {
+          // Push the sub-feature segment (e.g., 'builder-invoices', 'payment-received', etc.)
+          items.push({ id: segments[3], path: createPath(3) });
+
+          // Handle deeper nesting like 'sections'
+          if (segments.length > 5 && segments[4] === "sections") {
+             // We can either push 'sections' or skip it. Let's push it for clarity.
+             items.push({ id: "sections", path: createPath(4) });
+             
+             // The specific section name (passed in state)
+             const sName = state.sectionName || segments[5];
+             items.push({ id: sName, path: createPath(5) });
+             
+             // If there's even more (unlikely for now), add it
+             if (segments.length > 6) {
+               segments.slice(6).forEach((seg, i) => items.push({ id: seg, path: createPath(i + 6) }));
+             }
+          } else if (segments.length > 4) {
+             segments.slice(4).forEach((seg, i) => items.push({ id: seg, path: createPath(i + 4) }));
+          }
+        }
       } else if (segments.length > 1) {
         segments.slice(1).forEach((seg, i) => items.push({ id: seg, path: createPath(i + 1) }));
       }
@@ -368,43 +420,44 @@ const Navbar = () => {
 if (["dpr", "documents", "notes", "gallery"].includes(rootSegment)) {
   const items = getProjectPrefix(rootSegment, `/${rootSegment}`);
   const pidIdx = segments.indexOf("projects");
-  const projectId =
-    pidIdx !== -1
-      ? segments[pidIdx + 1]
-      : rootSegment === "gallery"
-      ? segments[1]
-      : null;
+  
+  // Resolve Project ID from URL or state
+  let projectId = null;
+  if (pidIdx !== -1) projectId = segments[pidIdx + 1];
+  else if (rootSegment === "gallery" && segments.length > 1) projectId = segments[1];
+  else if (state.projectId) projectId = state.projectId;
 
   if (projectId && !fromProjects) {
+    // Inject Project Name (similar to Finance behavior)
     items.push({
-      id: projectName || projectId,
+      id: projectName || projectNames[projectId] || projectId,
       path: `/${rootSegment}/${pidIdx !== -1 ? "projects/" : ""}${projectId}`
     });
   }
 
-  const startIdx = pidIdx !== -1 ? pidIdx + 2 : rootSegment === "gallery" ? 2 : 1;
+  const startIdx = pidIdx !== -1 ? pidIdx + 2 : (rootSegment === "gallery" ? 2 : 1);
 
   if (segments.length > startIdx) {
     segments.slice(startIdx).forEach((seg, i) => {
       let id = seg;
+      const currentIdx = i + startIdx;
 
-      // NOTES-specific naming
+      // Feature-specific naming
       if (rootSegment === "notes") {
         if (seg === "add") id = "addNewNote";
-        if (seg === "edit") id = "editNote";
+        else if (seg === "edit") id = "editNote";
+        else if (/^\d+$/.test(seg) && state.noteTitle) id = state.noteTitle;
+      }
 
-        // /notes/:id → note title
-        if (
-          segments.length === startIdx + 1 &&
-          seg !== "add" &&
-          typeof location.state?.noteTitle === "string"
-        ) {
-          id = location.state.noteTitle.trim();
-        }
+      if (rootSegment === "documents") {
+        if (/^\d+$/.test(seg) && state.documentTitle) id = state.documentTitle;
       }
 
       if (seg === "documents" && rootSegment === "documents") return;
-      items.push({ id, path: createPath(i + startIdx) });
+      if (seg === "projects" && pidIdx !== -1 && currentIdx === pidIdx) return;
+      if (seg === projectId && currentIdx === (pidIdx !== -1 ? pidIdx + 1 : (rootSegment === "gallery" ? 1 : -1))) return;
+
+      items.push({ id, path: createPath(currentIdx) });
     });
   }
 
@@ -418,11 +471,13 @@ if (rootSegment === "past-work") {
 
   if (segments.length > 1) {
     if (segments[1] === "add") {
-      items.push({ id: "addpastwork", path: "/past-work/add" });
+      items.push({ id: "addPastWork", path: "/past-work/add" });
     } else {
+      const pid = segments[1];
+      const pName = projectName || projectNames[pid] || pid;
       items.push({
-        id: projectName || segments[1],
-        path: `/past-work/${segments[1]}`
+        id: pName,
+        path: `/past-work/${pid}`
       });
     }
   }
@@ -437,47 +492,15 @@ if (rootSegment === "past-work") {
 }
 
 
-// Handle finance routes
-if (segments[0] === "finance" && segments.length > 1) {
-  const processed = [{ id: "finance", path: "/finance" }];
 
-  if (segments[1] === "projects" && segments.length > 2) {
-    const projectName = location.state?.projectName || null;
-
-    processed.push({
-      id:
-        projectName && typeof projectName === "string" && projectName.trim()
-          ? projectName.trim()
-          : segments[2],
-      path: createPath(2)
-    });
-
-    if (segments.length === 3) return processed;
-
-    if (
-      ["builder-invoices", "payment-received", "expenses-paid", "expenses-to-pay"]
-        .includes(segments[3])
-    ) {
-      processed.push({ id: segments[3], path: createPath(3) });
-
-      if (
-        ["builder-invoices", "expenses-to-pay"].includes(segments[3]) &&
-        segments[4] === "sections" &&
-        segments.length > 5
-      ) {
-        processed.push({ id: "sections", path: createPath(4) });
-        processed.push({ id: segments[5], path: createPath(5) });
-      }
-    }
-  }
-
-  return processed;
-}
 
     // 7. CALCULATION
     if (rootSegment === "construction-calculation") {
       const items = getProjectPrefix("construction-calculation", "/construction-calculation");
-      if (segments.length > 1 && !fromProjects) items.push({ id: projectName || segments[1], path: `/construction-calculation/${segments[1]}` });
+      if (segments.length > 1 && !fromProjects) {
+          const pid = segments[1];
+          items.push({ id: projectName || projectNames[pid] || pid, path: `/construction-calculation/${pid}` });
+      }
       if (segments.length > 1) segments.slice(1).forEach((seg, i) => {
         if (seg === segments[1] && !fromProjects) return;
         if (seg === segments[1] && fromProjects) return;
@@ -487,7 +510,7 @@ if (segments[0] === "finance" && segments.length > 1) {
     }
 
     return wrapWithContext(segments.map((seg, i) => ({ id: seg, path: createPath(i) })));
-  }, [location.pathname, location.state]);
+  }, [location.pathname, location.state, projectNames]);
 
   const currentBreadcrumb = useMemo(() => {
     if (!Array.isArray(breadcrumbs) || breadcrumbs.length === 0) return "Dashboard";
