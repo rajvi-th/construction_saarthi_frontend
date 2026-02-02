@@ -293,7 +293,7 @@ export default function NoteDetails() {
             className="flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-3xl bg-[#B02E0C0F] text-[#B02E0C] hover:bg-[#B02E0C1A] transition-colors cursor-pointer"
           >
             <img src={pencilIcon} alt="Edit" className="w-4 h-4" />
-            <span className="font-medium text-sm sm:text-base">{t('editProposal')}</span>
+            <span className="font-medium text-sm sm:text-base">{t('editNote')}</span>
           </button>
           <DropdownMenu
             items={menuItems}
