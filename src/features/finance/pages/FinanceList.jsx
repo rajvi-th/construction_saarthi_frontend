@@ -65,7 +65,13 @@ export default function FinanceList() {
     <div className="max-w-7xl mx-auto">
       <PageHeader
         title={t("title", { defaultValue: "Finance • Projects" })}
-        onBack={() => navigate(-1)}
+        onBack={() => {
+          if (fromDashboard) {
+            navigate(ROUTES_FLAT.DASHBOARD);
+          } else {
+            navigate(-1);
+          }
+        }}
       >
         <div className="flex flex-row items-center gap-2 lg:gap-3 w-full lg:w-auto">
           <SearchBar

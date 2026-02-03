@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Mic } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { ROUTES_FLAT } from '../../../constants/routes';
+import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
 import PageHeader from '../../../components/layout/PageHeader';
 import Input from '../../../components/ui/Input';
 import Radio from '../../../components/ui/Radio';
@@ -183,7 +183,14 @@ export default function AddNote() {
       await createNote(noteData);
       
       showSuccess(t('noteCreated', { defaultValue: 'Note created successfully' }));
-      navigate(-1);
+      
+      navigate(getRoute(ROUTES_FLAT.NOTES_PROJECT_NOTES, { projectId: assignTo }), {
+        state: { 
+          projectName: location.state?.projectName,
+          fromProjects: location.state?.fromProjects,
+          fromDashboard: location.state?.fromDashboard
+        }
+      });
     } catch (error) {
       console.error('Error creating note:', error);
       const errorMessage = error?.response?.data?.message || 
@@ -310,7 +317,19 @@ export default function AddNote() {
     <div className="max-w-7xl mx-auto">
       <PageHeader
         title={t('addNewNote')}
-        onBack={() => navigate(-1)}
+        onBack={() => {
+          if (assignTo) {
+            navigate(getRoute(ROUTES_FLAT.NOTES_PROJECT_NOTES, { projectId: assignTo }), {
+              state: { 
+                projectName: location.state?.projectName,
+                fromProjects: location.state?.fromProjects,
+                fromDashboard: location.state?.fromDashboard
+              }
+            });
+          } else {
+            navigate(-1);
+          }
+        }}
       />
 
       {/* Form */}

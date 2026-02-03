@@ -50,7 +50,9 @@ export default function EditPayableBillModal({
         dueDate: payableBill.dueDate
           ? new Date(payableBill.dueDate)
           : new Date(),
-        status: payableBill.status || 'pending',
+        status: payableBill.status
+          ? payableBill.status.toLowerCase()
+          : 'pending',
         description: payableBill.description || '',
       });
 

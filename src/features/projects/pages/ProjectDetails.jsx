@@ -71,7 +71,8 @@ export default function ProjectDetails() {
     const navigationState = {
       projectName: project?.site_name || project?.name,
       projectId: project?.id,
-      fromProjects: true
+      fromProjects: true,
+      fromDashboard: location.state?.fromDashboard || false
     };
 
     switch (toolId) {
@@ -194,7 +195,13 @@ export default function ProjectDetails() {
         <PageHeader
           title={project.site_name || project.name}
           showBackButton={true}
-          backTo={PROJECT_ROUTES.PROJECTS}
+          onBack={() => {
+            if (location.state?.fromDashboard) {
+              navigate(ROUTES_FLAT.DASHBOARD);
+            } else {
+              navigate(PROJECT_ROUTES.PROJECTS);
+            }
+          }}
           className='capitalize'
           titleActions={
             !isRestricted && (

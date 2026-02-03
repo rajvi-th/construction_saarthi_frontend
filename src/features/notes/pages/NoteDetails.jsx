@@ -4,7 +4,7 @@
  */
 
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { MoreVertical, X, Play, FileText, Pause } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { ROUTES_FLAT, getRoute } from '../../../constants/routes';
@@ -24,6 +24,7 @@ export default function NoteDetails() {
   const { t } = useTranslation('notes');
   const navigate = useNavigate();
   const { id } = useParams();
+  const location = useLocation();
   
   // Fetch note details from API
   const { note, isLoading } = useNoteDetails(id);
@@ -46,8 +47,10 @@ export default function NoteDetails() {
     navigate(getRoute(ROUTES_FLAT.NOTES_EDIT, { id }), {
       state: {
         projectName: note?.project,
-        projectId: note?.originalData?.projects?.[0]?.projectId, // Assuming first project
-        noteTitle: note?.title
+        projectId: note?.originalData?.projects?.[0]?.projectId,
+        noteTitle: note?.title,
+        fromProjects: location.state?.fromProjects || false,
+        fromDashboard: location.state?.fromDashboard || false
       }
     });
   };
@@ -237,8 +240,14 @@ export default function NoteDetails() {
       
       showSuccess(t('noteDeleted', { defaultValue: 'Note deleted successfully' }));
       
-      // Navigate back after successful delete
-      navigate(ROUTES_FLAT.NOTES);
+      // Navigate back to project-specific notes after successful delete
+      if (note?.projectId) {
+        navigate(getRoute(ROUTES_FLAT.NOTES_PROJECT_NOTES, { projectId: note.projectId }), {
+          state: { projectName: note.project }
+        });
+      } else {
+        navigate(ROUTES_FLAT.NOTES);
+      }
     } catch (error) {
       console.error('Error deleting note:', error);
       const errorMessage = error?.response?.data?.message ||
@@ -276,7 +285,20 @@ export default function NoteDetails() {
     <div className="max-w-7xl mx-auto">
       <PageHeader
         title={note?.title || t('loading', { defaultValue: 'Loading...' })}
-        onBack={() => navigate(-1)}
+        onBack={() => {
+          const projectId = note?.projectId || note?.originalData?.projects?.[0]?.projectId;
+          if (projectId) {
+            navigate(getRoute(ROUTES_FLAT.NOTES_PROJECT_NOTES, { projectId }), {
+              state: { 
+                projectName: note?.project,
+                fromProjects: location.state?.fromProjects,
+                fromDashboard: location.state?.fromDashboard
+              }
+            });
+          } else {
+            navigate(-1);
+          }
+        }}
         titleActions={
           /* Mobile: Show 3 dots menu in title line */
           <DropdownMenu

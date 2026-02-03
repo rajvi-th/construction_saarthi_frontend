@@ -42,7 +42,8 @@ export default function ProjectNotes() {
         noteTitle: note.title,
         projectName: projectName,
         projectId: projectId,
-        fromProjects: location.state?.fromProjects || false
+        fromProjects: location.state?.fromProjects || false,
+        fromDashboard: location.state?.fromDashboard || false
       }
     });
   };
@@ -68,7 +69,8 @@ export default function ProjectNotes() {
           noteKey,
           projectName: projectName,
           projectId: projectId,
-          fromProjects: location.state?.fromProjects || false
+          fromProjects: location.state?.fromProjects || false,
+          fromDashboard: location.state?.fromDashboard || false
         } 
       });
     } catch (error) {
@@ -93,8 +95,22 @@ export default function ProjectNotes() {
   return (
     <div className="max-w-7xl mx-auto">
       <PageHeader
-        title={projectName}
-        onBack={() => navigate(-1)}
+        title={`${t('title')} • ${projectName}`}
+        onBack={() => {
+          if (location.state?.fromProjects) {
+            navigate(getRoute(ROUTES_FLAT.PROJECTS_DETAILS, { id: projectId }), {
+              state: { 
+                projectName,
+                fromProjects: true,
+                fromDashboard: location.state?.fromDashboard
+              }
+            });
+          } else {
+            navigate(ROUTES_FLAT.NOTES, {
+              state: { fromDashboard: location.state?.fromDashboard }
+            });
+          }
+        }}
       >
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 md:gap-4">
           <SearchBar

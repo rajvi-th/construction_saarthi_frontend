@@ -32,7 +32,11 @@ export default function EditPaymentEntry() {
   const { selectedWorkspace, user } = useAuth();
 
   // Get entry data from location state (passed from ExpensesPaid page)
-  const paymentEntry = location.state?.entry;
+  const state = location.state || {};
+  const paymentEntry = state.entry;
+  const projectName = state.projectName || "";
+  const fromProjects = !!state.fromProjects;
+  const fromDashboard = !!state.fromDashboard;
 
   const [formData, setFormData] = useState({
     paidDate: new Date(),
@@ -573,7 +577,9 @@ export default function EditPaymentEntry() {
       showSuccess(t("paymentEntryUpdated", { defaultValue: "Payment entry updated successfully" }));
 
       // Navigate back to expenses paid page
-      navigate(getRoute(ROUTES_FLAT.FINANCE_EXPENSES_PAID, { projectId }));
+      navigate(getRoute(ROUTES_FLAT.FINANCE_EXPENSES_PAID, { projectId }), {
+        state: { projectName, fromProjects, fromDashboard, projectId }
+      });
     } catch (error) {
       console.error("Error updating payment entry:", error);
       const errorMessage = error?.response?.data?.message || error?.message || t("paymentEntryUpdateError", { defaultValue: "Failed to update payment entry" });
@@ -800,7 +806,9 @@ export default function EditPaymentEntry() {
       <PageHeader
         title={entryTitle}
         onBack={() =>
-          navigate(getRoute(ROUTES_FLAT.FINANCE_EXPENSES_PAID, { projectId }))
+          navigate(getRoute(ROUTES_FLAT.FINANCE_EXPENSES_PAID, { projectId }), {
+            state: { projectName, fromProjects, fromDashboard, projectId }
+          })
         }
       />
 

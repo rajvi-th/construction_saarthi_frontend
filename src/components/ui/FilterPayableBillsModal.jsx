@@ -40,8 +40,8 @@ export default function FilterPayableBillsModal({
   useEffect(() => {
     if (isOpen) {
       setFilters({
-        startDate: initialFilters.startDate || new Date(),
-        endDate: initialFilters.endDate || new Date(),
+        startDate: initialFilters.startDate || null,
+        endDate: initialFilters.endDate || null,
         receiverName: initialFilters.receiverName || '',
         status: initialFilters.status || '',
         paymentModes: initialFilters.paymentModes || [],
@@ -97,143 +97,134 @@ export default function FilterPayableBillsModal({
     onReset(resetFilters);
   };
 
-  if (!isOpen) return null;
+if (!isOpen) return null;
 
-  return (
-    <div 
-      className="fixed inset-0 z-50 flex items-end justify-end bg-black/50 py-3 sm:p-4 overflow-y-auto"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          onClose();
-        }
-      }}
-    >
-      <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl w-full max-w-md my-auto max-h-[90vh] overflow-y-auto">
-        {/* Header */}
-        <div className="px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between sticky top-0 bg-white z-10">
-          <h3 className="text-base sm:text-lg font-medium text-primary">
-            {t('filter', { defaultValue: 'Filter' })}
-          </h3>
-          <button
-            onClick={onClose}
-            className="p-1 cursor-pointer rounded-full transition-colors"
-            aria-label="Close"
-          >
-            <X className="w-5 h-5 text-primary" />
-          </button>
-        </div>
+return (
+  <>
+    {/* Overlay */}
+    <div
+      className="fixed inset-0 bg-black/50 z-50"
+      onClick={onClose}
+    />
 
-        {/* Body */}
-        <div className="px-4 sm:px-6 py-4 sm:pb-4 space-y-4">
-          {/* Date Range */}
-          <div>
-            <label className="block text-sm font-medium text-primary mb-2 sm:mb-3">
-              {t('dateRange', { defaultValue: 'Date Range' })}
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-              <DatePicker
-                label={t('startDate', { defaultValue: 'Start Date' })}
-                value={filters.startDate}
-                onChange={(date) => setFilters((prev) => ({ ...prev, startDate: date }))}
-              />
-              <DatePicker
-                label={t('endDate', { defaultValue: 'End Date' })}
-                value={filters.endDate}
-                onChange={(date) => setFilters((prev) => ({ ...prev, endDate: date }))}
-              />
-            </div>
-          </div>
+    {/* Drawer */}
+    <div className="fixed right-0 top-0 h-screen w-full sm:max-w-md bg-white shadow-2xl z-[60] flex flex-col">
 
-          {/* Receiver Name */}
-          <div>
-            <label className="block text-sm font-medium text-primary mb-2">
-              {t('receiverName', { defaultValue: 'Receiver name' })}
-            </label>
-            <Input
-              label={t('to', { defaultValue: 'To' })}
-              placeholder={t('enterReceiverName', { defaultValue: 'Enter receiver name' })}
-              value={filters.receiverName}
-              onChange={(e) => setFilters((prev) => ({ ...prev, receiverName: e.target.value }))}
+      {/* Header */}
+      <div className="sticky top-0 bg-white px-6 py-4 flex items-center justify-between">
+        <h3 className="text-lg font-medium text-primary">
+          {t('filter', { defaultValue: 'Filter' })}
+        </h3>
+        <button onClick={onClose} className="p-1 rounded-full">
+          <X className="w-5 h-5 text-primary" />
+        </button>
+      </div>
+
+      {/* Body (Scrollable) */}
+      <div className="flex-1 overflow-y-auto px-6 py-5 space-y-6">
+
+        {/* Date Range */}
+        <div>
+          <label className="block text-sm font-medium text-primary mb-3">
+            {t('dateRange', { defaultValue: 'Date Range' })}
+          </label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <DatePicker
+              label={t('startDate', { defaultValue: 'Start Date' })}
+              value={filters.startDate}
+              onChange={(date) => setFilters((prev) => ({ ...prev, startDate: date }))}
             />
-          </div>
-
-          {/* Status */}
-          <div>
-            <label className="block text-sm font-medium text-primary mb-3">
-              {t('status', { defaultValue: 'Status' })}
-            </label>
-            <div className="space-y-2">
-              <Radio
-                name="status"
-                label={t('pending', { defaultValue: 'Pending' })}
-                value="pending"
-                checked={filters.status === 'pending'}
-                onChange={() => setFilters((prev) => ({ ...prev, status: 'pending' }))}
-              />
-              <Radio
-                name="status"
-                label={t('paid', { defaultValue: 'Paid' })}
-                value="paid"
-                checked={filters.status === 'paid'}
-                onChange={() => setFilters((prev) => ({ ...prev, status: 'paid' }))}
-              />
-            </div>
-          </div>
-
-          {/* Payment Modes */}
-          <div>
-            <label className="block text-sm font-medium text-primary mb-3">
-              {t('paymentModes', { defaultValue: 'Payment Modes' })}
-            </label>
-            <div className="space-y-2">
-              {paymentModes.map((mode) => (
-                <Checkbox
-                  key={mode.value}
-                  label={mode.label}
-                  checked={filters.paymentModes.includes(mode.value)}
-                  onChange={(e) => handlePaymentModeChange(mode.value, e.target.checked)}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Payment Amount */}
-          <div>
-            <label className="block text-sm font-medium text-primary mb-2">
-              {t('paymentAmount', { defaultValue: 'Payment Amount' })}
-            </label>
-            <Input
-              label={t('amount', { defaultValue: 'Amount' })}
-              type="text"
-              placeholder="₹.00"
-              value={filters.amount}
-              onChange={(e) => {
-                const value = e.target.value.replace(/[^\d.]/g, '');
-                setFilters((prev) => ({ ...prev, amount: value }));
-              }}
+            <DatePicker
+              label={t('endDate', { defaultValue: 'End Date' })}
+              value={filters.endDate}
+              onChange={(date) => setFilters((prev) => ({ ...prev, endDate: date }))}
             />
           </div>
         </div>
 
-        {/* Footer */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-2 sm:gap-3 px-4 sm:px-6 pb-4 sm:pb-6 sticky bottom-0 bg-white pt-4">
-          <Button 
-            variant="secondary" 
-            onClick={handleReset}
-            className="w-full sm:w-auto"
-          >
-            {t('reset', { defaultValue: 'Reset' })}
-          </Button>
-          <Button 
-            variant="primary" 
-            onClick={handleApply}
-            className="w-full sm:w-auto"
-          >
-            {t('apply', { defaultValue: 'Apply' })}
-          </Button>
+        {/* Receiver Name */}
+        <div>
+          <label className="block text-sm font-medium text-primary mb-2">
+            {t('receiverName', { defaultValue: 'Receiver name' })}
+          </label>
+          <Input
+            label={t('to', { defaultValue: 'To' })}
+            placeholder={t('enterReceiverName', { defaultValue: 'Enter receiver name' })}
+            value={filters.receiverName}
+            onChange={(e) => setFilters((prev) => ({ ...prev, receiverName: e.target.value }))}
+          />
+        </div>
+
+        {/* Status */}
+        <div>
+          <label className="block text-sm font-medium text-primary mb-3">
+            {t('status', { defaultValue: 'Status' })}
+          </label>
+          <div className="space-y-3">
+            <Radio
+              name="status"
+              label={t('pending', { defaultValue: 'Pending' })}
+              value="pending"
+              checked={filters.status === 'pending'}
+              onChange={() => setFilters((prev) => ({ ...prev, status: 'pending' }))}
+            />
+            <Radio
+              name="status"
+              label={t('paid', { defaultValue: 'Paid' })}
+              value="paid"
+              checked={filters.status === 'paid'}
+              onChange={() => setFilters((prev) => ({ ...prev, status: 'paid' }))}
+            />
+          </div>
+        </div>
+
+        {/* Payment Modes */}
+        <div>
+          <label className="block text-sm font-medium text-primary mb-3">
+            {t('paymentModes', { defaultValue: 'Payment Modes' })}
+          </label>
+          <div className="space-y-3">
+            {paymentModes.map((mode) => (
+              <Checkbox
+                key={mode.value}
+                label={mode.label}
+                checked={filters.paymentModes.includes(mode.value)}
+                onChange={(e) => handlePaymentModeChange(mode.value, e.target.checked)}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Payment Amount */}
+        <div>
+          <label className="block text-sm font-medium text-primary mb-2">
+            {t('paymentAmount', { defaultValue: 'Payment Amount' })}
+          </label>
+          <Input
+            label={t('amount', { defaultValue: 'Amount' })}
+            type="text"
+            placeholder="₹.00"
+            value={filters.amount}
+            onChange={(e) => {
+              const value = e.target.value.replace(/[^\d.]/g, '');
+              setFilters((prev) => ({ ...prev, amount: value }));
+            }}
+          />
         </div>
       </div>
+
+      {/* Footer (Fixed Bottom) */}
+      <div className=" bg-white px-6 py-4 flex justify-end gap-3">
+        <Button variant="secondary" onClick={handleReset}>
+          {t('reset', { defaultValue: 'Reset' })}
+        </Button>
+        <Button variant="primary" onClick={handleApply}>
+          {t('apply', { defaultValue: 'Apply' })}
+        </Button>
+      </div>
     </div>
-  );
+  </>
+);
+
 }
 

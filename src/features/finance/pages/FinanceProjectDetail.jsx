@@ -238,13 +238,23 @@ export default function FinanceProjectDetail() {
     <div className="max-w-7xl mx-auto">
       <PageHeader
         title={`${t('finance', { defaultValue: 'Finance' })}${projectData.name ? ` • ${projectData.name}` : ''}`}
-        onBack={() => navigate(getRoute(ROUTES_FLAT.PROJECT_DETAILS, { id: projectId }), {
-          state: { 
-            projectName: projectData.name,
-            fromProjects: projectData.fromProjects,
-            fromDashboard: projectData.fromDashboard
+        onBack={() => {
+          if (projectData.fromProjects) {
+            navigate(getRoute(ROUTES_FLAT.PROJECT_DETAILS, { id: projectId }), {
+              state: { 
+                projectName: projectData.name,
+                fromProjects: true,
+                fromDashboard: projectData.fromDashboard
+              }
+            });
+          } else {
+            navigate(ROUTES_FLAT.FINANCE, {
+              state: { 
+                fromDashboard: projectData.fromDashboard
+              }
+            });
           }
-        })}
+        }}
       >
         <button
           onClick={() => {

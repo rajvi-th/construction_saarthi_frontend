@@ -69,6 +69,7 @@ export default function Projects() {
       state: {
         projectName,
         projectId: project.id,
+        fromDashboard: location.state?.fromDashboard || false
       },
     });
   };
@@ -118,7 +119,8 @@ export default function Projects() {
         {/* Header Section */}
         <PageHeader
           title={t('header.title')}
-          showBackButton={false}
+          showBackButton={!!location.state?.fromDashboard}
+          onBack={() => navigate(ROUTES_FLAT.DASHBOARD)}
           className='capitalize'
         >
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center w-full lg:w-auto">

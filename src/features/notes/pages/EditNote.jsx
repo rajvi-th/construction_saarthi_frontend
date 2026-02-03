@@ -7,7 +7,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Mic, Plus } from "lucide-react";
-import { ROUTES_FLAT } from "../../../constants/routes";
+import { ROUTES_FLAT, getRoute } from "../../../constants/routes";
 import PageHeader from "../../../components/layout/PageHeader";
 import Input from "../../../components/ui/Input";
 import Radio from "../../../components/ui/Radio";
@@ -332,7 +332,18 @@ export default function EditNote() {
       showSuccess(
         t("noteUpdated", { defaultValue: "Note updated successfully" }),
       );
-      navigate(-1);
+      
+      const pId = location.state?.projectId || (note?.originalData?.projects?.[0]?.projectId?.toString());
+      
+      navigate(getRoute(ROUTES_FLAT.NOTES_DETAILS, { id }), {
+        state: {
+          projectName: location.state?.projectName || note?.project,
+          projectId: pId,
+          noteTitle: title.trim(),
+          fromProjects: location.state?.fromProjects,
+          fromDashboard: location.state?.fromDashboard
+        }
+      });
     } catch (err) {
       console.error("Error updating note:", err);
       const errorMessage =
@@ -353,7 +364,21 @@ export default function EditNote() {
             ? t("loading", { defaultValue: "Loading..." })
             : title || t("editNote", { defaultValue: "Edit Note" })
         }
-        onBack={() => navigate(-1)}
+        onBack={() => {
+          if (id) {
+            navigate(getRoute(ROUTES_FLAT.NOTES_DETAILS, { id }), {
+              state: { 
+                projectName: location.state?.projectName,
+                projectId: location.state?.projectId,
+                noteTitle: title,
+                fromProjects: location.state?.fromProjects,
+                fromDashboard: location.state?.fromDashboard
+              }
+            });
+          } else {
+            navigate(-1);
+          }
+        }}
       />
 
       {/* Form */}

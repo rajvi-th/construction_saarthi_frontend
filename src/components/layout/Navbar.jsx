@@ -194,9 +194,12 @@ const Navbar = () => {
 
         if (projectId) {
           // If the feature is project-specific, we should link to the project's view of that feature
-          const projectFeaturePath = (featureId === "labour-attendance" || featureId === "finance" || featureId === "documents" || featureId === "notes")
-            ? `${featurePath}/${projectId}`
-            : featurePath;
+          const needsProjectInfix = ["finance", "documents", "notes", "dpr"].includes(featureId);
+          const projectFeaturePath = needsProjectInfix
+            ? `${featurePath}/projects/${projectId}`
+            : (featureId === "labour-attendance" || featureId === "past-work" || featureId === "gallery" || featureId === "construction-calculation")
+              ? `${featurePath}/${projectId}`
+              : featurePath;
 
           const pName = projectName || projectNames[projectId] || projectId;
 
@@ -380,8 +383,9 @@ const Navbar = () => {
     if (rootSegment === "finance") {
       const items = getProjectPrefix("finance", "/finance");
       
-      if (segments[1] === "projects" && segments.length > 2) {
-        const pid = segments[2];
+      const pidIdx = segments.indexOf("projects");
+      if (pidIdx !== -1 && segments.length > pidIdx + 1) {
+        const pid = segments[pidIdx + 1];
         const pName = projectName || projectNames[pid] || pid;
         
         // Only push project name if we didn't already get it from getProjectPrefix (which happens if fromProjects is true)
@@ -389,25 +393,42 @@ const Navbar = () => {
             items.push({ id: pName, path: `/finance/projects/${pid}` });
         }
         
-        if (segments.length > 3) {
+        const startIdx = pidIdx + 2;
+        if (segments.length > startIdx) {
           // Push the sub-feature segment (e.g., 'builder-invoices', 'payment-received', etc.)
-          items.push({ id: segments[3], path: createPath(3) });
+          const featureSeg = segments[startIdx];
+          const featureId = {
+            "builder-invoices": "builderInvoices",
+            "payment-received": "paymentReceived",
+            "expenses-to-pay": "expensesToPay",
+            "expenses-paid": "expensesPaid"
+          }[featureSeg] || featureSeg;
+          
+          items.push({ id: featureId, path: createPath(startIdx) });
 
-          // Handle deeper nesting like 'sections'
-          if (segments.length > 5 && segments[4] === "sections") {
-             // We can either push 'sections' or skip it. Let's push it for clarity.
-             items.push({ id: "sections", path: createPath(4) });
+          // Handle deeper nesting like 'sections' or 'create/edit'
+          if (segments.length > startIdx + 2 && segments[startIdx + 1] === "sections") {
+             // Skip 'sections' label and path for a cleaner breadcrumb
              
              // The specific section name (passed in state)
-             const sName = state.sectionName || segments[5];
-             items.push({ id: sName, path: createPath(5) });
+             const sName = state.sectionName || segments[startIdx + 2];
+             items.push({ id: sName, path: createPath(startIdx + 2) });
              
-             // If there's even more (unlikely for now), add it
-             if (segments.length > 6) {
-               segments.slice(6).forEach((seg, i) => items.push({ id: seg, path: createPath(i + 6) }));
+             if (segments.length > startIdx + 3) {
+               segments.slice(startIdx + 3).forEach((seg, i) => {
+                 const id = seg === "create" ? "create" : (seg === "edit" ? "edit" : seg);
+                 items.push({ id, path: createPath(i + startIdx + 3) });
+               });
              }
-          } else if (segments.length > 4) {
-             segments.slice(4).forEach((seg, i) => items.push({ id: seg, path: createPath(i + 4) }));
+          } else if (segments.length > startIdx + 1) {
+             segments.slice(startIdx + 1).forEach((seg, i) => {
+               let id = seg;
+               if (seg === "create") id = "create";
+               else if (seg === "edit") id = "edit";
+               else if (/^\d+$/.test(seg) && state.entry?.vendorName) id = state.entry.vendorName;
+               
+               items.push({ id, path: createPath(i + startIdx + 1) });
+             });
           }
         }
       } else if (segments.length > 1) {
@@ -431,7 +452,7 @@ if (["dpr", "documents", "notes", "gallery"].includes(rootSegment)) {
     // Inject Project Name (similar to Finance behavior)
     items.push({
       id: projectName || projectNames[projectId] || projectId,
-      path: `/${rootSegment}/${pidIdx !== -1 ? "projects/" : ""}${projectId}`
+      path: `/${rootSegment}/${(pidIdx !== -1 || ["dpr", "documents", "notes"].includes(rootSegment)) ? "projects/" : ""}${projectId}`
     });
   }
 

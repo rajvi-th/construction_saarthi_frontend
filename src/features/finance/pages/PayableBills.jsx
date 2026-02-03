@@ -871,48 +871,12 @@ export default function PayableBills() {
         }
       }
 
-      // Process bills data
-      const processedBills = billsData.map((bill) => {
-        // Handle nested structures (e.g., builderDetail, invoiceMapping)
-        const mergedBill = {
-          ...bill,
-          ...(bill.builderDetail || {}),
-          ...(bill.invoiceMapping || {}),
-        };
+      const billsList = Array.isArray(billsData) ? billsData : [];
 
-        const dueDate = mergedBill.DueDate || mergedBill.due_date || mergedBill.dueDate;
-        const paidDate = mergedBill.PaidDate || mergedBill.paidDate || mergedBill.paid_date;
-        const amount = parseFloat(mergedBill.amount || 0);
-        const status = mergedBill.status || "Pending";
+      // Transform API response using the same function as fetchPayableBills
+      const transformedBills = billsList.map(transformBillData);
 
-        return {
-          id: mergedBill.id || mergedBill.bill_id || Date.now().toString(),
-          billNo: mergedBill.billNo || `PYBL-${mergedBill.id || mergedBill.bill_id || ''}`,
-          title: mergedBill.title || "",
-          amount: amount,
-          status: status,
-          dueDate: dueDate ? new Date(dueDate).toLocaleDateString("en-GB", {
-            day: "numeric",
-            month: "short",
-            year: "numeric",
-          }) : "N/A",
-          paidDate: paidDate ? new Date(paidDate).toLocaleDateString("en-GB", {
-            day: "numeric",
-            month: "short",
-            year: "numeric",
-          }) : null,
-          description: mergedBill.defineScript || mergedBill.description || "",
-          method: mergedBill.method || "N/A",
-          vendorId: mergedBill.paidTo || mergedBill.vendorId || null,
-          vendorName: mergedBill.paidToName || mergedBill.vendorName || "",
-          paidByName: mergedBill.paidByName || "",
-          paymentProof: mergedBill.paymentProof || mergedBill.PaymentProof || null,
-          expenseSection_id: mergedBill.expenseSection_id || mergedBill.expense_section?.id || sectionId,
-          category_id: mergedBill.category_id || null,
-        };
-      });
-
-      setPayableBills(processedBills);
+      setPayableBills(transformedBills);
       setIsFilterModalOpen(false);
     } catch (error) {
       console.error("Error applying filters:", error);
@@ -959,48 +923,12 @@ export default function PayableBills() {
         }
       }
 
-      // Process bills data (same as in fetchPayableBills)
-      const processedBills = billsData.map((bill) => {
-        // Handle nested structures (e.g., builderDetail, invoiceMapping)
-        const mergedBill = {
-          ...bill,
-          ...(bill.builderDetail || {}),
-          ...(bill.invoiceMapping || {}),
-        };
+      const billsList = Array.isArray(billsData) ? billsData : [];
 
-        const dueDate = mergedBill.DueDate || mergedBill.due_date || mergedBill.dueDate;
-        const paidDate = mergedBill.PaidDate || mergedBill.paidDate || mergedBill.paid_date;
-        const amount = parseFloat(mergedBill.amount || 0);
-        const status = mergedBill.status || "Pending";
+      // Transform API response using the same function as fetchPayableBills
+      const transformedBills = billsList.map(transformBillData);
 
-        return {
-          id: mergedBill.id || mergedBill.bill_id || Date.now().toString(),
-          billNo: mergedBill.billNo || `PYBL-${mergedBill.id || mergedBill.bill_id || ''}`,
-          title: mergedBill.title || "",
-          amount: amount,
-          status: status,
-          dueDate: dueDate ? new Date(dueDate).toLocaleDateString("en-GB", {
-            day: "numeric",
-            month: "short",
-            year: "numeric",
-          }) : "N/A",
-          paidDate: paidDate ? new Date(paidDate).toLocaleDateString("en-GB", {
-            day: "numeric",
-            month: "short",
-            year: "numeric",
-          }) : null,
-          description: mergedBill.defineScript || mergedBill.description || "",
-          method: mergedBill.method || "N/A",
-          vendorId: mergedBill.paidTo || mergedBill.vendorId || null,
-          vendorName: mergedBill.paidToName || mergedBill.vendorName || "",
-          paidByName: mergedBill.paidByName || "",
-          paymentProof: mergedBill.paymentProof || mergedBill.PaymentProof || null,
-          expenseSection_id: mergedBill.expenseSection_id || mergedBill.expense_section?.id || sectionId,
-          category_id: mergedBill.category_id || null,
-        };
-      });
-
-      setPayableBills(processedBills);
+      setPayableBills(transformedBills);
       setIsFilterModalOpen(false);
     } catch (error) {
       console.error("Error resetting filters:", error);
@@ -1160,7 +1088,7 @@ export default function PayableBills() {
           </div>
         }
       >
-        <div className="w-full grid grid-cols-4 gap-2 md:gap-2.5 lg:flex lg:flex-row lg:items-center lg:gap-3 lg:w-auto">
+        <div className="w-full grid grid-cols-2 gap-2 md:gap-2.5 lg:flex lg:flex-row lg:items-center lg:gap-3 lg:w-auto">
           {/* Search */}
           <div className="col-span-2 md:col-span-1 lg:flex-none">
             <SearchBar
@@ -1349,13 +1277,13 @@ export default function PayableBills() {
                                 type="button"
                                 onClick={() => setIsOpen(!isOpen)}
                                 className={`px-3 py-1 rounded-full flex items-center gap-2 text-sm font-normal border cursor-pointer ${
-                                  bill.status === "paid"
+                                  bill.status?.toLowerCase() === "paid"
                                     ? "border-green-300 bg-green-50 text-green-600"
                                     : "border-pink-300 bg-pink-50 text-pink-600"
                                 }`}
                               >
                                 <span>
-                                  {bill.status === "paid"
+                                  {bill.status?.toLowerCase() === "paid"
                                     ? t("paid", { defaultValue: "Paid" })
                                     : t("pending", { defaultValue: "Pending" })}
                                 </span>

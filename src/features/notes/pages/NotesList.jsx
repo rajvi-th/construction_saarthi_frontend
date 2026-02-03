@@ -33,7 +33,10 @@ export default function NotesList() {
 
   const handleProjectClick = (project) => {
     navigate(getRoute(ROUTES_FLAT.NOTES_PROJECT_NOTES, { projectId: project.id }), {
-      state: { projectName: project.name }
+      state: { 
+        projectName: project.name,
+        fromDashboard: location.state?.fromDashboard || false
+      }
     });
   };
 
@@ -70,7 +73,13 @@ export default function NotesList() {
     <div className="max-w-7xl mx-auto">
       <PageHeader
         title={t('title')}
-        onBack={() => navigate(-1)}
+        onBack={() => {
+          if (location.state?.fromDashboard) {
+            navigate(ROUTES_FLAT.DASHBOARD);
+          } else {
+            navigate(-1);
+          }
+        }}
       >
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 md:gap-4">
           <SearchBar

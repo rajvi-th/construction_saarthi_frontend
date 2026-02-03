@@ -113,7 +113,9 @@ export default function ExpensesPaid() {
 
   // Navigate to create payment entry page
   const handleCreatePaymentEntry = () => {
-    navigate(getRoute(ROUTES_FLAT.FINANCE_CREATE_PAYMENT_ENTRY, { projectId }));
+    navigate(getRoute(ROUTES_FLAT.FINANCE_CREATE_PAYMENT_ENTRY, { projectId }), {
+      state: { projectName, fromProjects, fromDashboard, projectId }
+    });
   };
 
   // Navigate to edit payment entry page
@@ -123,7 +125,7 @@ export default function ExpensesPaid() {
         projectId,
         entryId: entry.id,
       }),
-      { state: { entry } }
+      { state: { entry, projectName, fromProjects, fromDashboard, projectId } }
     );
   };
 

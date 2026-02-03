@@ -5,7 +5,7 @@
 
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { ROUTES_FLAT, getRoute } from "../../../constants/routes";
 import PageHeader from "../../../components/layout/PageHeader";
 import Button from "../../../components/ui/Button";
@@ -28,6 +28,11 @@ export default function CreatePaymentEntry() {
   const { t } = useTranslation("finance");
   const navigate = useNavigate();
   const { projectId } = useParams();
+  const location = useLocation();
+  const state = location.state || {};
+  const projectName = state.projectName || "";
+  const fromProjects = !!state.fromProjects;
+  const fromDashboard = !!state.fromDashboard;
   const { selectedWorkspace, user } = useAuth();
 
   const [formData, setFormData] = useState({
@@ -550,7 +555,9 @@ export default function CreatePaymentEntry() {
       showSuccess(t("paymentEntryCreated", { defaultValue: "Payment entry created successfully" }));
 
       // Navigate back to expenses paid page
-      navigate(getRoute(ROUTES_FLAT.FINANCE_EXPENSES_PAID, { projectId }));
+      navigate(getRoute(ROUTES_FLAT.FINANCE_EXPENSES_PAID, { projectId }), {
+        state: { projectName, fromProjects, fromDashboard, projectId }
+      });
     } catch (error) {
       console.error("Error creating payment entry:", error);
       const errorMessage = error?.response?.data?.message || error?.message || t("paymentEntryCreateError", { defaultValue: "Failed to create payment entry" });
@@ -799,7 +806,9 @@ export default function CreatePaymentEntry() {
           defaultValue: "Create Payment Entry",
         })}
         onBack={() =>
-          navigate(getRoute(ROUTES_FLAT.FINANCE_EXPENSES_PAID, { projectId }))
+          navigate(getRoute(ROUTES_FLAT.FINANCE_EXPENSES_PAID, { projectId }), {
+            state: { projectName, fromProjects, fromDashboard, projectId }
+          })
         }
       />
 
