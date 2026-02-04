@@ -489,6 +489,7 @@ if (["dpr", "documents", "notes", "gallery"].includes(rootSegment)) {
 // 6. PAST WORK
 if (rootSegment === "past-work") {
   const items = [{ id: "past-work", path: "/past-work" }];
+  
 
   if (segments.length > 1) {
     if (segments[1] === "add") {
